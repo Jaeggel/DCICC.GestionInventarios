@@ -15,7 +15,7 @@ namespace DCICC.GestionInventarios.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page..";
+            ViewBag.Message = "Your application description page.hola.";
 
             return View();
         }
