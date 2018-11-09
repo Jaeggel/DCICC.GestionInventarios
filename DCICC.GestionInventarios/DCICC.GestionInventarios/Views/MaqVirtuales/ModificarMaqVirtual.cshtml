@@ -1,17 +1,28 @@
-﻿
+﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
+    Autores: Andres Chisaguano - Joel Ludeña
+    Descripción: Vista para la modificación de una Máquina Virtual.
+*@
+@* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
-<!DOCTYPE html>
+<div class="row">
+    @* Panel para mostrar la tabla de modificación de máquinas virtuales *@
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Modificar Máquina Virtual</h2>
+                <ul class="nav navbar-right panel_toolbox"></ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                @* Sección para la tabla de modificación mediante js *@
+                <div id="tablaModificarMaqVirtuales">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ModificarMaqVirtual</title>
-</head>
-<body>
-    <div> 
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>

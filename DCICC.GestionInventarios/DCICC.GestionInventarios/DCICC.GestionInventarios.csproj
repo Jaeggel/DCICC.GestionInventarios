@@ -169,6 +169,7 @@
     <Compile Include="Models\SistOperativos.cs" />
     <Compile Include="Models\TipoAccesorio.cs" />
     <Compile Include="Models\TipoActivo.cs" />
+    <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
