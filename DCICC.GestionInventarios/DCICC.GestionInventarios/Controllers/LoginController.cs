@@ -1,5 +1,6 @@
 ﻿using DCICC.GestionInventarios.Filtros;
 using DCICC.GestionInventarios.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
+        private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public ActionResult Index()
         {
             return View("Login");
@@ -18,7 +20,8 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult Index(Login userInfo)
         {
             MenuActionFilter.ObtenerMenu("Admin");
-            UsuarioActionFilter.ObtenerUsuario(userInfo.NombreUsuario);
+            UsuarioActionFilter.ObtenerUsuario(userInfo.CorreoElectronico);
+            log.Info("Autenticación Exitosa");
             return RedirectToAction("Index", "Home");
         }
     }

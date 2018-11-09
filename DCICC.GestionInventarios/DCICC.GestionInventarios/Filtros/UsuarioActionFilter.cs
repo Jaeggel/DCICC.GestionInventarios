@@ -8,15 +8,15 @@ namespace DCICC.GestionInventarios.Filtros
 {
     public class UsuarioActionFilter : ActionFilterAttribute
     {
-        static string usuarioLogin = string.Empty;
+        static string usuario_Login = string.Empty;
         public static void ObtenerUsuario(string usuario)
         {
-            usuarioLogin = usuario;
+            usuario_Login = usuario;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            filterContext.Controller.ViewBag.UsuarioLogin = usuarioLogin;
+            filterContext.Controller.ViewBag.UsuarioLogin = usuario_Login;
         }
     }
 }

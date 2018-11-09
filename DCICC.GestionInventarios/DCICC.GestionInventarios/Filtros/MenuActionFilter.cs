@@ -8,15 +8,15 @@ namespace DCICC.GestionInventarios.Filtros
 {
     public class MenuActionFilter : ActionFilterAttribute
     {
-        static string opcionMenu=string.Empty;
+        static string opcion_Menu=string.Empty;
         public static void ObtenerMenu(string menu)
         {
-            opcionMenu=menu;
+            opcion_Menu=menu;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            filterContext.Controller.ViewBag.Menu = opcionMenu;
+            filterContext.Controller.ViewBag.Menu = opcion_Menu;
         }
     }
 }

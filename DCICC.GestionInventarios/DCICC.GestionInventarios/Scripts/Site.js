@@ -4,8 +4,11 @@ function showNotify(title,message, messagetype) {
     if (messagetype === 'danger') {
         icon = "glyphicon glyphicon-remove-sign";
         title = '<b>' + title + '</b><br/>';
+    } else if (messagetype === 'info') {
+        icon = "glyphicon glyphicon-info-sign";
+        title = '<b>' + title + '</b><br/>';
     } else if (messagetype === 'warning') {
-        icon = "glyphicon glyphicon-info";
+        icon = "glyphicon glyphicon-exclamation-sign";
         title = '<b>' + title + '</b><br/>';
     }else {
         icon = "glyphicon glyphicon-ok-sign";
