@@ -1,0 +1,24 @@
+﻿@* Sección para la definición del menú de administrador o auxiliar técnico *@
+@{
+    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+}
+
+<div class="row">
+    @* Panel para mostrar la tabla de modificación de tickets *@
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Modificar Ticket</h2>
+                <ul class="nav navbar-right panel_toolbox"></ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                @* Sección para la tabla de modificación mediante js *@
+                <div id="tablaModificarTicket">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

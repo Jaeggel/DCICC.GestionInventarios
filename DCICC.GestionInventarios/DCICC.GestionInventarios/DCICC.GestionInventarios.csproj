@@ -154,6 +154,7 @@
     <Compile Include="Controllers\MaqVirtualesController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\SistOperativoController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TipoAccesorioController.cs" />
     <Compile Include="Controllers\TipoActivoController.cs" />
     <Compile Include="Filtros\UsuarioActionFilter.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
     <Compile Include="Models\SistOperativos.cs" />
+    <Compile Include="Models\Tickets.cs" />
     <Compile Include="Models\TipoAccesorio.cs" />
     <Compile Include="Models\TipoActivo.cs" />
     <Compile Include="Models\Usuarios.cs" />
@@ -4533,6 +4535,7 @@
     <Content Include="Views\SistOperativo\ModificarSistOperativo.cshtml" />
     <Content Include="Views\TipoActivo\NuevoTipoActivo.cshtml" />
     <Content Include="Views\TipoActivo\ModificarTipoActivo.cshtml" />
+    <Content Include="Views\Tickets\GestionTickets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
