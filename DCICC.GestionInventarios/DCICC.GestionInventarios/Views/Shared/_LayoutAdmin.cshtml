@@ -43,8 +43,18 @@
                                 </li>
                                 <li>
                                     <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="">Categoría de Activos</a></li>
+                                    <ul class="nav child_menu">                                 
+                                        <li>
+                                            <a>Categoría de Activos<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="@Url.Action("NuevoCategoriaActivo", "CategoriaActivo")">Nuevo Laboratorio</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")">Modificar Laboratorios</a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                         <li><a href="">Tipo de Activos</a></li>
                                         <li>
                                             <a>Laboratorios<span class="fa fa-chevron-down"></span></a>
