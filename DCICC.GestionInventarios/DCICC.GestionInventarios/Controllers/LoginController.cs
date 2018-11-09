@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DCICC.GestionInventarios.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,15 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
         public ActionResult Index()
         {
             return View("Login");
+        }
+        [HttpPost]
+        public ActionResult Index(Login userInfo)
+        {
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

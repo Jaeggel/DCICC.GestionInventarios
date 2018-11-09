@@ -32,7 +32,7 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js",
                         "~/Content/Tema/vendors/moment/min/moment.min.js",
                         "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
-                        "~/Content/Tema/build/js/custom.min.js",
+                        "~/Content/Tema/build/js/custom.js",
                         "~/Scripts/Site.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -43,9 +43,6 @@ namespace DCICC.GestionInventarios
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                       "~/Scripts/modernizr-*"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-            //        "~/Scripts/bootstrap.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Tema/vendors/bootstrap/dist/css/bootstrap.min.css",
                       "~/Content/Tema/vendors/font-awesome/css/font-awesome.min.css",
@@ -54,7 +51,7 @@ namespace DCICC.GestionInventarios
                       "~/Content/Tema/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
                       "~/Content/Tema/vendors/jqvmap/dist/jqvmap.min.css",
                       "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css",
-                      "~/Content/Tema/build/css/custom.min.css",
+                      "~/Content/Tema/build/css/custom.css",
                       "~/Content/Site.css"));
         }
     }

@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@model DCICC.GestionInventarios.Models.Login
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,16 +22,16 @@
                     {
                         <h1>Inicio de Sesión</h1>
                         <div>
-                            <input type="text" class="form-control" placeholder="Nombre de Usuario" required/>
+                            <input type="text" class="form-control" name="NombreUsuario" placeholder="Nombre de Usuario" required />
                         </div>
                         <div>
-                            <input type="password" class="form-control" placeholder="Contraseña" required />
+                            <input type="password" class="form-control" name="Password" placeholder="Contraseña" required />
                         </div>
                         <div>
                             <button type="submit" class="btn btn-default">Login</button>
                             <a class="reset_pass" href="#">Lost your password?</a>
                         </div>
-                        <div class="separator"/>
+                        <div class="separator" />
                     }
                 </section>
             </div>
