@@ -11,6 +11,6 @@ namespace DCICC.GestionInventarios.Models
 
         public string DescripcionCategoriaActivo { get; set; }
 
-        public string HabilitadoCategoriaActivo { get; set; }
+        public Boolean HabilitadoCategoriaActivo { get; set; }
     }
 }

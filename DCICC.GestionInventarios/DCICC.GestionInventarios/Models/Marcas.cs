@@ -11,6 +11,6 @@ namespace DCICC.GestionInventarios.Models
 
         public string DescripcionMarca { get; set; }
 
-        public string HabilitadoMarca { get; set; }
+        public Boolean HabilitadoMarca { get; set; }
     }
 }

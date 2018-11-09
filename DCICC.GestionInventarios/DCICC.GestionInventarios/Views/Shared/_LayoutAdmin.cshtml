@@ -104,8 +104,28 @@
                                 <li>
                                     <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="">Nueva Máquina Virtual</a></li>
-                                        <li><a href="">Consulta de Máquinas Virtuales</a></li>
+                                        <li>
+                                            <a>Sistemas Operativos<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="@Url.Action("NuevoSistOperativo", "SistOperativo")">Nuevo Sistema Operativo</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Modificar Sistema Operativo</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Máquinas Virtuales<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="@Url.Action("NuevaMaqVirtual", "MaqVirtuales")">Nueva Máquina Virtual</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Modificar Máquina Virtual</a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li>

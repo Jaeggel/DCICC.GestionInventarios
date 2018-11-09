@@ -151,7 +151,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaboratoriosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MaqVirtualesController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\SistOperativoController.cs" />
     <Compile Include="Controllers\TipoAccesorioController.cs" />
     <Compile Include="Filtros\UsuarioActionFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -161,7 +163,9 @@
     <Compile Include="Models\CategoriaActivo.cs" />
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\SistOperativos.cs" />
     <Compile Include="Models\TipoAccesorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -4520,6 +4524,10 @@
     <Content Include="Views\TipoAccesorio\ModificarTipoAccesorio.cshtml" />
     <Content Include="Views\CategoriaActivo\NuevoCategoriaActivo.cshtml" />
     <Content Include="Views\CategoriaActivo\ModificarCategoriaActivo.cshtml" />
+    <Content Include="Views\MaqVirtuales\NuevaMaqVirtual.cshtml" />
+    <Content Include="Views\MaqVirtuales\ModificarMaqVirtual.cshtml" />
+    <Content Include="Views\SistOperativo\NuevoSistOperativo.cshtml" />
+    <Content Include="Views\SistOperativo\ModificarSistOperativo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
