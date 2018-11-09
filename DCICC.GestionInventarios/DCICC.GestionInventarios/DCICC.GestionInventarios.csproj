@@ -147,15 +147,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivosController.cs" />
+    <Compile Include="Controllers\CategoriaActivoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LaboratoriosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\TipoAccesorioController.cs" />
     <Compile Include="Filtros\UsuarioActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filtros\MenuActionFilter.cs" />
+    <Compile Include="Models\CategoriaActivo.cs" />
+    <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\TipoAccesorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4505,12 +4512,19 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutUsuarios.cshtml" />
     <Content Include="Views\Activos\NuevoActivo.cshtml" />
+    <Content Include="Views\Marcas\NuevaMarca.cshtml" />
+    <Content Include="Views\Marcas\ModificarMarca.cshtml" />
+    <Content Include="Views\Laboratorios\NuevoLaboratorio.cshtml" />
+    <Content Include="Views\Laboratorios\ModificarLaboratorio.cshtml" />
+    <Content Include="Views\TipoAccesorio\NuevoTipoAccesorio.cshtml" />
+    <Content Include="Views\TipoAccesorio\ModificarTipoAccesorio.cshtml" />
+    <Content Include="Views\CategoriaActivo\NuevoCategoriaActivo.cshtml" />
+    <Content Include="Views\CategoriaActivo\ModificarCategoriaActivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Tema\vendors\google-code-prettify\bin\" />
     <Folder Include="Scripts\Js\" />
-    <Folder Include="Views\Marcas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

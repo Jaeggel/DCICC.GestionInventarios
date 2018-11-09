@@ -30,6 +30,7 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/jqvmap/dist/jquery.vmap.js",
                         "~/Content/Tema/vendors/jqvmap/dist/maps/jquery.vmap.world.js",
                         "~/Content/Tema/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js",
+                        "~/Content/Tema/vendors/switchery/dist/switchery.min.js",
                         "~/Content/Tema/vendors/moment/min/moment.min.js",
                         "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
                         "~/Content/Tema/build/js/custom.js",
@@ -53,6 +54,7 @@ namespace DCICC.GestionInventarios
                       "~/Content/Tema/vendors/jqvmap/dist/jqvmap.min.css",
                       "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css",
                       "~/Content/Tema/build/css/custom.css",
+                      "~/Content/Tema/vendors/switchery/dist/switchery.min.css",
                       "~/Content/Site.css"));
         }
     }

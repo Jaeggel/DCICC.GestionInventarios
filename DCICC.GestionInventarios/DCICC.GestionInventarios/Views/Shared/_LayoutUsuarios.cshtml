@@ -47,13 +47,44 @@
                                 <li>
                                     <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="@Url.Action("Index", "Activos")">Nuevo Activo de TI</a></li>
-                                        <li><a href="">Marcas</a></li>
-                                        <li><a href="">Tipo Accesorio</a></li>
-                                        <li><a href="">Accesorios</a></li>
                                         <li><a href="">Categoría de Activos</a></li>
                                         <li><a href="">Tipo de Activos</a></li>
-                                        <li><a href="">Laboratorios</a></li>
+                                        <li>
+                                            <a>Laboratorios<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="@Url.Action("NuevoLaboratorio", "Laboratorios")">Nuevo Laboratorio</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ModificarLaboratorio", "Laboratorios")">Modificar Laboratorios</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a>Marcas<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="@Url.Action("NuevaMarca", "Marcas")">Nueva Marca</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ModificarMarca", "Marcas")">Modificar Marcas</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Tipo de Acesorio<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="@Url.Action("NuevoTipoAccesorio", "TipoAccesorio")">Nuevo Tipo de Acesorio</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ModificarTipoAccesorio", "TipoAccesorio")">Modificar Tipo de Acesorio</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li><a href="@Url.Action("Index", "Activos")">Nuevo Activo de TI</a></li>
                                     </ul>
                                 </li>
                                 <li>
