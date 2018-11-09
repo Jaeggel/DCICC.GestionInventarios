@@ -6,16 +6,16 @@ using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
 {
-    public class MarcasController : Controller
+    public class TipoAccesorioController : Controller
     {
-        // GET: Marcas
-        public ActionResult NuevaMarca()
+        // GET: TipoAccesorio
+        public ActionResult NuevoTipoAccesorio()
         {
             return View();
         }
 
-        // GET: Modificar Marcas
-        public ActionResult ModificarMarca()
+        // GET: Modificar TipoAccesorio
+        public ActionResult ModificarTipoAccesorio()
         {
             return View();
         }

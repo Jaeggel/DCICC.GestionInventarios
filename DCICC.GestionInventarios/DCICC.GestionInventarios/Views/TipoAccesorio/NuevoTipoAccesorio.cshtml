@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-5 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Ingresar Nuevo Tipo de Accesorio </h2>
+                <ul class="nav navbar-right panel_toolbox"></ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                @* Primero es el metodo (Metodo de la clase) - Controlador (Controller) *@
+                @using (Html.BeginForm("NuevoTipoAccesorio", "TipoAccesorio"))
+                {
+                    <div class="form-horizontal form-label-left input_mask">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" maxlength="50">
+                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <textarea name="DescripcionTipoAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del tipo de accesorio" maxlength="150"></textarea>
+                            <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">¿Habilitar Tipo accesorio?</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input name="HabilitadoTipoAccesorio" type="checkbox" class="js-switch" checked />
+                            </div>
+
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Ingresar</button>
+                                <button type="button" class="btn btn-primary">Cancelar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-7 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Tipos de accesorios Existentes</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form class="form-horizontal form-label-left input_mask">
+
+                    <div id="tablaTipoAccesorio"></div>
+                    <h1>hola mundo</h1>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
