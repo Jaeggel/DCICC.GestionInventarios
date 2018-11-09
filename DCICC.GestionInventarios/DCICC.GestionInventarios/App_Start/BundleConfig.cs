@@ -33,6 +33,7 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/moment/min/moment.min.js",
                         "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
                         "~/Content/Tema/build/js/custom.js",
+                        "~/Scripts/notify.min.js",
                         "~/Scripts/Site.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

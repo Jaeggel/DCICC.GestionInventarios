@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DCICC.GestionInventarios.Filtros;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,8 @@ namespace DCICC.GestionInventarios
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            GlobalFilters.Filters.Add(new MenuActionFilter(), 0);
+            GlobalFilters.Filters.Add(new UsuarioActionFilter(), 0);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

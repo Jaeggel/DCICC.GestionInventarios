@@ -1,4 +1,5 @@
-﻿using DCICC.GestionInventarios.Models;
+﻿using DCICC.GestionInventarios.Filtros;
+using DCICC.GestionInventarios.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult Index(Login userInfo)
         {
-
+            MenuActionFilter.ObtenerMenu("Admin");
+            UsuarioActionFilter.ObtenerUsuario(userInfo.NombreUsuario);
             return RedirectToAction("Index", "Home");
         }
     }
