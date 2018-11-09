@@ -1,33 +1,35 @@
-﻿    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+﻿@* Sección para la definición del menú de administrador o auxiliar técnico *@
+@{
+    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
-
 <div class="row">
+    @* Panel para mostrar las opciones de ingreso de una categoría de activo *@
     <div class="col-md-5 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Ingresar Nueva Marca </h2>
+                <h2>Ingresar Nueva Categoria de Activo </h2>
                 <ul class="nav navbar-right panel_toolbox"></ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br>
-                @* (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevaMarca", "Marcas"))
+                @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
+                    (Metodo de la clase) - Controlador (Controller) *@
+                @using (Html.BeginForm("NuevoCategoriaActivo", "CategoriaActivo"))
                 {
                     <div class="form-horizontal form-label-left input_mask">
-
+                        @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la marca" maxlength="50">
+                            <input type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la marca" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
-
+                        @* Área de Texto para el ingreso de la descripción de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <textarea name="DescripcionMarca" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la marca" maxlength="150"></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
+                        @* Checkbox para habilitar o deshabilitar el uso de la nueva marca *@
                         <div class="form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12">¿Habilitar Marca?</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
@@ -36,6 +38,7 @@
 
                         </div>
                         <div class="ln_solid"></div>
+                        @* Sección de botones para guardar marca o cancelar el registro *@
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                 <button type="submit" class="btn btn-success">Ingresar</button>

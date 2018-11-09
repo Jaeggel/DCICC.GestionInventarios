@@ -1,9 +1,11 @@
-﻿@{
+﻿@* Sección para la definición del menú de administrador o auxiliar técnico *@
+@{
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
 
 <div class="row">
+    @* Panel para mostrar las opciones de ingreso de un tipo de accesorio *@
     <div class="col-md-5 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -13,45 +15,43 @@
             </div>
             <div class="x_content">
                 <br>
-                @* Primero es el metodo (Metodo de la clase) - Controlador (Controller) *@
+                @* Formulario para envio de datos de los componentes para el ingreso de un nuevo tipo de accesorio
+                    (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoTipoAccesorio", "TipoAccesorio"))
                 {
                     <div class="form-horizontal form-label-left input_mask">
-
+                        @* Cuadro de texto para el ingreso del nombre de un tipo de accesorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <input type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" maxlength="50">
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
-
+                        @* Área de Texto para el ingreso de la descripción de un tipo de accesorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <textarea name="DescripcionTipoAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del tipo de accesorio" maxlength="150"></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
+                        @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de accesorio *@
                         <div class="form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12">¿Habilitar Tipo accesorio?</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <input name="HabilitadoTipoAccesorio" type="checkbox" class="js-switch" checked />
                             </div>
-
                         </div>
                         <div class="ln_solid"></div>
+                        @* Sección de botones para guardar marca o cancelar el registro *@
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                 <button type="submit" class="btn btn-success">Ingresar</button>
                                 <button type="button" class="btn btn-primary">Cancelar</button>
                             </div>
                         </div>
-
                     </div>
                 }
-
             </div>
         </div>
-
     </div>
 
+    @* Panel para mostrar la lista de tipos de accesorio existentes*@
     <div class="col-md-7 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -69,16 +69,11 @@
             <div class="x_content">
                 <br>
                 <form class="form-horizontal form-label-left input_mask">
-
+                    @* Sección para la elaboración de la tabla de tipos de accesorios mediante js *@
                     <div id="tablaTipoAccesorio"></div>
                     <h1>hola mundo</h1>
-
                 </form>
             </div>
         </div>
-
     </div>
-
-
-
 </div>
