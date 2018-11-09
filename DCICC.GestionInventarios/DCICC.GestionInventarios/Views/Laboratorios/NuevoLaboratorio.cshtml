@@ -1,9 +1,11 @@
-﻿@{
+﻿@* Sección para la definición del menú de administrador o auxiliar técnico *@
+@{
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
 
 <div class="row">
+    @* Panel para mostrar las opciones de ingreso de un laboratorio *@
     <div class="col-md-5 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -13,50 +15,49 @@
             </div>
             <div class="x_content">
                 <br>
-                @* Primero es el metodo (Metodo de la clase) - Controlador (Controller) *@
+                @* Formulario para envio de datos de los componentes para el ingreso de un nuevo laboratorio
+                    (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoLaboratorio", "Laboratorios"))
                 {
-                <div class="form-horizontal form-label-left input_mask">
-
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" maxlength="100">
-                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <textarea  name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" maxlength="50"></textarea>
-                        <span class="fa  fa-compass form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-
-
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <textarea name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del laboratorio" maxlength="150"></textarea>
-                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 col-sm-3 col-xs-12">¿Habilitar Laboratorio?</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input name="HabilitadoLaboratorio" type="checkbox" class="js-switch" checked />
+                    <div class="form-horizontal form-label-left input_mask">
+                        @* Cuadro de texto para el ingreso del nombre de un laboratorio *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" maxlength="100">
+                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Área de Texto para el ingreso de la ubicacion física de un laboratorio *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <textarea name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" maxlength="50"></textarea>
+                            <span class="fa  fa-compass form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Checkbox para habilitar o deshabilitar el uso del nuevo laboratorio *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <textarea name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del laboratorio" maxlength="150"></textarea>
+                            <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
 
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">Ingresar</button>
-                            <button type="button" class="btn btn-primary">Cancelar</button>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">¿Habilitar Laboratorio?</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input name="HabilitadoLaboratorio" type="checkbox" class="js-switch" checked />
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        @* Sección de botones para guardar marca o cancelar el registro *@
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Ingresar</button>
+                                <button type="button" class="btn btn-primary">Cancelar</button>
+                            </div>
                         </div>
                     </div>
-
-                </div>
                 }
-
             </div>
         </div>
-
     </div>
 
+    @* Panel para mostrar la lista de laboratorios existentes *@
     <div class="col-md-7 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -74,16 +75,11 @@
             <div class="x_content">
                 <br>
                 <form class="form-horizontal form-label-left input_mask">
-
+                    @* Sección para la elaboración de la tabla de laboratorios mediante js *@
                     <div id="tablaMarca"></div>
                     <h1>hola mundo</h1>
-
                 </form>
             </div>
         </div>
-
     </div>
-
-
-
 </div>
