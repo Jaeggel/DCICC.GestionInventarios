@@ -9,6 +9,10 @@ namespace DCICC.GestionInventarios.Models
     {
         public string NombreSistOperativo{ get; set; }
 
+        public int IdSistOperativo { get; set; }
+
+        public string UsuarioMaqVirtuales { get; set; }
+
         public string NombreMaqVirtuales{ get; set; }
 
         public string PropositoMaqVirtuales { get; set; }

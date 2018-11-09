@@ -9,7 +9,12 @@ namespace DCICC.GestionInventarios.Controllers
     public class MaqVirtualesController : Controller
     {
         // GET: MaqVirtuales
-        public ActionResult Index()
+        public ActionResult NuevaMaqVirtual()
+        {
+            return View();
+        }
+
+        public ActionResult ModificarMaqVirtual()
         {
             return View();
         }
