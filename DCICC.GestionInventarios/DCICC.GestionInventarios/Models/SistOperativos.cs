@@ -7,6 +7,8 @@ namespace DCICC.GestionInventarios.Models
 {
     public class SistOperativos
     {
+        public int IdSistOperativos{ get; set; }
+
         public string NombreSistOperativos { get; set; }
 
         public string DescripcionSistOperativos { get; set; }

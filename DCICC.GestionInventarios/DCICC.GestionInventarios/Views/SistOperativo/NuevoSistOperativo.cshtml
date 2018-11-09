@@ -1,4 +1,9 @@
-﻿@* Sección para la definición del menú de administrador o auxiliar técnico *@
+﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
+    Autores: Andres Chisaguano - Joel Ludeña
+    Descripción: Vista para el ingreso de un nuevo Sistema Operativo como por ejemplo
+    Windows 10.
+*@
+@* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
@@ -30,8 +35,8 @@
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo sistema operativo*@
                         <div class="form-group">
-                            <label class="col-md-3 col-sm-3 col-xs-12">¿Habilitar Sistema Operativo?</label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
+                            <label class="col-md-9 col-sm-12 col-xs-12">¿Habilitar Sistema Operativo?</label>
+                            <div class="col-md-3 col-sm-12 col-xs-12">
                                 <input name="HabilitadoMarca" type="checkbox" class="js-switch" checked />
                             </div>
 

@@ -7,6 +7,8 @@ namespace DCICC.GestionInventarios.Models
 {
     public class Marcas
     {
+        public int IdMarca { get; set; }
+
         public string NombreMarca { get; set; }
 
         public string DescripcionMarca { get; set; }

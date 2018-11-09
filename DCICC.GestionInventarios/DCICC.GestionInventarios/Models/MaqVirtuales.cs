@@ -7,6 +7,8 @@ namespace DCICC.GestionInventarios.Models
 {
     public class MaqVirtuales
     {
+        public int IdMaqVirtuales{ get; set; }
+
         public string NombreSistOperativo{ get; set; }
 
         public int IdSistOperativo { get; set; }
