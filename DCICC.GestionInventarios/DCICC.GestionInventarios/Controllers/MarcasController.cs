@@ -8,13 +8,19 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class MarcasController : Controller
     {
-        // GET: Marcas
+        /// <summary>
+        /// Método (GET) para mostrar la vista NuevaMarca
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NuevaMarca()
         {
             return View();
         }
 
-        // GET: Modificar Marcas
+        /// <summary>
+        /// Método (GET) para mostrar la vista ModificarMarca
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ModificarMarca()
         {
             return View();

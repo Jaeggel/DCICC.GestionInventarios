@@ -11,9 +11,10 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
+        //Instancia para la utilización de LOGS en la clase Activos
         private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Mètodo para mostrar la vista Login.
+        /// Mètodo (GET) para mostrar la vista Login.
         /// </summary>
         /// <returns></returns>
         public ActionResult Login()
@@ -21,12 +22,12 @@ namespace DCICC.GestionInventarios.Controllers
             return View();
         }
         /// <summary>
-        /// Método POST para recibir los datos provenientes de la vista Login.
+        /// Método (POST) para recibir los datos provenientes de la vista Login.
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(Login userInfo)
+        public ActionResult Login(Login userInfo)
         {
             MenuActionFilter.ObtenerMenu("Admin");
             UsuarioActionFilter.ObtenerUsuario(userInfo.CorreoElectronico);

@@ -8,13 +8,19 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LaboratoriosController : Controller
     {
-        // GET: Laboratorios
+        /// <summary>
+        /// Método (GET) para mostrar la vista NuevoLaboratorio
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NuevoLaboratorio()
         {
             return View();
         }
 
-        // GET: Modificar Laboratorios
+        /// <summary>
+        /// Método (GET) para mostrar la vista ModificarLaboratorio
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ModificarLaboratorio()
         {
             return View();

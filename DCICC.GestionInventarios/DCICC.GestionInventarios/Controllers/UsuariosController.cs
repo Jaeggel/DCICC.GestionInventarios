@@ -8,12 +8,18 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class UsuariosController : Controller
     {
-        // GET: NuevoUsuario
+        /// <summary>
+        /// Método (GET) para mostrar la vista NuevoUsuario
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NuevoUsuario()
         {
             return View();
         }
-        // GET: ModificarUsuario
+        /// <summary>
+        /// Método (GET) para mostrar la vista ModificarUsuario 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ModificarUsuario()
         {
             return View();

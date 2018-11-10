@@ -4579,7 +4579,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Tema\vendors\google-code-prettify\bin\" />
-    <Folder Include="Scripts\Js\" />
+    <Folder Include="Scripts\ScriptsInventarios\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

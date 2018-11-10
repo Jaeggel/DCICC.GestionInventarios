@@ -8,7 +8,10 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class TicketsController : Controller
     {
-        // GET: Tickets
+        /// <summary>
+        /// Método (GET) para mostrar la vista GestionTickets
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GestionTickets()
         {
             return View();

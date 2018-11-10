@@ -8,13 +8,19 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class TipoAccesorioController : Controller
     {
-        // GET: TipoAccesorio
+        /// <summary>
+        /// Método (GET) para mostrar la vista NuevoTipoAccesorio
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NuevoTipoAccesorio()
         {
             return View();
         }
 
-        // GET: Modificar TipoAccesorio
+        /// <summary>
+        /// Método (GET) para mostrar la vista ModificarTipoAccesorio
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ModificarTipoAccesorio()
         {
             return View();

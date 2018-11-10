@@ -8,13 +8,19 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class TipoActivoController : Controller
     {
-        // GET: TipoActivo
+        /// <summary>
+        /// Método (GET) para mostrar la vista NuevoTipoActivo
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NuevoTipoActivo()
         {
             return View();
         }
 
-        // GET: Modificar TipoActivo
+        /// <summary>
+        /// Método (GET) para mostrar la vista ModificarTipoActivo
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ModificarTipoActivo()
         {
             return View();

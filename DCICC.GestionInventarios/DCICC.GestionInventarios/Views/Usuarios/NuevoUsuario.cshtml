@@ -24,7 +24,7 @@
                 <br>
                 @* Formulario para envio de datos de los componentes para el ingreso de un nuevo usuario.
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevaUsuario", "Usuarios"))
+                @using (Html.BeginForm("NuevoUsuario", "Usuarios"))
                 {
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar un rol de usuario*@
@@ -77,8 +77,8 @@
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo usuario*@
                         <div class="form-group">
-                            <label class="col-md-10 col-sm-12 col-xs-12">¿Habilitar Usuario?</label>
-                            <div class="col-md-2 col-sm-12 col-xs-12">
+                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Usuario?</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
                                 <input name="HabilitadoUsuario" type="checkbox" class="js-switch" checked />
                             </div>
                         </div>

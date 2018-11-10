@@ -8,9 +8,13 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class ActivosController : Controller
     {
-        public ActionResult Index()
+        /// <summary>
+        /// Método (GET) para mostrar la vista NuevoActivo
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NuevoActivo()
         {
-            return View("NuevoActivo");
+            return View();
         }
     }
 }

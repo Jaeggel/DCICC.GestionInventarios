@@ -8,13 +8,19 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class CategoriaActivoController : Controller
     {
-        // GET: CategoriaActivo
+        /// <summary>
+        /// Método (GET) para mostrar la vista CategoriaActivo
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NuevoCategoriaActivo()
         {
             return View();
         }
 
-        // GET: Modificar CategoriaActivo
+        /// <summary>
+        /// Método (GET) para mostrar la vista ModificarCategoriaActivo
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ModificarCategoriaActivo()
         {
             return View();
