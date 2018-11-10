@@ -49,8 +49,6 @@ var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
 
-	
-	
 // Sidebar
 function init_sidebar() {
 // TODO: This is some kind of easy fix, maybe we can improve this
@@ -69,8 +67,8 @@ var setContentHeight = function () {
 	$RIGHT_COL.css('min-height', contentHeight);
 };
 
-  $SIDEBAR_MENU.find('a').on('click', function(ev) {
-	  console.log('clicked - sidebar_menu');
+    $SIDEBAR_MENU.find('a').on('click', function (ev) {
+        console.log('clicked - sidebar_menu');
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
@@ -114,21 +112,21 @@ $MENU_TOGGLE.on('click', function() {
 	$('.dataTable').each ( function () { $(this).dataTable().fnDraw(); });
 });
 
-	// check active menu
-	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+    // check active menu
+    $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
 
-	//$SIDEBAR_MENU.find('a').filter(function () {
-		return this.href == CURRENT_URL;
-	}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-		setContentHeight();
-	}).parent().addClass('active');
+    $SIDEBAR_MENU.find('a').filter(function () {
+        return this.href === CURRENT_URL;
+    }).parent('li').addClass('current-page').parents('ul').slideDown(function () {
+        setContentHeight();
+    }).parent().addClass('active');
 
-	// recompute content when resizing
-	$(window).smartresize(function(){  
-		setContentHeight();
-	});
+    // recompute content when resizing
+    $(window).smartresize(function () {
+        setContentHeight();
+    });
 
-	setContentHeight();
+    setContentHeight();
 
 	// fixed sidebar
 	if ($.fn.mCustomScrollbar) {

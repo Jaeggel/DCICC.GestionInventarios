@@ -41,11 +41,8 @@
                             <h3>General</h3>
                             <ul class="nav side-menu">
                                 <li>
-                                    <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
-                                        <li><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
-                                    </ul>
+                                    @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
+                                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
@@ -122,19 +119,19 @@
                                             </ul>
                                         </li>
 
-                                        <li><a href="@Url.Action("Index", "Activos")">Nuevo Activo de TI</a></li>
+                                        <li><a href="@Url.Action("NuevoActivo", "Activos")">Nuevo Activo de TI</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="">Consultar/Modificar Activos</a></li>
+                                        <li><a href="@Url.Action("NuevoActivo", "Activos")">Consultar/Modificar Activos</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="">Generación de Reportes</a></li>
+                                        <li><a href="@Url.Action("NuevoActivo", "Activos")">Generación de Reportes</a></li>
                                     </ul>
                                 </li>
                                 <li>
