@@ -6,10 +6,12 @@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
+    ViewBag.Title = "Marcas";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
+@model DCICC.GestionInventarios.Models.Marcas
 
-
+<h1>@ViewBag.Title</h1>
 <div class="row">
     @* Panel para mostrar las opciones de ingreso de una marca *@
     <div class="col-md-5 col-sm-12 col-xs-12">
@@ -52,15 +54,11 @@
                                 <button type="button" class="btn btn-primary">Cancelar</button>
                             </div>
                         </div>
-
                     </div>
                 }
-
             </div>
         </div>
-
     </div>
-
     @* Panel para mostrar la lista de marcas existentes *@
     <div class="col-md-7 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -81,7 +79,7 @@
                 <form class="form-horizontal form-label-left input_mask">
                     @* Sección para la elaboración de la tabla de marcas mediante js *@
                     <div id="tablaMarcas"></div>
-                    <h1>hola mundo</h1>
+                    <h1>Datos</h1>
 
                 </form>
             </div>

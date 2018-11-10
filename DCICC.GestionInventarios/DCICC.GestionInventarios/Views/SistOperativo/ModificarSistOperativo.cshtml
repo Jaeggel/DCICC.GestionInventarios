@@ -2,11 +2,14 @@
     Autores: Andres Chisaguano - Joel Ludeña
     Descripción: Vista para la modificación de un sistema operativo.
 *@
+
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
+    ViewBag.Title = "Sistemas Operativos";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
+<h1>@ViewBag.Title</h1>
 <div class="row">
     @* Panel para mostrar la tabla de modificación de sistemas operativos *@
     <div class="col-md-12 col-sm-12 col-xs-12">

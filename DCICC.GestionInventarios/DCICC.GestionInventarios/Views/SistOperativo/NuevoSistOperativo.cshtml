@@ -3,10 +3,15 @@
     Descripción: Vista para el ingreso de un nuevo Sistema Operativo como por ejemplo
     Windows 10.
 *@
+
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
+    ViewBag.Title = "Sistemas Operativos";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
+@model DCICC.GestionInventarios.Models.SistOperativos
+
+<h1>@ViewBag.Title</h1>
 <div class="row">
     @* Panel para mostrar las opciones de ingreso de un sistema operativo *@
     <div class="col-md-5 col-sm-12 col-xs-12">
@@ -74,7 +79,7 @@
                 <form class="form-horizontal form-label-left input_mask">
                     @* Sección para la elaboración de la tabla de sistemas operativos mediante js *@
                     <div id="tablaLaboratorio"></div>
-                    <h1>hola mundo</h1>
+                    <h1>Datos</h1>
 
                 </form>
             </div>

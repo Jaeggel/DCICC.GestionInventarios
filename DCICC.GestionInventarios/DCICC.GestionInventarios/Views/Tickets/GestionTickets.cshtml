@@ -1,8 +1,17 @@
-﻿@* Sección para la definición del menú de administrador o auxiliar técnico *@
+﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
+    Autores: Andres Chisaguano - Joel Ludeña
+    Descripción: Vista para la modificación de un ticket mediante una tabla extraida
+    con js.
+*@
+
+@* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
+    ViewBag.Title = "Gestión de Tickets";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
+@model DCICC.GestionInventarios.Models.Tickets
 
+<h1>@ViewBag.Title</h1>
 <div class="row">
     @* Panel para mostrar la tabla de modificación de tickets *@
     <div class="col-md-12 col-sm-12 col-xs-12">

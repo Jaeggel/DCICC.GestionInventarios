@@ -2,11 +2,14 @@
     Autores: Andres Chisaguano - Joel Ludeña
     Descripción: Vista para la modificación de una Máquina Virtual.
 *@
+
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
+    ViewBag.Title = "Máquinas Virtuales";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
+<h1>@ViewBag.Title</h1>
 <div class="row">
     @* Panel para mostrar la tabla de modificación de máquinas virtuales *@
     <div class="col-md-12 col-sm-12 col-xs-12">

@@ -6,10 +6,12 @@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
+    ViewBag.Title = "Tipos de Activos";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
+@model DCICC.GestionInventarios.Models.TipoActivo
 
-
+<h1>@ViewBag.Title</h1>
 <div class="row">
     @* Panel para mostrar las opciones de ingreso de una tipo de activo *@
     <div class="col-md-5 col-sm-12 col-xs-12">
@@ -25,63 +27,57 @@
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoTipoAxtivo", "TipoActivo"))
                 {
-                <div class="form-horizontal form-label-left input_mask">
-                    @* Combobox para seleccionar la categoria de un activo *@
-                    <div class="form-group">
-
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <label>Escoja la categoria:</label>
-                            <select class="form-control">
-                                <option>Choose option</option>
-                                <option>Option one</option>
-                                <option>Option two</option>
-                                <option>Option three</option>
-                                <option>Option four</option>
-                            </select>
+                    <div class="form-horizontal form-label-left input_mask">
+                        @* Combobox para seleccionar la categoria de un activo *@
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>Escoja la categoria:</label>
+                                <select class="form-control">
+                                    <option>Seleccionar</option>
+                                    <option>Option one</option>
+                                    <option>Option two</option>
+                                    <option>Option three</option>
+                                    <option>Option four</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    @* Cuadro de texto para el ingreso del nombre de un Tipo de activo *@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="Nombre de la marca" maxlength="50" required>
-                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Área de Texto para el ingreso de la descripción de un tipo de activo *@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <textarea name="DescripcionTipoActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la marca" maxlength="150"></textarea>
-                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Cuadro de texto para el ingreso de la vida util un Tipo de activo *@
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                            <label>Vida Útil:</label>
-                            <input type="number" class="form-control has-feedback-left" name="VidaUtilTipoActivo" placeholder="0" min="0" max="40" required>
+                        @* Cuadro de texto para el ingreso del nombre de un Tipo de activo *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="Nombre de la marca" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-                    </div>
-                    @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de activo *@
-                    <div class="form-group">
-                        <label class="col-md-4 col-sm-12 col-xs-12">¿Habilitar Tipo de Activo?</label>
-                        <div class="col-md-8 col-sm-9 col-xs-12">
-                            <input name="HabilitadoTipoActivo" type="checkbox" class="js-switch" checked />
+                        @* Área de Texto para el ingreso de la descripción de un tipo de activo *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <textarea name="DescripcionTipoActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la marca" maxlength="150"></textarea>
+                            <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
-                    </div>
-                    <div class="ln_solid"></div>
-                    @* Sección de botones para guardar marca o cancelar el registro *@
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">Ingresar</button>
-                            <button type="button" class="btn btn-primary">Cancelar</button>
+                        @* Cuadro de texto para el ingreso de la vida util un Tipo de activo *@
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                <label>Vida Útil:</label>
+                                <input type="number" class="form-control has-feedback-left" name="VidaUtilTipoActivo" placeholder="0" min="0" max="40" required>
+                                <span class="fa fa-hourglass-start form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de activo *@
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-12 col-xs-12">¿Habilitar Tipo de Activo?</label>
+                            <div class="col-md-8 col-sm-9 col-xs-12">
+                                <input name="HabilitadoTipoActivo" type="checkbox" class="js-switch" checked />
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        @* Sección de botones para guardar marca o cancelar el registro *@
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Ingresar</button>
+                                <button type="button" class="btn btn-primary">Cancelar</button>
+                            </div>
                         </div>
                     </div>
-
-                </div>
                 }
-
             </div>
         </div>
-
     </div>
 
     @* Panel para mostrar la lista tipos de activo existentes *@
@@ -104,10 +100,11 @@
                 <form class="form-horizontal form-label-left input_mask">
                     @* Sección para la elaboración de la tabla de marcas mediante js *@
                     <div id="tablaTipoActivo"></div>
-                    <h1>hola mundo</h1>
+                    <h1>Datos</h1>
 
                 </form>
             </div>
         </div>
     </div>
+</div>
 

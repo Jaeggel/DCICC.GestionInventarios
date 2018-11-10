@@ -21,7 +21,7 @@ namespace DCICC.GestionInventarios
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, System.AppDomain.CurrentDomain.RelativeSearchPath ?? "") + "\\DCICC.WebApp.Logs-" + DateTime.Now.Date.ToString("ddMMyyyy") + ".txt";
             //"C:\\Test\\DCICC.WebApp.Logs" + DateTime.Now.Date.ToString("ddMMyyyy") + ".txt";
-            log4net.GlobalContext.Properties["LogFileName"] = "C:\\Test\\DCICC.WebApp.Logs." + DateTime.Now.Date.ToString("ddMMyyyy") + ".txt";
+            log4net.GlobalContext.Properties["LogFileName"] = "C:\\DCICC.WebApp.Logs\\DCICC.WebApp.Logs." + DateTime.Now.Date.ToString("ddMMyyyy") + ".txt";
             log4net.Config.XmlConfigurator.Configure();
         }
     }

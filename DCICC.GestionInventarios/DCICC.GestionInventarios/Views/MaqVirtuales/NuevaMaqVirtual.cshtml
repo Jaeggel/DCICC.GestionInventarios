@@ -5,8 +5,12 @@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
+    ViewBag.Title = "Máquinas Virtuales";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
+@model DCICC.GestionInventarios.Models.MaqVirtuales
+
+<h1>@ViewBag.Title</h1>
 <div class="row">
     @* Panel para mostrar las opciones de ingreso de una máquina virtual *@
     <div class="col-md-5 col-sm-12 col-xs-12">
@@ -26,7 +30,7 @@
                         @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-9 col-xs-12">
-                                <label>Sistema Operativo</label>
+                                <label>Escoja sistema operativo:</label>
                                 <select class="form-control" name="NombreSistOperativo">
                                     <option>Seleccionar</option>
                                     <option>Option one</option>
@@ -39,17 +43,17 @@
                         @* Cuadro de texto para el ingreso del nombre del responsable de la máquina virtual *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <input type="text" class="form-control has-feedback-left" name="UsuarioMaqVirtuales" placeholder="Usuario Responsable" maxlength="80" required>
-                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del nombre de una máquina virtual *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <input type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="Nombre Máquina Virtual" maxlength="80" required>
-                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para seleccionar l propósito de la máquina virtual *@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-9 col-xs-12">
-                                <label>Propósito</label>
+                                <label>Escoja propósito:</label>
                                 <select class="form-control" name="PropositoMaqVirtuales">
                                     <option>Seleccionar</option>
                                     <option>Option one</option>
@@ -62,19 +66,19 @@
                         @* Cuadro de texto para el ingreso de la dirección IP de una máquina virtual *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <input type="text" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="Dirección IP" maxlength="80" required>
-                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span class="fa fa-wifi form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del disco y RAM de una máquina virtual *@
                         <div class="form-group">
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                <label>Disco (GB)</label>
+                                <label>Disco (GB):</label>
                                 <input type="number" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="0" min="0" required>
-                                <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                <label>RAM (GB)</label>
+                                <label>RAM (GB):</label>
                                 <input type="number" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="0" min="0" max="128" required>
-                                <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-tachometer form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de una máquina virtual *@
@@ -84,8 +88,8 @@
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso de la nueva máquina virtual *@
                         <div class="form-group">
-                            <label class="col-md-9 col-sm-12 col-xs-12">¿Habilitar Máquina Virtual?</label>
-                            <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label class="col-md-10 col-sm-12 col-xs-12">¿Habilitar Máquina Virtual?</label>
+                            <div class="col-md-2 col-sm-12 col-xs-12">
                                 <input name="HabilitadoMarca" type="checkbox" class="js-switch" checked />
                             </div>
                         </div>
@@ -122,7 +126,7 @@
                 <form class="form-horizontal form-label-left input_mask">
                     @* Sección para la elaboración de la tabla de máquinas virtuales mediante js *@
                     <div id="tablaMaqVirtuales"></div>
-                    <h1>hola mundo</h1>
+                    <h1>Datos</h1>
 
                 </form>
             </div>

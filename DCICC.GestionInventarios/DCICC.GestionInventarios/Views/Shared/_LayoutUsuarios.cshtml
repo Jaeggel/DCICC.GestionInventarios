@@ -18,6 +18,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
+                        @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
                         <a href="@Url.Action("Index", "Home")" class="site_title"><i class="fa fa-server"></i> <span>Inventarios</span></a>
                     </div>
                     <div class="clearfix"></div>
@@ -28,6 +29,7 @@
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
+                            @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
                             <h2>@ViewBag.UsuarioLogin</h2>
                         </div>
                     </div>
@@ -41,6 +43,7 @@
                                 <li>
                                     <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
                                         <li><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
                                     </ul>
                                 </li>
@@ -68,11 +71,11 @@
                                             <ul class="nav child_menu">
                                                 <li class="sub_menu">
                                                     @* Enlace al método NuevoTipoActivo (Metodo de la clase) del Controlador TipoActivo(Controller) *@
-                                                    <a href="@Url.Action("NuevoTipoActivo", "TipoActivo")">Nuevo Tipo de Activo</a>
+                                                    <a href="@Url.Action("NuevoTipoActivo", "TipoActivo" )">Nuevo Tipo de Activo</a>
                                                 </li>
                                                 <li>
                                                     @* Enlace al método ModificarTipoActivo (Metodo de la clase) del Controlador TipoActivo(Controller) *@
-                                                    <a href="@Url.Action("ModificarTipoActivo", "TipoActivo")">Modificar Tipo de Activo</a>
+                                                    <a href="@Url.Action("ModificarTipoActivo", "TipoActivo" )">Modificar Tipo de Activo</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -125,8 +128,7 @@
                                 <li>
                                     <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="">Consulta de Activos</a></li>
-                                        <li><a href="">Modificación de Activos</a></li>
+                                        <li><a href="">Consultar/Modificar Activos</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -138,13 +140,16 @@
                                 <li>
                                     <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        @* Seccción de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
                                         <li>
                                             <a>Sistemas Operativos<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 <li class="sub_menu">
+                                                    @* Enlace al método NuevoSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
                                                     <a href="@Url.Action("NuevoSistOperativo", "SistOperativo")">Nuevo Sistema Operativo</a>
                                                 </li>
                                                 <li>
+                                                    @* Enlace al método ModificarSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
                                                     <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Modificar Sistema Operativo</a>
                                                 </li>
                                             </ul>
@@ -152,10 +157,13 @@
                                         <li>
                                             <a>Máquinas Virtuales<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
+                                                @* Seccción de enlaces a ingreso de nueva máquina virtual o a modificación de máquinas virtuales*@
                                                 <li class="sub_menu">
+                                                    @* Enlace al método NuevoMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
                                                     <a href="@Url.Action("NuevaMaqVirtual", "MaqVirtuales")">Nueva Máquina Virtual</a>
                                                 </li>
                                                 <li>
+                                                    @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
                                                     <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Modificar Máquina Virtual</a>
                                                 </li>
                                             </ul>
@@ -165,7 +173,8 @@
                                 <li>
                                     <a><i class="fa fa-ticket"></i>Tickets <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="">Gestión de Tickets</a></li>
+                                        @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
+                                        <li><a href="@Url.Action("GestionTickets", "Tickets")">Gestión de Tickets</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -184,6 +193,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
                                     <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.UsuarioLogin
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
@@ -201,10 +211,10 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <br />
-                <h1>Home</h1><!--AÑADIR TITULO DESDE CONTROLADOR-->
                 <!-- top tiles -->
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
+                        @* Construcción del Body en el resto de las vistas que hacen uso de este Layout*@
                         @RenderBody()
                     </div>
                 </div>
@@ -222,7 +232,6 @@
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -19,7 +19,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult Index(Login userInfo)
         {
-            MenuActionFilter.ObtenerMenu("Admin");
+            MenuActionFilter.ObtenerMenu("Usuarios");
             UsuarioActionFilter.ObtenerUsuario(userInfo.CorreoElectronico);
             log.Info("Autenticación Exitosa");
             return RedirectToAction("Index", "Home");
