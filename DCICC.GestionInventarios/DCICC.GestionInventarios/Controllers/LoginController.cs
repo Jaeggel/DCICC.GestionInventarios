@@ -11,17 +11,26 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
-        private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public ActionResult Index()
+        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        /// <summary>
+        /// Mètodo para mostrar la vista Login.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Login()
         {
-            return View("Login");
+            return View();
         }
+        /// <summary>
+        /// Método POST para recibir los datos provenientes de la vista Login.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(Login userInfo)
         {
-            MenuActionFilter.ObtenerMenu("Usuarios");
+            MenuActionFilter.ObtenerMenu("Admin");
             UsuarioActionFilter.ObtenerUsuario(userInfo.CorreoElectronico);
-            log.Info("Autenticación Exitosa");
+            Logs.Info("Autenticación Exitosa");
             return RedirectToAction("Index", "Home");
         }
     }

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCICC.GestionInventarios", "DCICC.GestionInventarios\DCICC.GestionInventarios.csproj", "{09847C6A-B74B-47CD-BE74-FBBCB83A906C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCICC.WebServiceInventarios", "DCICC.WebServiceInventarios\DCICC.WebServiceInventarios.csproj", "{5D447519-B52C-495E-A0B5-4D035C0042EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCICC.WebServiceInventarios", "DCICC.WebServiceInventarios\DCICC.WebServiceInventarios.csproj", "{5D447519-B52C-495E-A0B5-4D035C0042EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
