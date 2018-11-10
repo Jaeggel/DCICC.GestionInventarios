@@ -181,8 +181,10 @@
                                 <li>
                                     <a><i class="fa fa-user"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="">Nuevo Usuario</a></li>
-                                        <li><a href="">Usuarios</a></li>
+                                        @* Enlace al método NuevoUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
+                                        <li><a href="@Url.Action("NuevoUsuario", "Usuarios")">Nuevo Usuario</a></li>
+                                        @* Enlace al método ModificarUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
+                                        <li><a href="@Url.Action("ModificarUsuario", "Usuarios")">Modificar Usuarios</a></li>
                                     </ul>
                                 </li>
                                 <li>

@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Tema/vendors/bootstrap/dist/css/bootstrap.min.css",
-                      "~/Content/Tema/vendors/font-awesome/css/font-awesome.min.css",
+                      "~/Content/Tema/vendors/font-awesome-4.7.0/css/font-awesome.min.css",
                       "~/Content/Tema/vendors/nprogress/nprogress.css",
                       "~/Content/Tema/vendors/iCheck/skins/flat/green.css",
                       "~/Content/Tema/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
