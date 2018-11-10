@@ -187,14 +187,17 @@
                                 <li>
                                     <a><i class="fa fa-users"></i> Roles <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="@Url.Action("NuevoUsuario", "Usuarios")">Nuevo Rol</a></li>
-                                        <li><a href="@Url.Action("NuevoUsuario", "Usuarios")">Roles</a></li>
+                                        @* Enlace al método NuevoRol (Metodo de la clase) del Controlador Roles(Controller) *@
+                                        <li><a href="@Url.Action("NuevoRol", "Roles")">Nuevo Rol</a></li>
+                                        @* Enlace al método ModificarRol (Metodo de la clase) del Controlador Roles(Controller) *@
+                                        <li><a href="@Url.Action("ModificarRol", "Roles")">Modificar Rol</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-archive"></i> Logs <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="@Url.Action("NuevoUsuario", "Usuarios")">Consulta de Logs</a></li>
+                                        @* Enlace al método Logs (Metodo de la clase) del Controlador Logs(Controller) *@
+                                        <li><a href="@Url.Action("Logs", "Logs")">Consulta de Logs</a></li>
                                     </ul>
                                 </li>
 

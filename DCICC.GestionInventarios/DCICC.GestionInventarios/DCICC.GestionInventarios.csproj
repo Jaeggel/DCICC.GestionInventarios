@@ -151,8 +151,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaboratoriosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MaqVirtualesController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SistOperativoController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TipoAccesorioController.cs" />
@@ -166,8 +168,10 @@
     <Compile Include="Models\CategoriaActivo.cs" />
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SistOperativos.cs" />
     <Compile Include="Models\Tickets.cs" />
     <Compile Include="Models\TipoAccesorio.cs" />
@@ -4575,6 +4579,9 @@
     <Content Include="Views\Tickets\GestionTickets.cshtml" />
     <Content Include="Views\Usuarios\NuevoUsuario.cshtml" />
     <Content Include="Views\Usuarios\ModificarUsuario.cshtml" />
+    <Content Include="Views\Roles\NuevoRol.cshtml" />
+    <Content Include="Views\Roles\ModificarRol.cshtml" />
+    <Content Include="Views\Logs\Logs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

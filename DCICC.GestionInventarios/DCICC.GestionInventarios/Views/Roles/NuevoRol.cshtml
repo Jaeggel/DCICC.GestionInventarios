@@ -1,53 +1,52 @@
 ﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
     Autores: Andres Chisaguano - Joel Ludeña
-    Descripción: Vista para el ingreso de un nuevo Sistema Operativo como por ejemplo
-    Windows 10.
+    Descripción: Vista para el ingreso de un nuevo Rol como por ejemplo: Administrador, Auxiliar Técnico, etc.
 *@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    ViewBag.Title = "Sistemas Operativos";
+    ViewBag.Title = "Roles";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
-@model DCICC.GestionInventarios.Models.SistOperativos
+@model DCICC.GestionInventarios.Models.Roles
 
 <h1>@ViewBag.Title</h1>
 <div class="row">
-    @* Panel para mostrar las opciones de ingreso de un sistema operativo *@
+    @* Panel para mostrar las opciones de ingreso de un nuevo rol *@
     <div class="col-md-5 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Nuevo Sistema Operativo </h2>
+                <h2>Nuevo Rol de Usuario </h2>
                 <ul class="nav navbar-right panel_toolbox"></ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br>
-                @* Formulario para envio de datos de los componentes para el ingreso de una nuevo sistema operativo
+                @* Formulario para envio de datos de los componentes para el ingreso de una nuevo rol
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevoSistOperativo", "SistOperativo"))
+                @using (Html.BeginForm("NuevoRol", "Roles"))
                 {
                     <div class="form-horizontal form-label-left input_mask">
-                        @* Cuadro de texto para el ingreso del nombre de un nuevo sistema operativo *@
+                        @* Cuadro de texto para el ingreso del nombre de un nuevo rol*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreSistOperativo" placeholder="Nombre del sistema operativo" maxlength="100" required>
+                            <input type="text" class="form-control has-feedback-left" name="NombreRol" placeholder="Nombre del Rol" maxlength="30" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-                        @* Área de Texto para el ingreso de la descripción de un nuevo sistema operativo*@
+                        @* Área de Texto para el ingreso de la descripción de un nuevo rol*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea class="form-control has-feedback-left" name="DescripcionSistOperativo" rows="3" placeholder="Descripción del sistema operativo" maxlength="150"></textarea>
+                            <textarea class="form-control has-feedback-left" name="DescripcionRol" rows="3" placeholder="Descripción del rol" maxlength="150"></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
-                        @* Checkbox para habilitar o deshabilitar el uso del nuevo sistema operativo*@
+                        @* Checkbox para habilitar o deshabilitar el uso del nuevo rol*@
                         <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Sistema Operativo?</label>
+                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Rol?</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input name="HabilitadoSistOperativo" type="checkbox" class="js-switch" checked />
+                                <input name="HabilitadoRol" type="checkbox" class="js-switch" checked />
                             </div>
 
                         </div>
                         <div class="ln_solid"></div>
-                        @* Sección de botones para guardar sistema operativo o cancelar el registro *@
+                        @* Sección de botones para guardar el rol o cancelar el registro *@
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                 <button type="submit" class="btn btn-success">Ingresar</button>
@@ -59,11 +58,11 @@
             </div>
         </div>
     </div>
-    @* Panel para mostrar la tabla de sistemas operativos *@
+    @* Panel para mostrar la tabla de roles*@
     <div class="col-md-7 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Sistemas Operativos Existentes</h2>
+                <h2>Roles Existentes</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -77,8 +76,8 @@
             <div class="x_content">
                 <br>
                 <form class="form-horizontal form-label-left input_mask">
-                    @* Sección para la elaboración de la tabla de sistemas operativos mediante js *@
-                    <div id="tablaSistOperativo"></div>
+                    @* Sección para la elaboración de la tabla de roles mediante js *@
+                    <div id="tablaRoles"></div>
                     <h1>Datos</h1>
 
                 </form>
