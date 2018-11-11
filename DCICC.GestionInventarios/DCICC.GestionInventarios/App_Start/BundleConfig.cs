@@ -33,8 +33,9 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/switchery/dist/switchery.min.js",
                         "~/Content/Tema/vendors/moment/min/moment.min.js",
                         "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
-                        "~/Content/Tema/build/js/custom.js",
+                        //"~/Scripts/pnotify.custom.min.js",
                         "~/Scripts/notify.min.js",
+                        "~/Content/Tema/build/js/custom.js",
                         "~/Scripts/Site.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -53,8 +54,9 @@ namespace DCICC.GestionInventarios
                       "~/Content/Tema/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
                       "~/Content/Tema/vendors/jqvmap/dist/jqvmap.min.css",
                       "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css",
-                      "~/Content/Tema/build/css/custom.css",
                       "~/Content/Tema/vendors/switchery/dist/switchery.min.css",
+                      //"~/Content/pnotify.custom.min.css",
+                      "~/Content/Tema/build/css/custom.css",
                       "~/Content/Site.css"));
         }
     }
