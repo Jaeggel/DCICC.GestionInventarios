@@ -16,5 +16,23 @@ namespace DCICC.GestionInventarios.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// Método (GET) para mostrar la vista ConsutaActivos
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ConsultaActivos()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Método (GET) para mostrar la vista ConsutaActivos
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ReporteActivos()
+        {
+            return View();
+        }
     }
 }

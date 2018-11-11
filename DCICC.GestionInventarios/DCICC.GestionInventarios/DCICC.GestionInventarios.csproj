@@ -165,6 +165,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filtros\MenuActionFilter.cs" />
+    <Compile Include="Models\Activos.cs" />
     <Compile Include="Models\CategoriaActivo.cs" />
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
@@ -4584,6 +4585,8 @@
     <Content Include="Views\Roles\NuevoRol.cshtml" />
     <Content Include="Views\Roles\ModificarRol.cshtml" />
     <Content Include="Views\Logs\Logs.cshtml" />
+    <Content Include="Views\Activos\ConsultaActivos.cshtml" />
+    <Content Include="Views\Activos\ReporteActivos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
