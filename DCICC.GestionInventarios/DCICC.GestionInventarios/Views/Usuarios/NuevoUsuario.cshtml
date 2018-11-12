@@ -11,8 +11,9 @@
 @model DCICC.GestionInventarios.Models.Usuarios
 
 <ul class="breadcrumb">
-    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-    <li><a class="active">@ViewBag.Title </a></li>
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a href="@Url.Action("ModificarUsuario", "Usuarios")">@ViewBag.Title </a></li>
+    <li><a class="active">Nuevo </a></li>
 </ul>
 <div class="row">
     @* Panel para mostrar las opciones de ingreso de un usuario *@

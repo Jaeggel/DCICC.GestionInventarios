@@ -79,31 +79,12 @@
                                     <ul class="nav child_menu">
                                         @* Seccción de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
                                         <li>
-                                            <a>Sistemas Operativos<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @* Enlace al método NuevoSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
-                                                    <a href="@Url.Action("NuevoSistOperativo", "SistOperativo")">Nuevo Sistema Operativo</a>
-                                                </li>
-                                                <li>
-                                                    @* Enlace al método ModificarSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
-                                                    <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Modificar Sistema Operativo</a>
-                                                </li>
-                                            </ul>
+                                            @* Enlace al método ModificarSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
+                                            <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Sistemas Operativos</a>
                                         </li>
                                         <li>
-                                            <a>Máquinas Virtuales<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                @* Seccción de enlaces a ingreso de nueva máquina virtual o a modificación de máquinas virtuales*@
-                                                <li class="sub_menu">
-                                                    @* Enlace al método NuevoMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
-                                                    <a href="@Url.Action("NuevaMaqVirtual", "MaqVirtuales")">Nueva Máquina Virtual</a>
-                                                </li>
-                                                <li>
-                                                    @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
-                                                    <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Modificar Máquina Virtual</a>
-                                                </li>
-                                            </ul>
+                                            @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
+                                            <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Máquinas Virtuales</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -121,31 +102,18 @@
                             <ul class="nav side-menu">
                                 @* Seccción de enlaces a ingreso de nuevo Usuario  o a modificación de Usuarios *@
                                 <li>
-                                    <a><i class="fa fa-user"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Enlace al método NuevoUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
-                                        <li><a href="@Url.Action("NuevoUsuario", "Usuarios")">Nuevo Usuario</a></li>
-                                        @* Enlace al método ModificarUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
-                                        <li><a href="@Url.Action("ModificarUsuario", "Usuarios")">Modificar Usuarios</a></li>
-                                    </ul>
+                                    @* Enlace al método ModificarUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
+                                    <a href="@Url.Action("ModificarUsuario", "Usuarios")"><i class="fa fa-user"></i> Usuarios</a>
                                 </li>
                                 @* Seccción de enlaces a ingreso de nuevo Rol  o a modificación de Roles *@
                                 <li>
-                                    <a><i class="fa fa-users"></i> Roles <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Enlace al método NuevoRol (Metodo de la clase) del Controlador Roles(Controller) *@
-                                        <li><a href="@Url.Action("NuevoRol", "Roles")">Nuevo Rol</a></li>
-                                        @* Enlace al método ModificarRol (Metodo de la clase) del Controlador Roles(Controller) *@
-                                        <li><a href="@Url.Action("ModificarRol", "Roles")">Modificar Rol</a></li>
-                                    </ul>
+                                    @* Enlace al método ModificarRol (Metodo de la clase) del Controlador Roles(Controller) *@
+                                    <a href="@Url.Action("ModificarRol", "Roles")"><i class="fa fa-users"></i> Roles</a>
                                 </li>
                                 @* Seccción de enlaces para visualización de Logs *@
                                 <li>
-                                    <a><i class="fa fa-archive"></i> Logs <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Enlace al método Logs (Metodo de la clase) del Controlador Logs(Controller) *@
-                                        <li><a href="@Url.Action("Logs", "Logs")">Consulta de Logs</a></li>
-                                    </ul>
+                                    @* Enlace al método Logs (Metodo de la clase) del Controlador Los(Controller) *@
+                                    <a href="@Url.Action("Logs", "Logs")"><i class="fa fa-archive"></i> Logs</a>
                                 </li>
                             </ul>
                         </div>

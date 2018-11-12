@@ -8,19 +8,65 @@
     ViewBag.Title = "Usuarios";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
-<h1>@ViewBag.Title</h1>
+
+@* Sección para la navegación entre pestañas*@
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a>@ViewBag.Title </a></li>
+    <li><a class="active">Modificar Usuario</a></li>
+</ul>
 <div class="row">
-    @* Panel para mostrar la tabla de modificación de Usuarios *@
+    @* Panel para mostrar la tabla de modificación de usuarios*@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Modificar Usuarios</h2>
-                <ul class="nav navbar-right panel_toolbox"></ul>
+                <div class="x-content">
+                    <div class="col-md-6 col-sm-12 col-xs-12 ">
+                        <h3>Listado de Usuarios</h3>
+                    </div>
+                </div>
+                @* Sección para botones de ingresar nuevo usuario y actualizar página *@
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoUsuario", "Usuarios")'"><i class="fa fa-plus"></i> Agregar Usuario</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarUsuario", "Usuarios")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br>
                 @* Sección para la tabla de modificación mediante js *@
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>twitter</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div id="tablaModificarUsuarios">
 
                 </div>
@@ -28,3 +74,5 @@
         </div>
     </div>
 </div>
+
+

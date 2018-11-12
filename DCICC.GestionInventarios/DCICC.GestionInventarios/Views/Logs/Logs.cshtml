@@ -9,13 +9,21 @@
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
-<h1>@ViewBag.Title</h1>
+@* Sección para la navegación entre pestañas*@
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a class="active">@ViewBag.Title</a></li>
+</ul>
 <div class="row">
     @* Panel para mostrar la tabla de logs*@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Logs del Sistema</h2>
+                <div class="x-content">
+                    <div class="col-md-6 col-sm-12 col-xs-12 ">
+                        <h3>Logs del Sistema</h3>
+                    </div>
+                </div>
                 <ul class="nav navbar-right panel_toolbox"></ul>
                 <div class="clearfix"></div>
             </div>
