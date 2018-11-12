@@ -5,24 +5,37 @@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    ViewBag.Title = "Marcas";
+    ViewBag.Title = "Consulta de Activos";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
-<h1>@ViewBag.Title</h1>
+@* Sección para la navegación entre pestañas *@
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a>Activos de TI</a></li>
+    <li><a class="active">@ViewBag.Title</a></li>
+</ul>
 <div class="row">
     @* Panel para visualizar el contenido de los activos de TI *@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Consulta de Activos</h2>
-                <ul class="nav navbar-right panel_toolbox"></ul>
+                <div class="x-content">
+                    <div class="col-md-6 col-sm-12 col-xs-12 ">
+                        <h3>Consulta de Activos</h3>
+                    </div>
+                </div>
+                @* Sección para botones de ingresar nueva categoria y actualizar página *@
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("NuevoCategoriaActivo", "CategoriaActivo")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br>
                 <div class="form-horizontal form-label-left input_mask">
-                    
+
                     <div class="form-group">
                         @* Combobox para seleccionar el tipo de activo *@
                         <div class="col-md-4 col-sm-12 col-xs-12">
@@ -57,12 +70,44 @@
                         </div>
                     </div>
                     @* Sección para la tabla de modificación mediante js *@
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>mdo</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>fat</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>twitter</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div id="tablaConsultaActivos">
 
                     </div>
                 </div>
-                   
-                </div>
+
             </div>
+        </div>
     </div>
 </div>
