@@ -10,10 +10,14 @@
 }
 @model DCICC.GestionInventarios.Models.Usuarios
 
-<h1>@ViewBag.Title</h1>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+    <li><a class="active">@ViewBag.Title </a></li>
+</ul>
 <div class="row">
     @* Panel para mostrar las opciones de ingreso de un usuario *@
-    <div class="col-md-5 col-sm-12 col-xs-12">
+    <div class="col-md-2 col-sm-12 col-xs-12"></div>
+    <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <div class="form-group"><h2>Nuevo Usuario </h2></div>
@@ -26,99 +30,74 @@
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoUsuario", "Usuarios"))
                 {
-                <div class="form-horizontal form-label-left input_mask">
-                    @* Combobox para seleccionar un rol de usuario*@
-                    <div class="form-group">
-                        <div class="col-md-12 col-sm-9 col-xs-12">
-                            <label>Escoja rol de usuario:</label>
-                            <select class="form-control" name="NombreRol">
-                                <option>Seleccionar</option>
-                                <option>Option one</option>
-                                <option>Option two</option>
-                                <option>Option three</option>
-                                <option>Option four</option>
-                            </select>
+                    <div class="form-horizontal form-label-left input_mask">
+                        @* Combobox para seleccionar un rol de usuario*@
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-9 col-xs-12">
+                                <label>Escoja rol de usuario:</label>
+                                <select class="form-control" name="NombreRol">
+                                    <option>Seleccionar</option>
+                                    <option>Option one</option>
+                                    <option>Option two</option>
+                                    <option>Option three</option>
+                                    <option>Option four</option>
+                                </select>
+                            </div>
+                        </div>
+                        @* Cuadro de texto para el ingreso del nombre completo del usuario*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="NombresUsuarios" placeholder="Nombre Completo del Usuario" maxlength="100" required>
+                            <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del correo del usuario*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" maxlength="40" required>
+                            <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" maxlength="50" required>
+                            <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del password del usuario*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña" maxlength="30" required>
+                            <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del teléfono convencional del usuario*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11">
+                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del teléfono celular del usuario*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11">
+                            <span class="fa fa-mobile-phone form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Área de Texto para el ingreso de la descripción de un usuario *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <textarea name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" maxlength="80"></textarea>
+                            <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Checkbox para habilitar o deshabilitar el uso del nuevo usuario*@
+                        <div class="form-group">
+                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Usuario?</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input name="HabilitadoUsuario" type="checkbox" class="js-switch" checked />
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        @* Sección de botones para guardar usuario o cancelar el registro *@
+                        <div class="form-group text-center">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <button type="submit" class="btn btn-success">Ingresar</button>
+                                <button type="button" class="btn btn-primary">Cancelar</button>
+                            </div>
                         </div>
                     </div>
-                    @* Cuadro de texto para el ingreso del nombre completo del usuario*@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="NombresUsuarios" placeholder="Nombre Completo del Usuario" maxlength="100" required>
-                        <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Cuadro de texto para el ingreso del correo del usuario*@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" maxlength="40" required>
-                        <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" maxlength="50" required>
-                        <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Cuadro de texto para el ingreso del password del usuario*@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña" maxlength="30" required>
-                        <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Cuadro de texto para el ingreso del teléfono convencional del usuario*@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11">
-                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Cuadro de texto para el ingreso del teléfono celular del usuario*@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11">
-                        <span class="fa fa-mobile-phone form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Área de Texto para el ingreso de la descripción de un usuario *@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <textarea name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" maxlength="80"></textarea>
-                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                    @* Checkbox para habilitar o deshabilitar el uso del nuevo usuario*@
-                    <div class="form-group">
-                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Usuario?</label>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <input name="HabilitadoUsuario" type="checkbox" class="js-switch" checked />
-                        </div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    @* Sección de botones para guardar usuario o cancelar el registro *@
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">Ingresar</button>
-                            <button type="button" class="btn btn-primary">Cancelar</button>
-                        </div>
-                    </div>
-                </div>
                 }
             </div>
         </div>
     </div>
-    @* Panel para mostrar la tabla de usuarios *@
-    <div class="col-md-7 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Usuarios Existentes</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li>
-                        <a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <br>
-                <form class="form-horizontal form-label-left input_mask">
-                    @* Sección para la elaboración de la tabla de usuarios mediante js *@
-                    <div id="tablaUsuarios"></div>
-                    <h1>Datos</h1>
-
-                </form>
-            </div>
-        </div>
-    </div>
+    <div class="col-md-2 col-sm-12 col-xs-12"></div>
 </div>

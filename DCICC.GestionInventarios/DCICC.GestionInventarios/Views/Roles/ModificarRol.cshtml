@@ -5,11 +5,15 @@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    ViewBag.Title = "Roles";
+    ViewBag.Title = "Modificar Rol";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
-<h1>@ViewBag.Title</h1>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a>Roles</a></li>
+    <li><a class="active">@ViewBag.Title </a></li>
+</ul>
 <div class="row">
     @* Panel para mostrar la tabla de modificación de roles*@
     <div class="col-md-12 col-sm-12 col-xs-12">
