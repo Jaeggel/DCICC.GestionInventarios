@@ -81,31 +81,12 @@
                                     <ul class="nav child_menu">
                                         @* Seccción de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
                                         <li>
-                                            <a>Sistemas Operativos<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @* Enlace al método NuevoSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
-                                                    <a href="@Url.Action("NuevoSistOperativo", "SistOperativo")">Nuevo Sistema Operativo</a>
-                                                </li>
-                                                <li>
-                                                    @* Enlace al método ModificarSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
-                                                    <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Modificar Sistema Operativo</a>
-                                                </li>
-                                            </ul>
+                                            @* Enlace al método ModificarSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
+                                            <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Sistemas Operativos</a>
                                         </li>
                                         <li>
-                                            <a>Máquinas Virtuales<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                @* Seccción de enlaces a ingreso de nueva máquina virtual o a modificación de máquinas virtuales*@
-                                                <li class="sub_menu">
-                                                    @* Enlace al método NuevoMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
-                                                    <a href="@Url.Action("NuevaMaqVirtual", "MaqVirtuales")">Nueva Máquina Virtual</a>
-                                                </li>
-                                                <li>
-                                                    @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
-                                                    <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Modificar Máquina Virtual</a>
-                                                </li>
-                                            </ul>
+                                            @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
+                                            <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Máquinas Virtuales</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -137,7 +118,7 @@
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href=""> Perfil</a></li>
+                                    <li><a href="@Url.Action("PerfilUsuario", "Usuarios")"> Perfil</a></li>
                                     <li><a href="">Ayuda</a></li>
                                     <li><a href=""><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a></li>
                                 </ul>
