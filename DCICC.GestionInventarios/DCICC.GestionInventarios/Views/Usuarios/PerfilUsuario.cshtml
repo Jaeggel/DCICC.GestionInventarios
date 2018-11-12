@@ -10,7 +10,10 @@
 }
 @model DCICC.GestionInventarios.Models.Usuarios
 
-<h2>@ViewBag.Title</h2>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+    <li><a class="active">Perfil de Usuario</a></li>
+</ul>
 <div class="row">
     @* Panel para mostrar las opciones del perfil de usuario *@
     <div class="col-md-2 col-sm-12 col-xs-12"></div>
