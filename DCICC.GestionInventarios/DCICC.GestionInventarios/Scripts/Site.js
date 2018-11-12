@@ -1,29 +1,22 @@
-﻿//Método para mostrar alertas notify
+﻿/*Sistema de Gestión de inventarios y ticketing para soporte Técnico
+Autores: Andres Chisaguano - Joel Ludeña
+Descripción: Script que tendrá las funciones que se podrá llamar desde toda la aplicación*/
+
+/*Método para mostrar alertas notify
+title: Título de la notificación, 
+message: mensaje de la notificación, 
+messagetype: tipo de la notificación(success, info, warning, error)*/
 function showNotify(title,message, messagetype) {
-    var icon;
-    if (messagetype === 'danger') {
-        icon = "glyphicon glyphicon-remove-sign";
-        title = '<b>' + title + '</b><br/>';
-    } else if (messagetype === 'info') {
-        icon = "glyphicon glyphicon-info-sign";
-        title = '<b>' + title + '</b><br/>';
-    } else if (messagetype === 'warning') {
-        icon = "glyphicon glyphicon-exclamation-sign";
-        title = '<b>' + title + '</b><br/>';
-    }else {
-        icon = "glyphicon glyphicon-ok-sign";
-        title = '<b>' + title + '</b><br/>';
-    }
-    $.notify({
-        icon: icon,
+    new PNotify({
         title: title,
-        message: message
-    }, {
+        text: message,
+        type: messagetype,
+        styling: 'bootstrap3',
         animate: {
-            enter: 'animated fadeInRight',
-            exit: 'animated fadeOutRight'
-        },
-        type: messagetype
+            animate: true,
+            in_class: 'slideInDown',
+            out_class: 'slideOutUp'
+        }
     });
 }
 //Configuración de Particulas
