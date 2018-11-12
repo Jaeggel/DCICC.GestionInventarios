@@ -114,17 +114,20 @@
                                                 </li>
                                             </ul>
                                         </li>
-
+                                        @* Enlace al método NuevoActivo (Metodo de la clase) del Controlador Activos(Controller) *@
                                         <li><a href="@Url.Action("NuevoActivo", "Activos")">Nuevo Activo de TI</a></li>
                                     </ul>
                                 </li>
+                                @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
                                 <li>
                                     <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
                                         <li><a href="@Url.Action("ConsultaActivos", "Activos")">Consultar/Modificar Activos</a></li>
                                     </ul>
                                 </li>
                                 <li>
+                                    @* Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller) *@
                                     <a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="@Url.Action("ReporteActivos", "Activos")">Generación de Reportes</a></li>
@@ -175,6 +178,7 @@
                         <div class="menu_section">
                             <h3>Administración</h3>
                             <ul class="nav side-menu">
+                                @* Seccción de enlaces a ingreso de nuevo Usuario  o a modificación de Usuarios *@
                                 <li>
                                     <a><i class="fa fa-user"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
@@ -184,6 +188,7 @@
                                         <li><a href="@Url.Action("ModificarUsuario", "Usuarios")">Modificar Usuarios</a></li>
                                     </ul>
                                 </li>
+                                @* Seccción de enlaces a ingreso de nuevo Rol  o a modificación de Roles *@
                                 <li>
                                     <a><i class="fa fa-users"></i> Roles <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
@@ -193,6 +198,7 @@
                                         <li><a href="@Url.Action("ModificarRol", "Roles")">Modificar Rol</a></li>
                                     </ul>
                                 </li>
+                                @* Seccción de enlaces para visualización de Logs *@
                                 <li>
                                     <a><i class="fa fa-archive"></i> Logs <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
@@ -200,7 +206,6 @@
                                         <li><a href="@Url.Action("Logs", "Logs")">Consulta de Logs</a></li>
                                     </ul>
                                 </li>
-
                             </ul>
                         </div>
                     </div>

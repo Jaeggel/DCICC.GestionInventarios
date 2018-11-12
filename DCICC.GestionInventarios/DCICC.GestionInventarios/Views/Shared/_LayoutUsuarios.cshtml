@@ -118,19 +118,22 @@
                                                 </li>
                                             </ul>
                                         </li>
-
+                                        @* Enlace al método NuevoActivo (Metodo de la clase) del Controlador Activos(Controller) *@
                                         <li><a href="@Url.Action("NuevoActivo", "Activos")">Nuevo Activo de TI</a></li>
                                     </ul>
                                 </li>
+                                @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
                                 <li>
                                     <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
                                         <li><a href="@Url.Action("ConsultaActivos", "Activos")">Consultar/Modificar Activos</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        @* Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller) *@
                                         <li><a href="@Url.Action("ReporteActivo", "Activos")">Generación de Reportes</a></li>
                                     </ul>
                                 </li>

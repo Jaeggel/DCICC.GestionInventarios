@@ -7,6 +7,7 @@
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 
 @{
+    ViewBag.Title = "Activos de TI";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
@@ -16,14 +17,14 @@
     <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Nueva Activo de TI </h2>
+                <h2>Nuevo Activo de TI </h2>
                 <ul class="nav navbar-right panel_toolbox"></ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br>
                 @* Formulario para envio de datos de los componentes para el ingreso de un nuevo activo
-        (Metodo de la clase) - Controlador (Controller) *@
+                (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoActivo", "Activos"))
                 {
                     <div class="form-horizontal form-label-left input_mask">
@@ -80,7 +81,7 @@
                                     <div class="control-group">
                                         <div class="controls">
                                             <div class="col-md-12 xdisplay_inputx form-group has-feedback">
-                                                <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4">
+                                                <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de adquisición" aria-describedby="inputSuccess2Status4">
                                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                             </div>
