@@ -4588,6 +4588,7 @@
     <Content Include="Views\Logs\Logs.cshtml" />
     <Content Include="Views\Activos\ConsultaActivos.cshtml" />
     <Content Include="Views\Activos\ReporteActivos.cshtml" />
+    <Content Include="Views\Usuarios\PerfilUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
