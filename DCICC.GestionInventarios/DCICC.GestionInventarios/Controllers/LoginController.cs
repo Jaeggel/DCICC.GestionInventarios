@@ -11,7 +11,7 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase Activos
+        //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Mètodo (GET) para mostrar la vista Login.
