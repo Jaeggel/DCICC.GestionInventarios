@@ -21,17 +21,16 @@ namespace DCICC.GestionInventarios.Controllers
         {
             return View();
         }
-
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista Login.
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Login(Login userInfo)
+        public ActionResult Login(Login infoLogin)
         {
             MenuActionFilter.ObtenerMenu("Admin");
-            UsuarioActionFilter.ObtenerUsuario(userInfo.CorreoElectronico);
+            UsuarioActionFilter.ObtenerUsuario(infoLogin.CorreoElectronico);
             Logs.Info("Autenticación Exitosa");
             return RedirectToAction("Index", "Home");
         }

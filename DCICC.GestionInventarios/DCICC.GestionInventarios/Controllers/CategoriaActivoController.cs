@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DCICC.GestionInventarios.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,6 @@ namespace DCICC.GestionInventarios.Controllers
         {
             return View();
         }
-
         /// <summary>
         /// Método (GET) para mostrar la vista ModificarCategoriaActivo
         /// </summary>
@@ -24,6 +24,16 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult ModificarCategoriaActivo()
         {
             return View();
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista NuevoCategoriaActivo.
+        /// </summary>
+        /// <param name="infoCategoriaActivo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult NuevoCategoriaActivo(CategoriaActivo infoCategoriaActivo)
+        {
+            return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
         }
     }
 }

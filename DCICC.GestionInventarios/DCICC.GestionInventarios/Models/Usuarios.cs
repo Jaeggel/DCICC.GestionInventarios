@@ -28,6 +28,5 @@ namespace DCICC.GestionInventarios.Models
         public string DireccionUsuario { get; set; }
 
         public Boolean HabilitadoUsuario { get; set; }
-
     }
 }

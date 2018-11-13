@@ -45,16 +45,6 @@
                                 </select>
                             </div>
                         </div>
-                        @* Cuadro de texto para el ingreso del nombre del responsable de la máquina virtual *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="UsuarioMaqVirtuales" placeholder="Usuario Responsable" maxlength="80" required>
-                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Cuadro de texto para el ingreso del nombre de una máquina virtual *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="Nombre Máquina Virtual" maxlength="80" required>
-                            <span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
-                        </div>
                         @* Área de Texto para seleccionar el propósito de la máquina virtual *@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-9 col-xs-12">
@@ -67,6 +57,16 @@
                                     <option>Option four</option>
                                 </select>
                             </div>
+                        </div>
+                        @* Cuadro de texto para el ingreso del nombre del responsable de la máquina virtual *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="UsuarioMaqVirtuales" placeholder="Usuario Responsable" maxlength="80" required>
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del nombre de una máquina virtual *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="Nombre Máquina Virtual" maxlength="80" required>
+                            <span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso de la dirección IP de una máquina virtual *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -95,7 +95,7 @@
                         <div class="form-group">
                             <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Máquina Virtual?</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input name="HabilitadoMaqVirtuales" type="checkbox" class="js-switch" checked />
+                                <input name="HabilitadoMaqVirtuales" type="checkbox" class="js-switch" value="true" checked />
                             </div>
                         </div>
                         <div class="ln_solid"></div>

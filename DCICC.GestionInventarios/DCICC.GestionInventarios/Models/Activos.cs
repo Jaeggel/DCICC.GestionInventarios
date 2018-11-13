@@ -18,7 +18,7 @@ namespace DCICC.GestionInventarios.Models
         public int IdLaboratorio { get; set; }
 
         public string NombreLaboratorio { get; set; }
-        
+
         //Marca
         public int IdMarca { get; set; }
 
@@ -27,6 +27,8 @@ namespace DCICC.GestionInventarios.Models
         public int IdCQR { get; set; }       
 
         public string NombreActivo { get; set; }
+
+        public string EstadoActivo { get; set; }
 
         public string ModeloActivo { get; set; }
 

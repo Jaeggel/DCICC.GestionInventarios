@@ -28,7 +28,7 @@
                 <br>
                 @* Formulario para envio de datos de los componentes para la modificación del usuario.
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevoUsuario", "Usuarios"))
+                @using (Html.BeginForm("PerfilUsuario", "Usuarios"))
                 {
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar un rol de usuario*@
@@ -46,7 +46,7 @@
                         </div>
                         @* Cuadro de texto para el ingreso del nombre completo del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombresUsuarios" placeholder="Nombre Completo del Usuario" maxlength="100" required>
+                            <input type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" maxlength="100" required>
                             <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del correo del usuario*@
