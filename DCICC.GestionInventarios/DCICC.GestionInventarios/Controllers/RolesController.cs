@@ -16,6 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// Método (GET) para mostrar la vista ModificarRol
         /// </summary>

@@ -36,19 +36,20 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de un laboratorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" maxlength="100">
+                            <input type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" maxlength="100" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para el ingreso de la ubicacion física de un laboratorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" maxlength="50"></textarea>
-                            <span class="fa  fa-compass form-control-feedback left" aria-hidden="true"></span>
+                            <textarea name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" maxlength="50" required></textarea>
+                            <span class="fa fa-compass form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Área de Texto para el ingreso de la descripción de un laboratorio *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <textarea name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Laboratorio" maxlength="150"></textarea>
+                            <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo laboratorio *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del laboratorio" maxlength="150"></textarea>
-                            <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
                         <div class="form-group">
                             <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Laboratorio?</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -56,7 +57,7 @@
                             </div>
                         </div>
                         <div class="ln_solid"></div>
-                        @* Sección de botones para guardar marca o cancelar el registro *@
+                        @* Sección de botones para guardar un laboratorio o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <button type="submit" class="btn btn-success">Ingresar</button>

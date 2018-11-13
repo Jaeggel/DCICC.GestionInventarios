@@ -1,6 +1,6 @@
 ﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
     Autores: Andres Chisaguano - Joel Ludeña
-    Descripción: Vista para el ingreso de un nuevo tipo de Accesorio como por ejemplo
+    Descripción: Vista para el ingreso de un nuevo Tipo de Accesorio como por ejemplo
     CABLE USB,CARGADOR, etc.
 *@
 
@@ -36,12 +36,12 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de un tipo de accesorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" maxlength="50">
+                            <input type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de un tipo de accesorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="DescripcionTipoAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del tipo de accesorio" maxlength="150"></textarea>
+                            <textarea name="DescripcionTipoAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Tipo de Accesorio" maxlength="150"></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de accesorio *@
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="ln_solid"></div>
-                        @* Sección de botones para guardar marca o cancelar el registro *@
+                        @* Sección de botones para guardar tipo de accesorio o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <button type="submit" class="btn btn-success">Ingresar</button>

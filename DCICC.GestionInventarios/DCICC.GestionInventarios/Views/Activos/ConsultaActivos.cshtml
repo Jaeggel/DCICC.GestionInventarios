@@ -16,7 +16,7 @@
     <li><a class="active">@ViewBag.Title</a></li>
 </ul>
 <div class="row">
-    @* Panel para visualizar el contenido de los activos de TI *@
+    @* Panel para visualizar la información de los activos de TI *@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -25,21 +25,21 @@
                         <h3>Consulta de Activos</h3>
                     </div>
                 </div>
-                @* Sección para botones de ingresar nueva categoria y actualizar página *@
+                @*Sección para botones de generar reportes en PDF y Excel*@
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("NuevoCategoriaActivo", "CategoriaActivo")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                    <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br>
                 <div class="form-horizontal form-label-left input_mask">
-
+                    @*Sección de filtros de búsqueda para realizar la consulta*@
                     <div class="form-group">
-                        @* Combobox para seleccionar el tipo de activo *@
+                        @*Combobox para seleccionar la categoría de activo*@
                         <div class="col-md-4 col-sm-12 col-xs-12">
-                            <label>Filtro por Categoría</label>
+                            <label>Filtro por Categoría:</label>
                             <select class="form-control">
                                 <option>Seleccionar</option>
                                 <option>Option one</option>
@@ -48,8 +48,9 @@
                                 <option>Option four</option>
                             </select>
                         </div>
+                        @*Combobox para seleccionar el tipo de activo*@
                         <div class="col-md-4 col-sm-12 col-xs-12">
-                            <label>Filtro por Tipo</label>
+                            <label>Filtro por Tipo:</label>
                             <select class="form-control">
                                 <option>Seleccionar</option>
                                 <option>Option one</option>
@@ -58,8 +59,9 @@
                                 <option>Option four</option>
                             </select>
                         </div>
+                        @*Combobox para seleccionar la marca del activo*@
                         <div class="col-md-4 col-sm-12 col-xs-12">
-                            <label>Filtro por Marca</label>
+                            <label>Filtro por Marca:</label>
                             <select class="form-control">
                                 <option>Seleccionar</option>
                                 <option>Option one</option>
@@ -106,7 +108,6 @@
 
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

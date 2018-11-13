@@ -9,16 +9,22 @@ namespace DCICC.GestionInventarios.Models
     {
         public int IdActivo { get; set; }
 
+        //Tipo de Activo
         public int IdTipoActivo { get; set; }
+
         public string NombreTipoActivo { get; set; }
 
-        public int IdCQR { get; set; }
+        //Laboratorio
+        public int IdLaboratorio { get; set; }
 
+        public string NombreLaboratorio { get; set; }
+        
+        //Marca
         public int IdMarca { get; set; }
+
         public string NombreMarca { get; set; }
 
-        public int IdLaboratorio { get; set; }
-        public string NombreLaboratorio { get; set; }
+        public int IdCQR { get; set; }       
 
         public string NombreActivo { get; set; }
 

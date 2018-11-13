@@ -1,4 +1,8 @@
-﻿#particles {
+﻿/*Sistema de Gestión de inventarios y ticketing para soporte Técnico
+Autores: Andres Chisaguano - Joel Ludeña
+Descripción: Archivo que tendrá los estilos que se utilizará en toda la aplicación*/
+
+#particles {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -8,4 +12,10 @@
     right: 0;
     position: absolute;
     z-index: -2;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
 }

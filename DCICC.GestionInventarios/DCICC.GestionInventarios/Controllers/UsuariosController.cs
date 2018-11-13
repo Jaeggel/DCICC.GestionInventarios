@@ -27,7 +27,7 @@ namespace DCICC.GestionInventarios.Controllers
         }
 
         /// <summary>
-        /// Método (GET) para mostrar la vista Perfil
+        /// Método (GET) para mostrar la vista PerfilUsuario
         /// </summary>
         /// <returns></returns>
         public ActionResult PerfilUsuario()

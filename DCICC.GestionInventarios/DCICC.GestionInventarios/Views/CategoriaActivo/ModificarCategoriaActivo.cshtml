@@ -16,7 +16,6 @@
     <li><a>Activos de TI</a></li>
     <li><a class="active">@ViewBag.Title</a></li>
 </ul>
-
 <div class="row">
     @* Panel para mostrar la tabla de modificación de categoria de activos *@
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -24,7 +23,7 @@
             <div class="x_title">
                 <div class="x-content">
                     <div class="col-md-6 col-sm-12 col-xs-12 ">
-                        <h3>Listado de Categoría de Activos</h3>
+                        <h3>Listado de Categorías de Activos</h3>
                     </div>
                 </div>
                 @* Sección para botones de ingresar nueva categoria y actualizar página *@
@@ -39,7 +38,6 @@
                 @* Sección para la tabla de modificación mediante js *@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group ">
-
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -55,15 +53,15 @@
                                     <th scope="row">1</th>
                                     <td>Mark</td>
                                     <td>Otto</td>
-
                                     <td>
                                         <a href="#" data-toggle="modal" data-target="#Modificar" class="btn btn-round btn-info">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#Modificar" class="btn btn-round btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#" class="btn btn-round btn-danger">
                                             <i class="fa  fa-times"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -76,8 +74,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#Modificar" class="btn btn-round btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#" class="btn btn-round btn-danger">
                                             <i class="fa  fa-times"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -90,25 +89,24 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#Modificar" class="btn btn-round btn-danger">
+                                        <a href="#" data-toggle="modal" data-target="#" class="btn btn-round btn-danger">
                                             <i class="fa  fa-times"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-
                         <div id="tablaModificarCategoriaActivos">
 
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL DE DONACIONES -->
+@* Modal de modificación de categorías de activos *@
 <div class="modal fade" id="Modificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -121,44 +119,41 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        
-                            <div class="x_content">
-                                <br>
-                                @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
-                (Metodo de la clase) - Controlador (Controller) *@
-                                @using (Html.BeginForm("NuevoCategoriaActivo", "CategoriaActivo"))
-                                {
-                                    <div class="form-horizontal form-label-left input_mask">
-                                        @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
-                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la categoría de activo" maxlength="50" required>
-                                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                        @* Área de Texto para el ingreso de la descripción de una categoría de activo *@
-                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <textarea name="DescripcionCategoriaActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Categoría de activo" maxlength="150"></textarea>
-                                            <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                        @* Checkbox para habilitar o deshabilitar el uso de la nueva categoría de activo *@
-                                        <div class="form-group">
-                                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Categoría de Activo?</label>
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <input name="HabilitadoCategoriaActivo" type="checkbox" class="js-switch" checked />
-                                            </div>
-
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        @* Sección de botones para guardar marca o cancelar el registro *@
-                                        <div class="form-group text-center">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <button type="submit" class="btn btn-success">Modificar</button>
-                                                <button type="button" class="btn btn-primary">Cancelar</button>
-                                            </div>
+                        <div class="x_content">
+                            <br>
+                            @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            @using (Html.BeginForm("NuevoCategoriaActivo", "CategoriaActivo"))
+                            {
+                                <div class="form-horizontal form-label-left input_mask">
+                                    @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo" maxlength="50" required>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Área de Texto para el ingreso de la descripción de una categoría de activo *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea name="DescripcionCategoriaActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Categoría de Activo" maxlength="150"></textarea>
+                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Checkbox para habilitar o deshabilitar el uso de la nueva categoría de activo *@
+                                    <div class="form-group">
+                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Categoría de Activo?</label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input name="HabilitadoCategoriaActivo" type="checkbox" class="js-switch" checked />
                                         </div>
                                     </div>
-                                }
-                            </div>
-                        
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar marca o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success">Modificar</button>
+                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

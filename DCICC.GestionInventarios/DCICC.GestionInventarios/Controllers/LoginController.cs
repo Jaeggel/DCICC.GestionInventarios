@@ -21,6 +21,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista Login.
         /// </summary>

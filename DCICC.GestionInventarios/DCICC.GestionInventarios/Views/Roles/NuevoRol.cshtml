@@ -10,6 +10,7 @@
 }
 @model DCICC.GestionInventarios.Models.Roles
 
+@* Sección para la navegación entre pestañas*@
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
     <li><a href="@Url.Action("ModificarRol", "Roles")">@ViewBag.Title </a></li>
@@ -27,7 +28,7 @@
             </div>
             <div class="x_content">
                 <br>
-                @* Formulario para envio de datos de los componentes para el ingreso de una nuevo rol
+                @* Formulario para envio de datos de los componentes para el ingreso de un nuevo rol
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoRol", "Roles"))
                 {
@@ -37,6 +38,7 @@
                             <input type="text" class="form-control has-feedback-left" name="NombreRol" placeholder="Nombre del Rol" maxlength="30" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
+                        @* Sección para seleccionar los permisos sobre las tablas que tendrá el rol de usuario.*@
                         <div class="form-group">
                             <label class="col-md-12 col-sm-12 col-xs-12">Escoja permisos para tablas: </label>
                         </div>

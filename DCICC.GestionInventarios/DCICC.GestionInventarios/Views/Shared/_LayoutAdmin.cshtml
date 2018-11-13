@@ -43,8 +43,8 @@
                                 </li>
                                 <li>
                                     <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
-                                    
-                                    <ul class="nav child_menu">                                
+
+                                    <ul class="nav child_menu">
                                         @* Seccción de enlaces a ingreso de nueva categoria de activo o a modificación de categoria de activo *@
                                         <li><a href="@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")">Categoría de Activos</a></li>
                                         @* Seccción de enlaces a ingreso de nuevo tipo de activo o a modificación de tipo de activo *@
@@ -68,12 +68,13 @@
                                     </ul>
                                 </li>
                                 @*<li>
-                                    Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller) 
+                                    Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)
                                     <a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="@Url.Action("ReporteActivos", "Activos")">Generación de Reportes</a></li>
                                     </ul>
                                 </li>*@
+                                @* Seccción de enlaces a Máquinas Virtuales y Sistemas Operativos *@
                                 <li>
                                     <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
@@ -100,17 +101,17 @@
                         <div class="menu_section">
                             <h3>Administración</h3>
                             <ul class="nav side-menu">
-                                @* Seccción de enlaces a ingreso de nuevo Usuario  o a modificación de Usuarios *@
+                                @* Sección de enlaces a ingreso de nuevo Usuario  o a modificación de Usuarios *@
                                 <li>
                                     @* Enlace al método ModificarUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
                                     <a href="@Url.Action("ModificarUsuario", "Usuarios")"><i class="fa fa-user"></i> Usuarios</a>
                                 </li>
-                                @* Seccción de enlaces a ingreso de nuevo Rol  o a modificación de Roles *@
+                                @* Sección de enlaces a ingreso de nuevo Rol  o a modificación de Roles *@
                                 <li>
                                     @* Enlace al método ModificarRol (Metodo de la clase) del Controlador Roles(Controller) *@
                                     <a href="@Url.Action("ModificarRol", "Roles")"><i class="fa fa-users"></i> Roles</a>
                                 </li>
-                                @* Seccción de enlaces para visualización de Logs *@
+                                @* Sección de enlaces para visualización de Logs *@
                                 <li>
                                     @* Enlace al método Logs (Metodo de la clase) del Controlador Los(Controller) *@
                                     <a href="@Url.Action("Logs", "Logs")"><i class="fa fa-archive"></i> Logs</a>
@@ -135,6 +136,7 @@
                                     <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.UsuarioLogin
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
+                                @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="@Url.Action("PerfilUsuario", "Usuarios")"> Perfil</a></li>
                                     <li><a href="">Ayuda</a></li>

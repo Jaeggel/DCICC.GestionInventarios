@@ -34,7 +34,6 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/moment/min/moment.min.js",
                         "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
                         "~/Scripts/pnotify.custom.min.js",
-                        //"~/Scripts/notify.min.js",
                         "~/Content/Tema/build/js/custom.js",
                         "~/Scripts/Site.js"));
 

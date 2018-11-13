@@ -17,6 +17,7 @@ namespace DCICC.GestionInventarios.Filtros
         {
             opcion_Menu=menu;
         }
+
         /// <summary>
         /// Método para definir el ViewBag.Menu que será utilizado en todas las vistas de la aplicación.
         /// </summary>
