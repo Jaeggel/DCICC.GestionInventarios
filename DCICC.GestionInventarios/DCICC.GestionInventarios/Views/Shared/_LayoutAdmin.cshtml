@@ -32,14 +32,12 @@
                     <div class="clearfix"></div>
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
-                        <div class="profile_pic">
-                            @* Enlace al método PerfilUsuario (Metodo de la clase) del Controlador Usuarios (Controller) *@
-                            <a href="@Url.Action("PerfilUsuario", "Usuarios")"><img src="~/Content/Tema/images/user.png" class="img-circle profile_img"></a>
-                        </div>
-                        <div class="profile_info">
-                            <span>Bienvenido,</span>
-                            @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                            <h2>@ViewBag.UsuarioLogin</h2>
+                        <div class="x_content">
+                            <div class="profile_info">
+                                <span>Bienvenido,</span>
+                                @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
+                                <h2>@ViewBag.UsuarioLogin</h2>
+                            </div>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->

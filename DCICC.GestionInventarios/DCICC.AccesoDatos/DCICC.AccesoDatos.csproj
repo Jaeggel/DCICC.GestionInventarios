@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="InsercionesBD\" />
+    <Folder Include="ActualizacionesBD\" />
+    <Folder Include="EliminacionesBD\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="4.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DCICC.Entidades\DCICC.Entidades.csproj" />
+    <ProjectReference Include="..\DCICC.Seguridad\DCICC.Seguridad.csproj" />
+  </ItemGroup>
+
+</Project>

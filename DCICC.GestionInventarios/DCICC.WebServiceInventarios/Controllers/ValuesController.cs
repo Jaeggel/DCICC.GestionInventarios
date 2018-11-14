@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DCICC.AccesoDatos.ConsultasBD;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -14,6 +15,8 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            ConsultasUsuarios bd = new ConsultasUsuarios();
+            var aux=bd.ObtenerUsuarios();
             return new string[] { "value1", "value2" };
         }
 
@@ -28,12 +31,14 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+
         }
 
         // DELETE api/values/5

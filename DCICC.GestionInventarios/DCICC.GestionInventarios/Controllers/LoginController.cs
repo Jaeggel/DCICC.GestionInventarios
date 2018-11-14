@@ -29,7 +29,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult Login(Login infoLogin)
         {
-            MenuActionFilter.ObtenerMenu("Admin");
+            MenuActionFilter.ObtenerMenu("Usuarios");
             UsuarioActionFilter.ObtenerUsuario(infoLogin.CorreoElectronico);
             Logs.Info("Autenticación Exitosa");
             return RedirectToAction("Index", "Home");
