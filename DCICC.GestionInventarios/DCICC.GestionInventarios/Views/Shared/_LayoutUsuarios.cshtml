@@ -17,15 +17,27 @@
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
+                    @* Sección para mostrar el icono de la Universidad y el título del sistema*@
                     <div class="navbar nav_title" style="border: 0;">
-                        @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
-                        <a href="@Url.Action("Index", "Home")" class="site_title"><i class="fa fa-server"></i> <span>Inventarios</span></a>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
+                                    <a href="@Url.Action("Index", "Home")"><img src="~/Content/Images/LogoUPSCircular.png" height="60" width="60"></a>
+                                </div>
+                                <div class="col-md-9">
+                                    @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
+                                    <a href="@Url.Action("Index", "Home")" class="site_title"><span>Inventarios</span></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="~/Content/Tema/images/user.png" class="img-circle profile_img">
+                            @* Enlace al método PerfilUsuario (Metodo de la clase) del Controlador Usuarios (Controller) *@
+                            <a href="@Url.Action("PerfilUsuario", "Usuarios")"><img src="~/Content/Tema/images/user.png" class="img-circle profile_img"></a>
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
@@ -70,12 +82,12 @@
                                     </ul>
                                 </li>
                                 @*<li>
-                                    <a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)
-                                        <li><a href="@Url.Action("ReporteActivo", "Activos")">Generación de Reportes</a></li>
-                                    </ul>
-                                </li>*@
+                        <a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)
+                            <li><a href="@Url.Action("ReporteActivo", "Activos")">Generación de Reportes</a></li>
+                        </ul>
+                    </li>*@
                                 @* Sección de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
                                 <li>
                                     <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
