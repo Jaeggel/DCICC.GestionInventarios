@@ -15,14 +15,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
         //Instancia para la utilización de LOGS en la clase RolesAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Constructor para iniciar la comunicación con los métodos del WebService
-        /// </summary>
-        /// <param name="infoLogin"></param>
-        public RolesAccDatos(Login infoLogin)
-        {
-            ComunicacionServicio objComunicacionServ = new ComunicacionServicio(infoLogin);
-        }
-        /// <summary>
         /// Método para obtener una lista con los roles habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>

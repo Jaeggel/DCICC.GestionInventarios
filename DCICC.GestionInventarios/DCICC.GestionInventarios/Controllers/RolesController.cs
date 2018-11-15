@@ -1,4 +1,5 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.UsuariosBD;
+using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,15 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult NuevoRol(Roles infoRol)
         {
             return RedirectToAction("ModificarRol", "Roles");
+        }
+        /// <summary>
+        /// Método para obtener los roles habilitados de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerRolesHab()
+        {
+            RolesAccDatos objRolesAccDatos = new RolesAccDatos();
+            return Json(objRolesAccDatos.ObtenerRolesHab(), JsonRequestBehavior.AllowGet);
         }
     }
 }
