@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DCICC.AccesoDatos.ConsultasBD;
+using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,21 @@ namespace DCICC.WebServiceInventarios.Controllers
             {
                 Logs.Error("No se pudo obtener la lista de los usuarios: "+e.Message);
                 return null;
+            }
+        }
+        [HttpPost("RegistrarUsuario")]
+        public Boolean RegistrarUsuario([FromBody] Usuarios infoUsuario)
+        {
+            try
+            {
+                InsercionesUsuarios objInsercionesUsuariosBD = new InsercionesUsuarios();
+                objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo registrar el usuario: " + e.Message);
+                return false;
             }
         }
     }

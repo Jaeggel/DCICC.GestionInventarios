@@ -17,10 +17,6 @@
 </div>
 <script type="text/javascript">
     window.onload = function () {
-        var alerted = localStorage.getItem('alerted') || '';
-            if (alerted != 'ok') {
-            showNotify("Autenticación Exitosa", "Bienvenido/a @ViewBag.UsuarioLogin", "success");
-            localStorage.setItem('alerted','ok');
-        }
+        showNotify("Autenticación Exitosa", "Bienvenido/a @ViewBag.UsuarioLogin", "success");
     }
 </script>
