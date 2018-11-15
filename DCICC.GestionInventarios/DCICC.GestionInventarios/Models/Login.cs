@@ -9,6 +9,6 @@ namespace DCICC.GestionInventarios.Models
     {
         public string NickUsuario { get; set; }
 
-        public string Password{ get; set; }
+        public string PasswordUsuario{ get; set; }
     }
 }

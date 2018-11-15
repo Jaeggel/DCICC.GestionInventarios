@@ -1,5 +1,6 @@
 ﻿using DCICC.GestionInventarios.Models;
 using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -40,8 +41,8 @@ namespace DCICC.GestionInventarios.AccesoDatos
                 httpWebRequest.Method = "POST";
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    string json= "{\"NickUsuario\": \""+infoLogin.NickUsuario+"\",\"PasswordUsuario\":\"" + infoLogin.Password + "\"}";
-                    streamWriter.Write(json);
+                    string jsonInfoLogin = JsonConvert.SerializeObject(infoLogin);
+                    streamWriter.Write(jsonInfoLogin);
                     streamWriter.Flush();
                     streamWriter.Close();
                 }

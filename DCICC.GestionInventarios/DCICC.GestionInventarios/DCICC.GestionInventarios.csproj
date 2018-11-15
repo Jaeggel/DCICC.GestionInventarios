@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
+    <Compile Include="AccesoDatos\UsuariosBD\RolesAccDatos.cs" />
     <Compile Include="AccesoDatos\UsuariosBD\UsuariosAccDatos.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
