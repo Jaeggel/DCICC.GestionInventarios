@@ -143,9 +143,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
+    <Compile Include="AccesoDatos\UsuariosBD\UsuariosAccDatos.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Configuration\SessionExpireFilterAttribute.cs" />
     <Compile Include="Controllers\ActivosController.cs" />
     <Compile Include="Controllers\CategoriaActivoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

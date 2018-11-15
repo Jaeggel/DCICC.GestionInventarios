@@ -65,7 +65,7 @@ namespace DCICC.WebServiceInventarios
                             },
                             OnTokenValidated = context =>
                             {
-                                Logs.Error("OnTokenValidated: " + context.SecurityToken);
+                                Logs.Info("OnTokenValidated: " + context.SecurityToken);
                                 return Task.CompletedTask;
                             }
                         };

@@ -20,13 +20,13 @@
                 <img src="~/Content/Images/LogoUps.png" class="center">
                 <section class="login_content">
                     @* Formulario para envio de datos de los componentes para el ingreso del usuario a acceder al sistema
-                    (Metodo de la clase) - Controlador (Controller) *@
+                        (Metodo de la clase) - Controlador (Controller) *@
                     @using (Html.BeginForm("Login", "Login"))
                     {
                         <h1>Inicio de Sesión</h1>
                         @* Cuadro de texto para el ingreso del correo electrónico *@
                         <div>
-                            <input type="text" class="form-control" name="NickUsuario" placeholder="Nick de Usuario" maxlength="15" required/>
+                            <input type="text" class="form-control" name="NickUsuario" placeholder="Nick de Usuario" maxlength="15" required />
                         </div>
                         @* Cuadro de texto para el ingreso de la contraseña *@
                         <div>
@@ -48,3 +48,10 @@
     @Scripts.Render("~/bundles/jquery")
 </body>
 </html>
+<script type="text/javascript">
+    window.onload = function () {
+        if ("@ViewData["MensajeLogin"]"==="true") {
+            showNotify("Error de Autenticación", "Credenciales Incorrectas", "error");
+        }
+    };
+</script>

@@ -1,4 +1,5 @@
-﻿using DCICC.GestionInventarios.Models;
+﻿using DCICC.GestionInventarios.Configuration;
+using DCICC.GestionInventarios.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
 {
+    [SessionExpireFilter]
+    [OutputCache(NoStore = true, Duration = 0)]
     public class UsuariosController : Controller
     {
         /// <summary>
@@ -15,7 +18,14 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoUsuario()
         {
-            return View();
+            if (Session["userInfo"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         /// <summary>
         /// Método (GET) para mostrar la vista ModificarUsuario 
@@ -23,7 +33,14 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarUsuario()
         {
-            return View();
+            if (Session["userInfo"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         /// <summary>
         /// Método (GET) para mostrar la vista PerfilUsuario
@@ -31,7 +48,14 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult PerfilUsuario()
         {
-            return View();
+            if (Session["userInfo"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoUsuario.
