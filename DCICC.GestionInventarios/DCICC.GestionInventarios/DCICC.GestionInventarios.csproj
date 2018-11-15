@@ -154,12 +154,14 @@
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MaqVirtualesController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SistOperativoController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TipoAccesorioController.cs" />
     <Compile Include="Controllers\TipoActivoController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Filtros\CorreoActionFilter.cs" />
     <Compile Include="Filtros\UsuarioActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -4589,6 +4591,7 @@
     <Content Include="Views\Logs\Logs.cshtml" />
     <Content Include="Views\Activos\ConsultaActivos.cshtml" />
     <Content Include="Views\Usuarios\PerfilUsuario.cshtml" />
+    <Content Include="Views\Reportes\Reportes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

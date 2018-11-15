@@ -29,8 +29,9 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult Login(Login infoLogin)
         {
-            MenuActionFilter.ObtenerMenu("Usuarios");
-            UsuarioActionFilter.ObtenerUsuario(infoLogin.CorreoElectronico);
+            MenuActionFilter.ObtenerMenu("Admin");
+            UsuarioActionFilter.ObtenerUsuario(infoLogin.NickUsuario);
+            CorreoActionFilter.ObtenerCorreo("admin@ups.edu.ec");
             Logs.Info("Autenticación Exitosa");
             return RedirectToAction("Index", "Home");
         }

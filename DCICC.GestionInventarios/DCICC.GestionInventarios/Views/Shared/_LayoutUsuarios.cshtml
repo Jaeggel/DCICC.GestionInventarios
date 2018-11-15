@@ -37,7 +37,8 @@
                     <div class="profile clearfix">
                         <div class="x_content">
                             <div class="profile_info">
-                                <span>Bienvenido,</span>
+                                @* ViewBag proveniente del Controloador Login, en el mismo se muestra el correo electrónico del usuario actual *@
+                                <span>@ViewBag.Correo</span>
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
                                 <h2>@ViewBag.UsuarioLogin</h2>
                             </div>
@@ -79,13 +80,6 @@
                                         <li><a href="@Url.Action("ConsultaActivos", "Activos")">Consultar/Modificar Activos</a></li>
                                     </ul>
                                 </li>
-                                @*<li>
-                                        <a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)
-                                            <li><a href="@Url.Action("ReporteActivo", "Activos")">Generación de Reportes</a></li>
-                                        </ul>
-                                    </li>*@
                                 @* Sección de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
                                 <li>
                                     <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
@@ -108,6 +102,10 @@
                                         @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
                                         <li><a href="@Url.Action("GestionTickets", "Tickets")">Gestión de Tickets</a></li>
                                     </ul>
+                                </li>
+                                <li>
+                                    @*Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)*@
+                                    <a href="@Url.Action("Reportes", "Reportes")"><i class="fa fa-bar-chart-o"></i> Reportes</a>
                                 </li>
                             </ul>
                         </div>

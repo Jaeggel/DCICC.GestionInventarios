@@ -17,7 +17,6 @@ namespace DCICC.GestionInventarios.Filtros
         {
             usuario_Login = usuario;
         }
-
         /// <summary>
         /// Método para definir el ViewBag.UsuarioLogin que será utilizado en todas las vistas de la aplicación.
         /// </summary>

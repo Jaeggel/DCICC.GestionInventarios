@@ -9,6 +9,11 @@ namespace DCICC.GestionInventarios.Models
     {
         public int IdActivo { get; set; }
 
+        //Categoría de Activo
+        public int IdCategoriaActivo { get; set; }
+
+        public string NombreCategoriaActivo { get; set; }
+
         //Tipo de Activo
         public int IdTipoActivo { get; set; }
 

@@ -7,7 +7,7 @@ namespace DCICC.GestionInventarios.Models
 {
     public class Login
     {
-        public string CorreoElectronico { get; set; }
+        public string NickUsuario { get; set; }
 
         public string Password{ get; set; }
     }
