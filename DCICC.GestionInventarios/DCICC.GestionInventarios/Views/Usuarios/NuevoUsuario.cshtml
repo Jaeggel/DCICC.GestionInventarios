@@ -37,13 +37,7 @@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-9 col-xs-12">
                                 <label>Escoja rol de usuario:</label>
-                                <select class="form-control" name="NombreRol">
-                                    <option value="">Escoga una opción...</option>
-                                    <option id="cargarRoles">
-
-                                    </option>
-                                </select>
-                                
+                                <div id="cargarRoles"></div>              
                             </div>
                         </div>
                         @* Cuadro de texto para el ingreso del nombre completo del usuario*@
@@ -105,3 +99,11 @@
 </div>
 
 <script src="~/Scripts/ScriptsInventarios/nuevoUsuario.js"></script>
+<script>
+    $(document).ready(function () {
+
+        obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")');
+
+    });
+
+</script>
