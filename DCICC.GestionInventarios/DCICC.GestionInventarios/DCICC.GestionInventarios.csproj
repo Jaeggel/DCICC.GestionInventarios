@@ -4542,6 +4542,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\ScriptsInventarios\nuevoUsuario.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
@@ -4599,7 +4600,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Tema\vendors\google-code-prettify\bin\" />
-    <Folder Include="Scripts\ScriptsInventarios\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
