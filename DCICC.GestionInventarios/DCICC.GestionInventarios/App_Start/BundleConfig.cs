@@ -9,7 +9,7 @@ namespace DCICC.GestionInventarios
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Content/Tema/vendors/jquery/dist/jquery.min.js",
+                        //"~/Content/Tema/vendors/jquery/dist/jquery.min.js",
                         "~/Content/Tema/vendors/bootstrap/dist/js/bootstrap.min.js",
                         "~/Content/Tema/vendors/fastclick/lib/fastclick.js",
                         "~/Content/Tema/vendors/nprogress/nprogress.js",

@@ -50,5 +50,27 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
                 return null;
             }
         }
+        public Boolean RegistrarUsuario(Usuarios infoUsuario)
+        {
+            Boolean banderaComprobacion=false;
+            //try
+            //{
+            //    using (var client = new HttpClient())
+            //    {
+            //        client.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+            //        var response = client.PostAsJsonAsync("EscuelaFut/EstudiantesEscuelaFutbol/Estudiantes/RegistroEstudiantes", estudiante).Result;
+            //        if (response.IsSuccessStatusCode)
+            //        {
+            //            banderaComprobacion = true;
+            //        }
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logs.Error("Error en el registro de un nuevo usuario: " + e.Message);
+            //    banderaComprobacion = false;
+            //}
+            return banderaComprobacion;
+        }
     }
 }

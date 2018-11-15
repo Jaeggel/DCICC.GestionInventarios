@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -55,6 +56,7 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             MenuActionFilter.ObtenerMenu("Usuarios");
                         }
+                        //var aux = GetUserIP();
                         int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
                         Session["userInfo"] = infoLogin.NickUsuario;
                         Session.Timeout = tiempoExpiracionMin;
@@ -86,7 +88,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoLogin);
-                var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosComp().Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.Password);
+                var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosComp().Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
                 if (datosUsuario != null)
                 {
                     return datosUsuario;
@@ -110,6 +112,19 @@ namespace DCICC.GestionInventarios.Controllers
             Session.Clear();
             Session.RemoveAll();
             return RedirectToAction("Login", "Login");
+        }
+        /// <summary>
+        /// Método para obtener la IP del cliente que accede al sistema.
+        /// </summary>
+        /// <returns></returns>
+        private string ObtenerIPCliente()
+        {
+            string ipList = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (!string.IsNullOrEmpty(ipList))
+            {
+                return ipList.Split(',')[0];
+            }
+            return Request.ServerVariables["REMOTE_ADDR"];
         }
     }
 }
