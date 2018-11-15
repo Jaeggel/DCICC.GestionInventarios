@@ -60,7 +60,6 @@ namespace DCICC.GestionInventarios.Controllers
                         Session.Timeout = tiempoExpiracionMin;
                         UsuarioActionFilter.ObtenerUsuario(datosUsuario.NombresUsuario);
                         CorreoActionFilter.ObtenerCorreo(datosUsuario.CorreoUsuario);
-                        ViewData["MensajeHome"] = "run";
                         Logs.Info("Autenticación Exitosa");
                     }
                     else
