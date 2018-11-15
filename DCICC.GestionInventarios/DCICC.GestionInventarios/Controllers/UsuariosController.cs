@@ -1,5 +1,7 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.UsuariosBD;
+using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,8 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0)]
     public class UsuariosController : Controller
     {
+        //Instancia para la utilización de LOGS en la clase Usuarios
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoUsuario
         /// </summary>
@@ -65,7 +69,17 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoUsuario(Usuarios infoUsuario)
         {
-            return RedirectToAction("ModificarUsuario", "Usuarios");
+            try
+            {
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
+                objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
+                return RedirectToAction("ModificarUsuario", "Usuarios");
+            }
+            catch(Exception e)
+            {
+                Logs.Error("Error en el registro de nuevo usuario: "+e.Message);
+                return View();
+            }
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
