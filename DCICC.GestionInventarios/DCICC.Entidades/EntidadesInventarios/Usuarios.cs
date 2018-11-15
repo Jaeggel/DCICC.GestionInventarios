@@ -8,6 +8,8 @@ namespace DCICC.Entidades.EntidadesInventarios
     {
         public int IdUsuario { get; set; }
 
+        public string NombreRol{ get; set; }
+
         public int IdRol { get; set; }
 
         public string NombresUsuario { get; set; }

@@ -89,7 +89,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 LoginAccDatos objLoginAccDatos = new LoginAccDatos(infoLogin);
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosComp().Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                var datosUsuario = objUsuariosAccDatos.ObtenerUsuarios("Comp").Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
                 if (datosUsuario != null)
                 {
                     return datosUsuario;

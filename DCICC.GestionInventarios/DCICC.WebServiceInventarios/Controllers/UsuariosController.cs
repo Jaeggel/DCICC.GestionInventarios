@@ -28,7 +28,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                return objConsultasUsuariosBD.ObtenerUsuariosComp();
+                return objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
             }
             catch(Exception e)
             {
@@ -36,6 +36,47 @@ namespace DCICC.WebServiceInventarios.Controllers
                 return null;
             }
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de todos los usuarios habilitados de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerUsuariosHab")]
+        public List<Usuarios> ObtenerUsuariosHab()
+        {
+            try
+            {
+                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+                return objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message);
+                return null;
+            }
+        }
+        /// <summary>
+        /// Método (GET) para obtener una lista de la función usuariosroles de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerUsuariosRoles")]
+        public List<Usuarios> ObtenerUsuariosRoles()
+        {
+            try
+            {
+                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+                return objConsultasUsuariosBD.ObtenerUsuariosRoles();
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message);
+                return null;
+            }
+        }
+        /// <summary>
+        /// Método (POST) para registrar un nuevo usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
         [HttpPost("RegistrarUsuario")]
         public Boolean RegistrarUsuario([FromBody] Usuarios infoUsuario)
         {

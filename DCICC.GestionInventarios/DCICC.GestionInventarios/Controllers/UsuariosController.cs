@@ -100,5 +100,14 @@ namespace DCICC.GestionInventarios.Controllers
         {
             return RedirectToAction("PerfilUsuario", "Usuarios");
         }
+        /// <summary>
+        /// Método para obtener los los usuariso con su rol de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerUsuariosRoles()
+        {
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos();
+            return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

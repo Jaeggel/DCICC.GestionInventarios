@@ -31,7 +31,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                 {
                     Configuration.ConfigSeguridad confServ = new Configuration.ConfigSeguridad();
                     ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
-                    if (objConUsuarios.ObtenerUsuariosComp().Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
+                    if (objConUsuarios.ObtenerUsuarios("Comp").Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
                     {
                         token = new JwtTokenBuilder()
                                  .AddSecurityKey(JwtSecurityKey.Create("DCICC.Inventarios.Secret.Key"))
