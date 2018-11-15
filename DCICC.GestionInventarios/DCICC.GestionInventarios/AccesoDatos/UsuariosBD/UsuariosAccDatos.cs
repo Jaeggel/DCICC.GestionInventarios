@@ -55,7 +55,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
                 var response = clientService.PostAsJsonAsync("Usuarios/RegistrarUsuario", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    banderaComprobacion = true;
+                    var usersJson = response.Content.ReadAsStringAsync().Result;
+                    banderaComprobacion = Boolean.Parse(usersJson.ToString());
                 }
             }
             catch (Exception e)

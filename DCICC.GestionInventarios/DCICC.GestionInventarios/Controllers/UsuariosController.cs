@@ -69,10 +69,19 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoUsuario(Usuarios infoUsuario)
         {
+            string mensajes_Usuarios = string.Empty;
             try
             {
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
+                if(objUsuariosAccDatos.RegistrarUsuario(infoUsuario))
+                {
+                    TempData["Mensaje"] = "caca";
+                    Logs.Info(mensajes_Usuarios);
+                }
+                else
+                {
+                    TempData["MensajeError"] = "nope";
+                }
                 return RedirectToAction("ModificarUsuario", "Usuarios");
             }
             catch(Exception e)

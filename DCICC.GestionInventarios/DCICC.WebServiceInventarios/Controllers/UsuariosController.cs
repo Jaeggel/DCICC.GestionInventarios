@@ -42,8 +42,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 InsercionesUsuarios objInsercionesUsuariosBD = new InsercionesUsuarios();
-                objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
-                return true;
+                return objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
             }
             catch (Exception e)
             {

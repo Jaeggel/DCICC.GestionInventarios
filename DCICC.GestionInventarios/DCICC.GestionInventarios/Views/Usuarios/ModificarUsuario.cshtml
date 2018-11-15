@@ -75,4 +75,21 @@
     </div>
 </div>
 
-
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            //Html.Raw(Json.Encode(TempData["message"]
+            showNotify("asfasfsa", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            //Html.Raw(Json.Encode(TempData["message"]
+            showNotify("asfasfsa", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}

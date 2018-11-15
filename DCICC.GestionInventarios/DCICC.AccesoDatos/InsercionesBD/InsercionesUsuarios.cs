@@ -40,7 +40,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 }
                 conn_BD.Close();
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return false;
             }
