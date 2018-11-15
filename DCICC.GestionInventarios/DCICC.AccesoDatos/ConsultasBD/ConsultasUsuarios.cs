@@ -22,7 +22,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
         /// Método para obtener todos los usuarios de la base de datos.
         /// </summary>
         /// <returns></returns>
-        public List<Usuarios> ObtenerUsuarios()
+        public List<Usuarios> ObtenerUsuariosComp()
         {
             List<Usuarios> lstUsuarios = new List<Usuarios>();
             try

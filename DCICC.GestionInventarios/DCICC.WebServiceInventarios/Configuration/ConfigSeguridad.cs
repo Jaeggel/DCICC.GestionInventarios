@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using log4net;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,8 @@ namespace DCICC.WebServiceInventarios.Configuration
 {
     public class ConfigSeguridad
     {
+        //Instancia para la utilización de LOGS en la clase ConfigSeguridad
+        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ConfigurationBuilder configuration_Builder = new ConfigurationBuilder();
         string path_ArchivoConfig = string.Empty;
         IConfigurationRoot root_Config;
@@ -33,8 +36,9 @@ namespace DCICC.WebServiceInventarios.Configuration
             {
                 llaveEncriptacion = root_Config.GetConnectionString("EncryptionKey");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logs.Error("No se pudo obtener el EncriptionKey del archivo de configuración: "+e.Message);
                 llaveEncriptacion = null;
             }
             return llaveEncriptacion;
@@ -51,15 +55,16 @@ namespace DCICC.WebServiceInventarios.Configuration
         /// Método para obtener el tiempo en minutos en el cual expirará el Token de petición desde el archivo de configuración appsettings.json.
         /// </summary>
         /// <returns></returns>
-        public int getTimeExpToken()
+        public int ObtenerTimeExpToken()
         {
             int time = 0;
             try
             {
                 time = Convert.ToInt32(root_Config.GetConnectionString("ExpirationTimeToken"));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logs.Error("No se pudo obtener el ExpirationTimeToken del archivo de configuración: " + e.Message);
                 time = 0;
             }
             return time;

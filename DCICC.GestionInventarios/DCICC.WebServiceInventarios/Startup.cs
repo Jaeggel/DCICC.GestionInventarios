@@ -6,6 +6,7 @@ using DCICC.AccesoDatos;
 using DCICC.Seguridad.Encryption;
 using DCICC.Seguridad.TokensJWT;
 using DCICC.WebServiceInventarios.Configuration;
+using log4net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,8 @@ namespace DCICC.WebServiceInventarios
 {
     public class Startup
     {
+        //Instancia para la utilización de LOGS en la clase Startup
+        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Constructor para inicializar el Web Service, en donde de paso se inicializa la llave de encriptación para sus métodos.
         /// </summary>
@@ -57,12 +60,12 @@ namespace DCICC.WebServiceInventarios
                         {
                             OnAuthenticationFailed = context =>
                             {
-                                //Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+                                Logs.Error("OnAuthenticationFailed: " + context.Exception.Message);
                                 return Task.CompletedTask;
                             },
                             OnTokenValidated = context =>
                             {
-                                //Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+                                Logs.Error("OnTokenValidated: " + context.SecurityToken);
                                 return Task.CompletedTask;
                             }
                         };
@@ -76,7 +79,7 @@ namespace DCICC.WebServiceInventarios
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DCICC.Seguridad.Encryption;
 using Microsoft.AspNetCore.Authorization;
+using log4net;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
@@ -13,6 +14,8 @@ namespace DCICC.WebServiceInventarios.Controllers
     [Route("Encriptacion")]
     public class EncriptacionController : Controller
     {
+        //Instancia para la utilización de LOGS en la clase EncriptacionController
+        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (Post) que encripta la cadena recibida.
         /// </summary>
@@ -21,7 +24,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("Encriptar")]
         public string Encriptar([FromBody] String valorSinEncriptar)
         {
-            return ConfigEncryption.EncriptarValor(valorSinEncriptar);
+            try
+            {
+                return ConfigEncryption.EncriptarValor(valorSinEncriptar);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo encriptar la cadena: " + e.Message);
+                return null;
+            }
         }
         /// <summary>
         /// Método (Post) que desencripta la cadena recibida.
@@ -31,7 +42,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("Desencriptar")]
         public string Desencriptar([FromBody] String valorEncriptado)
         {
-            return ConfigEncryption.DesencriptarValor(valorEncriptado);
+            try
+            {
+                return ConfigEncryption.DesencriptarValor(valorEncriptado);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo desencriptar la cadena: " + e.Message);
+                return null;
+            }
         }
     }
 }

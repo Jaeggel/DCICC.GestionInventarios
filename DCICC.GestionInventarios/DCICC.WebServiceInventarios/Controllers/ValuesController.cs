@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DCICC.AccesoDatos.ConsultasBD;
+using log4net;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -11,12 +12,13 @@ namespace DCICC.WebServiceInventarios.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        //Instancia para la utilización de LOGS en la clase Values
+        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            ConsultasUsuarios bd = new ConsultasUsuarios();
-            var aux=bd.ObtenerUsuarios();
+            Logs.Info("Autenticación Exitosa asp core 2.0");
             return new string[] { "value1", "value2" };
         }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Seguridad.TokensJWT;
+using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,8 @@ namespace DCICC.WebServiceInventarios.Controllers
     [AllowAnonymous]
     public class TokenController : Controller
     {
+        //Instancia para la utilización de LOGS en la clase TokenController
+        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
         /// </summary>
@@ -28,7 +31,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                 {
                     Configuration.ConfigSeguridad confServ = new Configuration.ConfigSeguridad();
                     ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
-                    if (objConUsuarios.ObtenerUsuarios().Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
+                    if (objConUsuarios.ObtenerUsuariosComp().Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
                     {
                         token = new JwtTokenBuilder()
                                  .AddSecurityKey(JwtSecurityKey.Create("DCICC.Inventarios.Secret.Key"))
@@ -36,13 +39,14 @@ namespace DCICC.WebServiceInventarios.Controllers
                                  .AddIssuer("DCICC.Inventarios.Seguridad.Bearer")
                                  .AddAudience("DCICC.Inventarios.Seguridad.Bearer")
                                  .AddClaim("DCICC.Inventarios.MemberId", "111")
-                                 .AddExpiry(confServ.getTimeExpToken())
+                                 .AddExpiry(confServ.ObtenerTimeExpToken())
                                  .Build();
                     }
                 }
             }
             catch(Exception e)
             {
+                Logs.Error("No se pudo generar el token de autorización: " + e.Message);
                 return Unauthorized();
             }
             return Ok(token.Value);
