@@ -116,5 +116,13 @@ namespace DCICC.GestionInventarios.Controllers
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos();
             return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener el usuario actual del sistema
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerUsuarioActual()
+        {
+            return Json(Session["userInfo"].ToString(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

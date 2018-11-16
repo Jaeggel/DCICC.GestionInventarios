@@ -29,13 +29,14 @@ namespace DCICC.AccesoDatos.InsercionesBD
             {
                 ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
                 MensajesRoles msjRoles = objConsultasRolesBD.ObtenerRolesHab();
-                if (msjRoles.ListaObjetoInventarios.Find(x => x.IdRol == infoUsuario.IdRol) != null)
+                Roles infoRol = msjRoles.ListaObjetoInventarios.Find(x => x.IdRol == infoUsuario.IdRol);
+                if (infoRol != null)
                 {
                     using (var cmd = new NpgsqlCommand("create user @user with password '@pass' in group @rol", conn_BD))
                     {
                         cmd.Parameters.AddWithValue("user", infoUsuario.NickUsuario);
                         cmd.Parameters.AddWithValue("pass", ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
-                        cmd.Parameters.AddWithValue("rol", msjRoles.ObjetoInventarios.NombreRol);
+                        cmd.Parameters.AddWithValue("rol", infoRol.NombreRol);
                         cmd.ExecuteNonQuery();
                     }
                 }

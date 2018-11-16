@@ -16,7 +16,6 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LoginController : Controller
     {
-        public static Usuarios datos_Usuario = null;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -42,14 +41,15 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult Login(Login infoLogin)
         {
+            Usuarios datosUsuario = null;
             try
             {
                 if (ModelState.IsValid)
                 {
-                     datos_Usuario= ComprobarCredenciales(infoLogin);
-                    if (datos_Usuario != null)
+                     datosUsuario= ComprobarCredenciales(infoLogin);
+                    if (datosUsuario != null)
                     {
-                        if (datos_Usuario.IdRol == 1)
+                        if (datosUsuario.IdRol == 1)
                         {
                             MenuActionFilter.ObtenerMenu("Admin");
                         }
@@ -60,13 +60,13 @@ namespace DCICC.GestionInventarios.Controllers
                         int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
                         Session["userInfo"] = infoLogin.NickUsuario;
                         Session.Timeout = tiempoExpiracionMin;
-                        UsuarioActionFilter.ObtenerUsuario(datos_Usuario.NombresUsuario);
-                        CorreoActionFilter.ObtenerCorreo(datos_Usuario.CorreoUsuario);
+                        UsuarioActionFilter.ObtenerUsuario(datosUsuario.NombresUsuario);
+                        CorreoActionFilter.ObtenerCorreo(datosUsuario.CorreoUsuario);
                         Logs.Info("Autenticación Exitosa");
                         LogsAccDatos objLogsAccDatos = new LogsAccDatos();
                         Logs infoLogs = new Logs
                         {
-                            IdUsuario = datos_Usuario.NickUsuario,
+                            IdUsuario = datosUsuario.NickUsuario,
                             FechaLogs=DateTime.Now,
                             OperacionLogs="Login",
                             TablaLogs= "Acceso a base de datos.",
@@ -143,14 +143,6 @@ namespace DCICC.GestionInventarios.Controllers
                 return ipList.Split(',')[0];
             }
             return Request.ServerVariables["REMOTE_ADDR"];
-        }
-        /// <summary>
-        /// Método para obtener el usuario actual del sistema
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult ObtenerUsuarioActual()
-        {
-            return Json(datos_Usuario, JsonRequestBehavior.AllowGet);
         }
     }
 }
