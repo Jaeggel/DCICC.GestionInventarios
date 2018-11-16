@@ -1,4 +1,5 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,15 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 return View();
             }
+        }
+        /// <summary>
+        /// Método para obtener todos los logs de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerLogsComp()
+        {
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos();
+            return Json(objLogsAccDatos.ObtenerLogsComp().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }

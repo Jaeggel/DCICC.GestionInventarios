@@ -98,6 +98,39 @@ namespace DCICC.GestionInventarios.Controllers
             }
         }
         /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarUsuario.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarUsuario(Usuarios infoUsuario)
+        {
+            string mensajes_Usuarios = string.Empty;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
+                if (msjUsuarios.OperacionExitosa)
+                {
+                    mensajes_Usuarios = "El usuario ha sido actualizado exitosamente.";
+                    TempData["Mensaje"] = mensajes_Usuarios;
+                    Logs.Info(mensajes_Usuarios);
+                }
+                else
+                {
+                    mensajes_Usuarios = "No se ha podido actualizar el usuario: " + msjUsuarios.MensajeError;
+                    TempData["MensajeError"] = mensajes_Usuarios;
+                }
+                return RedirectToAction("ModificarUsuario", "Usuarios");
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajes_Usuarios + ": " + e.Message);
+                return View();
+            }
+        }
+        /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
         /// </summary>
         /// <param name="infoUsuario"></param>

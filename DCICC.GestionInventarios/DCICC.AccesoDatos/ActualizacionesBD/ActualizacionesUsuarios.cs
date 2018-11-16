@@ -1,20 +1,20 @@
-﻿using DCICC.AccesoDatos.ConsultasBD;
-using DCICC.Entidades.EntidadesInventarios;
+﻿using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using DCICC.Seguridad.Encryption;
 using Npgsql;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
-namespace DCICC.AccesoDatos.InsercionesBD
+namespace DCICC.AccesoDatos.ActualizacionesBD
 {
-    public class InsercionesUsuarios
+    public class ActualizacionesUsuarios
     {
         NpgsqlConnection conn_BD = null;
         /// <summary>
         /// Constructor para realizar llamar al método de conexión con la base de datos.
         /// </summary>
-        public InsercionesUsuarios()
+        public ActualizacionesUsuarios()
         {
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
@@ -22,24 +22,20 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// Método para ingresar un nuevo usuario en la base de datos.
         /// </summary>
         /// <returns></returns>
-        public MensajesUsuarios RegistroUsuario(Usuarios infoUsuario)
+        public MensajesUsuarios ActualizacionUsuario(Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-                MensajesRoles msjRoles = objConsultasRolesBD.ObtenerRolesHab();
-                Roles infoRol = msjRoles.ListaObjetoInventarios.Find(x => x.IdRol == infoUsuario.IdRol);
-                if (infoRol != null)
+                using (var cmd = new NpgsqlCommand("update dcicc_usuarios set id_rol= :ir, nombres_usuario = :nu," +
+                    "nick_usuario= :niu, " +
+                    "password_usuario= :pu," +
+                    " correo_usuario= :cu, telefono_usuario= :tu," +
+                    " telefonocelular_usuario= :tcu," +
+                    " direccion_usuario= :du," +
+                    "habilitado_usuario= :hu where id_usuario= :iu", conn_BD))
                 {
-                    string query = "create user " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "' LOGIN CREATEROLE CREATEUSER in group " + infoRol.NombreRol + ";";
-                    using (var cmd = new NpgsqlCommand(query, conn_BD))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                using (var cmd = new NpgsqlCommand("insert into dcicc_usuarios (id_rol,nombres_usuario,nick_usuario,password_usuario,correo_usuario,telefono_usuario,telefonocelular_usuario,direccion_usuario,habilitado_usuario) VALUES (@ir,@nu,@niu,@pu,@cu,@tu,@tcu,@du,@hu)", conn_BD))
-                {
+                    cmd.Parameters.AddWithValue("iu", infoUsuario.IdUsuario);
                     cmd.Parameters.AddWithValue("ir", infoUsuario.IdRol);
                     cmd.Parameters.AddWithValue("nu", infoUsuario.NombresUsuario);
                     cmd.Parameters.AddWithValue("niu", infoUsuario.NickUsuario);
@@ -49,12 +45,13 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
                     cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
                     cmd.Parameters.AddWithValue("hu", infoUsuario.HabilitadoUsuario);
+                    cmd.Prepare();
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();
                 msjUsuarios.OperacionExitosa = true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 msjUsuarios.OperacionExitosa = false;
                 msjUsuarios.MensajeError = e.Message;
