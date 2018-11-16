@@ -48,6 +48,10 @@ namespace DCICC.WebServiceInventarios.Controllers
                         return Unauthorized();
                     }
                 }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             catch(Exception e)
             {

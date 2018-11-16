@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos
                 connBD = new NpgsqlConnection(cadena_Conexion);
                 connBD.Open();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }

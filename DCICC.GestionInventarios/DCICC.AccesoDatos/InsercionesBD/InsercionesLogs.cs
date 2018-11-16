@@ -1,5 +1,7 @@
-﻿using DCICC.Entidades.EntidadesInventarios;
+﻿using DCICC.AccesoDatos.ConsultasBD;
+using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
+using DCICC.Seguridad.Encryption;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -39,6 +41,10 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 }
                 conn_BD.Close();
                 msjLogs.OperacionExitosa = true;
+                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+                MensajesUsuarios msjUsuarios = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+                Usuarios infoUsuario = msjUsuarios.ListaObjetoInventarios.Find(x => x.NickUsuario == infoLog.IdUsuario);
+                ConfigBaseDatos.SetCadenaConexion("Server=localhost;Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
             }
             catch (Exception e)
             {
