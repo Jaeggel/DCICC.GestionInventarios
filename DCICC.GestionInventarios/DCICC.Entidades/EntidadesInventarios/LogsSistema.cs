@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DCICC.Entidades.EntidadesInventarios
 {
-    public class Logs
+    public class LogsSistema
     {
         public int IdLogs { get; set; }
 
@@ -19,5 +19,7 @@ namespace DCICC.Entidades.EntidadesInventarios
         public string ValorActualLogs { get; set; }
 
         public string TablaLogs { get; set; }
+
+        public string IpLogs { get; set; }
     }
 }

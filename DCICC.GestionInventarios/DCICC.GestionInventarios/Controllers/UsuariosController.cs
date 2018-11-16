@@ -75,18 +75,20 @@ namespace DCICC.GestionInventarios.Controllers
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
                 if(objUsuariosAccDatos.RegistrarUsuario(infoUsuario))
                 {
-                    TempData["Mensaje"] = "caca";
+                    mensajes_Usuarios = "El usuario ha sido registrado exitosamente.";
+                    TempData["Mensaje"] = mensajes_Usuarios;
                     Logs.Info(mensajes_Usuarios);
                 }
                 else
                 {
-                    TempData["MensajeError"] = "nope";
+                    mensajes_Usuarios = "No se ha podido registrar el usuario";
+                    TempData["MensajeError"] = mensajes_Usuarios;
                 }
                 return RedirectToAction("ModificarUsuario", "Usuarios");
             }
             catch(Exception e)
             {
-                Logs.Error("Error en el registro de nuevo usuario: "+e.Message);
+                Logs.Error(mensajes_Usuarios+": "+e.Message);
                 return View();
             }
         }

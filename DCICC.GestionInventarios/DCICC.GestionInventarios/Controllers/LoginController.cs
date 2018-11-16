@@ -56,7 +56,7 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             MenuActionFilter.ObtenerMenu("Usuarios");
                         }
-                        //var aux = GetUserIP();
+                        //datosUsuario. = GetUserIP();
                         int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
                         Session["userInfo"] = infoLogin.NickUsuario;
                         Session.Timeout = tiempoExpiracionMin;
@@ -89,7 +89,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 LoginAccDatos objLoginAccDatos = new LoginAccDatos(infoLogin);
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                var datosUsuario = objUsuariosAccDatos.ObtenerUsuarios("Comp").Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                var datosUsuario = objUsuariosAccDatos.ObtenerUsuarios("Hab").Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
                 if (datosUsuario != null)
                 {
                     return datosUsuario;

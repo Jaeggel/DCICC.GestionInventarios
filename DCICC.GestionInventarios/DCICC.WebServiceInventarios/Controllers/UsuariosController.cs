@@ -17,7 +17,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     public class UsuariosController : Controller
     {
         //Instancia para la utilización de LOGS en la clase UsuariosController
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para obtener una lista de todos los usuarios de la base de datos.
         /// </summary>
@@ -78,7 +78,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
         [HttpPost("RegistrarUsuario")]
-        public Boolean RegistrarUsuario([FromBody] Usuarios infoUsuario)
+        public bool RegistrarUsuario([FromBody] Usuarios infoUsuario)
         {
             try
             {
