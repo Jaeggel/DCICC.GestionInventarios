@@ -4560,7 +4560,13 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
+    <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
+    <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
+    <Content Include="Scripts\ScriptsInventarios\modificarUsuario.js" />
     <Content Include="Scripts\ScriptsInventarios\nuevoUsuario.js" />
+    <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
+    <Content Include="Scripts\ScriptsInventarios\TipoAccesorio.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />

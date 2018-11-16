@@ -35,7 +35,7 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar un rol de usuario*@
                         <div class="form-group">
-                            <div class="col-md-12 col-sm-9 col-xs-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
                                 <label>Escoja rol de usuario:</label>
                                 <div id="cargarRoles"></div>              
                             </div>
@@ -47,12 +47,12 @@
                         </div>
                         @* Cuadro de texto para el ingreso del correo del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" maxlength="40" required>
+                            <input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" maxlength="40" required>
                             <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" maxlength="15" required>
+                            <input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" maxlength="15" required>
                             <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del password del usuario*@
@@ -62,12 +62,12 @@
                         </div>
                         @* Cuadro de texto para el ingreso del teléfono convencional del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11">
+                            <input type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                             <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del teléfono celular del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11">
+                            <input type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                             <span class="fa fa-mobile-phone form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de un usuario *@
@@ -102,7 +102,17 @@
 <script>
     $(document).ready(function () {
 
-        obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")');
+        obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+
+        $('#CorreoUsuario').blur(function () {
+            var correo = document.getElementById("CorreoUsuario").value;
+            comprobarCorreo(correo);
+        });
+
+        $('#NickUsuario').blur(function () {
+            var nick = document.getElementById("NickUsuario").value;
+            comprobarNick(nick);
+        });
 
     });
 
