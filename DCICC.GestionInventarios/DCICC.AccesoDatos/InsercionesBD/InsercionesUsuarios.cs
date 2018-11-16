@@ -26,6 +26,12 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
+                using (var cmd = new NpgsqlCommand("create user andres with password '@pass' in group @rol", conn_BD))
+                {
+                    cmd.Parameters.AddWithValue("pass", infoUsuario.NickUsuario);
+                    cmd.Parameters.AddWithValue("rol", ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
+                    cmd.ExecuteNonQuery();
+                }
                 using (var cmd = new NpgsqlCommand("insert into dcicc_usuarios (id_rol,nombres_usuario,nick_usuario,password_usuario,correo_usuario,telefono_usuario,telefonocelular_usuario,direccion_usuario,habilitado_usuario) VALUES (@ir,@nu,@niu,@pu,@cu,@tu,@tcu,@du,@hu)", conn_BD))
                 {
                     cmd.Parameters.AddWithValue("ir", infoUsuario.IdRol);

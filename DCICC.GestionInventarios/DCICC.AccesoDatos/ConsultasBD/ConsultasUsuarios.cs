@@ -94,7 +94,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 TelefonoCelUsuario = dr[7].ToString().Trim(),
                                 DireccionUsuario = dr[8].ToString().Trim(),
                                 HabilitadoUsuario = Boolean.Parse(dr[9].ToString().Trim()),
-                                NombreRol = dr[1].ToString().Trim()
+                                NombreRol = dr[10].ToString().Trim()
                             };
                             lstUsuariosRoles.Add(objUsuariosRoles);
                         }

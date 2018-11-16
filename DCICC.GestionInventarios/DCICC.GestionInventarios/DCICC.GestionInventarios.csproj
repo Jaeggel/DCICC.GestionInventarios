@@ -201,7 +201,7 @@
     <Compile Include="Models\MensajesInventarios\MensajesAccesorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCategoriaActivo.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCQR.cs" />
-    <Compile Include="Models\MensajesInventarios\MensajesDetalleActivos.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesDetalleActivo.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLaboratorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLogs.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesMaqVirtuales.cs" />
