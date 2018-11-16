@@ -16,7 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LoginController : Controller
     {
-        static Usuarios datos_Usuario = null;
+        public static Usuarios datos_Usuario = null;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
