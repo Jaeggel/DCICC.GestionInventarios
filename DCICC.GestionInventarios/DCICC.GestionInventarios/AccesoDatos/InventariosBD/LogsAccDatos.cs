@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 
-namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
+namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
     public class LogsAccDatos
     {

@@ -1,5 +1,5 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos;
-using DCICC.GestionInventarios.AccesoDatos.UsuariosBD;
+using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
 using DCICC.GestionInventarios.Filtros;
 using DCICC.GestionInventarios.Models;
 using log4net;

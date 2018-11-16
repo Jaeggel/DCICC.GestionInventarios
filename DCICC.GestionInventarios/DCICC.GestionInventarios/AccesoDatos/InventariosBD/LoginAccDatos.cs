@@ -11,7 +11,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
+namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
     public class LoginAccDatos
     {

@@ -1,4 +1,4 @@
-﻿using DCICC.GestionInventarios.AccesoDatos.UsuariosBD;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
 using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;

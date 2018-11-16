@@ -160,10 +160,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
-    <Compile Include="AccesoDatos\UsuariosBD\LogsAccDatos.cs" />
-    <Compile Include="AccesoDatos\UsuariosBD\RolesAccDatos.cs" />
-    <Compile Include="AccesoDatos\UsuariosBD\LoginAccDatos.cs" />
-    <Compile Include="AccesoDatos\UsuariosBD\UsuariosAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\LogsAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\RolesAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\LoginAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\UsuariosAccDatos.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -198,8 +198,19 @@
     <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesAccesorios.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesCategoriaActivo.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesCQR.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesDetalleActivos.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesLaboratorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLogs.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesMaqVirtuales.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesMarcas.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesRoles.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesSistOperativos.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesTickets.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesTipoAccesorio.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesTipoActivo.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesUsuarios.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SistOperativos.cs" />
