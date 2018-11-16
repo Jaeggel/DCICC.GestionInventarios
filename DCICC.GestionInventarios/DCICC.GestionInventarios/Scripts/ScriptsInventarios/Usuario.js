@@ -46,7 +46,7 @@ function obtenerMetodoUsuarios(url_rol,url_Usu, usuario) {
             console.log("siiiiii: ");
         }
     });
-
+    //Método ajax para obtener el usuario de la sesión
     $.ajax({
         dataType: 'json',
         url: usuario,
@@ -93,10 +93,12 @@ function cargarUsuarioTabla(nick) {
                 str += '</td><td> Deshabilitado';
             }
 
-            //console.log(nom);
-            str += '</td><td><button type="button" class="btn btn-info " data-toggle="modal" data-target="#ModificarUsuario" ><strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
-                '</td><td><button type="button" class="btn btn-danger " ><strong><i class="fa fa-times-circle"></i></strong></button>' +
-                '</td></tr>';
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">'+
+                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarUsuario" onclick = "formUpdateUsuario('+ datosUsuarios[i].IdUsuario+');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+                '</div></div>'+
+                '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
+                '</div></div></td></tr>';
         }
     };
     str += '</tbody></table>';
@@ -116,28 +118,53 @@ function cargarRolesCmb() {
 
 //Función para cargar los elementos en el combobox de s de Usuario
 function cargarRolesUpdateCmb() {
-    var str = '<select class="form-control" name="IdRol" required>';
+    var str = '<select id="rolCmb" class="form-control" name="IdRol" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < datosRoles.length; i++) {
         str += '<option value="' + datosRoles[i].IdRol + '">' + datosRoles[i].NombreRol + '</option>';
     };
     str += '</select>';
-    $("#cargarRoles").html(str);
+    $("#cargarRolesUpdate").html(str);
 }
 
 //Función para setear los valores en los inputs
-function formUpdateCmb(idUsuario) {
-    var str = '<select class="form-control" name="IdRol" required>';
-    str += '<option value="">Escoga una opción...</option>';
+function formUpdateUsuario(idUsuario) {
+    console.log(idUsuario);
     for (var i = 0; i < datosUsuarios.length; i++) {
-        str += '<option value="' + datosRoles[i].IdRol + '">' + datosRoles[i].NombreRol + '</option>';
+       
+        if (datosUsuarios[i].IdUsuario == idUsuario) {
+            var element = document.getElementById("rolCmb");
+            element.value = datosUsuarios[i].IdRol;
+            document.getElementById("NombresUsuario").value = datosUsuarios[i].NombresUsuario;
+            document.getElementById("CorreoUsuario").value = datosUsuarios[i].CorreoUsuario;
+            document.getElementById("NickUsuario").value = datosUsuarios[i].NickUsuario;
+            document.getElementById("PasswordUsuario").value = datosUsuarios[i].PasswordUsuario;
+            document.getElementById("TelefonoUsuario").value = datosUsuarios[i].TelefonoUsuario;
+            document.getElementById("TelefonoCelUsuario").value = datosUsuarios[i].TelefonoCelUsuario;
+            document.getElementById("DireccionUsuario").value = datosUsuarios[i].DireccionUsuario;
+            
+            //Método para el check del update de Usuarios
+            console.log(datosUsuarios[i].HabilitadoUsuario)
+            var valor = datosUsuarios[i].HabilitadoUsuario;
+            var estado = $('#HabilitadoUsuario').prop('checked');
+
+            if (estado && valor == false) {     
+                document.getElementById("HabilitadoUsuario").click();
+            }
+
+            if (estado==false && valor == true) {
+                document.getElementById("HabilitadoUsuario").click();
+            }
+        };
+        
     };
-    str += '</select>';
-    $("#cargarRoles").html(str);
+
+
 }
 
 //Función para evitar correos electronicos repertidos
 function comprobarCorreo(correo) {
+    console.log(correo)
     correo = correo.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosUsuarios.length; i++) {
