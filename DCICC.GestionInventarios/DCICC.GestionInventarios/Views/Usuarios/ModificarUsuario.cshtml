@@ -35,41 +35,12 @@
             <div class="x_content">
                 <br>
                 @* Sección para la tabla de modificación mediante js *@
-                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tablaModificarUsuarios">
+                <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                    <div id="tablaModificarUsuarios">
 
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -91,3 +62,13 @@
         }
     </script>
 }
+
+<script src="~/Scripts/ScriptsInventarios/Usuario.js"></script>
+<script>
+    $(document).ready(function () {
+
+        obtenerMetodoUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+
+    });
+
+</script>
