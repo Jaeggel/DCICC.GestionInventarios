@@ -5,14 +5,14 @@ using System.Web;
 
 namespace DCICC.GestionInventarios.Models.MensajesInventarios
 {
-    public class MensajesMarcas
+    public class MensajesDetalleActivo
     {
         public bool OperacionExitosa { get; set; }
 
         public string MensajeError { get; set; }
 
-        public Marcas ObjetoInventarios { get; set; }
+        public Activos ObjetoInventarios { get; set; }
 
-        public List<Marcas> ListaObjetoInventarios { get; set; }
+        public List<Activos> ListaObjetoInventarios { get; set; }
     }
 }
