@@ -4580,8 +4580,7 @@
     <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
-    <Content Include="Scripts\ScriptsInventarios\modificarUsuario.js" />
-    <Content Include="Scripts\ScriptsInventarios\nuevoUsuario.js" />
+    <Content Include="Scripts\ScriptsInventarios\Usuario.js" />
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoAccesorio.js" />
     <Content Include="Scripts\Site.js" />

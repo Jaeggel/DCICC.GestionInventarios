@@ -24,12 +24,61 @@ function obtenerMetodoRol(url_Rol,url_Usu) {
         success: function (data) {
             console.log(data);
             datosUsuarios = data;
+            cargarUsuarioTabla();
             console.log("siiiiii: ");
         }
     });
 
+}
 
+function obtenerMetodoUsuarios(url_Usu) {
 
+    //Método ajax para obtener usuarios de la base de datos
+    $.ajax({
+        dataType: 'json',
+        url: url_Usu,
+        type: 'post',
+        success: function (data) {
+            console.log(data);
+            datosUsuarios = data;
+            cargarUsuarioTabla();
+            console.log("siiiiii: ");
+        }
+    });
+
+}
+
+//Función para cargar la tabla de Usuarios
+function cargarUsuarioTabla() {
+    var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
+    str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosUsuarios.length; i++) {
+        var nom = "'" + datosUsuarios[i].NombreRol + "'";
+        console.log(nom);
+
+        
+
+        str += '<tr><td>' + datosUsuarios[i].NombresUsuario +
+            '</td><td>' + datosUsuarios[i].NickUsuario +
+            '</td><td>' + datosUsuarios[i].NombreRol +
+            '</td><td>' + datosUsuarios[i].CorreoUsuario +
+            '</td><td>' + datosUsuarios[i].TelefonoCelUsuario;
+
+        if (datosUsuarios[i].HabilitadoUsuario) {
+            str += '</td><td> Habilitado';
+        } else {
+            str += '</td><td> Deshabilitado';
+        }
+
+        //console.log(nom);
+        str += '</td><td><button type="button" class="btn btn-info " ><strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
+            '</td><td><button type="button" class="btn btn-danger " ><strong><i class="fa fa-times-circle"></i></strong></button>' +
+            '</td></tr>';
+
+    };
+    str += '</tbody></table>';
+    $("#tablaModificarUsuarios").html(str);
 }
 
 //Función para cargar los elementos en el combobox de Roles de Usuario
@@ -82,3 +131,7 @@ function comprobarNick(nick) {
     }
 
 }
+
+
+
+
