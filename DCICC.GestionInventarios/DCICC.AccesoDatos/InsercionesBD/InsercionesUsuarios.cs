@@ -23,6 +23,9 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// <returns></returns>
         public Boolean RegistroUsuario(Usuarios infoUsuario)
         {
+            //infoUsuario.TelefonoUsuario = "";
+            //infoUsuario.TelefonoCelUsuario = "";
+            //infoUsuario.DireccionUsuario = "";
             try
             {
                 using (var cmd = new NpgsqlCommand("insert into dcicc_usuarios (id_rol,nombres_usuario,nick_usuario,password_usuario,correo_usuario,telefono_usuario,telefonocelular_usuario,direccion_usuario,habilitado_usuario) VALUES (@ir,@nu,@niu,@pu,@cu,@tu,@tcu,@du,@hu)", conn_BD))
@@ -40,7 +43,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 }
                 conn_BD.Close();
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return false;
             }

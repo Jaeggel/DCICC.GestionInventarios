@@ -22,5 +22,7 @@ namespace DCICC.GestionInventarios.Models
         public string ValorActualLogs { get; set; }
 
         public string TablaLogs { get; set; }
+
+        public string IpLogs { get; set; }
     }
 }
