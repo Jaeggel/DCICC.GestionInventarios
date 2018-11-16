@@ -23,7 +23,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// Método para ingresar un nuevo log en la base de datos.
         /// </summary>
         /// <returns></returns>
-        public MensajesLogs RegistroLogs(Logs infoLog)
+        public MensajesLogs RegistroLogsInicioBD(Logs infoLog)
         {
             MensajesLogs msjLogs = new MensajesLogs();
             try
@@ -44,7 +44,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
                 MensajesUsuarios msjUsuarios = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
                 Usuarios infoUsuario = msjUsuarios.ListaObjetoInventarios.Find(x => x.NickUsuario == infoLog.IdUsuario);
-                ConfigBaseDatos.SetCadenaConexion("Server=localhost;Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
+                ConfigBaseDatos.SetCadenaConexion("Server='192.168.0.4';Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
             }
             catch (Exception e)
             {

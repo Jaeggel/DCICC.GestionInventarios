@@ -68,7 +68,7 @@ namespace DCICC.GestionInventarios.Controllers
                             IdUsuario = datosUsuario.NickUsuario,
                             FechaLogs=DateTime.Now,
                             OperacionLogs="Login",
-                            TablaLogs= "dcicc_usuarios",
+                            TablaLogs= "Acceso a base de datos.",
                             IpLogs= ObtenerIPCliente()
                         };
                         if(objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)

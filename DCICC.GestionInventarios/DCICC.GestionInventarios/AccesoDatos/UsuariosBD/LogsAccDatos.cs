@@ -30,7 +30,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Logs/RegistrarLog", infoLogs).Result;
+                var response = clientService.PostAsJsonAsync("Logs/RegistrarLogInicioBD", infoLogs).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;

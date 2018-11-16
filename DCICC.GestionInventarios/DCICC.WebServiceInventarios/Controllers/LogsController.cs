@@ -23,14 +23,14 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <param name="infoLogsSistema"></param>
         /// <returns></returns>
-        [HttpPost("RegistrarLog")]
+        [HttpPost("RegistrarLogInicioBD")]
         public MensajesLogs RegistrarLog([FromBody]Logs infoLogsSistema)
         {
             MensajesLogs msjLogs = null;
             try
             {
                 InsercionesLogs objInsercionesLogsBD = new InsercionesLogs();
-                msjLogs=objInsercionesLogsBD.RegistroLogs(infoLogsSistema);
+                msjLogs=objInsercionesLogsBD.RegistroLogsInicioBD(infoLogsSistema);
             }
             catch (Exception e)
             {
