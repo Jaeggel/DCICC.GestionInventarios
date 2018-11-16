@@ -10,6 +10,8 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public int IdCategoriaActivo { get; set; }
 
+        public string NombreCategoriaActivo { get; set; }
+
         public string NombreTipoActivo { get; set; }
 
         public string DescripcionTipoActivo { get; set; }

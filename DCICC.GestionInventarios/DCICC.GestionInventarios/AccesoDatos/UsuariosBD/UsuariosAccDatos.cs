@@ -1,4 +1,5 @@
 ﻿using DCICC.GestionInventarios.Models;
+using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
@@ -18,11 +19,11 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
         /// Método para obtener una lista con todos los usuarios de la base de datos.
         /// </summary>
         /// <returns></returns>
-        public List<Usuarios> ObtenerUsuarios(string nombreFuncion)
+        public MensajesUsuarios ObtenerUsuarios(string nombreFuncion)
         {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                List<Usuarios> lstUsuarios = new List<Usuarios>();
                 HttpClient clientService = new HttpClient();
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
@@ -32,25 +33,24 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
-                    lstUsuarios = JsonConvert.DeserializeObject<List<Usuarios>>(usersJson);
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
                 }
-                return lstUsuarios;
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message);
-                return null;
+                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message+" - "+msjUsuarios.MensajeError);
             }
+            return msjUsuarios;
         }
         /// <summary>
         /// Método para obtener una lista de la función UsuariosRoles.
         /// </summary>
         /// <returns></returns>
-        public List<Usuarios> ObtenerUsuariosRoles()
+        public MensajesUsuarios ObtenerUsuariosRoles()
         {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                List<Usuarios> lstUsuariosRoles = new List<Usuarios>();
                 HttpClient clientService = new HttpClient();
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
@@ -60,24 +60,23 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
-                    lstUsuariosRoles = JsonConvert.DeserializeObject<List<Usuarios>>(usersJson);
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
                 }
-                return lstUsuariosRoles;
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message);
-                return null;
+                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
+            return msjUsuarios;
         }
         /// <summary>
         /// Método para registrar un nuevo usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
-        public Boolean RegistrarUsuario(Usuarios infoUsuario)
+        public MensajesUsuarios RegistrarUsuario(Usuarios infoUsuario)
         {
-            Boolean banderaComprobacion = false;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
                 HttpClient clientService = new HttpClient();
@@ -89,15 +88,14 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
-                    banderaComprobacion = Boolean.Parse(usersJson.ToString());
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un usuario: " + e.Message);
-                banderaComprobacion = false;
+                Logs.Error("Error en la conexión para registrar un usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
-            return banderaComprobacion;
+            return msjUsuarios;
         }
     }
 }

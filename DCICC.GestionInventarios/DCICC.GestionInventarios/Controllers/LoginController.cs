@@ -56,13 +56,29 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             MenuActionFilter.ObtenerMenu("Usuarios");
                         }
-                        //datosUsuario. = GetUserIP();
                         int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
                         Session["userInfo"] = infoLogin.NickUsuario;
                         Session.Timeout = tiempoExpiracionMin;
                         UsuarioActionFilter.ObtenerUsuario(datosUsuario.NombresUsuario);
                         CorreoActionFilter.ObtenerCorreo(datosUsuario.CorreoUsuario);
                         Logs.Info("Autenticación Exitosa");
+                        LogsAccDatos objLogsAccDatos = new LogsAccDatos();
+                        Logs infoLogs = new Logs
+                        {
+                            IdUsuario = datosUsuario.NickUsuario,
+                            FechaLogs=DateTime.Now,
+                            OperacionLogs="Login",
+                            TablaLogs= "dcicc_usuarios",
+                            IpLogs= ObtenerIPCliente()
+                        };
+                        if(objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
+                        {
+                            Logs.Info("Registro de log exitoso");
+                        }
+                        else
+                        {
+                            Logs.Error("No se pudo registrar el log");
+                        }
                     }
                     else
                     {
@@ -89,7 +105,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 LoginAccDatos objLoginAccDatos = new LoginAccDatos(infoLogin);
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                var datosUsuario = objUsuariosAccDatos.ObtenerUsuarios("Hab").Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                var datosUsuario = objUsuariosAccDatos.ObtenerUsuarios("Hab").ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
                 if (datosUsuario != null)
                 {
                     return datosUsuario;

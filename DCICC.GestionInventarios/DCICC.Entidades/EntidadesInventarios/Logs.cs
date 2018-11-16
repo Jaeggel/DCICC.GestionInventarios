@@ -4,11 +4,11 @@ using System.Text;
 
 namespace DCICC.Entidades.EntidadesInventarios
 {
-    public class LogsSistema
+    public class Logs
     {
         public int IdLogs { get; set; }
 
-        public int IdUsuario { get; set; }
+        public string IdUsuario { get; set; }
 
         public DateTime FechaLogs { get; set; }
 
@@ -21,5 +21,6 @@ namespace DCICC.Entidades.EntidadesInventarios
         public string TablaLogs { get; set; }
 
         public string IpLogs { get; set; }
+
     }
 }

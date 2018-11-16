@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DCICC.AccesoDatos;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Seguridad.TokensJWT;
@@ -31,7 +32,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                 {
                     Configuration.ConfigSeguridad confServ = new Configuration.ConfigSeguridad();
                     ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
-                    if (objConUsuarios.ObtenerUsuarios("Comp").Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
+                    if (objConUsuarios.ObtenerUsuarios("consultausuarios").ListaObjetoInventarios.Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
                     {
                         token = new JwtTokenBuilder()
                                  .AddSecurityKey(JwtSecurityKey.Create("DCICC.Inventarios.Secret.Key"))
@@ -41,6 +42,10 @@ namespace DCICC.WebServiceInventarios.Controllers
                                  .AddClaim("DCICC.Inventarios.MemberId", "111")
                                  .AddExpiry(confServ.ObtenerTimeExpToken())
                                  .Build();
+                    }
+                    else
+                    {
+                        return Unauthorized();
                     }
                 }
             }

@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
+    <Compile Include="AccesoDatos\UsuariosBD\LogsAccDatos.cs" />
     <Compile Include="AccesoDatos\UsuariosBD\RolesAccDatos.cs" />
     <Compile Include="AccesoDatos\UsuariosBD\LoginAccDatos.cs" />
     <Compile Include="AccesoDatos\UsuariosBD\UsuariosAccDatos.cs" />
@@ -188,13 +189,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filtros\MenuActionFilter.cs" />
+    <Compile Include="Models\Accesorios.cs" />
     <Compile Include="Models\Activos.cs" />
     <Compile Include="Models\CategoriaActivo.cs" />
+    <Compile Include="Models\CQR.cs" />
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesLogs.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesRoles.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesUsuarios.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SistOperativos.cs" />
     <Compile Include="Models\Tickets.cs" />

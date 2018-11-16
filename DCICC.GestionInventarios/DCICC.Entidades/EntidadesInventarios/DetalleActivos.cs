@@ -6,54 +6,66 @@ namespace DCICC.Entidades.EntidadesInventarios
 {
     public class DetalleActivos
     {
-        public int IdDetActivo { get; set; }
+        public int IdActivo { get; set; }
 
-        public int IdCategoriaDetActivo { get; set; }
+        //Categoría de Activo
+        public int IdCategoriaActivo { get; set; }
 
-        public int IdTipoDetActivo { get; set; }
+        public string NombreCategoriaActivo { get; set; }
 
+        //Tipo de Activo
+        public int IdTipoActivo { get; set; }
+
+        public string NombreTipoActivo { get; set; }
+
+        //Laboratorio
         public int IdLaboratorio { get; set; }
 
+        public string NombreLaboratorio { get; set; }
+
+        //Marca
         public int IdMarca { get; set; }
+
+        public string NombreMarca { get; set; }
 
         public int IdCQR { get; set; }
 
-        public string NombreDetActivo { get; set; }
+        public string NombreActivo { get; set; }
 
-        public string ModeloDetActivo { get; set; }
+        public string EstadoActivo { get; set; }
 
-        public string SerialDetActivo { get; set; }
+        public string ModeloActivo { get; set; }
 
-        public string FechaIngresoDetActivo { get; set; }
+        public string SerialActivo { get; set; }
 
-        public string CodigoUpsDetActivo { get; set; }
+        public string FechaIngresoActivo { get; set; }
 
-        public int CantidadDetActivo { get; set; }
+        public string CodigoUpsActivo { get; set; }
 
-        public string DescripcionDetActivo { get; set; }
+        public int CantidadActivo { get; set; }
 
-        public string EstadoDetActivo { get; set; }
+        public string DescripcionActivo { get; set; }
 
-        public string ExpressServiceCodeDetActivo { get; set; }
+        public string ExpressServiceCodeActivo { get; set; }
 
-        public string ProductNameDetActivo { get; set; }
+        public string ProductNameActivo { get; set; }
 
-        public string CapacidadDetActivo { get; set; }
+        public string CapacidadActivo { get; set; }
 
-        public string VelocidadTransfDetActivo { get; set; }
+        public string VelocidadTransfActivo { get; set; }
 
-        public string CtDetActivo { get; set; }
+        public string CtActivo { get; set; }
 
-        public string HpePartNumberDetActivo { get; set; }
+        public string HpePartNumberActivo { get; set; }
 
-        public string CodBarras1DetActivo { get; set; }
+        public string CodBarras1Activo { get; set; }
 
-        public string CodBarras2DetActivo { get; set; }
+        public string CodBarras2Activo { get; set; }
 
-        public int NumPuertosDetActivo { get; set; }
+        public int NumPuertosActivo { get; set; }
 
-        public string IosVersionDetActivo { get; set; }
+        public string IosVersionActivo { get; set; }
 
-        public string FechaManufacturaDetActivo { get; set; }
+        public string FechaManufacturaActivo { get; set; }
     }
 }

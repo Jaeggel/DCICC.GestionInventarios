@@ -9,9 +9,7 @@ namespace DCICC.GestionInventarios.Models
     {
         public int IdLogs { get; set; }
 
-        public int IdUsuario { get; set; }
-
-        public string NombreUsuario { get; set; }
+        public string IdUsuario { get; set; }
 
         public DateTime FechaLogs{ get; set; }
 

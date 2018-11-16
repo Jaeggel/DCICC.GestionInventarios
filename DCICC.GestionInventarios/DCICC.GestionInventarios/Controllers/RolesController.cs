@@ -60,7 +60,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerRolesHab()
         {
             RolesAccDatos objRolesAccDatos = new RolesAccDatos();
-            return Json(objRolesAccDatos.ObtenerRolesHab(), JsonRequestBehavior.AllowGet);
+            return Json(objRolesAccDatos.ObtenerRolesHab().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }

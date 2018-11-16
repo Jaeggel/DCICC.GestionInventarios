@@ -11,17 +11,18 @@ using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
 {
-    public class RolesAccDatos
+    public class LogsAccDatos
     {
-        //Instancia para la utilización de LOGS en la clase RolesAccDatos
-        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //Instancia para la utilización de LOGS en la clase UsuariosAccDatos
+        private static readonly ILog Logs4n = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método para obtener una lista con los roles habilitados de la base de datos.
+        /// Método para registrar un nuevo log en la base de datos.
         /// </summary>
+        /// <param name="infoLogs"></param>
         /// <returns></returns>
-        public MensajesRoles ObtenerRolesHab()
+        public MensajesLogs RegistrarLog(Logs infoLogs)
         {
-            MensajesRoles msjRoles = new MensajesRoles();
+            MensajesLogs msjLogs = new MensajesLogs();
             try
             {
                 HttpClient clientService = new HttpClient();
@@ -29,18 +30,18 @@ namespace DCICC.GestionInventarios.AccesoDatos.UsuariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Roles/ObtenerRolesHab").Result;
+                var response = clientService.PostAsJsonAsync("Logs/RegistrarLog", infoLogs).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    var rolesJson = response.Content.ReadAsStringAsync().Result;
-                    msjRoles = JsonConvert.DeserializeObject<MensajesRoles>(rolesJson);
+                    var usersJson = response.Content.ReadAsStringAsync().Result;
+                    msjLogs = JsonConvert.DeserializeObject<MensajesLogs>(usersJson);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los roles habilitados: " + e.Message +" - "+msjRoles.MensajeError);
+                Logs4n.Error("Error en la conexión para registrar un log: " + e.Message + " - " + msjLogs.MensajeError);
             }
-            return msjRoles;
+            return msjLogs;
         }
     }
 }

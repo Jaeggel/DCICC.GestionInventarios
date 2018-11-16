@@ -1,6 +1,7 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos.UsuariosBD;
 using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
+using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos();
+                objUsuariosRolesAccDatos.ObtenerUsuariosRoles();
                 return View();
             }
         }
@@ -70,10 +73,12 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult NuevoUsuario(Usuarios infoUsuario)
         {
             string mensajes_Usuarios = string.Empty;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                if(objUsuariosAccDatos.RegistrarUsuario(infoUsuario))
+                msjUsuarios = objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
+                if(msjUsuarios.OperacionExitosa)
                 {
                     mensajes_Usuarios = "El usuario ha sido registrado exitosamente.";
                     TempData["Mensaje"] = mensajes_Usuarios;
@@ -81,7 +86,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajes_Usuarios = "No se ha podido registrar el usuario";
+                    mensajes_Usuarios = "No se ha podido registrar el usuario: "+msjUsuarios.MensajeError;
                     TempData["MensajeError"] = mensajes_Usuarios;
                 }
                 return RedirectToAction("ModificarUsuario", "Usuarios");
@@ -109,7 +114,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerUsuariosRoles()
         {
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos();
-            return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles(), JsonRequestBehavior.AllowGet);
+            return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }

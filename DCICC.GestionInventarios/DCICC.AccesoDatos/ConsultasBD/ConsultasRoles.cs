@@ -1,4 +1,5 @@
 ﻿using DCICC.Entidades.EntidadesInventarios;
+using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
         /// Método para obtener los roles habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
-        public List<Roles> ObtenerRolesHab()
+        public MensajesRoles ObtenerRolesHab()
         {
             List<Roles> lstRoles = new List<Roles>();
+            MensajesRoles msjRoles = new MensajesRoles();
             try
             {
                 using (var cmd = new NpgsqlCommand("roleshabilitados", conn_BD))
@@ -43,14 +45,17 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             lstRoles.Add(objRoles);
                         }
                         conn_BD.Close();
+                        msjRoles.ListaObjetoInventarios = lstRoles;
+                        msjRoles.OperacionExitosa = true;
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                lstRoles = null;
+                msjRoles.OperacionExitosa = false;
+                msjRoles.MensajeError = e.Message;
             }
-            return lstRoles;
+            return msjRoles;
         }
     }
 }

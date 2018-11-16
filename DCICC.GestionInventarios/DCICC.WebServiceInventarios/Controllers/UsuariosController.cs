@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
+using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,54 +24,57 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerUsuariosComp")]
-        public List<Usuarios> ObtenerUsuariosComp()
+        public MensajesUsuarios ObtenerUsuariosComp()
         {
+            MensajesUsuarios msjUsuarios = null;
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                return objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
+                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
             }
             catch(Exception e)
             {
                 Logs.Error("No se pudo obtener la lista de los usuarios: "+e.Message);
-                return null;
             }
+            return msjUsuarios;
         }
         /// <summary>
         /// Método (GET) para obtener una lista de todos los usuarios habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerUsuariosHab")]
-        public List<Usuarios> ObtenerUsuariosHab()
+        public MensajesUsuarios ObtenerUsuariosHab()
         {
+            MensajesUsuarios msjUsuarios = null;
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                return objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+                msjUsuarios= objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
             }
             catch (Exception e)
             {
                 Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message);
-                return null;
             }
+            return msjUsuarios;
         }
         /// <summary>
         /// Método (GET) para obtener una lista de la función usuariosroles de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerUsuariosRoles")]
-        public List<Usuarios> ObtenerUsuariosRoles()
+        public MensajesUsuarios ObtenerUsuariosRoles()
         {
+            MensajesUsuarios msjUsuarios = null;
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                return objConsultasUsuariosBD.ObtenerUsuariosRoles();
+                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuariosRoles();
             }
             catch (Exception e)
             {
                 Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message);
-                return null;
             }
+            return msjUsuarios;
         }
         /// <summary>
         /// Método (POST) para registrar un nuevo usuario en la base de datos.
@@ -78,18 +82,19 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
         [HttpPost("RegistrarUsuario")]
-        public bool RegistrarUsuario([FromBody] Usuarios infoUsuario)
+        public MensajesUsuarios RegistrarUsuario([FromBody] Usuarios infoUsuario)
         {
+            MensajesUsuarios msjUsuarios = null;
             try
             {
                 InsercionesUsuarios objInsercionesUsuariosBD = new InsercionesUsuarios();
-                return objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
+                msjUsuarios=objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
             }
             catch (Exception e)
             {
                 Logs.Error("No se pudo registrar el usuario: " + e.Message);
-                return false;
             }
+            return msjUsuarios;
         }
     }
 }

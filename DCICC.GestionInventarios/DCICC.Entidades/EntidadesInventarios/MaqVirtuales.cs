@@ -8,6 +8,8 @@ namespace DCICC.Entidades.EntidadesInventarios
     {
         public int IdMaqVirtuales { get; set; }
 
+        public string NombreSistOperativo { get; set; }
+
         public int IdSistOperativo { get; set; }
 
         public string UsuarioMaqVirtuales { get; set; }

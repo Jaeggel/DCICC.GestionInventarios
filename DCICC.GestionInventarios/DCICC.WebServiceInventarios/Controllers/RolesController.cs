@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.Entidades.EntidadesInventarios;
+using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,18 +23,19 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerRolesHab")]
-        public List<Roles> ObtenerRolesHab()
+        public MensajesRoles ObtenerRolesHab()
         {
+            MensajesRoles msjRoles = new MensajesRoles();
             try
             {
                 ConsultasRoles objConsultasRoles = new ConsultasRoles();
-                return objConsultasRoles.ObtenerRolesHab();
+                msjRoles=objConsultasRoles.ObtenerRolesHab();
             }
             catch (Exception e)
             {
                 Logs.Error("No se pudo obtener la lista de los roles: " + e.Message);
-                return null;
             }
+            return msjRoles;
         }
     }
 }

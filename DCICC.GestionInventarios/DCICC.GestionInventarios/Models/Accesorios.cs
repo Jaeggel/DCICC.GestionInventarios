@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Web;
 
-namespace DCICC.Entidades.EntidadesInventarios
+namespace DCICC.GestionInventarios.Models
 {
     public class Accesorios
     {

@@ -22,7 +22,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// <param name="valorSinEncriptar"></param>
         /// <returns></returns>
         [HttpPost("Encriptar")]
-        public string Encriptar([FromBody] String valorSinEncriptar)
+        public string Encriptar([FromBody] string valorSinEncriptar)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// <param name="valorEncriptado"></param>
         /// <returns></returns>
         [HttpPost("Desencriptar")]
-        public string Desencriptar([FromBody] String valorEncriptado)
+        public string Desencriptar([FromBody] string valorEncriptado)
         {
             try
             {

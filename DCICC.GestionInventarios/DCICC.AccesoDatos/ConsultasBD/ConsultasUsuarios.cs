@@ -1,4 +1,5 @@
 ﻿using DCICC.Entidades.EntidadesInventarios;
+using DCICC.Entidades.MensajesInventarios;
 using DCICC.Seguridad.Encryption;
 using Npgsql;
 using System;
@@ -22,12 +23,13 @@ namespace DCICC.AccesoDatos.ConsultasBD
         /// Método para obtener todos los usuarios de la base de datos.
         /// </summary>
         /// <returns></returns>
-        public List<Usuarios> ObtenerUsuarios(string nombreFuncion)
+        public MensajesUsuarios ObtenerUsuarios(string nombreFuncion)
         {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             List<Usuarios> lstUsuarios = new List<Usuarios>();
             try
             {
-                using (var cmd = new NpgsqlCommand("consultaUsuarios", conn_BD))
+                using (var cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (var dr = cmd.ExecuteReader())
@@ -50,22 +52,27 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             lstUsuarios.Add(objUsuarios);
                         }
                         conn_BD.Close();
+                        msjUsuarios.ListaObjetoInventarios = lstUsuarios;
+                        msjUsuarios.OperacionExitosa = true;
                     }
                 }                
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                lstUsuarios = null;
+                msjUsuarios.OperacionExitosa = false;
+                msjUsuarios.MensajeError = e.Message;
+                msjUsuarios.ListaObjetoInventarios = null;
             }
-            return lstUsuarios;
+            return msjUsuarios;
         }
         /// <summary>
         /// Método para obtener todos la funcion UsuariosRoles de la base de datos.
         /// </summary>
         /// <returns></returns>
-        public List<Usuarios> ObtenerUsuariosRoles()
+        public MensajesUsuarios ObtenerUsuariosRoles()
         {
             List<Usuarios> lstUsuariosRoles = new List<Usuarios>();
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
                 using (var cmd = new NpgsqlCommand("usuariosRoles", conn_BD))
@@ -92,14 +99,18 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             lstUsuariosRoles.Add(objUsuariosRoles);
                         }
                         conn_BD.Close();
+                        msjUsuarios.ListaObjetoInventarios = lstUsuariosRoles;
+                        msjUsuarios.OperacionExitosa = true;
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                lstUsuariosRoles = null;
+                msjUsuarios.OperacionExitosa = false;
+                msjUsuarios.MensajeError = e.Message;
+                msjUsuarios.ListaObjetoInventarios = null;
             }
-            return lstUsuariosRoles;
+            return msjUsuarios;
         }
     }
 }

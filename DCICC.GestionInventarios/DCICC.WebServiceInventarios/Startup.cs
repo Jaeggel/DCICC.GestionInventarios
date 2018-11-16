@@ -23,7 +23,7 @@ namespace DCICC.WebServiceInventarios
     public class Startup
     {
         //Instancia para la utilización de LOGS en la clase Startup
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Constructor para inicializar el Web Service, en donde de paso se inicializa la llave de encriptación para sus métodos.
         /// </summary>
