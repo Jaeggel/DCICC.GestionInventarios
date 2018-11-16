@@ -97,5 +97,33 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjUsuarios;
         }
+        /// <summary>
+        /// Método para actualizar un usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        public MensajesUsuarios ActualizarUsuario(Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
+                var response = clientService.PostAsJsonAsync("Usuarios/ActualizarUsuario", infoUsuario).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var usersJson = response.Content.ReadAsStringAsync().Result;
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para actualizar un usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+            }
+            return msjUsuarios;
+        }
     }
 }

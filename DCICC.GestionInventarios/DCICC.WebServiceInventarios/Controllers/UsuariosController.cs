@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
@@ -93,6 +94,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error("No se pudo registrar el usuario: " + e.Message);
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar un usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarUsuario")]
+        public MensajesUsuarios ActualizarUsuario([FromBody] Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = null;
+            try
+            {
+                ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
+                msjUsuarios = objActualizacionesUsuariosBD.ActualizacionUsuario(infoUsuario);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el usuario: " + e.Message);
             }
             return msjUsuarios;
         }

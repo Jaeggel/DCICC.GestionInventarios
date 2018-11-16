@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DCICC.AccesoDatos.ConsultasBD;
+using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
@@ -34,6 +35,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error("No se pudo obtener la lista de los roles: " + e.Message);
+            }
+            return msjRoles;
+        }
+        /// <summary>
+        /// Método (POST) para registrar un nuevo rol en la base de datos.
+        /// </summary>
+        /// <param name="infoRol"></param>
+        /// <returns></returns>
+        [HttpPost("RegistrarRol")]
+        public MensajesRoles RegistrarRol([FromBody] Roles infoRol)
+        {
+            MensajesRoles msjRoles = null;
+            try
+            {
+                InsercionesRoles objInsercionesRolessBD = new InsercionesRoles();
+                msjRoles = objInsercionesRolessBD.RegistroRol(infoRol);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo registrar el rol: " + e.Message);
             }
             return msjRoles;
         }

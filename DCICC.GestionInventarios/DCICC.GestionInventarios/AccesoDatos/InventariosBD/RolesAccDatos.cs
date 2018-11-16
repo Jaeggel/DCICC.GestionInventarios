@@ -42,5 +42,33 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjRoles;
         }
+        /// <summary>
+        /// Método para registrar un nuevo rol en la base de datos.
+        /// </summary>
+        /// <param name="infoRol"></param>
+        /// <returns></returns>
+        public MensajesRoles RegistrarRol(Roles infoRol)
+        {
+            MensajesRoles msjRoles = new MensajesRoles();
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
+                var response = clientService.PostAsJsonAsync("Roles/RegistrarRol", infoRol).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var rolesJson = response.Content.ReadAsStringAsync().Result;
+                    msjRoles = JsonConvert.DeserializeObject<MensajesRoles>(rolesJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para registrar un rol: " + e.Message + " - " + msjRoles.MensajeError);
+            }
+            return msjRoles;
+        }
     }
 }

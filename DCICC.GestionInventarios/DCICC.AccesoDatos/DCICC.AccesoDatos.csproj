@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ActualizacionesBD\" />
     <Folder Include="EliminacionesBD\" />
   </ItemGroup>
 

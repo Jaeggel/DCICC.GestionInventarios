@@ -29,9 +29,8 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 using (var cmd = new NpgsqlCommand("insert into dcicc_roles (nombre_rol,descripcion_rol,habilitado_rol) VALUES (@nr,@dr,@hr)", conn_BD))
                 {
                     cmd.Parameters.AddWithValue("nr", infoRol.NombreRol);
-                    cmd.Parameters.AddWithValue("dr", infoRol.DescripcionRol);
-                    cmd.Parameters.AddWithValue("hr", infoRol.HabilitadoRol);
                     cmd.Parameters.Add("dr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoRol.DescripcionRol) ? (object)infoRol.DescripcionRol : DBNull.Value;
+                    cmd.Parameters.AddWithValue("hr", infoRol.HabilitadoRol);
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();

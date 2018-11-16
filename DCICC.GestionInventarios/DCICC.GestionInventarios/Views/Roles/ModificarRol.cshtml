@@ -74,5 +74,21 @@
         </div>
     </div>
 </div>
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error en el Registro", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
 
 

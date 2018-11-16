@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.Controllers
                             TablaLogs= "Acceso a base de datos.",
                             IpLogs= ObtenerIPCliente()
                         };
-                        if(objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
+                        if(objLogsAccDatos.RegistroLogsInicioBD(infoLogs).OperacionExitosa)
                         {
                             Logs.Info("Registro de log exitoso");
                         }

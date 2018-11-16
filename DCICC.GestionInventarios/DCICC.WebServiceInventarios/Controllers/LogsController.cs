@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
@@ -35,6 +36,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error("No se pudo registrar el log: " + e.Message);
+            }
+            return msjLogs;
+        }
+        /// <summary>
+        /// Método (GET) para obtener una lista de logs de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerLogsComp")]
+        public MensajesLogs ObtenerLogsComp()
+        {
+            MensajesLogs msjLogs = null;
+            try
+            {
+                ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
+                msjLogs = objConsultasLogsBD.ObtenerLogs();
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los logs: " + e.Message);
             }
             return msjLogs;
         }
