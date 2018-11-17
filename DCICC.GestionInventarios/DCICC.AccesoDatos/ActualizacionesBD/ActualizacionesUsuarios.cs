@@ -43,7 +43,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.AddWithValue("cu", infoUsuario.CorreoUsuario);
                     cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
                     cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
-                    cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
+                    cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
                     cmd.Parameters.AddWithValue("hu", infoUsuario.HabilitadoUsuario);
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
