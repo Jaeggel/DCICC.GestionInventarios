@@ -59,7 +59,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
-                RolesAccDatos objRolesAccDatos = new RolesAccDatos();
+                RolesAccDatos objRolesAccDatos = new RolesAccDatos(Session["userInfo"].ToString());
                 msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
                 if (msjRoles.OperacionExitosa)
                 {
@@ -86,7 +86,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerRolesHab()
         {
-            RolesAccDatos objRolesAccDatos = new RolesAccDatos();
+            RolesAccDatos objRolesAccDatos = new RolesAccDatos(Session["userInfo"].ToString());
             return Json(objRolesAccDatos.ObtenerRolesHab().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

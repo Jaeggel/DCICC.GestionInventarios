@@ -15,15 +15,15 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
     public class LoginAccDatos
     {
-        //Instancia para la utilización de LOGS en la clase UsuariosAccDatos
-        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        /// <summary>
-        /// Constructor para iniciar la comunicación con los métodos del WebService
-        /// </summary>
-        /// <param name="infoLogin"></param>
-        public LoginAccDatos(Login infoLogin)
-        {
-            ComunicacionServicio objComunicacionServ = new ComunicacionServicio(infoLogin);
-        }
+        ////Instancia para la utilización de LOGS en la clase UsuariosAccDatos
+        //private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        ///// <summary>
+        ///// Constructor para iniciar la comunicación con los métodos del WebService
+        ///// </summary>
+        ///// <param name="infoLogin"></param>
+        //public LoginAccDatos(Login infoLogin)
+        //{
+        //    ComunicacionServicio.ObtenerTokenInicioBD();
+        //}
     }
 }

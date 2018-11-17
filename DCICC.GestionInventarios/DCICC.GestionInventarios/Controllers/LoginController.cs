@@ -46,9 +46,10 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                     datosUsuario= ComprobarCredenciales(infoLogin);
+                    datosUsuario= ComprobarCredenciales(infoLogin);
                     if (datosUsuario != null)
                     {
+                        //Definición del menú que tendrá el usuario en el sistema
                         if (datosUsuario.IdRol == 1)
                         {
                             MenuActionFilter.ObtenerMenu("Admin");
@@ -57,13 +58,20 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             MenuActionFilter.ObtenerMenu("Usuarios");
                         }
+                        //Logs de reporte de transacción.
+                        Logs.Info("Autenticación Exitosa");
+
+                        //Construcción de sesion de usuario.
                         int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
                         Session["userInfo"] = infoLogin.NickUsuario;
                         Session.Timeout = tiempoExpiracionMin;
+
+                        //Definición de parámetros para utilizar en toda la aplicación.
                         UsuarioActionFilter.ObtenerUsuario(datosUsuario.NombresUsuario);
                         CorreoActionFilter.ObtenerCorreo(datosUsuario.CorreoUsuario);
-                        Logs.Info("Autenticación Exitosa");
-                        LogsAccDatos objLogsAccDatos = new LogsAccDatos();
+                        
+                        //Registro de Log para Login
+                        LogsAccDatos objLogsAccDatos = new LogsAccDatos(Session["userInfo"].ToString());
                         Logs infoLogs = new Logs
                         {
                             IdUsuario = datosUsuario.NickUsuario,
@@ -72,7 +80,7 @@ namespace DCICC.GestionInventarios.Controllers
                             TablaLogs= "Acceso a base de datos.",
                             IpLogs= ObtenerIPCliente()
                         };
-                        if(objLogsAccDatos.RegistroLogsInicioBD(infoLogs).OperacionExitosa)
+                        if(objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
                         {
                             Logs.Info("Registro de log exitoso");
                         }
@@ -104,9 +112,13 @@ namespace DCICC.GestionInventarios.Controllers
         {
             try
             {
-                LoginAccDatos objLoginAccDatos = new LoginAccDatos(infoLogin);
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                var datosUsuario = objUsuariosAccDatos.ObtenerUsuarios("Hab").ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                Usuarios infoUsuario = new Usuarios
+                {
+                    NickUsuario=infoLogin.NickUsuario,
+                    PasswordUsuario=infoLogin.PasswordUsuario
+                };
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoUsuario);
+                var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
                 if (datosUsuario != null)
                 {
                     return datosUsuario;

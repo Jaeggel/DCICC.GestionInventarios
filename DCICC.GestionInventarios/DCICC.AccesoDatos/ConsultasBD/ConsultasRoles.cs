@@ -57,5 +57,31 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             return msjRoles;
         }
+        /// <summary>
+        /// Método para obtener un rol en específico de la base de datos por su Id.
+        /// </summary>
+        /// <param name="IdRol"></param>
+        /// <returns></returns>
+        public static MensajesRoles ObtenerRolPorId(int IdRol)
+        {
+            MensajesRoles msjRoles = new MensajesRoles();
+            try
+            {
+                ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
+                MensajesRoles msjRolesConsulta = objConsultasRolesBD.ObtenerRolesHab();
+                Roles infoRol = msjRolesConsulta.ListaObjetoInventarios.Find(x => x.IdRol == IdRol);
+                if (infoRol != null)
+                {
+                    msjRoles.ObjetoInventarios = infoRol;
+                    msjRoles.OperacionExitosa = true;
+                }
+            }
+            catch (Exception e)
+            {
+                msjRoles.OperacionExitosa = false;
+                msjRoles.MensajeError = e.Message;
+            }
+            return msjRoles;
+        }
     }
 }

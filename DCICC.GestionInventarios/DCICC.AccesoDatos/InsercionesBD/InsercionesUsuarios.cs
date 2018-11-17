@@ -26,29 +26,23 @@ namespace DCICC.AccesoDatos.InsercionesBD
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
-            {
-                ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-                MensajesRoles msjRoles = objConsultasRolesBD.ObtenerRolesHab();
-                Roles infoRol = msjRoles.ListaObjetoInventarios.Find(x => x.IdRol == infoUsuario.IdRol);
-                if (infoRol != null)
+            {                
+                string query = "create user " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "' LOGIN CREATEROLE CREATEUSER in group " + ConsultasRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol + ";";
+                using (var cmd = new NpgsqlCommand(query, conn_BD))
                 {
-                    string query = "create user " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "' LOGIN CREATEROLE CREATEUSER in group " + infoRol.NombreRol + ";";
-                    using (var cmd = new NpgsqlCommand(query, conn_BD))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.ExecuteNonQuery();
                 }
                 using (var cmd = new NpgsqlCommand("insert into dcicc_usuarios (id_rol,nombres_usuario,nick_usuario,password_usuario,correo_usuario,telefono_usuario,telefonocelular_usuario,direccion_usuario,habilitado_usuario) VALUES (@ir,@nu,@niu,@pu,@cu,@tu,@tcu,@du,@hu)", conn_BD))
                 {
-                    cmd.Parameters.AddWithValue("ir", infoUsuario.IdRol);
-                    cmd.Parameters.AddWithValue("nu", infoUsuario.NombresUsuario);
-                    cmd.Parameters.AddWithValue("niu", infoUsuario.NickUsuario);
-                    cmd.Parameters.AddWithValue("pu", ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
-                    cmd.Parameters.AddWithValue("cu", infoUsuario.CorreoUsuario);
+                    cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdRol;
+                    cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario;
+                    cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
+                    cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario);
+                    cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario;
                     cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
                     cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
                     cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
-                    cmd.Parameters.AddWithValue("hu", infoUsuario.HabilitadoUsuario);
+                    cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();

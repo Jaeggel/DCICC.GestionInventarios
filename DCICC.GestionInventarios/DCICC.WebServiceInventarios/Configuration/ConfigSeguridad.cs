@@ -49,7 +49,17 @@ namespace DCICC.WebServiceInventarios.Configuration
         /// <returns></returns>
         public string ObtenerCadenaConexion()
         {
-            return root_Config.GetConnectionString("BDStrConnection");
+            string cadenaConexion = string.Empty;
+            try
+            {
+                cadenaConexion=root_Config.GetConnectionString("BDStrConnection");
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la cadena de conexión del archivo de configuración: " + e.Message);
+                cadenaConexion = null;
+            }
+            return cadenaConexion;
         }
         /// <summary>
         /// Método para obtener el tiempo en minutos en el cual expirará el Token de petición desde el archivo de configuración appsettings.json.

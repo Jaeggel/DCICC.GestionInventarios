@@ -24,7 +24,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <param name="infoLogsSistema"></param>
         /// <returns></returns>
-        [HttpPost("RegistrarLogInicioBD")]
+        [HttpPost("RegistrarLog")]
         public MensajesLogs RegistrarLog([FromBody]Logs infoLogsSistema)
         {
             MensajesLogs msjLogs = null;

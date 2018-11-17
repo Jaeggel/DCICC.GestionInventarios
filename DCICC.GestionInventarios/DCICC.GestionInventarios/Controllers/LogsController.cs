@@ -33,7 +33,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerLogsComp()
         {
-            LogsAccDatos objLogsAccDatos = new LogsAccDatos();
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos(Session["userInfo"].ToString());
             return Json(objLogsAccDatos.ObtenerLogsComp().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

@@ -15,6 +15,12 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
     {
         //Instancia para la utilización de LOGS en la clase RolesAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        string token_Autorizacion = string.Empty;
+        public RolesAccDatos(string NickUsuario_Sesion)
+        {
+            ComunicacionServicio objComunicacionServicio = new ComunicacionServicio();
+            token_Autorizacion = "Bearer " + objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion);
+        }
         /// <summary>
         /// Método para obtener una lista con los roles habilitados de la base de datos.
         /// </summary>
@@ -28,7 +34,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
                 HttpResponseMessage response = clientService.GetAsync("Roles/ObtenerRolesHab").Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -56,7 +62,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
                 var response = clientService.PostAsJsonAsync("Roles/RegistrarRol", infoRol).Result;
                 if (response.IsSuccessStatusCode)
                 {

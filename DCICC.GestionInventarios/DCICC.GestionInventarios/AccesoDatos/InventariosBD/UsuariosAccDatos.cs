@@ -15,11 +15,30 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
     {
         //Instancia para la utilización de LOGS en la clase UsuariosAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        string token_Autorizacion = string.Empty;
+        ComunicacionServicio obj_ComunicacionServicio = new ComunicacionServicio();
+        /// <summary>
+        /// Constructor para inicializar el token de autorización de transacciones
+        /// </summary>
+        /// <param name="NickUsuario_Sesion">Nick del usuario de la sesión actual</param>
+        public UsuariosAccDatos(string NickUsuario_Sesion)
+        {
+            token_Autorizacion= "Bearer "+obj_ComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion);
+        }
+        /// <summary>
+        /// Constructor para inicializar el token de autorización de inicio de BD
+        /// </summary>
+        /// <param name="infoUsuario">Objeto del usuario</param>
+        public UsuariosAccDatos(Usuarios infoUsuario)
+        {
+            token_Autorizacion = "Bearer " +obj_ComunicacionServicio.ObtenerTokenInicioBD(infoUsuario);
+        }
         /// <summary>
         /// Método para obtener una lista con todos los usuarios de la base de datos.
+        /// Importante para inicializar los procesos de la base de datos
         /// </summary>
         /// <returns></returns>
-        public MensajesUsuarios ObtenerUsuarios(string nombreFuncion)
+        public MensajesUsuarios ObtenerUsuariosHab()
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
@@ -28,8 +47,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuarios"+nombreFuncion).Result;
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
+                HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuariosHab").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
@@ -55,7 +74,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
                 HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuariosRoles").Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -83,7 +102,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
                 var response = clientService.PostAsJsonAsync("Usuarios/RegistrarUsuario", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -111,7 +130,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", ComunicacionServicio.token_Autorizacion);
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
                 var response = clientService.PostAsJsonAsync("Usuarios/ActualizarUsuario", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {

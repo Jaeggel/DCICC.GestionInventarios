@@ -20,8 +20,9 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD=ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener todos los usuarios de la base de datos.
+        /// Método para obtener los usuarios de la base de datos.
         /// </summary>
+        /// <param name="nombreFuncion">Tipo de función a llamar: consultausuarios o usuarioshabilitados</param>
         /// <returns></returns>
         public MensajesUsuarios ObtenerUsuarios(string nombreFuncion)
         {
@@ -102,6 +103,33 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         msjUsuarios.ListaObjetoInventarios = lstUsuariosRoles;
                         msjUsuarios.OperacionExitosa = true;
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                msjUsuarios.OperacionExitosa = false;
+                msjUsuarios.MensajeError = e.Message;
+                msjUsuarios.ListaObjetoInventarios = null;
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
+        /// Método para obtener un usuario en específico de la base de datos por su Nick.
+        /// </summary>
+        /// <param name="NickUsuario"></param>
+        /// <returns></returns>
+        public static MensajesUsuarios ObtenerUsuarioPorNick(string NickUsuario)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
+                Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.NickUsuario == NickUsuario);
+                if (infoUsuarioBD != null)
+                {
+                    msjUsuarios.ObjetoInventarios = infoUsuarioBD;
+                    msjUsuarios.OperacionExitosa = true;
                 }
             }
             catch (Exception e)

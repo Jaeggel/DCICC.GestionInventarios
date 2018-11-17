@@ -29,8 +29,6 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
-                UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos();
-                objUsuariosRolesAccDatos.ObtenerUsuariosRoles();
                 return View();
             }
         }
@@ -76,7 +74,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
                 msjUsuarios = objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
                 if(msjUsuarios.OperacionExitosa)
                 {
@@ -109,7 +107,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
                 if (msjUsuarios.OperacionExitosa)
                 {
@@ -146,7 +144,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerUsuariosRoles()
         {
-            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos();
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
             return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
