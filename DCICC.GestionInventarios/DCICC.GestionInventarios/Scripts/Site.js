@@ -20,19 +20,20 @@ function showNotify(title,message, messagetype) {
     });
 }
 //Método para mostrar alertas SweetAlert
-function showSweetAlert(url)
+function showSweetAlert()
 {
     swal({
         title: 'Confirmación de Actualización',
         text: "¿Está seguro de modificar el registro?",
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmar'
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            window.location.href = url;
+            //...
         }
     });
 }
