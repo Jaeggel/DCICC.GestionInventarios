@@ -26,6 +26,12 @@ function obtenerMetodoRol(url_Rol,url_Usu) {
             console.log(data);
             datosUsuarios = data;
             cargarUsuarioTabla();
+            $('#dataTableUsuario').DataTable();
+            //$('#dataTableUsuario').DataTable({
+            //    "language": {
+            //        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            //    }
+            //});
             console.log("siiiiii: ");
         }
     });
@@ -51,6 +57,12 @@ function obtenerMetodoUsuarios(url_rol,url_Usu,usuario) {
         success: function (data) {
             usuarioActual = data;
             cargarUsuarioTabla(data);
+            $('#dataTableUsuario').DataTable();
+            //$('#dataTableUsuario').DataTable({
+            //    "language": {
+            //        "url": "http://localhost/Content/Spanish.json"
+            //    }
+            //});
             console.log(data);
         }
     });
@@ -80,6 +92,12 @@ function obtenerUsuariosUpdate(url_Usu) {
             console.log(data);
             datosUsuarios = data;
             cargarUsuarioTabla(usuarioActual);
+            $('#dataTableUsuario').DataTable();
+            //$('#dataTableUsuario').DataTable({
+            //    "language": {
+            //        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            //    }
+            //});
             console.log("siiiiii: ");
         }
     });
@@ -88,7 +106,7 @@ function obtenerUsuariosUpdate(url_Usu) {
 
 //Función para cargar la tabla de Usuarios
 function cargarUsuarioTabla(nick) {
-    var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
+    var str = '<table id="dataTableUsuario"class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
     str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosUsuarios.length; i++) {
@@ -112,7 +130,7 @@ function cargarUsuarioTabla(nick) {
                 '</div></div></td></tr>';
         }
     };
-    str += '</tbody></table>';
+    str += '</tbody><tfoot <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </tfoot></table>';
     $("#tablaModificarUsuarios").html(str);
 }
 

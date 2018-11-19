@@ -13,13 +13,18 @@ function obtenerCategorias(url) {
             datosCategorias = data;
             console.log("siiiiii: ");
             cargarCategoriaTabla();
+            $('#dataTableCategorias').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
         }
     });
 }
 
 //Función para cargar la tabla de Categorias
 function cargarCategoriaTabla() {
-    var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
+    var str = '<table id="dataTableCategorias" class="table table-striped jambo_table bulk_action table-responsive table-bordered dt-responsive nowrap">';
     str += '<thead> <tr> <th>Nombre Categoría</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosCategorias.length; i++) {
@@ -41,7 +46,7 @@ function cargarCategoriaTabla() {
             '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
             '</div></div></td></tr>';
     };
-    str += '</tbody></table>';
+    str += '</tbody><tfoot> <tr> <th>Nombre Categoría</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </tfoot></table>';
     $("#tablaModificarCategorias").html(str);
 }
 

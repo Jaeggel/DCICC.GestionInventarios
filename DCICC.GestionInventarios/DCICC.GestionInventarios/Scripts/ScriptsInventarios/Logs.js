@@ -14,13 +14,9 @@ function obtenerLogs(url) {
             console.log("siiiiii: ");
             cargarLogsTabla();
             $('#dataTableLogs').DataTable({
-
                 "language": {
-
-                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-
+                    "url": "http://localhost/Content/Spanish.json"
                 }
-
             } );
         }
     });

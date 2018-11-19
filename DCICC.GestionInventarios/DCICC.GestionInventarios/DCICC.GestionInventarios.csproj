@@ -4626,6 +4626,7 @@
     <Content Include="Content\SweetAlert\src\sweetalert2.scss" />
     <Content Include="Content\SweetAlert\src\toasts.scss" />
     <Content Include="Content\SweetAlert\src\variables.scss" />
+    <Content Include="Content\Spanish.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
