@@ -64,8 +64,7 @@
 
                             @* Formulario para actualizaci[on de datos de los componentes para el ingreso de un nuevo usuario.
                                     (Metodo de la clase) - Controlador (Controller) *@
-                            @using (Html.BeginForm("ModificarUsuario", "Usuarios"))
-                            {
+                            <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Combobox para seleccionar un rol de usuario*@
                                     <div class="form-group">
@@ -114,19 +113,19 @@
                                         <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Usuario?</label>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             @*<div id="checkUpdate"></div>*@
-                                            <input  id="HabilitadoUsuario" name="HabilitadoUsuario" type="checkbox" class="js-switch" value="true" checked/>
+                                            <input id="HabilitadoUsuario" name="HabilitadoUsuario" type="checkbox" class="js-switch" value="true" checked />
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" >Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarUsuario('@Url.Action("ModificarUsuario", "Usuarios")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")')">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>

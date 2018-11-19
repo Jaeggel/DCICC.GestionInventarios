@@ -70,6 +70,22 @@ function obtenerMetodoUsuarios(url_rol,url_Usu,usuario) {
 
 }
 
+function obtenerUsuariosUpdate(url_Usu) {
+    //Método ajax para obtener usuarios de la base de datos
+    $.ajax({
+        dataType: 'json',
+        url: url_Usu,
+        type: 'post',
+        success: function (data) {
+            console.log(data);
+            datosUsuarios = data;
+            cargarUsuarioTabla(usuarioActual);
+            console.log("siiiiii: ");
+        }
+    });
+
+}
+
 //Función para cargar la tabla de Usuarios
 function cargarUsuarioTabla(nick) {
     var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
@@ -154,9 +170,10 @@ function formUpdateUsuario(idUsuario) {
 }
 
 //Función para modificar el usuario especificado
-function modificarUsuario(url_modificar) {
+function modificarUsuario(url_modificar,url_Usu) {
+    console.log(url_modificar);
     var cmbRol = document.getElementById("rolCmb");
-    var idRol = cmbRol.options[opcion.selectedIndex].value;
+    var idRol = cmbRol.options[cmbRol.selectedIndex].value;
     var nombreUsuario =document.getElementById("NombresUsuario").value;
     var correoUsuario =document.getElementById("CorreoUsuario").value;
     var nickUsuario=document.getElementById("NickUsuario").value;
@@ -166,19 +183,37 @@ function modificarUsuario(url_modificar) {
     var direccionUsuario=document.getElementById("DireccionUsuario").value;
     var habilitadoUsuario = $('#HabilitadoUsuario').prop('checked');
 
-    //Método ajax para modificar el usuario de la base de datos
-    $.ajax({
-        data: { "IdUusario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
-        dataType: 'json',
-        url: url_modificar,
-        type: 'post',
-        success: function (data) {
-            console.log(data);
-            datosRoles = data;
-            console.log("siiiiii: ");
-            cargarRolesCmb();
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar el usuario de la base de datos
+            $.ajax({
+                data: { "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
+                url: url_modificar,
+                type: 'post',
+                success: function () {
+                    $('#ModificarUsuario').modal('hide');                    
+                    showNotify("Actualización exitosa", 'El usuario se ha modificado correctamente', "success");
+                    obtenerUsuariosUpdate(url_Usu);
+                }, error: function () {
+                    $('#ModificarUsuario').modal('hide');
+                    showNotify("Error en la Actualización", 'No se ha podido modificar el usuario', "error");
+                }
+            });
+
+        } else {
+            $('#ModificarUsuario').modal('hide');
         }
     });
+
 
 }
 
