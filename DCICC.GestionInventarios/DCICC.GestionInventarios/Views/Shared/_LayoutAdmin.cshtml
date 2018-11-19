@@ -184,18 +184,3 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
-<script>
-    if ('@ViewBag.UsuarioSesion' != null) {
-        swal({
-            title: 'Custom width, padding, background.',
-            width: 600,
-            padding: '3em',
-            background: '#fff',
-            backdrop: `
-            rgba(0,0,123,0.4)
-            center left
-            no-repeat
-            `
-        })
-    }
-</script>
