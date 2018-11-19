@@ -31,7 +31,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 {
                     cmd.Parameters.Add("nr", NpgsqlTypes.NpgsqlDbType.Varchar).Value=infoRol.NombreRol;
                     cmd.Parameters.Add("dr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoRol.DescripcionRol) ? (object)infoRol.DescripcionRol : DBNull.Value;
-                    cmd.Parameters.AddWithValue("hr", NpgsqlTypes.NpgsqlDbType.Boolean).Value=infoRol.HabilitadoRol;
+                    cmd.Parameters.Add("hr", NpgsqlTypes.NpgsqlDbType.Boolean).Value=infoRol.HabilitadoRol;
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();

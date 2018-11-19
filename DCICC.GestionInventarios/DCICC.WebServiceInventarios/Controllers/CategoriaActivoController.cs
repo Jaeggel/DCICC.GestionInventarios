@@ -21,7 +21,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         //Instancia para la utilización de LOGS en la clase CategoriaActivoController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de todas los categorías habilitadas de la base de datos.
+        /// Método (GET) para obtener una lista de todas las categorías de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerCategoriasActivosHab")]
@@ -40,7 +40,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjCategorias;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todas los categorías habilitadas de la base de datos.
+        /// Método (GET) para obtener una lista de las categorías habilitadas de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerCategoriasActivosComp")]

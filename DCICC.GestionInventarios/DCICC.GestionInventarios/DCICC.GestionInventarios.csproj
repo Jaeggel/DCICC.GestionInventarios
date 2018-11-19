@@ -161,6 +161,7 @@
   <ItemGroup>
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
     <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\LaboratoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LogsAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\RolesAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\UsuariosAccDatos.cs" />

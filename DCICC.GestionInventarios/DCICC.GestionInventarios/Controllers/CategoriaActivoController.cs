@@ -100,7 +100,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesCategorias= "No se ha podido actualizar el usuario: " + msjCategorias.MensajeError;
+                    mensajesCategorias= "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
                     TempData["MensajeError"] = mensajesCategorias;
                 }
             }

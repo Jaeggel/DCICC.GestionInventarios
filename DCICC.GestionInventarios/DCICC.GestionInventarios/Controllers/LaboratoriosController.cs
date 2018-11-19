@@ -1,5 +1,8 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
+using DCICC.GestionInventarios.Models.MensajesInventarios;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +15,8 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0)]
     public class LaboratoriosController : Controller
     {
+        //Instancia para la utilización de LOGS en la clase Usuarios
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoLaboratorio
         /// </summary>
@@ -50,7 +55,70 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoLaboratorio(Laboratorios infoLaboratorio)
         {
+            string mensajesLaboratorios = string.Empty;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
+            try
+            {
+                LaboratoriosAccDatos objLaboratoriosActivosAccDatos = new LaboratoriosAccDatos(Session["userInfo"].ToString());
+                msjLaboratorios = objLaboratoriosActivosAccDatos.RegistrarLaboratorio(infoLaboratorio);
+                if (msjLaboratorios.OperacionExitosa)
+                {
+                    mensajesLaboratorios = "El laboratorio ha sido registrado exitosamente.";
+                    TempData["Mensaje"] = mensajesLaboratorios;
+                    Logs.Info(mensajesLaboratorios);
+                }
+                else
+                {
+                    mensajesLaboratorios = "No se ha podido registrar el laboratorio: " + msjLaboratorios.MensajeError;
+                    TempData["MensajeError"] = mensajesLaboratorios;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesLaboratorios + ": " + e.Message);
+                return View();
+            }
             return RedirectToAction("ModificarLaboratorio", "Laboratorios");
+        }
+        /// <summary>
+        /// Método para actualizar un laboratorio en la base de datos.
+        /// </summary>
+        /// <param name="infoLaboratorio"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarLaboratorio(Laboratorios infoLaboratorio)
+        {
+            string mensajesLaboratorios = string.Empty;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
+            try
+            {
+                LaboratoriosAccDatos objLaboratoriosAccDatos = new LaboratoriosAccDatos(Session["userInfo"].ToString());
+                msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio);
+                if (msjLaboratorios.OperacionExitosa)
+                {
+                    Logs.Info(mensajesLaboratorios);
+                }
+                else
+                {
+                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio: " + msjLaboratorios.MensajeError;
+                    TempData["MensajeError"] = mensajesLaboratorios;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesLaboratorios + ": " + e.Message);
+                return View();
+            }
+            return RedirectToAction("ModificarLaboratorio", "Laboratorio");
+        }
+        /// <summary>
+        /// Método para obtener todos los laboratorios de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerLaboratoriosComp()
+        {
+            LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos(Session["userInfo"].ToString());
+            return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }
