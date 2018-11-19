@@ -22,6 +22,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// <summary>
         /// Método para ingresar un nuevo log en la base de datos.
         /// </summary>
+        /// <param name="infoLog"></param>
         /// <returns></returns>
         public MensajesLogs RegistroLogsInicioBD(Logs infoLog)
         {

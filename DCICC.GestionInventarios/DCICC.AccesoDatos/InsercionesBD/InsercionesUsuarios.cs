@@ -21,6 +21,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// <summary>
         /// Método para ingresar un nuevo usuario en la base de datos.
         /// </summary>
+        /// <param name="infoUsuario"></param>
         /// <returns></returns>
         public MensajesUsuarios RegistroUsuario(Usuarios infoUsuario)
         {

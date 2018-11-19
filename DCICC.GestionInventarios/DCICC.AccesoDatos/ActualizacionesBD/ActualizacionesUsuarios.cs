@@ -22,6 +22,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
         /// <summary>
         /// Método para actualizar un usuario en la base de datos.
         /// </summary>
+        /// <param name="infoUsuario"></param>
         /// <returns></returns>
         public MensajesUsuarios ActualizacionUsuario(Usuarios infoUsuario)
         {

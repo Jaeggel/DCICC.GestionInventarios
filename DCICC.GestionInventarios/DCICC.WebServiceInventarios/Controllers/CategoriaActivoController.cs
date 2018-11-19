@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DCICC.AccesoDatos.ActualizacionesBD;
+using DCICC.AccesoDatos.ConsultasBD;
+using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
@@ -12,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DCICC.WebServiceInventarios.Controllers
 {
     [Authorize(Policy = "Member")]
-    [Route("CategoriaActivo")]
+    [Route("CategoriasActivos")]
     public class CategoriaActivoController : Controller
     {
         //Instancia para la utilización de LOGS en la clase CategoriaActivoController
@@ -22,18 +25,19 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerCategoriasActivosHab")]
-        public MensajesCategoriaActivo ObtenerUsuariosHab()
+        public MensajesCategoriasActivos ObtenerUsuariosHab()
         {
-            MensajesCategoriaActivo msjCategoriaActivo = null;
+            MensajesCategoriasActivos msjCategorias = null;
             try
             {
-                
+                ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
+                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivosHab();
             }
             catch (Exception e)
             {
                 Logs.Error("No se pudo obtener la lista de las categorías: " + e.Message);
             }
-            return msjCategoriaActivo;
+            return msjCategorias;
         }
         /// <summary>
         /// Método (POST) para registrar una nueva categoría en la base de datos.
@@ -41,18 +45,19 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// <param name="infoCategoriaActivo"></param>
         /// <returns></returns>
         [HttpPost("RegistrarCategoriaActio")]
-        public MensajesCategoriaActivo RegistrarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
+        public MensajesCategoriasActivos RegistrarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
-            MensajesCategoriaActivo msjCategoriaActivo = null;
+            MensajesCategoriasActivos msjCategorias = null;
             try
             {
-                
+                InsercionesCategoriasActivos objInsercionesCategoriasBD = new InsercionesCategoriasActivos();
+                msjCategorias = objInsercionesCategoriasBD.RegistroCategoria(infoCategoriaActivo);
             }
             catch (Exception e)
             {
                 Logs.Error("No se pudo registrar la categoría: " + e.Message);
             }
-            return msjCategoriaActivo;
+            return msjCategorias;
         }
         /// <summary>
         /// Método (POST) para actualizar una categoría en la base de datos.
@@ -60,18 +65,19 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// <param name="infoCategoriaActivo"></param>
         /// <returns></returns>
         [HttpPost("ActualizarCategoriaActivo")]
-        public MensajesCategoriaActivo ActualizarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
+        public MensajesCategoriasActivos ActualizarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
-            MensajesCategoriaActivo msjCategoriaActivo = null;
+            MensajesCategoriasActivos msjCategorias = null;
             try
             {
-
+                ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
+                msjCategorias = objActualizacionesCategoriasActBD.ActualizacionCategoria(infoCategoriaActivo);
             }
             catch (Exception e)
             {
                 Logs.Error("No se pudo actualizar la categoría: " + e.Message);
             }
-            return msjCategoriaActivo;
+            return msjCategorias;
         }
     }
 }

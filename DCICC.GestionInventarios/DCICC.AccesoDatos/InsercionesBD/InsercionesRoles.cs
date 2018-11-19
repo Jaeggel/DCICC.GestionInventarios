@@ -20,6 +20,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// <summary>
         /// Método para ingresar un nuevo rol en la base de datos.
         /// </summary>
+        /// <param name="infoRol"></param>
         /// <returns></returns>
         public MensajesRoles RegistroRol(Roles infoRol)
         {

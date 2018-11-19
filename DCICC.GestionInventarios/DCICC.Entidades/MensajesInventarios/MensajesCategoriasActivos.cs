@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DCICC.Entidades.MensajesInventarios
 {
-    public class MensajesCategoriaActivo
+    public class MensajesCategoriasActivos
     {
         public bool OperacionExitosa { get; set; }
 

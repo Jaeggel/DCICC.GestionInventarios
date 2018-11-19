@@ -29,8 +29,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
-                ConsultasRoles objConsultasRoles = new ConsultasRoles();
-                msjRoles=objConsultasRoles.ObtenerRolesHab();
+                ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
+                msjRoles=objConsultasRolesBD.ObtenerRolesHab();
             }
             catch (Exception e)
             {
@@ -49,8 +49,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             MensajesRoles msjRoles = null;
             try
             {
-                InsercionesRoles objInsercionesRolessBD = new InsercionesRoles();
-                msjRoles = objInsercionesRolessBD.RegistroRol(infoRol);
+                InsercionesRoles objInsercionesRolesBD = new InsercionesRoles();
+                msjRoles = objInsercionesRolesBD.RegistroRol(infoRol);
             }
             catch (Exception e)
             {

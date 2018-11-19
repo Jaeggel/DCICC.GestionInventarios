@@ -162,7 +162,6 @@
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LogsAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\RolesAccDatos.cs" />
-    <Compile Include="AccesoDatos\InventariosBD\LoginAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\UsuariosAccDatos.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
