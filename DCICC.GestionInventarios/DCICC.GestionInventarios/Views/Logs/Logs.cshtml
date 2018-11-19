@@ -30,10 +30,24 @@
             <div class="x_content">
                 <br>
                 @* Sección para la tabla de logs mediante js *@
-                <div id="tablaLogs">
+                <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                    <div id="tablaLogs">
 
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/ScriptsInventarios/Logs.js"></script>
+<script type="text/javascript">
+
+     $(document).ready(function () {
+
+        obtenerLogs('@Url.Action("ObtenerLogsComp", "Logs")');
+
+    });
+
+</script>

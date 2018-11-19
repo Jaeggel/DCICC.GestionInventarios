@@ -4645,6 +4645,7 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
+    <Content Include="Scripts\ScriptsInventarios\Logs.js" />
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
     <Content Include="Scripts\ScriptsInventarios\Usuario.js" />
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
