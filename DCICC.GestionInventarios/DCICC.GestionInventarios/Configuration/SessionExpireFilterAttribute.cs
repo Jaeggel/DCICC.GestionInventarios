@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Configuration
             {
                 LoginController obj = new LoginController();
                 obj.RegistroSesionLogs("Logout");
+                filterContext.Controller.ViewBag.UsuarioSesion = LoginController.nickUsuarioSesion;
                 filterContext.Result = new RedirectResult("~/Login/Login");
                 return;
             }

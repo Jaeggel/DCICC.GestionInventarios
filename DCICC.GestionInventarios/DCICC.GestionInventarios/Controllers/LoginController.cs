@@ -16,7 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LoginController : Controller
     {
-        static string nickUsuarioSesion = string.Empty;
+        public static string nickUsuarioSesion = string.Empty;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -158,7 +158,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public void RegistroSesionLogs(string operacion)
         {
-            LogsAccDatos objLogsAccDatos = new LogsAccDatos(Session["userInfo"].ToString());
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos(nickUsuarioSesion);
             Logs infoLogs = new Logs
             {
                 IdUsuario = nickUsuarioSesion,
@@ -173,6 +173,7 @@ namespace DCICC.GestionInventarios.Controllers
             else if(operacion=="Logout")
             {
                 infoLogs.OperacionLogs = "Logout";
+                infoLogs.TablaLogs = "Finalización de sesión con la base de datos.";
             }
             if (objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
             {
