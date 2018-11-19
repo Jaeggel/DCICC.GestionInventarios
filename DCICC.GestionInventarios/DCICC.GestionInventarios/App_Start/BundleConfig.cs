@@ -33,10 +33,23 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/switchery/dist/switchery.min.js",
                         "~/Content/Tema/vendors/moment/min/moment.min.js",
                         "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
+                        "~/Content/Tema/vendors/datatables.net/js/jquery.dataTables.min.js",
+                        "~/Content/Tema/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js",
+                        "~/Content/Tema/vendors/datatables.net-buttons/js/dataTables.buttons.min.js",
+                        "~/Content/Tema/vendors/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js",
+                        "~/Content/Tema/vendors/datatables.net-buttons/js/buttons.flash.min.js",
+                        "~/Content/Tema/vendors/datatables.net-buttons/js/buttons.html5.min.js",
+                        "~/Content/Tema/vendors/datatables.net-buttons/js/buttons.print.min.js",
+                        "~/Content/Tema/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js",
+                        "~/Content/Tema/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js",
+                        "~/Content/Tema/vendors/datatables.net-responsive/js/dataTables.responsive.min.js",
+                        "~/Content/Tema/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js",
+                        "~/Content/Tema/vendors/datatables.net-scroller/js/dataTables.scroller.min.js",
                         "~/Scripts/pnotify.custom.min.js",
                         "~/Content/SweetAlert/dist/sweetalert2.all.min.js",
                         "~/Content/Tema/build/js/custom.js",
-                        "~/Scripts/Site.js"));
+                        "~/Scripts/Site.js"));          
+
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -55,6 +68,11 @@ namespace DCICC.GestionInventarios
                       "~/Content/Tema/vendors/jqvmap/dist/jqvmap.min.css",
                       "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css",
                       "~/Content/Tema/vendors/switchery/dist/switchery.min.css",
+                      "~/Content/Tema/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css",
+                      "~/Content/Tema/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css",
+                      "~/Content/Tema/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css",
+                      "~/Content/Tema/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css",
+                      "~/Content/Tema/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css",
                       "~/Content/pnotify.custom.min.css",
                       "~/Content/animate.css",
                       "~/Content/SweetAlert/dist/sweetalert2.min.css",

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DCICC.GestionInventarios.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,8 @@ namespace DCICC.GestionInventarios.Configuration
             HttpContext ctx = HttpContext.Current;
             if (HttpContext.Current.Session["userInfo"] == null)
             {
+                LoginController obj = new LoginController();
+                obj.RegistroSesionLogs("Logout");
                 filterContext.Result = new RedirectResult("~/Login/Login");
                 return;
             }

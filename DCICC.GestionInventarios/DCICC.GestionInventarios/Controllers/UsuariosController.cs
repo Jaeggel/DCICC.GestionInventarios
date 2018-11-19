@@ -111,8 +111,6 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajes_Usuarios = "El usuario ha sido actualizado exitosamente.";
-                    TempData["Mensaje"] = mensajes_Usuarios;
                     Logs.Info(mensajes_Usuarios);
                 }
                 else

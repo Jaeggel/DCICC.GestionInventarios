@@ -16,6 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LoginController : Controller
     {
+        static string nickUsuarioSesion = string.Empty;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -64,30 +65,15 @@ namespace DCICC.GestionInventarios.Controllers
                         //Construcción de sesion de usuario.
                         int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
                         Session["userInfo"] = infoLogin.NickUsuario;
+                        nickUsuarioSesion= infoLogin.NickUsuario;
                         Session.Timeout = tiempoExpiracionMin;
 
                         //Definición de parámetros para utilizar en toda la aplicación.
                         UsuarioActionFilter.ObtenerUsuario(datosUsuario.NombresUsuario);
                         CorreoActionFilter.ObtenerCorreo(datosUsuario.CorreoUsuario);
-                        
+
                         //Registro de Log para Login
-                        LogsAccDatos objLogsAccDatos = new LogsAccDatos(Session["userInfo"].ToString());
-                        Logs infoLogs = new Logs
-                        {
-                            IdUsuario = datosUsuario.NickUsuario,
-                            FechaLogs=DateTime.Now,
-                            OperacionLogs="Login",
-                            TablaLogs= "Acceso a base de datos.",
-                            IpLogs= ObtenerIPCliente()
-                        };
-                        if(objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
-                        {
-                            Logs.Info("Registro de log exitoso");
-                        }
-                        else
-                        {
-                            Logs.Error("No se pudo registrar el log");
-                        }
+                        RegistroSesionLogs("Login");
                     }
                     else
                     {
@@ -137,10 +123,20 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult CerrarSesion()
         {
-            Session["userInfo"] = null;
-            Session.Abandon();
-            Session.Clear();
-            Session.RemoveAll();
+            try
+            {
+                //Registro de Log para Login
+                RegistroSesionLogs("Logout");
+                //Cerrar Sesión
+                Session["userInfo"] = null;
+                Session.Abandon();
+                Session.Clear();
+                Session.RemoveAll();
+            }
+            catch(Exception e)
+            {
+                Logs.Error("Error en el cierre de la sesión: " + e.Message);
+            }
             return RedirectToAction("Login", "Login");
         }
         /// <summary>
@@ -155,6 +151,37 @@ namespace DCICC.GestionInventarios.Controllers
                 return ipList.Split(',')[0];
             }
             return Request.ServerVariables["REMOTE_ADDR"];
+        }
+        /// <summary>
+        /// Método para registrar el inicio y cierre de sesión en la tabla logs.
+        /// </summary>
+        /// <returns></returns>
+        public void RegistroSesionLogs(string operacion)
+        {
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos(Session["userInfo"].ToString());
+            Logs infoLogs = new Logs
+            {
+                IdUsuario = nickUsuarioSesion,
+                FechaLogs = DateTime.Now,
+                IpLogs = ObtenerIPCliente()
+            };
+            if (operacion=="Login")
+            {
+                infoLogs.OperacionLogs = "Login";
+                infoLogs.TablaLogs = "Acceso a base de datos.";
+            }
+            else if(operacion=="Logout")
+            {
+                infoLogs.OperacionLogs = "Logout";
+            }
+            if (objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
+            {
+                Logs.Info("Registro de log exitoso.");
+            }
+            else
+            {
+                Logs.Error("No se pudo registrar el log.");
+            }
         }
     }
 }
