@@ -36,7 +36,7 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de un laboratorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" maxlength="100" required>
+                            <input id="NombreLaboratorio" type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" maxlength="100" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para el ingreso de la ubicacion física de un laboratorio *@
@@ -71,3 +71,18 @@
     </div>
     <div class="col-md-2 col-sm-12 col-xs-12"></div>
 </div>
+
+<script src="~/Scripts/ScriptsInventarios/Laboratorios.js"></script>
+<script>
+    $(document).ready(function () {
+
+        obtenerLaboratorios(url);
+
+        $('#NombreLaboratorio').blur(function () {
+            var nombre = document.getElementById("NombreLaboratorio").value;
+            comprobarNombre(nombre);
+        });
+
+    });
+
+</script>

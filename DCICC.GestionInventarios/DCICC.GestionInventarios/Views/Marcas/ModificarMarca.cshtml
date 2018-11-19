@@ -36,42 +36,80 @@
             <div class="x_content">
                 <br>
                 @* Sección para la tabla de modificación mediante js *@
-                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tablaModificarMarca">
+                <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                    <div id="tablaModificarMarca">
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@* Modal de modificación de marcas *@
+<div class="modal fade" id="ModificarMarca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modificar Marcas</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            <br>
+                            @* Formulario para envio de datos de los componentes para modificación de una  marca
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            @using (Html.BeginForm("NuevaMarca", "Marcas"))
+                            {
+                                <div class="form-horizontal form-label-left input_mask">
+                                    @* Cuadro de texto para el ingreso del nombre de una marca *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" maxlength="50" required>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Área de Texto para el ingreso de la descripción de una marca *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="DescripcionMarca" name="DescripcionMarca" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Marca" maxlength="150"></textarea>
+                                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Checkbox para habilitar o deshabilitar el uso de la nueva marca *@
+                                    <div class="form-group">
+                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Marca?</label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input id="HabilitadoMarca" name="HabilitadoMarca" type="checkbox" class="js-switch" value="true" checked />
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar marca o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success">Ingresar</button>
+                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/ScriptsInventarios/Marcas.js"></script>
+<script>
+    $(document).ready(function () {
+
+        obtenerMarcas(url);
+
+        //obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+
+    });
+
+</script>

@@ -1,9 +1,9 @@
 ﻿var datosRoles;
 var datosUsuarios;
 var usuarioActual;
+var idUsuarioModificar;
 
 function obtenerMetodoRol(url_Rol,url_Usu) {
-    
     //Método ajax para obtener los roles de la base de datos
     $.ajax({
         dataType: 'json',
@@ -32,10 +32,7 @@ function obtenerMetodoRol(url_Rol,url_Usu) {
 
 }
 
-function obtenerMetodoUsuarios(url_rol,url_Usu, usuario) {
-
-    
-
+function obtenerMetodoUsuarios(url_rol,url_Usu,usuario) {
     //Método ajax para obtener usuarios de la base de datos
     $.ajax({
         dataType: 'json',
@@ -75,7 +72,6 @@ function obtenerMetodoUsuarios(url_rol,url_Usu, usuario) {
 
 //Función para cargar la tabla de Usuarios
 function cargarUsuarioTabla(nick) {
-  
     var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
     str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
@@ -92,7 +88,6 @@ function cargarUsuarioTabla(nick) {
             } else {
                 str += '</td><td> Deshabilitado';
             }
-
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">'+
                 '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarUsuario" onclick = "formUpdateUsuario('+ datosUsuarios[i].IdUsuario+');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
                 '</div></div>'+
@@ -130,9 +125,11 @@ function cargarRolesUpdateCmb() {
 //Función para setear los valores en los inputs
 function formUpdateUsuario(idUsuario) {
     console.log(idUsuario);
+    idUsuarioModificar = idUsuario;
     for (var i = 0; i < datosUsuarios.length; i++) {
        
         if (datosUsuarios[i].IdUsuario == idUsuario) {
+            //Métodos para setear los valores a modificar
             var element = document.getElementById("rolCmb");
             element.value = datosUsuarios[i].IdRol;
             document.getElementById("NombresUsuario").value = datosUsuarios[i].NombresUsuario;
@@ -144,21 +141,44 @@ function formUpdateUsuario(idUsuario) {
             document.getElementById("DireccionUsuario").value = datosUsuarios[i].DireccionUsuario;
             
             //Método para el check del update de Usuarios
-            console.log(datosUsuarios[i].HabilitadoUsuario)
             var valor = datosUsuarios[i].HabilitadoUsuario;
             var estado = $('#HabilitadoUsuario').prop('checked');
-
             if (estado && valor == false) {     
                 document.getElementById("HabilitadoUsuario").click();
             }
-
             if (estado==false && valor == true) {
                 document.getElementById("HabilitadoUsuario").click();
             }
-        };
-        
+        };       
     };
+}
 
+//Función para modificar el usuario especificado
+function modificarUsuario(url_modificar) {
+    var cmbRol = document.getElementById("rolCmb");
+    var idRol = cmbRol.options[opcion.selectedIndex].value;
+    var nombreUsuario =document.getElementById("NombresUsuario").value;
+    var correoUsuario =document.getElementById("CorreoUsuario").value;
+    var nickUsuario=document.getElementById("NickUsuario").value;
+    var passwordUsuario =document.getElementById("PasswordUsuario").value;
+    var telefonoUsuario=document.getElementById("TelefonoUsuario").value;
+    var celularUsuario=document.getElementById("TelefonoCelUsuario").value;
+    var direccionUsuario=document.getElementById("DireccionUsuario").value;
+    var habilitadoUsuario = $('#HabilitadoUsuario').prop('checked');
+
+    //Método ajax para modificar el usuario de la base de datos
+    $.ajax({
+        data: { "IdUusario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
+        dataType: 'json',
+        url: url_modificar,
+        type: 'post',
+        success: function (data) {
+            console.log(data);
+            datosRoles = data;
+            console.log("siiiiii: ");
+            cargarRolesCmb();
+        }
+    });
 
 }
 
@@ -182,10 +202,8 @@ function comprobarCorreo(correo) {
     }
 }  
 
-
 //Función para evitar nombres de nick repetidos
 function comprobarNick(nick) {
-
     nick = nick.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosUsuarios.length; i++) {
@@ -196,11 +214,10 @@ function comprobarNick(nick) {
 
     console.log(comprobar);
     if (comprobar == true) {
-        document.getElementById("NickUsuario").setCustomValidity("El nick de usuario " + nick + " ya existe");
+        document.getElementById("NickUsuario").setCustomValidity("El nick de usuario: <strong> " + nick + " </strong> ya existe");
     } else {
         document.getElementById("NickUsuario").setCustomValidity("");
     }
-
 }
 
 

@@ -36,7 +36,7 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" maxlength="50" required>
+                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de una marca *@
@@ -64,5 +64,20 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 col-sm-12 col-xs-12"></div>
 </div>
+
+<script src="~/Scripts/ScriptsInventarios/Marcas.js"></script>
+<script>
+    $(document).ready(function () {
+
+        obtenerMarcas(url);
+
+        $('#NombreMarca').blur(function () {
+            var nombre = document.getElementById("NombreMarca").value;
+            comprobarNombre(nombre);
+        });
+
+    });
+
+</script>
+
