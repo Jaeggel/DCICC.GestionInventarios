@@ -17,6 +17,7 @@ namespace DCICC.GestionInventarios.Controllers
     public class LoginController : Controller
     {
         public static string nickUsuarioSesion = string.Empty;
+        public static string ipUsuarioSesion = string.Empty;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -61,7 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
                         }
                         //Logs de reporte de transacción.
                         Logs.Info("Autenticación Exitosa");
-
+                        ipUsuarioSesion = ObtenerIPCliente();
                         //Construcción de sesion de usuario.
                         int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
                         Session["userInfo"] = infoLogin.NickUsuario;
@@ -163,7 +164,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 IdUsuario = nickUsuarioSesion,
                 FechaLogs = DateTime.Now,
-                IpLogs = ObtenerIPCliente()
+                IpLogs = ipUsuarioSesion
             };
             if (operacion=="Login")
             {
