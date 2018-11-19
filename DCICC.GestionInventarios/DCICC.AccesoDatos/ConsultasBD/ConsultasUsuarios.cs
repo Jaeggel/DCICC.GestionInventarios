@@ -67,7 +67,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para obtener todos la funcion UsuariosRoles de la base de datos.
+        /// Método para obtener todos los usuarios de la funcion UsuariosRoles de la base de datos.
         /// </summary>
         /// <returns></returns>
         public MensajesUsuarios ObtenerUsuariosRoles()
@@ -114,18 +114,18 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para obtener un usuario en específico de la base de datos por su Nick.
+        /// Método para obtener un usuario en específico de la base de datos por su ID.
         /// </summary>
-        /// <param name="NickUsuario"></param>
+        /// <param name="IdUsuario"></param>
         /// <returns></returns>
-        public static MensajesUsuarios ObtenerUsuarioPorNick(string NickUsuario)
+        public static MensajesUsuarios ObtenerUsuarioPorId(int IdUsuario)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
                 MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
-                Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.NickUsuario == NickUsuario);
+                Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.IdUsuario == IdUsuario);
                 if (infoUsuarioBD != null)
                 {
                     msjUsuarios.ObjetoInventarios = infoUsuarioBD;

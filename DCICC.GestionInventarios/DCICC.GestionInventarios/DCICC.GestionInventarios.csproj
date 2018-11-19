@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LogsAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\RolesAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\UsuariosAccDatos.cs" />
@@ -198,7 +199,7 @@
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesAccesorios.cs" />
-    <Compile Include="Models\MensajesInventarios\MensajesCategoriaActivo.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesCategoriasActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCQR.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesDetalleActivo.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLaboratorios.cs" />

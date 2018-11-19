@@ -30,7 +30,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-                msjRoles=objConsultasRolesBD.ObtenerRolesHab();
+                msjRoles=objConsultasRolesBD.ObtenerRoles("roleshabilitados");
             }
             catch (Exception e)
             {
@@ -55,6 +55,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error("No se pudo registrar el rol: " + e.Message);
+            }
+            return msjRoles;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar un rol en la base de datos.
+        /// </summary>
+        /// <param name="infoRol"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarRol")]
+        public MensajesRoles ActualizarRol([FromBody] Roles infoRol)
+        {
+            MensajesRoles msjRoles = null;
+            try
+            {
+               
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el rol: " + e.Message);
             }
             return msjRoles;
         }

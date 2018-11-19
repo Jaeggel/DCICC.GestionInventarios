@@ -24,8 +24,9 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// <summary>
         /// Método para obtener una lista con los roles habilitados de la base de datos.
         /// </summary>
+        /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>
-        public MensajesRoles ObtenerRolesHab()
+        public MensajesRoles ObtenerRoles(string nombreFuncion)
         {
             MensajesRoles msjRoles = new MensajesRoles();
             try
@@ -35,7 +36,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Roles/ObtenerRolesHab").Result;
+                HttpResponseMessage response = clientService.GetAsync("Roles/ObtenerRoles"+nombreFuncion).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var rolesJson = response.Content.ReadAsStringAsync().Result;
@@ -44,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los roles habilitados: " + e.Message +" - "+msjRoles.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de los roles: " + e.Message +" - "+msjRoles.MensajeError);
             }
             return msjRoles;
         }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DCICC.GestionInventarios.Models.MensajesInventarios
 {
-    public class MensajesCategoriaActivo
+    public class MensajesCategoriasActivos
     {
         public bool OperacionExitosa { get; set; }
 

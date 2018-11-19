@@ -19,16 +19,17 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener los roles habilitados de la base de datos.
+        /// Método para obtener los roles de la base de datos.
         /// </summary>
+        /// <param name="nombreFuncion">Tipo de función a llamar: consultaroles o roleshabilitados</param>
         /// <returns></returns>
-        public MensajesRoles ObtenerRolesHab()
+        public MensajesRoles ObtenerRoles(string nombreFuncion)
         {
             List<Roles> lstRoles = new List<Roles>();
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
-                using (var cmd = new NpgsqlCommand("roleshabilitados", conn_BD))
+                using (var cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (var dr = cmd.ExecuteReader())
@@ -68,7 +69,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             try
             {
                 ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-                MensajesRoles msjRolesConsulta = objConsultasRolesBD.ObtenerRolesHab();
+                MensajesRoles msjRolesConsulta = objConsultasRolesBD.ObtenerRoles("consultaroles");
                 Roles infoRol = msjRolesConsulta.ListaObjetoInventarios.Find(x => x.IdRol == IdRol);
                 if (infoRol != null)
                 {

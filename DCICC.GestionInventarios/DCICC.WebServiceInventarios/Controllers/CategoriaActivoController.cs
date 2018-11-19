@@ -25,13 +25,32 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerCategoriasActivosHab")]
-        public MensajesCategoriasActivos ObtenerUsuariosHab()
+        public MensajesCategoriasActivos ObtenerCategoriasActivosHab()
         {
             MensajesCategoriasActivos msjCategorias = null;
             try
             {
                 ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
-                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivosHab();
+                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("categoriashabilitadas");
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de las categorías: " + e.Message);
+            }
+            return msjCategorias;
+        }
+        /// <summary>
+        /// Método (GET) para obtener una lista de todas los categorías habilitadas de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerCategoriasActivosComp")]
+        public MensajesCategoriasActivos ObtenerCategoriasActivosComp()
+        {
+            MensajesCategoriasActivos msjCategorias = null;
+            try
+            {
+                ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
+                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("consultacategoriaactivos");
             }
             catch (Exception e)
             {
@@ -44,7 +63,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <param name="infoCategoriaActivo"></param>
         /// <returns></returns>
-        [HttpPost("RegistrarCategoriaActio")]
+        [HttpPost("RegistrarCategoriaActivo")]
         public MensajesCategoriasActivos RegistrarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
             MensajesCategoriasActivos msjCategorias = null;

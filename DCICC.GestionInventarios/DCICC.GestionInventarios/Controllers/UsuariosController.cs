@@ -70,7 +70,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoUsuario(Usuarios infoUsuario)
         {
-            string mensajes_Usuarios = string.Empty;
+            string mensajesUsuarios = string.Empty;
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
@@ -78,20 +78,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
                 if(msjUsuarios.OperacionExitosa)
                 {
-                    mensajes_Usuarios = "El usuario ha sido registrado exitosamente.";
-                    TempData["Mensaje"] = mensajes_Usuarios;
-                    Logs.Info(mensajes_Usuarios);
+                    mensajesUsuarios = "El usuario ha sido registrado exitosamente.";
+                    TempData["Mensaje"] = mensajesUsuarios;
+                    Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajes_Usuarios = "No se ha podido registrar el usuario: "+msjUsuarios.MensajeError;
-                    TempData["MensajeError"] = mensajes_Usuarios;
+                    mensajesUsuarios = "No se ha podido registrar el usuario: "+msjUsuarios.MensajeError;
+                    TempData["MensajeError"] = mensajesUsuarios;
                 }
                 return RedirectToAction("ModificarUsuario", "Usuarios");
             }
             catch(Exception e)
             {
-                Logs.Error(mensajes_Usuarios+": "+e.Message);
+                Logs.Error(mensajesUsuarios+": "+e.Message);
                 return View();
             }
         }

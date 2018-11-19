@@ -87,7 +87,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerRolesHab()
         {
             RolesAccDatos objRolesAccDatos = new RolesAccDatos(Session["userInfo"].ToString());
-            return Json(objRolesAccDatos.ObtenerRolesHab().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objRolesAccDatos.ObtenerRoles("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }

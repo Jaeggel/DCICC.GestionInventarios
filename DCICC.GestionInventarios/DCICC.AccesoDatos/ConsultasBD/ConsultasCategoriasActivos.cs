@@ -19,16 +19,17 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener las categorias habilitadas de la base de datos.
+        /// Método para obtener las categorias de la base de datos.
         /// </summary>
+        /// <param name="nombreFuncion">Tipo de función a llamar: consultacategoriaactivos o categoriashabilitadas</param></param>
         /// <returns></returns>
-        public MensajesCategoriasActivos ObtenerCategoriasActivosHab()
+        public MensajesCategoriasActivos ObtenerCategoriasActivos(string nombreFuncion)
         {
             List<CategoriaActivo> lstCategorias = new List<CategoriaActivo>();
             MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             try
             {
-                using (var cmd = new NpgsqlCommand("categoriashabilitadas", conn_BD))
+                using (var cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (var dr = cmd.ExecuteReader())
