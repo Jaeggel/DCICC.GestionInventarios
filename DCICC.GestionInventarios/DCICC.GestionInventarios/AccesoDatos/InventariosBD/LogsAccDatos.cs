@@ -36,7 +36,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Logs/RegistrarLogInicioBD", infoLogs).Result;
+                var response = clientService.PostAsJsonAsync("Logs/RegistrarLog", infoLogs).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var logsJson = response.Content.ReadAsStringAsync().Result;
