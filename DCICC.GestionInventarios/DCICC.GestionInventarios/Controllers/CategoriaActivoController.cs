@@ -101,15 +101,13 @@ namespace DCICC.GestionInventarios.Controllers
                 else
                 {
                     mensajesCategorias= "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
-                    TempData["MensajeError"] = mensajesCategorias;
                 }
             }
             catch (Exception e)
             {
                 Logs.Error(mensajesCategorias + ": " + e.Message);
-                return View();
             }
-            return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
+            return View();
         }
         /// <summary>
         /// Método para obtener todas las categorías de la base de datos

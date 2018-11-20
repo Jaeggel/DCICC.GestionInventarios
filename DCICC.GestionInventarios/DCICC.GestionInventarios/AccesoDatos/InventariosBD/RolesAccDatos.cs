@@ -22,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             token_Autorizacion = "Bearer " + objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion);
         }
         /// <summary>
-        /// Método para obtener una lista con los roles habilitados de la base de datos.
+        /// Método para obtener una lista con los roles de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>

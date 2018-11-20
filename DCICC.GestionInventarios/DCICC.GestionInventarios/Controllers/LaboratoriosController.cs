@@ -109,7 +109,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesLaboratorios + ": " + e.Message);
                 return View();
             }
-            return RedirectToAction("ModificarLaboratorio", "Laboratorio");
+            return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
         /// <summary>
         /// Método para obtener todos los laboratorios de la base de datos

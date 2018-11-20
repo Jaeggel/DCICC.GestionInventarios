@@ -72,13 +72,43 @@ namespace DCICC.GestionInventarios.Controllers
                     mensajes_Roles = "No se ha podido registrar el rol: " + msjRoles.MensajeError;
                     TempData["MensajeError"] = mensajes_Roles;
                 }
-                return RedirectToAction("ModificarRol", "Roles");
             }
             catch (Exception e)
             {
                 Logs.Error(mensajes_Roles + ": " + e.Message);
                 return View();
             }
+            return RedirectToAction("ModificarRol", "Roles");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarRol.
+        /// </summary>
+        /// <param name="infoRol"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarRol(Roles infoRol)
+        {
+            string mensajes_Roles = string.Empty;
+            MensajesRoles msjRoles = new MensajesRoles();
+            try
+            {
+                //RolesAccDatos objRolesAccDatos = new RolesAccDatos(Session["userInfo"].ToString());
+                //msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
+                //if (msjRoles.OperacionExitosa)
+                //{
+                //    mensajes_Roles = "El rol ha sido modificado exitosamente.";
+                //    Logs.Info(mensajes_Roles);
+                //}
+                //else
+                //{
+                //    mensajes_Roles = "No se ha podido modificar el rol: " + msjRoles.MensajeError;
+                //}
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajes_Roles + ": " + e.Message);
+            }
+            return View();
         }
         /// <summary>
         /// Método para obtener los roles habilitados de la base de datos

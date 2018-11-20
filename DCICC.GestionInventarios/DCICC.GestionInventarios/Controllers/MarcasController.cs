@@ -1,5 +1,8 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
+using DCICC.GestionInventarios.Models.MensajesInventarios;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +15,8 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0)]
     public class MarcasController : Controller
     {
+        //Instancia para la utilización de LOGS en la clase Usuarios
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevaMarca
         /// </summary>
@@ -48,9 +53,70 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoMarcas"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevaMarca(Marcas infoMarcas)
+        public ActionResult NuevaMarca(Marcas infoMarca)
         {
+            string mensajesMarcas = string.Empty;
+            MensajesMarcas msjMarcas = new MensajesMarcas();
+            try
+            {
+                MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos(Session["userInfo"].ToString());
+                msjMarcas = objMarcasAccDatos.RegistrarMarca(infoMarca);
+                if (msjMarcas.OperacionExitosa)
+                {
+                    mensajesMarcas = "La marca ha sido registrada exitosamente.";
+                    TempData["Mensaje"] = mensajesMarcas;
+                    Logs.Info(mensajesMarcas);
+                }
+                else
+                {
+                    mensajesMarcas = "No se ha podido registrar la marca: " + msjMarcas.MensajeError;
+                    TempData["MensajeError"] = mensajesMarcas;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesMarcas + ": " + e.Message);
+                return View();
+            }
             return RedirectToAction("ModificarMarca", "Marcas");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarMarca.
+        /// </summary>
+        /// <param name="infoMarcas"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarMarca(Marcas infoMarca)
+        {
+            string mensajesMarcas = string.Empty;
+            MensajesMarcas msjMarcas = new MensajesMarcas();
+            try
+            {
+                MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos(Session["userInfo"].ToString());
+                msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca);
+                if (msjMarcas.OperacionExitosa)
+                {
+                    Logs.Info(mensajesMarcas);
+                }
+                else
+                {
+                    mensajesMarcas = "No se ha podido actualizar la marca: " + msjMarcas.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesMarcas + ": " + e.Message);
+            }
+            return View();
+        }
+        /// <summary>
+        /// Método para obtener las marcas habilitadas de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerMarcasComp()
+        {
+            MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos(Session["userInfo"].ToString());
+            return Json(objMarcasAccDatos.ObtenerMarcas("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }

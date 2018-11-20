@@ -87,13 +87,13 @@ namespace DCICC.GestionInventarios.Controllers
                     mensajesUsuarios = "No se ha podido registrar el usuario: "+msjUsuarios.MensajeError;
                     TempData["MensajeError"] = mensajesUsuarios;
                 }
-                return RedirectToAction("ModificarUsuario", "Usuarios");
             }
             catch(Exception e)
             {
                 Logs.Error(mensajesUsuarios+": "+e.Message);
                 return View();
             }
+            return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarUsuario.
@@ -116,15 +116,13 @@ namespace DCICC.GestionInventarios.Controllers
                 else
                 {
                     mensajes_Usuarios = "No se ha podido actualizar el usuario: " + msjUsuarios.MensajeError;
-                    TempData["MensajeError"] = mensajes_Usuarios;
                 }
-                return RedirectToAction("ModificarUsuario", "Usuarios");
             }
             catch (Exception e)
             {
                 Logs.Error(mensajes_Usuarios + ": " + e.Message);
-                return View();
             }
+            return View();
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
