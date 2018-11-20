@@ -31,7 +31,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 using (var cmd = new NpgsqlCommand("UPDATE dcicc_categoriaactivos set nombre_categoriaact = @nc,descripcion_categoriaact=@dc,habilitado_categoriaact = @hc where id_categoriaact = @ic", conn_BD))
                 {
                     cmd.Parameters.Add("nc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCategoriaActivo.NombreCategoriaActivo;
-                    cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoCategoriaActivo.DescripcionCategoriaActivo) ? (object)infoCategoriaActivo.DescripcionCategoriaActivo : DBNull.Value;
+                    cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoCategoriaActivo.DescripcionCategoriaActivo) ? (object)infoCategoriaActivo.DescripcionCategoriaActivo : DBNull.Value;
                     cmd.Parameters.Add("hc", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoCategoriaActivo.HabilitadoCategoriaActivo;
                     cmd.Parameters.Add("ic", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoCategoriaActivo.IdCategoriaActivo;
                     cmd.ExecuteNonQuery();

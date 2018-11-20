@@ -38,10 +38,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             CategoriaActivo objCategorias = new CategoriaActivo
                             {
-                                IdCategoriaActivo = Int32.Parse(dr[0].ToString().Trim()),
+                                IdCategoriaActivo = int.Parse(dr[0].ToString().Trim()),
                                 NombreCategoriaActivo = dr[1].ToString().Trim(),
                                 DescripcionCategoriaActivo = dr[2].ToString().Trim(),
-                                HabilitadoCategoriaActivo = Boolean.Parse(dr[3].ToString().Trim())
+                                HabilitadoCategoriaActivo = bool.Parse(dr[3].ToString().Trim())
                             };
                             lstCategorias.Add(objCategorias);
                         }

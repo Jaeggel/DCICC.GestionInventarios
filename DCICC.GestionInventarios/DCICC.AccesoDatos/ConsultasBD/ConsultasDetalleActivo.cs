@@ -8,25 +8,25 @@ using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
 {
-    public class ConsultasMarcas
+    public class ConsultasDetalleActivo
     {
         NpgsqlConnection conn_BD = null;
         /// <summary>
         /// Constructor para realizar llamar al método de conexión con la base de datos.
         /// </summary>
-        public ConsultasMarcas()
+        public ConsultasDetalleActivo()
         {
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener las marcas de la base de datos.
+        /// Método para obtener los CQR de la base de datos.
         /// </summary>
-        /// <param name="nombreFuncion">Tipo de función a llamar: consultamarcas o marcashabilitados</param>
+        /// <param name="nombreFuncion">Tipo de función a llamar: consultaCQR</param>
         /// <returns></returns>
-        public MensajesMarcas ObtenerMarcas(string nombreFuncion)
+        public MensajesCQR ObtenerCQR(string nombreFuncion)
         {
-            List<Marcas> lstMarcas = new List<Marcas>();
-            MensajesMarcas msjMarcas = new MensajesMarcas();
+            List<CQR> lstCQR = new List<CQR>();
+            MensajesCQR msjCQR = new MensajesCQR();
             try
             {
                 using (var cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
@@ -36,27 +36,25 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     {
                         while (dr.Read())
                         {
-                            Marcas objMarcas = new Marcas
+                            CQR objCQR = new CQR
                             {
-                                IdMarca = int.Parse(dr[0].ToString().Trim()),
-                                NombreMarca = dr[1].ToString().Trim(),
-                                DescripcionMarca = dr[2].ToString().Trim(),
-                                HabilitadoMarca = bool.Parse(dr[3].ToString().Trim())
+                                IdCqr = int.Parse(dr[0].ToString().Trim()),
+                                //Bytea = byte[].dr[1].ToString().Trim(),
                             };
-                            lstMarcas.Add(objMarcas);
+                            lstCQR.Add(objCQR);
                         }
                         conn_BD.Close();
-                        msjMarcas.ListaObjetoInventarios = lstMarcas;
-                        msjMarcas.OperacionExitosa = true;
+                        msjCQR.ListaObjetoInventarios = lstCQR;
+                        msjCQR.OperacionExitosa = true;
                     }
                 }
             }
             catch (Exception e)
             {
-                msjMarcas.OperacionExitosa = false;
-                msjMarcas.MensajeError = e.Message;
+                msjCQR.OperacionExitosa = false;
+                msjCQR.MensajeError = e.Message;
             }
-            return msjMarcas;
+            return msjCQR;
         }
     }
 }

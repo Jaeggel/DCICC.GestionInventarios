@@ -34,10 +34,10 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Varchar).Value=infoLog.IdUsuario;
                     cmd.Parameters.AddWithValue("fl", infoLog.FechaLogs);
                     cmd.Parameters.Add("ol", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLog.OperacionLogs;
-                    cmd.Parameters.Add("val", NpgsqlTypes.NpgsqlDbType.Text).Value = !String.IsNullOrEmpty(infoLog.ValorAnteriorLogs) ? (object)infoLog.ValorAnteriorLogs: DBNull.Value;
-                    cmd.Parameters.Add("vacl", NpgsqlTypes.NpgsqlDbType.Text).Value = !String.IsNullOrEmpty(infoLog.ValorAnteriorLogs) ? (object)infoLog.ValorActualLogs : DBNull.Value;
+                    cmd.Parameters.Add("val", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoLog.ValorAnteriorLogs) ? (object)infoLog.ValorAnteriorLogs: DBNull.Value;
+                    cmd.Parameters.Add("vacl", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoLog.ValorAnteriorLogs) ? (object)infoLog.ValorActualLogs : DBNull.Value;
                     cmd.Parameters.Add("tl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLog.TablaLogs;
-                    cmd.Parameters.Add("ipl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoLog.IpLogs) ? (object)infoLog.IpLogs : DBNull.Value;
+                    cmd.Parameters.Add("ipl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoLog.IpLogs) ? (object)infoLog.IpLogs : DBNull.Value;
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();

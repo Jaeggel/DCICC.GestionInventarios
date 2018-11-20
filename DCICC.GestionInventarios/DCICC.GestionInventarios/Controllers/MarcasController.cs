@@ -15,7 +15,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0)]
     public class MarcasController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase Usuarios
+        //Instancia para la utilización de LOGS en la clase MarcasController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevaMarca
@@ -110,7 +110,7 @@ namespace DCICC.GestionInventarios.Controllers
             return View();
         }
         /// <summary>
-        /// Método para obtener las marcas habilitadas de la base de datos
+        /// Método para obtener las marcas de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerMarcasComp()
