@@ -77,7 +77,7 @@
 <script>
     $(document).ready(function () {
 
-        obtenerCategorias(url);
+        obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
 
         $('#NombreCategoriaActivo').blur(function () {
             var nombre = document.getElementById("NombreCategoriaActivo").value;

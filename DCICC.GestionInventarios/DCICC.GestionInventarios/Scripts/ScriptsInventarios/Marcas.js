@@ -1,7 +1,10 @@
-﻿var datosMarcas;
+﻿var url_idioma = obtenerIdioma();
+var url_metodo;
+var datosMarcas;
 var idMarcaModificar;
 
 function obtenerMarcas(url) {
+    url_metodo = url;
     console.log(url);
     //Método ajax para traer las marcas de la base de datos
     $.ajax({
@@ -11,14 +14,19 @@ function obtenerMarcas(url) {
         success: function (data) {
             console.log(data);
             datosMarcas = data;
-            cargarLaboratoriosTabla();
+            cargarMarcasTabla();
+            $('#dataTableMarcas').DataTable({
+                "language": {
+                    "url": url_idioma
+                }
+            });
         }
     });
 }
 
 //Función para cargar la tabla de las Marcas
-function cargarLaboratoriosTabla() {
-    var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
+function cargarMarcasTabla() {
+    var str = '<table id="dataTableMarcas" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre de la Marca</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMarcas.length; i++) {
@@ -47,7 +55,7 @@ function cargarLaboratoriosTabla() {
 
 //Función para setear los valores en los inputs
 function formUpdateMarca(idMarca) {
-    console.log(idUsuario);
+    console.log(idMarca);
     idMarcaModificar = idMarca;
     for (var i = 0; i < datosMarcas.length; i++) {
 
@@ -71,19 +79,38 @@ function formUpdateMarca(idMarca) {
 
 //Función para modificar el laboratorio especificado
 function modificarMarca(url_modificar) {
+    console.log(url_modificar);
     var nombreMarca=document.getElementById("NombreMarca").value;
     var descripcionMarca=document.getElementById("DescripcionMarca").value;
     var habilitadoMarca = $('#HabilitadoMarca').prop('checked');
 
-    //Método ajax para modificar el usuario de la base de datos
-    $.ajax({
-        data: { "IdMarca": idMarcaModificar, "NombreMarca": nombreMarca, "DescripcionMarca": descripcionMarca, "HabilitadoMarca": habilitadoMarca },
-        dataType: 'json',
-        url: url_modificar,
-        type: 'post',
-        success: function (data) {
-            console.log(data);
-            console.log("siiiiii: ");
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "IdMarca": idMarcaModificar, "NombreMarca": nombreMarca, "DescripcionMarca": descripcionMarca, "HabilitadoMarca": habilitadoMarca },
+                url: url_modificar,
+                type: 'post',
+                success: function () {
+                    $('#ModificarMarca').modal('hide');
+                    showNotify("Actualización exitosa", 'La Marca se ha modificado correctamente', "success");
+                    obtenerMarcas(url_metodo);
+                }, error: function () {
+                    $('#ModificarMarca').modal('hide');
+                    showNotify("Error en la Actualización", 'No se ha podido modificar la Marca', "error");
+                }
+            });
+        } else {
+            $('#ModificarMarca').modal('hide');
         }
     });
 }
@@ -93,7 +120,7 @@ function comprobarNombre(nombre) {
     nombre = nick.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosMarcas.length; i++) {
-        if (datosMarcas[i].NombreMarca == nombre) {
+        if ((datosMarcas[i].NombreMarca).toLowerCase() == nombre) {
             comprobar = true;
         }
     }

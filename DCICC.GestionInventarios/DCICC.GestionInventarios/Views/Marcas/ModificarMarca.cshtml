@@ -64,8 +64,7 @@
                             <br>
                             @* Formulario para envio de datos de los componentes para modificación de una  marca
                                 (Metodo de la clase) - Controlador (Controller) *@
-                            @using (Html.BeginForm("NuevaMarca", "Marcas"))
-                            {
+                            <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de una marca *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -88,13 +87,13 @@
                                     @* Sección de botones para guardar marca o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success">Ingresar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarMarca('@Url.Action("ModificarMarca", "Marcas")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            }
-                        </div>
+                            </div>  
+                            </div>
                     </div>
                 </div>
             </div>
@@ -102,13 +101,29 @@
     </div>
 </div>
 
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al registrar Laboratorio", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
+
+
 <script src="~/Scripts/ScriptsInventarios/Marcas.js"></script>
 <script>
     $(document).ready(function () {
 
-        obtenerMarcas(url);
-
-        //obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+        obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
 
     });
 

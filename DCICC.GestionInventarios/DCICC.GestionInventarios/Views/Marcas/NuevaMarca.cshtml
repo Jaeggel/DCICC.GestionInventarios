@@ -70,7 +70,7 @@
 <script>
     $(document).ready(function () {
 
-        obtenerMarcas(url);
+        obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
 
         $('#NombreMarca').blur(function () {
             var nombre = document.getElementById("NombreMarca").value;
