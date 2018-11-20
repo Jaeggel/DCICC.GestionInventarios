@@ -31,7 +31,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
-                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("categoriashabilitadas");
+                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("categoriahabilitados");
             }
             catch (Exception e)
             {

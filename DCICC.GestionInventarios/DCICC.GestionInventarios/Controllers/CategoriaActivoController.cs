@@ -118,5 +118,14 @@ namespace DCICC.GestionInventarios.Controllers
             CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos(Session["userInfo"].ToString());
             return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener las categorías habilitadas de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerCategoriasActivosHab()
+        {
+            CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos(Session["userInfo"].ToString());
+            return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
     }
 }
