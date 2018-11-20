@@ -10,7 +10,11 @@ function obtenerIdioma() {
 }
 
 function listaPropositos() {
-    return ["Academia", "Coordinación Académica", "Investiación","Titulación"];
+    return ["Academia", "Coordinación Académica", "Investigación","Titulación"];
+}
+
+function listaEstadosTicket() {
+    return ["Abierto", "En Curso", "Resuelto"];
 }
 
 /*Método para mostrar alertas notify

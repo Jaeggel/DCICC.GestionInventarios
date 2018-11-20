@@ -80,7 +80,7 @@ function cargarMaquinaVTabla() {
 
 //Función para cargar el combobox de Categorias
 function cargarSOCmb() {
-    var str = '<select id="IdSistOperativo" class="form-control" name="IdSistOperativo" required>';
+    var str = '<select id="IdSistOperativos" class="form-control" name="IdSistOperativos" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbSO.length; i++) {
         str += '<option value="' + cmbSO[i].IdSistOperativos + '">' + cmbSO[i].NombreSistOperativos + '</option>';
@@ -91,7 +91,7 @@ function cargarSOCmb() {
 
 
 function cargarPropositosCmb() {
-    var str = '<select id="Propositos" class="form-control" name="Propositos" required>';
+    var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < propositos.length; i++) {
         str += '<option value="' + propositos[i] + '">' + propositos[i] + '</option>';
@@ -108,11 +108,11 @@ function formUpdateMaquinaV(idMV) {
 
         if (datosMaquinasV[i].IdMaqVirtuales == idMV) {
             //Métodos para setear los valores a modificar
-            var element = document.getElementById("IdSistOperativo");
+            var element = document.getElementById("IdSistOperativos");
             element.value = datosMaquinasV[i].IdSistOperativos;
             document.getElementById("NombreMaqVirtuales").value = datosMaquinasV[i].NombreMaqVirtuales;
             document.getElementById("UsuarioMaqVirtuales").value = datosMaquinasV[i].UsuarioMaqVirtuales;
-            var element2 = document.getElementById("Propositos");
+            var element2 = document.getElementById("PropositoMaqVirtuales");
             element2.value = datosMaquinasV[i].PropositoMaqVirtuales;
             
             document.getElementById("DireccionIPMaqVirtuales").value = datosMaquinasV[i].DireccionIPMaqVirtuales;
@@ -137,16 +137,16 @@ function formUpdateMaquinaV(idMV) {
 //Función para modificar el Tipo de activo especificado
 function modificarMaquinaV(url_modificar) {
     console.log(url_modificar);
-    var cmbSO = document.getElementById("IdSistOperativo");
+    var cmbSO = document.getElementById("IdSistOperativos");
     var idSO = cmbSO.options[cmbSO.selectedIndex].value;
-    var nombreMV= document.getElementById("NombreMaqVirtuales").value = datosMaquinasV[i].NombreMaqVirtuales;
-    var usuarioMV = document.getElementById("UsuarioMaqVirtuales").value = datosMaquinasV[i].UsuarioMaqVirtuales;
-    var cmbProposito = document.getElementById("Propositos");
+    var nombreMV= document.getElementById("NombreMaqVirtuales").value;
+    var usuarioMV = document.getElementById("UsuarioMaqVirtuales").value;
+    var cmbProposito = document.getElementById("PropositoMaqVirtuales");
     var propositoMV = cmbProposito.options[cmbProposito.selectedIndex].value;
-    var direccionIP= document.getElementById("DireccionIPMaqVirtuales").value = datosMaquinasV[i].DireccionIPMaqVirtuales;
-    var disco= document.getElementById("DiscoMaqVirtuales").value = datosMaquinasV[i].DiscoMaqVirtuales;
-    var ram= document.getElementById("RamMaqVirtuales").value = datosMaquinasV[i].RamMaqVirtuales;
-    var descripcion= document.getElementById("DescripcionMaqVirtuales").value = datosMaquinasV[i].DescripcionMaqVirtuales;
+    var direccionIP= document.getElementById("DireccionIPMaqVirtuales").value;
+    var disco= document.getElementById("DiscoMaqVirtuales").value;
+    var ram= document.getElementById("RamMaqVirtuales").value;
+    var descripcion= document.getElementById("DescripcionMaqVirtuales").value;
     var habilitadoMV = $('#HabilitadoMaqVirtuales').prop('checked');
 
     swal({
@@ -162,7 +162,7 @@ function modificarMaquinaV(url_modificar) {
         if (result.value) {
             //Método ajax para modificar el usuario de la base de datos
             $.ajax({
-                data: { "IdMaqVirtuales": idMaquinaV, "IdSistOperativo": idSO, "UsuarioMaqVirtuales": usuarioMV, "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP, "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion, "HabilitadoMaqVirtuales": habilitadoMV },
+                data: { "IdMaqVirtuales": idMaquinaV, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV, "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP, "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion, "HabilitadoMaqVirtuales": habilitadoMV },
                 url: url_modificar,
                 type: 'post',
                 success: function () {
