@@ -27,7 +27,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             try
             {
-                using (var cmd = new NpgsqlCommand("insert into dcicc_sistoperativos (nombre_sistoperativos,descripcion_sistoperativos,habilitado_sistoperativos) VALUES (@nso,@dso,@hso)", conn_BD))
+                using (var cmd = new NpgsqlCommand("insert into dcicc_sistoperativos (nombre_so,descripcion_so,habilitado_so) VALUES (@nso,@dso,@hso)", conn_BD))
                 {
                     cmd.Parameters.Add("nso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoSistOperativo.NombreSistOperativos;
                     cmd.Parameters.Add("dso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoSistOperativo.DescripcionSistOperativos) ? (object)infoSistOperativo.DescripcionSistOperativos : DBNull.Value;
