@@ -26,14 +26,11 @@ function obtenerSO(url) {
 }
 
 //Función para cargar la tabla de Usuarios
-function cargarRolesTabla() {
+function cargarSOTabla() {
     var str = '<table id="dataTableSO" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre del Sistema Operativo</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosSO.length; i++) {
-        var nom = "'" + datosSO[i].NombreSistOperativos + "'";
-        console.log(nom);
-
         str += '<tr><td>' + datosSO[i].NombreSistOperativos +
             '</td><td>' + datosSO[i].DescripcionSistOperativos;
 
@@ -43,7 +40,7 @@ function cargarRolesTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarMarca" onclick = "formUpdateSO(' + datosSO[i].IdSistOperativos + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarSo" onclick = "formUpdateSO(' + datosSO[i].IdSistOperativos + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
@@ -55,7 +52,7 @@ function cargarRolesTabla() {
 
 //Función para setear los valores en los inputs
 function formUpdateSO(idSO) {
-    console.log(idUsuario);
+    console.log(idSO);
     idSOMod = idSO;
     for (var i = 0; i < datosSO.length; i++) {
 

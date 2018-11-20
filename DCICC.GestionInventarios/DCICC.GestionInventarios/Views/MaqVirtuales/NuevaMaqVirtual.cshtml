@@ -105,9 +105,9 @@
 <script>
     $(document).ready(function () {
         //Métodos para obtener la tabla de Máquinas Virtuales y el combobox de Sistemas Operativos
-        obtenerMaquinaV('@Url.Action("ObtenerTipoActivoComp", "MaqVirtuales")');
-        obtenerSO('@Url.Action("ObtenerTipoActivoComp", "MaqVirtuales")');
-        obtenerPropositos();
+        obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');
+        obtenerSO('@Url.Action("ObtenerSistOperativosHab", "SistOperativos")');
+        cargarPropositosCmb();
         //Método para evitar la duplicidad de nombres de Máquinas Virtuales
         $('#NombreMaqVirtuales').blur(function () {
             var nombre = document.getElementById("NombreMaqVirtuales").value;

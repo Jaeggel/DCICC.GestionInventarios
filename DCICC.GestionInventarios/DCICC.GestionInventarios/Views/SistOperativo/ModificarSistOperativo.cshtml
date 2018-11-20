@@ -35,8 +35,8 @@
             <div class="x_content">
                 <br>
                 @* Sección para la tabla de modificación mediante js *@
-                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                    <div id="tablaModificarSistemaOperativo">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div id="tablaModificarSistOperativo">
 
                     </div>
                 </div>
@@ -120,7 +120,7 @@
 <script>
     $(document).ready(function () {
         //Método para obtener la tabla de Sistemas Operativos
-        obtenerSo('@Url.Action("ObtenerSistOperativosComp", "SistOperativo")');
+        obtenerSO('@Url.Action("ObtenerSistOperativosComp", "SistOperativo")');
 
     });
 

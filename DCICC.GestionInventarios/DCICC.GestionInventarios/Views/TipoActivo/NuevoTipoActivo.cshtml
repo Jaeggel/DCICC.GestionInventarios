@@ -86,7 +86,7 @@
     $(document).ready(function () {
 
         obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
-        obtenerCategorias('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
+        obtenerCategorias('@Url.Action("ObtenerCategoriasActivosHab", "CategoriaActivo")');
 
         $('#NombreTipoActivo').blur(function () {
             var nombre = document.getElementById("NombreTipoActivo").value;

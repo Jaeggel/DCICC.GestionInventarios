@@ -9,8 +9,8 @@ function obtenerIdioma() {
     return url_idioma;
 }
 
-function lista() {
-    return ["Titulación", "otros", "Fiat"];
+function listaPropositos() {
+    return ["Academia", "Coordinación Académica", "Investiación","Titulación"];
 }
 
 /*Método para mostrar alertas notify

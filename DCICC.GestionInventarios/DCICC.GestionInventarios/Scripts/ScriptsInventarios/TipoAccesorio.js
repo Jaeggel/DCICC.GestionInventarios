@@ -31,11 +31,8 @@ function cargarTipoAccTabla() {
     str += '<thead> <tr> <th>Nombre del Tipo de Accesorio</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
-        var nom = "'" + datosTipoAccesorio[i].NombreTipoAccesorio + "'";
-        console.log(nom);
-
         str += '<tr><td>' + datosTipoAccesorio[i].NombreTipoAccesorio +
-            '</td><td>' + datosTipoAccesorios[i].DescripcionTipoAccesorio;
+            '</td><td>' + datosTipoAccesorio[i].DescripcionTipoAccesorio;
 
         if (datosTipoAccesorio[i].HabilitadoTipoAccesorio) {
             str += '</td><td> Habilitado';
@@ -43,7 +40,7 @@ function cargarTipoAccTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarMarca" onclick = "formUpdateTipoAcc(' + datosTipoAccesorio[i].IdTipoAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoAcc" onclick = "formUpdateTipoAcc(' + datosTipoAccesorio[i].IdTipoAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
@@ -56,14 +53,14 @@ function cargarTipoAccTabla() {
 
 //Función para setear los valores en los inputs
 function formUpdateTipoAcc(idTipo) {
-    console.log(idUsuario);
+    console.log(idTipo);
     idTipoAccesorio = idTipo;
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
 
         if (datosTipoAccesorio[i].IdTipoAccesorio == idTipo) {
             //Métodos para setear los valores a modificar
             document.getElementById("NombreTipoAccesorio").value = datosTipoAccesorio[i].NombreTipoAccesorio;
-            document.getElementById("DescripcionTipoAccesorio").value = datosTipoAccesorios[i].DescripcionTipoAccesorio;
+            document.getElementById("DescripcionTipoAccesorio").value = datosTipoAccesorio[i].DescripcionTipoAccesorio;
 
             //Método para el check del update de Usuarios
             var valor = datosTipoAccesorio[i].HabilitadoTipoAccesorio;
@@ -117,7 +114,7 @@ function modificarTipoAcc(url_modificar) {
 
 //Función para evitar nombres de nick repetidos
 function comprobarNombre(nombre) {
-    nombre = nick.toLowerCase();
+    nombre = nombre.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
         if ((datosTipoAccesorio[i].NombreTipoAccesorio).toLowerCase() == nombre) {

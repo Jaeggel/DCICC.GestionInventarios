@@ -1,9 +1,9 @@
 ﻿var url_idioma = obtenerIdioma();
 var url_metodo;
+var propositos = listaPropositos();
 var datosMaquinasV;
 var cmbSO;
 var idMaquinaV;
-var propositos;
 
 function obtenerMaquinaV(url) {
     url_metodo = url;
@@ -89,6 +89,17 @@ function cargarSOCmb() {
     $("#cargarSO").html(str);
 }
 
+
+function cargarPropositosCmb() {
+    var str = '<select id="Propositos" class="form-control" name="Propositos" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < propositos.length; i++) {
+        str += '<option value="' + propositos[i] + '">' + propositos[i] + '</option>';
+    };
+    str += '</select>';
+    $("#cargarPropositos").html(str);
+}
+
 //Función para setear los valores en los inputs
 function formUpdateMaquinaV(idMV) {
     console.log(idMV);
@@ -101,7 +112,9 @@ function formUpdateMaquinaV(idMV) {
             element.value = datosMaquinasV[i].IdSistOperativo;
             document.getElementById("NombreMaqVirtuales").value = datosMaquinasV[i].NombreMaqVirtuales;
             document.getElementById("UsuarioMaqVirtuales").value = datosMaquinasV[i].UsuarioMaqVirtuales;
-            document.getElementById("PropositoMaqVirtuales").value = datosMaquinasV[i].PropositoMaqVirtuales;
+            var element2 = document.getElementById("PropositoMaqVirtuales");
+            element2.value = datosMaquinasV[i].PropositoMaqVirtuales;
+            
             document.getElementById("DireccionIPMaqVirtuales").value = datosMaquinasV[i].DireccionIPMaqVirtuales;
             document.getElementById("DiscoMaqVirtuales").value = datosMaquinasV[i].DiscoMaqVirtuales;
             document.getElementById("RamMaqVirtuales").value = datosMaquinasV[i].RamMaqVirtuales;
@@ -152,11 +165,11 @@ function modificarMaquinaV(url_modificar) {
                 url: url_modificar,
                 type: 'post',
                 success: function () {
-                    $('#ModificarTipoActivo').modal('hide');
+                    $('#ModificarMaquinaV').modal('hide');
                     showNotify("Actualización exitosa", 'La Máquina Virtual se ha modificado correctamente', "success");
-                    obtenerUsuariosUpdate(url_Usu);
+                    obtenerMaquinaV(url_metodo);
                 }, error: function () {
-                    $('#ModificarTipoActivo').modal('hide');
+                    $('#ModificarMaquinaV').modal('hide');
                     showNotify("Error en la Actualización", 'No se ha podido modificar la Máquina Virtual', "error");
                 }
             });
@@ -179,8 +192,8 @@ function comprobarNombre(nombre) {
 
     console.log(comprobar);
     if (comprobar == true) {
-        document.getElementById("NombreMarca").setCustomValidity("El nombre de la Máquina Virtual: " + nombre + " ya existe");
+        document.getElementById("NombreMaqVirtuales").setCustomValidity("El nombre de la Máquina Virtual: " + nombre + " ya existe");
     } else {
-        document.getElementById("NombreMarca").setCustomValidity("");
+        document.getElementById("NombreMaqVirtuales").setCustomValidity("");
     }
 }

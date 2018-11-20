@@ -14,9 +14,9 @@ function obtenerTipoActivo(url) {
         type: 'post',
         success: function (data) {
             console.log(data);
-            datosMarcas = data;
+            datosTipoActivo = data;
             cargarTipoActTabla();
-            $('#dataTableTableTipoAct').DataTable({
+            $('#dataTableTipoAct').DataTable({
                 "language": {
                     "url": url_idioma
                 }
@@ -45,6 +45,7 @@ function cargarTipoActTabla() {
     var str = '<table id="dataTableTipoAct" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre Tipo Activo</th> <th>Categoría</th> <th>Descripción</th> <th>Vida Útil</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
+    
     for (var i = 0; i < datosTipoActivo.length; i++) {
         
         str += '<tr><td>' + datosTipoActivo[i].NombreTipoActivo +
@@ -108,7 +109,7 @@ function formUpdateTipoAct(idTipoAct) {
 }
 
 //Función para modificar el Tipo de activo especificado
-function modificarUsuario(url_modificar) {
+function modificarTipoActivo(url_modificar) {
     console.log(url_modificar);
     var cmbCategoria = document.getElementById("IdCategoriaActivo");
     var idCategoria = cmbCategoria.options[cmbCategoria.selectedIndex].value;
@@ -136,7 +137,7 @@ function modificarUsuario(url_modificar) {
                 success: function () {
                     $('#ModificarTipoActivo').modal('hide');
                     showNotify("Actualización exitosa", 'El Tipo de Activo se ha modificado correctamente', "success");
-                    obtenerUsuariosUpdate(url_Usu);
+                    obtenerTipoActivo(url_metodo);
                 }, error: function () {
                     $('#ModificarTipoActivo').modal('hide');
                     showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Activo', "error");
@@ -161,9 +162,9 @@ function comprobarNombre(nombre) {
 
     console.log(comprobar);
     if (comprobar == true) {
-        document.getElementById("NombreMarca").setCustomValidity("El nombre de la marca: " + nombre + " ya existe");
+        document.getElementById("NombreTipoActivo").setCustomValidity("El nombre del Tipo Activo: " + nombre + " ya existe");
     } else {
-        document.getElementById("NombreMarca").setCustomValidity("");
+        document.getElementById("NombreTipoActivo").setCustomValidity("");
     }
 }
 
