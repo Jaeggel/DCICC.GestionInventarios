@@ -47,7 +47,7 @@
 </div>
 
 @* Modal de modificación de tipo de accesorio *@
-<div class="modal fade" id="ModificarMarca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModificarTipoAcc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -63,8 +63,7 @@
                             <br>
                             @* Formulario para envio de datos de los componentes para el ingreso de un nuevo tipo de accesorio
                                 (Metodo de la clase) - Controlador (Controller) *@
-                            @using (Html.BeginForm("NuevoTipoAccesorio", "TipoAccesorio"))
-                            {
+                            <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de un tipo de accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -87,12 +86,12 @@
                                     @* Sección de botones para guardar tipo de accesorio o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success">Ingresar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarTipoAcc('@Url.Action("ModificarTipoAccesorio", "TipoAccesorio")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,13 +100,28 @@
     </div>
 </div>
 
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al registrar Laboratorio", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
+
 <script src="~/Scripts/ScriptsInventarios/TipoAccesorio.js"></script>
 <script>
     $(document).ready(function () {
 
-        obtenerTipoAccesorio(url);
-
-        //obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+        obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
 
     });
 

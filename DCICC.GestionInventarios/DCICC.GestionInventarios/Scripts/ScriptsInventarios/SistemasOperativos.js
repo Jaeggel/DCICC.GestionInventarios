@@ -1,7 +1,10 @@
-﻿var datosSO;
+﻿var url_idioma = obtenerIdioma();
+var url_metodo;
+var datosSO;
 var idSOMod;
 
 function obtenerSO(url) {
+    url_metodo = url;
     console.log(url);
     //Método ajax para traer los roles de la base de datos
     $.ajax({
@@ -13,13 +16,18 @@ function obtenerSO(url) {
             datosSO = data;
             console.log("siiiiii: ");
             cargarSOTabla();
+            $('#dataTableSO').DataTable({
+                "language": {
+                    "url": url_idioma
+                }
+            });
         }
     });
 }
 
 //Función para cargar la tabla de Usuarios
 function cargarRolesTabla() {
-    var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
+    var str = '<table id="dataTableSO" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre del Sistema Operativo</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosSO.length; i++) {
@@ -70,30 +78,48 @@ function formUpdateSO(idSO) {
 }
 
 //Función para modificar el laboratorio especificado
-function modificarso(url_modificar) {
+function modificarSO(url_modificar) {
     var nombreSO=document.getElementById("NombreSistOperativos").value;
     var descripcionSo=document.getElementById("DescripcionSistOperativos").value;
     var habilitadoSo = $('#HabilitadoSistOperativos').prop('checked');
 
-    //Método ajax para modificar el usuario de la base de datos
-    $.ajax({
-        data: { "IdSistOperativos": idSOMod, "NombreSistOperativos": nombreSO, "DescripcionSistOperativos": descripcionSo, "HabilitadoSistOperativos": habilitadoSo },
-        dataType: 'json',
-        url: url_modificar,
-        type: 'post',
-        success: function (data) {
-            console.log(data);
-            console.log("siiiiii: ");
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "IdSistOperativos": idSOMod, "NombreSistOperativos": nombreSO, "DescripcionSistOperativos": descripcionSo, "HabilitadoSistOperativos": habilitadoSo },
+                url: url_modificar,
+                type: 'post',
+                success: function () {
+                    $('#ModificarSo').modal('hide');
+                    showNotify("Actualización exitosa", 'El Sistema Operativo se ha modificado correctamente', "success");
+                    obtenerSO(url_metodo);
+                }, error: function () {
+                    $('#ModificarSo').modal('hide');
+                    showNotify("Error en la Actualización", 'No se ha podido modificar la Marca el Sistema Operativo', "error");
+                }
+            });
+        } else {
+            $('#ModificarSo').modal('hide');
         }
     });
 }
 
 //Función para evitar nombres de nick repetidos
 function comprobarNombre(nombre) {
-    nombre = nick.toLowerCase();
+    nombre = nombre.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosSO.length; i++) {
-        if (datosSO[i].NombreSistOperativos == nombre) {
+        if ((datosSO[i].NombreSistOperativos).toLowerCase() == nombre) {
             comprobar = true;
         }
     }

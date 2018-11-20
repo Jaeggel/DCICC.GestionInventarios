@@ -1,7 +1,10 @@
-﻿var datosTipoAccesorio;
+﻿var url_idioma = obtenerIdioma();
+var url_metodo;
+var datosTipoAccesorio;
 var idTipoAccesorio;
 
 function obtenerTipoAccesorio(url) {
+    url_metodo = url;
     console.log(url);
     //Método ajax para traer los roles de la base de datos
     $.ajax({
@@ -13,13 +16,18 @@ function obtenerTipoAccesorio(url) {
             datosTipoAccesorio = data;
             console.log("siiiiii: ");
             cargarTipoAccTabla();
+            $('#dataTableTipoAcc').DataTable({
+                "language": {
+                    "url": url_idioma
+                }
+            });
         }
     });
 }
 
-//Función para cargar la tabla de Usuarios
+//Función para cargar la tabla de Tipos de Accesorio
 function cargarTipoAccTabla() {
-    var str = '<table class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
+    var str = '<table id="dataTableTipoAcc" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre del Tipo de Accesorio</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
@@ -76,15 +84,33 @@ function modificarTipoAcc(url_modificar) {
     var descripcionTipo=document.getElementById("DescripcionTipoAccesorio").value;
     var habilitadoTipo = $('#HabilitadoTipoAccesorio').prop('checked');
 
-    //Método ajax para modificar el usuario de la base de datos
-    $.ajax({
-        data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "#HabilitadoTipoAccesorio": habilitadoTipo },
-        dataType: 'json',
-        url: url_modificar,
-        type: 'post',
-        success: function (data) {
-            console.log(data);
-            console.log("siiiiii: ");
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "#HabilitadoTipoAccesorio": habilitadoTipo },
+                url: url_modificar,
+                type: 'post',
+                success: function () {
+                    $('#ModificarTipoAcc').modal('hide');
+                    showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
+                    obtenerTipoAccesorio(url_metodo);
+                }, error: function () {
+                    $('#ModificarTipoAcc').modal('hide');
+                    showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio', "error");
+                }
+            });
+        } else {
+            $('#ModificarTipoAcc').modal('hide');
         }
     });
 }
@@ -94,7 +120,7 @@ function comprobarNombre(nombre) {
     nombre = nick.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
-        if (datosTipoAccesorio[i].NombreTipoAccesorio == nombre) {
+        if ((datosTipoAccesorio[i].NombreTipoAccesorio).toLowerCase() == nombre) {
             comprobar = true;
         }
     }

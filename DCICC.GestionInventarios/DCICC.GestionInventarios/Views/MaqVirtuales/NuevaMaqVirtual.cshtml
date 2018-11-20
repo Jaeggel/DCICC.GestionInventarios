@@ -33,28 +33,16 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                         <div class="form-group">
-                            <div class="col-md-12 col-sm-9 col-xs-12">
-                                <label>Escoja sistema operativo:</label>
-                                <select class="form-control" name="NombreSistOperativo">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>Escoja el Sistema Operativo:</label>
+                                <div id="cargarSO"></div>
                             </div>
                         </div>
                         @* Área de Texto para seleccionar el propósito de la máquina virtual *@
                         <div class="form-group">
-                            <div class="col-md-12 col-sm-9 col-xs-12">
-                                <label>Escoja propósito:</label>
-                                <select class="form-control" name="PropositoMaqVirtuales">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>Escoja el Propósito:</label>
+                                <div id="cargarPropositos"></div>
                             </div>
                         </div>
                         @* Cuadro de texto para el ingreso del nombre del responsable de la máquina virtual *@
@@ -64,7 +52,7 @@
                         </div>
                         @* Cuadro de texto para el ingreso del nombre de una máquina virtual *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="Nombre Máquina Virtual" maxlength="80" required>
+                            <input id="NombreMaqVirtuales" type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="Nombre Máquina Virtual" maxlength="80" required>
                             <span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso de la dirección IP de una máquina virtual *@
@@ -110,5 +98,21 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 col-sm-12 col-xs-12"></div>
 </div>
+
+<script src="~/Scripts/ScriptsInventarios/MaquinaVirtual.js"></script>
+<script>
+    $(document).ready(function () {
+
+        obtenerMaquinaV('@Url.Action("ObtenerTipoActivoComp", "MaqVirtuales")');
+        obtenerSO('@Url.Action("ObtenerTipoActivoComp", "MaqVirtuales")');
+        obtenerPropositos();
+
+        $('#NombreMaqVirtuales').blur(function () {
+            var nombre = document.getElementById("NombreMaqVirtuales").value;
+            comprobarNombre(nombre);
+        });
+
+    });
+
+</script>

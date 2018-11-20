@@ -62,8 +62,7 @@
                             <br>
                             @* Formulario para envio de datos de los componentes para la modificación de una nuevo sistema operativo
                                 (Metodo de la clase) - Controlador (Controller) *@
-                            @using (Html.BeginForm("NuevoSistOperativo", "SistOperativo"))
-                            {
+                            <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de un nuevo sistema operativo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -86,12 +85,12 @@
                                     @* Sección de botones para guardar sistema operativo o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarSO('@Url.Action("ModificarSistOperativo", "SistOperativo")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -100,11 +99,28 @@
     </div>
 </div>
 
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al registrar Sistema Operativo", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
+
 <script src="~/Scripts/ScriptsInventarios/SistemasOperativos.js"></script>
 <script>
     $(document).ready(function () {
 
-        obtenerSo(url);
+        obtenerSo('@Url.Action("ObtenerSistOperativosComp", "SistOperativo")');
 
         //obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
 

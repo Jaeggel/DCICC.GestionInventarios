@@ -231,8 +231,6 @@ function modificarUsuario(url_modificar,url_Usu) {
             $('#ModificarUsuario').modal('hide');
         }
     });
-
-
 }
 
 //Función para evitar correos electronicos repertidos

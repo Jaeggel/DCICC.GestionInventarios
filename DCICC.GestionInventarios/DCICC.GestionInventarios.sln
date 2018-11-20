@@ -7,11 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCICC.GestionInventarios", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCICC.WebServiceInventarios", "DCICC.WebServiceInventarios\DCICC.WebServiceInventarios.csproj", "{5D447519-B52C-495E-A0B5-4D035C0042EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCICC.Seguridad", "DCICC.Seguridad\DCICC.Seguridad.csproj", "{9408A18F-2AEE-4140-925D-24D269EDC779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCICC.Seguridad", "DCICC.Seguridad\DCICC.Seguridad.csproj", "{9408A18F-2AEE-4140-925D-24D269EDC779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCICC.AccesoDatos", "DCICC.AccesoDatos\DCICC.AccesoDatos.csproj", "{4BF42F57-38CF-47C0-A419-01980BFFA484}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCICC.AccesoDatos", "DCICC.AccesoDatos\DCICC.AccesoDatos.csproj", "{4BF42F57-38CF-47C0-A419-01980BFFA484}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCICC.Entidades", "DCICC.Entidades\DCICC.Entidades.csproj", "{D2311306-B491-4427-A228-51012D3865AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCICC.Entidades", "DCICC.Entidades\DCICC.Entidades.csproj", "{D2311306-B491-4427-A228-51012D3865AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
