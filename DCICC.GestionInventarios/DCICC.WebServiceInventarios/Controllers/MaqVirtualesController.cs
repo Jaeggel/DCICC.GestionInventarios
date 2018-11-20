@@ -50,7 +50,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasMaqVirtuales objConsultasMaqVirtualesBD = new ConsultasMaqVirtuales();
-                msjMaqVirtuales = objConsultasMaqVirtualesBD.ObtenerMaqVirtuales("...");
+                msjMaqVirtuales = objConsultasMaqVirtualesBD.ObtenerMaqVirtuales("maqvsisto");
             }
             catch (Exception e)
             {

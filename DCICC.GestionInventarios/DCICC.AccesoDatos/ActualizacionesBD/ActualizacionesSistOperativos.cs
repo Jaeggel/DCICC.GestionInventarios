@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE dcicc_sistoperativo set nombre_sistoperativo = @nso,descripcion_sistoperativo=@dso,habilitado_sistoperativo = @hso where id_sistoperativo = @iso", conn_BD))
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_sistoperativos set nombre_so = @nso,descripcion_so=@dso,habilitado_so = @hso where id_so = @iso", conn_BD))
                 {
                     cmd.Parameters.Add("nso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoSistOperativo.NombreSistOperativos;
                     cmd.Parameters.Add("dso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoSistOperativo.DescripcionSistOperativos) ? (object)infoSistOperativo.DescripcionSistOperativos : DBNull.Value;
