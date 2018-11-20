@@ -63,7 +63,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_content">
                             <br>
-                            @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
+                            @* Formulario para envio de datos de los componentes para la modificación de una  marca
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
-                                    @* Sección de botones para guardar marca o cancelar el registro *@
+                                    @* Sección de botones para modificar marca o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button type="submit" class="btn btn-success" onclick="modificarCategoria('@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")');">Modificar</button>
@@ -101,6 +101,8 @@
         </div>
     </div>
 </div>
+
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 
 @if (TempData["Mensaje"] != null)
 {
@@ -119,10 +121,11 @@
     </script>
 }
 
+@* Seccción para llamar al js de Categorías *@
 <script src="~/Scripts/ScriptsInventarios/Categoria.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener la tabla de Categorías
         obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
     });
 

@@ -64,15 +64,15 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 col-sm-12 col-xs-12"></div>
 </div>
 
+@* Seccción para llamar al js de Categorías *@
 <script src="~/Scripts/ScriptsInventarios/Categoria.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener la tabla de Categorías
         obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
-
+        //Método para evitar la duplicidad de nombres de Categorías
         $('#NombreCategoriaActivo').blur(function () {
             var nombre = document.getElementById("NombreCategoriaActivo").value;
             comprobarNombre(nombre);
