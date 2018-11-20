@@ -117,7 +117,7 @@ function modificarMarca(url_modificar) {
 
 //Función para evitar nombres de nick repetidos
 function comprobarNombre(nombre) {
-    nombre = nick.toLowerCase();
+    nombre = nombre.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosMarcas.length; i++) {
         if ((datosMarcas[i].NombreMarca).toLowerCase() == nombre) {
