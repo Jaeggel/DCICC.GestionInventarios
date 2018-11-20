@@ -35,8 +35,8 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("nmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.NombreMaqVirtuales;
                     cmd.Parameters.Add("pmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.PropositoMaqVirtuales;
                     cmd.Parameters.Add("dimv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.DireccionIPMaqVirtuales;
-                    cmd.Parameters.Add("dsmv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.RamMaqVirtuales;
-                    cmd.Parameters.Add("rmv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.DiscoMaqVirtuales;
+                    cmd.Parameters.Add("rmv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.RamMaqVirtuales;
+                    cmd.Parameters.Add("dsmv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.DiscoMaqVirtuales;
                     cmd.Parameters.Add("dcmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoMaqVirtual.DescripcionMaqVirtuales) ? (object)infoMaqVirtual.DescripcionMaqVirtuales : DBNull.Value;
                     cmd.Parameters.Add("hmv", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMaqVirtual.HabilitadoMaqVirtuales;
                     cmd.Parameters.Add("imv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdMaqVirtuales;

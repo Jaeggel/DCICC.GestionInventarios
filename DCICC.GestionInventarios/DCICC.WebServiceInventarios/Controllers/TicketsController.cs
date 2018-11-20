@@ -31,7 +31,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
-                msjTickets = objConsultasTicketsBD.ObtenerTickets("Ticketshabilitados");
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("ticketshabilitados");
             }
             catch (Exception e)
             {
@@ -50,7 +50,64 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
-                msjTickets = objConsultasTicketsBD.ObtenerTickets("consultaTicket");
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+            }
+            return msjTickets;
+        }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los tickets abiertos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerTicketsAbiertos")]
+        public MensajesTickets ObtenerTicketsAbiertos()
+        {
+            MensajesTickets msjTickets = new MensajesTickets();
+            try
+            {
+                ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+            }
+            return msjTickets;
+        }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los tickets en curso de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerTicketsEnCurso")]
+        public MensajesTickets ObtenerTicketsEnCurso()
+        {
+            MensajesTickets msjTickets = new MensajesTickets();
+            try
+            {
+                ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+            }
+            return msjTickets;
+        }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los tickets resueltos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerTicketsResueltos")]
+        public MensajesTickets ObtenerTicketsResueltos()
+        {
+            MensajesTickets msjTickets = new MensajesTickets();
+            try
+            {
+                ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
             }
             catch (Exception e)
             {
