@@ -47,7 +47,7 @@
 </div>
 
 @* Modal de modificación de Laboratorios *@
-<div class="modal fade" id="ModificarLaboratorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModificarLaboratorios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -63,8 +63,7 @@
                             <br>
                             @* Formulario para envio de datos de los componentes para el ingreso de un nuevo laboratorio
                                 (Metodo de la clase) - Controlador (Controller) *@
-                            @using (Html.BeginForm("NuevoLaboratorio", "Laboratorios"))
-                            {
+                            <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de un laboratorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -92,12 +91,12 @@
                                     @* Sección de botones para guardar un laboratorio o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success">Ingresar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarLaboratorio('@Url.Action("ModificarLaboratorio", "Laboratorios")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,11 +105,29 @@
     </div>
 </div>
 
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al registrar Laboratorio", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
+
+
 <script src="~/Scripts/ScriptsInventarios/Laboratorios.js"></script>
 <script>
     $(document).ready(function () {
 
-        obtenerLaboratorios(url);
+        obtenerLaboratorios('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
 
     });
 

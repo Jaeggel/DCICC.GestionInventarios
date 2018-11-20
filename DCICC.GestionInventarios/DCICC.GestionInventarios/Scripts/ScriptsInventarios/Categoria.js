@@ -1,7 +1,10 @@
-﻿var datosCategorias;
+﻿var url_idioma = obtenerIdioma();
+var url_metodo;
+var datosCategorias;
 var idCategoriaModificar;
 
 function obtenerCategorias(url) {
+    url_metodo = url;
     console.log(url);
     //Método ajax para traer los roles de la base de datos
     $.ajax({
@@ -15,7 +18,7 @@ function obtenerCategorias(url) {
             cargarCategoriaTabla();
             $('#dataTableCategorias').DataTable({
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                    "url": url_idioma
                 }
             });
         }
@@ -24,7 +27,7 @@ function obtenerCategorias(url) {
 
 //Función para cargar la tabla de Categorias
 function cargarCategoriaTabla() {
-    var str = '<table id="dataTableCategorias" class="table table-striped jambo_table bulk_action table-responsive table-bordered dt-responsive nowrap">';
+    var str = '<table id="dataTableCategorias" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
     str += '<thead> <tr> <th>Nombre Categoría</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosCategorias.length; i++) {
@@ -46,7 +49,7 @@ function cargarCategoriaTabla() {
             '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
             '</div></div></td></tr>';
     };
-    str += '</tbody><tfoot> <tr> <th>Nombre Categoría</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </tfoot></table>';
+    str += '</tbody></table>';
     $("#tablaModificarCategorias").html(str);
 }
 
@@ -55,9 +58,9 @@ function formUpdateCategoria(idCategoria) {
     idCategoriaModificar = idCategoria;
     console.log(idCategoria);
     for (var i = 0; i < datosCategorias.length; i++) {
-
-        if (datosCategorias[i].IdUsuario == idCategoria) {
+        if (datosCategorias[i].IdCategoriaActivo == idCategoria) {
             //Métodos para setear los valores a modificar
+            console.log(datosCategorias[i].NombreCategoriaActivo);
             document.getElementById("NombreCategoriaActivo").value = datosCategorias[i].NombreCategoriaActivo;
             document.getElementById("DescripcionCategoriaActivo").value = datosCategorias[i].DescripcionCategoriaActivo;
 
@@ -76,21 +79,41 @@ function formUpdateCategoria(idCategoria) {
 
 //Función para modificar la categoria especificada
 function modificarCategoria(url_modificar) {
+    console.log(url_modificar);
     var nombreCategoria=document.getElementById("NombreCategoriaActivo").value;
     var descripcionCategoria=document.getElementById("DescripcionCategoriaActivo").value;
     var habilitadoCategoria = $('#HabilitadoCategoriaActivo').prop('checked');
 
-    //Método ajax para modificar la categoria de la base de datos
-    $.ajax({
-        data: { "IdCategoriaActivo": idCategoriaModificar, "NombreCategoriaActivo": nombreCategoria, "DescripcionCategoriaActivo": descripcionCategoria, "HabilitadoCategoriaActivo": habilitadoCategoria },
-        dataType: 'json',
-        url: url_modificar,
-        type: 'post',
-        success: function (data) {
-            console.log(data);
-            console.log("siiiiii: ");
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "IdCategoriaActivo": idCategoriaModificar, "NombreCategoriaActivo": nombreCategoria, "DescripcionCategoriaActivo": descripcionCategoria, "HabilitadoCategoriaActivo": habilitadoCategoria },
+                url: url_modificar,
+                type: 'post',
+                success: function () {
+                    $('#ModificarCategoria').modal('hide');
+                    showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
+                    obtenerCategorias(url_metodo);
+                }, error: function () {
+                    $('#ModificarCategoria').modal('hide');
+                    showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo', "error");
+                }
+            });
+        } else {
+            $('#ModificarCategoria').modal('hide');
         }
     });
+
 }
 
 //Función para evitar nombres de nick repetidos
@@ -98,7 +121,7 @@ function comprobarNombre(nombre) {
     nombre = nombre.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosCategorias.length; i++) {
-        if (datosCategorias[i].NombreCategoriaActivo == nombre) {
+        if ((datosCategorias[i].NombreCategoriaActivo).toLowerCase() == nombre) {
             comprobar = true;
         }
     }

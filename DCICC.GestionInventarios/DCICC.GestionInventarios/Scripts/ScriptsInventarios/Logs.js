@@ -1,4 +1,5 @@
-﻿var datosLogs;
+﻿var url_idioma = obtenerIdioma();
+var datosLogs;
 var idCategoriaModificar;
 
 function obtenerLogs(url) {
@@ -15,7 +16,7 @@ function obtenerLogs(url) {
             cargarLogsTabla();
             $('#dataTableLogs').DataTable({
                 "language": {
-                    "url": "http://localhost/Content/Spanish.json"
+                    "url": url_idioma
                 }
             } );
         }
@@ -24,7 +25,7 @@ function obtenerLogs(url) {
 
 //Función para cargar la tabla de Categorias
 function cargarLogsTabla() {
-    var str = '<table id="dataTableLogs" class="table table-striped jambo_table bulk_action table-responsive table-bordered dt-responsive nowrap">';
+    var str = '<table id="dataTableLogs" class="table jambo_table bulk_action  table-bordered dt-responsive nowrap" style="width:100%">';
     str += '<thead> <tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificados</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLogs.length; i++) {

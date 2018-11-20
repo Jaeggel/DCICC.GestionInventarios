@@ -2,6 +2,13 @@
 Autores: Andres Chisaguano - Joel Ludeña
 Descripción: Script que tendrá las funciones que se podrá llamar desde toda la aplicación*/
 
+
+//Método para obtener el idioma español de los dataTable
+function obtenerIdioma() {
+    var url_idioma = "http://localhost/Inventarios/Content/Spanish.json";
+    return url_idioma;
+}
+
 /*Método para mostrar alertas notify
 title: Título de la notificación, 
 message: mensaje de la notificación, 

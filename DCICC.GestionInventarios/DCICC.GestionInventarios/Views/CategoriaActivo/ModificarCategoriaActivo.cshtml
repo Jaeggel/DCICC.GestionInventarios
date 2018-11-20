@@ -37,7 +37,7 @@
                 <br>
                 @* Sección para la tabla de modificación mediante js *@
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12 table-responsive ">               
+                    <div class="col-md-12 col-sm-12 col-xs-12 table-responsive ">
                         <div id="tablaModificarCategorias">
 
                         </div>
@@ -65,8 +65,7 @@
                             <br>
                             @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
                                 (Metodo de la clase) - Controlador (Controller) *@
-                            @using (Html.BeginForm("NuevoCategoriaActivo", "CategoriaActivo"))
-                            {
+                            <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -89,12 +88,12 @@
                                     @* Sección de botones para guardar marca o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarCategoria('@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,14 +102,28 @@
     </div>
 </div>
 
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al registrar Categoría de Activo", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
+
 <script src="~/Scripts/ScriptsInventarios/Categoria.js"></script>
 <script>
     $(document).ready(function () {
 
-        obtenerCategorias(url);
-
-        //obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
-
+        obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
     });
 
 </script>

@@ -47,8 +47,9 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/datatables.net-scroller/js/dataTables.scroller.min.js",
                         "~/Scripts/pnotify.custom.min.js",
                         "~/Content/SweetAlert/dist/sweetalert2.all.min.js",
-                        "~/Content/Tema/build/js/custom.js",
-                        "~/Scripts/Site.js"));          
+                        "~/Content/Tema/build/js/custom.js"
+                        //"~/Scripts/Site.js"
+                        ));          
 
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -68,7 +69,7 @@ namespace DCICC.GestionInventarios
                       "~/Content/Tema/vendors/jqvmap/dist/jqvmap.min.css",
                       "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css",
                       "~/Content/Tema/vendors/switchery/dist/switchery.min.css",
-                      "~/Content/Tema/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css",
+                      "~/Content/Tema/vendors/datatables.net-bs/css/dataTables.bootstrap.css",
                       "~/Content/Tema/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css",

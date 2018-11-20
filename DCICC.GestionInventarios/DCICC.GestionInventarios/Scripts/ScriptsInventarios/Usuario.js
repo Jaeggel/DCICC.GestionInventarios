@@ -1,4 +1,5 @@
-﻿var datosRoles;
+﻿var url_idioma = obtenerIdioma();
+var datosRoles;
 var datosUsuarios;
 var usuarioActual;
 var idUsuarioModificar;
@@ -26,27 +27,29 @@ function obtenerMetodoRol(url_Rol,url_Usu) {
             console.log(data);
             datosUsuarios = data;
             cargarUsuarioTabla();
-            $('#dataTableUsuario').DataTable();
-            //$('#dataTableUsuario').DataTable({
-            //    "language": {
-            //        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-            //    }
-            //});
+            //$('#dataTableUsuario').DataTable();
+            $('#dataTableUsuario').DataTable({
+                "language": {
+                    "url": url_idioma
+                }
+            });
             console.log("siiiiii: ");
         }
     });
 
 }
 
-function obtenerMetodoUsuarios(url_rol,url_Usu,usuario) {
+function obtenerMetodoUsuarios(url_rol, url_Usu, usuario) {
+    console.log(url_Usu);
     //Método ajax para obtener usuarios de la base de datos
     $.ajax({
         dataType: 'json',
         url: url_Usu,
         type: 'post',
         success: function (data) {
-            datosUsuarios = data;   
             console.log("siiiiii: ");
+            datosUsuarios = data;   
+            
         }
     });
     //Método ajax para obtener el usuario de la sesión
@@ -57,12 +60,11 @@ function obtenerMetodoUsuarios(url_rol,url_Usu,usuario) {
         success: function (data) {
             usuarioActual = data;
             cargarUsuarioTabla(data);
-            $('#dataTableUsuario').DataTable();
-            //$('#dataTableUsuario').DataTable({
-            //    "language": {
-            //        "url": "http://localhost/Content/Spanish.json"
-            //    }
-            //});
+            $('#dataTableUsuario').DataTable({
+                "language": {
+                    "url": url_idioma
+                }
+            });
             console.log(data);
         }
     });
@@ -73,7 +75,6 @@ function obtenerMetodoUsuarios(url_rol,url_Usu,usuario) {
         url: url_rol,
         type: 'post',
         success: function (data) {
-            console.log(data);
             datosRoles = data;
             console.log("siiiiii: ");
             cargarRolesUpdateCmb();
@@ -92,12 +93,11 @@ function obtenerUsuariosUpdate(url_Usu) {
             console.log(data);
             datosUsuarios = data;
             cargarUsuarioTabla(usuarioActual);
-            $('#dataTableUsuario').DataTable();
-            //$('#dataTableUsuario').DataTable({
-            //    "language": {
-            //        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-            //    }
-            //});
+            $('#dataTableUsuario').DataTable({
+                "language": {
+                    "url": url_idioma
+                }
+            });
             console.log("siiiiii: ");
         }
     });
@@ -106,7 +106,7 @@ function obtenerUsuariosUpdate(url_Usu) {
 
 //Función para cargar la tabla de Usuarios
 function cargarUsuarioTabla(nick) {
-    var str = '<table id="dataTableUsuario"class="table table-striped jambo_table bulk_action table-responsive table-bordered">';
+    var str = '<table id="dataTableUsuario" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosUsuarios.length; i++) {
@@ -130,7 +130,7 @@ function cargarUsuarioTabla(nick) {
                 '</div></div></td></tr>';
         }
     };
-    str += '</tbody><tfoot <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </tfoot></table>';
+    str += '</tbody></table>';
     $("#tablaModificarUsuarios").html(str);
 }
 
@@ -260,7 +260,7 @@ function comprobarNick(nick) {
     nick = nick.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosUsuarios.length; i++) {
-        if (datosUsuarios[i].NickUsuario == nick) {
+        if ((datosUsuarios[i].NickUsuario).toLowerCase() == nick) {
             comprobar = true;
         }
     }
