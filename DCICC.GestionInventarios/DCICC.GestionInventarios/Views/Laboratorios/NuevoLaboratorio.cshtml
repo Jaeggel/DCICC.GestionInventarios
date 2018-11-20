@@ -69,15 +69,15 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 col-sm-12 col-xs-12"></div>
 </div>
 
+@* Seccción para llamar al js de Laboratorios *@
 <script src="~/Scripts/ScriptsInventarios/Laboratorios.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener la tabla de Laboratorios
         obtenerLaboratorios('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
-
+        //Método para evitar la duplicidad de nombres de Laboratorios
         $('#NombreLaboratorio').blur(function () {
             var nombre = document.getElementById("NombreLaboratorio").value;
             comprobarNombre(nombre);

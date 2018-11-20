@@ -100,14 +100,15 @@
     </div>
 </div>
 
+@* Seccción para llamar al js de Máquinas Virtuales *@
 <script src="~/Scripts/ScriptsInventarios/MaquinaVirtual.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Métodos para obtener la tabla de Máquinas Virtuales y el combobox de Sistemas Operativos
         obtenerMaquinaV('@Url.Action("ObtenerTipoActivoComp", "MaqVirtuales")');
         obtenerSO('@Url.Action("ObtenerTipoActivoComp", "MaqVirtuales")');
         obtenerPropositos();
-
+        //Método para evitar la duplicidad de nombres de Máquinas Virtuales
         $('#NombreMaqVirtuales').blur(function () {
             var nombre = document.getElementById("NombreMaqVirtuales").value;
             comprobarNombre(nombre);

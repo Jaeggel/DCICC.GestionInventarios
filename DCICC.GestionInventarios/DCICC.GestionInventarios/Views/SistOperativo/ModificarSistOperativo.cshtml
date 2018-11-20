@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
-                                    @* Sección de botones para guardar sistema operativo o cancelar el registro *@
+                                    @* Sección de botones para modificar sistema operativo o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button type="submit" class="btn btn-success" onclick="modificarSO('@Url.Action("ModificarSistOperativo", "SistOperativo")');">Modificar</button>
@@ -98,7 +98,7 @@
         </div>
     </div>
 </div>
-
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -115,14 +115,12 @@
         }
     </script>
 }
-
+@* Seccción para llamar al js de Sistemas Operativos*@
 <script src="~/Scripts/ScriptsInventarios/SistemasOperativos.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener la tabla de Sistemas Operativos
         obtenerSo('@Url.Action("ObtenerSistOperativosComp", "SistOperativo")');
-
-        //obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
 
     });
 

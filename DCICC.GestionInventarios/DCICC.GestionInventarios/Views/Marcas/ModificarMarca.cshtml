@@ -92,8 +92,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>  
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,6 +101,7 @@
     </div>
 </div>
 
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -118,11 +119,11 @@
     </script>
 }
 
-
+@* Seccción para llamar al js de Marcas *@
 <script src="~/Scripts/ScriptsInventarios/Marcas.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener la tabla de Marcas
         obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
 
     });

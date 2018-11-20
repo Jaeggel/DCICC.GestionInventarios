@@ -66,12 +66,13 @@
     </div>
 </div>
 
+@* Seccción para llamar al js de Sistemas Operativos*@
 <script src="~/Scripts/ScriptsInventarios/SistemasOperativos.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener la tabla de Sistemas Operativos
         obtenerSO('@Url.Action("ObtenerSistOperativosComp", "SistOperativo")');
-
+        //Método para evitar la duplicidad de nombres de Sistemas Operativos
         $('#NombreSistOperativos').blur(function () {
             var nombre = document.getElementById("NombreSistOperativos").value;
             comprobarNombre(nombre);

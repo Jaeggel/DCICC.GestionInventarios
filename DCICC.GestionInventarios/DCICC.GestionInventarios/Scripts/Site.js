@@ -9,6 +9,10 @@ function obtenerIdioma() {
     return url_idioma;
 }
 
+function lista() {
+    return ["Titulación", "otros", "Fiat"];
+}
+
 /*Método para mostrar alertas notify
 title: Título de la notificación, 
 message: mensaje de la notificación, 
