@@ -29,7 +29,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             {
                 using (var cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccion_maqvirtuales,disco_maqvirtuales,rammaqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales) VALUES (@iso,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv)", conn_BD))
                 {
-                    cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdSistOperativo;
+                    cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdSistOperativos;
                     cmd.Parameters.Add("umv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.UsuarioMaqVirtuales;
                     cmd.Parameters.Add("nmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.NombreMaqVirtuales;
                     cmd.Parameters.Add("pmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.PropositoMaqVirtuales;

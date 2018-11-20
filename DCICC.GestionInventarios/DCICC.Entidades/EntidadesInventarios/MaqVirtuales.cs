@@ -8,9 +8,9 @@ namespace DCICC.Entidades.EntidadesInventarios
     {
         public int IdMaqVirtuales { get; set; }
 
-        public string NombreSistOperativo { get; set; }
+        public string NombreSistOperativos { get; set; }
 
-        public int IdSistOperativo { get; set; }
+        public int IdSistOperativos{ get; set; }
 
         public string UsuarioMaqVirtuales { get; set; }
 
