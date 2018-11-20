@@ -13,10 +13,17 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/bootstrap/dist/js/bootstrap.min.js",
                         "~/Content/Tema/vendors/fastclick/lib/fastclick.js",
                         "~/Content/Tema/vendors/nprogress/nprogress.js",
+
+                        "~/Content/Tema/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js",
+
+                        "~/Content/Tema/vendors/iCheck/icheck.min.js",
+                        "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
+                        "~/Content/Tema/vendors/moment/min/moment.min.js",
+                        "~/Content/Tema/vendors/DateJS/build/date.js",
+                        "~/Content/Tema/vendors/switchery/dist/switchery.min.js",
+
                         "~/Content/Tema/vendors/Chart.js/dist/Chart.min.js",
                         "~/Content/Tema/vendors/gauge.js/dist/gauge.min.js",
-                        "~/Content/Tema/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js",
-                        "~/Content/Tema/vendors/iCheck/icheck.min.js",
                         "~/Content/Tema/vendors/skycons/skycons.js",
                         "~/Content/Tema/vendors/Flot/jquery.flot.js",
                         "~/Content/Tema/vendors/Flot/jquery.flot.pie.js",
@@ -26,17 +33,11 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/flot.orderbars/js/jquery.flot.orderBars.js",
                         "~/Content/Tema/vendors/flot-spline/js/jquery.flot.spline.min.js",
                         "~/Content/Tema/vendors/flot.curvedlines/curvedLines.js",
-                        "~/Content/Tema/vendors/DateJS/build/date.js",
-                        "~/Content/Tema/vendors/jqvmap/dist/jquery.vmap.js",
-                        "~/Content/Tema/vendors/jqvmap/dist/maps/jquery.vmap.world.js",
-                        "~/Content/Tema/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js",
-                        "~/Content/Tema/vendors/switchery/dist/switchery.min.js",
-                        "~/Content/Tema/vendors/moment/min/moment.min.js",
-                        "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
+
                         "~/Content/Tema/vendors/datatables.net/js/jquery.dataTables.min.js",
                         "~/Content/Tema/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js",
                         "~/Content/Tema/vendors/datatables.net-buttons/js/dataTables.buttons.min.js",
-                        "~/Content/Tema/vendors/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js",
+                        "~/Content/Tema/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js",
                         "~/Content/Tema/vendors/datatables.net-buttons/js/buttons.flash.min.js",
                         "~/Content/Tema/vendors/datatables.net-buttons/js/buttons.html5.min.js",
                         "~/Content/Tema/vendors/datatables.net-buttons/js/buttons.print.min.js",
@@ -45,10 +46,12 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/datatables.net-responsive/js/dataTables.responsive.min.js",
                         "~/Content/Tema/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js",
                         "~/Content/Tema/vendors/datatables.net-scroller/js/dataTables.scroller.min.js",
+
                         "~/Scripts/pnotify.custom.min.js",
                         "~/Content/SweetAlert/dist/sweetalert2.all.min.js",
-                        "~/Content/Tema/build/js/custom.js",
-                        "~/Scripts/Site.js"));          
+                        "~/Content/Tema/build/js/custom.js"
+                        //"~/Scripts/Site.js"
+                        ));          
 
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -63,16 +66,20 @@ namespace DCICC.GestionInventarios
                       "~/Content/Tema/vendors/bootstrap/dist/css/bootstrap.min.css",
                       "~/Content/Tema/vendors/font-awesome-4.7.0/css/font-awesome.min.css",
                       "~/Content/Tema/vendors/nprogress/nprogress.css",
+
                       "~/Content/Tema/vendors/iCheck/skins/flat/green.css",
-                      "~/Content/Tema/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
-                      "~/Content/Tema/vendors/jqvmap/dist/jqvmap.min.css",
                       "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css",
+
+                      "~/Content/Tema/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
+
                       "~/Content/Tema/vendors/switchery/dist/switchery.min.css",
+
                       "~/Content/Tema/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css",
+
                       "~/Content/pnotify.custom.min.css",
                       "~/Content/animate.css",
                       "~/Content/SweetAlert/dist/sweetalert2.min.css",

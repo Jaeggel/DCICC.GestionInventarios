@@ -10,7 +10,9 @@
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 @model DCICC.GestionInventarios.Models.TipoAccesorio
-
+<link rel="stylesheet" type="~/Content/Tema/vendors/iCheck/skins/flat/green.css">
+<link rel="stylesheet" type="~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Tema/vendors/switchery/dist/switchery.min.css">
 @* Sección para la navegación entre pestañas *@
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
@@ -65,7 +67,11 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="~/Content/Tema/vendors/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="~/Content/Tema/vendors/iCheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="~/Content/Tema/vendors/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="~/Content/Tema/vendors/DateJS/build/date.js"></script>
 <script src="~/Scripts/ScriptsInventarios/TipoAccesorio.js"></script>
 <script>
     $(document).ready(function () {
