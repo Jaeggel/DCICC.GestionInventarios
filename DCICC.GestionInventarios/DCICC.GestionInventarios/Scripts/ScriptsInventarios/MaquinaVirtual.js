@@ -55,7 +55,7 @@ function cargarMaquinaVTabla() {
         str += '<tr><td>' + datosMaquinasV[i].NombreMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].UsuarioMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].PropositoMaqVirtuales +
-            '</td><td>' + datosMaquinasV[i].NombreSistOperativo +
+            '</td><td>' + datosMaquinasV[i].NombreSistOperativos +
             '</td><td>' + datosMaquinasV[i].DireccionIPMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].DiscoMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].RamMaqVirtuales +
@@ -83,7 +83,7 @@ function cargarSOCmb() {
     var str = '<select id="IdSistOperativo" class="form-control" name="IdSistOperativo" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbSO.length; i++) {
-        str += '<option value="' + cmbSO[i].IdSistOperativo + '">' + cmbSO[i].NombreSistOperativo + '</option>';
+        str += '<option value="' + cmbSO[i].IdSistOperativos + '">' + cmbSO[i].NombreSistOperativos + '</option>';
     };
     str += '</select>';
     $("#cargarSO").html(str);
@@ -109,10 +109,10 @@ function formUpdateMaquinaV(idMV) {
         if (datosMaquinasV[i].IdMaqVirtuales == idMV) {
             //Métodos para setear los valores a modificar
             var element = document.getElementById("IdSistOperativo");
-            element.value = datosMaquinasV[i].IdSistOperativo;
+            element.value = datosMaquinasV[i].IdSistOperativos;
             document.getElementById("NombreMaqVirtuales").value = datosMaquinasV[i].NombreMaqVirtuales;
             document.getElementById("UsuarioMaqVirtuales").value = datosMaquinasV[i].UsuarioMaqVirtuales;
-            var element2 = document.getElementById("PropositoMaqVirtuales");
+            var element2 = document.getElementById("Propositos");
             element2.value = datosMaquinasV[i].PropositoMaqVirtuales;
             
             document.getElementById("DireccionIPMaqVirtuales").value = datosMaquinasV[i].DireccionIPMaqVirtuales;
@@ -137,11 +137,12 @@ function formUpdateMaquinaV(idMV) {
 //Función para modificar el Tipo de activo especificado
 function modificarMaquinaV(url_modificar) {
     console.log(url_modificar);
-    var cmbSO = document.getElementById("IdCategoriaActivo");
+    var cmbSO = document.getElementById("IdSistOperativo");
     var idSO = cmbSO.options[cmbSO.selectedIndex].value;
     var nombreMV= document.getElementById("NombreMaqVirtuales").value = datosMaquinasV[i].NombreMaqVirtuales;
-    var usuarioMV= document.getElementById("UsuarioMaqVirtuales").value = datosMaquinasV[i].UsuarioMaqVirtuales;
-    var propositoMV= document.getElementById("PropositoMaqVirtuales").value = datosMaquinasV[i].PropositoMaqVirtuales;
+    var usuarioMV = document.getElementById("UsuarioMaqVirtuales").value = datosMaquinasV[i].UsuarioMaqVirtuales;
+    var cmbProposito = document.getElementById("Propositos");
+    var propositoMV = cmbProposito.options[cmbProposito.selectedIndex].value;
     var direccionIP= document.getElementById("DireccionIPMaqVirtuales").value = datosMaquinasV[i].DireccionIPMaqVirtuales;
     var disco= document.getElementById("DiscoMaqVirtuales").value = datosMaquinasV[i].DiscoMaqVirtuales;
     var ram= document.getElementById("RamMaqVirtuales").value = datosMaquinasV[i].RamMaqVirtuales;
