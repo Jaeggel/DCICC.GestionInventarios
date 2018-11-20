@@ -1,4 +1,8 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Configuration;
+using DCICC.GestionInventarios.Models;
+using DCICC.GestionInventarios.Models.MensajesInventarios;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +15,8 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0)]
     public class TicketsController : Controller
     {
+        //Instancia para la utilización de LOGS en la clase TicketsController
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista GestionTickets
         /// </summary>
@@ -25,6 +31,44 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 return View();
             }
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista GestionTickets.
+        /// </summary>
+        /// <param name="infoTickets"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarTicket(Tickets infoTicket)
+        {
+            string mensajesTickets = string.Empty;
+            MensajesTickets msjTickets = new MensajesTickets();
+            try
+            {
+                TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+                msjTickets = objTicketsAccDatos.ActualizarTicket(infoTicket);
+                if (msjTickets.OperacionExitosa)
+                {
+                    Logs.Info(mensajesTickets);
+                }
+                else
+                {
+                    mensajesTickets = "No se ha podido actualizar el ticket: " + msjTickets.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesTickets + ": " + e.Message);
+            }
+            return View("GestionTickets");
+        }
+        /// <summary>
+        /// Método para obtener los tickets de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerTicketsComp()
+        {
+            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+            return Json(objTicketsAccDatos.ObtenerTickets("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }

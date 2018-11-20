@@ -40,7 +40,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             return msjMarcas;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista todas las marcas de la base de datos.
+        /// Método (GET) para obtener una lista de todas las marcas de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerMarcasComp")]

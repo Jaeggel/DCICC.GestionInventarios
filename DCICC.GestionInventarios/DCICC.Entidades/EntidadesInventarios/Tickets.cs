@@ -10,11 +10,19 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public int IdUsuario { get; set; }
 
+        public string NombreUsuario { get; set; }
+
         public int IdResponsableUsuario { get; set; }
+
+        public string NombreUsuarioResponsable { get; set; }
 
         public int IdLaboratorio { get; set; }
 
+        public string NombreLaboratorio { get; set; }
+
         public int IdDetalleActivo { get; set; }
+
+        public string NombreDetalleActivo { get; set; }
 
         public string EstadoTicket { get; set; }
 

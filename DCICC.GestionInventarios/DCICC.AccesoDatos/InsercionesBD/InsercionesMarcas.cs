@@ -30,7 +30,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 using (var cmd = new NpgsqlCommand("insert into dcicc_marca (nombre_marca,descripcion_marca,habilitado_marca) VALUES (@nm,@dm,@hm)", conn_BD))
                 {
                     cmd.Parameters.Add("nm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMarca.NombreMarca;
-                    cmd.Parameters.Add("dm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !String.IsNullOrEmpty(infoMarca.DescripcionMarca) ? (object)infoMarca.DescripcionMarca : DBNull.Value;
+                    cmd.Parameters.Add("dm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoMarca.DescripcionMarca) ? (object)infoMarca.DescripcionMarca : DBNull.Value;
                     cmd.Parameters.Add("hm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMarca.HabilitadoMarca;
                     cmd.ExecuteNonQuery();
                 }

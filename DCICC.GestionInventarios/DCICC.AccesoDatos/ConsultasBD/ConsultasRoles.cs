@@ -38,10 +38,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Roles objRoles = new Roles
                             {
-                                IdRol = Int32.Parse(dr[0].ToString().Trim()),
+                                IdRol = int.Parse(dr[0].ToString().Trim()),
                                 NombreRol= dr[1].ToString().Trim(),
                                 DescripcionRol= dr[2].ToString().Trim(),
-                                HabilitadoRol = Boolean.Parse(dr[3].ToString().Trim())
+                                HabilitadoRol = bool.Parse(dr[3].ToString().Trim())
                             };
                             lstRoles.Add(objRoles);
                         }

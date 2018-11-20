@@ -38,11 +38,11 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Laboratorios objLaboratorios = new Laboratorios
                             {
-                                IdLaboratorio= Int32.Parse(dr[0].ToString().Trim()),
+                                IdLaboratorio= int.Parse(dr[0].ToString().Trim()),
                                 NombreLaboratorio = dr[1].ToString().Trim(),
                                 UbicacionLaboratorio= dr[2].ToString().Trim(),
                                 DescripcionLaboratorio = dr[3].ToString().Trim(),
-                                HabilitadoLaboratorio = Boolean.Parse(dr[4].ToString().Trim())
+                                HabilitadoLaboratorio = bool.Parse(dr[4].ToString().Trim())
                             };
                             lstLaboratorios.Add(objLaboratorios);
                         }
