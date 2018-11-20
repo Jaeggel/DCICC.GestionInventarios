@@ -39,7 +39,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             MaqVirtuales objMaqVirtuales = new MaqVirtuales
                             {
                                 IdMaqVirtuales = int.Parse(dr[0].ToString().Trim()),
-                                NombreSistOperativo = dr[1].ToString().Trim(),
+                                IdSistOperativos= int.Parse(dr[1].ToString().Trim()),
                                 UsuarioMaqVirtuales = dr[2].ToString().Trim(),
                                 NombreMaqVirtuales = dr[3].ToString().Trim(),
                                 PropositoMaqVirtuales = dr[4].ToString().Trim(),
@@ -47,7 +47,8 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 DiscoMaqVirtuales = int.Parse(dr[6].ToString().Trim()),
                                 RamMaqVirtuales = int.Parse(dr[7].ToString().Trim()),
                                 DescripcionMaqVirtuales = dr[8].ToString().Trim(),
-                                HabilitadoMaqVirtuales = bool.Parse(dr[9].ToString().Trim())
+                                HabilitadoMaqVirtuales = bool.Parse(dr[9].ToString().Trim()),
+                                NombreSistOperativos = dr[10].ToString().Trim()
                             };
                             lstMaqVirtuales.Add(objMaqVirtuales);
                         }
