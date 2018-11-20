@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE dcicc_Ticket set nombre_Ticket = @nm,descripcion_Ticket=@dm,habilitado_Ticket = @hm where id_Ticket = @im", conn_BD))
+                using (var cmd = new NpgsqlCommand("update dcicc_tickets set id_usuario=@iu,idresponsable_ticket=@iru,id_laboratorio=@il,id_detalleact=@ida,estado_ticket=@et,fechaapertura=@fat,fechasolucion=@fct,prioridad_ticket=@pt,comentario_ticket=@ct,descripcion_ticket=@dt,habilitado_ticket=@ht where id_ticket=@it", conn_BD))
                 {
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdUsuario;
                     cmd.Parameters.Add("iru", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoTicket.IdResponsableUsuario.ToString()) ? (object)infoTicket.IdResponsableUsuario : DBNull.Value; ;
@@ -41,8 +41,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("ct", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTicket.ComentarioTicket) ? (object)infoTicket.ComentarioTicket : DBNull.Value; ;
                     cmd.Parameters.Add("dt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTicket.DescripcionTicket) ? (object)infoTicket.DescripcionTicket : DBNull.Value; ;
                     cmd.Parameters.Add("ht", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoTicket.HabilitadoTicket;
-                    cmd.ExecuteNonQuery();
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("it", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdTicket;
                 }
                 tran.Commit();
                 conn_BD.Close();

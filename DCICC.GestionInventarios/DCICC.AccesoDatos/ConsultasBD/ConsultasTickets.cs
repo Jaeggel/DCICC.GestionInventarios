@@ -40,20 +40,20 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             {
                                 IdTicket = int.Parse(dr[0].ToString().Trim()),
                                 IdUsuario= int.Parse(dr[1].ToString().Trim()),
-                                NombreUsuario= dr[2].ToString().Trim(),
-                                IdResponsableUsuario = int.Parse(dr[3].ToString().Trim()),
-                                NombreUsuarioResponsable= dr[4].ToString().Trim(),
-                                IdLaboratorio = int.Parse(dr[5].ToString().Trim()),
-                                NombreLaboratorio = dr[6].ToString().Trim(),
-                                IdDetalleActivo = int.Parse(dr[7].ToString().Trim()),
-                                NombreDetalleActivo = dr[8].ToString().Trim(),
-                                EstadoTicket = dr[9].ToString().Trim(),
-                                FechaAperturaTicket= DateTime.Parse(dr[10].ToString().Trim()),
-                                FechaSolucionTicket= DateTime.Parse(dr[11].ToString().Trim()),
-                                PrioridadTicket= dr[12].ToString().Trim(),
-                                ComentarioTicket= dr[13].ToString().Trim(),
-                                DescripcionTicket = dr[14].ToString().Trim(),
-                                HabilitadoTicket = bool.Parse(dr[15].ToString().Trim())
+                                IdResponsableUsuario = int.Parse(dr[2].ToString().Trim()),
+                                IdLaboratorio = int.Parse(dr[3].ToString().Trim()),
+                                IdDetalleActivo = int.Parse(dr[4].ToString().Trim()),
+                                EstadoTicket = dr[5].ToString().Trim(),
+                                FechaAperturaTicket= DateTime.Parse(dr[6].ToString().Trim()),
+                                FechaSolucionTicket= DateTime.Parse(dr[7].ToString().Trim()),
+                                PrioridadTicket= dr[8].ToString().Trim(),
+                                ComentarioTicket= dr[9].ToString().Trim(),
+                                DescripcionTicket = dr[10].ToString().Trim(),
+                                HabilitadoTicket = bool.Parse(dr[11].ToString().Trim()),
+                                NombreUsuario = dr[12].ToString().Trim(),
+                                NombreUsuarioResponsable = dr[13].ToString().Trim(),
+                                NombreLaboratorio = dr[14].ToString().Trim(),
+                                NombreDetalleActivo = dr[15].ToString().Trim()
                             };
                             lstTickets.Add(objTickets);
                         }

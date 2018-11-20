@@ -62,13 +62,31 @@ namespace DCICC.GestionInventarios.Controllers
             return View("GestionTickets");
         }
         /// <summary>
-        /// Método para obtener los tickets de la base de datos
+        /// Método para obtener los tickets abiertos de la base de datos
         /// </summary>
         /// <returns></returns>
-        public JsonResult ObtenerTicketsComp()
+        public JsonResult ObtenerTicketsAbiertos()
         {
             TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
-            return Json(objTicketsAccDatos.ObtenerTickets("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objTicketsAccDatos.ObtenerTickets("Abiertos").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los tickets en curso de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerTicketsEnCurso()
+        {
+            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+            return Json(objTicketsAccDatos.ObtenerTickets("EnCurso").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los tickets resueltos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerTicketsResueltos()
+        {
+            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+            return Json(objTicketsAccDatos.ObtenerTickets("Resueltos").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }
