@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las categorías: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de las categorías habilitadas: " + e.Message);
             }
             return msjCategorias;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las categorías: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de todas las categorías: " + e.Message);
             }
             return msjCategorias;
         }
