@@ -69,7 +69,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
-                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("ticketsabiertos");
             }
             catch (Exception e)
             {
@@ -88,7 +88,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
-                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("ticketsencurso");
             }
             catch (Exception e)
             {
@@ -107,7 +107,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
-                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("ticketsresuelto");
             }
             catch (Exception e)
             {

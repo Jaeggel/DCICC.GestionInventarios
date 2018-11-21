@@ -38,11 +38,11 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Tickets objTickets = new Tickets
                             {
-                                IdTicket = int.Parse(dr[0].ToString().Trim()),
-                                IdUsuario= int.Parse(dr[1].ToString().Trim()),
-                                IdResponsableUsuario = int.Parse(dr[2].ToString().Trim()),
-                                IdLaboratorio = int.Parse(dr[3].ToString().Trim()),
-                                IdDetalleActivo = int.Parse(dr[4].ToString().Trim()),
+                                IdTicket = dr[0].ToString().Trim() != null ? int.Parse(dr[0].ToString().Trim()) : 0,
+                                IdUsuario= dr[1].ToString().Trim() != null ? int.Parse(dr[1].ToString().Trim()) : 0,
+                                IdResponsableUsuario = dr[2].ToString().Trim() != null ? int.Parse(dr[0].ToString().Trim()) : 0,
+                                IdLaboratorio = dr[3].ToString().Trim() != null ? int.Parse(dr[0].ToString().Trim()) : 0,
+                                IdDetalleActivo = dr[4].ToString().Trim() != null ? int.Parse(dr[0].ToString().Trim()) : 0,
                                 EstadoTicket = dr[5].ToString().Trim(),
                                 FechaAperturaTicket= DateTime.Parse(dr[6].ToString().Trim()),
                                 FechaSolucionTicket= DateTime.Parse(dr[7].ToString().Trim()),
