@@ -39,79 +39,21 @@
                     </div>
                     <div class="panel panel-warning">
                         <a class="panel-heading collapsed panel-warning" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <h4 class="panel-title">En Curso</h4>
+                            <h4 class="panel-title">En Curso <strong> (<span id="numeroEnCurso"></span>) </strong></h4>
                         </a>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div id="ticketsEnCurso"></div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-success">
                         <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <h4 class="panel-title">Resueltos</h4>
+                            <h4 class="panel-title">Resueltos <strong> (<span id="numeroResueltos"></span>) </strong></h4>
                         </a>
                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div id="ticketsResueltos"></div>
                             </div>
                         </div>
                     </div>
@@ -122,7 +64,7 @@
 </div>
 
 
-@* Modal de modificación de categorías de activos *@
+@* Modal de modificación de tickets Resueltos *@
 <div class="modal fade" id="ModificarTickets" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -172,7 +114,6 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Cambiar de estado:</label>
                                             <div id="cargarAbiertosCmb"></div>
-                                            <div id="cargarEnCursoCmb"></div>
                                         </div>
                                     </div>
 
@@ -199,6 +140,84 @@
     </div>
 </div>
 
+@* Modal de modificación de tickets en curso *@
+<div class="modal fade" id="ModificarTicketsEnCurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Solucionar Tickets para Soporte Técnico En Curso</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+
+                                    @* Cuadro de texto para el ingreso del nombre completo del usuario*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Descripción de la incidencia:</label>
+                                        <textarea id="DescripcionTicketEC" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
+                                        <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del correo del usuario*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Prioridad de la incidencia:</label>
+                                        <input id="PrioridadTicketEC" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
+                                        <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Reportado por:</label>
+                                        <input id="NombreUsuarioEC" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
+                                        <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del password del usuario*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Fecha de apertura del ticket:</label>
+                                        <input id="FechaAperturaTicketEC" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
+                                        <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    @* Combobox para seleccionar un rol de usuario*@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Cambiar de estado:</label>
+                                            <div id="cargarEnCursoCmb"></div>
+                                        </div>
+                                    </div>
+
+                                    @* Área de Texto para el ingreso de la direccion de un usuario *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="ComentarioTicketEC" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" maxlength="500"></textarea>
+                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar usuario o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success" onclick="modificarEstadoTicketEnCurso('@Url.Action("ModificarTicket", "Tickets")')">Modificar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -221,6 +240,8 @@
     $(document).ready(function () {
 
         obtenerTicketsAbiertos('@Url.Action("ObtenerTicketsAbiertos", "Tickets")');
+        obtenerTicketsEnCurso('@Url.Action("ObtenerTicketsEnCurso", "Tickets")');
+        obtenerTicketsResueltos('@Url.Action("ObtenerTicketsResueltos", "Tickets")');
 
     });
 

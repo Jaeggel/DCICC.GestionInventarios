@@ -29,9 +29,12 @@ function cargarLogsTabla() {
     str += '<thead> <tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificados</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLogs.length; i++) {
+        var fechaLog = new Date(parseInt((datosLogs[i].FechaLogs).substr(6)));
+        var fechaApertura = (fechaLog.toLocaleDateString("es-ES") + " " + fechaLog.getHours() + ":" + fechaLog.getMinutes() + ":" + fechaLog.getSeconds());
+
         str += '<tr><td>' + datosLogs[i].IdUsuario +
             '</td><td>' + datosLogs[i].IpLogs +
-            '</td><td>' + new Date(parseInt((datosLogs[i].FechaLogs).substr(6))) +
+            '</td><td>' + fechaApertura +
             '</td><td>' + datosLogs[i].OperacionLogs +
             '</td><td>' + datosLogs[i].TablaLogs +
             '</td><td>' + datosLogs[i].ValorAnteriorLogs +
