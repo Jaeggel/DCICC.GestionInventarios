@@ -70,7 +70,7 @@ namespace DCICC.GestionInventarios.Controllers
                         Session.Timeout = tiempoExpiracionMin;
 
                         //Definición de parámetros para utilizar en toda la aplicación.
-                        UsuarioActionFilter.ObtenerUsuario(datosUsuario.NombresUsuario);
+                        UsuarioActionFilter.ObtenerUsuario(datosUsuario.NickUsuario);
                         CorreoActionFilter.ObtenerCorreo(datosUsuario.CorreoUsuario);
 
                         //Registro de Log para Login
