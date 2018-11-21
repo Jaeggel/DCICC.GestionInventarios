@@ -149,7 +149,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerUsuarioActual()
         {
-            return Json(Session["userInfo"].ToString(), JsonRequestBehavior.AllowGet);
+            return Json(LoginController.nickUsuarioSesion, JsonRequestBehavior.AllowGet);
         }
     }
 }

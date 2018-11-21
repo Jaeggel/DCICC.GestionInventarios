@@ -4659,9 +4659,9 @@
     <Content Include="Scripts\ScriptsInventarios\MaquinaVirtual.js" />
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoActivo.js" />
-    <Content Include="Scripts\ScriptsInventarios\Usuario.js" />
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoAccesorio.js" />
+    <Content Include="Scripts\ScriptsInventarios\Usuarios.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />

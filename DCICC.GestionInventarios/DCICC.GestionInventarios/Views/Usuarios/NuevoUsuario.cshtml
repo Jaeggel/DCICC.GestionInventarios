@@ -100,11 +100,12 @@
 
 
 
-<script src="~/Scripts/ScriptsInventarios/Usuario.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Usuarios.js"></script>
 <script>
     $(document).ready(function () {
 
-        obtenerMetodoRol('@Url.Action("ObtenerRolesHab", "Roles")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+        obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+        obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
 
         $('#CorreoUsuario').blur(function () {
             var correo = document.getElementById("CorreoUsuario").value;
