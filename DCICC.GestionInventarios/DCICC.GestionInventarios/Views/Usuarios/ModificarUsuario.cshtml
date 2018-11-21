@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Escoja el Rol de Usuario:</label>
-                                            <div id="cargarRolesUpdate"></div>
+                                            <div id="cargarRoles"></div>
                                         </div>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre completo del usuario*@
@@ -120,7 +120,7 @@
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarUsuario('@Url.Action("ModificarUsuario", "Usuarios")','@Url.Action("ObtenerUsuariosRoles", "Usuarios")')">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarUsuario('@Url.Action("ModificarUsuario", "Usuarios")')">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -152,20 +152,12 @@
     </script>
 }
 
-<script src="~/Scripts/ScriptsInventarios/Usuario.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Usuarios.js"></script>
 <script>
     $(document).ready(function () {
 
-        obtenerMetodoUsuarios('@Url.Action("ObtenerRolesHab", "Roles")', '@Url.Action("ObtenerUsuariosRoles", "Usuarios")', '@Url.Action("ObtenerUsuarioActual", "Usuarios")');
-        /*$('#CorreoUsuario').blur(function () {
-            var correo = document.getElementById("CorreoUsuario").value;
-            comprobarCorreo(correo);
-        });
-
-        $('#NickUsuario').blur(function () {
-            var nick = document.getElementById("NickUsuario").value;
-            comprobarNick(nick);
-        });*/
+        obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+        obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
 
     });
 
