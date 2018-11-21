@@ -160,5 +160,33 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjCQR;
         }
+        /// <summary>
+        /// Método para registrar un activo en el historico en la base de datos.
+        /// </summary>
+        /// <param name="infoHistActivo"></param>
+        /// <returns></returns>
+        public MensajesHistoricoActivos RegistrarHistoricoActivo(HistoricoActivos infoHistActivo)
+        {
+            MensajesHistoricoActivos msjHistActivos = new MensajesHistoricoActivos();
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
+                var response = clientService.PostAsJsonAsync("Activos/RegistrarHistoricoActivo", infoHistActivo).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var histActivosJson = response.Content.ReadAsStringAsync().Result;
+                    msjHistActivos = JsonConvert.DeserializeObject<MensajesHistoricoActivos>(histActivosJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para registrar un historico: " + e.Message + " - " + msjHistActivos.MensajeError);
+            }
+            return msjHistActivos;
+        }
     }
 }

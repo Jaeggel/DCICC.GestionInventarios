@@ -202,11 +202,13 @@
     <Compile Include="Models\Activos.cs" />
     <Compile Include="Models\CategoriaActivo.cs" />
     <Compile Include="Models\CQR.cs" />
+    <Compile Include="Models\HistoricoActivos.cs" />
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesHistoricoActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesAccesorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCategoriasActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCQR.cs" />

@@ -137,5 +137,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjCQR;
         }
+        /// <summary>
+        /// Método (POST) para registrar un nuevo activo en el historico en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("RegistrarHistoricoActivo")]
+        public MensajesHistoricoActivos RegistrarHistoricoActivo([FromBody] HistoricoActivos infoHistActivo)
+        {
+            MensajesHistoricoActivos msjHistActivos = null;
+            try
+            {
+                InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
+                msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo registrar el historico: " + e.Message);
+            }
+            return msjHistActivos;
+        }
     }
 }
