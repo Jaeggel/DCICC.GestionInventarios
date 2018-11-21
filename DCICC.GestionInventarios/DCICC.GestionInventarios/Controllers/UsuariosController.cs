@@ -147,9 +147,10 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para obtener el usuario actual del sistema
         /// </summary>
         /// <returns></returns>
-        public JsonResult ObtenerUsuarioActual()
+        [HttpGet]
+        public string ObtenerUsuarioActual()
         {
-            return Json(LoginController.nickUsuarioSesion, JsonRequestBehavior.AllowGet);
+            return LoginController.nickUsuarioSesion;
         }
     }
 }
