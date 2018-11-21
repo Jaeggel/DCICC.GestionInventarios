@@ -52,14 +52,23 @@ namespace DCICC.GestionInventarios.Controllers
                     if (datosUsuario != null)
                     {
                         //Definición del menú que tendrá el usuario en el sistema
-                        if (datosUsuario.IdRol == 1)
+                        if (datosUsuario.NombreRol.ToLower() == "administrador")
                         {
                             MenuActionFilter.ObtenerMenu("Admin");
+                        }
+                        else if (datosUsuario.NombreRol.ToLower() == "estudiante")
+                        {
+                            MenuActionFilter.ObtenerMenu("Estudiantes");
+                        }
+                        else if (datosUsuario.NombreRol.ToLower() == "reportes")
+                        {
+                            MenuActionFilter.ObtenerMenu("Reporteria");
                         }
                         else
                         {
                             MenuActionFilter.ObtenerMenu("Usuarios");
-                        }
+                        }//OJO REDIRECCIONAMIENTO -> NO HOME
+
                         //Logs de reporte de transacción.
                         Logs.Info("Autenticación Exitosa");
                         ipUsuarioSesion = ObtenerIPCliente();

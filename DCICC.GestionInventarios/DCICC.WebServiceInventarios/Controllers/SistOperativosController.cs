@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los sistemas operativos: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los sistemas operativos: " + e.Message + " - " + msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los sistemas operativos: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los sistemas operativos: " + e.Message + " - " + msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el sistema operativo: " + e.Message);
+                Logs.Error("No se pudo registrar el sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el sistema operativo: " + e.Message);
+                Logs.Error("No se pudo actualizar el sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }

@@ -31,11 +31,11 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
+                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");//corregir
             }
             catch(Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los usuarios: "+e.Message);
+                Logs.Error("No se pudo obtener la lista de los usuarios: "+e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -69,11 +69,11 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuariosRoles();
+                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("usuariosroles");
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -93,7 +93,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el usuario: " + e.Message);
+                Logs.Error("No se pudo registrar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -113,7 +113,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el usuario: " + e.Message);
+                Logs.Error("No se pudo actualizar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }

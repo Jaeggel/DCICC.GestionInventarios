@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los tipos de activos: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los tipos de activos: " + e.Message + " - " + msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los tipos de activos: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los tipos de activos: " + e.Message + " - " + msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el tipo de activo: " + e.Message);
+                Logs.Error("No se pudo registrar el tipo de activo: " + e.Message + " - " + msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el tipo de activo: " + e.Message);
+                Logs.Error("No se pudo actualizar el tipo de activo: " + e.Message + " - " + msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }

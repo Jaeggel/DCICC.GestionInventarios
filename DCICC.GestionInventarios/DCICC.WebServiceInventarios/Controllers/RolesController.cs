@@ -34,7 +34,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los roles: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los roles: " + e.Message + " - " + msjRoles.MensajeError);
             }
             return msjRoles;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el rol: " + e.Message);
+                Logs.Error("No se pudo registrar el rol: " + e.Message + " - " + msjRoles.MensajeError);
             }
             return msjRoles;
         }
@@ -73,7 +73,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el rol: " + e.Message);
+                Logs.Error("No se pudo actualizar el rol: " + e.Message + " - " + msjRoles.MensajeError);
             }
             return msjRoles;
         }

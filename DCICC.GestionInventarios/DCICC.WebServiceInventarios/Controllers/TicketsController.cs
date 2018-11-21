@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message + " - " + msjTickets.MensajeError);
             }
             return msjTickets;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message + " - " + msjTickets.MensajeError);
             }
             return msjTickets;
         }
@@ -73,7 +73,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message + " - " + msjTickets.MensajeError);
             }
             return msjTickets;
         }
@@ -92,7 +92,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message + " - " + msjTickets.MensajeError);
             }
             return msjTickets;
         }
@@ -111,7 +111,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los tickets: " + e.Message + " - " + msjTickets.MensajeError);
             }
             return msjTickets;
         }
@@ -131,7 +131,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el ticket: " + e.Message);
+                Logs.Error("No se pudo registrar el ticket: " + e.Message + " - " + msjTickets.MensajeError);
             }
             return msjTickets;
         }
@@ -151,7 +151,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el ticket: " + e.Message);
+                Logs.Error("No se pudo actualizar el ticket: " + e.Message + " - " + msjTickets.MensajeError);
             }
             return msjTickets;
         }
