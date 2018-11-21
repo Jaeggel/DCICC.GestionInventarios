@@ -4716,6 +4716,9 @@
     <Content Include="Views\Activos\ConsultaActivos.cshtml" />
     <Content Include="Views\Usuarios\PerfilUsuario.cshtml" />
     <Content Include="Views\Reportes\Reportes.cshtml" />
+    <Content Include="Views\Shared\_LayoutDocentes.cshtml" />
+    <Content Include="Views\Shared\_LayoutEstudiantes.cshtml" />
+    <Content Include="Views\Shared\_LayoutReporteria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
