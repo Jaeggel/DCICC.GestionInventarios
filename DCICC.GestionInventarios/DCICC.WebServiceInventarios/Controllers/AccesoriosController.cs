@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los accesorios: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los accesorios: " + e.Message + " - " + msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los accesorios: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los accesorios: " + e.Message + " - " + msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el accesorio: " + e.Message);
+                Logs.Error("No se pudo registrar el accesorio: " + e.Message + " - " + msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el accesorio: " + e.Message);
+                Logs.Error("No se pudo actualizar el accesorio: " + e.Message + " - " + msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }

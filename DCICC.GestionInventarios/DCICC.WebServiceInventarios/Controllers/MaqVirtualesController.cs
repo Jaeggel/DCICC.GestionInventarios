@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las máquinas virtuales: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de las máquinas virtuales: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las máquinas virtuales: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de las máquinas virtuales: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar la máquina virtual: " + e.Message);
+                Logs.Error("No se pudo registrar la máquina virtual: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar la máquina virtual: " + e.Message);
+                Logs.Error("No se pudo actualizar la máquina virtual: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }

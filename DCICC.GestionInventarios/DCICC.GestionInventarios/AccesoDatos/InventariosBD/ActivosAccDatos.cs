@@ -122,8 +122,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 HttpResponseMessage response = clientService.GetAsync("CQR/ObtenerCQR").Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    //var CQRJson = response.Content.ReadAsStringAsync().Result;
-                    //msjCQR = JsonConvert.DeserializeObject<MensajesCQR>(CQRJson);
+                    var CQRJson = response.Content.ReadAsStringAsync().Result;
+                    msjCQR = JsonConvert.DeserializeObject<MensajesCQR>(CQRJson);
                 }
             }
             catch (Exception e)

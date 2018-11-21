@@ -8,6 +8,6 @@ namespace DCICC.Entidades.EntidadesInventarios
     {
         public int IdCqr { get; set; }
 
-        public Byte[] Bytea { get; set; }
+        public byte[] Bytea { get; set; }
     }
 }

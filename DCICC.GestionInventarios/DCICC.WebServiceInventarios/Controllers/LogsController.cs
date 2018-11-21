@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el log: " + e.Message);
+                Logs.Error("No se pudo registrar el log: " + e.Message + " - " + msjLogs.MensajeError);
             }
             return msjLogs;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los logs: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los logs: " + e.Message + " - " + msjLogs.MensajeError);
             }
             return msjLogs;
         }

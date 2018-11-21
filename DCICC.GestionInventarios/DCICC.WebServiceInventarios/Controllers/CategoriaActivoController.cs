@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las categorías habilitadas: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de las categorías habilitadas: " + e.Message + " - " + msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de todas las categorías: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de todas las categorías: " + e.Message + " - " + msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar la categoría: " + e.Message);
+                Logs.Error("No se pudo registrar la categoría: " + e.Message + " - " + msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar la categoría: " + e.Message);
+                Logs.Error("No se pudo actualizar la categoría: " + e.Message + " - " + msjCategorias.MensajeError);
             }
             return msjCategorias;
         }

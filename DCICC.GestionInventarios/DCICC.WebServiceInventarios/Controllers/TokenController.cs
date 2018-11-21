@@ -34,7 +34,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                 if (infoUsuario.NickUsuario != null && infoUsuario.NickUsuario != null)
                 {
                     ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
-                    if (objConUsuarios.ObtenerUsuarios("consultausuarios").ListaObjetoInventarios.Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
+                    if (objConUsuarios.ObtenerUsuarios("usuarioshabilitados").ListaObjetoInventarios.Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
                     {
                         token=ConfiguracionToken();
                     }
@@ -75,7 +75,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                     if(infoUsuario!=null)
                     {
                         token = ConfiguracionToken();
-                        ConfigBaseDatos.SetCadenaConexion("Server=localhost;Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
+                        ConfigBaseDatos.SetCadenaConexion("Server='192.168.0.4';Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
                     }
                     else
                     {

@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las marcas: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de las marcas: " + e.Message + " - " + msjMarcas.MensajeError);
             }
             return msjMarcas;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las marcas: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de las marcas: " + e.Message + " - " + msjMarcas.MensajeError);
             }
             return msjMarcas;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar la marca: " + e.Message);
+                Logs.Error("No se pudo registrar la marca: " + e.Message + " - " + msjMarcas.MensajeError);
             }
             return msjMarcas;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar la marca: " + e.Message);
+                Logs.Error("No se pudo actualizar la marca: " + e.Message + " - " + msjMarcas.MensajeError);
             }
             return msjMarcas;
         }

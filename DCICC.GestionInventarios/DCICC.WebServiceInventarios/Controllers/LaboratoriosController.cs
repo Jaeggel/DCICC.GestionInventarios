@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los laboratorios: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los laboratorios: " + e.Message + " - " + msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los laboratorios: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los laboratorios: " + e.Message + " - " + msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el laboratorio: " + e.Message);
+                Logs.Error("No se pudo registrar el laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el laboratorio: " + e.Message);
+                Logs.Error("No se pudo actualizar el laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }

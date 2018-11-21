@@ -130,9 +130,28 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult PerfilUsuario(Usuarios infoUsuario)
+        public ActionResult PerfilUsuario(Usuarios infoUsuario)//POR AJAX POR EL ID
         {
-            return RedirectToAction("PerfilUsuario", "Usuarios");
+            string mensajes_Usuarios = string.Empty;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
+                if (msjUsuarios.OperacionExitosa)
+                {
+                    Logs.Info(mensajes_Usuarios);
+                }
+                else
+                {
+                    mensajes_Usuarios = "No se ha podido actualizar el perfil de usuario: " + msjUsuarios.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajes_Usuarios + ": " + e.Message);
+            }
+            return View();
         }
         /// <summary>
         /// Método para obtener los los usuariso con su rol de la base de datos

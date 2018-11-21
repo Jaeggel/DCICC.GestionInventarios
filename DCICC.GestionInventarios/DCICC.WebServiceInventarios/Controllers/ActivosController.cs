@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de las activos: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de las activos: " + e.Message + " - " + msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -54,7 +54,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los activos: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los activos: " + e.Message + " - " + msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el activo: " + e.Message);
+                Logs.Error("No se pudo registrar el activo: " + e.Message + " - " + msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo actualizar el activo: " + e.Message);
+                Logs.Error("No se pudo actualizar el activo: " + e.Message + " - " + msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -113,7 +113,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la lista de los CQR: " + e.Message);
+                Logs.Error("No se pudo obtener la lista de los CQR: " + e.Message + " - " + msjCQR.MensajeError);
             }
             return msjCQR;
         }
@@ -133,7 +133,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el CQR: " + e.Message);
+                Logs.Error("No se pudo registrar el CQR: " + e.Message + " - " + msjCQR.MensajeError);
             }
             return msjCQR;
         }
@@ -153,7 +153,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo registrar el historico: " + e.Message);
+                Logs.Error("No se pudo registrar el historico: " + e.Message + " - " + msjHistActivos.MensajeError);
             }
             return msjHistActivos;
         }
