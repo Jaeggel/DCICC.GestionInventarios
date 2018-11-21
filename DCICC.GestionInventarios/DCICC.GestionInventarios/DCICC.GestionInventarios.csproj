@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\AccesoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\DetalleActivoAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\MaqVirtualesAccDatos.cs" />
