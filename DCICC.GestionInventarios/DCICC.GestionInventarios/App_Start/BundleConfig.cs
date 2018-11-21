@@ -15,10 +15,13 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/nprogress/nprogress.js",
 
                         "~/Content/Tema/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js",
+                        
 
                         "~/Content/Tema/vendors/iCheck/icheck.min.js",
-                        "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
                         "~/Content/Tema/vendors/moment/min/moment.min.js",
+                        "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.js",
+                        //"~/Content/Tema/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+                        "~/Content/Tema/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js",
                         "~/Content/Tema/vendors/DateJS/build/date.js",
                         "~/Content/Tema/vendors/switchery/dist/switchery.min.js",
 
@@ -33,6 +36,7 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/flot.orderbars/js/jquery.flot.orderBars.js",
                         "~/Content/Tema/vendors/flot-spline/js/jquery.flot.spline.min.js",
                         "~/Content/Tema/vendors/flot.curvedlines/curvedLines.js",
+                        
 
                         "~/Content/Tema/vendors/datatables.net/js/jquery.dataTables.min.js",
                         "~/Content/Tema/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js",
@@ -69,6 +73,7 @@ namespace DCICC.GestionInventarios
 
                       "~/Content/Tema/vendors/iCheck/skins/flat/green.css",
                       "~/Content/Tema/vendors/bootstrap-daterangepicker/daterangepicker.css",
+                      //"~/Content/Tema/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
 
                       "~/Content/Tema/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
 

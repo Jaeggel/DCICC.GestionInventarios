@@ -3,6 +3,7 @@ var url_metodo;
 var datosUsuarios;
 var cmbRoles;
 var idUsuarioModificar;
+var nick;
 
 function obtenerUsuarios(url) {
     url_metodo = url;
@@ -40,10 +41,25 @@ function obtenerRoles(url) {
     });
 }
 
+function obtenerNick(url) {
+    console.log(url);
+    //Método ajax para traer las marcas de la base de datos
+    $.ajax({
+        url: url,
+        type: 'get',
+        success: function (data) {
+            console.log(data);
+            nick = data;
+        }
+    });
+
+}
+
 
 
 //Función para cargar la tabla de Usuarios
 function cargarUsuariosTabla() {
+    console.log(nick);
     var str = '<table id="dataTableUsuarios" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
