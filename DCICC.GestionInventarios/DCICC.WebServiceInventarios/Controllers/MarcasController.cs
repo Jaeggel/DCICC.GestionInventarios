@@ -18,7 +18,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
     [Route("Marcas")]
     public class MarcasContMarcaler : Controller
     {
-        //Instancia para la utilización de LOGS en la clase MarcasContMarcaler
+        //Instancia para la utilización de LOGS en la clase MarcasController
         private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para obtener una lista de marcas habilitadas de la base de datos.

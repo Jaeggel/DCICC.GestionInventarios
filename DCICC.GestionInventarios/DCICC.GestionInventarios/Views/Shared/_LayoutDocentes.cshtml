@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -55,76 +58,11 @@
                                     <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
-
-                                    <ul class="nav child_menu">
-                                        @* Seccción de enlaces a ingreso de nueva categoria de activo o a modificación de categoria de activo *@
-                                        <li><a href="@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")">Categoría de Activos</a></li>
-                                        @* Seccción de enlaces a ingreso de nuevo tipo de activo o a modificación de tipo de activo *@
-                                        <li><a href="@Url.Action("ModificarTipoActivo", "TipoActivo")">Tipo de Activos</a></li>
-                                        @* Seccción de enlaces a ingreso de nuevo laboratorio o a modificación de laboratorio *@
-                                        <li><a href="@Url.Action("ModificarLaboratorio", "Laboratorios")">Laboratorios</a></li>
-                                        @* Seccción de enlaces a ingreso de nueva marca o a modificación de marcas *@
-                                        <li><a href="@Url.Action("ModificarMarca", "Marcas")">Marcas</a></li>
-                                        @* Seccción de enlaces a ingreso de nuevo Tipo de Accesorio  o a modificación de Tipo de Accesorio *@
-                                        <li><a href="@Url.Action("ModificarTipoAccesorio", "TipoAccesorio")">Tipo de Accesorio</a></li>
-                                        @* Enlace al método NuevoActivo (Metodo de la clase) del Controlador Activos(Controller) *@
-                                        <li><a href="@Url.Action("NuevoActivo", "Activos")">Nuevo Activo de TI</a></li>
-                                    </ul>
-                                </li>
-                                @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
-                                <li>
-                                    <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
-                                        <li><a href="@Url.Action("ConsultaActivos", "Activos")">Consultar/Modificar Activos</a></li>
-                                    </ul>
-                                </li>
-                                @* Seccción de enlaces a Máquinas Virtuales y Sistemas Operativos *@
-                                <li>
-                                    <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Seccción de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
-                                        <li>
-                                            @* Enlace al método ModificarSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
-                                            <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Sistemas Operativos</a>
-                                        </li>
-                                        <li>
-                                            @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
-                                            <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Máquinas Virtuales</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
                                     <a><i class="fa fa-ticket"></i>Tickets <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
-                                        <li><a href="@Url.Action("GestionTickets", "Tickets")">Gestión de Tickets</a></li>
+                                        <li><a href="@Url.Action("GestionTickets", "Tickets")">Consulta de Tickets</a></li>
                                     </ul>
-                                </li>
-                                <li>
-                                    @*Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)*@
-                                    <a href="@Url.Action("Reportes", "Reportes")"><i class="fa fa-bar-chart-o"></i> Reportes</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="menu_section">
-                            <h3>Administración</h3>
-                            <ul class="nav side-menu">
-                                @* Sección de enlaces a ingreso de nuevo Usuario  o a modificación de Usuarios *@
-                                <li>
-                                    @* Enlace al método ModificarUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
-                                    <a href="@Url.Action("ModificarUsuario", "Usuarios")"><i class="fa fa-user"></i> Usuarios</a>
-                                </li>
-                                @* Sección de enlaces a ingreso de nuevo Rol  o a modificación de Roles *@
-                                <li>
-                                    @* Enlace al método ModificarRol (Metodo de la clase) del Controlador Roles(Controller) *@
-                                    <a href="@Url.Action("ModificarRol", "Roles")"><i class="fa fa-users"></i> Roles</a>
-                                </li>
-                                @* Sección de enlaces para visualización de Logs *@
-                                <li>
-                                    @* Enlace al método Logs (Metodo de la clase) del Controlador Los(Controller) *@
-                                    <a href="@Url.Action("Logs", "Logs")"><i class="fa fa-archive"></i> Logs</a>
                                 </li>
                             </ul>
                         </div>
@@ -161,7 +99,7 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <br />
-                <!-- top tiles -->                                                                               
+                <!-- top tiles -->
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         @* Construcción del Body en el resto de las vistas que hacen uso de este Layout*@

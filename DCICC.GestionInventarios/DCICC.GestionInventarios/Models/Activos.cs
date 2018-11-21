@@ -10,8 +10,6 @@ namespace DCICC.GestionInventarios.Models
         public int IdActivo { get; set; }
 
         //Categoría de Activo
-        public int IdCategoriaActivo { get; set; }
-
         public string NombreCategoriaActivo { get; set; }
 
         //Tipo de Activo
@@ -39,7 +37,7 @@ namespace DCICC.GestionInventarios.Models
 
         public string SerialActivo { get; set; }
 
-        public string FechaIngresoActivo { get; set; }
+        public DateTime FechaIngresoActivo { get; set; }
 
         public string CodigoUpsActivo { get; set; }
 

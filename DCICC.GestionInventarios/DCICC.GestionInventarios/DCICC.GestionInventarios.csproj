@@ -160,8 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ComunicacionServicio.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\AccesoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
-    <Compile Include="AccesoDatos\InventariosBD\DetalleActivoAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\ActivosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\MaqVirtualesAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LaboratoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LogsAccDatos.cs" />
@@ -209,7 +210,7 @@
     <Compile Include="Models\MensajesInventarios\MensajesAccesorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCategoriasActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCQR.cs" />
-    <Compile Include="Models\MensajesInventarios\MensajesDetalleActivo.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLaboratorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLogs.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesMaqVirtuales.cs" />
@@ -4715,6 +4716,9 @@
     <Content Include="Views\Activos\ConsultaActivos.cshtml" />
     <Content Include="Views\Usuarios\PerfilUsuario.cshtml" />
     <Content Include="Views\Reportes\Reportes.cshtml" />
+    <Content Include="Views\Shared\_LayoutDocentes.cshtml" />
+    <Content Include="Views\Shared\_LayoutEstudiantes.cshtml" />
+    <Content Include="Views\Shared\_LayoutReporteria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

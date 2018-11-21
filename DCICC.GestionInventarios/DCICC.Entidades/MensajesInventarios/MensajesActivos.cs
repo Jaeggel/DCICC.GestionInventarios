@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DCICC.Entidades.EntidadesInventarios;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace DCICC.GestionInventarios.Models.MensajesInventarios
+namespace DCICC.Entidades.MensajesInventarios
 {
-    public class MensajesDetalleActivo
+    public class MensajesActivos
     {
         public bool OperacionExitosa { get; set; }
 
