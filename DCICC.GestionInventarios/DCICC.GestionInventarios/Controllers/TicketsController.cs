@@ -40,6 +40,10 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ModificarTicket(Tickets infoTicket)
         {
+            if(infoTicket.EstadoTicket=="Resuelto")
+            {
+                infoTicket.FechaSolucionTicket = DateTime.Now;
+            }
             string mensajesTickets = string.Empty;
             MensajesTickets msjTickets = new MensajesTickets();
             try

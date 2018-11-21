@@ -39,8 +39,8 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Usuarios objUsuarios = new Usuarios
                             {
-                                IdUsuario = int.Parse(dr[0].ToString()),
-                                IdRol = int.Parse(dr[1].ToString().Trim()),
+                                IdUsuario = (int)dr[0],
+                                IdRol = (int)dr[1],
                                 NombresUsuario = dr[2].ToString().Trim(),
                                 NickUsuario = dr[3].ToString().Trim(),
                                 PasswordUsuario = ConfigEncryption.DesencriptarValor(dr[4].ToString().Trim()),
@@ -48,7 +48,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 TelefonoUsuario = dr[6].ToString().Trim(),
                                 TelefonoCelUsuario = dr[7].ToString().Trim(),
                                 DireccionUsuario = dr[8].ToString().Trim(),
-                                HabilitadoUsuario = bool.Parse(dr[9].ToString().Trim()),
+                                HabilitadoUsuario = (bool)dr[9],
                                 NombreRol = dr[10].ToString().Trim()
                             };
                             lstUsuarios.Add(objUsuarios);

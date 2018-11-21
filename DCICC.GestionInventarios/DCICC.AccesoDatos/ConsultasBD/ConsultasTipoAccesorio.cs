@@ -38,10 +38,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             TipoAccesorio objTipoAccesorio = new TipoAccesorio
                             {
-                                IdTipoAccesorio = int.Parse(dr[0].ToString().Trim()),
+                                IdTipoAccesorio = (int)dr[0],
                                 NombreTipoAccesorio = dr[1].ToString().Trim(),
                                 DescripcionTipoAccesorio = dr[2].ToString().Trim(),
-                                HabilitadoTipoAccesorio = bool.Parse(dr[3].ToString().Trim())
+                                HabilitadoTipoAccesorio = (bool)dr[3]
                             };
                             lstTipoAccesorio.Add(objTipoAccesorio);
                         }
