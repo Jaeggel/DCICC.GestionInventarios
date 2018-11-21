@@ -38,17 +38,17 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Activos objActivos = new Activos
                             {
-                                IdActivo = int.Parse(dr[0].ToString().Trim()),
-                                IdTipoActivo = int.Parse(dr[1].ToString().Trim()),
-                                IdCQR = int.Parse(dr[2].ToString().Trim()),
-                                IdMarca = int.Parse(dr[3].ToString().Trim()),
-                                IdLaboratorio = int.Parse(dr[4].ToString().Trim()),
+                                IdActivo = (int)dr[0],
+                                IdTipoActivo = (int)dr[1],
+                                IdCQR = (int)dr[2],
+                                IdMarca = (int)dr[3],
+                                IdLaboratorio = (int)dr[4],
                                 NombreActivo = dr[5].ToString().Trim(),
                                 ModeloActivo = dr[6].ToString().Trim(),
                                 SerialActivo = dr[7].ToString().Trim(),
                                 FechaIngresoActivo = DateTime.Parse(dr[8].ToString().Trim()),
                                 CodigoUpsActivo = dr[9].ToString().Trim(),
-                                CantidadActivo = int.Parse(dr[10].ToString().Trim()),
+                                CantidadActivo = (int)dr[10],
                                 DescripcionActivo = dr[11].ToString().Trim(),
                                 EstadoActivo = dr[12].ToString().Trim(),
                                 //Especificaciones adicionales
@@ -60,7 +60,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 HpePartNumberActivo = dr[18].ToString().Trim(),
                                 CodBarras1Activo = dr[19].ToString().Trim(),
                                 CodBarras2Activo = dr[20].ToString().Trim(),
-                                NumPuertosActivo = int.Parse(dr[21].ToString().Trim()),
+                                NumPuertosActivo = dr[21] != DBNull.Value ? (int)dr[21] : 0,
                                 IosVersionActivo = dr[22].ToString().Trim(),
                                 FechaManufacturaActivo = dr[23].ToString().Trim(),
                                 NombreTipoActivo = dr[24].ToString().Trim(),

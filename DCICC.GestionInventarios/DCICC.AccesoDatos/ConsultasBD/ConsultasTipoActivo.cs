@@ -38,12 +38,12 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             TipoActivo objTipoActivo = new TipoActivo
                             {
-                                IdTipoActivo = int.Parse(dr[0].ToString().Trim()),
-                                IdCategoriaActivo= int.Parse(dr[1].ToString().Trim()),
+                                IdTipoActivo = (int)dr[0],
+                                IdCategoriaActivo= (int)dr[1],
                                 NombreTipoActivo = dr[2].ToString().Trim(),
                                 DescripcionTipoActivo = dr[3].ToString().Trim(),
-                                VidaUtilTipoActivo=int.Parse(dr[4].ToString().Trim()),
-                                HabilitadoTipoActivo = bool.Parse(dr[5].ToString().Trim()),
+                                VidaUtilTipoActivo=(int)dr[4],
+                                HabilitadoTipoActivo = (bool)dr[5],
                                 NombreCategoriaActivo = dr[6].ToString().Trim()
                             };
                             lstTipoActivo.Add(objTipoActivo);

@@ -37,14 +37,14 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Accesorios objAccesorios = new Accesorios
                             {
-                                IdAccesorio = int.Parse(dr[0].ToString().Trim()),
-                                IdTipoAccesorio = int.Parse(dr[1].ToString().Trim()),
-                                IdDetalleActivo = int.Parse(dr[2].ToString().Trim()),
+                                IdAccesorio = (int)dr[0],
+                                IdTipoAccesorio = (int)dr[1],
+                                IdDetalleActivo = (int)dr[2],
                                 NombreAccesorio = dr[3].ToString().Trim(),
                                 SerialAccesorio = dr[4].ToString().Trim(),
                                 ModeloAccesorio = dr[5].ToString().Trim(),
                                 DescripcionAccesorio = dr[6].ToString().Trim(),
-                                HabilitadoAccesorio = bool.Parse(dr[7].ToString().Trim()),
+                                HabilitadoAccesorio = (bool)dr[7],
                                 NombreTipoAccesorio = dr[8].ToString().Trim(),
                             };
                             lstAccesorios.Add(objAccesorios);

@@ -7,5 +7,6 @@ namespace DCICC.GestionInventarios.QR
 {
     public class GeneracionCQR
     {
+        
     }
 }

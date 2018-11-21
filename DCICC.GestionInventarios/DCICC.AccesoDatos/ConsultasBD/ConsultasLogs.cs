@@ -37,7 +37,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Logs objLogs = new Logs
                             {
-                                IdLogs= int.Parse(dr[0].ToString().Trim()),
+                                IdLogs= (int)dr[0],
                                 IdUsuario= dr[1].ToString().Trim(),
                                 FechaLogs = DateTime.Parse(dr[2].ToString().Trim()),
                                 OperacionLogs= dr[3].ToString().Trim(),

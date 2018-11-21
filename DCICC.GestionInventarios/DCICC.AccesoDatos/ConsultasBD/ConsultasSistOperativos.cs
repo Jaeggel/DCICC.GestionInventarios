@@ -38,10 +38,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             SistOperativos objSistOperativos = new SistOperativos
                             {
-                                IdSistOperativos = int.Parse(dr[0].ToString().Trim()),
+                                IdSistOperativos = (int)dr[0],
                                 NombreSistOperativos = dr[1].ToString().Trim(),
                                 DescripcionSistOperativos = dr[2].ToString().Trim(),
-                                HabilitadoSistOperativos = bool.Parse(dr[3].ToString().Trim())
+                                HabilitadoSistOperativos = (bool)dr[3]
                             };
                             lstSistOperativos.Add(objSistOperativos);
                         }

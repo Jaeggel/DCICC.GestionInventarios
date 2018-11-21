@@ -38,10 +38,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Marcas objMarcas = new Marcas
                             {
-                                IdMarca = int.Parse(dr[0].ToString().Trim()),
+                                IdMarca = (int)dr[0],
                                 NombreMarca = dr[1].ToString().Trim(),
                                 DescripcionMarca = dr[2].ToString().Trim(),
-                                HabilitadoMarca = bool.Parse(dr[3].ToString().Trim())
+                                HabilitadoMarca = (bool)dr[3]
                             };
                             lstMarcas.Add(objMarcas);
                         }
