@@ -41,36 +41,38 @@ function obtenerRoles(url) {
     });
 }
 
-function obtenerNick(url) {
-    console.log(url);
-    //Método ajax para traer las marcas de la base de datos
-    $.ajax({
-        url: url,
-        type: 'get',
-        success: function (data) {
-            console.log(data);
-            nick = data;
-        }
-    });
+//function obtenerNick(url) {
+//    console.log(url);
+//    //Método ajax para traer las marcas de la base de datos
+//    $.ajax({
+//        dataType: 'json',
+//        url: url,
+//        type: 'post',
+//        success: function (data) {
+//            console.log(data);
+//            nick = data.NickUsuario;
+//        }
+//    });
 
-}
+//}
 
 
 
 //Función para cargar la tabla de Usuarios
 function cargarUsuariosTabla() {
+    var nick = document.getElementById("usuarioActual").innerHTML;
     console.log(nick);
     var str = '<table id="dataTableUsuarios" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < datosUsuarios.length; i++) {
-
-        str += '<tr><td>' + datosUsuarios[i].NombresUsuario +
-            '</td><td>' + datosUsuarios[i].NickUsuario +
-            '</td><td>' + datosUsuarios[i].NombreRol +
-            '</td><td>' + datosUsuarios[i].CorreoUsuario +
-            '</td><td>' + datosUsuarios[i].TelefonoCelUsuario;
+        if (datosUsuarios[i].NickUsuario != nick) {
+            str += '<tr><td>' + datosUsuarios[i].NombresUsuario +
+                '</td><td>' + datosUsuarios[i].NickUsuario +
+                '</td><td>' + datosUsuarios[i].NombreRol +
+                '</td><td>' + datosUsuarios[i].CorreoUsuario +
+                '</td><td>' + datosUsuarios[i].TelefonoCelUsuario;
 
         if (datosUsuarios[i].HabilitadoUsuario) {
             str += '</td><td> Habilitado';
@@ -83,6 +85,7 @@ function cargarUsuariosTabla() {
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
             '</div></div></td></tr>';
+        }
     };
     str += '</tbody></table>';
     $("#tablaModificarUsuarios").html(str);
