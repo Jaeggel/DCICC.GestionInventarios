@@ -29,40 +29,11 @@
                 <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-danger">
                         <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <h4 class="panel-title">Abiertos</h4>
+                            <span id="numeroAbiertos" style="color:brown;"></span><h4 class="panel-title">Abiertos</h4>
                         </a>
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div id="ticketsAbiertos"></div>
                             </div>
                         </div>
                     </div>
@@ -149,3 +120,107 @@
         </div>
     </div>
 </div>
+
+
+@* Modal de modificación de categorías de activos *@
+<div class="modal fade" id="ModificarTickets" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Solucionar Tickets para Soporte Técnico</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+
+                                    @* Cuadro de texto para el ingreso del nombre completo del usuario*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <span>Descripción de la incidencia:</span>
+                                        <textarea id="DescripcionTicket" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
+                                        <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del correo del usuario*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <span>Prioridad de la incidencia:</span>
+                                        <input id="PrioridadTicket" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
+                                        <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <span>Reportado por:</span>
+                                        <input id="NombreUsuario" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
+                                        <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del password del usuario*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <span>Fecha de apertura del ticket:</span>
+                                        <input id="FechaAperturaTicket" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
+                                        <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    @* Combobox para seleccionar un rol de usuario*@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Cambiar de estado:</label>
+                                            @*<div id="cargarRoles"></div>*@
+                                        </div>
+                                    </div>
+
+                                    @* Área de Texto para el ingreso de la direccion de un usuario *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="ComentarioTicket" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" maxlength="500"></textarea>
+                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar usuario o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success" onclick="modificarEstadoTicket('@Url.Action("ModificarUsuario", "Usuarios")')">Modificar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al registrar Usuario", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
+
+<script src="~/Scripts/ScriptsInventarios/Tickets.js"></script>
+<script>
+    $(document).ready(function () {
+
+        obtenerTicketsAbiertos('@Url.Action("ObtenerTicketsAbiertos", "Tickets")');
+
+    });
+
+</script>
