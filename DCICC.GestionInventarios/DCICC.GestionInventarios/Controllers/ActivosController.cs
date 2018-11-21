@@ -55,7 +55,89 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoActivo(Activos infoActivo)
         {
+            string mensajesActivos = string.Empty;
+            MensajesActivos msjActivos = new MensajesActivos();
+            try
+            {
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+                msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
+                if (msjActivos.OperacionExitosa)
+                {
+                    mensajesActivos = "El activo ha sido registrado exitosamente.";
+                    TempData["Mensaje"] = mensajesActivos;
+                    Logs.Info(mensajesActivos);
+                }
+                else
+                {
+                    mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
+                    TempData["MensajeError"] = mensajesActivos;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesActivos + ": " + e.Message);
+                return View();
+            }
             return RedirectToAction("ConsultaActivos", "Activos");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
+        /// </summary>
+        /// <param name="infoActivos"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarActivo(Activos infoActivo)
+        {
+            string mensajesActivos = string.Empty;
+            MensajesActivos msjActivos = new MensajesActivos();
+            try
+            {
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+                msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo);
+                if (msjActivos.OperacionExitosa)
+                {
+                    Logs.Info(mensajesActivos);
+                }
+                else
+                {
+                    mensajesActivos = "No se ha podido actualizar el activo: " + msjActivos.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesActivos + ": " + e.Message);
+            }
+            return RedirectToAction("ConsultaActivos", "Activos");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista NuevoCQR.
+        /// </summary>
+        /// <param name="infoCQR"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult NuevoCQR(CQR infoCQR)
+        {
+            string mensajesCQR = string.Empty;
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+                msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
+                if (msjCQR.OperacionExitosa)
+                {
+                    mensajesCQR = "El CQR ha sido registrado exitosamente.";
+                    Logs.Info(mensajesCQR);
+                }
+                else
+                {
+                    mensajesCQR = "No se ha podido registrar el CQR: " + msjCQR.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesCQR + ": " + e.Message);
+            }
+            return RedirectToAction("NuevoActivo", "Activos");//Revisar redireccionamiento
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoActivo.
@@ -86,9 +168,8 @@ namespace DCICC.GestionInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
-                return View();
             }
-            return RedirectToAction("ModificarAccesorios", "Accesorios");
+            return RedirectToAction("NuevoActivo", "Activos");//Revisar redireccionamiento
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
@@ -127,6 +208,15 @@ namespace DCICC.GestionInventarios.Controllers
         {
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos(Session["userInfo"].ToString());
             return Json(objAccesoriosAccDatos.ObtenerAccesorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los activos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerActivosComp()
+        {
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+            return Json(objActivosAccDatos.ObtenerActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }
