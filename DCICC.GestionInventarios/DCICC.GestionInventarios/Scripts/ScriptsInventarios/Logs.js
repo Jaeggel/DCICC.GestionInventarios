@@ -2,15 +2,13 @@
 var datosLogs;
 var idCategoriaModificar;
 
+//Método ajax para obtener los datos de Logs
 function obtenerLogs(url) {
-    console.log(url);
-    //Método ajax para traer los roles de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
             datosLogs = data;
             console.log("siiiiii: ");
             cargarLogsTabla();
@@ -23,12 +21,13 @@ function obtenerLogs(url) {
     });
 }
 
-//Función para cargar la tabla de Categorias
+//Función para cargar la tabla de Logs
 function cargarLogsTabla() {
     var str = '<table id="dataTableLogs" class="table jambo_table bulk_action  table-bordered dt-responsive nowrap" style="width:100%">';
     str += '<thead> <tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificados</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLogs.length; i++) {
+        //Método para dar formato a la fecha y hora
         var fechaLog = new Date(parseInt((datosLogs[i].FechaLogs).substr(6)));
         var fechaApertura = (fechaLog.toLocaleDateString("es-ES") + " " + fechaLog.getHours() + ":" + fechaLog.getMinutes() + ":" + fechaLog.getSeconds());
 

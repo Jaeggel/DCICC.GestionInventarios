@@ -3,16 +3,14 @@ var url_metodo;
 var datosTipoAccesorio;
 var idTipoAccesorio;
 
+//Método ajax para obtener los datos de Tipo Accesorio
 function obtenerTipoAccesorio(url) {
     url_metodo = url;
-    console.log(url);
-    //Método ajax para traer los roles de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
             datosTipoAccesorio = data;
             console.log("siiiiii: ");
             cargarTipoAccTabla();
@@ -42,9 +40,13 @@ function cargarTipoAccTabla() {
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoAcc" onclick = "formUpdateTipoAcc(' + datosTipoAccesorio[i].IdTipoAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
-            '</div></div></td></tr>';
+            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+        if (datosTipoAccesorio[i].HabilitadoTipoAccesorio) {
+            str += '<button type="button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button>';
+        } else {
+            str += '<button type="button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button>';
+        }    
+        str +='</div></div></td></tr>';
 
     };
     str += '</tbody></table>';
@@ -62,7 +64,7 @@ function formUpdateTipoAcc(idTipo) {
             document.getElementById("NombreTipoAccesorio").value = datosTipoAccesorio[i].NombreTipoAccesorio;
             document.getElementById("DescripcionTipoAccesorio").value = datosTipoAccesorio[i].DescripcionTipoAccesorio;
 
-            //Método para el check del update de Usuarios
+            //Método para el check del update de Tipo Accesorio
             var valor = datosTipoAccesorio[i].HabilitadoTipoAccesorio;
             var estado = $('#HabilitadoTipoAccesorio').prop('checked');
             if (estado && valor == false) {
@@ -75,7 +77,7 @@ function formUpdateTipoAcc(idTipo) {
     };
 }
 
-//Función para modificar el laboratorio especificado
+//Función para modificar el Tipo Accesorio especificado
 function modificarTipoAcc(url_modificar) {
     var nombreTipo=document.getElementById("NombreTipoAccesorio").value;
     var descripcionTipo=document.getElementById("DescripcionTipoAccesorio").value;
@@ -92,7 +94,6 @@ function modificarTipoAcc(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar la categoria de la base de datos
             $.ajax({
                 data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "#HabilitadoTipoAccesorio": habilitadoTipo },
                 url: url_modificar,
@@ -112,7 +113,7 @@ function modificarTipoAcc(url_modificar) {
     });
 }
 
-//Función para evitar nombres de nick repetidos
+//Función para evitar nombres de Tipo Accesorio repetidos
 function comprobarNombre(nombre) {
     nombre = nombre.toLowerCase();
     var comprobar = false;

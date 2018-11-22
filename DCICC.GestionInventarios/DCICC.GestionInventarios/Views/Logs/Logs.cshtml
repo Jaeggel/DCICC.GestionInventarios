@@ -41,11 +41,12 @@
     </div>
 </div>
 
+@* Sección para la llamar al js de Logs *@
 <script src="~/Scripts/ScriptsInventarios/Logs.js"></script>
 <script type="text/javascript">
 
      $(document).ready(function () {
-
+        //Método para obtener la tabla de Logs
         obtenerLogs('@Url.Action("ObtenerLogsComp", "Logs")');
 
     });

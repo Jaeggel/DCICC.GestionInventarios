@@ -100,6 +100,7 @@
     </div>
 </div>
 
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -117,10 +118,11 @@
     </script>
 }
 
+@* Seccción para llamar al js de Tipo Accesorio*@
 <script src="~/Scripts/ScriptsInventarios/TipoAccesorio.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener las tablas de Tipo Accesorio
         obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
 
     });

@@ -134,7 +134,7 @@
     </div>
 </div>
 
-
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -152,13 +152,13 @@
     </script>
 }
 
+@* Seccción para llamar al js de Usuarios*@
 <script src="~/Scripts/ScriptsInventarios/Usuarios.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener las tablas de Usuarios
         obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
         obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
-        //obtenerNick('@Url.Action("ObtenerNickActual", "Usuarios")');
 
     });
 

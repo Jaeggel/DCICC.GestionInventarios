@@ -27,6 +27,7 @@
             <div class="x_content">
                 @* Sección para mostrar el acordión de las tablas con los tickets en sus diferentes estados.*@
                 <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    @* Sección para tickets Abiertos.*@
                     <div class="panel panel-danger">
                         <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <h4 class="panel-title">Abiertos <strong> (<span id="numeroAbiertos"></span>) </strong></h4>
@@ -37,6 +38,7 @@
                             </div>
                         </div>
                     </div>
+                    @* Sección para tickets En Curso.*@
                     <div class="panel panel-warning">
                         <a class="panel-heading collapsed panel-warning" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             <h4 class="panel-title">En Curso <strong> (<span id="numeroEnCurso"></span>) </strong></h4>
@@ -47,6 +49,7 @@
                             </div>
                         </div>
                     </div>
+                    @* Sección para tickets Resueltos.*@
                     <div class="panel panel-success">
                         <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                             <h4 class="panel-title">Resueltos <strong> (<span id="numeroResueltos"></span>) </strong></h4>
@@ -64,7 +67,7 @@
 </div>
 
 
-@* Modal de modificación de tickets Resueltos *@
+@* Modal de modificación de tickets Abiertos *@
 <div class="modal fade" id="ModificarTickets" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -79,37 +82,37 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_content">
 
-                            @* Formulario para actualización de datos de los tickets.
+                            @* Formulario para actualización de datos de los tickets Abiertos.
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
 
-                                    @* Cuadro de texto para el ingreso del nombre completo del usuario*@
+                                    @* Cuadro de texto para el ingreso de la descripción del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Descripción de la incidencia:</label>
                                         <textarea id="DescripcionTicket" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
                                         <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Cuadro de texto para el ingreso del correo del usuario*@
+                                    @* Cuadro de texto para el ingreso de la prioridad del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Prioridad de la incidencia:</label>
                                         <input id="PrioridadTicket" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
                                         <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
+                                    @* Cuadro de texto para el ingreso de+l usuario que reporto el ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Reportado por:</label>
                                         <input id="NombreUsuario" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
                                         <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Cuadro de texto para el ingreso del password del usuario*@
+                                    @* Cuadro de texto para el ingreso de la fecha de apertura del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Fecha de apertura del ticket:</label>
                                         <input id="FechaAperturaTicket" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
                                         <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
                                     </div>
 
-                                    @* Combobox para seleccionar un rol de usuario*@
+                                    @* Combobox para seleccionar una acción del ticket*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Cambiar de estado:</label>
@@ -117,7 +120,7 @@
                                         </div>
                                     </div>
 
-                                    @* Área de Texto para el ingreso de la direccion de un usuario *@
+                                    @* Área de Texto para el ingreso de un comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <textarea id="ComentarioTicket" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
@@ -160,32 +163,32 @@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
 
-                                    @* Cuadro de texto para el ingreso del nombre completo del usuario*@
+                                    @* Cuadro de texto para el ingreso de la descripcion del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Descripción de la incidencia:</label>
                                         <textarea id="DescripcionTicketEC" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
                                         <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Cuadro de texto para el ingreso del correo del usuario*@
+                                    @* Cuadro de texto para el ingreso de la prioridad del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Prioridad de la incidencia:</label>
                                         <input id="PrioridadTicketEC" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
                                         <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
+                                    @* Cuadro de texto para el ingreso del nombre de usuario que reporto el ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Reportado por:</label>
                                         <input id="NombreUsuarioEC" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
                                         <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Cuadro de texto para el ingreso del password del usuario*@
+                                    @* Cuadro de texto para el ingreso de la fecha de apertura del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Fecha de apertura del ticket:</label>
                                         <input id="FechaAperturaTicketEC" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
                                         <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
                                     </div>
 
-                                    @* Combobox para seleccionar un rol de usuario*@
+                                    @* Combobox para seleccionar un cambio de estado*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Cambiar de estado:</label>
@@ -193,7 +196,7 @@
                                         </div>
                                     </div>
 
-                                    @* Área de Texto para el ingreso de la direccion de un usuario *@
+                                    @* Área de Texto para el ingreso del comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <textarea id="ComentarioTicketEC" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
@@ -216,8 +219,7 @@
     </div>
 </div>
 
-
-
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -235,10 +237,11 @@
     </script>
 }
 
+@* Seccción para llamar al js de Tickets*@
 <script src="~/Scripts/ScriptsInventarios/Tickets.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener las tablas de tickets
         obtenerTicketsAbiertos('@Url.Action("ObtenerTicketsAbiertos", "Tickets")');
         obtenerTicketsEnCurso('@Url.Action("ObtenerTicketsEnCurso", "Tickets")');
         obtenerTicketsResueltos('@Url.Action("ObtenerTicketsResueltos", "Tickets")');

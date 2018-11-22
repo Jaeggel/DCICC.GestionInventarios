@@ -3,17 +3,15 @@ var url_metodo;
 var datosSO;
 var idSOMod;
 
+//Método ajax para obtener los sistemas operativos
 function obtenerSO(url) {
     url_metodo = url;
-    console.log(url);
-    //Método ajax para traer los roles de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
-            datosSO = data;
+            datosSO=data;
             console.log("siiiiii: ");
             cargarSOTabla();
             $('#dataTableSO').DataTable({
@@ -25,7 +23,7 @@ function obtenerSO(url) {
     });
 }
 
-//Función para cargar la tabla de Usuarios
+//Función para cargar la tabla de Sistemas Operativos
 function cargarSOTabla() {
     var str = '<table id="dataTableSO" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre del Sistema Operativo</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
@@ -42,9 +40,13 @@ function cargarSOTabla() {
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarSo" onclick = "formUpdateSO(' + datosSO[i].IdSistOperativos + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
-            '</div></div></td></tr>';
+            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+        if (datosSO[i].HabilitadoSistOperativos) {
+            str += '<button type="button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button>';
+        } else {
+            str += '<button type="button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button>';
+        }
+         str += '</div></div></td></tr>';
     };
     str += '</tbody></table>';
     $("#tablaModificarSistOperativo").html(str);
@@ -61,7 +63,7 @@ function formUpdateSO(idSO) {
             document.getElementById("NombreSistOperativos").value = datosSO[i].NombreSistOperativos;
             document.getElementById("DescripcionSistOperativos").value = datosSO[i].DescripcionSistOperativos;
 
-            //Método para el check del update de Usuarios
+            //Método para el check del update de Sistemas operativos
             var valor = datosSO[i].HabilitadoSistOperativos;
             var estado = $('#HabilitadoSistOperativos').prop('checked');
             if (estado && valor == false) {
@@ -74,7 +76,7 @@ function formUpdateSO(idSO) {
     };
 }
 
-//Función para modificar el laboratorio especificado
+//Función para modificar el Sistema Operativo especificado
 function modificarSO(url_modificar) {
     var nombreSO=document.getElementById("NombreSistOperativos").value;
     var descripcionSo=document.getElementById("DescripcionSistOperativos").value;
@@ -91,7 +93,6 @@ function modificarSO(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar la categoria de la base de datos
             $.ajax({
                 data: { "IdSistOperativos": idSOMod, "NombreSistOperativos": nombreSO, "DescripcionSistOperativos": descripcionSo, "HabilitadoSistOperativos": habilitadoSo },
                 url: url_modificar,
@@ -111,7 +112,7 @@ function modificarSO(url_modificar) {
     });
 }
 
-//Función para evitar nombres de nick repetidos
+//Función para evitar nombres de sistemas operativo repetidos
 function comprobarNombre(nombre) {
     nombre = nombre.toLowerCase();
     var comprobar = false;

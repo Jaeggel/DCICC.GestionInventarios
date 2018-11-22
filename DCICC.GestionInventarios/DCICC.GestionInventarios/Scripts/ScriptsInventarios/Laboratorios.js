@@ -3,16 +3,14 @@ var url_metodo;
 var datosLaboratorios;
 var idLaboratorio;
 
+//Método ajax para obtener los datos de laboratorios
 function obtenerLaboratorios(url) {
     url_metodo = url;
-    console.log(url_metodo);
-    //Método ajax para traer los roles de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
             datosLaboratorios = data;
             console.log("siiiiii: ");
             cargarLaboratoriosTabla();
@@ -25,7 +23,7 @@ function obtenerLaboratorios(url) {
     });
 }
 
-//Función para cargar la tabla de Usuarios
+//Función para cargar la tabla de Laboratorios
 function cargarLaboratoriosTabla() {
     var str = '<table id="dataTableLaboratorios" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre de Laboratorio</th> <th>Ubicación</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
@@ -44,9 +42,13 @@ function cargarLaboratoriosTabla() {
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarLaboratorios" onclick = "formUpdateLaboratorio(' + datosLaboratorios[i].IdLaboratorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
-            '</div></div></td></tr>';
+            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+        if (datosLaboratorios[i].HabilitadoLaboratorio) {
+            str += '<button type = "button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+        } else {
+            str += '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button> ';
+        }
+         str +='</div></div></td></tr>';
     };
     str += '</tbody></table>';
     $("#tablaModificarLaboratorios").html(str);
@@ -65,7 +67,7 @@ function formUpdateLaboratorio(idLab) {
             document.getElementById("UbicacionLaboratorio").value = datosLaboratorios[i].UbicacionLaboratorio;
             document.getElementById("DescripcionLaboratorio").value = datosLaboratorios[i].DescripcionLaboratorio;
 
-            //Método para el check del update de Usuarios
+            //Método para el check del update de laboratorios
             var valor = datosLaboratorios[i].HabilitadoLaboratorio;
             var estado = $('#HabilitadoLaboratorio').prop('checked');
             if (estado && valor == false) {
@@ -85,7 +87,6 @@ function modificarLaboratorio(url_modificar) {
     var ubicacionLab=document.getElementById("UbicacionLaboratorio").value;
     var descripcionLab=document.getElementById("DescripcionLaboratorio").value;
     var habilitadoLab = $('#HabilitadoLaboratorio').prop('checked');
-    console.log(url_metodo);
 
     swal({
         title: 'Confirmación de Actualización',
@@ -98,7 +99,7 @@ function modificarLaboratorio(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar la categoria de la base de datos
+            //Método ajax para modificar el laboratorio
             $.ajax({
                 data: { "IdLaboratorio": idLaboratorio, "NombreLaboratorio": nombreLab, "UbicacionLaboratorio": ubicacionLab, "DescripcionLaboratorio": descripcionLab, "HabilitadoLaboratorio": habilitadoLab },
                 url: url_modificar,
@@ -118,7 +119,7 @@ function modificarLaboratorio(url_modificar) {
     });
 }
 
-//Función para evitar nombres de nick repetidos
+//Función para evitar nombres de laboratorios repetidos
 function comprobarNombre(nombre) {
     nombre = nombre.toLowerCase();
     var comprobar = false;

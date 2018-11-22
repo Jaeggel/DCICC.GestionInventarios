@@ -81,13 +81,14 @@
     </div>
 </div>
 
+@* Seccción para llamar al js de Tipo Activo*@
 <script src="~/Scripts/ScriptsInventarios/TipoActivo.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener las tablas de Tipos de Activo
         obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         obtenerCategorias('@Url.Action("ObtenerCategoriasActivosHab", "CategoriaActivo")');
-
+        //Método para evitar la duplicidad de nombres
         $('#NombreTipoActivo').blur(function () {
             var nombre = document.getElementById("NombreTipoActivo").value;
             comprobarNombre(nombre);

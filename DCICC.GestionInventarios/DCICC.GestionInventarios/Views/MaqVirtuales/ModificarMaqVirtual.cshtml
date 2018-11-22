@@ -45,7 +45,7 @@
     </div>
 </div>
 
-@* Modal de modificación de marcas *@
+@* Modal de modificación de Máquinas Virtuales *@
 <div class="modal fade" id="ModificarMaquinaV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -53,14 +53,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Modificar Tipo de Activo</h4>
+                <h4 class="modal-title" id="myModalLabel">Modificar Máquina Virtual</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_content">
                             <br>
-                            @* Formulario para envio de datos de los componentes para modificación de una  marca
+                            @* Formulario para envio de datos de los componentes para modificación de una  Máquina Virtual
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
@@ -136,6 +136,7 @@
     </div>
 </div>
 
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -153,11 +154,11 @@
     </script>
 }
 
-
+@* Seccción para llamar al js de Máquina Virtual *@
 <script src="~/Scripts/ScriptsInventarios/MaquinaVirtual.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener la las funciones de Máquinas Virtuales
         obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');
         obtenerSO('@Url.Action("ObtenerSistOperativosHab", "SistOperativo")');
         cargarPropositosCmb();

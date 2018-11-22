@@ -100,7 +100,7 @@
                                     <div class="ln_solid"></div>
                                     @* Sección de botones para guardar tipo de activo o cancelar el registro *@
                                     <div class="form-group text-center">
-                                        <div class="col-md-12 col-sm-9 col-xs-12 form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button type="submit" class="btn btn-success" onclick="modificarTipoActivo('@Url.Action("ModificarTipoActivo", "TipoActivo")');">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
@@ -115,6 +115,7 @@
     </div>
 </div>
 
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -132,11 +133,11 @@
     </script>
 }
 
-
+@* Seccción para llamar al js de Tipo Activo*@
 <script src="~/Scripts/ScriptsInventarios/TipoActivo.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener las tablas de Tipos de Activo
         obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         obtenerCategorias('@Url.Action("ObtenerCategoriasActivosHab", "CategoriaActivo")');
 

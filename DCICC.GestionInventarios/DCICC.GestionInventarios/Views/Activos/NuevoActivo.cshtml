@@ -31,8 +31,7 @@
             <div class="x_content">
                 <br>
 
-                <!-- Smart Wizard -->
-                <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>
+                <!-- Comienzo del Wizard -->
                 <div id="wizard" class="form_wizard wizard_horizontal">
                     <ul class="wizard_steps">
                         <li>
@@ -149,7 +148,6 @@
                                     <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                 </div>
 
-
                                 <div class="form-group">
                                     @* Cuadro de texto para el ingreso del serial activo *@
                                     <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
@@ -158,10 +156,10 @@
                                     </div>
                                     @* Cuadro de texto para el ingreso del codigo UPS del activo *@
                                     <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">                                       
-                                        <input type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="150">
+                                        <input type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="20">
                                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Cuadro de texto para el ingreso de la cantidad de activos *@
+                                   
                                 </div>
                                 @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
                                 <div class="form-group">
@@ -197,13 +195,13 @@
 
                             @* ---------------- Sección de especificaciones adicionales para todos los Activos ---------------*@
                             <span class="section">Especificaciones Adicionales comunes para todos los Activos</span>
-
+                            @* Área de Texto para el ingreso de Express Service Code *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" maxlength="100">
                                 <span class="fa fa-code-fork form-control-feedback left" aria-hidden="true"></span>
                             </div>
 
-                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            @* Cuadro de texto para el ingreso de Fecha de Manufactura *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" name="FechaManufacturaActivo" placeholder="Fecha de Manufactura" maxlength="100">
                                 <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
@@ -212,45 +210,45 @@
                             @* ---------------- Sección de especificaciones adicionales para Equipos de Redes ---------------*@
                             <span class="section">Especificaciones Adicionales para Switchs, souters, etc.</span>
                             <div class="form-group">
-                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                @* Cuadro de texto para el ingreso de Número de Puertos *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                     <input type="number" class="form-control has-feedback-left" name="NumPuertosActivo" placeholder="Número de Puertos" maxlength="100">
                                     <span class="fa fa-sort-numeric-asc form-control-feedback left" aria-hidden="true"></span>
                                 </div>
-                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                @* Cuadro de texto para el ingreso de Version de IOS *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" name="IosVersionActivo " placeholder="Version de IOS" maxlength="100">
                                     <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
-          
+
                             @* ---------------- Sección de especificaciones adicionales para Servidores Cuchillas etc---------------*@
                             <span class="section">Especificaciones Adicionales para Servidores, switch SAN etc.</span>
 
-                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            @* Cuadro de texto para el ingreso de Product Name *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" name="ProductNameActivo" placeholder="Product Name" maxlength="100">
                                 <span class="fa fa-book form-control-feedback left" aria-hidden="true"></span>
                             </div>
-                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            @* Cuadro de texto para el ingreso de Hpe Part Number *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" name="HpePartNumberActivo" placeholder="Hpe Part Number" maxlength="100">
                                 <span class="fa fa-cubes form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <div class="form-group">
-                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                @* Cuadro de texto para el ingreso de Código de Barras 1 *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" name="CodBarras1Activo" placeholder="Código de Barras 1" maxlength="100">
                                     <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                 </div>
-                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                @* Cuadro de texto para el ingreso de Código de Barras 2*@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" name="CodBarras2Activo" placeholder="Código de Barras 2" maxlength="100">
                                     <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
-                            
-                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+
+                            @* Cuadro de texto para el ingreso de CT Code *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" name="CtActivo" placeholder="CT Code" maxlength="100">
                                 <span class="fa fa-code form-control-feedback left" aria-hidden="true"></span>
@@ -259,20 +257,17 @@
                             <span class="section">Especificaciones Adicionales para Discos Duros, Memorias, etc.</span>
 
                             <div class="form-group">
-                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                @* Cuadro de texto para el ingreso de Capacidad de Activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                     <input type="number" class="form-control has-feedback-left" name="CapacidadActivo" placeholder="Capacidad(GB)" maxlength="100">
                                     <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                                 </div>
-                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                @* Cuadro de texto para el ingreso de Velocidad de Transferencia *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" name="VelocidadTransfActivo" placeholder="Velocidad de Transferencia" maxlength="100">
                                     <span class="fa fa-rocket form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
-                            
-
-
 
                         </div>
                     </div>
@@ -289,37 +284,34 @@
                     </div>
 
                 </div>
-                <!-- End SmartWizard Content -->
+                <!-- Fin del contenido de SmartWizard-->
 
             </div>
         </div>
     </div>
 
-    @* Panel para indicar las especificaciones adicionales del activo *@
-    <div class="col-md-1 col-sm-12 col-xs-12">
-    </div>
+    <div class="col-md-1 col-sm-12 col-xs-12"></div>
 </div>
 
+@* Script para las funciones e instancia del Wizard *@
 <script type="text/javascript">
     $(document).ready(function () {
-        // Initialize Smart Wizard
+        // Inicializar Smart Wizard
         $('#wizard').smartWizard({
-            // Properties
-            transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
-            labelNext: 'Siguiente', // label for Next button
-            labelPrevious: 'Anterior', // label for Previous button
-            labelFinish: 'Finalizar',  // label for Finish button'
-            onLeaveStep: leaveAStepCallback
+            // Propiedades
+            transitionEffect: 'fade', // Efecto de navición
+            labelNext: 'Siguiente', // Nombre del botón siguiente
+            labelPrevious: 'Anterior', // Nombre del botón anterior
+            labelFinish: 'Finalizar',  // Nombre del botón finalizar
+            onLeaveStep: leaveAStepCallback //Métodos de validación de pasos
         });
 
         function leaveAStepCallback(obj) {
-            //alert("Leaving step " + context.fromStep + " to go to step " + context.toStep);
-            //return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation
             var step_num = obj.attr('rel');
             return validateSteps(step_num);
         }
 
-        // Your Step validation logic
+        //Validación de campos obligatorios en los pasos
         function validateSteps(stepnumber) {
             console.log(stepnumber);
             var isStepValid = true;
@@ -336,6 +328,7 @@
 
         }
 
+        //Método de validación para el paso 1
         function validarPaso1() {
             var isValid = true;
             var nombre = document.getElementById("NombreActivo").value;

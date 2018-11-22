@@ -5,16 +5,15 @@ var cmbRoles;
 var idUsuarioModificar;
 var nick;
 
+//Método ajax para obtener los datos de los usuarios
 function obtenerUsuarios(url) {
     url_metodo = url;
-    console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
+            console.log("sii");
             datosUsuarios = data;
             cargarUsuariosTabla();
             $('#dataTableUsuarios').DataTable({
@@ -26,15 +25,14 @@ function obtenerUsuarios(url) {
     });
 }
 
+//Método ajax para obtener los datos de los Roles de usuario
 function obtenerRoles(url) {
-    console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
+            console.log("siii");
             cmbRoles = data;
             cargarRolesCmb();
         }
@@ -75,6 +73,7 @@ function cargarUsuariosTabla() {
     $("#tablaModificarUsuarios").html(str);
 }
 
+//Función para cargar el combobox de roles
 function cargarRolesCmb() {
     var str = '<select id="IdRol" class="form-control" name="IdRol" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -141,7 +140,6 @@ function modificarUsuario(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar el usuario de la base de datos
             $.ajax({
                 data: { "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
                 url: url_modificar,

@@ -1,6 +1,6 @@
 ﻿var url_idioma = obtenerIdioma();
 var estados = listaEstadosTicket();
-var url_resuelto;
+var url_abierto;
 var url_en_curso;
 var url_resuelto;
 var ticketsAbiertos;
@@ -8,11 +8,10 @@ var ticketsEnCurso;
 var ticketsResueltos;
 var idTicketAbierto;
 
-
+//Método ajax para obtener los tickets con estado abierto
 function obtenerTicketsAbiertos(url) {
-    url_resuelto = url;
+    url_abierto = url;
     console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
@@ -33,10 +32,10 @@ function obtenerTicketsAbiertos(url) {
     });
 }
 
+//Método ajax para obtener los tickets con estado en curso
 function obtenerTicketsEnCurso(url) {
     url_en_curso = url;
     console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
@@ -57,10 +56,10 @@ function obtenerTicketsEnCurso(url) {
     });
 }
 
+//Método ajax para obtener los tickets con estado Resuelto
 function obtenerTicketsResueltos(url) {
     url_resuelto = url;
     console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
@@ -79,7 +78,9 @@ function obtenerTicketsResueltos(url) {
     });
 }
 
-////////////////////////////////TICKETS ABIERTOS/////////////////////////
+///////////////////////////////////////////////SECCIÓN PARA TICKETS ABIERTOS////////////////////////////////
+
+//función para conocer el número de tickets abiertos
 function contarAbiertos() {
     var contAbiertos = 0;
     for (var i = 0; i < ticketsAbiertos.length; i++) {
@@ -90,6 +91,7 @@ function contarAbiertos() {
     $('#numeroAbiertos').html(contAbiertos).show();
 }
 
+//Función para cargar el combobox de la sección de tickets Abiertos
 function cargarEstadosAbiertoCmb() {
     var str = '<select id="Estados" class="form-control" name="Estados" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -103,16 +105,16 @@ function cargarEstadosAbiertoCmb() {
     $("#cargarAbiertosCmb").html(str);
 }
 
-//Función para cargar la tabla de Usuarios
+//Función para cargar la tabla de tickets Abiertos
 function cargarTablaAbiertos() {
     var str = '<table id="dataTableAbiertos" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Modificar Estado</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < ticketsAbiertos.length; i++) {
+        //Función para dar formato a la fecha
         var fechaAper = new Date(parseInt((ticketsAbiertos[i].FechaAperturaTicket).substr(6)));
         var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
-
         
         str += '<tr><td>' + ticketsAbiertos[i].DescripcionTicket;
         if (ticketsAbiertos[i].IdLaboratorio != 0) {
@@ -138,17 +140,19 @@ function formUpdateAbiertos(idTicket) {
     console.log(idTicket);
     idTicketAbierto = idTicket;
     for (var i = 0; i < ticketsAbiertos.length; i++) {
-        
         if (ticketsAbiertos[i].IdTicket == idTicket) {
+            //Función para dar formato a la fecha
+            var fechaAper = new Date(parseInt((ticketsAbiertos[i].FechaAperturaTicket).substr(6)));
+            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
             document.getElementById("DescripcionTicket").value = ticketsAbiertos[i].DescripcionTicket ;
             document.getElementById("PrioridadTicket").value = ticketsAbiertos[i].PrioridadTicket;
-            document.getElementById("FechaAperturaTicket").value = ticketsAbiertos[i].FechaAperturaTicket;
+            document.getElementById("FechaAperturaTicket").value = fechaApertura;
             document.getElementById("NombreUsuario").value = ticketsAbiertos[i].NombreUsuario;
         }
     };
 }
 
-//Función para modificar el Tipo de activo especificado
+//Función para modificar el estado de un ticket
 function modificarEstadoTicket(url_modificar) {
     var nick = document.getElementById("usuarioActual").innerHTML;
     console.log(url_modificar);
@@ -167,7 +171,6 @@ function modificarEstadoTicket(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar el usuario de la base de datos
             $.ajax({
                 data: { "IdTicket": idTicketAbierto, "EstadoTicket": Estado, "ComentarioTicket": comentario, "NombreUsuarioResponsable": nick },
                 url: url_modificar,
@@ -175,7 +178,7 @@ function modificarEstadoTicket(url_modificar) {
                 success: function () {
                     $('#ModificarTickets').modal('hide');
                     showNotify("Actualización exitosa", 'El Ticket se actualizó correctamente', "success");
-                    obtenerTicketsAbiertos(url_resuelto);
+                    obtenerTicketsAbiertos(url_abierto);
                 }, error: function () {
                     $('#ModificarTickets').modal('hide');
                     showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket', "error");
@@ -189,8 +192,9 @@ function modificarEstadoTicket(url_modificar) {
 }
 
 
-////////////////////////////////////////////TICKET EN CURSO
+//////////////////////////////////////////////SECCIÓN DE TICKET EN CURSO//////////////////////////////////////////////
 
+//Función para conocer el número de tickets en curso
 function contarEnCurso() {
     var contEnCurso = 0;
     for (var i = 0; i < ticketsEnCurso.length; i++) {
@@ -201,6 +205,7 @@ function contarEnCurso() {
     $('#numeroEnCurso').html(contEnCurso).show();
 }
 
+//Función para el combobox de estados
 function cargarEstadosEnCursoCmb() {
     var str = '<select id="EstadosEC" class="form-control" name="EstadosEC" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -214,13 +219,14 @@ function cargarEstadosEnCursoCmb() {
     $("#cargarEnCursoCmb").html(str);
 }
 
-//Función para cargar la tabla de Usuarios
+//Función para cargar la tabla de tickets en cruso
 function cargarTablaEnCurso() {
     var str = '<table id="dataTableEnCurso" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Modificar Estado</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < ticketsEnCurso.length; i++) {
+        //Función para dar formato a la fecha
         var fechaAper = new Date(parseInt((ticketsEnCurso[i].FechaAperturaTicket).substr(6)));
         var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
 
@@ -248,16 +254,19 @@ function formUpdateEnCurso(idTicket) {
     idTicketAbierto = idTicket;
     for (var i = 0; i < ticketsEnCurso.length; i++) {
         if (ticketsEnCurso[i].IdTicket == idTicket) {
+            //Función para dar formato a la fecha
+            var fechaAper = new Date(parseInt((ticketsEnCurso[i].FechaAperturaTicket).substr(6)));
+            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
             document.getElementById("DescripcionTicketEC").value = ticketsEnCurso[i].DescripcionTicket;
             document.getElementById("PrioridadTicketEC").value = ticketsEnCurso[i].PrioridadTicket;
-            document.getElementById("FechaAperturaTicketEC").value = ticketsEnCurso[i].FechaAperturaTicket;
+            document.getElementById("FechaAperturaTicketEC").value = fechaApertura;
             document.getElementById("NombreUsuarioEC").value = ticketsEnCurso[i].NombreUsuario;
             document.getElementById("ComentarioTicketEC").value = ticketsEnCurso[i].ComentarioTicket;
         }
     };
 }
 
-//Función para modificar el Tipo de activo especificado
+//Función para modificar tickets 
 function modificarEstadoTicketEnCurso(url_modificar) {
     var nick = document.getElementById("usuarioActual").innerHTML;
     console.log(url_modificar);
@@ -276,7 +285,6 @@ function modificarEstadoTicketEnCurso(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar el usuario de la base de datos
             $.ajax({
                 data: { "IdTicket": idTicketAbierto, "EstadoTicket": Estado, "ComentarioTicket": comentario, "NombreUsuarioResponsable": nick },
                 url: url_modificar,
@@ -298,7 +306,9 @@ function modificarEstadoTicketEnCurso(url_modificar) {
 }
 
 
-///////////////////////////////////TICKETS RESUELTOS
+///////////////////////////////////////SECCIÓN TICKETS RESUELTOS/////////////////////////////////////
+
+//Función para conocer el número de tickets resueltos
 function contarResueltos() {
     var contResueltos = 0;
     for (var i = 0; i < ticketsResueltos.length; i++) {
@@ -316,6 +326,7 @@ function cargarTablaResueltos() {
     str += '<tbody>';
 
     for (var i = 0; i < ticketsResueltos.length; i++) {
+        //Función para dar formato a la fecha
         var fechaAper = new Date(parseInt((ticketsResueltos[i].FechaAperturaTicket).substr(6)));
         var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
 

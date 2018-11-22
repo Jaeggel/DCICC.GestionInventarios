@@ -3,16 +3,14 @@ var url_metodo;
 var datosCategorias;
 var idCategoriaModificar;
 
+//Método ajax para obtener los datos de categorias
 function obtenerCategorias(url) {
     url_metodo = url;
-    console.log(url);
-    //Método ajax para traer los roles de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
             datosCategorias = data;
             console.log("siiiiii: ");
             cargarCategoriaTabla();
@@ -31,9 +29,6 @@ function cargarCategoriaTabla() {
     str += '<thead> <tr> <th>Nombre Categoría</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosCategorias.length; i++) {
-        var nom = "'" + datosCategorias[i].NombreCategoriaActivo + "'";
-        console.log(nom);
-
         str += '<tr><td>' + datosCategorias[i].NombreCategoriaActivo +
             '</td><td>' + datosCategorias[i].DescripcionCategoriaActivo;
 
@@ -45,15 +40,19 @@ function cargarCategoriaTabla() {
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarCategoria" onclick = "formUpdateCategoria(' + datosCategorias[i].IdCategoriaActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
-            '</div></div></td></tr>';
+            '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+        if (datosCategorias[i].HabilitadoCategoriaActivo) {
+            str += '<button type = "button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+        } else {
+            str += '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button> ';
+        }  
+        str += '</div></div></td></tr>';
     };
     str += '</tbody></table>';
     $("#tablaModificarCategorias").html(str);
 }
 
-//Función para setear los valores en los inputs
+//Función para setear los valores en los inputs en modificaciones
 function formUpdateCategoria(idCategoria) {
     idCategoriaModificar = idCategoria;
     console.log(idCategoria);
@@ -79,7 +78,6 @@ function formUpdateCategoria(idCategoria) {
 
 //Función para modificar la categoria especificada
 function modificarCategoria(url_modificar) {
-    console.log(url_modificar);
     var nombreCategoria=document.getElementById("NombreCategoriaActivo").value;
     var descripcionCategoria=document.getElementById("DescripcionCategoriaActivo").value;
     var habilitadoCategoria = $('#HabilitadoCategoriaActivo').prop('checked');
@@ -116,7 +114,7 @@ function modificarCategoria(url_modificar) {
 
 }
 
-//Función para evitar nombres de nick repetidos
+//Función para evitar nombres de categorias repetidos
 function comprobarNombre(nombre) {
     nombre = nombre.toLowerCase();
     var comprobar = false;

@@ -4,16 +4,15 @@ var datosTipoActivo;
 var cmbCategorias;
 var idTipoActivo;
 
+//Método ajax para obtener los datos de tipo de activo
 function obtenerTipoActivo(url) {
     url_metodo = url;
-    console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
+            console.log("sii");
             datosTipoActivo = data;
             cargarTipoActTabla();
             $('#dataTableTipoAct').DataTable({
@@ -25,22 +24,21 @@ function obtenerTipoActivo(url) {
     });
 }
 
+//Método ajax para obtener los datos de las categorias
 function obtenerCategorias(url) {
-    console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
+            console.log("siii");
             cmbCategorias = data;
             cargarCategoriasCmb();
         }
     });
 }
 
-//Función para cargar la tabla de Usuarios
+//Función para cargar la tabla de Tipo de Activo
 function cargarTipoActTabla() {
     var str = '<table id="dataTableTipoAct" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre Tipo Activo</th> <th>Categoría</th> <th>Descripción</th> <th>Vida Útil</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
@@ -61,9 +59,13 @@ function cargarTipoActTabla() {
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoActivo" onclick = "formUpdateTipoAct(' + datosTipoActivo[i].IdTipoActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
-            '</div></div></td></tr>';
+            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+        if (datosTipoActivo[i].HabilitadoTipoActivo) {
+            str += '<button type="button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button>';
+        } else {
+            str += '<button type="button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button>';
+        }
+        str +='</div></div></td></tr>';
         
     };
     str += '</tbody></table>';
@@ -95,7 +97,7 @@ function formUpdateTipoAct(idTipoAct) {
             document.getElementById("DescripcionTipoActivo").value = datosTipoActivo[i].DescripcionTipoActivo;
             document.getElementById("VidaUtilTipoActivo").value = datosTipoActivo[i].VidaUtilTipoActivo;
 
-            //Método para el check del update de Usuarios
+            //Método para el check del update de Tipo de Activo
             var valor = datosTipoActivo[i].HabilitadoTipoActivo;
             var estado = $('#HabilitadoTipoActivo').prop('checked');
             if (estado && valor == false) {
@@ -129,7 +131,6 @@ function modificarTipoActivo(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar el usuario de la base de datos
             $.ajax({
                 data: { "IdTipoActivo": idTipoActivo, "IdCategoriaActivo": idCategoria, "NombreTipoActivo": nombreTipo, "DescripcionTipoActivo": descripcionTipo, "VidaUtilTipoActivo": vidaUtil, "HabilitadoTipoActivo": habilitadoTipo },
                 url: url_modificar,
@@ -150,7 +151,7 @@ function modificarTipoActivo(url_modificar) {
     });
 }
 
-//Función para evitar nombres de nick repetidos
+//Función para evitar nombres de tipo activo repetidos
 function comprobarNombre(nombre) {
     nombre = nombre.toLowerCase();
     var comprobar = false;

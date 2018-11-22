@@ -5,16 +5,14 @@ var datosMaquinasV;
 var cmbSO;
 var idMaquinaV;
 
+//Método ajax para obtener los datos de Máquinas virtuales
 function obtenerMaquinaV(url) {
     url_metodo = url;
-    console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
             datosMaquinasV = data;
             cargarMaquinaVTabla();
             $('#dataTableMaquinaV').DataTable({
@@ -26,24 +24,20 @@ function obtenerMaquinaV(url) {
     });
 }
 
+//Método ajax para obtener los datos de Sistemas operativos
 function obtenerSO(url) {
-    console.log(url);
-    //Método ajax para traer las marcas de la base de datos
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
+            console.log("siiii");
             cmbSO = data;
             cargarSOCmb();
         }
     });
 }
 
-function obtenerPropositos() {
-
-}
 
 //Función para cargar la tabla de Máquinas Virtuales
 function cargarMaquinaVTabla() {
@@ -69,16 +63,20 @@ function cargarMaquinaVTabla() {
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarMaquinaV" onclick = "formUpdateMaquinaV(' + datosMaquinasV[i].IdMaqVirtuales + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
-            '</div></div></td></tr>';
+            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+        if (datosMaquinasV[i].HabilitadoMaqVirtuales) {
+            str += '<button type = "button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+        } else {
+            str += '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button> ';
+        }
+           str +=   '</div></div></td></tr>';
 
     };
     str += '</tbody></table>';
     $("#tablaModificarMaquinaV").html(str);
 }
 
-//Función para cargar el combobox de Categorias
+//Función para cargar el combobox de Sistemas Operativos
 function cargarSOCmb() {
     var str = '<select id="IdSistOperativos" class="form-control" name="IdSistOperativos" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -89,7 +87,7 @@ function cargarSOCmb() {
     $("#cargarSO").html(str);
 }
 
-
+//Función para cargar el combobox de Propósitos
 function cargarPropositosCmb() {
     var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -121,7 +119,7 @@ function formUpdateMaquinaV(idMV) {
             document.getElementById("DescripcionMaqVirtuales").value = datosMaquinasV[i].DescripcionMaqVirtuales;
 
 
-            //Método para el check del update de Usuarios
+            //Método para el check del update de Máquinas Virtuales
             var valor = datosMaquinasV[i].HabilitadoMaqVirtuales;
             var estado = $('#HabilitadoMaqVirtuales').prop('checked');
             if (estado && valor == false) {
@@ -134,7 +132,7 @@ function formUpdateMaquinaV(idMV) {
     };
 }
 
-//Función para modificar el Tipo de activo especificado
+//Función para modificar el la Máquina virtual
 function modificarMaquinaV(url_modificar) {
     console.log(url_modificar);
     var cmbSO = document.getElementById("IdSistOperativos");
@@ -160,7 +158,6 @@ function modificarMaquinaV(url_modificar) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar el usuario de la base de datos
             $.ajax({
                 data: { "IdMaqVirtuales": idMaquinaV, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV, "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP, "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion, "HabilitadoMaqVirtuales": habilitadoMV },
                 url: url_modificar,

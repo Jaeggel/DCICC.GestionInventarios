@@ -66,12 +66,13 @@
     </div>
 </div>
 
+@* Seccción para llamar al js de Tipo de Accesorio*@
 <script src="~/Scripts/ScriptsInventarios/TipoAccesorio.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener las tablas de Tipo Accesorio
         obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
-
+        //Método para evitar la duplicidad de nombres
         $('#NombreTipoAccesorio').blur(function () {
             var nombre = document.getElementById("NombreTipoAccesorio").value;
             comprobarNombre(nombre);

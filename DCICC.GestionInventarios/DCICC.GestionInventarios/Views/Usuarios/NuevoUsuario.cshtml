@@ -99,19 +99,19 @@
 </div>
 
 
-
+@* Seccción para llamar al js de Usuarios*@
 <script src="~/Scripts/ScriptsInventarios/Usuarios.js"></script>
 <script>
     $(document).ready(function () {
-
+        //Método para obtener las tablas de Usuarios
         obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
         obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
-
+         //Método para evitar la duplicidad de correos
         $('#CorreoUsuario').blur(function () {
             var correo = document.getElementById("CorreoUsuario").value;
             comprobarCorreo(correo);
         });
-
+        //Método para evitar la duplicidad de nicks
         $('#NickUsuario').blur(function () {
             var nick = document.getElementById("NickUsuario").value;
             comprobarNick(nick);
