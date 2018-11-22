@@ -1,8 +1,8 @@
 ﻿var url_idioma = obtenerIdioma();
 var estados = listaEstadosTicket();
-var url_abierto =null;
-var url_en_curso = null;
-var url_resuelto = null;
+var url_abierto;
+var url_en_curso;
+var url_resuelto;
 var ticketsAbiertos;
 var ticketsEnCurso;
 var ticketsResueltos;
@@ -235,7 +235,7 @@ function cargarTablaEnCurso() {
         str += '</td><td>' + ticketsEnCurso[i].PrioridadTicket +
             '</td><td>' + fechaApertura +
             '</td><td>' + ticketsEnCurso[i].NombreUsuario +
-            '</td><td>' + ticketsResueltos[i].ComentarioTicket;
+            '</td><td>' + ticketsEnCurso[i].ComentarioTicket;
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnCurso" onclick = "formUpdateEnCurso(' + ticketsEnCurso[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
             '</div></div>' +
