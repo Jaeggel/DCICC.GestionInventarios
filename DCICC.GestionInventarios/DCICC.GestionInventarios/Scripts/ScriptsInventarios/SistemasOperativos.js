@@ -9,10 +9,10 @@ function obtenerSO(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'post',
+        type: 'get',
         success: function (data) {
-            datosSO=data;
-            console.log("siiiiii: ");
+            console.log("Datos Exitos");
+            datosSO = data; 
             cargarSOTabla();
             $('#dataTableSO').DataTable({
                 "language": {

@@ -7,10 +7,10 @@ function obtenerLogs(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'post',
+        type: 'get',
         success: function (data) {
+            console.log("Datos Exitosos");
             datosLogs = data;
-            console.log("siiiiii: ");
             cargarLogsTabla();
             $('#dataTableLogs').DataTable({
                 "language": {

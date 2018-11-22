@@ -9,10 +9,10 @@ function obtenerLaboratorios(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'post',
+        type: 'get',
         success: function (data) {
+            console.log("Datos Exitos");
             datosLaboratorios = data;
-            console.log("siiiiii: ");
             cargarLaboratoriosTabla();
             $('#dataTableLaboratorios').DataTable({
                 "language": {

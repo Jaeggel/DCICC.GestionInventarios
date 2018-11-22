@@ -1,8 +1,8 @@
 ﻿var url_idioma = obtenerIdioma();
 var estados = listaEstadosTicket();
-var url_abierto;
-var url_en_curso;
-var url_resuelto;
+var url_abierto =null;
+var url_en_curso = null;
+var url_resuelto = null;
 var ticketsAbiertos;
 var ticketsEnCurso;
 var ticketsResueltos;
@@ -11,13 +11,12 @@ var idTicketAbierto;
 //Método ajax para obtener los tickets con estado abierto
 function obtenerTicketsAbiertos(url) {
     url_abierto = url;
-    console.log(url);
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'post',
+        type: 'get',
         success: function (data) {
-            console.log(data);
+            console.log("Datos Exitosos");
             ticketsAbiertos = data;
             contarAbiertos();
             cargarTablaAbiertos();
@@ -27,7 +26,6 @@ function obtenerTicketsAbiertos(url) {
                     "url": url_idioma
                 }
             });
-            obtenerTicketsResueltos(url_resuelto);
         }
     });
 }
@@ -35,13 +33,12 @@ function obtenerTicketsAbiertos(url) {
 //Método ajax para obtener los tickets con estado en curso
 function obtenerTicketsEnCurso(url) {
     url_en_curso = url;
-    console.log(url);
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'post',
+        type: 'get',
         success: function (data) {
-            console.log(data);
+            console.log("Datos correctos");
             ticketsEnCurso = data;
             contarEnCurso();
             cargarTablaEnCurso();
@@ -51,7 +48,6 @@ function obtenerTicketsEnCurso(url) {
                     "url": url_idioma
                 }
             });
-            obtenerTicketsResueltos(url_resuelto);
         }
     });
 }
@@ -59,13 +55,12 @@ function obtenerTicketsEnCurso(url) {
 //Método ajax para obtener los tickets con estado Resuelto
 function obtenerTicketsResueltos(url) {
     url_resuelto = url;
-    console.log(url);
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'post',
+        type: 'get',
         success: function (data) {
-            console.log(data);
+            console.log("Datos Correctos");
             ticketsResueltos = data;
             contarResueltos();
             cargarTablaResueltos();
@@ -155,7 +150,6 @@ function formUpdateAbiertos(idTicket) {
 //Función para modificar el estado de un ticket
 function modificarEstadoTicket(url_modificar) {
     var nick = document.getElementById("usuarioActual").innerHTML;
-    console.log(url_modificar);
     var cmbEstado = document.getElementById("Estados");
     var Estado = cmbEstado.options[cmbEstado.selectedIndex].value;
     var comentario = document.getElementById("ComentarioTicket").value;
@@ -179,6 +173,8 @@ function modificarEstadoTicket(url_modificar) {
                     $('#ModificarTickets').modal('hide');
                     showNotify("Actualización exitosa", 'El Ticket se actualizó correctamente', "success");
                     obtenerTicketsAbiertos(url_abierto);
+                    obtenerTicketsEnCurso(url_en_curso);
+                    obtenerTicketsResueltos(url_resuelto);
                 }, error: function () {
                     $('#ModificarTickets').modal('hide');
                     showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket', "error");
@@ -292,7 +288,9 @@ function modificarEstadoTicketEnCurso(url_modificar) {
                 success: function () {
                     $('#ModificarTicketsEnCurso').modal('hide');
                     showNotify("Actualización exitosa", 'El Ticket se actualizó correctamente', "success");
+                    obtenerTicketsAbiertos(url_abierto);
                     obtenerTicketsEnCurso(url_en_curso);
+                    obtenerTicketsResueltos(url_resuelto);
                 }, error: function () {
                     $('#ModificarTicketsEnCurso').modal('hide');
                     showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket', "error");

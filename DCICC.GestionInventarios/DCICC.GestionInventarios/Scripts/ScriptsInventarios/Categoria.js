@@ -9,10 +9,10 @@ function obtenerCategorias(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'post',
+        type: 'get',
         success: function (data) {
+            console.log("Datos Exitosos");
             datosCategorias = data;
-            console.log("siiiiii: ");
             cargarCategoriaTabla();
             $('#dataTableCategorias').DataTable({
                 "language": {
