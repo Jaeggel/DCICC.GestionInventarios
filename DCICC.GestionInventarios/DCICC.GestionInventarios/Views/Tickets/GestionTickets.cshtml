@@ -144,14 +144,14 @@
 </div>
 
 @* Modal de modificación de tickets en curso *@
-<div class="modal fade" id="ModificarTicketsEnCurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModificarTicketsEnCurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Solucionar Tickets para Soporte Técnico En Curso</h4>
+                <h4 class="modal-title" id="myModalLabel1">Solucionar Tickets para Soporte Técnico En Curso</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -205,7 +205,7 @@
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarEstadoTicketEnCurso('@Url.Action("ModificarTicket", "Tickets")')">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick="modificarEstadoTicketEnCurso('@Url.Action("ModificarTicket", "Tickets")');">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>

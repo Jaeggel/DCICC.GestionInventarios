@@ -218,7 +218,7 @@ function cargarEstadosEnCursoCmb() {
 //Función para cargar la tabla de tickets en cruso
 function cargarTablaEnCurso() {
     var str = '<table id="dataTableEnCurso" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Modificar Estado</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Comentario</th> <th>Modificar Estado</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < ticketsEnCurso.length; i++) {
@@ -232,9 +232,10 @@ function cargarTablaEnCurso() {
         } else {
             str += '</td><td><strong> Activo:</strong> ' + ticketsEnCurso[i].NombreDetalleActivo;
         }
-            str+='</td><td>' + ticketsEnCurso[i].PrioridadTicket +
-                '</td><td>' + fechaApertura +
-            '</td><td>' + ticketsEnCurso[i].NombreUsuario;
+        str += '</td><td>' + ticketsEnCurso[i].PrioridadTicket +
+            '</td><td>' + fechaApertura +
+            '</td><td>' + ticketsEnCurso[i].NombreUsuario +
+            '</td><td>' + ticketsResueltos[i].ComentarioTicket;
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnCurso" onclick = "formUpdateEnCurso(' + ticketsEnCurso[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
             '</div></div>' +
@@ -265,7 +266,6 @@ function formUpdateEnCurso(idTicket) {
 //Función para modificar tickets 
 function modificarEstadoTicketEnCurso(url_modificar) {
     var nick = document.getElementById("usuarioActual").innerHTML;
-    console.log(url_modificar);
     var cmbEstado = document.getElementById("EstadosEC");
     var Estado = cmbEstado.options[cmbEstado.selectedIndex].value;
     var comentario = document.getElementById("ComentarioTicketEC").value;
@@ -320,7 +320,7 @@ function contarResueltos() {
 //Función para cargar la tabla de Usuarios
 function cargarTablaResueltos() {
     var str = '<table id="dataTableResueltos" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Fecha de Resolución</th> <th>Resuelto por:</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Fecha de Resolución</th> <th>Resuelto por:</th> <th>Comentario</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < ticketsResueltos.length; i++) {
@@ -341,7 +341,8 @@ function cargarTablaResueltos() {
                '</td><td>' + fechaApertura +
             '</td><td>' + ticketsResueltos[i].NombreUsuario +
                '</td><td>' + fechaSolucion +
-            '</td><td>' + ticketsResueltos[i].NombreUsuarioResponsable+
+               '</td><td>' + ticketsResueltos[i].NombreUsuarioResponsable +
+               '</td><td>' + ticketsResueltos[i].ComentarioTicket +
             '</td></tr>';
     };
     str += '</tbody></table>';
