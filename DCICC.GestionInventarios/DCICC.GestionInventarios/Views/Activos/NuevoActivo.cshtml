@@ -109,7 +109,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-12">
-                                        <label>Escoja el Laboratorio al que pertenece el Activo:</label>
+                                        <label>Laaboratorio del Activo:</label>
                                         <select class="form-control" name="NombreLaboratorio" required>
                                             <option>Seleccionar</option>
                                             <option>Option one</option>
@@ -159,7 +159,7 @@
                                     @* Cuadro de texto para el ingreso del codigo UPS del activo *@
                                     <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">                                       
                                         <input type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="150">
-                                        <span class="fa fa-plug form-control-feedback left" aria-hidden="true"></span>
+                                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso de la cantidad de activos *@
                                 </div>
@@ -179,11 +179,6 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Cantidad:</label>
-                                        <input type="number" class="form-control has-feedback-left" name="CantidadActivo" placeholder="0" min="0" max="5" required>
-                                        <span class="fa fa-sort-numeric-asc form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
 
                                 </div>
                                 <div class="form-group"></div>
@@ -197,16 +192,89 @@
                         }
 
                     </div>
-                    <div id="step-2">
-                        <h2 class="StepTitle">Step 2 Content</h2>
-                        <p>
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                    <div id="step-2">                     
+                        <div class="form-horizontal form-label-left input_mask" id="Paso2">
+
+                            @* ---------------- Sección de especificaciones adicionales para todos los Activos ---------------*@
+                            <span class="section">Especificaciones Adicionales comunes para todos los Activos</span>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" maxlength="100">
+                                <span class="fa fa-code-fork form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="FechaManufacturaActivo" placeholder="Fecha de Manufactura" maxlength="100">
+                                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+                            @* ---------------- Sección de especificaciones adicionales para Equipos de Redes ---------------*@
+                            <span class="section">Especificaciones Adicionales para Switchs, souters, etc.</span>
+                            <div class="form-group">
+                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="number" class="form-control has-feedback-left" name="NumPuertosActivo" placeholder="Número de Puertos" maxlength="100">
+                                    <span class="fa fa-sort-numeric-asc form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="text" class="form-control has-feedback-left" name="IosVersionActivo " placeholder="Version de IOS" maxlength="100">
+                                    <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+          
+                            @* ---------------- Sección de especificaciones adicionales para Servidores Cuchillas etc---------------*@
+                            <span class="section">Especificaciones Adicionales para Servidores, switch SAN etc.</span>
+
+                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="ProductNameActivo" placeholder="Product Name" maxlength="100">
+                                <span class="fa fa-book form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="HpePartNumberActivo" placeholder="Hpe Part Number" maxlength="100">
+                                <span class="fa fa-cubes form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <div class="form-group">
+                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="text" class="form-control has-feedback-left" name="CodBarras1Activo" placeholder="Código de Barras 1" maxlength="100">
+                                    <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="text" class="form-control has-feedback-left" name="CodBarras2Activo" placeholder="Código de Barras 2" maxlength="100">
+                                    <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            
+                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="CtActivo" placeholder="CT Code" maxlength="100">
+                                <span class="fa fa-code form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            @* ---------------- Sección de especificaciones adicionales para Discos Memorias etc---------------*@
+                            <span class="section">Especificaciones Adicionales para Discos Duros, Memorias, etc.</span>
+
+                            <div class="form-group">
+                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="number" class="form-control has-feedback-left" name="CapacidadActivo" placeholder="Capacidad(GB)" maxlength="100">
+                                    <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="text" class="form-control has-feedback-left" name="VelocidadTransfActivo" placeholder="Velocidad de Transferencia" maxlength="100">
+                                    <span class="fa fa-rocket form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            
+
+
+
+                        </div>
                     </div>
                     <div id="step-3">
                         <h2 class="StepTitle">Step 3 Content</h2>
