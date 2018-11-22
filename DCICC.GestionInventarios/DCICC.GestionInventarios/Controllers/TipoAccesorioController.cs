@@ -43,7 +43,6 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
-                ObtenerTipoAccesorioComp();
                 return View();
             }
         }
