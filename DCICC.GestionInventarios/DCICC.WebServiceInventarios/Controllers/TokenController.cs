@@ -57,6 +57,42 @@ namespace DCICC.WebServiceInventarios.Controllers
         }
         /// <summary>
         /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
+        /// Utilizado para la recuperación de contraseña.
+        /// </summary>
+        /// <param name="infoCorreo">Correo electrónico para recuperación de contraseña.</param>
+        /// <returns></returns>
+        [HttpPost("ObtenerTokenInicioCorreoBD")]
+        public IActionResult ObtenerTokenInicioCorreoBD([FromBody] string infoCorreo)
+        {
+            JwtToken token = null;
+            try
+            {
+                if (infoCorreo != null)
+                {
+                    ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
+                    if (objConUsuarios.ObtenerUsuarios("usuarioshabilitados").ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo) != null)
+                    {
+                        token = ConfiguracionToken();
+                    }
+                    else
+                    {
+                        return Unauthorized();
+                    }
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo generar el token de autorización: " + e.Message);
+                return Unauthorized();
+            }
+            return Ok(token.Value);
+        }
+        /// <summary>
+        /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
         /// A diferencia del anterior, en este método se recibe el usuario con la sesión actual.
         /// </summary>
         /// <param name="infoUsuario">Cadena del usuario de la sesión actual.</param>

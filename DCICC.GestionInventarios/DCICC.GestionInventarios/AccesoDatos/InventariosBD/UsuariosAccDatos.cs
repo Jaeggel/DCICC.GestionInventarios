@@ -34,6 +34,12 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             token_Autorizacion = "Bearer " +obj_ComunicacionServicio.ObtenerTokenInicioBD(infoUsuario);
         }
         /// <summary>
+        /// Constructor para acceder a usuarios para recuperar contraseña
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        public UsuariosAccDatos(){}
+
+        /// <summary>
         /// Método para obtener una lista con todos los usuarios de la base de datos.
         /// Importante para inicializar los procesos de la base de datos
         /// </summary>
@@ -58,6 +64,35 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             catch (Exception e)
             {
                 Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message+" - "+msjUsuarios.MensajeError);
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
+        /// Método para obtener una lista con todos los usuarios de la base de datos.
+        /// Importante para inicializar los procesos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public MensajesUsuarios ObtenerUsuarioCorreo(string infoCorreo)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                ComunicacionServicio objComServ = new ComunicacionServicio();
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                clientService.DefaultRequestHeaders.Add("Authorization", "Bearer "+objComServ.ObtenerTokenInicioCorreoBD(infoCorreo));
+                HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuariosHab").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var usersJson = response.Content.ReadAsStringAsync().Result;
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
