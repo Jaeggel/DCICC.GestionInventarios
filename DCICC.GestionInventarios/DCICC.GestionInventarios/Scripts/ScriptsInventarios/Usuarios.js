@@ -41,22 +41,6 @@ function obtenerRoles(url) {
     });
 }
 
-//function obtenerNick(url) {
-//    console.log(url);
-//    //Método ajax para traer las marcas de la base de datos
-//    $.ajax({
-//        dataType: 'json',
-//        url: url,
-//        type: 'post',
-//        success: function (data) {
-//            console.log(data);
-//            nick = data.NickUsuario;
-//        }
-//    });
-
-//}
-
-
 
 //Función para cargar la tabla de Usuarios
 function cargarUsuariosTabla() {
