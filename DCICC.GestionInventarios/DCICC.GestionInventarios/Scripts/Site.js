@@ -53,7 +53,7 @@ function showSweetAlert()
     });
 }
 //Método para cerrar la presente sesión.
-function cerrarSesion(url) {
+function cerrarSesion(url,urldest) {
     swal({
         title: 'Cerrar Sesión',
         text: "¿Está seguro de cerrar la presente sesión?",
@@ -67,8 +67,10 @@ function cerrarSesion(url) {
         if (result.value) {
             $.ajax({
                 url: url,
-                success: function () {
-                    window.location.href = url;
+                success: function (data) {
+                    if (data) {
+                        window.location.href = urldest;
+                    }
                 }
             });
         }

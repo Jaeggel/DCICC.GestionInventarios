@@ -131,7 +131,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para cerrar la sesión actual
         /// </summary>
         /// <returns></returns>
-        public ActionResult CerrarSesion()
+        public bool CerrarSesion()
         {
             try
             {
@@ -142,12 +142,13 @@ namespace DCICC.GestionInventarios.Controllers
                 Session.Abandon();
                 Session.Clear();
                 Session.RemoveAll();
+                return true;
             }
             catch(Exception e)
             {
                 Logs.Error("Error en el cierre de la sesión: " + e.Message);
             }
-            return RedirectToAction("Login", "Login");
+            return false;
         }
         /// <summary>
         /// Método para obtener la IP del cliente que accede al sistema.
