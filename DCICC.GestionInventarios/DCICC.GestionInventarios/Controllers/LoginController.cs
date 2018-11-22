@@ -14,7 +14,6 @@ using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
 {
-    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LoginController : Controller
     {
         public static string nickUsuarioSesion = string.Empty;
