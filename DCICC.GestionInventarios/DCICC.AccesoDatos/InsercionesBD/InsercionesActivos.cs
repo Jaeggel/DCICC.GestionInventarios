@@ -79,7 +79,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 using (var cmd = new NpgsqlCommand("insert into dcicc_CQR (id_CQR,datos_CQR) VALUES (@ic,@dc)", conn_BD))
                 {
                     cmd.Parameters.Add("ic", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCQR.IdCqr;
-                    cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCQR.Bytea;
+                    cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Bytea).Value = infoCQR.Bytea;
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();
