@@ -28,6 +28,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
         /// <summary>
         /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
         /// </summary>
+        /// <param name="infoUsuario"></param>
         /// <returns></returns>
         public string ObtenerTokenInicioBD(Usuarios infoUsuario)
         {
@@ -49,6 +50,34 @@ namespace DCICC.GestionInventarios.AccesoDatos
             {
                 Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
                 tokenResult= null;
+            }
+            return tokenResult;
+        }
+        /// <summary>
+        /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
+        /// </summary>
+        /// <param name="infoCorreo"></param>
+        /// <returns></returns>
+        public string ObtenerTokenInicioCorreoBD(string infoCorreo)
+        {
+            string tokenResult = string.Empty;
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(base_URL);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = clientService.PostAsJsonAsync("Token/ObtenerTokenInicioCorreoBD", infoCorreo).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var tokenJson = response.Content.ReadAsStringAsync().Result;
+                    tokenResult = JsonConvert.DeserializeObject<string>(tokenJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
+                tokenResult = null;
             }
             return tokenResult;
         }

@@ -37,7 +37,7 @@
                         @* Sección de botones para realizar el Login *@
                         <div>
                             <button type="submit" class="btn btn-default">Login</button>
-                            <a class="reset_pass" href="#">Recuperar Contraseña</a>
+                            <a class="reset_pass" href="#" onclick="enviarMailPass('@Url.Action("RecuperarPassword","Login")')">Recuperar Contraseña</a>
                         </div>
                         <div class="separator" />
                     }
@@ -48,6 +48,7 @@
     @* Sección para la visualización de la animación de particulas en la página *@
     <div id="particles" />
     @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="~/Scripts/ScriptsInventarios/Login.js"></script>    
 </body>
 </html>
 <script type="text/javascript">
