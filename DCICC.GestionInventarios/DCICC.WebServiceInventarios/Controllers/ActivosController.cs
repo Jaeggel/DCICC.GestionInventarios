@@ -118,6 +118,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjCQR;
         }
         /// <summary>
+        /// Método (GET) para obtener una lista de todos los CQR mostrando su id de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerIdCQR")]
+        public MensajesCQR ObtenerIdCQR()
+        {
+            MensajesCQR msjCQR = null;
+            try
+            {
+                ConsultasActivos objConsultasCQRBD = new ConsultasActivos();
+                msjCQR = objConsultasCQRBD.ObtenerIdCQR();
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los CQR: " + e.Message + " - " + msjCQR.MensajeError);
+            }
+            return msjCQR;
+        }
+        /// <summary>
         /// Método (POST) para registrar un nuevo CQR en la base de datos.
         /// </summary>
         /// <param name="infoCQR"></param>

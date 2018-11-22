@@ -6,7 +6,7 @@ namespace DCICC.Entidades.EntidadesInventarios
 {
     public class CQR
     {
-        public int IdCqr { get; set; }
+        public string IdCqr { get; set; }
 
         public byte[] Bytea { get; set; }
     }

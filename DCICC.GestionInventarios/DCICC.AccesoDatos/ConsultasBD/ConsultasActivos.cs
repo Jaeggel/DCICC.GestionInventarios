@@ -102,8 +102,45 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             CQR objCQR = new CQR
                             {
-                                IdCqr = int.Parse(dr[0].ToString().Trim()),
+                                IdCqr = dr[0].ToString().Trim(),
                                 Bytea = (byte[])dr[1],
+                            };
+                            lstCQR.Add(objCQR);
+                        }
+                        conn_BD.Close();
+                        msjCQR.ListaObjetoInventarios = lstCQR;
+                        msjCQR.OperacionExitosa = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                msjCQR.OperacionExitosa = false;
+                msjCQR.MensajeError = e.Message;
+            }
+            return msjCQR;
+        }
+        /// <summary>
+        /// Método para obtener los id de los CQR.
+        /// </summary>
+        /// <param name="nombreFuncion">Tipo de función a llamar: consultaCQR</param>
+        /// <returns></returns>
+        public MensajesCQR ObtenerIdCQR()
+        {
+            List<CQR> lstCQR = new List<CQR>();
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                using (var cmd = new NpgsqlCommand("consultacqr", conn_BD))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())//obtener tamaño
+                        {
+                            CQR objCQR = new CQR
+                            {
+                                IdCqr = dr[0].ToString().Trim()
                             };
                             lstCQR.Add(objCQR);
                         }

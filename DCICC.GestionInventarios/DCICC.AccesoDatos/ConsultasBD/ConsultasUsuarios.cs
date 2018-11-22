@@ -78,8 +78,35 @@ namespace DCICC.AccesoDatos.ConsultasBD
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
+                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
                 Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.IdUsuario == IdUsuario);
+                if (infoUsuarioBD != null)
+                {
+                    msjUsuarios.ObjetoInventarios = infoUsuarioBD;
+                    msjUsuarios.OperacionExitosa = true;
+                }
+            }
+            catch (Exception e)
+            {
+                msjUsuarios.OperacionExitosa = false;
+                msjUsuarios.MensajeError = e.Message;
+                msjUsuarios.ListaObjetoInventarios = null;
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
+        /// Método para obtener un usuario en específico de la base de datos por su Nick
+        /// </summary>
+        /// <param name="IdUsuario"></param>
+        /// <returns></returns>
+        public static MensajesUsuarios ObtenerUsuarioPorNick(string nickUsuario)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+                Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.NickUsuario == nickUsuario);
                 if (infoUsuarioBD != null)
                 {
                     msjUsuarios.ObjetoInventarios = infoUsuarioBD;

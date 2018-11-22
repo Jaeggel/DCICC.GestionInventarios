@@ -119,7 +119,34 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("CQR/ObtenerCQR").Result;
+                HttpResponseMessage response = clientService.GetAsync("Activos/ObtenerCQR").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var CQRJson = response.Content.ReadAsStringAsync().Result;
+                    msjCQR = JsonConvert.DeserializeObject<MensajesCQR>(CQRJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para obtener el CQR: " + e.Message + " - " + msjCQR.MensajeError);
+            }
+            return msjCQR;
+        }
+        /// <summary>
+        /// Método para obtener una lista con los CQR de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public MensajesCQR ObtenerIdCQR()
+        {
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
+                HttpResponseMessage response = clientService.GetAsync("Activos/ObtenerIdCQR").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var CQRJson = response.Content.ReadAsStringAsync().Result;
@@ -147,7 +174,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("CQR/RegistrarCQR", infoCQR).Result;
+                var response = clientService.PostAsJsonAsync("Activos/RegistrarCQR", infoCQR).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var CQRJson = response.Content.ReadAsStringAsync().Result;

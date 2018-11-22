@@ -2,6 +2,7 @@
 using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
+using DCICC.GestionInventarios.QR;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -110,36 +111,6 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ConsultaActivos", "Activos");
         }
         /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista NuevoCQR.
-        /// </summary>
-        /// <param name="infoCQR"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult NuevoCQR(CQR infoCQR)
-        {
-            string mensajesCQR = string.Empty;
-            MensajesCQR msjCQR = new MensajesCQR();
-            try
-            {
-                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
-                msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
-                if (msjCQR.OperacionExitosa)
-                {
-                    mensajesCQR = "El CQR ha sido registrado exitosamente.";
-                    Logs.Info(mensajesCQR);
-                }
-                else
-                {
-                    mensajesCQR = "No se ha podido registrar el CQR: " + msjCQR.MensajeError;
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(mensajesCQR + ": " + e.Message);
-            }
-            return RedirectToAction("NuevoActivo", "Activos");//Revisar redireccionamiento
-        }
-        /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoActivo.
         /// </summary>
         /// <param name="infoAccesorios"></param>
@@ -199,6 +170,44 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
             return View();
+        }
+        /// <summary>
+        /// Método para mostrar el código QR  y registrar el QR en la base de datos en el view
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Image()
+        {
+            GeneracionCQR objGeneracionQR = new GeneracionCQR();
+            string IdCQR = objGeneracionQR.GenerarIdCodigoQR();
+            var bitmap = objGeneracionQR.GenerarCodigoQR(IdCQR);
+            var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
+            CQR infoCQR = new CQR
+            {
+                IdCqr = IdCQR,
+                Bytea=bitmapBytes
+            };
+            string mensajesCQR = string.Empty;
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+                msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
+                if (msjCQR.OperacionExitosa)
+                {
+                    mensajesCQR = "El CQR ha sido registrado exitosamente.";
+                    Logs.Info(mensajesCQR);
+                }
+                else
+                {
+                    mensajesCQR = "No se ha podido registrar el CQR: " + msjCQR.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesCQR + ": " + e.Message);
+            }
+            return File(bitmapBytes, "image/jpeg");
+            //<img src='@Url.Action("image")' alt="" />
         }
         /// <summary>
         /// Método para obtener los accesorios de la base de datos

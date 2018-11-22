@@ -99,11 +99,8 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-ticket"></i>Tickets <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
-                                        <li><a href="@Url.Action("GestionTickets", "Tickets")">Gestión de Tickets</a></li>
-                                    </ul>
+                                    @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
+                                    <a href="@Url.Action("GestionTickets", "Tickets")"><i class="fa fa-ticket"></i>Gestión de Tickets</a>
                                 </li>
                                 <li>
                                     @*Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)*@
