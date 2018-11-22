@@ -9,7 +9,6 @@ using System.Web.Mvc;
 namespace DCICC.GestionInventarios.Controllers
 {
     [SessionExpireFilter]
-    [OutputCache(NoStore = true, Duration = 0)]
     public class LogsController : Controller
     {
         /// <summary>

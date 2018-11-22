@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace DCICC.GestionInventarios.QR
@@ -16,6 +17,10 @@ namespace DCICC.GestionInventarios.QR
     {
         //Instancia para la utilización de LOGS en la clase GeneracionCQR
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        /// <summary>
+        /// Método para generar el Id del código QR
+        /// </summary>
+        /// <returns></returns>
         public string GenerarIdCodigoQR()
         {
             string mensajesCQR = string.Empty;
@@ -27,13 +32,14 @@ namespace DCICC.GestionInventarios.QR
                 msjCQR = objCQRAccDatos.ObtenerIdCQR();
                 if (msjCQR.OperacionExitosa)
                 {
-                    if(msjCQR.ListaObjetoInventarios.Count==0)
+                    var sizeLst = msjCQR.ListaObjetoInventarios.Count;
+                    if (sizeLst == 0)
                     {
-                        idCQR +="1";
+                        idCQR += "1";
                     }
                     else
                     {
-                        idCQR +="" + 1;
+                        idCQR+=(sizeLst+1);
                     }
                     mensajesCQR = "La lista de los Id de CQR ha sido obtenido exitosamente.";
                     Logs.Info(mensajesCQR);

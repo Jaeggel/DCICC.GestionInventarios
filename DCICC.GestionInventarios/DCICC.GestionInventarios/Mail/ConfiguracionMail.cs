@@ -16,7 +16,7 @@ namespace DCICC.GestionInventarios.Mail
         /// <summary>
         /// Método para enviar el correo electrónico para recuperación de contraseña.
         /// </summary>
-        /// <param name="correo"></param>
+        /// <param name="infoCorreo"></param>
         /// <returns></returns>
         public void SendMail(Correo infoCorreo)
         {
@@ -46,7 +46,7 @@ namespace DCICC.GestionInventarios.Mail
         /// <summary>
         /// Método para dar formato al Email mediante un archivo HTML (PlantillaEmailPassword.html)
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="infoUsuario"></param>
         /// <returns></returns>
         public string FormatBodyEmailPassword(Usuarios infoUsuario)
         {
