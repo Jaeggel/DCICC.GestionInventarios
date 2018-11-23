@@ -16,7 +16,6 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
-        public static string ipUsuarioSesion = string.Empty;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -91,8 +90,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error("Error en la autenticación con el sistema: " + e.Message);
                 return View();
             }
-            var aux = Session.Count;
-            var aux2 = Session["NickUsuario"].ToString();
             return RedirectToAction("Index", "Home");
         }
         /// <summary>
@@ -173,7 +170,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 IdUsuario = (string)Session["NickUsuario"],
                 FechaLogs = DateTime.Now,
-                IpLogs = ipUsuarioSesion
+                IpLogs = (string)Session["IpUsuario"]
             };
             if (operacion=="Login")
             {

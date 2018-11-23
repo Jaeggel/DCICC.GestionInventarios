@@ -78,11 +78,11 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjCategorias;
         }
         /// <summary>
-        /// Método para actualizar una categoría en la base de datos.
+        /// Método para actualizar el estado de una categoría en la base de datos.
         /// </summary>
         /// <param name="infoCategoria"></param>
         /// <returns></returns>
-        public MensajesCategoriasActivos ActualizarCategoriaActivo(CategoriaActivo infoCategoria)
+        public MensajesCategoriasActivos ActualizarCategoriaActivo(CategoriaActivo infoCategoria, bool actEstado)
         {
             MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             try
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("CategoriasActivos/ActualizarCategoriaActivo", infoCategoria).Result;
+                var response = clientService.PostAsJsonAsync(actEstado ? "CategoriasActivos/ActualizarEstadoCategoriaActivo" : "CategoriasActivos/ActualizarCategoriaActivo", infoCategoria).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var catJson = response.Content.ReadAsStringAsync().Result;
