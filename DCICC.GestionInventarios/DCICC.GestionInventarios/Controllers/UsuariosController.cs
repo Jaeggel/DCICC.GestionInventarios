@@ -116,7 +116,36 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,false);
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,1);
+                if (msjUsuarios.OperacionExitosa)
+                {
+                    Logs.Info(mensajes_Usuarios);
+                }
+                else
+                {
+                    mensajes_Usuarios = "No se ha podido actualizar el usuario: " + msjUsuarios.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajes_Usuarios + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarUsuario", "Usuarios");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarUsuario.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoUsuario(Usuarios infoUsuario)
+        {
+            string mensajes_Usuarios = string.Empty;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 2);
                 if (msjUsuarios.OperacionExitosa)
                 {
                     Logs.Info(mensajes_Usuarios);
@@ -174,7 +203,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,true);
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,3);
                 if (msjUsuarios.OperacionExitosa)
                 {
                     Logs.Info(mensajes_Usuarios);

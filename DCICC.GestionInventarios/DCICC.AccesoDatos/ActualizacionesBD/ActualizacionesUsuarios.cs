@@ -90,5 +90,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjUsuarios;
         }
+        /// <summary>
+        /// Método para actualizar el estado de un usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        public MensajesUsuarios ActualizacionEstadoUsuario(Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("habilitado_usuario = @hu where id_usuario = @iu", conn_BD))
+                {
+                    cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
+                    cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value =infoUsuario.IdUsuario;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjUsuarios.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjUsuarios.OperacionExitosa = false;
+                msjUsuarios.MensajeError = e.Message;
+            }
+            return msjUsuarios;
+        }
     }
 }

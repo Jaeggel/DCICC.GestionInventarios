@@ -110,7 +110,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
-                msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionTipoActivo(infoTipoActivo);
+                msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionEstadoTipoActivo(infoTipoActivo);
             }
             catch (Exception e)
             {
