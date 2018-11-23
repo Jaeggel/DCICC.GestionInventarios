@@ -81,7 +81,7 @@ namespace DCICC.GestionInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
-                return View();
+                return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
             }
             return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
         }
@@ -112,7 +112,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
         }
         /// <summary>
         /// Método para obtener los tipos de accesorios de la base de datos

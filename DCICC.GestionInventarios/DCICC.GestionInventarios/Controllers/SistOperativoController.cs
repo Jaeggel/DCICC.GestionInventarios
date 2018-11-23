@@ -112,7 +112,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesSistOperativos + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarSistOperativo", "SistOperativo");
         }
         /// <summary>
         /// Método para obtener los sistemas operativos de la base de datos

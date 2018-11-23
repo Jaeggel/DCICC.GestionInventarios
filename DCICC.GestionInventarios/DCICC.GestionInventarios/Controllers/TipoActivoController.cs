@@ -112,7 +112,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesTipoActivo + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarTipoActivo", "TipoActivo");
         }
         /// <summary>
         /// Método para obtener los tipos de activos de la base de datos

@@ -174,7 +174,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ConsultaActivos", "Activos");//OJO
         }
         /// <summary>
         /// Método para mostrar el código QR  y registrar el QR en la base de datos en el view
