@@ -112,7 +112,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesCategorias + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
         }
         /// <summary>
         /// Método para obtener todas las categorías de la base de datos
