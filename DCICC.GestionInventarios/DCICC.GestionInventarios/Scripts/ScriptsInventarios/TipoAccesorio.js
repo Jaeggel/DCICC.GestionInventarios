@@ -2,6 +2,7 @@
 var url_metodo;
 var datosTipoAccesorio;
 var idTipoAccesorio;
+var urlEstado;
 
 //Método ajax para obtener los datos de Tipo Accesorio
 function obtenerTipoAccesorio(url) {
@@ -23,6 +24,11 @@ function obtenerTipoAccesorio(url) {
     });
 }
 
+//Función para obtener la url de modificación
+function urlEstados(url) {
+    urlEstado = url;
+}
+
 //Función para cargar la tabla de Tipos de Accesorio
 function cargarTipoAccTabla() {
     var str = '<table id="dataTableTipoAcc" class="table jambo_table bulk_action table-bordered" style="width:100%">';
@@ -42,9 +48,9 @@ function cargarTipoAccTabla() {
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosTipoAccesorio[i].HabilitadoTipoAccesorio) {
-            str += '<button type="button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button>';
+            str += '<button type="button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosTipoAccesorio[i].IdTipoAccesorio + ',' + datosTipoAccesorio[i].HabilitadoTipoAccesorio +');"> <strong><span class="fa fa-toggle-on"></span></strong></button>';
         } else {
-            str += '<button type="button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button>';
+            str += '<button type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosTipoAccesorio[i].IdTipoAccesorio + ',' + datosTipoAccesorio[i].HabilitadoTipoAccesorio +');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
         }    
         str +='</div></div></td></tr>';
 
@@ -129,4 +135,40 @@ function comprobarNombre(nombre) {
     } else {
         document.getElementById("NombreTipoAccesorio").setCustomValidity("");
     }
+}
+
+//Función para habilitar o deshabilitar la categoria
+function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
+    var nuevoEstado = true;
+    if (estadoTipoAcc) {
+        nuevoEstado = false;
+    } else {
+        nuevoEstado = true;
+    }
+    console.log(nuevoEstado);
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar de Estado el Tipo de Accesorio?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: { "IdTipoAccesorio": idTipoAcc, "HabilitadoTipoAccesorio": nuevoEstado },
+                url: urlEstado,
+                type: 'post',
+                success: function () {           
+                    obtenerTipoAccesorio(url_metodo);
+                }, error: function () {
+
+                }
+            });
+        } else {
+
+        }
+    });
 }

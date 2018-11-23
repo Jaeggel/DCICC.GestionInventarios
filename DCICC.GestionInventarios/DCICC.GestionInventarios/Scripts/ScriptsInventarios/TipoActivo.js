@@ -4,6 +4,7 @@ var datosTipoActivo;
 var cmbCategorias;
 var cmbCategoriasComp;
 var idTipoActivo;
+var urlEstado;
 
 //Método ajax para obtener los datos de tipo de activo
 function obtenerTipoActivo(url) {
@@ -52,7 +53,10 @@ function obtenerCategoriasCompletas(url) {
     });
 }
 
-
+//Función para obtener la url de modificación
+function urlEstados(url) {
+    urlEstado = url;
+}
 
 //Función para cargar la tabla de Tipo de Activo
 function cargarTipoActTabla() {
@@ -77,9 +81,9 @@ function cargarTipoActTabla() {
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosTipoActivo[i].HabilitadoTipoActivo) {
-            str += '<button type="button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button>';
+            str += '<button type="button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosTipoActivo[i].IdTipoActivo + ',' + datosTipoActivo[i].HabilitadoTipoActivo +');"> <strong><span class="fa fa-toggle-on"></span></strong></button>';
         } else {
-            str += '<button type="button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button>';
+            str += '<button type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosTipoActivo[i].IdTipoActivo + ',' + datosTipoActivo[i].HabilitadoTipoActivo +');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
         }
         str +='</div></div></td></tr>';
         
@@ -143,7 +147,7 @@ function formUpdateTipoAct(idTipoAct) {
 //Función para modificar el Tipo de activo especificado
 function modificarTipoActivo(url_modificar) {
     console.log(url_modificar);
-    var cmbCategoria = document.getElementById("IdCategoriaActivo");
+    var cmbCategoria = document.getElementById("IdCategoriaComp");
     var idCategoria = cmbCategoria.options[cmbCategoria.selectedIndex].value;
     var nombreTipo=document.getElementById("NombreTipoActivo").value;
     var descripcionTipo=document.getElementById("DescripcionTipoActivo").value;
@@ -199,4 +203,39 @@ function comprobarNombre(nombre) {
     }
 }
 
+//Función para habilitar o deshabilitar la categoria
+function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
+    var nuevoEstado = true;
+    if (estadoTipoAct) {
+        nuevoEstado = false;
+    } else {
+        nuevoEstado = true;
+    }
+    console.log(nuevoEstado);
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar de Estado del Tipo de Activo?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: { "IdTipoActivo": idTipoAct, "HabilitadoTipoActivo": nuevoEstado },
+                url: urlEstado,
+                type: 'post',
+                success: function () {
+                    console.log("actualizacion exitosa");
+                    obtenerTipoActivo(url_metodo);
+                }, error: function (e) {
+                    console.log(e);
+                }
+            });
+        } else {
 
+        }
+    });
+}

@@ -24,6 +24,7 @@ function obtenerCategorias(url) {
     });
 }
 
+//Función para obtener la url de modificación
 function urlEstados(url) {
     urlEstado = url;
 }
@@ -147,7 +148,7 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
     } else {
         nuevoEstado = true;
     }
-    console.log(url_metodo);
+    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar de Estado la Categoria?",
@@ -159,9 +160,8 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            //Método ajax para modificar la categoria de la base de datos
             $.ajax({
-                data: { "IdCategoriaActivo": idCat, , "HabilitadoCategoriaActivo": nuevoEstado },
+                data: { "IdCategoriaActivo": idCat, "HabilitadoCategoriaActivo": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
                 success: function () {
@@ -175,6 +175,4 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
             
         }
     });
-
-
 }
