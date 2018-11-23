@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
+using DCICC.AccesoDatos.EliminacionesBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
@@ -110,6 +111,46 @@ namespace DCICC.WebServiceInventarios.Controllers
             {
                 ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
                 msjUsuarios = objActualizacionesUsuariosBD.ActualizacionUsuario(infoUsuario);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar el perfil de un usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarPerfilUsuario")]
+        public MensajesUsuarios ActualizarPerfilUsuario([FromBody] Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = null;
+            try
+            {
+                ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
+                msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPerfilUsuario(infoUsuario);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
+        /// Método (POST) para eliminar un usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost("EliminarUsuario")]
+        public MensajesUsuarios EliminarUsuario([FromBody] Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = null;
+            try
+            {
+                EliminacionesUsuarios objEliminacionesUsuariosBD = new EliminacionesUsuarios();
+                msjUsuarios = objEliminacionesUsuariosBD.EliminacionUsuario(infoUsuario);
             }
             catch (Exception e)
             {
