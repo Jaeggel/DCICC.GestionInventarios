@@ -116,7 +116,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,false);
                 if (msjUsuarios.OperacionExitosa)
                 {
                     Logs.Info(mensajes_Usuarios);
@@ -133,19 +133,48 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarUsuario.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult PerfilUsuario(Usuarios infoUsuario)//POR AJAX POR EL ID
+        public ActionResult EliminarUsuario(Usuarios infoUsuario)
         {
             string mensajes_Usuarios = string.Empty;
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
+                msjUsuarios = objUsuariosAccDatos.EliminarUsuario(infoUsuario);
+                if (msjUsuarios.OperacionExitosa)
+                {
+                    Logs.Info(mensajes_Usuarios);
+                }
+                else
+                {
+                    mensajes_Usuarios = "No se ha podido eliminar el usuario: " + msjUsuarios.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajes_Usuarios + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarUsuario", "Usuarios");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarPerfilUsuario(Usuarios infoUsuario)//POR AJAX POR EL ID
+        {
+            string mensajes_Usuarios = string.Empty;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,true);
                 if (msjUsuarios.OperacionExitosa)
                 {
                     Logs.Info(mensajes_Usuarios);
@@ -169,16 +198,6 @@ namespace DCICC.GestionInventarios.Controllers
         {
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
             return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
-        }
-        /// <summary>
-        /// Método para obtener el usuario actual del sistema
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult ObtenerNickActual()
-        {
-            Usuarios infoUsuario = new Usuarios();
-            infoUsuario.NickUsuario = (string)Session["NickUsuario"];
-            return Json(infoUsuario, JsonRequestBehavior.AllowGet);
         }
     }
 }

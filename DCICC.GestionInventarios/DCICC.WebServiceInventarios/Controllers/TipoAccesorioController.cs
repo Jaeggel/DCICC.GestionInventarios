@@ -98,5 +98,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTipoAccesorio;
         }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de un tipo de accesorio en la base de datos.
+        /// </summary>
+        /// <param name="infoTipoAccesorio"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoTipoAccesorio")]
+        public MensajesTipoAccesorio ActualizarEstadoTipoAccesorio([FromBody] TipoAccesorio infoTipoAccesorio)
+        {
+            MensajesTipoAccesorio msjTipoAccesorio = null;
+            try
+            {
+                ActualizacionesTipoAccesorio objActualizacionesTipoAccesorioBD = new ActualizacionesTipoAccesorio();
+                msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionEstadoTipoAccesorio(infoTipoAccesorio);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el tipo de accesorio: " + e.Message + " - " + msjTipoAccesorio.MensajeError);
+            }
+            return msjTipoAccesorio;
+        }
     }
 }

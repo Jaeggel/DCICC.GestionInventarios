@@ -155,8 +155,9 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// Método para actualizar un usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
+        /// <param name="actPerfil"></param>
         /// <returns></returns>
-        public MensajesUsuarios ActualizarUsuario(Usuarios infoUsuario)
+        public MensajesUsuarios ActualizarUsuario(Usuarios infoUsuario,bool actPerfil)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
@@ -166,7 +167,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Usuarios/ActualizarUsuario", infoUsuario).Result;
+                var response = clientService.PostAsJsonAsync(actPerfil? "Usuarios/ActualizarPerfilUsuario":"Usuarios/ActualizarUsuario", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
@@ -176,6 +177,34 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             catch (Exception e)
             {
                 Logs.Error("Error en la conexión para actualizar un usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
+        /// Método para eliminar un usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        public MensajesUsuarios EliminarUsuario(Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
+                var response = clientService.PostAsJsonAsync("Usuarios/EliminarUsuario", infoUsuario).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var usersJson = response.Content.ReadAsStringAsync().Result;
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para eliminar un usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }

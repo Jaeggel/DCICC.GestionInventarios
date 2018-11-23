@@ -98,5 +98,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTipoActivo;
         }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de un tipo de activo en la base de datos.
+        /// </summary>
+        /// <param name="infoTipoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoTipoActivo")]
+        public MensajesTipoActivo ActualizarEstadoTipoActivo([FromBody] TipoActivo infoTipoActivo)
+        {
+            MensajesTipoActivo msjTipoActivo = null;
+            try
+            {
+                ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
+                msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionTipoActivo(infoTipoActivo);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el tipo de activo: " + e.Message + " - " + msjTipoActivo.MensajeError);
+            }
+            return msjTipoActivo;
+        }
     }
 }

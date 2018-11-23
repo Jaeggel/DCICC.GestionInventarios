@@ -98,5 +98,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjMaqVirtuales;
         }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de una máquina virtual en la base de datos.
+        /// </summary>
+        /// <param name="infoMaqVirtual"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoMaqVirtual")]
+        public MensajesMaqVirtuales ActualizarEstadoMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
+        {
+            MensajesMaqVirtuales msjMaqVirtuales = null;
+            try
+            {
+                ActualizacionesMaqVirtuales objActualizacionesMaqVirtualesBD = new ActualizacionesMaqVirtuales();
+                msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionEstadoMaqVirtual(infoMaqVirtual);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar la máquina virtual: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
+            }
+            return msjMaqVirtuales;
+        }
     }
 }

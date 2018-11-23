@@ -53,5 +53,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjMaqVirtuales;
         }
+        /// <summary>
+        /// Método para actualizar el estado de una MaqVirtual en la base de datos.
+        /// </summary>
+        /// <param name="infoMaqVirtual"></param>
+        /// <returns></returns>
+        public MensajesMaqVirtuales ActualizacionEstadoMaqVirtual(MaqVirtuales infoMaqVirtual)
+        {
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_maqvirtuales set habilitado_maqvirtuales = @hmv where id_maqvirtuales = @imv", conn_BD))
+                {
+                    cmd.Parameters.Add("hmv", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMaqVirtual.HabilitadoMaqVirtuales;
+                    cmd.Parameters.Add("imv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdMaqVirtuales;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjMaqVirtuales.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjMaqVirtuales.OperacionExitosa = false;
+                msjMaqVirtuales.MensajeError = e.Message;
+            }
+            return msjMaqVirtuales;
+        }
     }
 }

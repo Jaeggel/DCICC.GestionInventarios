@@ -98,7 +98,36 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
-                msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio);
+                msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,false);
+                if (msjTipoAccesorio.OperacionExitosa)
+                {
+                    Logs.Info(mensajesTipoAccesorio);
+                }
+                else
+                {
+                    mensajesTipoAccesorio = "No se ha podido actualizar el tipo de accesorio: " + msjTipoAccesorio.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarTipoAccesorio.
+        /// </summary>
+        /// <param name="infoTipoAccesorio"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoTipoAccesorio(TipoAccesorio infoTipoAccesorio)
+        {
+            string mensajesTipoAccesorio = string.Empty;
+            MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
+            try
+            {
+                TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
+                msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,true);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
                     Logs.Info(mensajesTipoAccesorio);
