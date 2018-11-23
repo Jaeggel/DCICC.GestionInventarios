@@ -19,7 +19,7 @@ namespace DCICC.GestionInventarios.Configuration
             if (HttpContext.Current.Session["NickUsuario"] == null)
             {
                 LoginController obj = new LoginController();
-                obj.RegistroSesionLogs("Logout");
+                //obj.RegistroSesionLogs("Logout");
                 filterContext.Result = new RedirectResult("~/Login/Login");
                 return;
             }
