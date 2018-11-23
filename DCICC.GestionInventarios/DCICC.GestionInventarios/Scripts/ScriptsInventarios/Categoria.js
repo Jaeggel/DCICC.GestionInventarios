@@ -2,6 +2,7 @@
 var url_metodo;
 var datosCategorias;
 var idCategoriaModificar;
+var urlEstado;
 
 //Método ajax para obtener los datos de categorias
 function obtenerCategorias(url) {
@@ -23,6 +24,10 @@ function obtenerCategorias(url) {
     });
 }
 
+function urlEstados(url) {
+    urlEstado = url;
+}
+
 //Función para cargar la tabla de Categorias
 function cargarCategoriaTabla() {
     var str = '<table id="dataTableCategorias" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
@@ -42,9 +47,9 @@ function cargarCategoriaTabla() {
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosCategorias[i].HabilitadoCategoriaActivo) {
-            str += '<button type = "button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+            str += '<button type = "button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosCategorias[i].IdCategoriaActivo + ',' + datosCategorias[i].HabilitadoCategoriaActivo+');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
         } else {
-            str += '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button> ';
+            str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosCategorias[i].IdCategoriaActivo + ',' + datosCategorias[i].HabilitadoCategoriaActivo +');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
         }  
         str += '</div></div></td></tr>';
     };
@@ -132,4 +137,44 @@ function comprobarNombre(nombre) {
     } else {
         document.getElementById("NombreCategoriaActivo").setCustomValidity("");
     }
+}
+
+//Función para habilitar o deshabilitar la categoria
+function habilitarOdeshabilitar(idCat, estadoCat) {
+    var nuevoEstado = true;
+    if (estadoCat) {
+        nuevoEstado = false;
+    } else {
+        nuevoEstado = true;
+    }
+    console.log(url_metodo);
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar de Estado la Categoria?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "IdCategoriaActivo": idCat, , "HabilitadoCategoriaActivo": nuevoEstado },
+                url: urlEstado,
+                type: 'post',
+                success: function () {
+                    console.log("actualizacion exitosa");             
+                    obtenerCategorias(url_metodo);
+                }, error: function (e) {
+                    console.log(e);
+                }
+            });
+        } else {
+            
+        }
+    });
+
+
 }
