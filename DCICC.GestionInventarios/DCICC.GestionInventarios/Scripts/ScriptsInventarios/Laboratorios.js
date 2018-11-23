@@ -2,6 +2,7 @@
 var url_metodo;
 var datosLaboratorios;
 var idLaboratorio;
+var urlEstado;
 
 //Método ajax para obtener los datos de laboratorios
 function obtenerLaboratorios(url) {
@@ -21,6 +22,10 @@ function obtenerLaboratorios(url) {
             });
         }
     });
+}
+
+function urlEstados(url) {
+    urlEstado = url;
 }
 
 //Función para cargar la tabla de Laboratorios
@@ -44,9 +49,9 @@ function cargarLaboratoriosTabla() {
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosLaboratorios[i].HabilitadoLaboratorio) {
-            str += '<button type = "button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+            str += '<button type = "button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosLaboratorios[i].IdLaboratorio + ',' + datosLaboratorios[i].HabilitadoLaboratorio +');"> <strong><span class="fa fa-toggle-on"></span></strong></button> ';
         } else {
-            str += '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button> ';
+            str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosLaboratorios[i].IdLaboratorio + ',' + datosLaboratorios[i].HabilitadoLaboratorio +');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
         }
          str +='</div></div></td></tr>';
     };
@@ -135,4 +140,41 @@ function comprobarNombre(nombre) {
     } else {
         document.getElementById("NombreLaboratorio").setCustomValidity("");
     }
+}
+
+//Función para habilitar o deshabilitar la categoria
+function habilitarOdeshabilitar(idLab, estadoLab) {
+    var nuevoEstado = true;
+    if (estadoLab) {
+        nuevoEstado = false;
+    } else {
+        nuevoEstado = true;
+    }
+    console.log(nuevoEstado);
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar de Estado el Laboratorio?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "IdLaboratorio": idLab, "HabilitadoLaboratorio": nuevoEstado },
+                url: urlEstado,
+                type: 'post',
+                success: function () {
+                    obtenerLaboratorios(url_metodo);
+                }, error: function () {
+
+                }
+            });
+        } else {
+
+        }
+    });
 }

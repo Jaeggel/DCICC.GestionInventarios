@@ -2,6 +2,7 @@
 var url_metodo;
 var datosMarcas;
 var idMarcaModificar;
+var urlEstado;
 
 //Método ajax para obtener los datos de Marcas
 function obtenerMarcas(url) {
@@ -21,6 +22,10 @@ function obtenerMarcas(url) {
             });
         }
     });
+}
+
+function urlEstados(url) {
+    urlEstado = url;
 }
 
 //Función para cargar la tabla de las Marcas
@@ -45,9 +50,9 @@ function cargarMarcasTabla() {
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosMarcas[i].HabilitadoMarca) {
-            str += '<button type="button" class="btn btn-success text-center" > <strong><span class="fa fa-toggle-on"></span></strong></button>';
+            str += '<button type="button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosMarcas[i].IdMarca + ',' + datosMarcas[i].HabilitadoMarca +');"> <strong><span class="fa fa-toggle-on"></span></strong></button>';
         } else {
-            str += '<button type="button" class="btn btn-danger text-center" > <strong><i class="fa fa-toggle-off"></i></strong></button>';
+            str += '<button type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosMarcas[i].IdMarca + ',' + datosMarcas[i].HabilitadoMarca +');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
         }   
         str +='</div></div></td></tr>';
 
@@ -133,4 +138,41 @@ function comprobarNombre(nombre) {
     } else {
         document.getElementById("NombreMarca").setCustomValidity("");
     }
+}
+
+//Función para habilitar o deshabilitar la marca
+function habilitarOdeshabilitar(idMarc, estadoMarc) {
+    var nuevoEstado = true;
+    if (estadoMarc) {
+        nuevoEstado = false;
+    } else {
+        nuevoEstado = true;
+    }
+    console.log(nuevoEstado);
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar de Estado la Categoria?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "IdMarca": idMarc, "HabilitadoMarca": nuevoEstado },
+                url: urlEstado,
+                type: 'post',
+                success: function () {
+                    obtenerMarcas(url_metodo);
+                }, error: function () {
+
+                }
+            });
+        } else {
+
+        }
+    });
 }
