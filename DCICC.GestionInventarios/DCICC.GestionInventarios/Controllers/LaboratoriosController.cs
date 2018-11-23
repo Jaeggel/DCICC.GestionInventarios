@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 LaboratoriosAccDatos objLaboratoriosAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
-                msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio);
+                msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio,false);
                 if (msjLaboratorios.OperacionExitosa)
                 {
                     Logs.Info(mensajesLaboratorios);
@@ -113,7 +113,37 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesLaboratorios + ": " + e.Message);    
             }
-            return View();
+            return RedirectToAction("ModificarLaboratorio", "Laboratorios");
+        }
+        /// <summary>
+        /// Método para actualizar el estado de un laboratorio en la base de datos.
+        /// </summary>
+        /// <param name="infoLaboratorio"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoLaboratorio(Laboratorios infoLaboratorio)
+        {
+            string mensajesLaboratorios = string.Empty;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
+            try
+            {
+                LaboratoriosAccDatos objLaboratoriosAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
+                msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio, true);
+                if (msjLaboratorios.OperacionExitosa)
+                {
+                    Logs.Info(mensajesLaboratorios);
+                }
+                else
+                {
+                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio: " + msjLaboratorios.MensajeError;
+                    TempData["MensajeError"] = mensajesLaboratorios;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesLaboratorios + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
         /// <summary>
         /// Método para obtener todos los laboratorios de la base de datos

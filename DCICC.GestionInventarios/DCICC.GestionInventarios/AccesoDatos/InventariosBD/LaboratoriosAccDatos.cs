@@ -82,7 +82,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// </summary>
         /// <param name="infoLaboratorio"></param>
         /// <returns></returns>
-        public MensajesLaboratorios ActualizarLaboratorio(Laboratorios infoLaboratorio)
+        public MensajesLaboratorios ActualizarLaboratorio(Laboratorios infoLaboratorio, bool actEstado)
         {
             MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             try
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Laboratorios/ActualizarLaboratorio", infoLaboratorio).Result;
+                var response = clientService.PostAsJsonAsync(actEstado ? "Laboratorios/ActualizarEstadoLaboratorio" : "Laboratorios/ActualizarLaboratorio", infoLaboratorio).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var catJson = response.Content.ReadAsStringAsync().Result;

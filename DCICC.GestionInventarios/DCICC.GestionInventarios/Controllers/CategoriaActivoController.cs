@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 CategoriasActivosAccDatos objCategoriasAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
-                msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo);
+                msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo,false);
                 if (msjCategorias.OperacionExitosa)
                 {
                     Logs.Info(mensajesCategorias);
@@ -106,6 +106,35 @@ namespace DCICC.GestionInventarios.Controllers
                 else
                 {
                     mensajesCategorias= "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesCategorias + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarCategoriaActivo.
+        /// </summary>
+        /// <param name="infoCategoriaActivo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoCategoriaActivo(CategoriaActivo infoCategoriaActivo)
+        {
+            string mensajesCategorias = string.Empty;
+            MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
+            try
+            {
+                CategoriasActivosAccDatos objCategoriasAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
+                msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo, true);
+                if (msjCategorias.OperacionExitosa)
+                {
+                    Logs.Info(mensajesCategorias);
+                }
+                else
+                {
+                    mensajesCategorias = "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
                 }
             }
             catch (Exception e)

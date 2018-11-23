@@ -98,5 +98,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjLaboratorios;
         }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de un laboratorio en la base de datos.
+        /// </summary>
+        /// <param name="infoLaboratorio"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoLaboratorio")]
+        public MensajesLaboratorios ActualizarEstadoLaboratorio([FromBody] Laboratorios infoLaboratorio)
+        {
+            MensajesLaboratorios msjLaboratorios = null;
+            try
+            {
+                ActualizacionesLaboratorios objActualizacionesLaboratoriosActBD = new ActualizacionesLaboratorios();
+                msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionEstadoLaboratorio(infoLaboratorio);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
+            }
+            return msjLaboratorios;
+        }
     }
 }

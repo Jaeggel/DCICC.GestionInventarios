@@ -112,7 +112,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
         }
         /// <summary>
         /// Método para obtener las máquinas virtuales de la base de datos

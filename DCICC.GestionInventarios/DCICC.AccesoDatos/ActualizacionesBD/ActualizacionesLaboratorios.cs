@@ -48,5 +48,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjLaboratorios;
         }
+        /// <summary>
+        /// Método para actualizar el estado de un laboratorio en la base de datos.
+        /// </summary>
+        /// <param name="infoLaboratorio"></param>
+        /// <returns></returns>
+        public MensajesLaboratorios ActualizacionEstadoLaboratorio(Laboratorios infoLaboratorio)
+        {
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_laboratorios set habilitado_laboratorio = @hl where id_laboratorio = @il", conn_BD))
+                {
+                    cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLaboratorio.HabilitadoLaboratorio;
+                    cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLaboratorio.IdLaboratorio;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjLaboratorios.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjLaboratorios.OperacionExitosa = false;
+                msjLaboratorios.MensajeError = e.Message;
+            }
+            return msjLaboratorios;
+        }
     }
 }

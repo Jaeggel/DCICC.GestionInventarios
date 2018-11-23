@@ -113,7 +113,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajes_Roles + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarRol", "Roles");
         }
         /// <summary>
         /// Método para obtener los roles habilitados de la base de datos

@@ -112,7 +112,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesMarcas + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarMarca", "Marcas");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarMarca.
@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesMarcas + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarMarca", "Marcas");
         }
         /// <summary>
         /// Método para obtener las marcas de la base de datos

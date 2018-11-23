@@ -130,7 +130,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajes_Usuarios + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
@@ -159,7 +159,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajes_Usuarios + ": " + e.Message);
             }
-            return View();
+            return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
         /// Método para obtener los los usuariso con su rol de la base de datos
