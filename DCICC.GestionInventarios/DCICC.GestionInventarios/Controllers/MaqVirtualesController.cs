@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevaMaqVirtual()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarMaqVirtual()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -58,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
             {
-                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos(Session["userInfo"].ToString());
+                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
                 msjMaqVirtuales = objMaqVirtualesAccDatos.RegistrarMaqVirtual(infoMaqVirtual);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
@@ -91,7 +97,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
             {
-                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos(Session["userInfo"].ToString());
+                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
                 msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
@@ -114,7 +120,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerMaqVirtualesComp()
         {
-            MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos(Session["userInfo"].ToString());
+            MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
             return Json(objMaqVirtualesAccDatos.ObtenerMaqVirtuales("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

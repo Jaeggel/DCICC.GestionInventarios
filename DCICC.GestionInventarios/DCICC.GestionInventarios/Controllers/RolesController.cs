@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoRol()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarRol()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -58,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
-                RolesAccDatos objRolesAccDatos = new RolesAccDatos(Session["userInfo"].ToString());
+                RolesAccDatos objRolesAccDatos = new RolesAccDatos((string)Session["NickUsuario"]);
                 msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
                 if (msjRoles.OperacionExitosa)
                 {
@@ -91,17 +97,17 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
-                //RolesAccDatos objRolesAccDatos = new RolesAccDatos(Session["userInfo"].ToString());
-                //msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
-                //if (msjRoles.OperacionExitosa)
-                //{
-                //    mensajes_Roles = "El rol ha sido modificado exitosamente.";
-                //    Logs.Info(mensajes_Roles);
-                //}
-                //else
-                //{
-                //    mensajes_Roles = "No se ha podido modificar el rol: " + msjRoles.MensajeError;
-                //}
+                RolesAccDatos objRolesAccDatos = new RolesAccDatos((string)Session["NickUsuario"]);
+                msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
+                if (msjRoles.OperacionExitosa)
+                {
+                    mensajes_Roles = "El rol ha sido modificado exitosamente.";
+                    Logs.Info(mensajes_Roles);
+                }
+                else
+                {
+                    mensajes_Roles = "No se ha podido modificar el rol: " + msjRoles.MensajeError;
+                }
             }
             catch (Exception e)
             {
@@ -115,7 +121,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerRolesHab()
         {
-            RolesAccDatos objRolesAccDatos = new RolesAccDatos(Session["userInfo"].ToString());
+            RolesAccDatos objRolesAccDatos = new RolesAccDatos((string)Session["NickUsuario"]);
             return Json(objRolesAccDatos.ObtenerRoles("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

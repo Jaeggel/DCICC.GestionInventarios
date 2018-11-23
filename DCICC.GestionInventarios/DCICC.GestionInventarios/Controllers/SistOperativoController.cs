@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoSistOperativo()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarSistOperativo()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -58,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             try
             {
-                SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos(Session["userInfo"].ToString());
+                SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
                 msjSistOperativos = objSistOperativosAccDatos.RegistrarSistOperativo(infoSistOperativo);
                 if (msjSistOperativos.OperacionExitosa)
                 {
@@ -91,7 +97,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             try
             {
-                SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos(Session["userInfo"].ToString());
+                SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
                 msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo);
                 if (msjSistOperativos.OperacionExitosa)
                 {
@@ -114,7 +120,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerSistOperativosComp()
         {
-            SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos(Session["userInfo"].ToString());
+            SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
             return Json(objSistOperativosAccDatos.ObtenerSistOperativos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -123,7 +129,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerSistOperativosHab()
         {
-            SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos(Session["userInfo"].ToString());
+            SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
             return Json(objSistOperativosAccDatos.ObtenerSistOperativos("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

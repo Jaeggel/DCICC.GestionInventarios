@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoLaboratorio()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarLaboratorio()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -58,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             try
             {
-                LaboratoriosAccDatos objLaboratoriosActivosAccDatos = new LaboratoriosAccDatos(Session["userInfo"].ToString());
+                LaboratoriosAccDatos objLaboratoriosActivosAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
                 msjLaboratorios = objLaboratoriosActivosAccDatos.RegistrarLaboratorio(infoLaboratorio);
                 if (msjLaboratorios.OperacionExitosa)
                 {
@@ -91,7 +97,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             try
             {
-                LaboratoriosAccDatos objLaboratoriosAccDatos = new LaboratoriosAccDatos(Session["userInfo"].ToString());
+                LaboratoriosAccDatos objLaboratoriosAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
                 msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio);
                 if (msjLaboratorios.OperacionExitosa)
                 {
@@ -115,7 +121,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerLaboratoriosComp()
         {
-            LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos(Session["userInfo"].ToString());
+            LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
             return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

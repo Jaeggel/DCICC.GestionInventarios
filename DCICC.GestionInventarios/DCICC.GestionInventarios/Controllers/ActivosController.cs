@@ -23,12 +23,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoActivo()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -38,12 +41,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ConsultaActivos()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -59,7 +65,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
                 if (msjActivos.OperacionExitosa)
                 {
@@ -92,7 +98,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo);
                 if (msjActivos.OperacionExitosa)
                 {
@@ -121,7 +127,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos(Session["userInfo"].ToString());
+                AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
                 msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
                 if (msjAccesorios.OperacionExitosa)
                 {
@@ -153,7 +159,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos(Session["userInfo"].ToString());
+                AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
                 msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios);
                 if (msjAccesorios.OperacionExitosa)
                 {
@@ -177,7 +183,7 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult Image()
         {
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
-            string IdCQR = objGeneracionQR.GenerarIdCodigoQR();
+            string IdCQR = objGeneracionQR.GenerarIdCodigoQR((string)Session["NickUsuario"]);
             var bitmap = objGeneracionQR.GenerarCodigoQR(IdCQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
             CQR infoCQR = new CQR
@@ -189,7 +195,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
                 if (msjCQR.OperacionExitosa)
                 {
@@ -214,7 +220,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerAccesoriosComp()
         {
-            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos(Session["userInfo"].ToString());
+            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
             return Json(objAccesoriosAccDatos.ObtenerAccesorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -223,7 +229,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerActivosComp()
         {
-            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos(Session["userInfo"].ToString());
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objActivosAccDatos.ObtenerActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

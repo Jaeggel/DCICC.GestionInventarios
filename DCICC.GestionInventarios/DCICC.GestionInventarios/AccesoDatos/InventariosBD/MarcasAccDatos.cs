@@ -82,7 +82,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// </summary>
         /// <param name="infoMarca"></param>
         /// <returns></returns>
-        public MensajesMarcas ActualizarMarca(Marcas infoMarca)
+        public MensajesMarcas ActualizarMarca(Marcas infoMarca,bool actEstado)
         {
             MensajesMarcas msjMarcas = new MensajesMarcas();
             try
@@ -91,8 +91,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Marcas/ActualizarMarca", infoMarca).Result;
+                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);              
+                var response = clientService.PostAsJsonAsync(actEstado ? "Marcas/ActualizarEstadoMarca" : "Marcas/ActualizarMarca", infoMarca).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var MarcasJson = response.Content.ReadAsStringAsync().Result;

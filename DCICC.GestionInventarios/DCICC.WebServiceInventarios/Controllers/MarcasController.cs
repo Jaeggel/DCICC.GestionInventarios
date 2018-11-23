@@ -98,5 +98,25 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             return msjMarcas;
         }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de una marca en la base de datos.
+        /// </summary>
+        /// <param name="infoMarca"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoMarca")]
+        public MensajesMarcas ActualizarEstadoMarca([FromBody] Marcas infoMarca)
+        {
+            MensajesMarcas msjMarcas = null;
+            try
+            {
+                ActualizacionesMarcas objActualizacionesMarcasBD = new ActualizacionesMarcas();
+                msjMarcas = objActualizacionesMarcasBD.ActualizacionEstadoMarca(infoMarca);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar la marca: " + e.Message + " - " + msjMarcas.MensajeError);
+            }
+            return msjMarcas;
+        }
     }
 }

@@ -16,7 +16,6 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
-        public static string nickUsuarioSesion = string.Empty;
         public static string ipUsuarioSesion = string.Empty;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -26,7 +25,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult Login()
         {
-            if (Session["userInfo"] != null)
+            if ((string)Session["NickUsuario"] != null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -51,36 +50,31 @@ namespace DCICC.GestionInventarios.Controllers
                     datosUsuario= ComprobarCredenciales(infoLogin);
                     if (datosUsuario != null)
                     {
+                        //Construcción de sesion de usuario.
+                        Session["NickUsuario"] = datosUsuario.NickUsuario;
+                        Session["CorreoUsuario"] = datosUsuario.CorreoUsuario;
+                        Session["IpUsuario"] = ObtenerIPCliente();
                         //Definición del menú que tendrá el usuario en el sistema
                         if (datosUsuario.NombreRol.ToLower() == "administrador")
                         {
-                            MenuActionFilter.ObtenerMenu("Admin");
+                            Session["PerfilUsuario"] = "Admin";
                         }
                         else if (datosUsuario.NombreRol.ToLower() == "estudiante")
                         {
-                            MenuActionFilter.ObtenerMenu("Estudiantes");
+                            Session["PerfilUsuario"] = "Estudiantes";
                         }
                         else if (datosUsuario.NombreRol.ToLower() == "reportes")
                         {
-                            MenuActionFilter.ObtenerMenu("Reporteria");
+                            Session["PerfilUsuario"] = "Reporteria";
                         }
                         else
                         {
-                            MenuActionFilter.ObtenerMenu("Usuarios");
+                            Session["PerfilUsuario"] = "Usuarios";
                         }//OJO REDIRECCIONAMIENTO -> NO HOME
-
+                        Session.Timeout = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
+                                               
                         //Logs de reporte de transacción.
                         Logs.Info("Autenticación Exitosa");
-                        ipUsuarioSesion = ObtenerIPCliente();
-                        //Construcción de sesion de usuario.
-                        int tiempoExpiracionMin = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
-                        Session["userInfo"] = infoLogin.NickUsuario;
-                        nickUsuarioSesion= infoLogin.NickUsuario;
-                        Session.Timeout = tiempoExpiracionMin;
-
-                        //Definición de parámetros para utilizar en toda la aplicación.
-                        UsuarioActionFilter.ObtenerUsuario(datosUsuario.NickUsuario);
-                        CorreoActionFilter.ObtenerCorreo(datosUsuario.CorreoUsuario);
 
                         //Registro de Log para Login
                         RegistroSesionLogs("Login");
@@ -97,6 +91,8 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error("Error en la autenticación con el sistema: " + e.Message);
                 return View();
             }
+            var aux = Session.Count;
+            var aux2 = Session["NickUsuario"].ToString();
             return RedirectToAction("Index", "Home");
         }
         /// <summary>
@@ -138,7 +134,10 @@ namespace DCICC.GestionInventarios.Controllers
                 //Registro de Log para Login
                 RegistroSesionLogs("Logout");
                 //Cerrar Sesión
-                Session["userInfo"] = null;
+                Session["NickUsuario"] = null;
+                Session["CorreoUsuario"] = null;
+                Session["IpUsuario"] = null;
+                Session["PerfilUsuario"] = null;
                 Session.Abandon();
                 Session.Clear();
                 Session.RemoveAll();
@@ -169,10 +168,10 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public void RegistroSesionLogs(string operacion)
         {
-            LogsAccDatos objLogsAccDatos = new LogsAccDatos(nickUsuarioSesion);
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
             Logs infoLogs = new Logs
             {
-                IdUsuario = nickUsuarioSesion,
+                IdUsuario = (string)Session["NickUsuario"],
                 FechaLogs = DateTime.Now,
                 IpLogs = ipUsuarioSesion
             };

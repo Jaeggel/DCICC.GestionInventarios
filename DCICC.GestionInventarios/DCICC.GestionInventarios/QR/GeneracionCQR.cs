@@ -21,14 +21,14 @@ namespace DCICC.GestionInventarios.QR
         /// Método para generar el Id del código QR
         /// </summary>
         /// <returns></returns>
-        public string GenerarIdCodigoQR()
+        public string GenerarIdCodigoQR(string NickUsuarioSesion)
         {
             string mensajesCQR = string.Empty;
             string idCQR = "DCICC.CQR";
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(LoginController.nickUsuarioSesion);
+                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(NickUsuarioSesion);
                 msjCQR = objCQRAccDatos.ObtenerIdCQR();
                 if (msjCQR.OperacionExitosa)
                 {

@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoCategoriaActivo()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarCategoriaActivo()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -58,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             try
             {
-                CategoriasActivosAccDatos objCategoriasActivosAccDatos = new CategoriasActivosAccDatos(Session["userInfo"].ToString());
+                CategoriasActivosAccDatos objCategoriasActivosAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
                 msjCategorias = objCategoriasActivosAccDatos.RegistrarCategoriaActivo(infoCategoriaActivo);
                 if (msjCategorias.OperacionExitosa)
                 {
@@ -91,7 +97,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             try
             {
-                CategoriasActivosAccDatos objCategoriasAccDatos = new CategoriasActivosAccDatos(Session["userInfo"].ToString());
+                CategoriasActivosAccDatos objCategoriasAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
                 msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo);
                 if (msjCategorias.OperacionExitosa)
                 {
@@ -114,7 +120,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerCategoriasActivosComp()
         {
-            CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos(Session["userInfo"].ToString());
+            CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -123,7 +129,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerCategoriasActivosHab()
         {
-            CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos(Session["userInfo"].ToString());
+            CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

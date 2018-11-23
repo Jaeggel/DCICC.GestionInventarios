@@ -28,6 +28,9 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarMarca()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -58,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesMarcas msjMarcas = new MensajesMarcas();
             try
             {
-                MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos(Session["userInfo"].ToString());
+                MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
                 msjMarcas = objMarcasAccDatos.RegistrarMarca(infoMarca);
                 if (msjMarcas.OperacionExitosa)
                 {
@@ -91,8 +97,37 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesMarcas msjMarcas = new MensajesMarcas();
             try
             {
-                MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos(Session["userInfo"].ToString());
-                msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca);
+                MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
+                msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca,false);
+                if (msjMarcas.OperacionExitosa)
+                {
+                    Logs.Info(mensajesMarcas);
+                }
+                else
+                {
+                    mensajesMarcas = "No se ha podido actualizar la marca: " + msjMarcas.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesMarcas + ": " + e.Message);
+            }
+            return View();
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarMarca.
+        /// </summary>
+        /// <param name="infoMarcas"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoMarca(Marcas infoMarca)
+        {
+            string mensajesMarcas = string.Empty;
+            MensajesMarcas msjMarcas = new MensajesMarcas();
+            try
+            {
+                MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
+                msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca, true);
                 if (msjMarcas.OperacionExitosa)
                 {
                     Logs.Info(mensajesMarcas);
@@ -114,7 +149,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerMarcasComp()
         {
-            MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos(Session["userInfo"].ToString());
+            MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
             return Json(objMarcasAccDatos.ObtenerMarcas("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

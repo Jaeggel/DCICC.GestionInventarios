@@ -16,10 +16,10 @@ namespace DCICC.GestionInventarios.Configuration
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpContext ctx = HttpContext.Current;
-            if (HttpContext.Current.Session["userInfo"] == null)
+            if (HttpContext.Current.Session["NickUsuario"] == null)
             {
                 LoginController obj = new LoginController();
-                obj.RegistroSesionLogs("Logout");
+                obj.CerrarSesion();
                 filterContext.Result = new RedirectResult("~/Login/Login");
                 return;
             }

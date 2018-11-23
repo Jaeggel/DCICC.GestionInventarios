@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult GestionTickets()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -47,7 +50,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesTickets msjTickets = new MensajesTickets();
             try
             {
-                TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+                TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
                 msjTickets = objTicketsAccDatos.ActualizarTicket(infoTicket);
                 if (msjTickets.OperacionExitosa)
                 {
@@ -70,7 +73,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerTicketsAbiertos()
         {
-            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
             return Json(objTicketsAccDatos.ObtenerTickets("Abiertos").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -79,7 +82,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerTicketsEnCurso()
         {
-            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
             return Json(objTicketsAccDatos.ObtenerTickets("EnCurso").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -88,7 +91,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerTicketsResueltos()
         {
-            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos(Session["userInfo"].ToString());
+            TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
             return Json(objTicketsAccDatos.ObtenerTickets("Resueltos").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

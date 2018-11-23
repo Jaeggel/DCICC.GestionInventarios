@@ -98,5 +98,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjCategorias;
         }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de una categoría en la base de datos.
+        /// </summary>
+        /// <param name="infoCategoriaActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoCategoriaActivo")]
+        public MensajesCategoriasActivos ActualizarEstadoCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
+        {
+            MensajesCategoriasActivos msjCategorias = null;
+            try
+            {
+                ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
+                msjCategorias = objActualizacionesCategoriasActBD.ActualizacionEstadoCategoria(infoCategoriaActivo);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar la categoría: " + e.Message + " - " + msjCategorias.MensajeError);
+            }
+            return msjCategorias;
+        }
     }
 }

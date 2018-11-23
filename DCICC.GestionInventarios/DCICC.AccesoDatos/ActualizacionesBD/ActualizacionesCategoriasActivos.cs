@@ -47,5 +47,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjCategorias;
         }
+        /// <summary>
+        /// Método para actualizar el estado de una categoría en la base de datos.
+        /// </summary>
+        /// <param name="infoCategoriaActivo"></param>
+        /// <returns></returns>
+        public MensajesCategoriasActivos ActualizacionEstadoCategoria(CategoriaActivo infoCategoriaActivo)
+        {
+            MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_categoriaactivos set habilitado_categoriaact = @hc where id_categoriaact = @ic", conn_BD))
+                {
+                    cmd.Parameters.Add("hc", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoCategoriaActivo.HabilitadoCategoriaActivo;
+                    cmd.Parameters.Add("ic", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoCategoriaActivo.IdCategoriaActivo;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjCategorias.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjCategorias.OperacionExitosa = false;
+                msjCategorias.MensajeError = e.Message;
+            }
+            return msjCategorias;
+        }
     }
 }

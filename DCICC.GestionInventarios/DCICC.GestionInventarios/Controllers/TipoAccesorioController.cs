@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoTipoAccesorio()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarTipoAccesorio()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -58,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             try
             {
-                TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos(Session["userInfo"].ToString());
+                TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
                 msjTipoAccesorio = objTipoAccesorioAccDatos.RegistrarTipoAccesorio(infoTipoAccesorio);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
@@ -91,7 +97,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             try
             {
-                TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos(Session["userInfo"].ToString());
+                TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
                 msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
@@ -114,7 +120,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerTipoAccesorioComp()
         {
-            TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos(Session["userInfo"].ToString());
+            TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
             return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }

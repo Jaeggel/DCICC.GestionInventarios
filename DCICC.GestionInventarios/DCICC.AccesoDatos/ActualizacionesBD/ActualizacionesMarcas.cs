@@ -47,5 +47,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjMarcas;
         }
+        /// <summary>
+        /// Método para actualizar una marca en la base de datos.
+        /// </summary>
+        /// <param name="infoMarca"></param>
+        /// <returns></returns>
+        public MensajesMarcas ActualizacionEstadoMarca(Marcas infoMarca)
+        {
+            MensajesMarcas msjMarcas = new MensajesMarcas();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_marca set habilitado_marca = @hm where id_marca = @im", conn_BD))
+                {
+                    cmd.Parameters.Add("hm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMarca.HabilitadoMarca;
+                    cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMarca.IdMarca;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjMarcas.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjMarcas.OperacionExitosa = false;
+                msjMarcas.MensajeError = e.Message;
+            }
+            return msjMarcas;
+        }
     }
 }

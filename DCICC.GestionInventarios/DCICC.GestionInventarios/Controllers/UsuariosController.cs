@@ -22,12 +22,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevoUsuario()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -37,12 +40,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ModificarUsuario()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -52,12 +58,15 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult PerfilUsuario()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             else
             {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
         }
@@ -73,7 +82,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
                 msjUsuarios = objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
                 if(msjUsuarios.OperacionExitosa)
                 {
@@ -106,7 +115,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
                 if (msjUsuarios.OperacionExitosa)
                 {
@@ -135,7 +144,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario);
                 if (msjUsuarios.OperacionExitosa)
                 {
@@ -158,7 +167,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerUsuariosRoles()
         {
-            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos(Session["userInfo"].ToString());
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
             return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -168,7 +177,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerNickActual()
         {
             Usuarios infoUsuario = new Usuarios();
-            infoUsuario.NickUsuario = Session["userInfo"].ToString();
+            infoUsuario.NickUsuario = (string)Session["NickUsuario"];
             return Json(infoUsuario, JsonRequestBehavior.AllowGet);
         }
     }

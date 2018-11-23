@@ -14,9 +14,6 @@ namespace DCICC.GestionInventarios
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            GlobalFilters.Filters.Add(new MenuActionFilter(), 0);
-            GlobalFilters.Filters.Add(new UsuarioActionFilter(), 0);
-            GlobalFilters.Filters.Add(new CorreoActionFilter(), 0);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
