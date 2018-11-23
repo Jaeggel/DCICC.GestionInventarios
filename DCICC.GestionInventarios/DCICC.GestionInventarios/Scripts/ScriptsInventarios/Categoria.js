@@ -81,7 +81,7 @@ function modificarCategoria(url_modificar) {
     var nombreCategoria=document.getElementById("NombreCategoriaActivo").value;
     var descripcionCategoria=document.getElementById("DescripcionCategoriaActivo").value;
     var habilitadoCategoria = $('#HabilitadoCategoriaActivo').prop('checked');
-
+    console.log(url_metodo);
     swal({
         title: 'Confirmación de Actualización',
         text: "¿Está seguro de modificar el registro?",
@@ -99,10 +99,12 @@ function modificarCategoria(url_modificar) {
                 url: url_modificar,
                 type: 'post',
                 success: function () {
+                    console.log("actualizacion exitosa");
                     $('#ModificarCategoria').modal('hide');
                     showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
                     obtenerCategorias(url_metodo);
-                }, error: function () {
+                }, error: function (e) {
+                    console.log(e);
                     $('#ModificarCategoria').modal('hide');
                     showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo', "error");
                 }

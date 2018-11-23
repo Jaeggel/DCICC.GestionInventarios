@@ -91,8 +91,29 @@ function formUpdateTipoAct(idTipoAct) {
 
         if (datosTipoActivo[i].IdTipoActivo == idTipoAct) {
             //Métodos para setear los valores a modificar
-            var element = document.getElementById("IdCategoriaActivo");
-            element.value = datosTipoActivo[i].IdCategoriaActivo;
+            //var element = document.getElementById("IdCategoriaActivo");
+            //element.value = datosTipoActivo[i].IdCategoriaActivo;
+            //element.options[element.options.length] = new Option(datosTipoActivo[i].NombreCategoriaActivo, 0);
+            for (var j = 0; j < cmbCategorias.length; j++) {
+                if (cmbCategorias[j].IdCategoriaActivo == datosTipoActivo[i].IdCategoriaActivo) {
+                    console.log(cmbCategorias[j].IdCategoriaActivo + " " + datosTipoActivo[i].IdCategoriaActivo)
+                    var element = document.getElementById("IdCategoriaActivo");
+                    element.value = datosTipoActivo[i].IdCategoriaActivo;
+                    //$('#IdCategoriaActivo option:contains(' + datosTipoActivo[i].NombreCategoriaActivo + ')').text('TEMPEST');
+                    //$('#IdCategoriaActivo option:contains("Escoga una opción...")').text(datosTipoActivo[i].NombreCategoriaActivo);
+                    //$('select option:contains("TEMPEST")').text('Escoga una opción...');
+                } else {
+                    //$("#IdCategoriaActivo").find("option:contains(Escoga una opción...)").text(datosTipoActivo[i].NombreCategoriaActivo);
+                    $('#IdCategoriaActivo option:contains(' + datosTipoActivo[i].NombreCategoriaActivo + ')').text('TEMPEST');
+                    $('#IdCategoriaActivo option:contains("Escoga una opción...")').text(datosTipoActivo[i].NombreCategoriaActivo);
+                    $('select option:contains("TEMPEST")').text('Escoga una opción...');
+                    var element = document.getElementById("IdCategoriaActivo");
+                    element.value = 0;
+                }
+
+            }
+            
+           
             document.getElementById("NombreTipoActivo").value = datosTipoActivo[i].NombreTipoActivo;
             document.getElementById("DescripcionTipoActivo").value = datosTipoActivo[i].DescripcionTipoActivo;
             document.getElementById("VidaUtilTipoActivo").value = datosTipoActivo[i].VidaUtilTipoActivo;
@@ -106,7 +127,8 @@ function formUpdateTipoAct(idTipoAct) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoTipoActivo").click();
             }
-        };
+            break;
+        }
     };
 }
 
