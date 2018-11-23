@@ -57,6 +57,15 @@
                                 <span class="step_no">3</span>
                                 <span class="step_descr">
                                     Paso 3<br />
+                                    <small>Accesorios del Activo</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#step-4">
+                                <span class="step_no">4</span>
+                                <span class="step_descr">
+                                    Paso 4<br />
                                     <small>Confirmación y Código QR</small>
                                 </span>
                             </a>
@@ -65,7 +74,7 @@
                     </ul>
                     <div id="step-1">
                         @* Formulario para envio de datos de los componentes para el ingreso de un nuevo activo
-                            (Metodo de la clase) - Controlador (Controller) *@
+            (Metodo de la clase) - Controlador (Controller) *@
                         @using (Html.BeginForm("NuevoActivo", "Activos"))
                         {
                             <div class="form-horizontal form-label-left input_mask" id="Paso1">
@@ -155,11 +164,11 @@
                                         <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del codigo UPS del activo *@
-                                    <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">                                       
+                                    <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="20">
                                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                   
+
                                 </div>
                                 @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
                                 <div class="form-group">
@@ -190,7 +199,7 @@
                         }
 
                     </div>
-                    <div id="step-2">                     
+                    <div id="step-2">
                         <div class="form-horizontal form-label-left input_mask" id="Paso2">
 
                             @* ---------------- Sección de especificaciones adicionales para todos los Activos ---------------*@
@@ -272,6 +281,42 @@
                         </div>
                     </div>
                     <div id="step-3">
+                        <div class="form-horizontal form-label-left input_mask" id="Paso3">
+                            @* Combobox para seleccionar el estado del activo *@
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>Escoja Tipo de Accesorio:</label>
+                                    <select class="form-control" name="EstadoActivo" required>
+                                        <option>Seleccionar</option>
+                                        <option>Option one</option>
+                                        <option>Option two</option>
+                                        <option>Option three</option>
+                                        <option>Option four</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+                            @* Cuadro de texto para el ingreso del nombre de un accesorio *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Accesorio" maxlength="50" required>
+                                <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="msg_username" style="color:brown;"></span>
+                            </div>
+                            @* Cuadro de texto para el ingreso del modelo de un accesorio *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Serial del Activo" maxlength="80" required>
+                                <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            @* Cuadro de texto para el ingreso del serial de un accesorio *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" maxlength="80" required>
+                                <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="step-4">
                         <h2 class="StepTitle">Step 3 Content</h2>
                         <p>
                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore

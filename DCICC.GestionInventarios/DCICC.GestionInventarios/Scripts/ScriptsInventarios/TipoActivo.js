@@ -91,8 +91,18 @@ function formUpdateTipoAct(idTipoAct) {
 
         if (datosTipoActivo[i].IdTipoActivo == idTipoAct) {
             //Métodos para setear los valores a modificar
-            var element = document.getElementById("IdCategoriaActivo");
-            element.value = datosTipoActivo[i].IdCategoriaActivo;
+            //var element = document.getElementById("IdCategoriaActivo");
+            //element.value = datosTipoActivo[i].IdCategoriaActivo;
+            //element.options[element.options.length] = new Option(datosTipoActivo[i].NombreCategoriaActivo, 0);
+            if (cmbCategorias[i].IdCategoriaActivo != datosTipoActivo[i].IdCategoriaActivo) {
+                $('#IdCategoriaActivo option:contains(' + datosTipoActivo[i].NombreCategoriaActivo + ')').text('TEMPEST');
+                $('#IdCategoriaActivo option:contains("Escoga una opción...")').text(datosTipoActivo[i].NombreCategoriaActivo);
+                $('select option:contains("TEMPEST")').text('Escoga una opción...');
+            } else {
+                var element = document.getElementById("IdCategoriaActivo");
+                element.value = datosTipoActivo[i].IdCategoriaActivo;
+            }
+           
             document.getElementById("NombreTipoActivo").value = datosTipoActivo[i].NombreTipoActivo;
             document.getElementById("DescripcionTipoActivo").value = datosTipoActivo[i].DescripcionTipoActivo;
             document.getElementById("VidaUtilTipoActivo").value = datosTipoActivo[i].VidaUtilTipoActivo;
