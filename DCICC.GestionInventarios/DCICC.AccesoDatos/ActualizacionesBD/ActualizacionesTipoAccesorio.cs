@@ -47,5 +47,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjTipoAccesorio;
         }
+        /// <summary>
+        /// Método para actualizar el estado de un tipo de accesorio en la base de datos.
+        /// </summary>
+        /// <param name="infoTipoAccesorio"></param>
+        /// <returns></returns>
+        public MensajesTipoAccesorio ActualizacionEstadoTipoAccesorio(TipoAccesorio infoTipoAccesorio)
+        {
+            MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_tipoAccesorio set habilitado_tipoaccesorio = @hta where id_tipoaccesorio = @ita", conn_BD))
+                {
+                    cmd.Parameters.Add("hta", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoTipoAccesorio.HabilitadoTipoAccesorio;
+                    cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTipoAccesorio.IdTipoAccesorio;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjTipoAccesorio.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjTipoAccesorio.OperacionExitosa = false;
+                msjTipoAccesorio.MensajeError = e.Message;
+            }
+            return msjTipoAccesorio;
+        }
     }
 }

@@ -98,5 +98,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjSistOperativos;
         }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de un sistema operativo en la base de datos.
+        /// </summary>
+        /// <param name="infoSistOperativo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoSistOperativo")]
+        public MensajesSistOperativos ActualizarEstadoSistOperativo([FromBody] SistOperativos infoSistOperativo)
+        {
+            MensajesSistOperativos msjSistOperativos = null;
+            try
+            {
+                ActualizacionesSistOperativos objActualizacionesSistOperativosBD = new ActualizacionesSistOperativos();
+                msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionEstadoSistOperativo(infoSistOperativo);
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo actualizar el sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
+            }
+            return msjSistOperativos;
+        }
     }
 }

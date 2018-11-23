@@ -98,7 +98,36 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
-                msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual);
+                msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual,false);
+                if (msjMaqVirtuales.OperacionExitosa)
+                {
+                    Logs.Info(mensajesMaqVirtuales);
+                }
+                else
+                {
+                    mensajesMaqVirtuales = "No se ha podido actualizar la máquina virtual: " + msjMaqVirtuales.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarMaqVirtual.
+        /// </summary>
+        /// <param name="infoMaqVirtual"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoMaqVirtual(MaqVirtuales infoMaqVirtual)
+        {
+            string mensajesMaqVirtuales = string.Empty;
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
+            try
+            {
+                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
+                msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual, true);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
                     Logs.Info(mensajesMaqVirtuales);

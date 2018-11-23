@@ -82,7 +82,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// </summary>
         /// <param name="infoMaqVirtual"></param>
         /// <returns></returns>
-        public MensajesMaqVirtuales ActualizarMaqVirtual(MaqVirtuales infoMaqVirtual)
+        public MensajesMaqVirtuales ActualizarMaqVirtual(MaqVirtuales infoMaqVirtual, bool actEstado)
         {
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("MaqVirtuales/ActualizarMaqVirtual", infoMaqVirtual).Result;
+                var response = clientService.PostAsJsonAsync(actEstado?"MaqVirtuales/ActualizarEstadoMaqVirtual": "MaqVirtuales/ActualizarMaqVirtual", infoMaqVirtual).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var MaqVirtualesJson = response.Content.ReadAsStringAsync().Result;

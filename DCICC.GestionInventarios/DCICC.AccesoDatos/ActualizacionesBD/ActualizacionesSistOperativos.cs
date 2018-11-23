@@ -47,5 +47,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjSistOperativos;
         }
+        /// <summary>
+        /// Método para actualizar el estado de un sistema operativo en la base de datos.
+        /// </summary>
+        /// <param name="infoSistOperativo"></param>
+        /// <returns></returns>
+        public MensajesSistOperativos ActualizacionEstadoSistOperativo(SistOperativos infoSistOperativo)
+        {
+            MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_sistoperativos set habilitado_so = @hso where id_so = @iso", conn_BD))
+                {
+                    cmd.Parameters.Add("hso", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoSistOperativo.HabilitadoSistOperativos;
+                    cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoSistOperativo.IdSistOperativos;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjSistOperativos.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjSistOperativos.OperacionExitosa = false;
+                msjSistOperativos.MensajeError = e.Message;
+            }
+            return msjSistOperativos;
+        }
     }
 }

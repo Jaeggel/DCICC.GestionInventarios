@@ -49,5 +49,33 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             return msjTipoActivo;
         }
+        /// <summary>
+        /// Método para actualizar un tipo de activo en la base de datos.
+        /// </summary>
+        /// <param name="infoTipoActivo"></param>
+        /// <returns></returns>
+        public MensajesTipoActivo ActualizacionEstadoTipoActivo(TipoActivo infoTipoActivo)
+        {
+            MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_tipoactivos SET habilitado_tipoact=@ht WHERE id_tipoact=@it", conn_BD))
+                {
+                    cmd.Parameters.Add("ht", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoTipoActivo.HabilitadoTipoActivo;
+                    cmd.Parameters.Add("it", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTipoActivo.IdTipoActivo;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjTipoActivo.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjTipoActivo.OperacionExitosa = false;
+                msjTipoActivo.MensajeError = e.Message;
+            }
+            return msjTipoActivo;
+        }
     }
 }

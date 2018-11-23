@@ -82,7 +82,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>
-        public MensajesTipoAccesorio ActualizarTipoAccesorio(TipoAccesorio infoTipoAccesorio)
+        public MensajesTipoAccesorio ActualizarTipoAccesorio(TipoAccesorio infoTipoAccesorio, bool actEstado)
         {
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             try
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("TipoAccesorio/ActualizarTipoAccesorio", infoTipoAccesorio).Result;
+                var response = clientService.PostAsJsonAsync(actEstado ? "TipoAccesorio/ActualizarEstadoTipoAccesorio" : "TipoAccesorio/ActualizarTipoAccesorio", infoTipoAccesorio).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TipoAccesorioJson = response.Content.ReadAsStringAsync().Result;

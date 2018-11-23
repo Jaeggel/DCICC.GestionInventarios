@@ -98,7 +98,36 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
-                msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo);
+                msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo,false);
+                if (msjTipoActivo.OperacionExitosa)
+                {
+                    Logs.Info(mensajesTipoActivo);
+                }
+                else
+                {
+                    mensajesTipoActivo = "No se ha podido actualizar el tipo de activo: " + msjTipoActivo.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesTipoActivo + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarTipoActivo", "TipoActivo");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarTipoActivo.
+        /// </summary>
+        /// <param name="infoTipoActivo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoTipoActivo(TipoActivo infoTipoActivo)
+        {
+            string mensajesTipoActivo = string.Empty;
+            MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
+            try
+            {
+                TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
+                msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo, true);
                 if (msjTipoActivo.OperacionExitosa)
                 {
                     Logs.Info(mensajesTipoActivo);

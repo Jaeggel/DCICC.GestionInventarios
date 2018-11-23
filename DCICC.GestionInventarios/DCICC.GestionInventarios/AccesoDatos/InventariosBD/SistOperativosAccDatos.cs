@@ -82,7 +82,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// </summary>
         /// <param name="infoSistOperativo"></param>
         /// <returns></returns>
-        public MensajesSistOperativos ActualizarSistOperativo(SistOperativos infoSistOperativo)
+        public MensajesSistOperativos ActualizarSistOperativo(SistOperativos infoSistOperativo,bool actEstado)
         {
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             try
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("SistOperativos/ActualizarSistOperativo", infoSistOperativo).Result;
+                var response = clientService.PostAsJsonAsync(actEstado ? "SistOperativos/ActualizarEstadoSistOperativo":"SistOperativos/ActualizarSistOperativo", infoSistOperativo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var SistOperativosJson = response.Content.ReadAsStringAsync().Result;

@@ -98,7 +98,36 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
-                msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo);
+                msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo,false);
+                if (msjSistOperativos.OperacionExitosa)
+                {
+                    Logs.Info(mensajesSistOperativos);
+                }
+                else
+                {
+                    mensajesSistOperativos = "No se ha podido actualizar el sistema operativo: " + msjSistOperativos.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesSistOperativos + ": " + e.Message);
+            }
+            return RedirectToAction("ModificarSistOperativo", "SistOperativo");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarSistOperativo.
+        /// </summary>
+        /// <param name="infoSistOperativos"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoSistOperativo(SistOperativos infoSistOperativo)
+        {
+            string mensajesSistOperativos = string.Empty;
+            MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
+            try
+            {
+                SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
+                msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo, true);
                 if (msjSistOperativos.OperacionExitosa)
                 {
                     Logs.Info(mensajesSistOperativos);
