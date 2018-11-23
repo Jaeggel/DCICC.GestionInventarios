@@ -2,6 +2,7 @@
 var url_metodo;
 var datosTipoActivo;
 var cmbCategorias;
+var cmbCategoriasComp;
 var idTipoActivo;
 
 //Método ajax para obtener los datos de tipo de activo
@@ -37,6 +38,21 @@ function obtenerCategorias(url) {
         }
     });
 }
+
+function obtenerCategoriasCompletas(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("siii");
+            cmbCategoriasComp = data;
+            cargarCategoriasCompCmb();
+        }
+    });
+}
+
+
 
 //Función para cargar la tabla de Tipo de Activo
 function cargarTipoActTabla() {
@@ -83,6 +99,17 @@ function cargarCategoriasCmb() {
     $("#cargarCategorias").html(str);
 }
 
+//Función para cargar el combobox de Categorias Completas
+function cargarCategoriasCompCmb() {
+    var str = '<select id="IdCategoriaComp" class="form-control" name="IdCategoriaComp" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < cmbCategoriasComp.length; i++) {
+        str += '<option value="' + cmbCategoriasComp[i].IdCategoriaActivo + '">' + cmbCategoriasComp[i].NombreCategoriaActivo + '</option>';
+    };
+    str += '</select>';
+    $("#cargarCategorias").html(str);
+}
+
 //Función para setear los valores en los inputs
 function formUpdateTipoAct(idTipoAct) {
     console.log(idTipoAct);
@@ -91,28 +118,9 @@ function formUpdateTipoAct(idTipoAct) {
 
         if (datosTipoActivo[i].IdTipoActivo == idTipoAct) {
             //Métodos para setear los valores a modificar
-            //var element = document.getElementById("IdCategoriaActivo");
-            //element.value = datosTipoActivo[i].IdCategoriaActivo;
-            //element.options[element.options.length] = new Option(datosTipoActivo[i].NombreCategoriaActivo, 0);
-            for (var j = 0; j < cmbCategorias.length; j++) {
-                if (cmbCategorias[j].IdCategoriaActivo == datosTipoActivo[i].IdCategoriaActivo) {
-                    console.log(cmbCategorias[j].IdCategoriaActivo + " " + datosTipoActivo[i].IdCategoriaActivo)
-                    var element = document.getElementById("IdCategoriaActivo");
-                    element.value = datosTipoActivo[i].IdCategoriaActivo;
-                    //$('#IdCategoriaActivo option:contains(' + datosTipoActivo[i].NombreCategoriaActivo + ')').text('TEMPEST');
-                    //$('#IdCategoriaActivo option:contains("Escoga una opción...")').text(datosTipoActivo[i].NombreCategoriaActivo);
-                    //$('select option:contains("TEMPEST")').text('Escoga una opción...');
-                } else {
-                    //$("#IdCategoriaActivo").find("option:contains(Escoga una opción...)").text(datosTipoActivo[i].NombreCategoriaActivo);
-                    $('#IdCategoriaActivo option:contains(' + datosTipoActivo[i].NombreCategoriaActivo + ')').text('TEMPEST');
-                    $('#IdCategoriaActivo option:contains("Escoga una opción...")').text(datosTipoActivo[i].NombreCategoriaActivo);
-                    $('select option:contains("TEMPEST")').text('Escoga una opción...');
-                    var element = document.getElementById("IdCategoriaActivo");
-                    element.value = 0;
-                }
-
-            }
-            
+            var element = document.getElementById("IdCategoriaComp");
+            element.value = datosTipoActivo[i].IdCategoriaActivo;
+            //element.options[element.options.length] = new Option(datosTipoActivo[i].NombreCategoriaActivo, 0);         
            
             document.getElementById("NombreTipoActivo").value = datosTipoActivo[i].NombreTipoActivo;
             document.getElementById("DescripcionTipoActivo").value = datosTipoActivo[i].DescripcionTipoActivo;
