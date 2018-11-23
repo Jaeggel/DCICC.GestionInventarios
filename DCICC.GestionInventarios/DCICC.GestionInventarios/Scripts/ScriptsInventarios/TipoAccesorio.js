@@ -82,7 +82,7 @@ function modificarTipoAcc(url_modificar) {
     var nombreTipo=document.getElementById("NombreTipoAccesorio").value;
     var descripcionTipo=document.getElementById("DescripcionTipoAccesorio").value;
     var habilitadoTipo = $('#HabilitadoTipoAccesorio').prop('checked');
-
+    
     swal({
         title: 'Confirmación de Actualización',
         text: "¿Está seguro de modificar el registro?",
@@ -95,7 +95,7 @@ function modificarTipoAcc(url_modificar) {
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "#HabilitadoTipoAccesorio": habilitadoTipo },
+                data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "HabilitadoTipoAccesorio": habilitadoTipo },
                 url: url_modificar,
                 type: 'post',
                 success: function () {
