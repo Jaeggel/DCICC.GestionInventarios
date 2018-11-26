@@ -65,9 +65,10 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                if (NuevoCQR().OperacionExitosa)
+                MensajesCQR msjCQR = NuevoCQR();
+                if (msjCQR.OperacionExitosa)
                 {
-                    infoActivo.IdCQR = NuevoCQR().ObjetoInventarios.IdCqr;
+                    infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
                     ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                     msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
                     if (msjActivos.OperacionExitosa)
