@@ -15,6 +15,8 @@ namespace DCICC.GestionInventarios.Controllers
     [SessionExpireFilter]
     public class ActivosController : Controller
     {
+        static bool ActivoQRRegistrado = false;
+        string Id_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -65,22 +67,27 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                MensajesCQR msjCQR = NuevoCQR();
-                if (msjCQR.OperacionExitosa)
+                if(!ActivoQRRegistrado)
                 {
-                    infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
-                    ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                    msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
-                    if (msjActivos.OperacionExitosa)
+                    MensajesCQR msjCQR = NuevoCQR();
+                    if (msjCQR.OperacionExitosa)
                     {
-                        mensajesActivos = "El activo ha sido registrado exitosamente.";
-                        TempData["Mensaje"] = mensajesActivos;
-                        Logs.Info(mensajesActivos);
-                    }
-                    else
-                    {
-                        mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
-                        TempData["MensajeError"] = mensajesActivos;
+                        infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
+                        ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                        msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
+                        ActivoQRRegistrado = true;
+                        if (msjActivos.OperacionExitosa)
+                        {
+                            mensajesActivos = "El activo ha sido registrado exitosamente.";
+                            Id_CQR = infoActivo.IdCQR;
+                            TempData["Mensaje"] = mensajesActivos;
+                            Logs.Info(mensajesActivos);
+                        }
+                        else
+                        {
+                            mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
+                            TempData["MensajeError"] = mensajesActivos;
+                        }
                     }
                 }
             }
@@ -90,6 +97,19 @@ namespace DCICC.GestionInventarios.Controllers
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
             return Json(msjActivos.ObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para mostrar el código QR
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ObtenerImagenQR()
+        {
+            GeneracionCQR objGeneracionQR = new GeneracionCQR();
+            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);//OJO CQR GLOBAL
+            var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
+            ActivoQRRegistrado = false;
+            return File(bitmapBytes, "image/jpeg");
+            //<img src='@Url.Action("ObtenerImagenQR")' />
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
