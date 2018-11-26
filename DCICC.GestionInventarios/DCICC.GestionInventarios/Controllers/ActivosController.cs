@@ -204,6 +204,7 @@ namespace DCICC.GestionInventarios.Controllers
                 if (msjCQR.OperacionExitosa)
                 {
                     mensajesCQR = "El CQR ha sido registrado exitosamente.";
+                    msjCQR.ObjetoInventarios = infoCQR;
                     Logs.Info(mensajesCQR);
                 }
                 else
