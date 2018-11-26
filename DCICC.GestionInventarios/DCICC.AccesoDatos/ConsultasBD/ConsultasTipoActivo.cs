@@ -34,19 +34,38 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        if (nombreFuncion == "tipoactivohabilitados")
                         {
-                            TipoActivo objTipoActivo = new TipoActivo
+                            while (dr.Read())
                             {
-                                IdTipoActivo = (int)dr[0],
-                                IdCategoriaActivo= (int)dr[1],
-                                NombreTipoActivo = dr[2].ToString().Trim(),
-                                DescripcionTipoActivo = dr[3].ToString().Trim(),
-                                VidaUtilTipoActivo=(int)dr[4],
-                                HabilitadoTipoActivo = (bool)dr[5],
-                                NombreCategoriaActivo = dr[6].ToString().Trim()
-                            };
-                            lstTipoActivo.Add(objTipoActivo);
+                                TipoActivo objTipoActivo = new TipoActivo
+                                {
+                                    IdTipoActivo = (int)dr[0],
+                                    IdCategoriaActivo = (int)dr[1],
+                                    NombreTipoActivo = dr[2].ToString().Trim(),
+                                    DescripcionTipoActivo = dr[3].ToString().Trim(),
+                                    VidaUtilTipoActivo = (int)dr[4],
+                                    HabilitadoTipoActivo = (bool)dr[5],
+                                };
+                                lstTipoActivo.Add(objTipoActivo);
+                            }
+                        }
+                        else
+                        {
+                            while (dr.Read())
+                            {
+                                TipoActivo objTipoActivo = new TipoActivo
+                                {
+                                    IdTipoActivo = (int)dr[0],
+                                    IdCategoriaActivo = (int)dr[1],
+                                    NombreTipoActivo = dr[2].ToString().Trim(),
+                                    DescripcionTipoActivo = dr[3].ToString().Trim(),
+                                    VidaUtilTipoActivo = (int)dr[4],
+                                    HabilitadoTipoActivo = (bool)dr[5],
+                                    NombreCategoriaActivo = dr[6].ToString().Trim()
+                                };
+                                lstTipoActivo.Add(objTipoActivo);
+                            }
                         }
                         conn_BD.Close();
                         msjTipoActivo.ListaObjetoInventarios = lstTipoActivo;

@@ -31,7 +31,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTipoActivo objConsultasTipoActivoBD = new ConsultasTipoActivo();
-                msjTipoActivo = objConsultasTipoActivoBD.ObtenerTipoActivo("tipocctivohabilitados");
+                msjTipoActivo = objConsultasTipoActivoBD.ObtenerTipoActivo("tipoactivohabilitados");
             }
             catch (Exception e)
             {

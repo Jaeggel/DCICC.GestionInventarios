@@ -22,7 +22,7 @@
             <div class="x_title">
                 <div class="form-group"><h2>Nueva Máquina Virtual </h2></div>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoProposito", "MaqVirtuales")'"><i class="fa fa-refresh"></i> Nuevo Propósito</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoProposito", "MaqVirtuales")'"><i class="fa fa-plus"></i> Nuevo Propósito</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -104,6 +104,23 @@
 
 @* Seccción para llamar al js de Máquinas Virtuales *@
 <script src="~/Scripts/ScriptsInventarios/MaquinaVirtual.js"></script>
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al registrar el Propósito", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
 <script>
     $(document).ready(function () {
         //Métodos para obtener la tabla de Máquinas Virtuales y el combobox de Sistemas Operativos
