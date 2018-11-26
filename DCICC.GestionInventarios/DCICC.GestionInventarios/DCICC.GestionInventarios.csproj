@@ -4670,6 +4670,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\ScriptsInventarios\Activos.js" />
     <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Login.js" />
