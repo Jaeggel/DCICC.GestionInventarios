@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_detalleactivo(id_tipoact, id_cqr, id_marca, id_laboratorio, nombre_detalleact, modelo_detalleact, serial_detalleact, fechaingreso_detalleact, codigoups_detalleact, cantidad_detalleact, descripcion_detalleact, estado_detalleact, expressservicecode_detalleact, productname_detalleact, capacidad_detalleact, velocidadtransf_detalleact, ct_detalleact, hpepartnumber_detalleact, codbarras1_detalleact, codbarras2_detalleact, numpuertos_detalleact, iosversion_detalleact, fechamanufactura_detalleact)VALUES (@ita, @icq,@im, @il,@nda,@mda, @sda, @fida, @cuda,@cada, @dsda, @eda,@escda, @pnda, @capda,@vtda, @ctda, @hpnda,@cb1da, @cb2da, @npda,@ivda, @fmda);", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_detalleactivo(id_tipoact, id_cqr, id_marca, id_laboratorio, nombre_detalleact, modelo_detalleact, serial_detalleact, fechaingreso_detalleact, codigoups_detalleact, cantidad_detalleact, descripcion_detalleact, estado_detalleact, expressservicecode_detalleact, productname_detalleact, capacidad_detalleact, velocidadtransf_detalleact, ct_detalleact, hpepartnumber_detalleact, codbarras1_detalleact, codbarras2_detalleact, numpuertos_detalleact, iosversion_detalleact, fechamanufactura_detalleact)VALUES (@ita, @icq,@im, @il,@nda,@mda, @sda, @fida, @cuda,@cada, @dsda, @eda,@escda, @pnda, @capda,@vtda, @ctda, @hpnda,@cb1da, @cb2da, @npda,@ivda, @fmda);", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdTipoActivo;
                     cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.IdCQR;
@@ -56,10 +56,9 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("fmda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.FechaManufacturaActivo) ? (object)infoActivo.FechaManufacturaActivo : DBNull.Value;
                     cmd.ExecuteNonQuery();
                 }
-                using (var cmd = new NpgsqlCommand("SELECT id_detalleact, id_cqr FROM public.dcicc_detalleactivo WHERE nombre_detalleact=@nda;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT id_detalleact, id_cqr FROM public.dcicc_detalleactivo WHERE nombre_detalleact=@nda", conn_BD))
                 {
-                    cmd.Parameters.Add("@nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
                     using (var dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -96,7 +95,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             try
             {
                 //falta valor boolean
-                using (var cmd = new NpgsqlCommand("insert into dcicc_CQR (id_CQR,datos_CQR) VALUES (@ic,@dc)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_CQR (id_CQR,datos_CQR) VALUES (@ic,@dc)", conn_BD))
                 {
                     cmd.Parameters.Add("ic", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCQR.IdCqr;
                     cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Bytea).Value = infoCQR.Bytea;

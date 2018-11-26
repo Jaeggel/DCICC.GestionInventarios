@@ -65,18 +65,22 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
-                if (msjActivos.OperacionExitosa)
+                if (NuevoCQR().OperacionExitosa)
                 {
-                    mensajesActivos = "El activo ha sido registrado exitosamente.";
-                    TempData["Mensaje"] = mensajesActivos;
-                    Logs.Info(mensajesActivos);
-                }
-                else
-                {
-                    mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
-                    TempData["MensajeError"] = mensajesActivos;
+                    infoActivo.IdCQR = NuevoCQR().ObjetoInventarios.IdCqr;
+                    ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                    msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
+                    if (msjActivos.OperacionExitosa)
+                    {
+                        mensajesActivos = "El activo ha sido registrado exitosamente.";
+                        TempData["Mensaje"] = mensajesActivos;
+                        Logs.Info(mensajesActivos);
+                    }
+                    else
+                    {
+                        mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
+                        TempData["MensajeError"] = mensajesActivos;
+                    }
                 }
             }
             catch (Exception e)
@@ -125,9 +129,9 @@ namespace DCICC.GestionInventarios.Controllers
         {
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
             try
             {
-                AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
                 msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
                 if (msjAccesorios.OperacionExitosa)
                 {
@@ -144,8 +148,9 @@ namespace DCICC.GestionInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
+                return Json(null, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("NuevoActivo", "Activos");//Revisar redireccionamiento
+            return Json(msjAccesorios.ObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
@@ -180,7 +185,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para mostrar el código QR  y registrar el QR en la base de datos en el view
         /// </summary>
         /// <returns></returns>
-        public ActionResult Image()
+        public MensajesCQR NuevoCQR()
         {
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
             string IdCQR = objGeneracionQR.GenerarIdCodigoQR((string)Session["NickUsuario"]);
@@ -211,8 +216,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesCQR + ": " + e.Message);
             }
-            return File(bitmapBytes, "image/jpeg");
-            //<img src='@Url.Action("image")' alt="" />
+            return msjCQR;
         }
         /// <summary>
         /// Método para obtener los accesorios de la base de datos
