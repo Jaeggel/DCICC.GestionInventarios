@@ -9,12 +9,12 @@
     ViewBag.Title = "Marcas";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
-@model DCICC.GestionInventarios.Models.Marcas
+@model DCICC.GestionInventarios.Models.Propositos
 
 @* Sección para la navegación entre pestañas *@
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
-    <li><a href="@Url.Action("ModificarMarca", "Marcas")">...</a></li>
+    <li><a href="@Url.Action("NuevaMaqVirtual", "MaqVirtuales")">Nueva Máquina Virtual</a></li>
     <li><a class="active">Nuevo</a></li>
 </ul>
 <div class="row">
@@ -51,7 +51,7 @@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <button type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary">Cancelar</button>
+                                <button type="button" class="btn btn-primary"  onclick="modificarMaquinaV('@Url.Action("NuevaMaqVirtual", "MaqVirtuales")');">Cancelar</button>
                             </div>
                         </div>
                     </div>

@@ -154,5 +154,14 @@ namespace DCICC.GestionInventarios.Controllers
             LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
             return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener todos los laboratorios de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerLaboratoriosHab()
+        {
+            LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
+            return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
     }
 }

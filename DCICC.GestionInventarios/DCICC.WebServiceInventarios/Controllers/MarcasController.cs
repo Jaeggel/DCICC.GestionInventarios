@@ -31,7 +31,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             try
             {
                 ConsultasMarcas objConsultasMarcasBD = new ConsultasMarcas();
-                msjMarcas = objConsultasMarcasBD.ObtenerMarcas("marcashabilitados");
+                msjMarcas = objConsultasMarcasBD.ObtenerMarcas("marcashabilitadas");
             }
             catch (Exception e)
             {

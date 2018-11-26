@@ -31,7 +31,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTipoAccesorio objConsultasTipoAccesorioBD = new ConsultasTipoAccesorio();
-                msjTipoAccesorio = objConsultasTipoAccesorioBD.ObtenerTipoAccesorio("tipoaccesoriohabilitados");
+                msjTipoAccesorio = objConsultasTipoAccesorioBD.ObtenerTipoAccesorio("tipoaccesoriohabilitado");
             }
             catch (Exception e)
             {

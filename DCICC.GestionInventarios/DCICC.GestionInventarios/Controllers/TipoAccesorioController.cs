@@ -152,5 +152,14 @@ namespace DCICC.GestionInventarios.Controllers
             TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
             return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener los tipos de accesorios de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerTipoAccesorioHab()
+        {
+            TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
+            return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
     }
 }

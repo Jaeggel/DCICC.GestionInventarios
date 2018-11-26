@@ -152,5 +152,14 @@ namespace DCICC.GestionInventarios.Controllers
             MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
             return Json(objMarcasAccDatos.ObtenerMarcas("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener las marcas de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerMarcasHab()
+        {
+            MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
+            return Json(objMarcasAccDatos.ObtenerMarcas("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
     }
 }

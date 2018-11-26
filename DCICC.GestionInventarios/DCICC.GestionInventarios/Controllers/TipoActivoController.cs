@@ -152,5 +152,14 @@ namespace DCICC.GestionInventarios.Controllers
             TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
             return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener los tipos de activos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerTipoActivoHab()
+        {
+            TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
+            return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
     }
 }
