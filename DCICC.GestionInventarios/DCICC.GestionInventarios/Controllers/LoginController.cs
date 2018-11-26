@@ -1,6 +1,5 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos;
 using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
-using DCICC.GestionInventarios.Filtros;
 using DCICC.GestionInventarios.Mail;
 using DCICC.GestionInventarios.Models;
 using log4net;
@@ -16,6 +15,7 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class LoginController : Controller
     {
+        public static int contMsj=0;
         //Instancia para la utilización de LOGS en la clase Login
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -74,6 +74,7 @@ namespace DCICC.GestionInventarios.Controllers
                                                
                         //Logs de reporte de transacción.
                         Logs.Info("Autenticación Exitosa");
+                        contMsj = 1;
 
                         //Registro de Log para Login
                         RegistroSesionLogs("Login");
@@ -135,6 +136,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Session["CorreoUsuario"] = null;
                 Session["IpUsuario"] = null;
                 Session["PerfilUsuario"] = null;
+                contMsj = 0;
                 Session.Abandon();
                 Session.Clear();
                 Session.RemoveAll();

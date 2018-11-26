@@ -25,6 +25,11 @@ namespace DCICC.GestionInventarios.Controllers
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
+                if(LoginController.contMsj==1)
+                {
+                    ViewBag.MsjBienv = "true";
+                }
+                LoginController.contMsj = 0;
                 return View();
             }
         }

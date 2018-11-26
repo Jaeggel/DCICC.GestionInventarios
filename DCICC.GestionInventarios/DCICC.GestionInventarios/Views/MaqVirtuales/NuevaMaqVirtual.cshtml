@@ -21,7 +21,9 @@
         <div class="x_panel">
             <div class="x_title">
                 <div class="form-group"><h2>Nueva Máquina Virtual </h2></div>
-                <ul class="nav navbar-right panel_toolbox"></ul>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoProposito", "MaqVirtuales")'"><i class="fa fa-refresh"></i> Nuevo Propósito</button></li>
+                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -90,7 +92,7 @@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <button type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary">Cancelar</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarMaqVirtual", "MaqVirtuales")'">Cancelar</button>
                             </div>
                         </div>
                     </div>

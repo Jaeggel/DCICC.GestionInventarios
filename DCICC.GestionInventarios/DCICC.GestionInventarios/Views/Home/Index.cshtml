@@ -16,6 +16,8 @@
 <script type="text/javascript" src="~/Content/Tema/vendors/flot.curvedlines/curvedLines.js"></script>
 <script type="text/javascript">
     window.onload = function () {
-        showNotify("Autenticación Exitosa", "Bienvenid@@ @ViewBag.UsuarioLogin", "success");
+        if ('@ViewBag.MsjBienv' === "true") {
+            showNotify("Autenticación Exitosa", "Bienvenid@@ @ViewBag.UsuarioLogin", "success");
+        }
     }
 </script>

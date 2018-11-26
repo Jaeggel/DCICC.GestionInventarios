@@ -203,12 +203,9 @@
     <Compile Include="Controllers\TipoAccesorioController.cs" />
     <Compile Include="Controllers\TipoActivoController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
-    <Compile Include="Filtros\CorreoActionFilter.cs" />
-    <Compile Include="Filtros\UsuarioActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Filtros\MenuActionFilter.cs" />
     <Compile Include="Mail\ConfiguracionMail.cs" />
     <Compile Include="Models\Accesorios.cs" />
     <Compile Include="Models\Activos.cs" />
@@ -236,6 +233,7 @@
     <Compile Include="Models\MensajesInventarios\MensajesTipoAccesorio.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesTipoActivo.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesUsuarios.cs" />
+    <Compile Include="Models\Propositos.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SistOperativos.cs" />
     <Compile Include="Models\Tickets.cs" />
@@ -4654,6 +4652,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="JSON\Propositos.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4737,6 +4736,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\MaqVirtuales\NuevoProposito.cshtml" />
+    <Content Include="Views\Accesorios\ModificarAccesorio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

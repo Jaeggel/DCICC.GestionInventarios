@@ -1,7 +1,7 @@
 ﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
     Autores: Andres Chisaguano - Joel Ludeña
-    Descripción: Vista para el ingreso de una nueva marca como por ejemplo
-    DELL, TOSHIBA, CISCO, etc.
+    Descripción: Vista para el ingreso de una nuevo propósito como por ejemplo
+    Coordinación académica, Titulación, etc.
 *@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
@@ -14,7 +14,7 @@
 @* Sección para la navegación entre pestañas *@
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
-    <li><a href="@Url.Action("ModificarMarca", "Marcas")">Marcas</a></li>
+    <li><a href="@Url.Action("ModificarMarca", "Marcas")">...</a></li>
     <li><a class="active">Nuevo</a></li>
 </ul>
 <div class="row">
@@ -23,7 +23,7 @@
     <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Nueva Marca </h2>
+                <h2>Nuevo Propósito </h2>
                 <ul class="nav navbar-right panel_toolbox"></ul>
                 <div class="clearfix"></div>
             </div>
@@ -31,24 +31,19 @@
                 <br>
                 @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevaMarca", "Marcas"))
+                @using (Html.BeginForm("NuevoProposito", "MaqVirtuales"))
                 {
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" maxlength="50" required>
+                            <input id="NombreProposito" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre del Propósito" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Área de Texto para el ingreso de la descripción de una marca *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="DescripcionMarca" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Marca" maxlength="150"></textarea>
-                            <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso de la nueva marca *@
                         <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Marca?</label>
+                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Propósito?</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input name="HabilitadoMarca" type="checkbox" class="js-switch" value="true" checked />
+                                <input name="HabilitadoProposito" type="checkbox" class="js-switch" value="true" checked />
                             </div>
                         </div>
                         <div class="ln_solid"></div>
@@ -56,7 +51,7 @@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <button type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarMarca", "Marcas")'">Cancelar</button>
+                                <button type="button" class="btn btn-primary">Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -65,19 +60,4 @@
         </div>
     </div>
 </div>
-@* Seccción para llamar al js de Marcas *@
-<script src="~/Scripts/ScriptsInventarios/Marcas.js"></script>
-<script>
-    $(document).ready(function () {
-        //Método para obtener la tabla de Marcas
-        obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
-        //Método para evitar la duplicidad de nombres de Marcas
-        $('#NombreMarca').blur(function () {
-            var nombre = document.getElementById("NombreMarca").value;
-            comprobarNombre(nombre);
-        });
-
-    });
-
-</script>
 

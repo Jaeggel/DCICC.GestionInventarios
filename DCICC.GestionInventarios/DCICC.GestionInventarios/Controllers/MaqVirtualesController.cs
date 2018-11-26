@@ -3,8 +3,10 @@ using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,6 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     [SessionExpireFilter]
     public class MaqVirtualesController : Controller
     {
+        readonly string path_JsonPropositos = System.Web.Hosting.HostingEnvironment.MapPath("~/Json/Propositos.json");
         //Instancia para la utilización de LOGS en la clase MaqVirtualesController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -21,6 +24,24 @@ namespace DCICC.GestionInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult NuevaMaqVirtual()
+        {
+            if ((string)Session["NickUsuario"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
+                return View();
+            }
+        }
+        /// <summary>
+        /// Método (GET) para mostrar la vista NuevoProposito
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NuevoProposito()
         {
             if ((string)Session["NickUsuario"] == null)
             {
@@ -53,7 +74,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
         }
         /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista NuevoMaqVirtual.
+        /// Método (POST) para recibir los datos provenientes de la vista NuevaMaqVirtual.
         /// </summary>
         /// <param name="infoMaqVirtual"></param>
         /// <returns></returns>
@@ -84,6 +105,27 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
             return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista NuevoProposito.
+        /// </summary>
+        /// <param name="infoProposito"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult NuevoProposito(Propositos infoProposito)
+        {
+            try
+            {
+                string dataJson = JsonConvert.SerializeObject(infoProposito);
+                System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                Logs.Error("El propósito ha sido registrado exitosamente. ");
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se ha podido registrar el propósito: "+e.Message);
+                return View();
+            }
+            return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarMaqVirtual.
@@ -151,6 +193,20 @@ namespace DCICC.GestionInventarios.Controllers
         {
             MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
             return Json(objMaqVirtualesAccDatos.ObtenerMaqVirtuales("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los propósitos del archivo JSON
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerPropositosComp()
+        {
+            List<Propositos> lstPropositos = new List<Propositos>();
+            using (StreamReader r = new StreamReader(path_JsonPropositos))
+            {
+                string json = r.ReadToEnd();
+                lstPropositos = JsonConvert.DeserializeObject<List<Propositos>>(json);
+            }
+            return Json(lstPropositos, JsonRequestBehavior.AllowGet);
         }
     }
 }
