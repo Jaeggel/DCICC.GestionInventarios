@@ -41,7 +41,7 @@ namespace DCICC.GestionInventarios.Models
 
         public string CodigoUpsActivo { get; set; }
 
-        public int CantidadActivo { get; set; }
+        public int CantidadActivo { get; set; } = 1;
 
         public string DescripcionActivo { get; set; }
 
@@ -61,7 +61,7 @@ namespace DCICC.GestionInventarios.Models
 
         public string CodBarras2Activo { get; set; }
 
-        public int NumPuertosActivo { get; set; }
+        public int NumPuertosActivo { get; set; } = 0;
 
         public string IosVersionActivo { get; set; }
 
