@@ -86,9 +86,9 @@ namespace DCICC.GestionInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error(mensajesActivos + ": " + e.Message);
-                return View();
+                return Json(null, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("ConsultaActivos", "Activos");
+            return Json(msjActivos.ObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
@@ -148,9 +148,8 @@ namespace DCICC.GestionInventarios.Controllers
             catch (Exception e)
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
-                return Json(null, JsonRequestBehavior.AllowGet);
             }
-            return Json(msjAccesorios.ObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(msjAccesorios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
