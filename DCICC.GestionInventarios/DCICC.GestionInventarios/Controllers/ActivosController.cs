@@ -65,23 +65,30 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                MensajesCQR msjCQR = NuevoCQR();
-                if (msjCQR.OperacionExitosa)
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                if (objActivosAccDatos.ObtenerCQR().ListaObjetoInventarios.Find(x => x.IdCqr == infoActivo.IdCQR) == null)
                 {
-                    infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
-                    ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                    msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
-                    if (msjActivos.OperacionExitosa)
+                    MensajesCQR msjCQR = NuevoCQR();
+                    if (msjCQR.OperacionExitosa)
                     {
-                        mensajesActivos = "El activo ha sido registrado exitosamente.";
-                        TempData["Mensaje"] = mensajesActivos;
-                        Logs.Info(mensajesActivos);
+                        infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
+                        msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
+                        if (msjActivos.OperacionExitosa)
+                        {
+                            mensajesActivos = "El activo ha sido registrado exitosamente.";
+                            TempData["Mensaje"] = mensajesActivos;
+                            Logs.Info(mensajesActivos);
+                        }
+                        else
+                        {
+                            mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
+                            TempData["MensajeError"] = mensajesActivos;
+                        }
                     }
-                    else
-                    {
-                        mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
-                        TempData["MensajeError"] = mensajesActivos;
-                    }
+                }
+                else
+                {
+                    return Json(null, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
