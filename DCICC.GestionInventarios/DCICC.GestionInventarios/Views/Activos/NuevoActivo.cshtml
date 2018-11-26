@@ -82,25 +82,15 @@
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <label>Escoja la Categoría de Activo:</label>
-                                        <select class="form-control" name="NombreCategoriaActivo" required>
-                                            <option>Seleccionar</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
-                                        </select>
+                                        <div id="cargarCategorias"></div>
                                     </div>
                                 </div>
                                 @* Combobox para seleccionar el tipo de activo *@
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <label>Escoja el Tipo de Activo:</label>
-                                        <select class="form-control" name="NombreTipoActivo" required>
-                                            <option>Seleccionar</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
+                                        <select class="form-control" name="TipoActivo" required>
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -108,26 +98,15 @@
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <label>Escoja la Marca del Activo:</label>
-                                        <select class="form-control" name="NombreMarca" required>
-                                            <option>Seleccionar</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
-                                        </select>
+                                        <div id="cargarMarcas"></div>
                                     </div>
+                                    @* Combobox para el laboratorio del activo *@
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <label>Laaboratorio del Activo:</label>
-                                        <select class="form-control" name="NombreLaboratorio" required>
-                                            <option>Seleccionar</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
-                                        </select>
+                                        <div id="cargarLaboratorios"></div>
                                     </div>
                                 </div>
-                                @* Combobox para seleccionar el laboratorio del activo *@
+
                                 <div class="form-group">
 
                                 </div>
@@ -135,13 +114,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <label>Escoja el Estado del Activo:</label>
-                                        <select class="form-control" name="EstadoActivo" required>
-                                            <option>Seleccionar</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
-                                        </select>
+                                        <div id="cargarEstados"></div>
                                     </div>
                                 </div>
                                 @* Cuadro de texto para el ingreso del nombre de un activo *@
@@ -153,14 +126,14 @@
 
                                 @* Cuadro de texto para el ingreso del modelo de un activo *@
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" maxlength="80" required>
+                                    <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" maxlength="80" required>
                                     <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                 </div>
 
                                 <div class="form-group">
                                     @* Cuadro de texto para el ingreso del serial activo *@
                                     <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" maxlength="150" required>
+                                        <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" maxlength="150" required>
                                         <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del codigo UPS del activo *@
@@ -282,17 +255,11 @@
                     </div>
                     <div id="step-3">
                         <div class="form-horizontal form-label-left input_mask" id="Paso3">
-                            @* Combobox para seleccionar el estado del activo *@
+                            @* Combobox para seleccionar el accesorio del activo *@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <label>Escoja Tipo de Accesorio:</label>
-                                    <select class="form-control" name="EstadoActivo" required>
-                                        <option>Seleccionar</option>
-                                        <option>Option one</option>
-                                        <option>Option two</option>
-                                        <option>Option three</option>
-                                        <option>Option four</option>
-                                    </select>
+                                    <div id="cargarAccesorios"></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -338,6 +305,8 @@
     <div class="col-md-1 col-sm-12 col-xs-12"></div>
 </div>
 
+
+<script src="~/Scripts/ScriptsInventarios/Activos.js"></script>
 @* Script para las funciones e instancia del Wizard *@
 <script type="text/javascript">
     $(document).ready(function () {
@@ -370,24 +339,9 @@
                 }
             }
             return isStepValid;
-
         }
 
-        //Método de validación para el paso 1
-        function validarPaso1() {
-            var isValid = true;
-            var nombre = document.getElementById("NombreActivo").value;
-            if (!nombre && nombre.length <= 0) {
-                isValid = false;
-                document.getElementById("NombreActivo").setCustomValidity("El campo no debe estar vacio");
-                $("#NombreActivo").focus();
-                $('#msg_username').html('Please fill username').show();
-            } else {
-                //document.getElementById("NombreActivo").setCustomValidity("");
-                //$('#msg_username').html('Please fill username').show();
-            }
-            return isValid;
-        }
+        
 
     });
 </script>
