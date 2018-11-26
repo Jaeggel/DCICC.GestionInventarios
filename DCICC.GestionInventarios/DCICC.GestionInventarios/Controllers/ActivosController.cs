@@ -65,30 +65,23 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                if (objActivosAccDatos.ObtenerCQR().ListaObjetoInventarios.Find(x => x.IdCqr == infoActivo.IdCQR) == null)
+                MensajesCQR msjCQR = NuevoCQR();
+                if (msjCQR.OperacionExitosa)
                 {
-                    MensajesCQR msjCQR = NuevoCQR();
-                    if (msjCQR.OperacionExitosa)
+                    infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
+                    ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                    msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
+                    if (msjActivos.OperacionExitosa)
                     {
-                        infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
-                        msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
-                        if (msjActivos.OperacionExitosa)
-                        {
-                            mensajesActivos = "El activo ha sido registrado exitosamente.";
-                            TempData["Mensaje"] = mensajesActivos;
-                            Logs.Info(mensajesActivos);
-                        }
-                        else
-                        {
-                            mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
-                            TempData["MensajeError"] = mensajesActivos;
-                        }
+                        mensajesActivos = "El activo ha sido registrado exitosamente.";
+                        TempData["Mensaje"] = mensajesActivos;
+                        Logs.Info(mensajesActivos);
                     }
-                }
-                else
-                {
-                    return Json(null, JsonRequestBehavior.AllowGet);
+                    else
+                    {
+                        mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
+                        TempData["MensajeError"] = mensajesActivos;
+                    }
                 }
             }
             catch (Exception e)
