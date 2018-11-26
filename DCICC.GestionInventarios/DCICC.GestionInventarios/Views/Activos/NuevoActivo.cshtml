@@ -154,7 +154,7 @@
                                             <div class="control-group">
                                                 <div class="controls">
                                                     <div class="col-md-12 xdisplay_inputx form-group has-feedback" style="padding-left: 0px;">
-                                                        <input id="FechaIngresoActivo" name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4" style="padding-left: 60px;">
+                                                        <input  name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4" style="padding-left: 60px;">
                                                         <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                                     </div>
@@ -326,11 +326,15 @@
             labelNext: 'Siguiente', // Nombre del botón siguiente
             labelPrevious: 'Anterior', // Nombre del botón anterior
             labelFinish: 'Finalizar',  // Nombre del botón finalizar
-            onLeaveStep: leaveAStepCallback, //Métodos de validación de pasos
+            onLeaveStep: leaveAStepCallback,//Métodos de validación de pasos
             reverseButtonsOrder: true
         });
         
-        function leaveAStepCallback(obj) {
+        function leaveAStepCallback(obj,context) {
+            if (context.toStep < context.fromStep) {
+                $('#wizard').smartWizard('hideMessage');
+                return true;
+            }
             var step_num = obj.attr('rel');
             return validateSteps(step_num);
         }
@@ -345,17 +349,28 @@
                     isStepValid = false;
                     $('#wizard').smartWizard('showMessage', 'Llenar los campos obligatorios en el paso ' + stepnumber + ' y presione Siguiente.');
                     $('#wizard').smartWizard('setError', { stepnum: stepnumber, iserror: true }); 
-                    setTimeout("$('.msgBox').fadeOut('slow');", 8000);
+                    setTimeout("$('.msgBox').fadeOut('slow');", 10000);
                 }   
             }
             if (stepnumber == 2) {
-                if (validarPaso2() == false) {
-                    isStepValid = false;
-                    $('#wizard').smartWizard('showMessage', 'Hubo un error al ingresar los datos');
-                    $('#wizard').smartWizard('setError', { stepnum: stepnumber, iserror: true });
-                    setTimeout("$('.msgBox').fadeOut('slow');", 8000);
+                isStepValid = validarPaso2();
+                console.log(isStepValid);
+                if (isStepValid == false) {
+                    $('#wizard').smartWizard('showMessage', 'Hubo un error en el paso ' + stepnumber + ' posiblemente existe el nombre del activo.');
+                    setTimeout("$('.msgBox').fadeOut('slow');", 10000);                    
                 }
             }
+
+                
+
+            //if (stepnumber == 2) {
+            //    if (validarPaso2() == false) {
+            //        isStepValid = false;
+            //        $('#wizard').smartWizard('showMessage', 'Hubo un error al ingresar los datos');
+            //        $('#wizard').smartWizard('setError', { stepnum: stepnumber, iserror: true });
+            //        setTimeout("$('.msgBox').fadeOut('slow');", 10000);
+            //    }
+            //}
             
             return isStepValid;
         }
@@ -411,12 +426,81 @@
 
         function validarPaso2() {
             var isValid = false;
+            url = '@Url.Action("NuevoActivo", "Activos")';
+            console.log(url);
+            //var confirmarIngreso = false;
+            //Obtener Valor del tipo de activo
+            var cmbTipoActivo = document.getElementById("TipoActivo");
+            var idTipoActivo = cmbTipoActivo.options[cmbTipoActivo.selectedIndex].value;
+            //Obtener valor del Laboratorio
+            var cmbLaboratorio = document.getElementById("LaboratorioActivo");
+            var idLaboratorio = cmbLaboratorio.options[cmbLaboratorio.selectedIndex].value;
+            //Obtener valor de la marca
+            var cmbMarca = document.getElementById("MarcaActivo");
+            var idMarca = cmbMarca.options[cmbMarca.selectedIndex].value;
+            //Obtener valor del Estado
+            var cmbEstado = document.getElementById("EstadoActivo");
+            var idEstado = cmbEstado.options[cmbEstado.selectedIndex].value;
+            //Obtener valor del nombre de activo
+            var nombreActivo = document.getElementById("NombreActivo").value;
+            //Obtener valor del serial de activo
+            var serialActivo = document.getElementById("SerialActivo").value;
+            //Obtener valor del modelo de activo
+            var modeloActivo = document.getElementById("ModeloActivo").value;
+            //Obtener valor del codigo UPS
+            var codigoUps = document.getElementById("CodigoUpsActivo").value;
+            //Obtener valor de la fecha de ingreso del activo
+            var fechaIngreso = $('.FechaIngresoActivo').val();
+            //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
+            //Obtener valor de la descripcion de activo
+            var descripcionActivo = document.getElementById("DescripcionActivo").value;
+            //Obtener valor del ExpressServiceCodeActivo
+            var expressCode = document.getElementById("ExpressServiceCodeActivo").value;
+            //Obtener valor de la FechaManufacturaActivo
+            var fechaManufactura = document.getElementById("FechaManufacturaActivo").value;
+            //Obtener valor del NumPuertosActivo
+            var numPuertos = document.getElementById("NumPuertosActivo").value;
+            //Obtener valor del IosVersionActivo
+            var iosVersion = document.getElementById("IosVersionActivo").value;
+            //Obtener valor del ProductNameActivo
+            var productName = document.getElementById("ProductNameActivo").value;
+            //Obtener valor del HpePartNumberActivo
+            var hpe = document.getElementById("HpePartNumberActivo").value;
+            //Obtener valor de CodBarras1Activo
+            var cod1 = document.getElementById("CodBarras1Activo").value;
+            //Obtener valor de CodBarras2Activo
+            var cod2 = document.getElementById("CodBarras2Activo").value;
+            //Obtener valor del CtActivo
+            var ct = document.getElementById("CtActivo").value;
+            //Obtener valor de CapacidadActivo
+            var capacidad = document.getElementById("CapacidadActivo").value;
+            //Obtener valor de VelocidadTransfActivo
+            var velocidadTransf = document.getElementById("VelocidadTransfActivo").value;
 
-            if (ingresarActivo()) {
-                isValid = true;
-            }
+            $.ajax({
+                data: {
+                    "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
+                    "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
+                    "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
+                    "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
+                    "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
+                },
+                url: url,
+                async: false,
+                type: 'post',
+                success: function () {
+                    console.log("Inserto");
+                    isValid= true;
+                    
+                }, error: function (e) {
+                    console.log(e);
+                    console.log("fallo");
+                   
+                    isvalid=false;
+                }
+            });
             return isValid;
-
+            
         }
 
         
