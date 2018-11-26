@@ -1,5 +1,5 @@
 ﻿var url_idioma = obtenerIdioma();
-var cmbEstados = listadoEstados();
+var cmbEstados = listaEstadosActivos();
 var url_metodo;
 var cmbCategoria;
 var cmbTipoActivo;
@@ -7,8 +7,21 @@ var cmbLaboratorio;
 var cmbMarcas;
 var cmbTipoAccesorio;
 
-function datosCategoria() {
-    url_metodo = url;
+function datosTipoActivo(url) {
+    //url_metodo = url;
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'get',
+        success: function (data) {
+            cmbTipoActivo = data;
+
+        }
+    });
+}
+
+function datosCategoria(url) {
+    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -21,21 +34,9 @@ function datosCategoria() {
     });
 }
 
-function datosTipoActivo() {
-    url_metodo = url;
-    $.ajax({
-        dataType: 'json',
-        url: url,
-        type: 'get',
-        success: function (data) {
-            cmbTipoActivo = data;
 
-        }
-    });
-}
-
-function datosLaboratorio() {
-    url_metodo = url;
+function datosLaboratorio(url) {
+    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -47,8 +48,8 @@ function datosLaboratorio() {
     });
 }
 
-function datosMarcas() {
-    url_metodo = url;
+function datosMarcas(url) {
+    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -60,8 +61,8 @@ function datosMarcas() {
     });
 }
 
-function datosTipoAccesorio() {
-    url_metodo = url;
+function datosTipoAccesorio(url) {
+    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -80,24 +81,33 @@ function cargarCategoriasCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbCategoria.length; i++) {
         str += '<option value="' + cmbCategoria[i].IdCategoriaActivo + '">' + cmbCategoria[i].NombreCategoriaActivo + '</option>';
-        cargarTipoActivoCmb(cmbCategoria[i].IdCategoriaActivo);
+        
     };
     str += '</select>';
     $("#cargarCategorias").html(str);
+
+    $('#CategoriaActivo').change(function () {
+        var opcion = document.getElementById("CategoriaActivo");
+        var valorCat = opcion.options[opcion.selectedIndex].value;
+        cargarTipoActivoCmb(valorCat);
+    });
     
 }
 
 function cargarTipoActivoCmb(idCategoria) {
+    console.log(idCategoria);
     //$("#selectBox").append('<option value="option6">option6</option>');
-    var str = '<select id="TipoActivo" class="form-control" name="TipoActivo" required>';
-    str += '<option value="">Escoga una opción...</option>';
+    //var str = '<select id="TipoActivo" class="form-control" name="TipoActivo" required>';
+    //str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoActivo.length; i++) {
         if (cmbTipoActivo[i].IdCategoriaActivo == idCategoria) {
-            str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreCategoriaActivo + '</option>';
+            console.log(cmbTipoActivo[i].NombreTipoActivo);
+            //str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
+            $("#TipoActivo").append('<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>');
         }     
     };
-    str += '</select>';
-    $("#cargarTipoActivos").html(str);
+    //str += '</select>';
+    //$("#cargarTipoActivos").html(str);
 }
 
 function cargarLaboratoriosCmb() {
@@ -140,48 +150,77 @@ function cargarAccesoriosCmb() {
     $("#cargarAccesorios").html(str);
 }
 
-//Método de validación para el paso 1
-function validarPaso1() {
-    var isValid = true;
+function ingresarActivo() {
+    var confirmarIngreso = false;
+    //Obtener Valor del tipo de activo
+    var cmbTipoActivo = document.getElementById("TipoActivo");
+    var idTipoActivo = cmbTipoActivo.options[cmbTipoActivo.selectedIndex].value;
+    //Obtener valor del Laboratorio
+    var cmbLaboratorio = document.getElementById("LaboratorioActivo");
+    var idLaboratorio = cmbLaboratorio.options[cmbLaboratorio.selectedIndex].value;
+    //Obtener valor de la marca
+    var cmbMarca = document.getElementById("MarcaActivo");
+    var idMarca = cmbMarca.options[cmbMarca.selectedIndex].value;
+    //Obtener valor del Estado
+    var cmbEstado = document.getElementById("EstadoActivo");
+    var idEstado = cmbEstado.options[cmbEstado.selectedIndex].value;
+    //Obtener valor del nombre de activo
     var nombreActivo = document.getElementById("NombreActivo").value;
-    var modeloActivo = document.getElementById("ModeloActivo").value;
+    //Obtener valor del serial de activo
     var serialActivo = document.getElementById("SerialActivo").value;
-    if (!nombreActivo && nombreActivo.length <= 0) {
-        isValid = false;
-        document.getElementById("NombreActivo").setCustomValidity("El campo no debe estar vacio");
-        $("#NombreActivo").focus();
-        $('#msg_username').html('El campo Nombre del Activo es obligatorio').show();
-    } else {
-        isValid = true;
-    }
+    //Obtener valor del modelo de activo
+    var modeloActivo = document.getElementById("ModeloActivo").value;
+    //Obtener valor del codigo UPS
+    var codigoUps = document.getElementById("CodigoUpsActivo").value;
+    //Obtener valor de la fecha de ingreso del activo
+    var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
+    //Obtener valor de la descripcion de activo
+    var descripcionActivo = document.getElementById("DescripcionActivo").value;
+    //Obtener valor del ExpressServiceCodeActivo
+    var expressCode = document.getElementById("ExpressServiceCodeActivo").value;
+    //Obtener valor de la FechaManufacturaActivo
+    var fechaManufactura = document.getElementById("FechaManufacturaActivo").value;
+    //Obtener valor del NumPuertosActivo
+    var numPuertos = document.getElementById("NumPuertosActivo").value;
+    //Obtener valor del IosVersionActivo
+    var iosVersion = document.getElementById("IosVersionActivo").value;
+    //Obtener valor del ProductNameActivo
+    var productName = document.getElementById("ProductNameActivo").value;
+    //Obtener valor del HpePartNumberActivo
+    var hpe = document.getElementById("HpePartNumberActivo").value;
+    //Obtener valor de CodBarras1Activo
+    var cod1 = document.getElementById("CodBarras1Activo").value;
+    //Obtener valor de CodBarras2Activo
+    var cod2 = document.getElementById("CodBarras2Activo").value;
+    //Obtener valor del CtActivo
+    var ct = document.getElementById("CtActivo").value;
+    //Obtener valor de CapacidadActivo
+    var capacidad = document.getElementById("CapacidadActivo").value;
+    //Obtener valor de VelocidadTransfActivo
+    var velocidadTransf = document.getElementById("VelocidadTransfActivo").value;
 
-    if (!modeloActivo && modeloActivo.length <= 0) {
-        isValid = false;
-        document.getElementById("NombreActivo").setCustomValidity("El campo no debe estar vacio");
-        $("#ModeloActivo").focus();
-        $('#msg_username').html('El campo Modelo de Activo es obligatorio').show();
-    } else {
-        isValid = true;
-    }
+    $.ajax({
+        data: {
+            "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
+            "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
+            "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
+            "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
+            "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
+        },
+        url: url_modificar,
+        type: 'post',
+        success: function () {
+            console.log("Inserto");
+            confirmarIngreso = true;
 
-    if (!serialActivo && serialActivo.length <= 0) {
-        isValid = false;
-        document.getElementById("SerialActivo").setCustomValidity("El campo no debe estar vacio");
-        $("#SerialActivo").focus();
-        $('#msg_username').html('El campo Serial de Activo es obligatorio').show();
-    } else {
-        isValid = true;
-    }
+        }, error: function () {
+            console.log("fallo");
+            confirmarIngreso = false;
+        }
+    });
 
-    if (document.getElementById("CategoriaActivo").value == "") {
-        isValid = false;
-        $("#SerialActivo").focus();
-        $('#msg_username').html('Debe seleccionar una Opción').show();
-
-    } else {
-    isValid = true;
-    }
-
-    return isValid;
+    return confirmarIngreso;
 }
+
+
 

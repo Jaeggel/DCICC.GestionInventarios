@@ -14,7 +14,11 @@ function listaPropositos() {
 }
 
 function listaEstadosTicket() {
-    return ["Abierto", "En Curso", "Resuelto"];
+    return ["ABIERTO", "EN CURSO", "RESUELTO"];
+}
+
+function listaEstadosActivos() {
+    return ["OPERATIVO", "NO OPERATIVO", "DE BAJA"];
 }
 
 /*Método para mostrar alertas notify
