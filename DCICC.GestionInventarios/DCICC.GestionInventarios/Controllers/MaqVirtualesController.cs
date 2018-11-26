@@ -114,16 +114,22 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoProposito(Propositos infoProposito)
         {
+            string mensajesMaqVirtuales = string.Empty;
             try
             {
-                string dataJson = JsonConvert.SerializeObject(infoProposito);
-                System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
-                Logs.Error("El propósito ha sido registrado exitosamente. ");
+                if(NuevoPropositoJSON(infoProposito))
+                {
+                    mensajesMaqVirtuales = "El propósito ha sido registrado exitosamente. ";
+                    TempData["Mensaje"] = mensajesMaqVirtuales;
+                    Logs.Info(mensajesMaqVirtuales);
+                }
             }
             catch (Exception e)
             {
-                Logs.Error("No se ha podido registrar el propósito: "+e.Message);
-                return View();
+                mensajesMaqVirtuales = "No se ha podido registrar el propósito: ";
+                Logs.Error(mensajesMaqVirtuales+e.Message);
+                TempData["MensajeError"] = mensajesMaqVirtuales + e.Message;
+                return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
             }
             return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
         }
@@ -200,13 +206,58 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public JsonResult ObtenerPropositosComp()
         {
-            List<Propositos> lstPropositos = new List<Propositos>();
+            return Json(ObtenerPropositosJSON(), JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Obtener todos los propósitos del JSON
+        /// </summary>
+        /// <returns></returns>
+        public List<Propositos> ObtenerPropositosJSON()
+        {
+            List<Propositos> items = new List<Propositos>();
             using (StreamReader r = new StreamReader(path_JsonPropositos))
             {
                 string json = r.ReadToEnd();
-                lstPropositos = JsonConvert.DeserializeObject<List<Propositos>>(json);
+                items = JsonConvert.DeserializeObject<List<Propositos>>(json);
             }
-            return Json(lstPropositos, JsonRequestBehavior.AllowGet);
+            return items;
+        }
+        /// <summary>
+        /// Crear Nuevo Propósito o el archivo en caso de no existir
+        /// </summary>
+        /// <returns></returns>
+        public bool NuevoPropositoJSON(Propositos infoProposito)
+        { 
+            List<Propositos> lstPropositos = new List<Propositos>();
+            if (!System.IO.File.Exists(path_JsonPropositos))
+            {
+                lstPropositos.Add(infoProposito);
+                string dataJson = JsonConvert.SerializeObject(lstPropositos);
+                System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                return true;
+            }
+            else
+            {
+                lstPropositos = ObtenerPropositosJSON();
+                if(lstPropositos==null)
+                {
+                    List<Propositos> lstPropositosNew = new List<Propositos>{infoProposito};
+                    string dataJson = JsonConvert.SerializeObject(lstPropositosNew);
+                    System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                    return true;
+                }
+                else
+                {
+                    if (lstPropositos.Find(x => x.NombreProposito.ToLower() == infoProposito.NombreProposito.ToLower()) == null)
+                    {
+                        lstPropositos.Add(infoProposito);
+                        string dataJson = JsonConvert.SerializeObject(lstPropositos);
+                        System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             {
                                 IdActivo = (int)dr[0],
                                 IdTipoActivo = (int)dr[1],
-                                IdCQR = (int)dr[2],
+                                IdCQR = (string)dr[2],
                                 IdMarca = (int)dr[3],
                                 IdLaboratorio = (int)dr[4],
                                 NombreActivo = dr[5].ToString().Trim(),

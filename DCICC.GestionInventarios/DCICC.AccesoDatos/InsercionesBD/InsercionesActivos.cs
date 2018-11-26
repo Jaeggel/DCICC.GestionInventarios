@@ -3,6 +3,7 @@ using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace DCICC.AccesoDatos.InsercionesBD
@@ -54,6 +55,25 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("ivda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.IosVersionActivo) ? (object)infoActivo.IosVersionActivo : DBNull.Value;
                     cmd.Parameters.Add("fmda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.FechaManufacturaActivo) ? (object)infoActivo.FechaManufacturaActivo : DBNull.Value;
                     cmd.ExecuteNonQuery();
+                }
+                using (var cmd = new NpgsqlCommand("SELECT id_detalleact, id_cqr FROM public.dcicc_detalleactivo WHERE nombre_detalleact=@nda;", conn_BD))
+                {
+                    cmd.Parameters.Add("@nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Activos objActivos = new Activos
+                            {
+                                IdActivo = (int)dr[0],
+                                IdCQR = (string)dr[1],
+                            };
+                            msjActivos.ObjetoInventarios = objActivos;
+                        }
+                        conn_BD.Close();
+                        msjActivos.OperacionExitosa = true;
+                    }
                 }
                 conn_BD.Close();
                 msjActivos.OperacionExitosa = true;

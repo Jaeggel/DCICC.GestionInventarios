@@ -44,6 +44,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value =infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
+                string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                using (var cmd = new NpgsqlCommand(query, conn_BD))
+                {
+                    cmd.ExecuteNonQuery();
+                }
                 tran.Commit();
                 conn_BD.Close();
                 msjUsuarios.OperacionExitosa = true;
@@ -79,6 +84,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
+                string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                using (var cmd = new NpgsqlCommand(query, conn_BD))
+                {
+                    cmd.ExecuteNonQuery();
+                }
                 tran.Commit();
                 conn_BD.Close();
                 msjUsuarios.OperacionExitosa = true;
@@ -101,7 +111,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("habilitado_usuario = @hu where id_usuario = @iu", conn_BD))
+                using (var cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set habilitado_usuario = @hu where id_usuario = @iu", conn_BD))
                 {
                     cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value =infoUsuario.IdUsuario;

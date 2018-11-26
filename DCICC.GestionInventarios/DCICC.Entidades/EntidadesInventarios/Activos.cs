@@ -26,7 +26,7 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string NombreMarca { get; set; }
 
-        public int IdCQR { get; set; }
+        public string IdCQR { get; set; }
 
         public string NombreActivo { get; set; }
 
@@ -40,7 +40,7 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string CodigoUpsActivo { get; set; }
 
-        public int CantidadActivo { get; set; }
+        public int CantidadActivo { get; set; } = 1;
 
         public string DescripcionActivo { get; set; }
 
@@ -60,7 +60,7 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string CodBarras2Activo { get; set; }
 
-        public int NumPuertosActivo { get; set; }
+        public int NumPuertosActivo { get; set; } = 0;
 
         public string IosVersionActivo { get; set; }
 
