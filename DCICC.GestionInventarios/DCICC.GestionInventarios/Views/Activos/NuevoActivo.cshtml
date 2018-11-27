@@ -370,6 +370,9 @@
             if (stepnumber == 3) {
                 isStepValid = validarPaso3();
                 console.log(isStepValid);
+                $('.buttonPrevious').click(function () {
+                    return false;
+                });
             }
             
             return isStepValid;
