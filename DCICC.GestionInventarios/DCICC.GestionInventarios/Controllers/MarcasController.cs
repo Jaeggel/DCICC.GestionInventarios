@@ -22,7 +22,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult NuevaMarca()
         {
-            if (Session["userInfo"] == null)
+            if ((string)Session["NickUsuario"] == null)
             {
                 return RedirectToAction("Login", "Login");
             }
