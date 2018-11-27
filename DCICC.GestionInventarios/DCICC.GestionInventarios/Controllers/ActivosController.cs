@@ -80,6 +80,7 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             mensajesActivos = "El activo ha sido registrado exitosamente.";
                             Id_CQR = infoActivo.IdCQR;
+                            ObtenerImagenQR();
                             TempData["Mensaje"] = mensajesActivos;
                             Logs.Info(mensajesActivos);
                         }
@@ -256,6 +257,15 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objActivosAccDatos.ObtenerActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los nombres de los activos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerNombresActivos()
+        {
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+            return Json(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
     }
 }

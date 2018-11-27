@@ -157,5 +157,41 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             return msjCQR;
         }
+        /// <summary>
+        /// Método para obtener los nombres de los activos.
+        /// </summary>
+        /// <returns></returns>
+        public MensajesActivos ObtenerNombresActivos()
+        {
+            List<Activos> lstActivos = new List<Activos>();
+            MensajesActivos msjActivos = new MensajesActivos();
+            try
+            {
+                using (var cmd = new NpgsqlCommand("SELECT nombre_detalleact FROM dcicc_detalleactivo", conn_BD))
+                {
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Activos objActivos = new Activos
+                            {
+                                NombreActivo = (string)dr[0],
+
+                            };
+                            lstActivos.Add(objActivos);
+                        }
+                        conn_BD.Close();
+                        msjActivos.ListaObjetoInventarios = lstActivos;
+                        msjActivos.OperacionExitosa = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                msjActivos.OperacionExitosa = false;
+                msjActivos.MensajeError = e.Message;
+            }
+            return msjActivos;
+        }
     }
 }

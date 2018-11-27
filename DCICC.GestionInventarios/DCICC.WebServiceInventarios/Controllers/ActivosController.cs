@@ -59,6 +59,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
+        /// Método (GET) para obtener una lista de todos los nombres de los activos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerActivosNombres")]
+        public MensajesActivos ObtenerNombresActivos()
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            try
+            {
+                ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+                msjActivos = objConsultasActivosBD.ObtenerNombresActivos();
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener la lista de los activos: " + e.Message + " - " + msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        /// <summary>
         /// Método (POST) para registrar un nuevo activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
