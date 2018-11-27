@@ -16,7 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     public class ActivosController : Controller
     {
         bool ActivoQRRegistrado = false;
-        string Id_CQR = string.Empty;
+        static string Id_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -105,11 +105,20 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ObtenerImagenQR()
         {
-            GeneracionCQR objGeneracionQR = new GeneracionCQR();
-            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);//OJO CQR GLOBAL
-            var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-            ActivoQRRegistrado = false;
-            return File(bitmapBytes, "image/jpeg");
+            if(Id_CQR=="")
+            {
+                return null;
+            }
+            else
+            {
+                GeneracionCQR objGeneracionQR = new GeneracionCQR();
+                var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);//OJO CQR GLOBAL
+                Id_CQR = null;
+                var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
+                ActivoQRRegistrado = false;
+                return File(bitmapBytes, "image/jpeg");
+            }
+            
             //<img src='@Url.Action("ObtenerImagenQR")' />
         }
         /// <summary>
