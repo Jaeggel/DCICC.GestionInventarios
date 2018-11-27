@@ -74,7 +74,7 @@
                     </ul>
                     <div id="step-1">
                         @* Formulario para envio de datos de los componentes para el ingreso de un nuevo activo
-            (Metodo de la clase) - Controlador (Controller) *@
+                        (Metodo de la clase) - Controlador (Controller) *@
                         @using (Html.BeginForm("NuevoActivo", "Activos"))
                         {
                             <div class="form-horizontal form-label-left input_mask" id="Paso1">
@@ -170,10 +170,8 @@
                                     <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" maxlength="150"></textarea>
                                     <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                 </div>
-
                             </div>
                         }
-
                     </div>
                     <div id="step-2">
                         <div class="form-horizontal form-label-left input_mask" id="Paso2">
@@ -292,10 +290,12 @@
                         </div>
                     </div>
                     <div id="step-4">
-                        <h2 class="StepTitle">Código CQR    </h2>
+                        <h2 class="StepTitle">Código QR</h2>
                         <div class="form-horizontal form-label-left input_mask" id="Paso4">
                             <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                <img src='@Url.Action("ObtenerImagenQR")' id="DescripcionAccesorio" name="DescripcionAccesorio"/>
+                                <div id="imgCQR">
+
+                                </div>
                                 <label>Nombre</label>
                             </div>
                         </div>
@@ -496,7 +496,8 @@
                     console.log("Inserto");
                     isValid = true;
                     datosActivoSeleccionado(data);
-                    
+                    var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
+                    $("#imgCQR").html(str);
                     
                 }, error: function (e) {
                     console.log(e);
