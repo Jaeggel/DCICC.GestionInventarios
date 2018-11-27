@@ -16,7 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     public class ActivosController : Controller
     {
         bool ActivoQRRegistrado = false;
-        string Id_CQR = string.Empty;
+        static string Id_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -67,7 +67,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                if(!ActivoQRRegistrado)
+                //if(!ActivoQRRegistrado)
                 {
                     MensajesCQR msjCQR = NuevoCQR();
                     if (msjCQR.OperacionExitosa)
@@ -77,10 +77,10 @@ namespace DCICC.GestionInventarios.Controllers
                         msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);                        
                         if (msjActivos.OperacionExitosa)
                         {
-                            ActivoQRRegistrado = true;
-                            mensajesActivos = "El activo ha sido registrado exitosamente.";
+                            //ActivoQRRegistrado = true;
                             SetIdCQR(infoActivo.IdCQR);
                             ObtenerImagenQR();
+                            mensajesActivos = "El activo ha sido registrado exitosamente.";
                             TempData["Mensaje"] = mensajesActivos;
                             Logs.Info(mensajesActivos);
                         }
@@ -99,9 +99,9 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return Json(msjActivos.ObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
-        public void SetIdCQR(string IdCQR)
+        public void SetIdCQR(string idCQR)
         {
-            Id_CQR = IdCQR;
+            Id_CQR =idCQR; 
         }
         /// <summary>
         /// Método para mostrar el código QR
@@ -112,7 +112,7 @@ namespace DCICC.GestionInventarios.Controllers
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
             var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);//OJO CQR GLOBAL
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-            ActivoQRRegistrado = false;
+            //ActivoQRRegistrado = false;
             return File(bitmapBytes, "image/jpeg");            
         }
         /// <summary>
