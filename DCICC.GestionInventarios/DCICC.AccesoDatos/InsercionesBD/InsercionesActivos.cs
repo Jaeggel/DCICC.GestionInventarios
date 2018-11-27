@@ -56,7 +56,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("fmda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.FechaManufacturaActivo) ? (object)infoActivo.FechaManufacturaActivo : DBNull.Value;
                     cmd.ExecuteNonQuery();
                 }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT id_detalleact, id_cqr FROM public.dcicc_detalleactivo WHERE nombre_detalleact=@nda", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT id_detalleact, id_cqr,nombre_detalleact FROM public.dcicc_detalleactivo WHERE nombre_detalleact=@nda", conn_BD))
                 {
                     cmd.Parameters.Add("nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
                     using (var dr = cmd.ExecuteReader())
@@ -67,6 +67,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                             {
                                 IdActivo = (int)dr[0],
                                 IdCQR = (string)dr[1],
+                                NombreActivo = (string)dr[2]
                             };
                             msjActivos.ObjetoInventarios = objActivos;
                         }
