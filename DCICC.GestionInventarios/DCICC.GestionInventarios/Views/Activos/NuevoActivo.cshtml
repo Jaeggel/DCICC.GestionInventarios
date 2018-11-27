@@ -330,13 +330,17 @@
             reverseButtonsOrder: true
         });
         
-        function leaveAStepCallback(obj,context) {
+        function leaveAStepCallback(obj, context) {
+            console.log(context.toStep + "-" + context.fromStep)
             if (context.toStep < context.fromStep) {
                 $('#wizard').smartWizard('hideMessage');
                 return true;
+            } else {
+                var step_num = obj.attr('rel');
+                return validateSteps(step_num);
             }
-            var step_num = obj.attr('rel');
-            return validateSteps(step_num);
+
+            
         }
 
         //Validación de campos obligatorios en los pasos

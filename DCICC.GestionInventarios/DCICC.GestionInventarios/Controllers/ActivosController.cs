@@ -15,7 +15,7 @@ namespace DCICC.GestionInventarios.Controllers
     [SessionExpireFilter]
     public class ActivosController : Controller
     {
-        static bool ActivoQRRegistrado = false;
+        bool ActivoQRRegistrado = false;
         string Id_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

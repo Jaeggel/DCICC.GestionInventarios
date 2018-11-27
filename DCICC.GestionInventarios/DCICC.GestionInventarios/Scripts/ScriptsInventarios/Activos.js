@@ -6,6 +6,9 @@ var cmbTipoActivo;
 var cmbLaboratorio;
 var cmbMarcas;
 var cmbTipoAccesorio;
+var idActivo;
+var idCQR;
+var nombreActivo;
 
 
 function datosTipoActivo(url) {
@@ -74,6 +77,10 @@ function datosTipoAccesorio(url) {
 
         }
     });
+}
+
+function datosActivoSeleccionado() {
+
 }
 
 
