@@ -16,7 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     public class ActivosController : Controller
     {
         bool ActivoQRRegistrado = false;
-        static string Id_CQR = string.Empty;
+        string Id_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -74,12 +74,12 @@ namespace DCICC.GestionInventarios.Controllers
                     {
                         infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
                         ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                        msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);
-                        ActivoQRRegistrado = true;
+                        msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);                        
                         if (msjActivos.OperacionExitosa)
                         {
+                            ActivoQRRegistrado = true;
                             mensajesActivos = "El activo ha sido registrado exitosamente.";
-                            Id_CQR = infoActivo.IdCQR;
+                            SetIdCQR(infoActivo.IdCQR);
                             ObtenerImagenQR();
                             TempData["Mensaje"] = mensajesActivos;
                             Logs.Info(mensajesActivos);
@@ -99,27 +99,21 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return Json(msjActivos.ObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        public void SetIdCQR(string IdCQR)
+        {
+            Id_CQR = IdCQR;
+        }
         /// <summary>
         /// Método para mostrar el código QR
         /// </summary>
         /// <returns></returns>
         public ActionResult ObtenerImagenQR()
         {
-            if(Id_CQR=="")
-            {
-                return null;
-            }
-            else
-            {
-                GeneracionCQR objGeneracionQR = new GeneracionCQR();
-                var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);//OJO CQR GLOBAL
-                Id_CQR = null;
-                var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-                ActivoQRRegistrado = false;
-                return File(bitmapBytes, "image/jpeg");
-            }
-            
-            //<img src='@Url.Action("ObtenerImagenQR")' />
+            GeneracionCQR objGeneracionQR = new GeneracionCQR();
+            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);//OJO CQR GLOBAL
+            var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
+            ActivoQRRegistrado = false;
+            return File(bitmapBytes, "image/jpeg");            
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
