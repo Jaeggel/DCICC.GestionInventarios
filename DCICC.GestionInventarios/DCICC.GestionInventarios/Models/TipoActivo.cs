@@ -19,6 +19,6 @@ namespace DCICC.GestionInventarios.Models
 
         public int VidaUtilTipoActivo { get; set; }
 
-        public Boolean HabilitadoTipoActivo { get; set; }
+        public bool HabilitadoTipoActivo { get; set; }
     }
 }

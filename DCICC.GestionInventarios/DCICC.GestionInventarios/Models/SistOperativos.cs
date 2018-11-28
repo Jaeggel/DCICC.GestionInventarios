@@ -13,6 +13,6 @@ namespace DCICC.GestionInventarios.Models
 
         public string DescripcionSistOperativos { get; set; }
 
-        public Boolean HabilitadoSistOperativos { get; set; }
+        public bool HabilitadoSistOperativos { get; set; }
     }
 }

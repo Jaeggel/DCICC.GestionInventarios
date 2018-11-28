@@ -36,6 +36,6 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string DescripcionTicket { get; set; }
 
-        public Boolean HabilitadoTicket { get; set; }
+        public bool HabilitadoTicket { get; set; }
     }
 }

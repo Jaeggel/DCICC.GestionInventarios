@@ -13,6 +13,6 @@ namespace DCICC.GestionInventarios.Models
 
         public string DescripcionRol { get; set; }
 
-        public Boolean HabilitadoRol { get; set; }
+        public bool HabilitadoRol { get; set; }
     }
 }

@@ -12,6 +12,6 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string DescripcionRol { get; set; }
 
-        public Boolean HabilitadoRol { get; set; }
+        public bool HabilitadoRol { get; set; }
     }
 }

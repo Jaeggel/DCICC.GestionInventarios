@@ -26,6 +26,6 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string DescripcionMaqVirtuales { get; set; }
 
-        public Boolean HabilitadoMaqVirtuales { get; set; }
+        public bool HabilitadoMaqVirtuales { get; set; }
     }
 }

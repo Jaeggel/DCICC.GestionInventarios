@@ -12,6 +12,6 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string DescripcionTipoAccesorio { get; set; }
 
-        public Boolean HabilitadoTipoAccesorio { get; set; }
+        public bool HabilitadoTipoAccesorio { get; set; }
     }
 }

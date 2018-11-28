@@ -15,7 +15,7 @@ namespace DCICC.GestionInventarios.Models
 
         public string DescripcionLaboratorio{ get; set; }
 
-        public Boolean HabilitadoLaboratorio { get; set; }
+        public bool HabilitadoLaboratorio { get; set; }
 
     }
 }

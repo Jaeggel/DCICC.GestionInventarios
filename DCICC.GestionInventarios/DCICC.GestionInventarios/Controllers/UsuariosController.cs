@@ -197,7 +197,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ModificarPerfilUsuario(Usuarios infoUsuario)//POR AJAX POR EL ID
+        public ActionResult ModificarPerfilUsuario(Usuarios infoUsuario)
         {
             string mensajes_Usuarios = string.Empty;
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
@@ -218,7 +218,36 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajes_Usuarios + ": " + e.Message);
             }
-            return RedirectToAction("ModificarUsuario", "Usuarios");
+            return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarPasswordUsuario(Usuarios infoUsuario)
+        {
+            string mensajes_Usuarios = string.Empty;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+                msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 4);
+                if (msjUsuarios.OperacionExitosa)
+                {
+                    Logs.Info(mensajes_Usuarios);
+                }
+                else
+                {
+                    mensajes_Usuarios = "No se ha podido actualizar el perfil de usuario: " + msjUsuarios.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajes_Usuarios + ": " + e.Message);
+            }
+            return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los los usuarios con su rol de la base de datos

@@ -166,6 +166,27 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
+        /// Método (POST) para actualizar el password de un usuario en la base de datos.
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarPasswordUsuario")]
+        public MensajesUsuarios ActualizarPasswordUsuario([FromBody] Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = null;
+            ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
+            msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPasswordUsuario(infoUsuario);
+            if (msjUsuarios.OperacionExitosa)
+            {
+                Logs.Info("Actualización de perfil de usuario realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjUsuarios.MensajeError);
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
         /// Método (POST) para eliminar un usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>

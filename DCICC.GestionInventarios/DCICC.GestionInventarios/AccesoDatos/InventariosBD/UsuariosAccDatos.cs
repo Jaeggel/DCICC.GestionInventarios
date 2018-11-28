@@ -36,7 +36,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// <summary>
         /// Constructor para acceder a usuarios para recuperar contraseña
         /// </summary>
-        /// <param name="infoUsuario"></param>
         public UsuariosAccDatos(){}
 
         /// <summary>
@@ -168,9 +167,13 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             {
                 funcionServ = "Usuarios/ActualizarEstadoUsuario";
             }
-            else
+            else if (opAct == 2)
             {
                 funcionServ = "Usuarios/ActualizarPerfilUsuario";
+            }
+            else
+            {
+                funcionServ = "Usuarios/ActualizarPasswordUsuario";
             }
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try

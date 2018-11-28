@@ -37,6 +37,6 @@ namespace DCICC.GestionInventarios.Models
 
         public string DescripcionTicket { get; set; }
 
-        public Boolean HabilitadoTicket { get; set; }
+        public bool HabilitadoTicket { get; set; }
     }
 }

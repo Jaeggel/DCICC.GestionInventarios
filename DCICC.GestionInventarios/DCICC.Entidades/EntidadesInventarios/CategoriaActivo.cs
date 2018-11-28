@@ -12,6 +12,6 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string DescripcionCategoriaActivo { get; set; }
 
-        public Boolean HabilitadoCategoriaActivo { get; set; }
+        public bool HabilitadoCategoriaActivo { get; set; }
     }
 }

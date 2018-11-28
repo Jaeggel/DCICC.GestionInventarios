@@ -26,6 +26,6 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string DireccionUsuario { get; set; }
 
-        public Boolean HabilitadoUsuario { get; set; }
+        public bool HabilitadoUsuario { get; set; }
     }
 }
