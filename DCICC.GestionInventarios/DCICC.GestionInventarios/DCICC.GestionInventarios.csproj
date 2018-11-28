@@ -4680,6 +4680,7 @@
     <Content Include="Scripts\ScriptsInventarios\Logs.js" />
     <Content Include="Scripts\ScriptsInventarios\MaquinaVirtual.js" />
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
+    <Content Include="Scripts\ScriptsInventarios\ReporteActivo.js" />
     <Content Include="Scripts\ScriptsInventarios\Tickets.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoActivo.js" />
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />

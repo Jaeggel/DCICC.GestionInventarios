@@ -37,7 +37,8 @@ function cargarLogsTabla() {
             '</td><td>' + datosLogs[i].OperacionLogs +
             '</td><td>' + datosLogs[i].TablaLogs +
             '</td><td>' + datosLogs[i].ValorAnteriorLogs +
-            '</td><td>' + datosLogs[i].ValorActualLogs;
+            '</td><td>' + datosLogs[i].ValorActualLogs +
+            '</td></tr>';
     };
     str += '</tbody>' +
         '<tfoot><tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificads</th> </tr> </thead></tfoot>' +

@@ -242,9 +242,7 @@
 <script>
     $(document).ready(function () {
         //Método para obtener las tablas de tickets
-        obtenerTicketsAbiertos('@Url.Action("ObtenerTicketsAbiertos", "Tickets")');
-        obtenerTicketsEnCurso('@Url.Action("ObtenerTicketsEnCurso", "Tickets")');
-        obtenerTicketsResueltos('@Url.Action("ObtenerTicketsResueltos", "Tickets")');
+        obtenerTickets('@Url.Action("ObtenerTicketsAbiertos", "Tickets")');
 
     });
 

@@ -35,77 +35,196 @@
             <div class="x_content">
                 <br>
                 <div class="form-horizontal form-label-left input_mask">
-                    @*Sección de filtros de búsqueda para realizar la consulta*@
-                    <div class="form-group">
-                        @*Combobox para seleccionar la categoría de activo*@
-                        <div class="col-md-4 col-sm-12 col-xs-12">
-                            <label>Filtro por Categoría:</label>
-                            <select class="form-control">
-                                <option>Seleccionar</option>
-                                <option>Option one</option>
-                                <option>Option two</option>
-                                <option>Option three</option>
-                                <option>Option four</option>
-                            </select>
-                        </div>
-                        @*Combobox para seleccionar el tipo de activo*@
-                        <div class="col-md-4 col-sm-12 col-xs-12">
-                            <label>Filtro por Tipo:</label>
-                            <select class="form-control">
-                                <option>Seleccionar</option>
-                                <option>Option one</option>
-                                <option>Option two</option>
-                                <option>Option three</option>
-                                <option>Option four</option>
-                            </select>
-                        </div>
-                        @*Combobox para seleccionar la marca del activo*@
-                        <div class="col-md-4 col-sm-12 col-xs-12">
-                            <label>Filtro por Marca:</label>
-                            <select class="form-control">
-                                <option>Seleccionar</option>
-                                <option>Option one</option>
-                                <option>Option two</option>
-                                <option>Option three</option>
-                                <option>Option four</option>
-                            </select>
-                        </div>
-                    </div>
                     @* Sección para la tabla de modificación mediante js *@
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div id="tablaActivos"> </div>
                     </div>
-                    <div id="tablaConsultaActivos">
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal de modificación de tickets en curso *@
+<div class="modal fade" id="ModificarActivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Solucionar Tickets para Soporte Técnico En Curso</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+
+                                    @* Combobox para seleccionar el tipo de activo *@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Escoja el Tipo de Activo:</label>
+                                            <div id="cargarTipoActivos"></div>
+                                        </div>
+                                    </div>
+                                    @* Combobox para seleccionar la marca del activo *@
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <label>Escoja la Marca del Activo:</label>
+                                            <div id="cargarMarcas"></div>
+                                        </div>
+                                        @* Combobox para el laboratorio del activo *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <label>Laboratorio del Activo:</label>
+                                            <div id="cargarLaboratorios"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"></div>
+                                    @* Combobox para seleccionar el estado del activo *@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Escoja el Estado del Activo:</label>
+                                            <div id="cargarEstados"></div>
+                                        </div>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del nombre de un activo *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Activo" maxlength="50" required>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNombre" style="color:brown;"></span>
+                                    </div>
+
+                                    @* Cuadro de texto para el ingreso del modelo de un activo *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" maxlength="80" required>
+                                        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorModelo" style="color:brown;"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso del serial activo *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" maxlength="150" required>
+                                            <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
+                                            <span id="errorSerial" style="color:brown;"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso del codigo UPS del activo *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="20">
+                                            <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+
+                                    </div>
+                                    @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <label>Fecha de Adquisición del Activo:</label>
+                                            <fieldset>
+                                                <div class="control-group">
+                                                    <div class="controls">
+                                                        <div class="col-md-12 xdisplay_inputx form-group has-feedback" style="padding-left: 0px;">
+                                                            <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4" style="padding-left: 60px;">
+                                                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                                            <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group"></div>
+                                    @* Área de Texto para el ingreso de la descripción de una activo *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" maxlength="150"></textarea>
+                                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    @* ---------------- Sección de especificaciones adicionales para todos los Activos ---------------*@
+                                    <span class="section">Especificaciones Adicionales comunes para todos los Activos</span>
+                                    @* Área de Texto para el ingreso de Express Service Code *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="ExpressServiceCodeActivo" type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" maxlength="100">
+                                        <span class="fa fa-code-fork form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    @* Cuadro de texto para el ingreso de Fecha de Manufactura *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="FechaManufacturaActivo" type="text" class="form-control has-feedback-left" name="FechaManufacturaActivo" placeholder="Fecha de Manufactura" maxlength="100">
+                                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    @* ---------------- Sección de especificaciones adicionales para Equipos de Redes ---------------*@
+                                    <span class="section">Especificaciones Adicionales para Switchs, souters, etc.</span>
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso de Número de Puertos *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="NumPuertosActivo" type="number" class="form-control has-feedback-left" name="NumPuertosActivo" placeholder="Número de Puertos" maxlength="100">
+                                            <span class="fa fa-sort-numeric-asc form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso de Version de IOS *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="IosVersionActivo" type="text" class="form-control has-feedback-left" name="IosVersionActivo" placeholder="Version de IOS" maxlength="100">
+                                            <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                    @* ---------------- Sección de especificaciones adicionales para Servidores Cuchillas etc---------------*@
+                                    <span class="section">Especificaciones Adicionales para Servidores, switch SAN etc.</span>
+
+                                    @* Cuadro de texto para el ingreso de Product Name *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="ProductNameActivo" type="text" class="form-control has-feedback-left" name="ProductNameActivo" placeholder="Product Name" maxlength="100">
+                                        <span class="fa fa-book form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso de Hpe Part Number *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="HpePartNumberActivo" type="text" class="form-control has-feedback-left" name="HpePartNumberActivo" placeholder="Hpe Part Number" maxlength="100">
+                                        <span class="fa fa-cubes form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso de Código de Barras 1 *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="CodBarras1Activo" type="text" class="form-control has-feedback-left" name="CodBarras1Activo" placeholder="Código de Barras 1" maxlength="100">
+                                            <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso de Código de Barras 2*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="CodBarras2Activo" type="text" class="form-control has-feedback-left" name="CodBarras2Activo" placeholder="Código de Barras 2" maxlength="100">
+                                            <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                    @* Cuadro de texto para el ingreso de CT Code *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="CtActivo" type="text" class="form-control has-feedback-left" name="CtActivo" placeholder="CT Code" maxlength="100">
+                                        <span class="fa fa-code form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* ---------------- Sección de especificaciones adicionales para Discos Memorias etc---------------*@
+                                    <span class="section">Especificaciones Adicionales para Discos Duros, Memorias, etc.</span>
+
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso de Capacidad de Activo *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="CapacidadActivo" type="number" class="form-control has-feedback-left" name="CapacidadActivo" placeholder="Capacidad(GB)" maxlength="100">
+                                            <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso de Velocidad de Transferencia *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="VelocidadTransfActivo" type="text" class="form-control has-feedback-left" name="VelocidadTransfActivo" placeholder="Velocidad de Transferencia" maxlength="100">
+                                            <span class="fa fa-rocket form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
