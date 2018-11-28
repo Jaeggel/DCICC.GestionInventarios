@@ -71,7 +71,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para obtener todos los tickets de la base de datos
         /// </summary>
         /// <returns></returns>
-        public JsonResult ObtenerTicketsAbiertos()
+        public JsonResult ObtenerTicketsComp()
         {
             TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
             return Json(objTicketsAccDatos.ObtenerTickets("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
