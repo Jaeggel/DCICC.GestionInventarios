@@ -65,7 +65,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesTickets + ": " + e.Message);
             }
-            return View("GestionTickets");
+            return RedirectToAction("GestionTickets","Tickets");
         }
         /// <summary>
         /// Método para obtener todos los tickets de la base de datos
