@@ -61,7 +61,7 @@ function contarTickets() {
             contEnCurso += 1;
         }
         if (ticketsReportados[i].EstadoTicket == 'RESUELTO') {
-            contarResueltos += 1;
+            contResueltos += 1;
         }
 
     }
@@ -162,7 +162,7 @@ function cargarTablaEnCurso() {
 
 //Función para cargar la tabla de Usuarios
 function cargarTablaResueltos() {
-    var str = '<table id="dataTableResueltos" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
+    var str = '<table id="dataTableResueltos" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Fecha de Resolución</th> <th>Resuelto por:</th> <th>Comentario</th> </tr> </thead>';
     str += '<tbody>';
 
@@ -254,7 +254,7 @@ function formUpdateEnCurso(idTicket) {
     console.log(idTicket);
     idTicketAbierto = idTicket;
     for (var i = 0; i < ticketsReportados.length; i++) {
-        if (ticketsEnCurso[i].IdTicket == idTicket) {
+        if (ticketsReportados[i].IdTicket == idTicket) {
             //Función para dar formato a la fecha
             var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
             var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
@@ -292,7 +292,7 @@ function modificarEstadoTicketEnCurso(url_modificar) {
                 success: function () {
                     $('#ModificarTicketsEnCurso').modal('hide');
                     showNotify("Actualización exitosa", 'El Ticket se actualizó correctamente', "success");
-                    obtenerTickets(url_metodo);
+                    obtenerTickets(url_metodo);            
                 }, error: function () {
                     $('#ModificarTicketsEnCurso').modal('hide');
                     showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket', "error");
