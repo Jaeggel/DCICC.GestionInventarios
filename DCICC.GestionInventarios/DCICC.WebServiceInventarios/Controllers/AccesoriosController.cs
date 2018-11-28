@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesAccesorios ObtenerAccesoriosHab()
         {
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
-            try
+            ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios("accesorioshabilitados");
+            if (msjAccesorios.OperacionExitosa)
             {
-                ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
-                msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios("accesorioshabilitados");
+                Logs.Info("Consulta de Accesorios realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los accesorios: " + e.Message + " - " + msjAccesorios.MensajeError);
+                Logs.Error(msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesAccesorios ObtenerAccesoriosComp()
         {
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
-            try
+            ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios("...");
+            if (msjAccesorios.OperacionExitosa)
             {
-                ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
-                msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios("...");
+                Logs.Info("Consulta de Accesorios realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los accesorios: " + e.Message + " - " + msjAccesorios.MensajeError);
+                Logs.Error(msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesAccesorios RegistrarAccesorios([FromBody] Accesorios infoAccesorios)
         {
             MensajesAccesorios msjAccesorios = null;
-            try
+            InsercionesAccesorios objInsercionesAccesoriosBD = new InsercionesAccesorios();
+            msjAccesorios = objInsercionesAccesoriosBD.RegistroAccesorios(infoAccesorios);
+            if (msjAccesorios.OperacionExitosa)
             {
-                InsercionesAccesorios objInsercionesAccesoriosBD = new InsercionesAccesorios();
-                msjAccesorios = objInsercionesAccesoriosBD.RegistroAccesorios(infoAccesorios);
+                Logs.Info("Registro de accesorio realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el accesorio: " + e.Message + " - " + msjAccesorios.MensajeError);
+                Logs.Error(msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesAccesorios ActualizarAccesorios([FromBody] Accesorios infoAccesorios)
         {
             MensajesAccesorios msjAccesorios = null;
-            try
+            ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
+            msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorios(infoAccesorios);
+            if (msjAccesorios.OperacionExitosa)
             {
-                ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
-                msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorios(infoAccesorios);
+                Logs.Info("Actualización de accesorio realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el accesorio: " + e.Message + " - " + msjAccesorios.MensajeError);
+                Logs.Error(msjAccesorios.MensajeError);
             }
             return msjAccesorios;
         }

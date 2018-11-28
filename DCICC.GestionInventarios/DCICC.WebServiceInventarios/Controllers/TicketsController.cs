@@ -50,7 +50,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             try
             {
                 ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
-                msjTickets = objConsultasTicketsBD.ObtenerTickets("...");
+                msjTickets = objConsultasTicketsBD.ObtenerTickets("ticketsreportados");
             }
             catch (Exception e)
             {

@@ -20,7 +20,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     public class TokenController : Controller
     {
         //Instancia para la utilización de LOGS en la clase TokenController
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
         /// Utilizado para tener acceso a los usuarios y poder realizar el login.
@@ -111,7 +111,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                     if(infoUsuario!=null)
                     {
                         token = ConfiguracionToken();
-                        ConfigBaseDatos.SetCadenaConexion("Server=localhost;Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
+                        ConfigBaseDatos.SetCadenaConexion("Server='192.168.0.4';Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
                     }
                     else
                     {
