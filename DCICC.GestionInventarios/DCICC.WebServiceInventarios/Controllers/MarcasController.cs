@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         public MensajesMarcas ObtenerMarcasHab()
         {
             MensajesMarcas msjMarcas = new MensajesMarcas();
-            try
+            ConsultasMarcas objConsultasMarcasBD = new ConsultasMarcas();
+            msjMarcas = objConsultasMarcasBD.ObtenerMarcas("marcashabilitadas");
+            if (msjMarcas.OperacionExitosa)
             {
-                ConsultasMarcas objConsultasMarcasBD = new ConsultasMarcas();
-                msjMarcas = objConsultasMarcasBD.ObtenerMarcas("marcashabilitadas");
+                Logs.Info("Consulta de Marcas realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de las marcas: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error(msjMarcas.MensajeError);
             }
             return msjMarcas;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         public MensajesMarcas ObtenerMarcasComp()
         {
             MensajesMarcas msjMarcas = new MensajesMarcas();
-            try
+            ConsultasMarcas objConsultasMarcasBD = new ConsultasMarcas();
+            msjMarcas = objConsultasMarcasBD.ObtenerMarcas("consultamarca");
+            if (msjMarcas.OperacionExitosa)
             {
-                ConsultasMarcas objConsultasMarcasBD = new ConsultasMarcas();
-                msjMarcas = objConsultasMarcasBD.ObtenerMarcas("consultamarca");
+                Logs.Info("Consulta de Marcas realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de las marcas: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error(msjMarcas.MensajeError);
             }
             return msjMarcas;
         }
@@ -66,15 +68,16 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         [HttpPost("RegistrarMarca")]
         public MensajesMarcas RegistrarMarca([FromBody] Marcas infoMarca)
         {
-            MensajesMarcas msjMarcas = null;
-            try
+            MensajesMarcas msjMarcas = null;            
+            InsercionesMarcas objInsercionesMarcasBD = new InsercionesMarcas();
+            msjMarcas = objInsercionesMarcasBD.RegistroMarca(infoMarca);
+            if (msjMarcas.OperacionExitosa)
             {
-                InsercionesMarcas objInsercionesMarcasBD = new InsercionesMarcas();
-                msjMarcas = objInsercionesMarcasBD.RegistroMarca(infoMarca);
+                Logs.Info("Registro de Marca realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar la marca: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error(msjMarcas.MensajeError);
             }
             return msjMarcas;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         public MensajesMarcas ActualizarMarca([FromBody] Marcas infoMarca)
         {
             MensajesMarcas msjMarcas = null;
-            try
+            ActualizacionesMarcas objActualizacionesMarcasBD = new ActualizacionesMarcas();
+            msjMarcas = objActualizacionesMarcasBD.ActualizacionMarca(infoMarca);
+            if (msjMarcas.OperacionExitosa)
             {
-                ActualizacionesMarcas objActualizacionesMarcasBD = new ActualizacionesMarcas();
-                msjMarcas = objActualizacionesMarcasBD.ActualizacionMarca(infoMarca);
+                Logs.Info("Actualización de Marca realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar la marca: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error(msjMarcas.MensajeError);
             }
             return msjMarcas;
         }
@@ -107,14 +111,15 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         public MensajesMarcas ActualizarEstadoMarca([FromBody] Marcas infoMarca)
         {
             MensajesMarcas msjMarcas = null;
-            try
+            ActualizacionesMarcas objActualizacionesMarcasBD = new ActualizacionesMarcas();
+            msjMarcas = objActualizacionesMarcasBD.ActualizacionEstadoMarca(infoMarca);
+            if (msjMarcas.OperacionExitosa)
             {
-                ActualizacionesMarcas objActualizacionesMarcasBD = new ActualizacionesMarcas();
-                msjMarcas = objActualizacionesMarcasBD.ActualizacionEstadoMarca(infoMarca);
+                Logs.Info("Actualización de estado de Marca realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar la marca: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error(msjMarcas.MensajeError);
             }
             return msjMarcas;
         }

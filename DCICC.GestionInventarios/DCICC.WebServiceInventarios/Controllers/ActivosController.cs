@@ -32,7 +32,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objConsultasActivosBD.ObtenerActivos("activoshabilitados");
             if(msjActivos.OperacionExitosa)
             {
-                Logs.Info("Consulta de activos realizada exitosamente.");
+                Logs.Info("Consulta de Activos realizada exitosamente.");
             }
             else
             {
@@ -49,10 +49,10 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesActivos msjActivos = new MensajesActivos();            
             ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
-            msjActivos = objConsultasActivosBD.ObtenerActivos("...");            
+            msjActivos = objConsultasActivosBD.ObtenerActivos("activostotales");            
             if (msjActivos.OperacionExitosa)
             {
-                Logs.Info("Consulta de activos realizada exitosamente.");
+                Logs.Info("Consulta de Activos realizada exitosamente.");
             }
             else
             {
@@ -72,7 +72,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objConsultasActivosBD.ObtenerNombresActivos();
             if (msjActivos.OperacionExitosa)
             {
-                Logs.Info("Consulta de nombres de activos realizada exitosamente.");
+                Logs.Info("Consulta de nombres de Activos realizada exitosamente.");
             }
             else
             {
@@ -93,7 +93,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objInsercionesActivosBD.RegistroActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
             {
-                Logs.Info("Registro de activo realizado exitosamente.");
+                Logs.Info("Registro de Activo realizado exitosamente.");
             }
             else
             {
@@ -114,7 +114,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objActualizacionesActivosBD.ActualizacionActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
             {
-                Logs.Info("Actualización de activo realizado exitosamente.");
+                Logs.Info("Actualización de Activo realizada exitosamente.");
             }
             else
             {
@@ -134,7 +134,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCQR = objConsultasCQRBD.ObtenerCQR("consultaCQR");
             if (msjCQR.OperacionExitosa)
             {
-                Logs.Info("Consulta de CQR realizado exitosamente.");
+                Logs.Info("Consulta de CQR realizada exitosamente.");
             }
             else
             {
@@ -154,7 +154,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCQR = objConsultasCQRBD.ObtenerIdCQR();
             if (msjCQR.OperacionExitosa)
             {
-                Logs.Info("Consulta de ID de CQR realizado exitosamente.");
+                Logs.Info("Consulta de ID de CQR realizada exitosamente.");
             }
             else
             {

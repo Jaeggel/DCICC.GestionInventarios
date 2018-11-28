@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoActivo ObtenerTipoActivoHab()
         {
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
-            try
+            ConsultasTipoActivo objConsultasTipoActivoBD = new ConsultasTipoActivo();
+            msjTipoActivo = objConsultasTipoActivoBD.ObtenerTipoActivo("tipoactivohabilitados");
+            if (msjTipoActivo.OperacionExitosa)
             {
-                ConsultasTipoActivo objConsultasTipoActivoBD = new ConsultasTipoActivo();
-                msjTipoActivo = objConsultasTipoActivoBD.ObtenerTipoActivo("tipoactivohabilitados");
+                Logs.Info("Consulta de Tipo de Activo realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los tipos de activos: " + e.Message + " - " + msjTipoActivo.MensajeError);
+                Logs.Error(msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoActivo ObtenerTipoActivoComp()
         {
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
-            try
+            ConsultasTipoActivo objConsultasTipoActivoBD = new ConsultasTipoActivo();
+            msjTipoActivo = objConsultasTipoActivoBD.ObtenerTipoActivo("tipoactivocategorias");
+            if (msjTipoActivo.OperacionExitosa)
             {
-                ConsultasTipoActivo objConsultasTipoActivoBD = new ConsultasTipoActivo();
-                msjTipoActivo = objConsultasTipoActivoBD.ObtenerTipoActivo("tipoactivocategorias");
+                Logs.Info("Consulta de Tipo de Activo realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los tipos de activos: " + e.Message + " - " + msjTipoActivo.MensajeError);
+                Logs.Error(msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoActivo RegistrarTipoActivo([FromBody] TipoActivo infoTipoActivo)
         {
             MensajesTipoActivo msjTipoActivo = null;
-            try
+            InsercionesTipoActivo objInsercionesTipoActivoBD = new InsercionesTipoActivo();
+            msjTipoActivo = objInsercionesTipoActivoBD.RegistroTipoActivo(infoTipoActivo);
+            if (msjTipoActivo.OperacionExitosa)
             {
-                InsercionesTipoActivo objInsercionesTipoActivoBD = new InsercionesTipoActivo();
-                msjTipoActivo = objInsercionesTipoActivoBD.RegistroTipoActivo(infoTipoActivo);
+                Logs.Info("Registro de Tipo de Activo realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el tipo de activo: " + e.Message + " - " + msjTipoActivo.MensajeError);
+                Logs.Error(msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoActivo ActualizarTipoActivo([FromBody] TipoActivo infoTipoActivo)
         {
             MensajesTipoActivo msjTipoActivo = null;
-            try
+            ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
+            msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionTipoActivo(infoTipoActivo);
+            if (msjTipoActivo.OperacionExitosa)
             {
-                ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
-                msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionTipoActivo(infoTipoActivo);
+                Logs.Info("Actualización de Tipo de Activo realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el tipo de activo: " + e.Message + " - " + msjTipoActivo.MensajeError);
+                Logs.Error(msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }
@@ -107,14 +111,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoActivo ActualizarEstadoTipoActivo([FromBody] TipoActivo infoTipoActivo)
         {
             MensajesTipoActivo msjTipoActivo = null;
-            try
+            ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
+            msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionEstadoTipoActivo(infoTipoActivo);
+            if (msjTipoActivo.OperacionExitosa)
             {
-                ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
-                msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionEstadoTipoActivo(infoTipoActivo);
+                Logs.Info("Actualización de estado de Tipo de Activo realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el tipo de activo: " + e.Message + " - " + msjTipoActivo.MensajeError);
+                Logs.Error(msjTipoActivo.MensajeError);
             }
             return msjTipoActivo;
         }

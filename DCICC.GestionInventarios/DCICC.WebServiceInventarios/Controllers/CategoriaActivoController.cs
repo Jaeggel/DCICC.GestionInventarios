@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesCategoriasActivos ObtenerCategoriasActivosHab()
         {
             MensajesCategoriasActivos msjCategorias = null;
-            try
+            ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
+            msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("categoriahabilitados");
+            if (msjCategorias.OperacionExitosa)
             {
-                ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
-                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("categoriahabilitados");
+                Logs.Info("Consulta de Categorías realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de las categorías habilitadas: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error(msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesCategoriasActivos ObtenerCategoriasActivosComp()
         {
             MensajesCategoriasActivos msjCategorias = null;
-            try
+            ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
+            msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("consultacategoriaactivos");
+            if (msjCategorias.OperacionExitosa)
             {
-                ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
-                msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("consultacategoriaactivos");
+                Logs.Info("Consulta de Categorías realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de todas las categorías: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error(msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesCategoriasActivos RegistrarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
             MensajesCategoriasActivos msjCategorias = null;
-            try
+            InsercionesCategoriasActivos objInsercionesCategoriasBD = new InsercionesCategoriasActivos();
+            msjCategorias = objInsercionesCategoriasBD.RegistroCategoria(infoCategoriaActivo);
+            if (msjCategorias.OperacionExitosa)
             {
-                InsercionesCategoriasActivos objInsercionesCategoriasBD = new InsercionesCategoriasActivos();
-                msjCategorias = objInsercionesCategoriasBD.RegistroCategoria(infoCategoriaActivo);
+                Logs.Info("Registro de Categoría realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar la categoría: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error(msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesCategoriasActivos ActualizarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
             MensajesCategoriasActivos msjCategorias = null;
-            try
+            ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
+            msjCategorias = objActualizacionesCategoriasActBD.ActualizacionCategoria(infoCategoriaActivo);
+            if (msjCategorias.OperacionExitosa)
             {
-                ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
-                msjCategorias = objActualizacionesCategoriasActBD.ActualizacionCategoria(infoCategoriaActivo);
+                Logs.Info("Actualización de Categoría realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar la categoría: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error(msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
@@ -106,15 +110,16 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoCategoriaActivo")]
         public MensajesCategoriasActivos ActualizarEstadoCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
-            MensajesCategoriasActivos msjCategorias = null;
-            try
+            MensajesCategoriasActivos msjCategorias = null;            
+            ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
+            msjCategorias = objActualizacionesCategoriasActBD.ActualizacionEstadoCategoria(infoCategoriaActivo);
+            if (msjCategorias.OperacionExitosa)
             {
-                ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
-                msjCategorias = objActualizacionesCategoriasActBD.ActualizacionEstadoCategoria(infoCategoriaActivo);
+                Logs.Info("Actualización de estado de Categoría realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar la categoría: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error(msjCategorias.MensajeError);
             }
             return msjCategorias;
         }
