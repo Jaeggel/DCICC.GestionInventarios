@@ -268,7 +268,7 @@ namespace DCICC.GestionInventarios.Controllers
             var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios.Find(x => x.NickUsuario == (string)Session["NickUsuario"]);
             if (datosUsuario != null)
             {
-                return Json(datosUsuario.NickUsuario, JsonRequestBehavior.AllowGet);
+                return Json(datosUsuario, JsonRequestBehavior.AllowGet);
             }
             else
             {
