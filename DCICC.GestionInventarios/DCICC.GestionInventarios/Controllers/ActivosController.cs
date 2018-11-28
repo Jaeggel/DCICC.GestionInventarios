@@ -67,7 +67,6 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                //if(!ActivoQRRegistrado)
                 {
                     MensajesCQR msjCQR = NuevoCQR();
                     if (msjCQR.OperacionExitosa)
@@ -77,7 +76,6 @@ namespace DCICC.GestionInventarios.Controllers
                         msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);                        
                         if (msjActivos.OperacionExitosa)
                         {
-                            //ActivoQRRegistrado = true;
                             SetIdCQR(infoActivo.IdCQR);
                             ObtenerImagenQR();
                             mensajesActivos = "El activo ha sido registrado exitosamente.";
@@ -110,9 +108,8 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult ObtenerImagenQR()
         {
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
-            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);//OJO CQR GLOBAL
+            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-            //ActivoQRRegistrado = false;
             return File(bitmapBytes, "image/jpeg");            
         }
         /// <summary>
@@ -125,10 +122,11 @@ namespace DCICC.GestionInventarios.Controllers
         {
             string mensajesActivos = string.Empty;
             MensajesActivos msjActivos = new MensajesActivos();
+            MensajesHistoricoActivos msjHistActivos = new MensajesHistoricoActivos();
             try
             {
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo);
+                msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,false);
                 if (msjActivos.OperacionExitosa)
                 {
                     Logs.Info(mensajesActivos);
@@ -136,6 +134,70 @@ namespace DCICC.GestionInventarios.Controllers
                 else
                 {
                     mensajesActivos = "No se ha podido actualizar el activo: " + msjActivos.MensajeError;
+                }
+                if(infoActivo.EstadoActivo=="DE BAJA")
+                {
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdDetActivo = infoActivo.IdActivo,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
+                    if(msjHistActivos.OperacionExitosa)
+                    {
+                        Logs.Info("Historico de activo registrado exitosamente.");
+                    }
+                    else
+                    {
+                        Logs.Error("Historico de activo registrado exitosamente.");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesActivos + ": " + e.Message);
+            }
+            return RedirectToAction("ConsultaActivos", "Activos");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
+        /// </summary>
+        /// <param name="infoActivos"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoActivo(Activos infoActivo)
+        {
+            string mensajesActivos = string.Empty;
+            MensajesActivos msjActivos = new MensajesActivos();
+            MensajesHistoricoActivos msjHistActivos = new MensajesHistoricoActivos();
+            try
+            {
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,true);
+                if (msjActivos.OperacionExitosa)
+                {
+                    Logs.Info(mensajesActivos);
+                }
+                else
+                {
+                    mensajesActivos = "No se ha podido actualizar el activo: " + msjActivos.MensajeError;
+                }
+                if (infoActivo.EstadoActivo == "DE BAJA")
+                {
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdDetActivo = infoActivo.IdActivo,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
+                    if (msjHistActivos.OperacionExitosa)
+                    {
+                        Logs.Info("Historico de activo registrado exitosamente.");
+                    }
+                    else
+                    {
+                        Logs.Error("Historico de activo registrado exitosamente.");
+                    }
                 }
             }
             catch (Exception e)

@@ -82,7 +82,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
-        public MensajesActivos ActualizarActivo(Activos infoActivo)
+        public MensajesActivos ActualizarActivo(Activos infoActivo,bool actEstado)
         {
             MensajesActivos msjActivos = new MensajesActivos();
             try
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Activos/ActualizarActivo", infoActivo).Result;
+                var response = clientService.PostAsJsonAsync(actEstado ? "Activos/ActualizarEstadoActivo" : "Activos/ActualizarActivo", infoActivo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var ActivosJson = response.Content.ReadAsStringAsync().Result;

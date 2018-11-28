@@ -123,6 +123,27 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
+        /// Método (POST) para actualizar el estado de un activo en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoActivo")]
+        public MensajesActivos ActualizarEstadoActivo([FromBody] Activos infoActivo)
+        {
+            MensajesActivos msjActivos = null;
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjActivos = objActualizacionesActivosBD.ActualizacionEstadoActivo(infoActivo);
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Actualización de Activo realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        /// <summary>
         /// Método (GET) para obtener una lista de todos los CQR de la base de datos.
         /// </summary>
         /// <returns></returns>

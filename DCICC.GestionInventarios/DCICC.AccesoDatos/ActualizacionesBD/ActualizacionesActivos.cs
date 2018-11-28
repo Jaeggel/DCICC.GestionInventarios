@@ -28,10 +28,9 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET id_tipoact=@ita, id_cqr=@icq, id_marca=@im, id_laboratorio=@il, nombre_detalleact=@nda, modelo_detalleact=@mda, serial_detalleact=@sda, fechaingreso_detalleact=@fida, codigoups_detalleact=@cuda, cantidad_detalleact=@cada, descripcion_detalleact=@dsda, estado_detalleact=@eda, expressservicecode_detalleact=@escda, productname_detalleact=@pnda, capacidad_detalleact=@capda, velocidadtransf_detalleact=@vtda, ct_detalleact=@ctda, hpepartnumber_detalleact=@hpnda, codbarras1_detalleact=@cb1da, codbarras2_detalleact=@cb2da, numpuertos_detalleact=@npda, iosversion_detalleact=@ivda, fechamanufactura_detalleact=@fmda WHERE id_detalleact=@ida;", conn_BD))
+                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET id_tipoact=@ita, id_marca=@im, id_laboratorio=@il, nombre_detalleact=@nda, modelo_detalleact=@mda, serial_detalleact=@sda, fechaingreso_detalleact=@fida, codigoups_detalleact=@cuda, cantidad_detalleact=@cada, descripcion_detalleact=@dsda, estado_detalleact=@eda, expressservicecode_detalleact=@escda, productname_detalleact=@pnda, capacidad_detalleact=@capda, velocidadtransf_detalleact=@vtda, ct_detalleact=@ctda, hpepartnumber_detalleact=@hpnda, codbarras1_detalleact=@cb1da, codbarras2_detalleact=@cb2da, numpuertos_detalleact=@npda, iosversion_detalleact=@ivda, fechamanufactura_detalleact=@fmda WHERE id_detalleact=@ida;", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdTipoActivo;
-                    cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.IdCQR;
                     cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdMarca;
                     cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdLaboratorio;
                     cmd.Parameters.Add("nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
@@ -54,6 +53,35 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("npda", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoActivo.NumPuertosActivo.ToString()) ? (object)infoActivo.NumPuertosActivo : DBNull.Value;
                     cmd.Parameters.Add("ivda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.IosVersionActivo) ? (object)infoActivo.IosVersionActivo : DBNull.Value;
                     cmd.Parameters.Add("fmda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.FechaManufacturaActivo) ? (object)infoActivo.FechaManufacturaActivo : DBNull.Value;
+                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjActivos.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjActivos.OperacionExitosa = false;
+                msjActivos.MensajeError = e.Message;
+            }
+            return msjActivos;
+        }
+        /// <summary>
+        /// Método para actualizar el estado de un activo en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        public MensajesActivos ActualizacionEstadoActivo(Activos infoActivo)
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET estado_detalleact=@eda WHERE id_detalleact=@ida;", conn_BD))
+                {
+                    cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo;
+                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;
                     cmd.ExecuteNonQuery();
                 }
                 tran.Commit();

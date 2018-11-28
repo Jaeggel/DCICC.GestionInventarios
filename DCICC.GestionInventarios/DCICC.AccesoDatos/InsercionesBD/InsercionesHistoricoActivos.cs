@@ -30,7 +30,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_historicoactivos (id_detalleact, fechamodif_histactivos) VALUES (@ida, @fmh);", conn_BD))
                 {
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdDetActivo;
-                    cmd.Parameters.AddWithValue("fmh", !string.IsNullOrEmpty(infoHistoricoActivos.FechaModifHistActivos.ToLongDateString()) ? (object)infoHistoricoActivos.FechaModifHistActivos : DBNull.Value);
+                    cmd.Parameters.AddWithValue("fmh", infoHistoricoActivos.FechaModifHistActivos);
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();
