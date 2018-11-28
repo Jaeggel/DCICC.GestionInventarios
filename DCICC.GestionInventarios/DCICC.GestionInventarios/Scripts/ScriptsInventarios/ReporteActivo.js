@@ -109,11 +109,21 @@ function cargarEstadosCmb() {
     $("#cargarEstados").html(str);
 }
 
+function cargarEstadosModificarCmb() {
+    var str = '<select id="EstadoActivoModificar" class="form-control" name="EstadoActivoModificar" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+    };
+    str += '</select>';
+    $("#cargarEstadosActivo").html(str);
+}
+
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Estado del Activo</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Estado del Activo</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         //Método para dar formato a la fecha y hora
@@ -126,16 +136,24 @@ function cargarActivosTabla() {
             '</td><td>' + datosActivos[i].SerialActivo +
             '</td><td>' + datosActivos[i].NombreLaboratorio +
             '</td><td>' + fechaIngreso +
+            '</td><td>' + datosActivos[i].IdCQR +
             '</td><td>' + datosActivos[i].EstadoActivo;
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarActivo" onclick = "formUpdateActivos(' + datosActivos[i].IdActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
-        str += '<button type = "button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosActivos[i].NombreLaboratorio + ',' + datosActivos[i].NombreLaboratorio + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+        if (datosActivos[i].EstadoActivo == "OPERATIVO") {
+            str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].NombreLaboratorio + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+        } else if (datosActivos[i].EstadoActivo == "NO OPERATIVO") {
+            str += '<button type = "button" class="btn btn-warning text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].NombreLaboratorio +  ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+        } else {
+            str += '<button type = "button" class="btn btn-danger text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].NombreLaboratorio + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+        }
+        
         str += '</div></div></td></tr>';
     };
     str += '</tbody>' +
-        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Estado del Activo</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead></tfoot>' +
+        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th><th>Estado del Activo</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead></tfoot>' +
         '</table > ';
     $("#tablaActivos").html(str);
 }
@@ -168,7 +186,11 @@ function formUpdateActivos(idActivo) {
             //Obtener valor del codigo UPS
             document.getElementById("CodigoUpsActivo").value = datosActivos[i].CodigoUpsActivo;
             //Obtener valor de la fecha de ingreso del activo
-            //$('.FechaIngresoActivo').val();
+            //Obtener valor de la fecha de ingreso del activo
+            var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
+            var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+             $('#single_cal4').val(fechaIngreso);
+            console.log(fechaIngreso);
             //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
             //Obtener valor de la descripcion de activo
             document.getElementById("DescripcionActivo").value = datosActivos[i].DescripcionActivo;
@@ -222,7 +244,8 @@ function actualizarActivo(url) {
     //Obtener valor del codigo UPS
     var codigoUps = document.getElementById("CodigoUpsActivo").value;
     //Obtener valor de la fecha de ingreso del activo
-    var fechaIngreso = $('.FechaIngresoActivo').val();
+    var fechaIngreso = $('#single_cal4').val();
+    console.log(fechaIngreso);
     //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
     //Obtener valor de la descripcion de activo
     var descripcionActivo = document.getElementById("DescripcionActivo").value;
@@ -262,7 +285,7 @@ function actualizarActivo(url) {
         if (result.value) {
             $.ajax({
                 data: {
-                    "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
+                    "IdActivo":idActivoMod,"IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
                     "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
                     "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
                     "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
@@ -285,6 +308,40 @@ function actualizarActivo(url) {
             $('#ModificarActivo').modal('hide');
         }
     });
+ 
+}
 
+function habilitarOdeshabilitar(url) {
+
+    var cmbEstado = document.getElementById("EstadoActivoModificar");
+    var idEstado = cmbEstado.options[cmbEstado.selectedIndex].value;
     
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: {
+                    "IdActivo": idActivoMod, "EstadoActivo": idEstado},
+                url: url,
+                type: 'post',
+                success: function () {
+                    $('#ModificarEstadoActivo').modal('hide');
+                    obtenerActivos(url_metodo);
+
+                }, error: function () {
+
+                }
+            });
+        } else {
+        }
+    });
+
 }
