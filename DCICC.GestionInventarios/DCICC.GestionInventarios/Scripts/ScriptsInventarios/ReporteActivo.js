@@ -21,7 +21,8 @@ function obtenerActivos(url) {
             $('#dataTableActivos').DataTable({
                 "language": {
                     "url": url_idioma
-                }
+                },
+                "order": [[1,"asc"]]
             });
         }
     });
@@ -143,11 +144,11 @@ function cargarActivosTabla() {
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosActivos[i].EstadoActivo == "OPERATIVO") {
-            str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].NombreLaboratorio + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+            str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
         } else if (datosActivos[i].EstadoActivo == "NO OPERATIVO") {
-            str += '<button type = "button" class="btn btn-warning text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].NombreLaboratorio +  ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+            str += '<button type = "button" class="btn btn-warning text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo +  ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
         } else {
-            str += '<button type = "button" class="btn btn-danger text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].NombreLaboratorio + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+            str += '<button type = "button" class="btn btn-danger text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
         }
         
         str += '</div></div></td></tr>';
@@ -311,14 +312,18 @@ function actualizarActivo(url) {
  
 }
 
-function habilitarOdeshabilitar(url) {
+function habilitarOdeshabilitar(idActivo) {
+    idActivoMod = idActivo;
+}
+
+function actualizarEstadoActivo(url) {
 
     var cmbEstado = document.getElementById("EstadoActivoModificar");
     var idEstado = cmbEstado.options[cmbEstado.selectedIndex].value;
-    
+
     swal({
         title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
+        text: "¿Está seguro de modificar el estado del Activo?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -329,13 +334,13 @@ function habilitarOdeshabilitar(url) {
         if (result.value) {
             $.ajax({
                 data: {
-                    "IdActivo": idActivoMod, "EstadoActivo": idEstado},
+                    "IdActivo": idActivoMod, "EstadoActivo": idEstado
+                },
                 url: url,
                 type: 'post',
                 success: function () {
                     $('#ModificarEstadoActivo').modal('hide');
                     obtenerActivos(url_metodo);
-
                 }, error: function () {
 
                 }
