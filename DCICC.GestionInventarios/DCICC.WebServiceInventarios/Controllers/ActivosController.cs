@@ -27,15 +27,16 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerActivosHab")]
         public MensajesActivos ObtenerActivosHab()
         {
-            MensajesActivos msjActivos = new MensajesActivos();
-            try
+            MensajesActivos msjActivos = new MensajesActivos();            
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerActivos("activoshabilitados");
+            if(msjActivos.OperacionExitosa)
             {
-                ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
-                msjActivos = objConsultasActivosBD.ObtenerActivos("activoshabilitados");
+                Logs.Info("Consulta de activos realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de las activos: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -46,15 +47,16 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerActivosComp")]
         public MensajesActivos ObtenerActivosComp()
         {
-            MensajesActivos msjActivos = new MensajesActivos();
-            try
+            MensajesActivos msjActivos = new MensajesActivos();            
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerActivos("...");            
+            if (msjActivos.OperacionExitosa)
             {
-                ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
-                msjActivos = objConsultasActivosBD.ObtenerActivos("...");
+                Logs.Info("Consulta de activos realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los activos: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -66,14 +68,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesActivos ObtenerNombresActivos()
         {
             MensajesActivos msjActivos = new MensajesActivos();
-            try
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerNombresActivos();
+            if (msjActivos.OperacionExitosa)
             {
-                ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
-                msjActivos = objConsultasActivosBD.ObtenerNombresActivos();
+                Logs.Info("Consulta de nombres de activos realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los activos: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -86,14 +89,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesActivos RegistrarActivo([FromBody] Activos infoActivo)
         {
             MensajesActivos msjActivos = null;
-            try
+            InsercionesActivos objInsercionesActivosBD = new InsercionesActivos();
+            msjActivos = objInsercionesActivosBD.RegistroActivo(infoActivo);
+            if (msjActivos.OperacionExitosa)
             {
-                InsercionesActivos objInsercionesActivosBD = new InsercionesActivos();
-                msjActivos = objInsercionesActivosBD.RegistroActivo(infoActivo);
+                Logs.Info("Registro de activo realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el activo: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -106,14 +110,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesActivos ActualizarActivo([FromBody] Activos infoActivo)
         {
             MensajesActivos msjActivos = null;
-            try
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjActivos = objActualizacionesActivosBD.ActualizacionActivo(infoActivo);
+            if (msjActivos.OperacionExitosa)
             {
-                ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
-                msjActivos = objActualizacionesActivosBD.ActualizacionActivo(infoActivo);
+                Logs.Info("Actualización de activo realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el activo: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(msjActivos.MensajeError);
             }
             return msjActivos;
         }
@@ -125,14 +130,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesCQR ObtenerCQR()
         {
             MensajesCQR msjCQR = null;
-            try
+            ConsultasActivos objConsultasCQRBD = new ConsultasActivos();
+            msjCQR = objConsultasCQRBD.ObtenerCQR("consultaCQR");
+            if (msjCQR.OperacionExitosa)
             {
-                ConsultasActivos objConsultasCQRBD = new ConsultasActivos();
-                msjCQR = objConsultasCQRBD.ObtenerCQR("consultaCQR");
+                Logs.Info("Consulta de CQR realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los CQR: " + e.Message + " - " + msjCQR.MensajeError);
+                Logs.Error(msjCQR.MensajeError);
             }
             return msjCQR;
         }
@@ -144,14 +150,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesCQR ObtenerIdCQR()
         {
             MensajesCQR msjCQR = null;
-            try
+            ConsultasActivos objConsultasCQRBD = new ConsultasActivos();
+            msjCQR = objConsultasCQRBD.ObtenerIdCQR();
+            if (msjCQR.OperacionExitosa)
             {
-                ConsultasActivos objConsultasCQRBD = new ConsultasActivos();
-                msjCQR = objConsultasCQRBD.ObtenerIdCQR();
+                Logs.Info("Consulta de ID de CQR realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los CQR: " + e.Message + " - " + msjCQR.MensajeError);
+                Logs.Error(msjCQR.MensajeError);
             }
             return msjCQR;
         }
@@ -164,14 +171,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesCQR RegistrarCQR([FromBody] CQR infoCQR)
         {
             MensajesCQR msjCQR = null;
-            try
+            InsercionesActivos objInsercionesCQRBD = new InsercionesActivos();
+            msjCQR = objInsercionesCQRBD.RegistroCQR(infoCQR);
+            if (msjCQR.OperacionExitosa)
             {
-                InsercionesActivos objInsercionesCQRBD = new InsercionesActivos();
-                msjCQR = objInsercionesCQRBD.RegistroCQR(infoCQR);
+                Logs.Info("Registro de CQR realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el CQR: " + e.Message + " - " + msjCQR.MensajeError);
+                Logs.Error(msjCQR.MensajeError);
             }
             return msjCQR;
         }
@@ -184,14 +192,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesHistoricoActivos RegistrarHistoricoActivo([FromBody] HistoricoActivos infoHistActivo)
         {
             MensajesHistoricoActivos msjHistActivos = null;
-            try
+            InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
+            msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
+            if (msjHistActivos.OperacionExitosa)
             {
-                InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
-                msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
+                Logs.Info("Registro de Historico de Activo realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el historico: " + e.Message + " - " + msjHistActivos.MensajeError);
+                Logs.Error(msjHistActivos.MensajeError);
             }
             return msjHistActivos;
         }
