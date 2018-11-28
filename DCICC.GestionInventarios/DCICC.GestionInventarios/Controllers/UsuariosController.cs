@@ -67,6 +67,7 @@ namespace DCICC.GestionInventarios.Controllers
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
+                ObtenerUsuarioPorNick();
                 return View();
             }
         }
@@ -220,13 +221,30 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
-        /// Método para obtener los los usuariso con su rol de la base de datos
+        /// Método para obtener los los usuarios con su rol de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerUsuariosRoles()
         {
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
             return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los los usuariso con su rol de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerUsuarioPorNick()
+        {
+            UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+            var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios.Find(x => x.NickUsuario == (string)Session["NickUsuario"]);
+            if (datosUsuario != null)
+            {
+                return Json(datosUsuario.NickUsuario, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

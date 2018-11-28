@@ -27,14 +27,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesRoles ObtenerRolesHab()
         {
             MensajesRoles msjRoles = new MensajesRoles();
-            try
+            ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
+            msjRoles=objConsultasRolesBD.ObtenerRoles("roleshabilitados");
+            if (msjRoles.OperacionExitosa)
             {
-                ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-                msjRoles=objConsultasRolesBD.ObtenerRoles("roleshabilitados");
+                Logs.Info("Consulta de Roles realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los roles: " + e.Message + " - " + msjRoles.MensajeError);
+                Logs.Error(msjRoles.MensajeError);
             }
             return msjRoles;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesRoles RegistrarRol([FromBody] Roles infoRol)
         {
             MensajesRoles msjRoles = null;
-            try
+            InsercionesRoles objInsercionesRolesBD = new InsercionesRoles();
+            msjRoles = objInsercionesRolesBD.RegistroRol(infoRol);
+            if (msjRoles.OperacionExitosa)
             {
-                InsercionesRoles objInsercionesRolesBD = new InsercionesRoles();
-                msjRoles = objInsercionesRolesBD.RegistroRol(infoRol);
+                Logs.Info("Registro de Rol realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el rol: " + e.Message + " - " + msjRoles.MensajeError);
+                Logs.Error(msjRoles.MensajeError);
             }
             return msjRoles;
         }
@@ -67,13 +69,13 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesRoles ActualizarRol([FromBody] Roles infoRol)
         {
             MensajesRoles msjRoles = null;
-            try
+            if (msjRoles.OperacionExitosa)
             {
-               
+                Logs.Info("Actualización de Rol realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el rol: " + e.Message + " - " + msjRoles.MensajeError);
+                Logs.Error(msjRoles.MensajeError);
             }
             return msjRoles;
         }

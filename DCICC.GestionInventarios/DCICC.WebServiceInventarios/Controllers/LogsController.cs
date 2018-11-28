@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesLogs RegistrarLog([FromBody]Logs infoLogsSistema)
         {
             MensajesLogs msjLogs = null;
-            try
+            InsercionesLogs objInsercionesLogsBD = new InsercionesLogs();
+            msjLogs=objInsercionesLogsBD.RegistroLogsInicioBD(infoLogsSistema);
+            if (msjLogs.OperacionExitosa)
             {
-                InsercionesLogs objInsercionesLogsBD = new InsercionesLogs();
-                msjLogs=objInsercionesLogsBD.RegistroLogsInicioBD(infoLogsSistema);
+                Logs.Info("Registro de Log realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el log: " + e.Message + " - " + msjLogs.MensajeError);
+                Logs.Error(msjLogs.MensajeError);
             }
             return msjLogs;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesLogs ObtenerLogsComp()
         {
             MensajesLogs msjLogs = null;
-            try
+            ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
+            msjLogs = objConsultasLogsBD.ObtenerLogs();
+            if (msjLogs.OperacionExitosa)
             {
-                ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
-                msjLogs = objConsultasLogsBD.ObtenerLogs();
+                Logs.Info("Consulta de Logs realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los logs: " + e.Message + " - " + msjLogs.MensajeError);
+                Logs.Error(msjLogs.MensajeError);
             }
             return msjLogs;
         }

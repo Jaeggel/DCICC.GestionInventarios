@@ -73,7 +73,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjAccesorios = objInsercionesAccesoriosBD.RegistroAccesorios(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
             {
-                Logs.Info("Registro de accesorio realizado exitosamente.");
+                Logs.Info("Registro de Accesorio realizado exitosamente.");
             }
             else
             {
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorios(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
             {
-                Logs.Info("Actualización de accesorio realizado exitosamente.");
+                Logs.Info("Actualización de Accesorio realizada exitosamente.");
             }
             else
             {

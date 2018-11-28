@@ -227,7 +227,8 @@ namespace DCICC.GestionInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         public bool NuevoPropositoJSON(Propositos infoProposito)
-        { 
+        {
+            infoProposito.NombreProposito = infoProposito.NombreProposito.ToUpper();
             List<Propositos> lstPropositos = new List<Propositos>();
             if (!System.IO.File.Exists(path_JsonPropositos))
             {

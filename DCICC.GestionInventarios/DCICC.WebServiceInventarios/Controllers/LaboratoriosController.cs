@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesLaboratorios ObtenerLaboratoriosHab()
         {
             MensajesLaboratorios msjLaboratorios = null;
-            try
+            ConsultasLaboratorios objConsultasLaboratoriosBD = new ConsultasLaboratorios();
+            msjLaboratorios = objConsultasLaboratoriosBD.ObtenerLaboratorios("laboratorioshabilitados");    
+            if (msjLaboratorios.OperacionExitosa)
             {
-                ConsultasLaboratorios objConsultasLaboratoriosBD = new ConsultasLaboratorios();
-                msjLaboratorios = objConsultasLaboratoriosBD.ObtenerLaboratorios("laboratorioshabilitados");
+                Logs.Info("Consulta de Laboratorios realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los laboratorios: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error(msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesLaboratorios ObtenerLaboratoriosComp()
         {
             MensajesLaboratorios msjLaboratorios = null;
-            try
+            ConsultasLaboratorios objConsultasLaboratoriosBD = new ConsultasLaboratorios();
+            msjLaboratorios = objConsultasLaboratoriosBD.ObtenerLaboratorios("consultalaboratorios");
+            if (msjLaboratorios.OperacionExitosa)
             {
-                ConsultasLaboratorios objConsultasLaboratoriosBD = new ConsultasLaboratorios();
-                msjLaboratorios = objConsultasLaboratoriosBD.ObtenerLaboratorios("consultalaboratorios");
+                Logs.Info("Consulta de Laboratorios realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los laboratorios: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error(msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesLaboratorios RegistrarLaboratorio([FromBody] Laboratorios infoLaboratorio)
         {
             MensajesLaboratorios msjLaboratorios = null;
-            try
+            InsercionesLaboratorios objInsercionesLaboratoriosBD = new InsercionesLaboratorios();
+            msjLaboratorios = objInsercionesLaboratoriosBD.RegistroLaboratorio(infoLaboratorio);
+            if (msjLaboratorios.OperacionExitosa)
             {
-                InsercionesLaboratorios objInsercionesLaboratoriosBD = new InsercionesLaboratorios();
-                msjLaboratorios = objInsercionesLaboratoriosBD.RegistroLaboratorio(infoLaboratorio);
+                Logs.Info("Registro de Laboratorio realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error(msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesLaboratorios ActualizarLaboratorio([FromBody] Laboratorios infoLaboratorio)
         {
             MensajesLaboratorios msjLaboratorios = null;
-            try
+            ActualizacionesLaboratorios objActualizacionesLaboratoriosActBD = new ActualizacionesLaboratorios();
+            msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionLaboratorio(infoLaboratorio);
+            if (msjLaboratorios.OperacionExitosa)
             {
-                ActualizacionesLaboratorios objActualizacionesLaboratoriosActBD = new ActualizacionesLaboratorios();
-                msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionLaboratorio(infoLaboratorio);
+                Logs.Info("Actualización de Laboratorio realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error(msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }
@@ -107,14 +111,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesLaboratorios ActualizarEstadoLaboratorio([FromBody] Laboratorios infoLaboratorio)
         {
             MensajesLaboratorios msjLaboratorios = null;
-            try
+            ActualizacionesLaboratorios objActualizacionesLaboratoriosActBD = new ActualizacionesLaboratorios();
+            msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionEstadoLaboratorio(infoLaboratorio);
+            if (msjLaboratorios.OperacionExitosa)
             {
-                ActualizacionesLaboratorios objActualizacionesLaboratoriosActBD = new ActualizacionesLaboratorios();
-                msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionEstadoLaboratorio(infoLaboratorio);
+                Logs.Info("Actualízación de estado de Laboratorio realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error(msjLaboratorios.MensajeError);
             }
             return msjLaboratorios;
         }

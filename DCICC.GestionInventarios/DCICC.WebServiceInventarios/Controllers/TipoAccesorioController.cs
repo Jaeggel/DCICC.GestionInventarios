@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoAccesorio ObtenerTipoAccesorioHab()
         {
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
-            try
+            ConsultasTipoAccesorio objConsultasTipoAccesorioBD = new ConsultasTipoAccesorio();
+            msjTipoAccesorio = objConsultasTipoAccesorioBD.ObtenerTipoAccesorio("tipoaccesoriohabilitado");
+            if (msjTipoAccesorio.OperacionExitosa)
             {
-                ConsultasTipoAccesorio objConsultasTipoAccesorioBD = new ConsultasTipoAccesorio();
-                msjTipoAccesorio = objConsultasTipoAccesorioBD.ObtenerTipoAccesorio("tipoaccesoriohabilitado");
+                Logs.Info("Consulta de Tipo Accesorio realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los tipos de accesorios: " + e.Message + " - " + msjTipoAccesorio.MensajeError);
+                Logs.Error(msjTipoAccesorio.MensajeError);
             }
             return msjTipoAccesorio;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoAccesorio ObtenerTipoAccesorioComp()
         {
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
-            try
+            ConsultasTipoAccesorio objConsultasTipoAccesorioBD = new ConsultasTipoAccesorio();
+            msjTipoAccesorio = objConsultasTipoAccesorioBD.ObtenerTipoAccesorio("consultatipoaccesorio");
+            if (msjTipoAccesorio.OperacionExitosa)
             {
-                ConsultasTipoAccesorio objConsultasTipoAccesorioBD = new ConsultasTipoAccesorio();
-                msjTipoAccesorio = objConsultasTipoAccesorioBD.ObtenerTipoAccesorio("consultatipoaccesorio");
+                Logs.Info("Consulta de Tipo Accesorio realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los tipos de accesorios: " + e.Message + " - " + msjTipoAccesorio.MensajeError);
+                Logs.Error(msjTipoAccesorio.MensajeError);
             }
             return msjTipoAccesorio;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoAccesorio RegistrarTipoAccesorio([FromBody] TipoAccesorio infoTipoAccesorio)
         {
             MensajesTipoAccesorio msjTipoAccesorio = null;
-            try
+            InsercionesTipoAccesorio objInsercionesTipoAccesorioBD = new InsercionesTipoAccesorio();
+            msjTipoAccesorio = objInsercionesTipoAccesorioBD.RegistroTipoAccesorio(infoTipoAccesorio);
+            if (msjTipoAccesorio.OperacionExitosa)
             {
-                InsercionesTipoAccesorio objInsercionesTipoAccesorioBD = new InsercionesTipoAccesorio();
-                msjTipoAccesorio = objInsercionesTipoAccesorioBD.RegistroTipoAccesorio(infoTipoAccesorio);
+                Logs.Info("Registro de Tipo Accesorio realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el tipo de accesorio: " + e.Message + " - " + msjTipoAccesorio.MensajeError);
+                Logs.Error(msjTipoAccesorio.MensajeError);
             }
             return msjTipoAccesorio;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoAccesorio ActualizarTipoAccesorio([FromBody] TipoAccesorio infoTipoAccesorio)
         {
             MensajesTipoAccesorio msjTipoAccesorio = null;
-            try
+            ActualizacionesTipoAccesorio objActualizacionesTipoAccesorioBD = new ActualizacionesTipoAccesorio();
+            msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionTipoAccesorio(infoTipoAccesorio);
+            if (msjTipoAccesorio.OperacionExitosa)
             {
-                ActualizacionesTipoAccesorio objActualizacionesTipoAccesorioBD = new ActualizacionesTipoAccesorio();
-                msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionTipoAccesorio(infoTipoAccesorio);
+                Logs.Info("Actualización de Tipo Accesorio realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el tipo de accesorio: " + e.Message + " - " + msjTipoAccesorio.MensajeError);
+                Logs.Error(msjTipoAccesorio.MensajeError);
             }
             return msjTipoAccesorio;
         }
@@ -107,14 +111,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesTipoAccesorio ActualizarEstadoTipoAccesorio([FromBody] TipoAccesorio infoTipoAccesorio)
         {
             MensajesTipoAccesorio msjTipoAccesorio = null;
-            try
+            ActualizacionesTipoAccesorio objActualizacionesTipoAccesorioBD = new ActualizacionesTipoAccesorio();
+            msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionEstadoTipoAccesorio(infoTipoAccesorio);
+            if (msjTipoAccesorio.OperacionExitosa)
             {
-                ActualizacionesTipoAccesorio objActualizacionesTipoAccesorioBD = new ActualizacionesTipoAccesorio();
-                msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionEstadoTipoAccesorio(infoTipoAccesorio);
+                Logs.Info("Actualización de estado de Tipo Accesorio realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el tipo de accesorio: " + e.Message + " - " + msjTipoAccesorio.MensajeError);
+                Logs.Error(msjTipoAccesorio.MensajeError);
             }
             return msjTipoAccesorio;
         }

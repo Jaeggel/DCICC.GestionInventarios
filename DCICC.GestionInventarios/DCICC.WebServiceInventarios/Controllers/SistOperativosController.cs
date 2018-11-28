@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesSistOperativos ObtenerSistOperativosHab()
         {
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
-            try
+            ConsultasSistOperativos objConsultasSistOperativosBD = new ConsultasSistOperativos();
+            msjSistOperativos = objConsultasSistOperativosBD.ObtenerSistOperativos("sohabilitados");
+            if (msjSistOperativos.OperacionExitosa)
             {
-                ConsultasSistOperativos objConsultasSistOperativosBD = new ConsultasSistOperativos();
-                msjSistOperativos = objConsultasSistOperativosBD.ObtenerSistOperativos("sohabilitados");
+                Logs.Info("Consulta de SO realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los sistemas operativos: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error(msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesSistOperativos ObtenerSistOperativosComp()
         {
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
-            try
+            ConsultasSistOperativos objConsultasSistOperativosBD = new ConsultasSistOperativos();
+            msjSistOperativos = objConsultasSistOperativosBD.ObtenerSistOperativos("consultaso");
+            if (msjSistOperativos.OperacionExitosa)
             {
-                ConsultasSistOperativos objConsultasSistOperativosBD = new ConsultasSistOperativos();
-                msjSistOperativos = objConsultasSistOperativosBD.ObtenerSistOperativos("consultaso");
+                Logs.Info("Consulta de SO realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los sistemas operativos: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error(msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesSistOperativos RegistrarSistOperativo([FromBody] SistOperativos infoSistOperativo)
         {
             MensajesSistOperativos msjSistOperativos = null;
-            try
+            InsercionesSistOperativos objInsercionesSistOperativosBD = new InsercionesSistOperativos();
+            msjSistOperativos = objInsercionesSistOperativosBD.RegistroSistOperativo(infoSistOperativo);
+            if (msjSistOperativos.OperacionExitosa)
             {
-                InsercionesSistOperativos objInsercionesSistOperativosBD = new InsercionesSistOperativos();
-                msjSistOperativos = objInsercionesSistOperativosBD.RegistroSistOperativo(infoSistOperativo);
+                Logs.Info("Registro de SO realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error(msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesSistOperativos ActualizarSistOperativo([FromBody] SistOperativos infoSistOperativo)
         {
             MensajesSistOperativos msjSistOperativos = null;
-            try
+            ActualizacionesSistOperativos objActualizacionesSistOperativosBD = new ActualizacionesSistOperativos();
+            msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionSistOperativo(infoSistOperativo);
+            if (msjSistOperativos.OperacionExitosa)
             {
-                ActualizacionesSistOperativos objActualizacionesSistOperativosBD = new ActualizacionesSistOperativos();
-                msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionSistOperativo(infoSistOperativo);
+                Logs.Info("Actualización de SO realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error(msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }
@@ -107,14 +111,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesSistOperativos ActualizarEstadoSistOperativo([FromBody] SistOperativos infoSistOperativo)
         {
             MensajesSistOperativos msjSistOperativos = null;
-            try
+            ActualizacionesSistOperativos objActualizacionesSistOperativosBD = new ActualizacionesSistOperativos();
+            msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionEstadoSistOperativo(infoSistOperativo);
+            if (msjSistOperativos.OperacionExitosa)
             {
-                ActualizacionesSistOperativos objActualizacionesSistOperativosBD = new ActualizacionesSistOperativos();
-                msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionEstadoSistOperativo(infoSistOperativo);
+                Logs.Info("Actualización de estado de SO realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error(msjSistOperativos.MensajeError);
             }
             return msjSistOperativos;
         }

@@ -28,14 +28,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesMaqVirtuales ObtenerMaqVirtualesHab()
         {
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
-            try
+            ConsultasMaqVirtuales objConsultasMaqVirtualesBD = new ConsultasMaqVirtuales();
+            msjMaqVirtuales = objConsultasMaqVirtualesBD.ObtenerMaqVirtuales("maqvirtualeshabilitados");
+            if (msjMaqVirtuales.OperacionExitosa)
             {
-                ConsultasMaqVirtuales objConsultasMaqVirtualesBD = new ConsultasMaqVirtuales();
-                msjMaqVirtuales = objConsultasMaqVirtualesBD.ObtenerMaqVirtuales("maqvirtualeshabilitados");
+                Logs.Info("Consulta de Máquinas Virtuales realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de las máquinas virtuales: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
+                Logs.Error(msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }
@@ -47,14 +48,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesMaqVirtuales ObtenerMaqVirtualesComp()
         {
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
-            try
+            ConsultasMaqVirtuales objConsultasMaqVirtualesBD = new ConsultasMaqVirtuales();
+            msjMaqVirtuales = objConsultasMaqVirtualesBD.ObtenerMaqVirtuales("maqvsisto");
+            if (msjMaqVirtuales.OperacionExitosa)
             {
-                ConsultasMaqVirtuales objConsultasMaqVirtualesBD = new ConsultasMaqVirtuales();
-                msjMaqVirtuales = objConsultasMaqVirtualesBD.ObtenerMaqVirtuales("maqvsisto");
+                Logs.Info("Consulta de Máquinas Virtuales realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de las máquinas virtuales: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
+                Logs.Error(msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesMaqVirtuales RegistrarMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
         {
             MensajesMaqVirtuales msjMaqVirtuales = null;
-            try
+            InsercionesMaqVirtuales objInsercionesMaqVirtualesBD = new InsercionesMaqVirtuales();
+            msjMaqVirtuales = objInsercionesMaqVirtualesBD.RegistroMaqVirtual(infoMaqVirtual);
+            if (msjMaqVirtuales.OperacionExitosa)
             {
-                InsercionesMaqVirtuales objInsercionesMaqVirtualesBD = new InsercionesMaqVirtuales();
-                msjMaqVirtuales = objInsercionesMaqVirtualesBD.RegistroMaqVirtual(infoMaqVirtual);
+                Logs.Info("Registro de Máquina Virtual realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar la máquina virtual: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
+                Logs.Error(msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesMaqVirtuales ActualizarMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
         {
             MensajesMaqVirtuales msjMaqVirtuales = null;
-            try
+            ActualizacionesMaqVirtuales objActualizacionesMaqVirtualesBD = new ActualizacionesMaqVirtuales();
+            msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionMaqVirtual(infoMaqVirtual);
+            if (msjMaqVirtuales.OperacionExitosa)
             {
-                ActualizacionesMaqVirtuales objActualizacionesMaqVirtualesBD = new ActualizacionesMaqVirtuales();
-                msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionMaqVirtual(infoMaqVirtual);
+                Logs.Info("Actualización de Máquina Virtual realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar la máquina virtual: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
+                Logs.Error(msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }
@@ -107,14 +111,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesMaqVirtuales ActualizarEstadoMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
         {
             MensajesMaqVirtuales msjMaqVirtuales = null;
-            try
+            ActualizacionesMaqVirtuales objActualizacionesMaqVirtualesBD = new ActualizacionesMaqVirtuales();
+            msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionEstadoMaqVirtual(infoMaqVirtual);
+            if (msjMaqVirtuales.OperacionExitosa)
             {
-                ActualizacionesMaqVirtuales objActualizacionesMaqVirtualesBD = new ActualizacionesMaqVirtuales();
-                msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionEstadoMaqVirtual(infoMaqVirtual);
+                Logs.Info("Actualización de estado de Máquina Virtual realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar la máquina virtual: " + e.Message + " - " + msjMaqVirtuales.MensajeError);
+                Logs.Error(msjMaqVirtuales.MensajeError);
             }
             return msjMaqVirtuales;
         }

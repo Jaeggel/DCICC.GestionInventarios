@@ -29,14 +29,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios ObtenerUsuariosComp()
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+            msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");//corregir
+            if (msjUsuarios.OperacionExitosa)
             {
-                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");//corregir
+                Logs.Info("Consulta de Usuarios realizada exitosamente.");
             }
-            catch(Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los usuarios: "+e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -48,14 +49,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios ObtenerUsuariosHab()
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+            msjUsuarios= objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+            if (msjUsuarios.OperacionExitosa)
             {
-                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                msjUsuarios= objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+                Logs.Info("Consulta de Usuarios realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -67,14 +69,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios ObtenerUsuariosRoles()
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+            msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("usuariosroles");
+            if (msjUsuarios.OperacionExitosa)
             {
-                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("usuariosroles");
+                Logs.Info("Consulta de Usuarios realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo obtener la lista de los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -87,14 +90,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios RegistrarUsuario([FromBody] Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            InsercionesUsuarios objInsercionesUsuariosBD = new InsercionesUsuarios();
+            msjUsuarios=objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
+            if (msjUsuarios.OperacionExitosa)
             {
-                InsercionesUsuarios objInsercionesUsuariosBD = new InsercionesUsuarios();
-                msjUsuarios=objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
+                Logs.Info("Registro de Usuario realizado exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo registrar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -107,14 +111,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios ActualizarUsuario([FromBody] Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
+            msjUsuarios = objActualizacionesUsuariosBD.ActualizacionUsuario(infoUsuario);
+            if (msjUsuarios.OperacionExitosa)
             {
-                ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
-                msjUsuarios = objActualizacionesUsuariosBD.ActualizacionUsuario(infoUsuario);
+                Logs.Info("Actualización de Usuario realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -127,14 +132,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios ActualizarEstadoUsuario([FromBody] Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
+            msjUsuarios = objActualizacionesUsuariosBD.ActualizacionEstadoUsuario(infoUsuario);
+            if (msjUsuarios.OperacionExitosa)
             {
-                ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
-                msjUsuarios = objActualizacionesUsuariosBD.ActualizacionEstadoUsuario(infoUsuario);
+                Logs.Info("Actualización de estado de Usuario realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -147,14 +153,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios ActualizarPerfilUsuario([FromBody] Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
+            msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPerfilUsuario(infoUsuario);
+            if (msjUsuarios.OperacionExitosa)
             {
-                ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
-                msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPerfilUsuario(infoUsuario);
+                Logs.Info("Actualización de perfil de usuario realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -167,14 +174,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios EliminarUsuario([FromBody] Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = null;
-            try
+            EliminacionesUsuarios objEliminacionesUsuariosBD = new EliminacionesUsuarios();
+            msjUsuarios = objEliminacionesUsuariosBD.EliminacionUsuario(infoUsuario);
+            if (msjUsuarios.OperacionExitosa)
             {
-                EliminacionesUsuarios objEliminacionesUsuariosBD = new EliminacionesUsuarios();
-                msjUsuarios = objEliminacionesUsuariosBD.EliminacionUsuario(infoUsuario);
+                Logs.Info("Eliminación de Usuario realizada exitosamente.");
             }
-            catch (Exception e)
+            else
             {
-                Logs.Error("No se pudo actualizar el usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error(msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
