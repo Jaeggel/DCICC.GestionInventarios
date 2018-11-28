@@ -35,6 +35,7 @@ function datosTipoActivo(url) {
         type: 'get',
         success: function (data) {
             cmbTipoActivo = data;
+            cargarTipoActivoCmb();
 
         }
     });
@@ -66,15 +67,13 @@ function datosMarcas(url) {
     });
 }
 
-function cargarTipoActivoCmb(idCategoria) {
-    console.log(idCategoria);
+function cargarTipoActivoCmb() {
+    
     var str = '<select id="TipoActivo" class="form-control" name="TipoActivo" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoActivo.length; i++) {
-        if (cmbTipoActivo[i].IdCategoriaActivo == idCategoria) {
             console.log(cmbTipoActivo[i].NombreTipoActivo);
             str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
-        }
     };
     str += '</select>';
     $("#cargarTipoActivos").html(str);
@@ -113,8 +112,8 @@ function cargarEstadosCmb() {
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
-    var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered dt-responsive nowrap" style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Estado del Activo</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Estado del Activo</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         //Método para dar formato a la fecha y hora
@@ -136,7 +135,7 @@ function cargarActivosTabla() {
         str += '</div></div></td></tr>';
     };
     str += '</tbody>' +
-        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Estado del Activo</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead></tfoot>' +
+        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Estado del Activo</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead></tfoot>' +
         '</table > ';
     $("#tablaActivos").html(str);
 }
@@ -270,17 +269,20 @@ function actualizarActivo(url) {
                     "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
                 },
                 url: url,
-                async: false,
-                dataType: 'json',
                 type: 'post',
-                success: function (data) {
-                        
+                success: function () {
+                    $('#ModificarActivo').modal('hide');
+                    showNotify("Actualización exitosa", 'El usuario se ha modificado correctamente', "success");
+                    obtenerActivos(url_metodo);  
 
+                }, error: function () {
+                    $('#ModificarActivo').modal('hide');
+                    showNotify("Error en la Actualización", 'No se ha podido modificar el usuario', "error");
                 }
             });
 
         } else {
-            $('#ModificarTickets').modal('hide');
+            $('#ModificarActivo').modal('hide');
         }
     });
 
