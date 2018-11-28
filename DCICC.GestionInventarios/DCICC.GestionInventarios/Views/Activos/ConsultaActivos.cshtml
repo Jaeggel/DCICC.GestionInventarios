@@ -27,8 +27,8 @@
                 </div>
                 @*Sección para botones de generar reportes en PDF y Excel*@
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                    <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoActivo", "Activos")'"><i class="fa fa-plus"></i> Agregar Activo</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarActivo", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -54,7 +54,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel1">Solucionar Tickets para Soporte Técnico En Curso</h4>
+                <h4 class="modal-title" id="myModalLabel1">Modificación de información del Activo</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -147,7 +147,7 @@
                                     </div>
 
                                     @* ---------------- Sección de especificaciones adicionales para todos los Activos ---------------*@
-                                    <label >Especificaciones Adicionales comunes para todos los Activos</label>
+                                    <label>Especificaciones Adicionales comunes para todos los Activos</label>
                                     @* Área de Texto para el ingreso de Express Service Code *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="ExpressServiceCodeActivo" type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" maxlength="100">
@@ -161,7 +161,7 @@
                                     </div>
 
                                     @* ---------------- Sección de especificaciones adicionales para Equipos de Redes ---------------*@
-                                    <label >Especificaciones Adicionales para Switchs, routers, etc.</label>
+                                    <label>Especificaciones Adicionales para Switchs, routers, etc.</label>
                                     <div class="form-group">
                                         @* Cuadro de texto para el ingreso de Número de Puertos *@
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
@@ -239,6 +239,50 @@
 </div>
 
 
+@* Modal de modificación de tickets en curso *@
+<div class="modal fade" id="ModificarEstadoActivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Cambio de Estado del Activo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+                                    @* Combobox para seleccionar el estado del activo *@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Seleccione el nuevo estado para el Activo:</label>
+                                            <div id="cargarEstadosActivo"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success" onclick="actualizarActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
+                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @* Sección para visualizar los mensajes de error o de éxito de transacción *@
 
 @if (TempData["Mensaje"] != null)
@@ -268,6 +312,7 @@
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');
         datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
         cargarEstadosCmb();
+        cargarEstadosModificarCmb();
     });
 
 </script>
