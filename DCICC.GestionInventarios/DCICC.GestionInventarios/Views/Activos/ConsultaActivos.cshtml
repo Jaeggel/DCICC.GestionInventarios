@@ -28,7 +28,7 @@
                 @*Sección para botones de generar reportes en PDF y Excel*@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoActivo", "Activos")'"><i class="fa fa-plus"></i> Agregar Activo</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarActivo", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ConsultaActivos", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -267,7 +267,7 @@
                                     
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="actualizarActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick="actualizarEstadoActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
