@@ -15,11 +15,14 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
     {
         //Instancia para la utilización de LOGS en la clase TicketsAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        string token_Autorizacion = string.Empty;
+        HttpClient client_Service = new HttpClient();
         public TicketsAccDatos(string NickUsuario_Sesion)
         {
             ComunicacionServicio objComunicacionServicio = new ComunicacionServicio();
-            token_Autorizacion = "Bearer " + objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion);
+            client_Service.DefaultRequestHeaders.Clear();
+            client_Service.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+            client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
         /// Método para obtener una lista con los tickets de la base de datos.
@@ -31,12 +34,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTickets msjTickets = new MensajesTickets();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Tickets/ObtenerTickets" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync("Tickets/ObtenerTickets" + nombreFuncion).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TicketsJson = response.Content.ReadAsStringAsync().Result;
@@ -59,12 +57,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTickets msjTickets = new MensajesTickets();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Tickets/ActualizarTicket", infoTicket).Result;
+                var response = client_Service.PostAsJsonAsync("Tickets/ActualizarTicket", infoTicket).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TicketsJson = response.Content.ReadAsStringAsync().Result;

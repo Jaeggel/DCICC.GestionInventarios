@@ -13,9 +13,9 @@ using System.Web.Mvc;
 namespace DCICC.GestionInventarios.Controllers
 {
     [SessionExpireFilter]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class ActivosController : Controller
     {
-        bool ActivoQRRegistrado = false;
         static string Id_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

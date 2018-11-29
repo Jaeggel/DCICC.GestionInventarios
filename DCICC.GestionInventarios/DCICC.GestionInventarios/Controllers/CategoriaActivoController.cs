@@ -12,6 +12,7 @@ using System.Web.Mvc;
 namespace DCICC.GestionInventarios.Controllers
 {
     [SessionExpireFilter]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class CategoriaActivoController : Controller
     {
         //Instancia para la utilización de LOGS en la clase Usuarios

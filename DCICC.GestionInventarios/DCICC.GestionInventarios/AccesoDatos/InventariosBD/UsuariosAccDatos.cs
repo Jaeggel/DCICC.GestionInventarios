@@ -16,6 +16,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         //Instancia para la utilización de LOGS en la clase UsuariosAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         string token_Autorizacion = string.Empty;
+        HttpClient client_Service = new HttpClient();
         ComunicacionServicio obj_ComunicacionServicio = new ComunicacionServicio();
         /// <summary>
         /// Constructor para inicializar el token de autorización de transacciones
@@ -23,7 +24,10 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// <param name="NickUsuario_Sesion">Nick del usuario de la sesión actual</param>
         public UsuariosAccDatos(string NickUsuario_Sesion)
         {
-            token_Autorizacion= "Bearer "+obj_ComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion);
+            client_Service.DefaultRequestHeaders.Clear();
+            client_Service.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+            client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client_Service.DefaultRequestHeaders.Add("Authorization", obj_ComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
         /// Constructor para inicializar el token de autorización de inicio de BD
@@ -31,12 +35,12 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// <param name="infoUsuario">Objeto del usuario</param>
         public UsuariosAccDatos(Usuarios infoUsuario)
         {
-            token_Autorizacion = "Bearer " +obj_ComunicacionServicio.ObtenerTokenInicioBD(infoUsuario);
+            token_Autorizacion = obj_ComunicacionServicio.ObtenerTokenInicioBD(infoUsuario);
         }
         /// <summary>
         /// Constructor para acceder a usuarios para recuperar contraseña
         /// </summary>
-        public UsuariosAccDatos(){}
+        public UsuariosAccDatos() { }
 
         /// <summary>
         /// Método para obtener una lista con todos los usuarios de la base de datos.
@@ -62,7 +66,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message+" - "+msjUsuarios.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
             }
             return msjUsuarios;
         }
@@ -81,7 +85,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 clientService.DefaultRequestHeaders.Clear();
                 clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
                 clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", "Bearer "+objComServ.ObtenerTokenInicioCorreoBD(infoCorreo));
+                clientService.DefaultRequestHeaders.Add("Authorization", objComServ.ObtenerTokenInicioCorreoBD(infoCorreo));
                 HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuariosHab").Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -104,12 +108,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuariosRoles").Result;
+                HttpResponseMessage response = client_Service.GetAsync("Usuarios/ObtenerUsuariosRoles").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
@@ -132,12 +131,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Usuarios/RegistrarUsuario", infoUsuario).Result;
+                var response = client_Service.PostAsJsonAsync("Usuarios/RegistrarUsuario", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
@@ -156,14 +150,14 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// <param name="infoUsuario"></param>
         /// <param name="actPerfil"></param>
         /// <returns></returns>
-        public MensajesUsuarios ActualizarUsuario(Usuarios infoUsuario,int opAct)
+        public MensajesUsuarios ActualizarUsuario(Usuarios infoUsuario, int opAct)
         {
-            string funcionServ=string.Empty;
-            if(opAct==1)
+            string funcionServ = string.Empty;
+            if (opAct == 1)
             {
                 funcionServ = "Usuarios/ActualizarUsuario";
             }
-            else if(opAct==2)
+            else if (opAct == 2)
             {
                 funcionServ = "Usuarios/ActualizarEstadoUsuario";
             }
@@ -178,12 +172,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync(funcionServ, infoUsuario).Result;
+                var response = client_Service.PostAsJsonAsync(funcionServ, infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
@@ -206,12 +195,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Usuarios/EliminarUsuario", infoUsuario).Result;
+                var response = client_Service.PostAsJsonAsync("Usuarios/EliminarUsuario", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
