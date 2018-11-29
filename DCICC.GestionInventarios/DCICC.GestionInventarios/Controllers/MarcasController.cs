@@ -14,6 +14,7 @@ namespace DCICC.GestionInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase MarcasController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista NuevaMarca
         /// </summary>
@@ -50,6 +51,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Registros (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoMarca.
         /// </summary>
@@ -83,6 +86,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarMarca", "Marcas");
         }
+        #endregion
+        #region Actualizaciones (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarMarca.
         /// </summary>
@@ -141,6 +146,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarMarca", "Marcas");
         }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener todas las Marcas de la base de datos
         /// </summary>
@@ -159,5 +166,6 @@ namespace DCICC.GestionInventarios.Controllers
             MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
             return Json(objMarcasAccDatos.ObtenerMarcas("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

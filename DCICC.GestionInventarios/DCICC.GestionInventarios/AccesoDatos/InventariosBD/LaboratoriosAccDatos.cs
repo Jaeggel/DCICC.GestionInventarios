@@ -13,6 +13,10 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         //Instancia para la utilización de LOGS en la clase LaboratoriosAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         HttpClient client_Service = new HttpClient();
+        /// <summary>
+        /// Constructor para configurar la comunicación con el Web Service
+        /// </summary>
+        /// <param name="NickUsuario_Sesion"></param>
         public LaboratoriosAccDatos(string NickUsuario_Sesion)
         {
             ComunicacionServicio objComunicacionServicio = new ComunicacionServicio();
