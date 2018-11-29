@@ -96,12 +96,22 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
-                                    <a href="@Url.Action("GestionTickets", "Tickets")"><i class="fa fa-ticket"></i>Gestión de Tickets</a>
+                                    @*Sección de enlaces para generación de reportes*@
+                                    <a><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @* Seccción de enlaces a reportes de Activos *@
+                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")">Activos</a></li>
+                                        @* Seccción de enlaces a reportes de Máquinas virtuales *@
+                                        <li><a href="@Url.Action("ReportesMaqVirtuales", "Reportes")">Máquinas Virtuales</a></li>
+                                        @* Seccción de enlaces a reportes de Tickets *@
+                                        <li><a href="@Url.Action("ReportesTickets", "Reportes")">Tickets</a></li>
+                                        @* Seccción de enlaces a reportes de Logs *@
+                                        <li><a href="@Url.Action("ReportesLogs", "Reportes")">Logs</a></li>
+                                    </ul>
                                 </li>
                                 <li>
-                                    @*Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)*@
-                                    <a href="@Url.Action("Reportes", "Reportes")"><i class="fa fa-bar-chart-o"></i> Reportes</a>
+                                    @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
+                                    <a href="@Url.Action("GestionTickets", "Tickets")"><i class="fa fa-ticket"></i>Gestión de Tickets</a>
                                 </li>
                             </ul>
                         </div>

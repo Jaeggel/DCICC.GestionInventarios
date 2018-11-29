@@ -13,6 +13,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         //Instancia para la utilización de LOGS en la clase MaqVirtualesAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         HttpClient client_Service = new HttpClient();
+        #region Constructor Comunicación Servicio
         /// <summary>
         /// Constructor para configurar la comunicación con el Web Service
         /// </summary>
@@ -25,6 +26,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
+        #endregion
+        #region Consultas
         /// <summary>
         /// Método para obtener una lista con las Máquinas Virtuales de la base de datos.
         /// </summary>
@@ -48,6 +51,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjMaqVirtuales;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método para registrar una nueva Máquina Virtual en la base de datos.
         /// </summary>
@@ -71,6 +76,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjMaqVirtuales;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método para actualizar una Máquina Virtual en la base de datos.
         /// </summary>
@@ -95,5 +102,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjMaqVirtuales;
         }
+        #endregion
     }
 }

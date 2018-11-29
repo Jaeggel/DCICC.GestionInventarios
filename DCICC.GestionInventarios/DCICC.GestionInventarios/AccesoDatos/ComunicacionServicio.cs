@@ -12,6 +12,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
     {
         //Instancia para la utilización de LOGS en la clase ComunicacionServicio
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Constructor Comunicación Servicio
         public static string base_URL;
         HttpClient client_Service = new HttpClient();
         /// <summary>
@@ -24,6 +25,8 @@ namespace DCICC.GestionInventarios.AccesoDatos
             client_Service.BaseAddress = new Uri(base_URL);
             client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
+        #region Obtención de Token de Autenticación
         /// <summary>
         /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
         /// </summary>
@@ -96,5 +99,6 @@ namespace DCICC.GestionInventarios.AccesoDatos
             }
             return "Bearer " + tokenResult;
         }
+        #endregion
     }
 }

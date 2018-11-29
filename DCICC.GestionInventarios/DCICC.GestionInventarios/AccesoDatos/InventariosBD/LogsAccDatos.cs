@@ -13,6 +13,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         //Instancia para la utilización de LOGS en la clase LogsAccDatos
         private static readonly ILog Logs4n = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         HttpClient client_Service = new HttpClient();
+        #region Constructor Comunicación Servicio
         /// <summary>
         /// Constructor para configurar la comunicación con el Web Service
         /// </summary>
@@ -25,6 +26,32 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
+        #endregion
+        #region Consultas
+        /// <summary>
+        /// Método para obtener una lista de los Logs de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public MensajesLogs ObtenerLogsComp()
+        {
+            MensajesLogs msjLogs = new MensajesLogs();
+            try
+            {
+                HttpResponseMessage response = client_Service.GetAsync("Logs/ObtenerLogsComp").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var logsJson = response.Content.ReadAsStringAsync().Result;
+                    msjLogs = JsonConvert.DeserializeObject<MensajesLogs>(logsJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs4n.Error("Error en la conexión para obtener la lista de todos los logs: " + e.Message + " - " + msjLogs.MensajeError);
+            }
+            return msjLogs;
+        }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método para registrar un nuevo Log en la base de datos.
         /// </summary>
@@ -48,27 +75,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjLogs;
         }
-        /// <summary>
-        /// Método para obtener una lista de los Logs de la base de datos.
-        /// </summary>
-        /// <returns></returns>
-        public MensajesLogs ObtenerLogsComp()
-        {
-            MensajesLogs msjLogs = new MensajesLogs();
-            try
-            {
-                HttpResponseMessage response = client_Service.GetAsync("Logs/ObtenerLogsComp").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var logsJson = response.Content.ReadAsStringAsync().Result;
-                    msjLogs = JsonConvert.DeserializeObject<MensajesLogs>(logsJson);
-                }
-            }
-            catch (Exception e)
-            {
-                Logs4n.Error("Error en la conexión para obtener la lista de todos los logs: " + e.Message + " - " + msjLogs.MensajeError);
-            }
-            return msjLogs;
-        }
+        #endregion
     }
 }
