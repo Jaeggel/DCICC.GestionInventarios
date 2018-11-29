@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
 {
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LoginController : Controller
     {
         public static int contMsj=0;
@@ -125,7 +126,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para cerrar la sesión actual
         /// </summary>
         /// <returns></returns>
-        public bool CerrarSesion()
+        public ActionResult CerrarSesion()
         {
             try
             {
@@ -140,13 +141,12 @@ namespace DCICC.GestionInventarios.Controllers
                 Session.Abandon();
                 Session.Clear();
                 Session.RemoveAll();
-                return true;
             }
             catch(Exception e)
             {
                 Logs.Error("Error en el cierre de la sesión: " + e.Message);
             }
-            return false;
+            return RedirectToAction("Login","Login");
         }
         /// <summary>
         /// Método para obtener la IP del cliente que accede al sistema.
