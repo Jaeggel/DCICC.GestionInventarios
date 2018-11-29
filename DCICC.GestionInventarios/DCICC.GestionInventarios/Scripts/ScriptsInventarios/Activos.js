@@ -154,6 +154,17 @@ function cargarEstadosCmb() {
     $("#cargarEstados").html(str);
 }
 
+function cargarEstadosAccesorioCmb() {
+    var str = '<select id="EstadoAccesorios" class="form-control" name="EstadoAccesorio" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+    };
+    str += '</select>';
+    $("#cargarEstadosAccesorio").html(str);
+}
+
+
 function cargarAccesoriosCmb() {
     var str = '<select id="AccesorioActivo" class="form-control" name="AccesorioActivo" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -172,6 +183,9 @@ function validar3(url) {
     //Obtener Valor del tipo de activo
     var cmbTipoAccesorio = document.getElementById("AccesorioActivo");
     var idTipoAccesorio = cmbTipoAccesorio.options[cmbTipoAccesorio.selectedIndex].value;
+    //Obtener Valor del estado de accesorio
+    var cmbEstadoAccesorio = document.getElementById("EstadoAccesorios");
+    var idEstadoAccesorio = cmbEstadoAccesorio.options[cmbEstadoAccesorio.selectedIndex].value;
     //Obtener valor del nombre de activo
     var nombreAccesorio = document.getElementById("NombreAccesorio").value;
     //Obtener valor del serial de activo
@@ -186,7 +200,7 @@ function validar3(url) {
     } else {
         $.ajax({
             data: {
-                "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivo, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, " HabilitadoAccesorio": true
+                "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivo, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, " EstadoAccesorio": idEstadoAccesorio
             },
             url: url,
             async: false,

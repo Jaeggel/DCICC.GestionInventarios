@@ -9,20 +9,7 @@ function obtenerIdioma() {
     return url_idioma;
 }
 
-function listaPropositos() {
-    var url = "/Inventarios/MaqVirtuales/ObtenerPropositosComp";
-    $.ajax({
-        dataType: 'json',
-        url: url,
-        type: 'get',
-        success: function (data) {
-            console.log("entrooo")
-            return data;
-        }, error:function(e) {
-            console.log(e);
-        }
-    });
-}
+
 
 function listaEstadosTicket() {
     return ["ABIERTO", "EN CURSO", "RESUELTO"];

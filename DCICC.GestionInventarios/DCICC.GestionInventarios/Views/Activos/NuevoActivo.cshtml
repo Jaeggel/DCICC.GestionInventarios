@@ -287,6 +287,14 @@
                                 <textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" maxlength="150"></textarea>
                                 <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
+                            @* Combobox para seleccionar el estado del accesorio *@
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>Escoja el Estado del Activo:</label>
+                                    <div id="cargarEstadosAccesorio"></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div id="step-4">
@@ -322,6 +330,7 @@
         datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
         datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioHab", "TipoAccesorio")');
         cargarEstadosCmb();
+        cargarEstadosAccesorioCmb();
         // Inicializar Smart Wizard
         $('#wizard').smartWizard({
             // Propiedades
