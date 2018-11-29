@@ -1,7 +1,9 @@
 ﻿var url_idioma = obtenerIdioma();
+var cmbEstados = listaEstadosActivos();
 var url_metodo;
 var cmbTipoAccesorio;
 var datosAccesorios;
+var idAccesorioMod;
 
 //Método ajax para obtener los datos de categorias
 function obtenerAccesorios(url) {
@@ -38,6 +40,16 @@ function datosTipoAccesorio(url) {
     });
 }
 
+function cargarEstadosAccesoriosCmb() {
+    var str = '<select id="EstadoAccesorio" class="form-control" name="EstadoAccesorio" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+    };
+    str += '</select>';
+    $("#cargarEstadosAccesorio").html(str);
+}
+
 function cargarAccesoriosCmb() {
     var str = '<select id="AccesorioActivo" class="form-control" name="AccesorioActivo" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -62,7 +74,7 @@ function cargarAccesoriosTabla() {
             '</td><td>' + datosActivos[i].ModeloAccesorio +
             '</td><td>' + datosActivos[i].EstadoAccesorio;
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarAccesorio" > <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarAccesorio" onclick = "formUpdateAccesorio(' + datosAccesorios[i].IdAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosActivos[i].EstadoActivo == "OPERATIVO") {
@@ -80,28 +92,34 @@ function cargarAccesoriosTabla() {
     $("#tablaAccesorios").html(str);
 }
 
-//function formUpdateActivos(idActivo) {
-//    idActivoMod = idActivo;
-//    for (var i = 0; i < datosActivos.length; i++) {
-//        if (datosActivos[i].IdActivo == idActivo) {
-//            //Obtener Valor del tipo de activo
-//            var element = document.getElementById("TipoActivo");
-//            element.value = datosActivos[i].IdTipoActivo;
-
-//            var element3 = document.getElementById("EstadoActivo");
-//            element3.value = datosActivos[i].EstadoActivo;
-//            //Obtener valor del nombre de activo
-//            document.getElementById("NombreActivo").value = datosActivos[i].NombreActivo;
-//            //Obtener valor del serial de activo
-//            document.getElementById("SerialActivo").value = datosActivos[i].SerialActivo;
-//            //Obtener valor del modelo de activo
-//            document.getElementById("ModeloActivo").value = datosActivos[i].ModeloActivo;
-//            //Obtener valor del codigo UPS
+function formUpdateAccesorio(idAccesorio) {
+    idAccesorioMod = idAccesorio;
+    for (var i = 0; i < datosAccesorios.length; i++) {
+        if (datosAccesorios[i].IdAccesorio == idAccesorio) {
             
-//        }
-//    };
+            var element = document.getElementById("AccesorioActivo");
+            element.value = datosAccesorios[i].IdTipoAccesorio;
+            
+            
+            document.getElementById("NombreActivo").value = datosAccesorios[i].NombreActivo;
+            
+            document.getElementById("NombreAccesorio").value = datosAccesorios[i].NombreAccesorio;
+            
+            document.getElementById("SerialAccesorio").value = datosAccesorios[i].SerialAccesorio;
 
-//}
+            document.getElementById("ModeloAccesorio").value = datosAccesorios[i].ModeloAccesorio;
+
+            document.getElementById("DescripcionAccesorio").value = datosAccesorios[i].DescripcionAccesorio;
+
+            var element3 = document.getElementById("EstadoAccesorio");
+            element3.value = datosAccesorios[i].EstadoAccesorio;
+
+            
+            
+        }
+    };
+
+}
 
 
 //function actualizarActivo(url) {

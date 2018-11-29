@@ -331,7 +331,7 @@
 </div>
 
 
-@* Modal de modificación de marcas *@
+@* Modal de modificación de Accesorios *@
 <div class="modal fade" id="ModificarAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -355,15 +355,13 @@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Escoja el Tipo de Accesorio:</label>
-                                            <div id="cargarAccesorio"></div>
+                                            <div id="cargarTipoAccesorio"></div>
                                         </div>
                                     </div>
-                                    @* Combobox para seleccionar el activo de TI *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Escoja el activo al que pertenece:</label>
-                                            <div id="cargarActivos"></div>
-                                        </div>
+                                    @* Cuadro de texto para el ingreso del nombre de un accesorio *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Accesorio" maxlength="100" readonly>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre de un accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -385,11 +383,11 @@
                                         <textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" maxlength="150"></textarea>
                                         <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    @* Checkbox para habilitar o deshabilitar el uso del accesorio *@
+                                    @* Combobox para seleccionar el estado del activo *@
                                     <div class="form-group">
-                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Accesorio?</label>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input id="HabilitadoAccesorio" name="HabilitadoMarca" type="checkbox" class="js-switch" value="true" checked />
+                                            <label>Escoja el Estado del Activo:</label>
+                                            <div id="cargarEstadosAccesorio"></div>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>

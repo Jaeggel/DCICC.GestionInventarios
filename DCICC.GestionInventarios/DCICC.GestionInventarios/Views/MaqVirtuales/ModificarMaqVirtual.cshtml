@@ -161,7 +161,7 @@
         //Método para obtener la las funciones de Máquinas Virtuales
         obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');
         obtenerSO('@Url.Action("ObtenerSistOperativosHab", "SistOperativo")');
-        cargarPropositosCmb();
+        listaPropositos('@Url.Action("ObtenerPropositosComp", "MaqVirtuales")');
         urlEstados('@Url.Action("ModificarEstadoMaqVirtual", "MaqVirtuales")');
 
     });
