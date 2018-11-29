@@ -70,7 +70,7 @@
                         @* Sección de botones para modificar usuario o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-success" onclick=" modificarDatosUsuario('@Url.Action("ModificarPasswordUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")');">Modificar</button>
+                                <button type="submit" class="btn btn-success" onclick=" modificarDatosUsuario('@Url.Action("ModificarPerfilUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")','@Url.Action("Index", "Home")');">Modificar</button>
                                 <button type="button" class="btn btn-primary">Cancelar</button>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <form class="x_content">
+                        <div class="form" >
 
                             @* Formulario para actualizaci[on de datos de los componentes para el ingreso de un nuevo usuario.
                                 (Metodo de la clase) - Controlador (Controller) *@
@@ -107,6 +107,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña" maxlength="30" required>
                                         <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorPassword" style="color:brown;"></span>
                                     </div>
 
                                     @* Cuadro de texto para el ingreso del password del usuario*@
@@ -119,6 +120,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="PasswordUsuarioConfirmar" type="password" class="form-control has-feedback-left" name="PasswordUsuarioConfirmar" placeholder="Confirmar Nueva Contraseña" maxlength="30" required>
                                         <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNuevoPassword" style="color:brown;"></span>
                                     </div>
 
                                     <div class="form-group"> </div>
@@ -127,12 +129,12 @@
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick=" modificarPassword('@Url.Action("ModificarPasswordUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")');">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick=" guardarContraseña('@Url.Action("ModificarPasswordUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")');">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
