@@ -44,11 +44,20 @@ function modificarPassword(urlModificar,urlSalir) {
     if (antiguoPassword != passwdUser) {
         document.getElementById("PasswordUsuario").setCustomValidity("La contraseña no coincide con la anterior");
     }
-
-    if (nuevoPassword != confirmarNuevoPasswd) {
+    else if (nuevoPassword != confirmarNuevoPasswd) {
+        document.getElementById("PasswordUsuario").setCustomValidity("");
         document.getElementById("PasswordUsuarioConfirmar").setCustomValidity("Las contraseñas no coinciden");
+    } else {
+        
+        guardarContraseña(urlModificar, urlSalir, confirmarNuevoPasswd);
     }
 
+    
+
+}
+
+function guardarContraseña(urlModificar, urlSalir, confirmarNuevoPasswd) {
+    console.log(urlModificar + "-" + urlSalir)
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar su contraseña?",
