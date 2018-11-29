@@ -27,7 +27,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                using (var cmd = new NpgsqlCommand("...", conn_BD))
+                using (var cmd = new NpgsqlCommand("accesoriostotales", conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (var dr = cmd.ExecuteReader())
@@ -45,7 +45,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 DescripcionAccesorio = dr[6].ToString().Trim(),
                                 EstadoAccesorio = dr[7].ToString().Trim(),
                                 NombreTipoAccesorio = dr[8].ToString().Trim(),
-                                NombreDetalleActivo = dr[9].ToString().Trim()//OJO ORDEN
+                                NombreDetalleActivo = dr[9].ToString().Trim()
                             };
                             lstAccesorios.Add(objAccesorios);
                         }
