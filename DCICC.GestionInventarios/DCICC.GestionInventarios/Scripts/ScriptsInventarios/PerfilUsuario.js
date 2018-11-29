@@ -5,7 +5,7 @@ var passwdUser;
 
 //Método ajax para obtener los datos de categorias
 function obtenerUsuario(url) {
-    
+    console.log(url);
     $.ajax({
         dataType: 'json',
         url: url,

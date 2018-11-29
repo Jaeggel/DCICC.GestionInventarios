@@ -5,12 +5,23 @@ Descripción: Script que tendrá las funciones que se podrá llamar desde toda l
 
 //Método para obtener el idioma español de los dataTable
 function obtenerIdioma() {
-    var url_idioma = "http://localhost/Inventarios/Content/Spanish.json";
+    var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
 }
 
 function listaPropositos() {
-    return ["Academia", "Coordinación Académica", "Investigación","Titulación"];
+    var url = "/Inventarios/MaqVirtuales/ObtenerPropositosComp";
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'get',
+        success: function (data) {
+            console.log("entrooo")
+            return data;
+        }, error:function(e) {
+            console.log(e);
+        }
+    });
 }
 
 function listaEstadosTicket() {

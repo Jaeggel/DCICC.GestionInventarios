@@ -432,6 +432,7 @@
 
 @* Seccción para llamar al js de Categorías *@
 <script src="~/Scripts/ScriptsInventarios/ReporteActivo.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
 <script>
     $(document).ready(function () {
         //Método para obtener la tabla de Categorías
@@ -441,6 +442,9 @@
         datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
         cargarEstadosCmb();
         cargarEstadosModificarCmb();
+
+        obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
+        datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
     });
 
 </script>
