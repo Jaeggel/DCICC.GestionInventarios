@@ -18,11 +18,30 @@ namespace DCICC.GestionInventarios.Controllers
         readonly string path_JsonPropositos = System.Web.Hosting.HostingEnvironment.MapPath("~/Json/Propositos.json");
         //Instancia para la utilización de LOGS en la clase MaqVirtualesController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista NuevaMaqVirtual
         /// </summary>
         /// <returns></returns>
         public ActionResult NuevaMaqVirtual()
+        {
+            if ((string)Session["NickUsuario"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
+                return View();
+            }
+        }
+        /// <summary>
+        /// Método (GET) para mostrar la vista ModificarMaqVirtual
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ModificarMaqVirtual()
         {
             if ((string)Session["NickUsuario"] == null)
             {
@@ -54,23 +73,45 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Registros (POST)
         /// <summary>
-        /// Método (GET) para mostrar la vista ModificarMaqVirtual
+        /// Método para crear un nuevo Propósito o el archivo en caso de no existir
         /// </summary>
         /// <returns></returns>
-        public ActionResult ModificarMaqVirtual()
+        public bool NuevoPropositoJSON(Propositos infoProposito)
         {
-            if ((string)Session["NickUsuario"] == null)
+            infoProposito.NombreProposito = infoProposito.NombreProposito.ToUpper();
+            List<Propositos> lstPropositos = new List<Propositos>();
+            if (!System.IO.File.Exists(path_JsonPropositos))
             {
-                return RedirectToAction("Login", "Login");
+                lstPropositos.Add(infoProposito);
+                string dataJson = JsonConvert.SerializeObject(lstPropositos);
+                System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                return true;
             }
             else
             {
-                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
-                ViewBag.Correo = (string)Session["CorreoUsuario"];
-                ViewBag.Menu = (string)Session["PerfilUsuario"];
-                return View();
+                lstPropositos = ObtenerPropositosJSON();
+                if (lstPropositos == null)
+                {
+                    List<Propositos> lstPropositosNew = new List<Propositos> { infoProposito };
+                    string dataJson = JsonConvert.SerializeObject(lstPropositosNew);
+                    System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                    return true;
+                }
+                else
+                {
+                    if (lstPropositos.Find(x => x.NombreProposito.ToLower() == infoProposito.NombreProposito.ToLower()) == null)
+                    {
+                        lstPropositos.Add(infoProposito);
+                        string dataJson = JsonConvert.SerializeObject(lstPropositos);
+                        System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                        return true;
+                    }
+                }
             }
+            return false;
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevaMaqVirtual.
@@ -116,7 +157,7 @@ namespace DCICC.GestionInventarios.Controllers
             string mensajesMaqVirtuales = string.Empty;
             try
             {
-                if(NuevoPropositoJSON(infoProposito))
+                if (NuevoPropositoJSON(infoProposito))
                 {
                     mensajesMaqVirtuales = "El propósito ha sido registrado exitosamente. ";
                     TempData["Mensaje"] = mensajesMaqVirtuales;
@@ -126,12 +167,14 @@ namespace DCICC.GestionInventarios.Controllers
             catch (Exception e)
             {
                 mensajesMaqVirtuales = "No se ha podido registrar el propósito: ";
-                Logs.Error(mensajesMaqVirtuales+e.Message);
+                Logs.Error(mensajesMaqVirtuales + e.Message);
                 TempData["MensajeError"] = mensajesMaqVirtuales + e.Message;
                 return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
             }
             return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
         }
+        #endregion
+        #region Actualizaciones (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarMaqVirtual.
         /// </summary>
@@ -190,6 +233,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
         }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener las Máquinas virtuales de la base de datos
         /// </summary>
@@ -221,43 +266,6 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return items;
         }
-        /// <summary>
-        /// Método para crear un nuevo Propósito o el archivo en caso de no existir
-        /// </summary>
-        /// <returns></returns>
-        public bool NuevoPropositoJSON(Propositos infoProposito)
-        {
-            infoProposito.NombreProposito = infoProposito.NombreProposito.ToUpper();
-            List<Propositos> lstPropositos = new List<Propositos>();
-            if (!System.IO.File.Exists(path_JsonPropositos))
-            {
-                lstPropositos.Add(infoProposito);
-                string dataJson = JsonConvert.SerializeObject(lstPropositos);
-                System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
-                return true;
-            }
-            else
-            {
-                lstPropositos = ObtenerPropositosJSON();
-                if(lstPropositos==null)
-                {
-                    List<Propositos> lstPropositosNew = new List<Propositos>{infoProposito};
-                    string dataJson = JsonConvert.SerializeObject(lstPropositosNew);
-                    System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
-                    return true;
-                }
-                else
-                {
-                    if (lstPropositos.Find(x => x.NombreProposito.ToLower() == infoProposito.NombreProposito.ToLower()) == null)
-                    {
-                        lstPropositos.Add(infoProposito);
-                        string dataJson = JsonConvert.SerializeObject(lstPropositos);
-                        System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
+        #endregion
     }
 }

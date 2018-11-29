@@ -125,6 +125,52 @@ namespace DCICC.GestionInventarios.Controllers
             }
         }
         #endregion
+        #region Recuperación de Contraseña (POST)
+        /// <summary>
+        /// Método [POST] para la recuperación de contraseña mediante el envío de la misma por correo electrónico.
+        /// El mismo es llamado mediante ajax desde la vista Login.cshtml.
+        /// </summary>
+        /// <param name="infoCorreo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult RecuperarPassword(string infoCorreo)
+        {
+            try
+            {
+                if (infoCorreo != null)
+                {
+                    UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
+                    Usuarios infoUsuario = new Usuarios();
+                    var datosUsuario = objUsuariosAccDatos.ObtenerUsuarioCorreo(infoCorreo).ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo);
+                    if (datosUsuario != null)
+                    {
+                        infoUsuario = datosUsuario;
+                        ConfiguracionMail mail = new ConfiguracionMail();
+                        Correo correo = new Correo
+                        {
+                            Body = mail.FormatBodyEmailPassword(datosUsuario),
+                            EmailEmisor = ConfigurationManager.AppSettings["EmailEmisor"],
+                            ClaveEmailEmisor = ConfigurationManager.AppSettings["ClaveEmailEmisor"],
+                            EmailReceptor = datosUsuario.CorreoUsuario,
+                            Asunto = "Recuperación de Contraseña - Gestión de Inventarios y Ticketing"
+                        };
+                        mail.SendMail(correo);
+                        return Json(true, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(false, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("No se pudo obtener los datos para recuperar la contraseña: " + e.Message);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region Otros
         /// <summary>
         /// Método para realizar la comprobación de las credenciales en la base de datos.
         /// </summary>
@@ -192,48 +238,6 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return Request.ServerVariables["REMOTE_ADDR"];
         }
-        /// <summary>
-        /// Método [POST] para la recuperación de contraseña mediante el envío de la misma por correo electrónico.
-        /// El mismo es llamado mediante ajax desde la vista Login.cshtml.
-        /// </summary>
-        /// <param name="infoCorreo"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult RecuperarPassword(string infoCorreo)
-        {
-            try
-            {
-                if(infoCorreo!=null)
-                {
-                    UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                    Usuarios infoUsuario = new Usuarios();
-                    var datosUsuario = objUsuariosAccDatos.ObtenerUsuarioCorreo(infoCorreo).ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo);
-                    if (datosUsuario != null)
-                    {
-                        infoUsuario = datosUsuario;
-                        ConfiguracionMail mail = new ConfiguracionMail();
-                        Correo correo = new Correo
-                        {
-                            Body = mail.FormatBodyEmailPassword(datosUsuario),
-                            EmailEmisor = ConfigurationManager.AppSettings["EmailEmisor"],
-                            ClaveEmailEmisor = ConfigurationManager.AppSettings["ClaveEmailEmisor"],
-                            EmailReceptor = datosUsuario.CorreoUsuario,
-                            Asunto = "Recuperación de Contraseña - Gestión de Inventarios y Ticketing"
-                        };
-                        mail.SendMail(correo);
-                        return Json(true, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        return Json(false, JsonRequestBehavior.AllowGet);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error("No se pudo obtener los datos para recuperar la contraseña: "+e.Message);
-            }
-            return Json(false, JsonRequestBehavior.AllowGet);
-        }
     }
+    #endregion
 }

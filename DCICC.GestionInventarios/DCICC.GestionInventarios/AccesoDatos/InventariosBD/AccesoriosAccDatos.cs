@@ -13,6 +13,11 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         //Instancia para la utilización de LOGS en la clase AccesoriosAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         HttpClient client_Service = new HttpClient();
+        #region Constructor Comunicación Servicio
+        /// <summary>
+        /// Constructor para configurar la comunicación con el Web Service
+        /// </summary>
+        /// <param name="NickUsuario_Sesion"></param>
         public AccesoriosAccDatos(string NickUsuario_Sesion)
         {
             ComunicacionServicio objComunicacionServicio = new ComunicacionServicio();
@@ -21,6 +26,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
+        #endregion
+        #region Consultas
         /// <summary>
         /// Método para obtener una lista con los Accesorios de la base de datos.
         /// </summary>
@@ -44,6 +51,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjAccesorios;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método para registrar un nuevo Accesorio en la base de datos.
         /// </summary>
@@ -67,6 +76,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjAccesorios;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método para actualizar un Accesorio en la base de datos.
         /// </summary>
@@ -91,5 +102,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjAccesorios;
         }
+        #endregion
     }
 }

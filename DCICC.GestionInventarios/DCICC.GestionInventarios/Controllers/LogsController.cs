@@ -8,6 +8,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LogsController : Controller
     {
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista Logs
         /// </summary>
@@ -26,6 +27,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener todos los Logs de la base de datos
         /// </summary>
@@ -35,5 +38,6 @@ namespace DCICC.GestionInventarios.Controllers
             LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
             return Json(objLogsAccDatos.ObtenerLogsComp().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

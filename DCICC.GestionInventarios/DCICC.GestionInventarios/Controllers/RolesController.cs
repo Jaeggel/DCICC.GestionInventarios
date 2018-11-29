@@ -14,6 +14,7 @@ namespace DCICC.GestionInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase RolesController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoRol
         /// </summary>
@@ -50,6 +51,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Registros (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoRol.
         /// </summary>
@@ -83,6 +86,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarRol", "Roles");
         }
+        #endregion
+        #region Actualizaciones (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarRol.
         /// </summary>
@@ -113,6 +118,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarRol", "Roles");
         }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener los Roles habilitados de la base de datos
         /// </summary>
@@ -122,5 +129,6 @@ namespace DCICC.GestionInventarios.Controllers
             RolesAccDatos objRolesAccDatos = new RolesAccDatos((string)Session["NickUsuario"]);
             return Json(objRolesAccDatos.ObtenerRoles("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

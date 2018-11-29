@@ -14,6 +14,7 @@ namespace DCICC.GestionInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase TicketsController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas ( GET)
         /// <summary>
         /// Método (GET) para mostrar la vista GestionTickets
         /// </summary>
@@ -32,6 +33,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Actualizaciones (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista GestionTickets.
         /// </summary>
@@ -65,6 +68,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("GestionTickets","Tickets");
         }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener todos los Tickets de la base de datos
         /// </summary>
@@ -74,5 +79,6 @@ namespace DCICC.GestionInventarios.Controllers
             TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
             return Json(objTicketsAccDatos.ObtenerTickets("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

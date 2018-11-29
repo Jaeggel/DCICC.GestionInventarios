@@ -14,6 +14,7 @@ namespace DCICC.GestionInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase TipoActivoController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoTipoActivo
         /// </summary>
@@ -50,6 +51,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Registros (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoTipoActivo.
         /// </summary>
@@ -83,6 +86,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarTipoActivo", "TipoActivo");
         }
+        #endregion
+        #region Actualizaciones (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarTipoActivo.
         /// </summary>
@@ -141,6 +146,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarTipoActivo", "TipoActivo");
         }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener todos los Tipos de Activos de la base de datos.
         /// </summary>
@@ -159,5 +166,6 @@ namespace DCICC.GestionInventarios.Controllers
             TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
             return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

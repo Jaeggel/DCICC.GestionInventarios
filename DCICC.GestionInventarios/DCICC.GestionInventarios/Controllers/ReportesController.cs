@@ -7,6 +7,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class ReportesController : Controller
     {
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista Reportes
         /// </summary>
@@ -25,5 +26,6 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
     }
 }
