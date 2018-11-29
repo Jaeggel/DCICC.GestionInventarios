@@ -155,7 +155,7 @@ function cargarEstadosCmb() {
 }
 
 function cargarEstadosAccesorioCmb() {
-    var str = '<select id="EstadoAccesorios" class="form-control" name="EstadoAccesorio" required>';
+    var str = '<select id="EstadoAccesorios" class="form-control" name="EstadoAccesorios" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
@@ -200,14 +200,12 @@ function validar3(url) {
     } else {
         $.ajax({
             data: {
-                "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivo, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, " EstadoAccesorio": idEstadoAccesorio
+                "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivo, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
             },
-            url: url,
             async: false,
-            dataType: 'json',
             url: url,
             type: 'post',
-            success: function (data) {
+            success: function () {
                 console.log("accesorio bienn");
                 isValid = true;
             }, error: function (e) {
