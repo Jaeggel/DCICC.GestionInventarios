@@ -30,11 +30,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 infoTicket.IdResponsableUsuario = ConsultasUsuarios.ObtenerUsuarioPorNick(infoTicket.NombreUsuarioResponsable).ObjetoInventarios.IdUsuario;
                 using (var cmd = new NpgsqlCommand("update dcicc_tickets set idresponsable_usuario=@iru,estado_ticket=@et,fechasolucion_ticket=@fct,comentario_ticket=@ct where id_ticket=@it", conn_BD))
                 {
-                    cmd.Parameters.Add("@iru", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdResponsableUsuario;
-                    cmd.Parameters.Add("@et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.EstadoTicket;
-                    cmd.Parameters.AddWithValue("@fct", infoTicket.FechaSolucionTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaSolucionTicket.ToLongDateString()) ? (object)infoTicket.FechaSolucionTicket : DBNull.Value;
-                    cmd.Parameters.Add("@ct", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTicket.ComentarioTicket) ? (object)infoTicket.ComentarioTicket : DBNull.Value;
-                    cmd.Parameters.Add("@it", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdTicket;
+                    cmd.Parameters.Add("iru", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdResponsableUsuario;
+                    cmd.Parameters.Add("et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.EstadoTicket;
+                    cmd.Parameters.AddWithValue("fct", infoTicket.FechaSolucionTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaSolucionTicket.ToLongDateString()) ? (object)infoTicket.FechaSolucionTicket : DBNull.Value;
+                    cmd.Parameters.Add("ct", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTicket.ComentarioTicket) ? (object)infoTicket.ComentarioTicket : DBNull.Value;
+                    cmd.Parameters.Add("it", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdTicket;
                     cmd.ExecuteNonQuery();
                 }
                 tran.Commit();

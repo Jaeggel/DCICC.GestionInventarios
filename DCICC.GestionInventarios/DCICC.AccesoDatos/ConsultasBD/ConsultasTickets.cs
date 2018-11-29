@@ -48,11 +48,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 PrioridadTicket = dr[8].ToString().Trim(),
                                 ComentarioTicket = dr[9].ToString().Trim(),
                                 DescripcionTicket = dr[10].ToString().Trim(),
-                                HabilitadoTicket = (bool)dr[11],
-                                NombreUsuario = dr[12].ToString().Trim(),
-                                NombreUsuarioResponsable = dr[13].ToString().Trim(),
-                                NombreLaboratorio = dr[14].ToString().Trim(),
-                                NombreDetalleActivo = dr[15].ToString().Trim()
+                                NombreUsuario = dr[11].ToString().Trim(),
+                                NombreUsuarioResponsable = dr[12].ToString().Trim(),
+                                NombreLaboratorio = dr[13].ToString().Trim(),
+                                NombreDetalleActivo = dr[14].ToString().Trim()
                             };
                             lstTickets.Add(objTickets);
                         }

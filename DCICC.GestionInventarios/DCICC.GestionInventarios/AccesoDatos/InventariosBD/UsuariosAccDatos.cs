@@ -12,6 +12,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
     {
         //Instancia para la utilización de LOGS en la clase UsuariosAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Constructores Comunicación Servicio
         string token_Autorizacion = string.Empty;
         HttpClient client_Service = new HttpClient();
         ComunicacionServicio obj_ComunicacionServicio = new ComunicacionServicio();
@@ -38,7 +39,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// Constructor para acceder a usuarios para recuperar contraseña
         /// </summary>
         public UsuariosAccDatos() { }
-
+        #endregion
+        #region Consultas
         /// <summary>
         /// Método para obtener una lista con los Usuarios Habilitados de la base de datos.
         /// Importante para inicializar los procesos de la base de datos
@@ -118,6 +120,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjUsuarios;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método para registrar un nuevo Usuario en la base de datos.
         /// </summary>
@@ -141,6 +145,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjUsuarios;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método para actualizar un Usuario en la base de datos.
         /// </summary>
@@ -182,6 +188,8 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjUsuarios;
         }
+        #endregion
+        #region Eliminaciones
         /// <summary>
         /// Método para eliminar un Usuario en la base de datos.
         /// </summary>
@@ -205,5 +213,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjUsuarios;
         }
+        #endregion
     }
 }
