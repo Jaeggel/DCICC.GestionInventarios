@@ -17,6 +17,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase TokenController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Obtención Token
         /// <summary>
         /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
         /// Utilizado para tener acceso a los usuarios y poder realizar el login.
@@ -107,7 +108,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                     if(infoUsuario!=null)
                     {
                         token = ConfiguracionToken();
-                        ConfigBaseDatos.SetCadenaConexion("Server=localhost;Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
+                        ConfigBaseDatos.SetCadenaConexion("Server='192.168.0.4';Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
                     }
                     else
                     {
@@ -126,6 +127,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return Ok(token.Value);    
         }
+        #endregion
+        #region Generación Token
         /// <summary>
         /// Método para inicializar los parámetros del token JWT
         /// </summary>
@@ -143,5 +146,6 @@ namespace DCICC.WebServiceInventarios.Controllers
                             .Build();
             return token;
         }
+        #endregion
     }
 }

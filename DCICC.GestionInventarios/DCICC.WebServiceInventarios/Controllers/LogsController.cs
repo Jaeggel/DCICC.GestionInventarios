@@ -14,6 +14,29 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de Logs en la clase LogsController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas
+        /// <summary>
+        /// Método (GET) para obtener una lista de Logs de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerLogsComp")]
+        public MensajesLogs ObtenerLogsComp()
+        {
+            MensajesLogs msjLogs = null;
+            ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
+            msjLogs = objConsultasLogsBD.ObtenerLogs();
+            if (msjLogs.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Logs realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjLogs.MensajeError);
+            }
+            return msjLogs;
+        }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método para registrar en un nuevo Log en la base de datos.
         /// </summary>
@@ -35,25 +58,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjLogs;
         }
-        /// <summary>
-        /// Método (GET) para obtener una lista de Logs de la base de datos.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("ObtenerLogsComp")]
-        public MensajesLogs ObtenerLogsComp()
-        {
-            MensajesLogs msjLogs = null;
-            ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
-            msjLogs = objConsultasLogsBD.ObtenerLogs();
-            if (msjLogs.OperacionExitosa)
-            {
-                Logs.Info("Consulta de Logs realizada exitosamente.");
-            }
-            else
-            {
-                Logs.Error(msjLogs.MensajeError);
-            }
-            return msjLogs;
-        }
+        #endregion
     }
 }

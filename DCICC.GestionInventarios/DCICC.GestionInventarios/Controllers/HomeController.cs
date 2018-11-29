@@ -7,6 +7,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class HomeController : Controller
     {
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista Index
         /// </summary>
@@ -30,5 +31,6 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
     }
 }

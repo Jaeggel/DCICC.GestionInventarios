@@ -18,6 +18,7 @@ namespace DCICC.GestionInventarios.Controllers
         static string Nombre_Activo = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoActivo
         /// </summary>
@@ -54,6 +55,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Registros (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoActivo.
         /// </summary>
@@ -99,47 +102,77 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(msjActivos.ObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para llenar la variable global Id_CQR.
+        /// Método (POST) para recibir los datos provenientes de la vista NuevoActivo.
         /// </summary>
-        /// <param name="idCQR"></param>
-        public void SetIdCQR(string idCQR)
+        /// <param name="infoAccesorios"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult NuevoAccesorio(Accesorios infoAccesorios)
         {
-            Id_CQR =idCQR; 
+            string mensajesAccesorios = string.Empty;
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
+            try
+            {
+                msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
+                if (msjAccesorios.OperacionExitosa)
+                {
+                    mensajesAccesorios = "El accesorio ha sido registrado exitosamente.";
+                    TempData["Mensaje"] = mensajesAccesorios;
+                    Logs.Info(mensajesAccesorios);
+                }
+                else
+                {
+                    mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
+                    TempData["MensajeError"] = mensajesAccesorios;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesAccesorios + ": " + e.Message);
+            }
+            return Json(msjAccesorios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para llenar la variable global Nombre_Activo.
-        /// </summary>
-        /// <param name="nombreActivo"></param>
-        public void SetNombreActivo(string nombreActivo)
-        {
-            Nombre_Activo = nombreActivo;
-        }
-        /// <summary>
-        /// Método para mostrar el código QR en la vista
+        /// Método para registrar el QR del nuevo Activo en la base de datos .
         /// </summary>
         /// <returns></returns>
-        public ActionResult ObtenerImagenQR()
+        public MensajesCQR NuevoCQR()
         {
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
-            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);
+            string IdCQR = objGeneracionQR.GenerarIdCodigoQR((string)Session["NickUsuario"]);
+            var bitmap = objGeneracionQR.GenerarCodigoQR(IdCQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-            return File(bitmapBytes, "image/jpeg");            
-        }
-        /// <summary>
-        /// Método para mostrar el PDF con el QR del nuevo activo
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ObtenerPDFQRSimple()
-        {
-            ReporteQR objReporteQR = new ReporteQR();
-            var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+            CQR infoCQR = new CQR
             {
-                Inline = true,
-                FileName = "DCICC.CQR."+ Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy-mm-ss") + ".pdf"
+                IdCqr = IdCQR,
+                Bytea = bitmapBytes
             };
-            Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
-            return File(objReporteQR.GenerarPDFQRSimple(Id_CQR,Nombre_Activo), System.Net.Mime.MediaTypeNames.Application.Pdf);
+            string mensajesCQR = string.Empty;
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
+                if (msjCQR.OperacionExitosa)
+                {
+                    mensajesCQR = "El CQR ha sido registrado exitosamente.";
+                    msjCQR.ObjetoInventarios = infoCQR;
+                    Logs.Info(mensajesCQR);
+                }
+                else
+                {
+                    mensajesCQR = "No se ha podido registrar el CQR: " + msjCQR.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesCQR + ": " + e.Message);
+            }
+            return msjCQR;
         }
+        #endregion
+        #region Actualizaciones (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
         /// </summary>
@@ -235,38 +268,6 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ConsultaActivos", "Activos");
         }
         /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista NuevoActivo.
-        /// </summary>
-        /// <param name="infoAccesorios"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult NuevoAccesorio(Accesorios infoAccesorios)
-        {
-            string mensajesAccesorios = string.Empty;
-            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
-            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
-            try
-            {
-                msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
-                if (msjAccesorios.OperacionExitosa)
-                {
-                    mensajesAccesorios = "El accesorio ha sido registrado exitosamente.";
-                    TempData["Mensaje"] = mensajesAccesorios;
-                    Logs.Info(mensajesAccesorios);
-                }
-                else
-                {
-                    mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
-                    TempData["MensajeError"] = mensajesAccesorios;
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(mensajesAccesorios + ": " + e.Message);
-            }
-            return Json(msjAccesorios.OperacionExitosa, JsonRequestBehavior.AllowGet);
-        }
-        /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
@@ -324,44 +325,52 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ConsultaActivos", "Activos");//OJO
         }
+        #endregion
+        #region Otros
         /// <summary>
-        /// Método para registrar el QR del nuevo Activo en la base de datos .
+        /// Método para llenar la variable global Id_CQR.
+        /// </summary>
+        /// <param name="idCQR"></param>
+        public void SetIdCQR(string idCQR)
+        {
+            Id_CQR = idCQR;
+        }
+        /// <summary>
+        /// Método para llenar la variable global Nombre_Activo.
+        /// </summary>
+        /// <param name="nombreActivo"></param>
+        public void SetNombreActivo(string nombreActivo)
+        {
+            Nombre_Activo = nombreActivo;
+        }
+        /// <summary>
+        /// Método para mostrar el código QR en la vista
         /// </summary>
         /// <returns></returns>
-        public MensajesCQR NuevoCQR()
+        public ActionResult ObtenerImagenQR()
         {
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
-            string IdCQR = objGeneracionQR.GenerarIdCodigoQR((string)Session["NickUsuario"]);
-            var bitmap = objGeneracionQR.GenerarCodigoQR(IdCQR);
+            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-            CQR infoCQR = new CQR
-            {
-                IdCqr = IdCQR,
-                Bytea=bitmapBytes
-            };
-            string mensajesCQR = string.Empty;
-            MensajesCQR msjCQR = new MensajesCQR();
-            try
-            {
-                ActivosAccDatos objCQRAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
-                if (msjCQR.OperacionExitosa)
-                {
-                    mensajesCQR = "El CQR ha sido registrado exitosamente.";
-                    msjCQR.ObjetoInventarios = infoCQR;
-                    Logs.Info(mensajesCQR);
-                }
-                else
-                {
-                    mensajesCQR = "No se ha podido registrar el CQR: " + msjCQR.MensajeError;
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(mensajesCQR + ": " + e.Message);
-            }
-            return msjCQR;
+            return File(bitmapBytes, "image/jpeg");
         }
+        /// <summary>
+        /// Método para mostrar el PDF con el QR del nuevo activo
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ObtenerPDFQRSimple()
+        {
+            ReporteQR objReporteQR = new ReporteQR();
+            var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+            {
+                Inline = true,
+                FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy-mm-ss") + ".pdf"
+            };
+            Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
+            return File(objReporteQR.GenerarPDFQRSimple(Id_CQR, Nombre_Activo), System.Net.Mime.MediaTypeNames.Application.Pdf);
+        }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener los Accesorios de la base de datos
         /// </summary>
@@ -389,5 +398,6 @@ namespace DCICC.GestionInventarios.Controllers
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

@@ -15,6 +15,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase SistOperativosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas 
         /// <summary>
         /// Método (GET) para obtener una lista de los Sistemas Operativos habilitados de la base de datos.
         /// </summary>
@@ -55,6 +56,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjSistOperativos;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método (POST) para registrar una nuevo Sistema Operativo en la base de datos.
         /// </summary>
@@ -76,6 +79,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjSistOperativos;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar un Sistema Operativo en la base de datos.
         /// </summary>
@@ -118,5 +123,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjSistOperativos;
         }
+        #endregion
     }
 }

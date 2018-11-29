@@ -14,6 +14,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase RolesController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas
         /// <summary>
         /// Método (GET) para obtener una lista de Roles habilitados de la base de datos.
         /// </summary>
@@ -34,6 +35,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjRoles;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método (POST) para registrar un nuevo Rol en la base de datos.
         /// </summary>
@@ -55,6 +58,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjRoles;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar un Rol en la base de datos.
         /// </summary>
@@ -74,5 +79,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjRoles;
         }
+        #endregion
     }
 }

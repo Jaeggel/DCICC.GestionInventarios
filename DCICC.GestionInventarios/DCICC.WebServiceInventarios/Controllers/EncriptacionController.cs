@@ -12,6 +12,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase EncriptacionController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Encriptación
         /// <summary>
         /// Método (Post) que encripta la cadena recibida.
         /// </summary>
@@ -30,6 +31,8 @@ namespace DCICC.WebServiceInventarios.Controllers
                 return null;
             }
         }
+        #endregion
+        #region Desencriptación
         /// <summary>
         /// Método (Post) que desencripta la cadena recibida.
         /// </summary>
@@ -48,5 +51,6 @@ namespace DCICC.WebServiceInventarios.Controllers
                 return null;
             }
         }
+        #endregion
     }
 }
