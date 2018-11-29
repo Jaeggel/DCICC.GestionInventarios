@@ -15,6 +15,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase MaqVirtualesController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas
         /// <summary>
         /// Método (GET) para obtener una lista de las Máquinas Virtuales habilitadas de la base de datos.
         /// </summary>
@@ -55,6 +56,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjMaqVirtuales;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método (POST) para registrar una nueva Máquina Virtual en la base de datos.
         /// </summary>
@@ -97,6 +100,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjMaqVirtuales;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar el estado de una Máquina Virtual en la base de datos.
         /// </summary>
@@ -118,5 +123,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjMaqVirtuales;
         }
+        #endregion
     }
 }

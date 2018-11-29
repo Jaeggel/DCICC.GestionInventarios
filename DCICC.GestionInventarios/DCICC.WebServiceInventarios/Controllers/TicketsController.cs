@@ -15,6 +15,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase TicketsContTicketler
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas
         /// <summary>
         /// Método (GET) para obtener una lista de todos los Tickets de la base de datos.
         /// </summary>
@@ -35,6 +36,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTickets;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método (POST) para registrar un nuevo Ticket en la base de datos.
         /// </summary>
@@ -56,6 +59,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTickets;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar un Ticket en la base de datos.
         /// </summary>
@@ -77,5 +82,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTickets;
         }
+        #endregion
     }
 }

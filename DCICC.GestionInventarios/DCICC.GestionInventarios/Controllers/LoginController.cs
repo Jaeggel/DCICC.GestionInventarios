@@ -14,6 +14,7 @@ namespace DCICC.GestionInventarios.Controllers
         public static int contMsj=0;
         //Instancia para la utilización de LOGS en la clase LoginController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas (GET)
         /// <summary>
         /// Mètodo (GET) para mostrar la vista Login.
         /// </summary>
@@ -29,6 +30,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Registros (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista Login.
         /// </summary>
@@ -89,6 +92,39 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        /// <summary>
+        /// Método para registrar el Inicio y Cierre de Sesión en la tabla Logs.
+        /// </summary>
+        /// <returns></returns>
+        public void RegistroSesionLogs(string operacion)
+        {
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
+            Logs infoLogs = new Logs
+            {
+                IdUsuario = (string)Session["NickUsuario"],
+                FechaLogs = DateTime.Now,
+                IpLogs = (string)Session["IpUsuario"]
+            };
+            if (operacion == "Login")
+            {
+                infoLogs.OperacionLogs = "Login";
+                infoLogs.TablaLogs = "Acceso a base de datos.";
+            }
+            else if (operacion == "Logout")
+            {
+                infoLogs.OperacionLogs = "Logout";
+                infoLogs.TablaLogs = "Finalización de sesión con la base de datos.";
+            }
+            if (objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
+            {
+                Logs.Info("Registro de log exitoso.");
+            }
+            else
+            {
+                Logs.Error("No se pudo registrar el log.");
+            }
+        }
+        #endregion
         /// <summary>
         /// Método para realizar la comprobación de las credenciales en la base de datos.
         /// </summary>
@@ -155,38 +191,6 @@ namespace DCICC.GestionInventarios.Controllers
                 return ipList.Split(',')[0];
             }
             return Request.ServerVariables["REMOTE_ADDR"];
-        }
-        /// <summary>
-        /// Método para registrar el Inicio y Cierre de Sesión en la tabla Logs.
-        /// </summary>
-        /// <returns></returns>
-        public void RegistroSesionLogs(string operacion)
-        {
-            LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
-            Logs infoLogs = new Logs
-            {
-                IdUsuario = (string)Session["NickUsuario"],
-                FechaLogs = DateTime.Now,
-                IpLogs = (string)Session["IpUsuario"]
-            };
-            if (operacion=="Login")
-            {
-                infoLogs.OperacionLogs = "Login";
-                infoLogs.TablaLogs = "Acceso a base de datos.";
-            }
-            else if(operacion=="Logout")
-            {
-                infoLogs.OperacionLogs = "Logout";
-                infoLogs.TablaLogs = "Finalización de sesión con la base de datos.";
-            }
-            if (objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
-            {
-                Logs.Info("Registro de log exitoso.");
-            }
-            else
-            {
-                Logs.Error("No se pudo registrar el log.");
-            }
         }
         /// <summary>
         /// Método [POST] para la recuperación de contraseña mediante el envío de la misma por correo electrónico.

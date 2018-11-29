@@ -15,6 +15,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas
         /// <summary>
         /// Método (GET) para obtener una lista de los Activos habilitados de la base de datos.
         /// </summary>
@@ -76,69 +77,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
-        /// Método (POST) para registrar un nuevo Activo en la base de datos.
-        /// </summary>
-        /// <param name="infoActivo"></param>
-        /// <returns></returns>
-        [HttpPost("RegistrarActivo")]
-        public MensajesActivos RegistrarActivo([FromBody] Activos infoActivo)
-        {
-            MensajesActivos msjActivos = null;
-            InsercionesActivos objInsercionesActivosBD = new InsercionesActivos();
-            msjActivos = objInsercionesActivosBD.RegistroActivo(infoActivo);
-            if (msjActivos.OperacionExitosa)
-            {
-                Logs.Info("Registro de Activo realizado exitosamente.");
-            }
-            else
-            {
-                Logs.Error(msjActivos.MensajeError);
-            }
-            return msjActivos;
-        }
-        /// <summary>
-        /// Método (POST) para actualizar un Activo en la base de datos.
-        /// </summary>
-        /// <param name="infoActivo"></param>
-        /// <returns></returns>
-        [HttpPost("ActualizarActivo")]
-        public MensajesActivos ActualizarActivo([FromBody] Activos infoActivo)
-        {
-            MensajesActivos msjActivos = null;
-            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
-            msjActivos = objActualizacionesActivosBD.ActualizacionActivo(infoActivo);
-            if (msjActivos.OperacionExitosa)
-            {
-                Logs.Info("Actualización de Activo realizada exitosamente.");
-            }
-            else
-            {
-                Logs.Error(msjActivos.MensajeError);
-            }
-            return msjActivos;
-        }
-        /// <summary>
-        /// Método (POST) para actualizar el estado de un Activo en la base de datos.
-        /// </summary>
-        /// <param name="infoActivo"></param>
-        /// <returns></returns>
-        [HttpPost("ActualizarEstadoActivo")]
-        public MensajesActivos ActualizarEstadoActivo([FromBody] Activos infoActivo)
-        {
-            MensajesActivos msjActivos = null;
-            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
-            msjActivos = objActualizacionesActivosBD.ActualizacionEstadoActivo(infoActivo);
-            if (msjActivos.OperacionExitosa)
-            {
-                Logs.Info("Actualización de Activo realizada exitosamente.");
-            }
-            else
-            {
-                Logs.Error(msjActivos.MensajeError);
-            }
-            return msjActivos;
-        }
-        /// <summary>
         /// Método (GET) para obtener una lista de todos los CQR de la base de datos.
         /// </summary>
         /// <returns></returns>
@@ -177,6 +115,29 @@ namespace DCICC.WebServiceInventarios.Controllers
                 Logs.Error(msjCQR.MensajeError);
             }
             return msjCQR;
+        }
+        #endregion
+        #region Registros
+        /// <summary>
+        /// Método (POST) para registrar un nuevo Activo en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("RegistrarActivo")]
+        public MensajesActivos RegistrarActivo([FromBody] Activos infoActivo)
+        {
+            MensajesActivos msjActivos = null;
+            InsercionesActivos objInsercionesActivosBD = new InsercionesActivos();
+            msjActivos = objInsercionesActivosBD.RegistroActivo(infoActivo);
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Registro de Activo realizado exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
         }
         /// <summary>
         /// Método (POST) para registrar un nuevo CQR en la base de datos.
@@ -220,5 +181,50 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjHistActivos;
         }
+        #endregion
+        #region Actualizaciones
+        /// <summary>
+        /// Método (POST) para actualizar un Activo en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarActivo")]
+        public MensajesActivos ActualizarActivo([FromBody] Activos infoActivo)
+        {
+            MensajesActivos msjActivos = null;
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjActivos = objActualizacionesActivosBD.ActualizacionActivo(infoActivo);
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Actualización de Activo realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de un Activo en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoActivo")]
+        public MensajesActivos ActualizarEstadoActivo([FromBody] Activos infoActivo)
+        {
+            MensajesActivos msjActivos = null;
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjActivos = objActualizacionesActivosBD.ActualizacionEstadoActivo(infoActivo);
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Actualización de Activo realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        #endregion
     }
 }

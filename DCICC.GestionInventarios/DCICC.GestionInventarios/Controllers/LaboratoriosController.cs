@@ -14,6 +14,7 @@ namespace DCICC.GestionInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase LaboratoriosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Vistas (GET)
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoLaboratorio
         /// </summary>
@@ -50,6 +51,8 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        #endregion
+        #region Registros (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoLaboratorio.
         /// </summary>
@@ -83,6 +86,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarLaboratorio.
         /// </summary>
@@ -143,6 +148,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
+        #endregion
+        #region Consultas (JSON)
         /// <summary>
         /// Método para obtener todos los Laboratorios de la base de datos
         /// </summary>
@@ -161,5 +168,6 @@ namespace DCICC.GestionInventarios.Controllers
             LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
             return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

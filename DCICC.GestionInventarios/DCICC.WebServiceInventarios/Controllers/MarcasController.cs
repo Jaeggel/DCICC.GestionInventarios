@@ -15,6 +15,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
     {
         //Instancia para la utilización de LOGS en la clase MarcasController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas
         /// <summary>
         /// Método (GET) para obtener una lista de Marcas habilitadas de la base de datos.
         /// </summary>
@@ -55,6 +56,8 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             return msjMarcas;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método (POST) para registrar una nueva Marca en la base de datos.
         /// </summary>
@@ -76,6 +79,8 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             return msjMarcas;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar una Marca en la base de datos.
         /// </summary>
@@ -118,5 +123,6 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             }
             return msjMarcas;
         }
+        #endregion
     }
 }

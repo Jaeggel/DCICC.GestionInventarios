@@ -158,7 +158,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             {
                 funcionServ = "Usuarios/ActualizarEstadoUsuario";
             }
-            else if (opAct == 2)
+            else if (opAct == 3)
             {
                 funcionServ = "Usuarios/ActualizarPerfilUsuario";
             }

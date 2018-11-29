@@ -16,6 +16,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     {
         //Instancia para la utilización de LOGS en la clase UsuariosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #region Consultas
         /// <summary>
         /// Método (GET) para obtener una lista de todos los Usuarios de la base de datos.
         /// </summary>
@@ -76,6 +77,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjUsuarios;
         }
+        #endregion
+        #region Registros
         /// <summary>
         /// Método (POST) para registrar un nuevo Usuario en la base de datos.
         /// </summary>
@@ -97,6 +100,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjUsuarios;
         }
+        #endregion
+        #region Actualizacione
         /// <summary>
         /// Método (POST) para actualizar un Usuario en la base de datos.
         /// </summary>
@@ -181,6 +186,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjUsuarios;
         }
+        #endregion
+        #region Eliminaciones
         /// <summary>
         /// Método (POST) para eliminar un Usuario en la base de datos.
         /// </summary>
@@ -202,5 +209,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjUsuarios;
         }
+        #endregion
     }
 }
