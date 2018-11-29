@@ -16,30 +16,78 @@
     <li><a class="active">@ViewBag.Title</a></li>
 </ul>
 <div class="row">
-    @* Panel para visualizar la información de los activos de TI *@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-            <div class="x_title">
-                <div class="x-content">
-                    <div class="col-md-6 col-sm-12 col-xs-12 ">
-                        <h3>Consulta de Activos</h3>
-                    </div>
-                </div>
-                @*Sección para botones de generar reportes en PDF y Excel*@
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoActivo", "Activos")'"><i class="fa fa-plus"></i> Agregar Activo</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ConsultaActivos", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
             <div class="x_content">
-                <br>
-                <div class="form-horizontal form-label-left input_mask">
-                    @* Sección para la tabla de modificación mediante js *@
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div id="tablaActivos"> </div>
-                    </div>
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Activos de TI</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de Activos</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoActivo", "Activos")'"><i class="fa fa-plus"></i> Agregar Activo</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ConsultaActivos", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaActivos"> </div>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de Accesorios</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarAccesorio", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaAccesorios"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -264,7 +312,7 @@
                                             <div id="cargarEstadosActivo"></div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button type="submit" class="btn btn-success" onclick="actualizarEstadoActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
@@ -272,6 +320,86 @@
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* Modal de modificación de marcas *@
+<div class="modal fade" id="ModificarAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modificar Accesorios</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            <br>
+                            @* Formulario para envio de datos de los componentes para modificación de un accesorio
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+
+                                    @* Combobox para seleccionar un Tipo de Accesorio *@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Escoja el Tipo de Accesorio:</label>
+                                            <div id="cargarAccesorio"></div>
+                                        </div>
+                                    </div>
+                                    @* Combobox para seleccionar el activo de TI *@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Escoja el activo al que pertenece:</label>
+                                            <div id="cargarActivos"></div>
+                                        </div>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del nombre de un accesorio *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="NombreAccesorio" type="text" class="form-control has-feedback-left" name="NombreAccesorio" placeholder="Nombre del Accesorio" maxlength="100" required>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del serial de un accesorio *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="SerialAccesorio" type="text" class="form-control has-feedback-left" name="SerialAccesorio" placeholder="Serial del Accesorio" maxlength="150">
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del modelo de un accesorio *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="ModeloAccesorio" type="text" class="form-control has-feedback-left" name="ModeloAccesorio" placeholder="Modelo del Accesorio" maxlength="80">
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Área de Texto para el ingreso de la descripción de un accesorio *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" maxlength="150"></textarea>
+                                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Checkbox para habilitar o deshabilitar el uso del accesorio *@
+                                    <div class="form-group">
+                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Accesorio?</label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input id="HabilitadoAccesorio" name="HabilitadoMarca" type="checkbox" class="js-switch" value="true" checked />
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar accesorio o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success" onclick="modificarAccesorio('@Url.Action("ModificarAccesorio", "Activos")');">Modificar</button>
+                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

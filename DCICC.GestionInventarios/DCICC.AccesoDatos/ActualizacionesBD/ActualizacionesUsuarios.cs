@@ -44,11 +44,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value =infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
-                using (var cmd = new NpgsqlCommand(query, conn_BD))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                //string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                //using (var cmd = new NpgsqlCommand(query, conn_BD))
+                //{
+                //    cmd.ExecuteNonQuery();
+                //}
                 tran.Commit();
                 conn_BD.Close();
                 msjUsuarios.OperacionExitosa = true;
@@ -83,11 +83,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
-                using (var cmd = new NpgsqlCommand(query, conn_BD))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                //string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                //using (var cmd = new NpgsqlCommand(query, conn_BD))
+                //{
+                //    cmd.ExecuteNonQuery();
+                //}
                 tran.Commit();
                 conn_BD.Close();
                 msjUsuarios.OperacionExitosa = true;
