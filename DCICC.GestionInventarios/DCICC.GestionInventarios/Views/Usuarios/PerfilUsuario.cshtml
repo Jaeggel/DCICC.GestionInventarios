@@ -127,7 +127,7 @@
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarUsuario('@Url.Action("ModificarUsuario", "Usuarios")')">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick=" modificarPassword('@Url.Action("ModificarPasswordUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")');">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
 <script>
     $(document).ready(function () {
         //Método para obtener las tablas de Usuarios
-        obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+        obtenerUsuario('@Url.Action("ObtenerUsuarioPorNick", "Usuarios")');
 
     });
 

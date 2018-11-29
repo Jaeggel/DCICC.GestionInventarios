@@ -66,8 +66,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
-                ViewBag.Menu = (string)Session["PerfilUsuario"];
-                ObtenerUsuarioPorNick();
+                ViewBag.Menu = (string)Session["PerfilUsuario"];        
                 return View();
             }
         }

@@ -4,8 +4,8 @@ var nickUsuario;
 var passwdUser;
 
 //Método ajax para obtener los datos de categorias
-function obtenerCategorias(url) {
-    url_metodo = url;
+function obtenerUsuario(url) {
+    
     $.ajax({
         dataType: 'json',
         url: url,
@@ -13,51 +13,67 @@ function obtenerCategorias(url) {
         success: function (data) {
             console.log("Datos Exitosos");
             datosUsuario = data;
+           
             cargarDatosUsuario();
 
         }
     });
 }
 
-function cargarDatosUsuario() {
-
-    for (var i = 0; i < datosUsuario.length; i++) {
-        idUsuario = datosUsuario[i].IdUsuario;
-        nickUsuario = datosUsuario[i].NickUsuario;
-        passwdUser = datosUsuario[i].PasswordUsuario;
-        document.getElementById("NombresUsuario").value = datosUsuario[i].NombresUsuario;
-        document.getElementById("NickUsuario").value = datosUsuario[i].NickUsuario;
-        document.getElementById("CorreoUsuario").value = datosUsuario[i].CorreoUsuario;
-        document.getElementById("TelefonoUsuario").value = datosUsuario[i].TelefonoUsuario;
-        document.getElementById("TelefonoCelUsuario").value = datosUsuario[i].TelefonoCelUsuario;
-        document.getElementById("DireccionUsuario").value = datosUsuario[i].DireccionUsuario;       
-    };
+function cargarDatosUsuario(){
+    console.log(datosUsuario.length);
+   
+        idUsuario = datosUsuario.IdUsuario;
+        console.log(idUsuario);
+        nickUsuario = datosUsuario.NickUsuario;
+        passwdUser = datosUsuario.PasswordUsuario;
+        document.getElementById("NombresUsuario").value = datosUsuario.NombresUsuario;
+        document.getElementById("NickUsuario").value = datosUsuario.NickUsuario;
+        document.getElementById("CorreoUsuario").value = datosUsuario.CorreoUsuario;
+        document.getElementById("TelefonoUsuario").value = datosUsuario.TelefonoUsuario;
+        document.getElementById("TelefonoCelUsuario").value = datosUsuario.TelefonoCelUsuario;
+        document.getElementById("DireccionUsuario").value = datosUsuario.DireccionUsuario;       
+   
 }
 
-function modificarPassword() {
+function modificarPassword(urlModificar,urlSalir) {
     var antiguoPassword = document.getElementById("PasswordUsuario").value;
     var nuevoPassword = document.getElementById("PasswordUsuarioNuevo").value;
     var confirmarNuevoPasswd = document.getElementById("PasswordUsuarioConfirmar").value;
 
     if (antiguoPassword != passwdUser) {
-
-        antiguoPassword.addEventListener("keyup", function (event) {
-            if (antiguoPassword.validity.typeMismatch) {
-                antiguoPassword.setCustomValidity("!Su contraseña anterior no coincide");
-            } else {
-                antiguoPassword.setCustomValidity("");
-            }
-        });
+        document.getElementById("PasswordUsuario").setCustomValidity("La contraseña no coincide con la anterior");
     }
 
     if (nuevoPassword != confirmarNuevoPasswd) {
-        confirmarNuevoPasswd.addEventListener("keyup", function (event) {
-            if (confirmarNuevoPasswd.validity.typeMismatch) {
-                confirmarNuevoPasswd.setCustomValidity("!Las contraseñas no coinciden!");
-            } else {
-                confirmarNuevoPasswd.setCustomValidity("");
-            }
-        });
+        document.getElementById("PasswordUsuarioConfirmar").setCustomValidity("Las contraseñas no coinciden");
     }
+
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar su contraseña?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: { "IdUsuario": passwdUser, "NickUsuario": nickUsuario, "PasswordUsuario": confirmarNuevoPasswd },
+                url: urlModificar,
+                type: 'post',
+                success: function () {
+                    console.log("actualizacion exitosa");
+                    window.location.href = urlSalir;
+                }, error: function (e) {
+                    console.log(e);
+                }
+            });
+        } else {
+
+        }
+    });
 
 }
