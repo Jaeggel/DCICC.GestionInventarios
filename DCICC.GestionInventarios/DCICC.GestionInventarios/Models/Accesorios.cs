@@ -26,7 +26,5 @@ namespace DCICC.GestionInventarios.Models
         public string ModeloAccesorio { get; set; }
 
         public string DescripcionAccesorio { get; set; }
-
-        public bool HabilitadoAccesorio { get; set; }
     }
 }

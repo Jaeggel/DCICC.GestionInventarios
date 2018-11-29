@@ -57,17 +57,20 @@
                                     @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
                                     <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a>
                                 </li>
-                                @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
+                                @* Seccción de enlaces Reportes de Activos *@
                                 <li>
-                                    <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
+                                    @*Sección de enlaces para generación de reportes*@
+                                    <a><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
-                                        <li><a href="@Url.Action("ConsultaActivos", "Activos")">Consultar/Modificar Activos</a></li>
+                                        @* Seccción de enlaces a reportes de Activos *@
+                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")">Activos de TI</a></li>
+                                        @* Seccción de enlaces a reportes de Máquinas virtuales *@
+                                        <li><a href="@Url.Action("ReportesMaqVirtuales", "Reportes")">Máquinas Virtuales</a></li>
+                                        @* Seccción de enlaces a reportes de Tickets *@
+                                        <li><a href="@Url.Action("ReportesTickets", "Reportes")">Tickets</a></li>
+                                        @* Seccción de enlaces a reportes de Logs *@
+                                        <li><a href="@Url.Action("ReportesLogs", "Reportes")">Logs</a></li>
                                     </ul>
-                                </li>
-                                <li>
-                                    @*Enlace al método ReporteActivo (Metodo de la clase) del Controlador Activos(Controller)*@
-                                    <a href="@Url.Action("Reportes", "Reportes")"><i class="fa fa-bar-chart-o"></i> Reportes</a>
                                 </li>
                             </ul>
                         </div>
