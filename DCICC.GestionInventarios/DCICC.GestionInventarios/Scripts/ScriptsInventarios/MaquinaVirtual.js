@@ -1,6 +1,6 @@
 ﻿var url_idioma = obtenerIdioma();
 var url_metodo;
-var propositos = listaPropositos();
+var propositos;
 var datosMaquinasV;
 var cmbSO;
 var idMaquinaV;
@@ -35,6 +35,22 @@ function obtenerSO(url) {
             console.log("siiii");
             cmbSO = data;
             cargarSOCmb();
+        }
+    });
+}
+
+function listaPropositos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'get',
+        success: function (data) {
+            console.log("entrooo");
+            propositos = data;
+            cargarPropositosCmb();
+            
+        }, error: function (e) {
+            console.log(e);
         }
     });
 }
@@ -97,7 +113,7 @@ function cargarPropositosCmb() {
     var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < propositos.length; i++) {
-        str += '<option value="' + propositos[i] + '">' + propositos[i] + '</option>';
+        str += '<option value="' + propositos[i].NombreProposito + '">' + propositos[i].NombreProposito + '</option>';
     };
     str += '</select>';
     $("#cargarPropositos").html(str);
