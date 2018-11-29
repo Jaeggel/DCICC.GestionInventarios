@@ -70,7 +70,7 @@
                         @* Sección de botones para modificar usuario o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-success">Modificar</button>
+                                <button type="submit" class="btn btn-success" onclick=" modificarDatosUsuario('@Url.Action("ModificarPasswordUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")');">Modificar</button>
                                 <button type="button" class="btn btn-primary">Cancelar</button>
                             </div>
                         </div>

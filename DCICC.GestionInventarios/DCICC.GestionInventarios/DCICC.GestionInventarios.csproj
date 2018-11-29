@@ -4673,6 +4673,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\ScriptsInventarios\Accesorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Activos.js" />
     <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
@@ -4682,6 +4683,7 @@
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
     <Content Include="Scripts\ScriptsInventarios\PerfilUsuario.js" />
     <Content Include="Scripts\ScriptsInventarios\ReporteActivo.js" />
+    <Content Include="Scripts\ScriptsInventarios\Reporteria.js" />
     <Content Include="Scripts\ScriptsInventarios\Tickets.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoActivo.js" />
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
