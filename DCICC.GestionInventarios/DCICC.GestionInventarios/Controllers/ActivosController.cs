@@ -117,7 +117,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
                 if (msjAccesorios.OperacionExitosa)
                 {
-                    mensajesAccesorios = "El accesorio ha sido registrado exitosamente.";
+                    mensajesAccesorios = "El activo y el accesorio ha sido registrado exitosamente.";
                     TempData["Mensaje"] = mensajesAccesorios;
                     Logs.Info(mensajesAccesorios);
                 }
