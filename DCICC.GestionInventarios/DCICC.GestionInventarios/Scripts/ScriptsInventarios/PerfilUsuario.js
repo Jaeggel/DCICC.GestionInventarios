@@ -20,8 +20,7 @@ function obtenerUsuario(url) {
 }
 
 function cargarDatosUsuario(){
-    console.log(datosUsuario.length);
-   
+ 
         idUsuario = datosUsuario.IdUsuario;
         console.log(idUsuario);
         nickUsuario = datosUsuario.NickUsuario;
@@ -35,57 +34,78 @@ function cargarDatosUsuario(){
    
 }
 
-function modificarPassword(urlModificar,urlSalir) {
+function modificarPassword() {
+    var esValido = true;
     var antiguoPassword = document.getElementById("PasswordUsuario").value;
     var nuevoPassword = document.getElementById("PasswordUsuarioNuevo").value;
     var confirmarNuevoPasswd = document.getElementById("PasswordUsuarioConfirmar").value;
+    
 
     if (antiguoPassword != passwdUser) {
-        document.getElementById("PasswordUsuario").setCustomValidity("La contraseña no coincide con la anterior");
-    }
-    else if (nuevoPassword != confirmarNuevoPasswd) {
-        document.getElementById("PasswordUsuario").setCustomValidity("");
-        document.getElementById("PasswordUsuarioConfirmar").setCustomValidity("Las contraseñas no coinciden");
+        esValido = false;
+        $("#PasswordUsuario").focus();
+        $('#errorPassword').html('La contraseña no coincide con la anterior').show();
+        setTimeout("$('#errorNombre').fadeOut('slow');", 5000);
     } else {
-        
-        guardarContraseña(urlModificar, urlSalir, confirmarNuevoPasswd);
+        $('#errorPassword').html('').hide();
     }
 
-}
+    if (nuevoPassword != confirmarNuevoPasswd) {
+        esValido = false;
+        $("#PasswordUsuarioNuevo").focus();
+        $('#errorNuevoPassword').html('La contraseña no coincide con la anterior').show();
+        setTimeout("$('#errorNuevoPassword').fadeOut('slow');", 5000);
+    } else {
+        $('#errorNuevoPassword').html('').hide();
+       
+    }
 
-function guardarContraseña(urlModificar, urlSalir, confirmarNuevoPasswd) {
-    console.log(urlModificar + "-" + urlSalir)
-    swal({
-        title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar su contraseña?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdUsuario": passwdUser, "NickUsuario": nickUsuario, "PasswordUsuario": confirmarNuevoPasswd },
-                url: urlModificar,
-                type: 'post',
-                success: function () {
-                    console.log("actualizacion exitosa");
-                    window.location.href = urlSalir;
-                }, error: function (e) {
-                    console.log(e);
-                }
-            });
-        } else {
-
-        }
-    });
+    return esValido;
 
 }
 
+function guardarContraseña(urlModificar, urlSalir) {
+    var comprobar = modificarPassword();
+    console.log(comprobar);
+    if (comprobar == true) {
+        var confirmarNuevoPasswd = document.getElementById("PasswordUsuarioConfirmar").value;
+        console.log(urlModificar + "-" + urlSalir)
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                //Método ajax para modificar la categoria de la base de datos
+                $.ajax({
+                    data: { "IdUsuario": idUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": confirmarNuevoPasswd },
+                    url: urlModificar,
+                    type: 'post',
+                    success: function () {
+                        console.log("actualizacion exitosa");
+                        window.location.href = urlSalir;
+                        showNotify("Actualización exitosa", 'Se ha modificado el password de Usuario', "success");
+                    }, error: function (e) {
+                        console.log(e);
 
-function modificarDatosUsuario(urlModificar, urlSalir) {
+                    }
+                });
+            } else {
+
+            }
+        });
+
+    }   
+
+}
+
+
+function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
     var nombreUsuarioMod = document.getElementById("NombresUsuario").value;
     var correoUsuarioMod = document.getElementById("CorreoUsuario").value;
     var nickUsuarioMod = document.getElementById("NickUsuario").value;
@@ -137,8 +157,8 @@ function modificarDatosUsuario(urlModificar, urlSalir) {
                     url: urlModificar,
                     type: 'post',
                     success: function () {                       
-                        showNotify("Actualización exitosa", 'El usuario se ha modificado correctamente', "success");
-                        obtenerUsuarios(url_metodo);
+                        window.location.href = urlHome;
+                        showNotify("Actualización exitosa", 'Se ha modificado el perfil de Usuario', "success");
                     }, error: function () {                       
                         showNotify("Error en la Actualización", 'No se ha podido modificar el usuario', "error");
                     }
