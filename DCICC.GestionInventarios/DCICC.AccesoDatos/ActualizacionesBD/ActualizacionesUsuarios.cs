@@ -1,11 +1,8 @@
-﻿using DCICC.AccesoDatos.ConsultasBD;
-using DCICC.Entidades.EntidadesInventarios;
+﻿using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using DCICC.Seguridad.Encryption;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ActualizacionesBD
 {
@@ -20,7 +17,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para actualizar un usuario en la base de datos.
+        /// Método para actualizar un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -61,7 +58,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para actualizar el perfil de un usuario en la base de datos.
+        /// Método para actualizar el perfil de un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -100,7 +97,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para actualizar el perfil de un usuario en la base de datos.
+        /// Método para actualizar el password de un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -133,7 +130,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para actualizar el estado de un usuario en la base de datos.
+        /// Método para actualizar el estado de un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>

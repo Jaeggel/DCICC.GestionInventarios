@@ -3,11 +3,8 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
@@ -25,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Método para obtener una lista con las máquinas virtuales de la base de datos.
+        /// Método para obtener una lista con las Máquinas Virtuales de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>
@@ -48,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjMaqVirtuales;
         }
         /// <summary>
-        /// Método para registrar una nueva máquina virtual en la base de datos.
+        /// Método para registrar una nueva Máquina Virtual en la base de datos.
         /// </summary>
         /// <param name="infoMaqVirtual"></param>
         /// <returns></returns>
@@ -71,9 +68,10 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjMaqVirtuales;
         }
         /// <summary>
-        /// Método para actualizar una máquina virtual en la base de datos.
+        /// Método para actualizar una Máquina Virtual en la base de datos.
         /// </summary>
         /// <param name="infoMaqVirtual"></param>
+        /// <param name="actEstado">Boolean para definir si se actualizará solo el estado o todo el registro</param>
         /// <returns></returns>
         public MensajesMaqVirtuales ActualizarMaqVirtual(MaqVirtuales infoMaqVirtual, bool actEstado)
         {

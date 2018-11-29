@@ -2,9 +2,6 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
 
 namespace DCICC.AccesoDatos.InsercionesBD
 {
@@ -19,7 +16,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para ingresar un nueva activo en la base de datos.
+        /// Método para ingresar un nuevo Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>

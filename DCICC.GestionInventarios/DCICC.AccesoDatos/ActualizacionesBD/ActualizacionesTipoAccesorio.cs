@@ -2,8 +2,6 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ActualizacionesBD
 {
@@ -18,7 +16,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para actualizar un tipo de accesorio en la base de datos.
+        /// Método para actualizar un Tipo de Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>
@@ -48,7 +46,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             return msjTipoAccesorio;
         }
         /// <summary>
-        /// Método para actualizar el estado de un tipo de accesorio en la base de datos.
+        /// Método para actualizar el estado de un Tipo de Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>

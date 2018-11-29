@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DCICC.Seguridad.Encryption;
 using Microsoft.AspNetCore.Authorization;
@@ -15,7 +11,7 @@ namespace DCICC.WebServiceInventarios.Controllers
     public class EncriptacionController : Controller
     {
         //Instancia para la utilización de LOGS en la clase EncriptacionController
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (Post) que encripta la cadena recibida.
         /// </summary>

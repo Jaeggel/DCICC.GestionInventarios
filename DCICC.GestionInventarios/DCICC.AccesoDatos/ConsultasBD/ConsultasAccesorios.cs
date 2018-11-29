@@ -4,7 +4,6 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
 {
@@ -19,7 +18,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener l0s accesorios de la base de datos.
+        /// Método para obtener los Accesorios de la base de datos.
         /// </summary>
         /// <returns></returns>
         public MensajesAccesorios ObtenerAccesorios()
@@ -44,8 +43,9 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 SerialAccesorio = dr[4].ToString().Trim(),
                                 ModeloAccesorio = dr[5].ToString().Trim(),
                                 DescripcionAccesorio = dr[6].ToString().Trim(),
-                                HabilitadoAccesorio = (bool)dr[7],
+                                EstadoAccesorio = dr[7].ToString().Trim(),
                                 NombreTipoAccesorio = dr[8].ToString().Trim(),
+                                NombreDetalleActivo = dr[9].ToString().Trim()//OJO ORDEN
                             };
                             lstAccesorios.Add(objAccesorios);
                         }
@@ -63,9 +63,9 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjAccesorios;
         }
         /// <summary>
-        /// Método para obtener las Accesorios de la base de datos.
+        /// Método para obtener los Accesorios de la base de datos.
         /// </summary>
-        /// <param name="nombreFuncion">Tipo de función a llamar: consultaaccesorios o Accesorioshabilitados</param>
+        /// <param name="nombreFuncion">Tipo de función a llamar: consultaaccesorios o accesorioshabilitados</param>
         /// <returns></returns>
         public MensajesAccesorios ObtenerAccesorios(string nombreFuncion)
         {
@@ -89,7 +89,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 SerialAccesorio = dr[4].ToString().Trim(),
                                 ModeloAccesorio = dr[5].ToString().Trim(),
                                 DescripcionAccesorio = dr[6].ToString().Trim(),
-                                HabilitadoAccesorio = bool.Parse(dr[7].ToString().Trim())
+                                EstadoAccesorio = dr[7].ToString().Trim()
                             };
                             lstAccesorios.Add(objAccesorios);
                         }

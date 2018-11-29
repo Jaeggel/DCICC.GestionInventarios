@@ -4,7 +4,6 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
 {
@@ -19,7 +18,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener los activos de la base de datos.
+        /// Método para obtener los Activos de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función a llamar: consultaactivos o activoshabilitados</param>
         /// <returns></returns>
@@ -121,7 +120,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjCQR;
         }
         /// <summary>
-        /// Método para obtener los id de los CQR.
+        /// Método para obtener los ID de los CQR.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función a llamar: consultaCQR</param>
         /// <returns></returns>
@@ -158,7 +157,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjCQR;
         }
         /// <summary>
-        /// Método para obtener los nombres de los activos.
+        /// Método para obtener los nombres de los Activos.
         /// </summary>
         /// <returns></returns>
         public MensajesActivos ObtenerNombresActivos()

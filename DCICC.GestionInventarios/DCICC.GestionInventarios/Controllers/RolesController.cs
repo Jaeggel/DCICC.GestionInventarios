@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -15,7 +12,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class RolesController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase Roles
+        //Instancia para la utilización de LOGS en la clase RolesController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoRol
@@ -117,7 +114,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarRol", "Roles");
         }
         /// <summary>
-        /// Método para obtener los roles habilitados de la base de datos
+        /// Método para obtener los Roles habilitados de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerRolesHab()

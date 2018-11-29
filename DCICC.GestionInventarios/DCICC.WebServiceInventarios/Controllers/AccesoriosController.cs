@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ActualizacionesBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -19,9 +14,9 @@ namespace DCICC.WebServiceInventarios.Controllers
     public class AccesoriosController : Controller
     {
         //Instancia para la utilización de LOGS en la clase AccesoriosController
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de los accesorios habilitados de la base de datos.
+        /// Método (GET) para obtener una lista de los Accesorios habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerAccesoriosHab")]
@@ -41,7 +36,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjAccesorios;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todas los accesorios de la base de datos.
+        /// Método (GET) para obtener una lista de todos los Accesorios de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerAccesoriosComp")]
@@ -49,7 +44,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
-            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios("...");
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios();
             if (msjAccesorios.OperacionExitosa)
             {
                 Logs.Info("Consulta de Accesorios realizada exitosamente.");
@@ -61,16 +56,16 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjAccesorios;
         }
         /// <summary>
-        /// Método (POST) para registrar una nuevo accesorio en la base de datos.
+        /// Método (POST) para registrar una nuevo Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
         /// <returns></returns>
         [HttpPost("RegistrarAccesorio")]
-        public MensajesAccesorios RegistrarAccesorios([FromBody] Accesorios infoAccesorios)
+        public MensajesAccesorios RegistrarAccesorio([FromBody] Accesorios infoAccesorios)
         {
             MensajesAccesorios msjAccesorios = null;
             InsercionesAccesorios objInsercionesAccesoriosBD = new InsercionesAccesorios();
-            msjAccesorios = objInsercionesAccesoriosBD.RegistroAccesorios(infoAccesorios);
+            msjAccesorios = objInsercionesAccesoriosBD.RegistroAccesorio(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
             {
                 Logs.Info("Registro de Accesorio realizado exitosamente.");
@@ -82,16 +77,37 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjAccesorios;
         }
         /// <summary>
-        /// Método (POST) para actualizar un accesorio en la base de datos.
+        /// Método (POST) para actualizar un Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
         /// <returns></returns>
         [HttpPost("ActualizarAccesorio")]
-        public MensajesAccesorios ActualizarAccesorios([FromBody] Accesorios infoAccesorios)
+        public MensajesAccesorios ActualizarAccesorio([FromBody] Accesorios infoAccesorios)
         {
             MensajesAccesorios msjAccesorios = null;
             ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
-            msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorios(infoAccesorios);
+            msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorio(infoAccesorios);
+            if (msjAccesorios.OperacionExitosa)
+            {
+                Logs.Info("Actualización de Accesorio realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjAccesorios.MensajeError);
+            }
+            return msjAccesorios;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de un Accesorio en la base de datos.
+        /// </summary>
+        /// <param name="infoAccesorios"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoAccesorio")]
+        public MensajesAccesorios ActualizarEstadoAccesorio([FromBody] Accesorios infoAccesorios)
+        {
+            MensajesAccesorios msjAccesorios = null;
+            ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
+            msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionEstadoAccesorio(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
             {
                 Logs.Info("Actualización de Accesorio realizada exitosamente.");

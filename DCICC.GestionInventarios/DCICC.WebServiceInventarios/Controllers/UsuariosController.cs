@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ActualizacionesBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.EliminacionesBD;
 using DCICC.AccesoDatos.InsercionesBD;
@@ -10,7 +6,6 @@ using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -22,7 +17,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         //Instancia para la utilización de LOGS en la clase UsuariosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de todos los usuarios de la base de datos.
+        /// Método (GET) para obtener una lista de todos los Usuarios de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerUsuariosComp")]
@@ -30,7 +25,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesUsuarios msjUsuarios = null;
             ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-            msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");//corregir
+            msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
             if (msjUsuarios.OperacionExitosa)
             {
                 Logs.Info("Consulta de Usuarios realizada exitosamente.");
@@ -42,7 +37,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todos los usuarios habilitados de la base de datos.
+        /// Método (GET) para obtener una lista de todos los Usuarios habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerUsuariosHab")]
@@ -62,7 +57,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de la función usuariosroles de la base de datos.
+        /// Método (GET) para obtener una lista de todos los Usuarios de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerUsuariosRoles")]
@@ -82,7 +77,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (POST) para registrar un nuevo usuario en la base de datos.
+        /// Método (POST) para registrar un nuevo Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -103,7 +98,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (POST) para actualizar un usuario en la base de datos.
+        /// Método (POST) para actualizar un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -124,7 +119,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (POST) para actualizar un usuario en la base de datos.
+        /// Método (POST) para actualizar un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -145,7 +140,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (POST) para actualizar el perfil de un usuario en la base de datos.
+        /// Método (POST) para actualizar el perfil de un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -166,7 +161,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (POST) para actualizar el password de un usuario en la base de datos.
+        /// Método (POST) para actualizar el password de un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -187,7 +182,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         /// <summary>
-        /// Método (POST) para eliminar un usuario en la base de datos.
+        /// Método (POST) para eliminar un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>

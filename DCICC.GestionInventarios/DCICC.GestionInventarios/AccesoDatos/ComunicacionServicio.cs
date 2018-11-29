@@ -2,14 +2,9 @@
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos
 {
@@ -30,7 +25,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         /// <summary>
-        /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
+        /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -54,7 +49,8 @@ namespace DCICC.GestionInventarios.AccesoDatos
             return "Bearer " + tokenResult;
         }
         /// <summary>
-        /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
+        /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
+        /// Utilizado para la recuperación de contraseña mediante correo electrónico.
         /// </summary>
         /// <param name="infoCorreo"></param>
         /// <returns></returns>
@@ -78,7 +74,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             return "Bearer " + tokenResult;
         }
         /// <summary>
-        /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
+        /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
         /// </summary>
         /// <returns></returns>
         public string ObtenerTokenTransacciones(string NickUsuarioSesion)

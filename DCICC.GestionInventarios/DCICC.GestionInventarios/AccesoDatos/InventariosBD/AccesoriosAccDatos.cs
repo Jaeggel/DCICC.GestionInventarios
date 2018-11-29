@@ -3,11 +3,8 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
@@ -25,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Método para obtener una lista con los accesorios de la base de datos.
+        /// Método para obtener una lista con los Accesorios de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>
@@ -48,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjAccesorios;
         }
         /// <summary>
-        /// Método para registrar una nuevo accesorio en la base de datos.
+        /// Método para registrar un nuevo Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
         /// <returns></returns>
@@ -71,16 +68,17 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjAccesorios;
         }
         /// <summary>
-        /// Método para actualizar un accesorio en la base de datos.
+        /// Método para actualizar un Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
+        /// <param name="actEstado">Boolean para definir si se actualizará solo el estado o todo el registro</param>
         /// <returns></returns>
-        public MensajesAccesorios ActualizarAccesorios(Accesorios infoAccesorios)
+        public MensajesAccesorios ActualizarAccesorios(Accesorios infoAccesorios,bool actEstado)
         {
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                var response = client_Service.PostAsJsonAsync("Accesorios/ActualizarAccesorio", infoAccesorios).Result;
+                var response = client_Service.PostAsJsonAsync(actEstado? "Accesorios/ActualizarEstadoAccesorio":"Accesorios/ActualizarAccesorio", infoAccesorios).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var AccesoriosJson = response.Content.ReadAsStringAsync().Result;

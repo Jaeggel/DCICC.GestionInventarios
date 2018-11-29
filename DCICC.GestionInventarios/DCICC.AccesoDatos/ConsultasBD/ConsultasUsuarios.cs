@@ -5,7 +5,6 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
 {
@@ -20,7 +19,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD=ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener los usuarios de la base de datos.
+        /// Método para obtener los Usuarios de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función a llamar: consultausuarios o usuarioshabilitados</param>
         /// <returns></returns>
@@ -68,7 +67,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para obtener un usuario en específico de la base de datos por su ID.
+        /// Método para obtener un Usuario en específico de la base de datos por su ID.
         /// </summary>
         /// <param name="IdUsuario"></param>
         /// <returns></returns>
@@ -95,7 +94,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para obtener un usuario en específico de la base de datos por su Nick
+        /// Método para obtener un Usuario en específico de la base de datos por su Nick
         /// </summary>
         /// <param name="IdUsuario"></param>
         /// <returns></returns>

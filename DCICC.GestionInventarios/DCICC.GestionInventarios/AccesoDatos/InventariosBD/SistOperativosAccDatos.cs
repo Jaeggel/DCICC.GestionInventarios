@@ -3,11 +3,8 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
@@ -25,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Método para obtener una lista con los sistemas operativos de la base de datos.
+        /// Método para obtener una lista con los Sistemas Operativos de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>
@@ -48,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjSistOperativos;
         }
         /// <summary>
-        /// Método para registrar un nuevo sistema operativo en la base de datos.
+        /// Método para registrar un nuevo Sistema Operativo en la base de datos.
         /// </summary>
         /// <param name="infoSistOperativo"></param>
         /// <returns></returns>
@@ -71,9 +68,10 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjSistOperativos;
         }
         /// <summary>
-        /// Método para actualizar un sistema operativo en la base de datos.
+        /// Método para actualizar un Sistema Operativo en la base de datos.
         /// </summary>
         /// <param name="infoSistOperativo"></param>
+        /// <param name="actEstado">Boolean para definir si se actualizará solo el estado o todo el registro</param>
         /// <returns></returns>
         public MensajesSistOperativos ActualizarSistOperativo(SistOperativos infoSistOperativo,bool actEstado)
         {

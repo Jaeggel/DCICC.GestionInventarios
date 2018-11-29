@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ConsultasBD;
+﻿using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -18,9 +13,9 @@ namespace DCICC.WebServiceInventarios.Controllers
     public class RolesController : Controller
     {
         //Instancia para la utilización de LOGS en la clase RolesController
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de roles habilitados de la base de datos.
+        /// Método (GET) para obtener una lista de Roles habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerRolesHab")]
@@ -40,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjRoles;
         }
         /// <summary>
-        /// Método (POST) para registrar un nuevo rol en la base de datos.
+        /// Método (POST) para registrar un nuevo Rol en la base de datos.
         /// </summary>
         /// <param name="infoRol"></param>
         /// <returns></returns>
@@ -61,7 +56,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjRoles;
         }
         /// <summary>
-        /// Método (POST) para actualizar un rol en la base de datos.
+        /// Método (POST) para actualizar un Rol en la base de datos.
         /// </summary>
         /// <param name="infoRol"></param>
         /// <returns></returns>

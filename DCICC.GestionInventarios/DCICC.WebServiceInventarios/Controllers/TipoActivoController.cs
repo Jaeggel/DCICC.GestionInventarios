@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ActualizacionesBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -18,10 +13,10 @@ namespace DCICC.WebServiceInventarios.Controllers
     [Route("TipoActivo")]
     public class TipoActivoController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase TipoActivoContTipoActivoler
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //Instancia para la utilización de LOGS en la clase TipoActivoController
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de los tipos de activos habilitadas de la base de datos.
+        /// Método (GET) para obtener una lista de los Tipos de Activos habilitadas de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerTipoActivoHab")]
@@ -41,7 +36,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoActivo;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todas los tipos de activos de la base de datos.
+        /// Método (GET) para obtener una lista de todas los Tipos de Activos de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerTipoActivoComp")]
@@ -61,7 +56,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoActivo;
         }
         /// <summary>
-        /// Método (POST) para registrar una nuevo tipo de activo en la base de datos.
+        /// Método (POST) para registrar un nuevo Tipo de Activo en la base de datos.
         /// </summary>
         /// <param name="infoTipoActivo"></param>
         /// <returns></returns>
@@ -82,7 +77,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoActivo;
         }
         /// <summary>
-        /// Método (POST) para actualizar un tipo de activo en la base de datos.
+        /// Método (POST) para actualizar un Tipo de Activo en la base de datos.
         /// </summary>
         /// <param name="infoTipoActivo"></param>
         /// <returns></returns>
@@ -103,7 +98,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoActivo;
         }
         /// <summary>
-        /// Método (POST) para actualizar el estado de un tipo de activo en la base de datos.
+        /// Método (POST) para actualizar el estado de un Tipo de Activo en la base de datos.
         /// </summary>
         /// <param name="infoTipoActivo"></param>
         /// <returns></returns>

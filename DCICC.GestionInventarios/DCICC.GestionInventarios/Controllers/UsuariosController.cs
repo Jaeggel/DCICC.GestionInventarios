@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -15,7 +12,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class UsuariosController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase Usuarios
+        //Instancia para la utilización de LOGS en la clase UsuariosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoUsuario
@@ -250,7 +247,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener los los usuarios con su rol de la base de datos
+        /// Método para obtener todos los Usuarios de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerUsuariosRoles()
@@ -259,7 +256,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener los los usuariso con su rol de la base de datos
+        /// Método para obtener el Usuario Actual del Sistema de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerUsuarioPorNick()

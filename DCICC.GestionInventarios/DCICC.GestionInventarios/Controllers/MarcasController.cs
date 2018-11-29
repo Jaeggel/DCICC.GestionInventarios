@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -145,7 +142,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarMarca", "Marcas");
         }
         /// <summary>
-        /// Método para obtener las marcas de la base de datos
+        /// Método para obtener todas las Marcas de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerMarcasComp()
@@ -154,7 +151,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objMarcasAccDatos.ObtenerMarcas("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener las marcas de la base de datos
+        /// Método para obtener las Marcas habilitadas de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerMarcasHab()

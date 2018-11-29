@@ -3,11 +3,8 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
@@ -25,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Método para obtener una lista con los tipos de accesorios de la base de datos.
+        /// Método para obtener una lista con los Tipos de Accesorios de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>
@@ -48,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjTipoAccesorio;
         }
         /// <summary>
-        /// Método para registrar un nuevo tipo de accesorio en la base de datos.
+        /// Método para registrar un nuevo Tipo de Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>
@@ -71,7 +68,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjTipoAccesorio;
         }
         /// <summary>
-        /// Método para actualizar un tipo de accesorio en la base de datos.
+        /// Método para actualizar un Tipo de Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>

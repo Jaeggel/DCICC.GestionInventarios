@@ -4,7 +4,6 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
 {
@@ -19,7 +18,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener los tipos de activos de la base de datos.
+        /// Método para obtener los Tipos de Activos de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función a llamar: consultatipoActivo o tipoactivohabilitados</param>
         /// <returns></returns>

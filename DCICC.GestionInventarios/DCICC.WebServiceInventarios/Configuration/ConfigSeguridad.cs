@@ -1,17 +1,14 @@
 ﻿using log4net;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DCICC.WebServiceInventarios.Configuration
 {
     public class ConfigSeguridad
     {
         //Instancia para la utilización de LOGS en la clase ConfigSeguridad
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ConfigurationBuilder configuration_Builder = new ConfigurationBuilder();
         string path_ArchivoConfig = string.Empty;
         IConfigurationRoot root_Config;

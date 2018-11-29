@@ -4,7 +4,6 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
 {
@@ -19,7 +18,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener los roles de la base de datos.
+        /// Método para obtener los Roles de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función a llamar: consultaroles o roleshabilitados</param>
         /// <returns></returns>
@@ -59,7 +58,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjRoles;
         }
         /// <summary>
-        /// Método para obtener un rol en específico de la base de datos por su Id.
+        /// Método para obtener un Rol en específico de la base de datos por su Id.
         /// </summary>
         /// <param name="IdRol"></param>
         /// <returns></returns>

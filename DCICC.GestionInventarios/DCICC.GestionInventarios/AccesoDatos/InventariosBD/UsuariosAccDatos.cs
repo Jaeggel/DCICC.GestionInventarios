@@ -3,11 +3,8 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
@@ -19,7 +16,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         HttpClient client_Service = new HttpClient();
         ComunicacionServicio obj_ComunicacionServicio = new ComunicacionServicio();
         /// <summary>
-        /// Constructor para inicializar el token de autorización de transacciones
+        /// Constructor para inicializar el Token de Autorización de Transacciones
         /// </summary>
         /// <param name="NickUsuario_Sesion">Nick del usuario de la sesión actual</param>
         public UsuariosAccDatos(string NickUsuario_Sesion)
@@ -30,7 +27,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", obj_ComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Constructor para inicializar el token de autorización de inicio de BD
+        /// Constructor para inicializar el Token de Autorización de Inicio de Comunicación con la base de datos.
         /// </summary>
         /// <param name="infoUsuario">Objeto del usuario</param>
         public UsuariosAccDatos(Usuarios infoUsuario)
@@ -43,7 +40,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         public UsuariosAccDatos() { }
 
         /// <summary>
-        /// Método para obtener una lista con todos los usuarios de la base de datos.
+        /// Método para obtener una lista con los Usuarios Habilitados de la base de datos.
         /// Importante para inicializar los procesos de la base de datos
         /// </summary>
         /// <returns></returns>
@@ -72,7 +69,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         }
         /// <summary>
         /// Método para obtener una lista con todos los usuarios de la base de datos.
-        /// Importante para inicializar los procesos de la base de datos
+        /// Utilizado para la recuperación de contraseña mediante correo electrónico.
         /// </summary>
         /// <returns></returns>
         public MensajesUsuarios ObtenerUsuarioCorreo(string infoCorreo)
@@ -100,7 +97,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para obtener una lista de la función UsuariosRoles.
+        /// Método para obtener una lista todos los Usuarios de la base de datos.
         /// </summary>
         /// <returns></returns>
         public MensajesUsuarios ObtenerUsuariosRoles()
@@ -122,7 +119,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para registrar un nuevo usuario en la base de datos.
+        /// Método para registrar un nuevo Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
@@ -145,7 +142,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para actualizar un usuario en la base de datos.
+        /// Método para actualizar un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <param name="actPerfil"></param>
@@ -186,7 +183,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjUsuarios;
         }
         /// <summary>
-        /// Método para eliminar un usuario en la base de datos.
+        /// Método para eliminar un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>

@@ -3,11 +3,9 @@ using DCICC.GestionInventarios.Configuration;
 using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using DCICC.GestionInventarios.QR;
+using DCICC.GestionInventarios.Reportes;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -17,6 +15,7 @@ namespace DCICC.GestionInventarios.Controllers
     public class ActivosController : Controller
     {
         static string Id_CQR = string.Empty;
+        static string Nombre_Activo = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
@@ -77,7 +76,9 @@ namespace DCICC.GestionInventarios.Controllers
                         if (msjActivos.OperacionExitosa)
                         {
                             SetIdCQR(infoActivo.IdCQR);
+                            SetNombreActivo(infoActivo.NombreActivo);
                             ObtenerImagenQR();
+                            ObtenerPDFQRSimple();
                             mensajesActivos = "El activo ha sido registrado exitosamente.";
                             TempData["Mensaje"] = mensajesActivos;
                             Logs.Info(mensajesActivos);
@@ -97,12 +98,24 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return Json(msjActivos.ObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para llenar la variable global Id_CQR.
+        /// </summary>
+        /// <param name="idCQR"></param>
         public void SetIdCQR(string idCQR)
         {
             Id_CQR =idCQR; 
         }
         /// <summary>
-        /// Método para mostrar el código QR
+        /// Método para llenar la variable global Nombre_Activo.
+        /// </summary>
+        /// <param name="nombreActivo"></param>
+        public void SetNombreActivo(string nombreActivo)
+        {
+            Nombre_Activo = nombreActivo;
+        }
+        /// <summary>
+        /// Método para mostrar el código QR en la vista
         /// </summary>
         /// <returns></returns>
         public ActionResult ObtenerImagenQR()
@@ -113,7 +126,22 @@ namespace DCICC.GestionInventarios.Controllers
             return File(bitmapBytes, "image/jpeg");            
         }
         /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
+        /// Método para mostrar el PDF con el QR del nuevo activo
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ObtenerPDFQRSimple()
+        {
+            ReporteQR objReporteQR = new ReporteQR();
+            var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+            {
+                Inline = true,
+                FileName = "DCICC.CQR."+ Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy-mm-ss") + ".pdf"
+            };
+            Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
+            return File(objReporteQR.GenerarPDFQRSimple(Id_CQR,Nombre_Activo), System.Net.Mime.MediaTypeNames.Application.Pdf);
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
         /// </summary>
         /// <param name="infoActivos"></param>
         /// <returns></returns>
@@ -160,7 +188,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ConsultaActivos", "Activos");
         }
         /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
         /// </summary>
         /// <param name="infoActivos"></param>
         /// <returns></returns>
@@ -239,7 +267,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(msjAccesorios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
+        /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
         /// <returns></returns>
@@ -251,7 +279,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
-                msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios);
+                msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,false);
                 if (msjAccesorios.OperacionExitosa)
                 {
                     Logs.Info(mensajesAccesorios);
@@ -268,7 +296,36 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ConsultaActivos", "Activos");//OJO
         }
         /// <summary>
-        /// Método para mostrar el código QR  y registrar el QR en la base de datos en el view
+        /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
+        /// </summary>
+        /// <param name="infoAccesorios"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarEstadoAccesorio(Accesorios infoAccesorios)
+        {
+            string mensajesAccesorios = string.Empty;
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            try
+            {
+                AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
+                msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,true);
+                if (msjAccesorios.OperacionExitosa)
+                {
+                    Logs.Info(mensajesAccesorios);
+                }
+                else
+                {
+                    mensajesAccesorios = "No se ha podido actualizar el accesorio: " + msjAccesorios.MensajeError;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesAccesorios + ": " + e.Message);
+            }
+            return RedirectToAction("ConsultaActivos", "Activos");//OJO
+        }
+        /// <summary>
+        /// Método para registrar el QR del nuevo Activo en la base de datos .
         /// </summary>
         /// <returns></returns>
         public MensajesCQR NuevoCQR()
@@ -306,7 +363,7 @@ namespace DCICC.GestionInventarios.Controllers
             return msjCQR;
         }
         /// <summary>
-        /// Método para obtener los accesorios de la base de datos
+        /// Método para obtener los Accesorios de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerAccesoriosComp()
@@ -315,7 +372,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objAccesoriosAccDatos.ObtenerAccesorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener los activos de la base de datos
+        /// Método para obtener los Activos de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerActivosComp()
@@ -324,7 +381,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objActivosAccDatos.ObtenerActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener los nombres de los activos de la base de datos
+        /// Método para obtener los nombres de los Activos de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerNombresActivos()

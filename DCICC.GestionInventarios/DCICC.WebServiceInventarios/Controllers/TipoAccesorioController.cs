@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ActualizacionesBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -18,10 +13,10 @@ namespace DCICC.WebServiceInventarios.Controllers
     [Route("TipoAccesorio")]
     public class TipoAccesorioController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase TipoAccesorioContTipoAccesorioler
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //Instancia para la utilización de LOGS en la clase TipoAccesorioController
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de los tipos de accesorios habilitados de la base de datos.
+        /// Método (GET) para obtener una lista de los Tipos de Accesorios habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerTipoAccesorioHab")]
@@ -41,7 +36,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoAccesorio;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todos los tipos de accesorios de la base de datos.
+        /// Método (GET) para obtener una lista de todos los Tipos de Accesorios de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerTipoAccesorioComp")]
@@ -61,7 +56,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoAccesorio;
         }
         /// <summary>
-        /// Método (POST) para registrar un nuevo tipo de accesorio en la base de datos.
+        /// Método (POST) para registrar un nuevo Tipo de Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>
@@ -82,7 +77,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoAccesorio;
         }
         /// <summary>
-        /// Método (POST) para actualizar un tipo de accesorio en la base de datos.
+        /// Método (POST) para actualizar un Tipo de Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>
@@ -103,7 +98,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjTipoAccesorio;
         }
         /// <summary>
-        /// Método (POST) para actualizar el estado de un tipo de accesorio en la base de datos.
+        /// Método (POST) para actualizar el estado de un Tipo de Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>

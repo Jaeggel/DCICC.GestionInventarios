@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DCICC.AccesoDatos;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.Entidades.EntidadesInventarios;
@@ -10,7 +7,6 @@ using DCICC.Seguridad.Encryption;
 using DCICC.Seguridad.TokensJWT;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers

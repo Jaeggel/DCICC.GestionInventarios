@@ -4,7 +4,6 @@ using DCICC.Entidades.MensajesInventarios;
 using DCICC.Seguridad.Encryption;
 using Npgsql;
 using System;
-using System.Text;
 
 namespace DCICC.AccesoDatos.InsercionesBD
 {
@@ -19,7 +18,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para ingresar un nuevo usuario en la base de datos.
+        /// Método para ingresar un nuevo Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
         /// <returns></returns>

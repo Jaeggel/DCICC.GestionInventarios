@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -15,7 +12,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class TipoAccesorioController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase Usuarios
+        //Instancia para la utilización de LOGS en la clase TipoAccesorioController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoTipoAccesorio
@@ -145,7 +142,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
         }
         /// <summary>
-        /// Método para obtener los tipos de accesorios de la base de datos
+        /// Método para obtener todos los Tipos de Accesorios de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerTipoAccesorioComp()
@@ -154,7 +151,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener los tipos de accesorios de la base de datos
+        /// Método para obtener los Tipos de Accesorios habilitados de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerTipoAccesorioHab()

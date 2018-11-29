@@ -1,15 +1,10 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
-using DCICC.GestionInventarios.Controllers;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using QRCoder;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 
 namespace DCICC.GestionInventarios.QR
 {

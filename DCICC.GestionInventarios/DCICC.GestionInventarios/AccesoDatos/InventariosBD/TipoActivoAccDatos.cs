@@ -3,11 +3,8 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
@@ -25,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Método para obtener una lista con los tipos de activos de la base de datos.
+        /// Método para obtener una lista con los Tipos de Activos de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>
@@ -48,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjTipoActivo;
         }
         /// <summary>
-        /// Método para registrar un nuevo tipo de activo en la base de datos.
+        /// Método para registrar un nuevo Tipo de Activo en la base de datos.
         /// </summary>
         /// <param name="infoTipoActivo"></param>
         /// <returns></returns>
@@ -71,9 +68,10 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjTipoActivo;
         }
         /// <summary>
-        /// Método para actualizar un tipo de activo en la base de datos.
+        /// Método para actualizar un Tipo de Activo en la base de datos.
         /// </summary>
         /// <param name="infoTipoActivo"></param>
+        /// <param name="actEstado">Boolean para definir si se actualizará solo el estado o todo el registro</param>
         /// <returns></returns>
         public MensajesTipoActivo ActualizarTipoActivo(TipoActivo infoTipoActivo, bool actEstado)
         {

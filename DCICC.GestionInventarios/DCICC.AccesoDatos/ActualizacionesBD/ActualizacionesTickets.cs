@@ -3,8 +3,6 @@ using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ActualizacionesBD
 {
@@ -19,7 +17,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para actualizar un ticket en la base de datos.
+        /// Método para actualizar un Ticket en la base de datos.
         /// </summary>
         /// <param name="infoTicket"></param>
         /// <returns></returns>

@@ -3,17 +3,14 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
     public class ActivosAccDatos
     {
-        //Instancia para la utilización de LOGS en la clase CQRAccDatos
+        //Instancia para la utilización de LOGS en la clase ActivosAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         HttpClient client_Service = new HttpClient();
         public ActivosAccDatos(string NickUsuario_Sesion)
@@ -25,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Método para obtener una lista con los activos de la base de datos.
+        /// Método para obtener una lista con los Activos de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función: Comp(Todos los registros) o Hab (Los registros habilitados)</param>
         /// <returns></returns>
@@ -48,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjActivos;
         }
         /// <summary>
-        /// Método para registrar un nuevo activo en la base de datos.
+        /// Método para registrar un nuevo Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
@@ -71,9 +68,10 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjActivos;
         }
         /// <summary>
-        /// Método para actualizar un activo en la base de datos.
+        /// Método para actualizar un Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
+        /// <param name="actEstado">Boolean para definir si se actualizará solo el estado o todo el registro</param>
         /// <returns></returns>
         public MensajesActivos ActualizarActivo(Activos infoActivo,bool actEstado)
         {
@@ -161,7 +159,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjCQR;
         }
         /// <summary>
-        /// Método para registrar un activo en el historico en la base de datos.
+        /// Método para registrar un Activo en el Historico de activos en la base de datos.
         /// </summary>
         /// <param name="infoHistActivo"></param>
         /// <returns></returns>

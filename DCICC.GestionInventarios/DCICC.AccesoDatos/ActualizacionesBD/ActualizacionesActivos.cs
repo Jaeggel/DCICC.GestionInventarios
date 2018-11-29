@@ -2,8 +2,6 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ActualizacionesBD
 {
@@ -18,7 +16,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para actualizar un activo en la base de datos.
+        /// Método para actualizar un Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
@@ -68,7 +66,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             return msjActivos;
         }
         /// <summary>
-        /// Método para actualizar el estado de un activo en la base de datos.
+        /// Método para actualizar el estado de un Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>

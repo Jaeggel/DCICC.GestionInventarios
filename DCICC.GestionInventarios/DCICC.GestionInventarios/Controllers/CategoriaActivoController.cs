@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -15,10 +12,10 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class CategoriaActivoController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase Usuarios
+        //Instancia para la utilización de LOGS en la clase CategoriaActivoController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para mostrar la vista CategoriaActivo
+        /// Método (GET) para mostrar la vista NuevoCategoriaActivo
         /// </summary>
         /// <returns></returns>
         public ActionResult NuevoCategoriaActivo()
@@ -145,7 +142,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
         }
         /// <summary>
-        /// Método para obtener todas las categorías de la base de datos
+        /// Método para obtener todas las Categorías de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerCategoriasActivosComp()
@@ -154,7 +151,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener las categorías habilitadas de la base de datos
+        /// Método para obtener las Categorías habilitadas de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerCategoriasActivosHab()

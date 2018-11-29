@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ActualizacionesBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -19,9 +14,9 @@ namespace DCICC.WebServiceInventarios.Controllers
     public class SistOperativosController : Controller
     {
         //Instancia para la utilización de LOGS en la clase SistOperativosController
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de los sistemas operativos habilitados de la base de datos.
+        /// Método (GET) para obtener una lista de los Sistemas Operativos habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerSistOperativosHab")]
@@ -41,7 +36,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjSistOperativos;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todos los sistemas operativos de la base de datos.
+        /// Método (GET) para obtener una lista de todos los Sistemas Operativos de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerSistOperativosComp")]
@@ -61,7 +56,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjSistOperativos;
         }
         /// <summary>
-        /// Método (POST) para registrar una nuevo sistema operativo en la base de datos.
+        /// Método (POST) para registrar una nuevo Sistema Operativo en la base de datos.
         /// </summary>
         /// <param name="infoSistOperativo"></param>
         /// <returns></returns>
@@ -82,7 +77,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjSistOperativos;
         }
         /// <summary>
-        /// Método (POST) para actualizar un sistema operativo en la base de datos.
+        /// Método (POST) para actualizar un Sistema Operativo en la base de datos.
         /// </summary>
         /// <param name="infoSistOperativo"></param>
         /// <returns></returns>
@@ -103,7 +98,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjSistOperativos;
         }
         /// <summary>
-        /// Método (POST) para actualizar el estado de un sistema operativo en la base de datos.
+        /// Método (POST) para actualizar el estado de un Sistema Operativo en la base de datos.
         /// </summary>
         /// <param name="infoSistOperativo"></param>
         /// <returns></returns>

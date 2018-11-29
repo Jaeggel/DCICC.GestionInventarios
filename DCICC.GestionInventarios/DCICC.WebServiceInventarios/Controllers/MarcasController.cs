@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ActualizacionesBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.ContMarcalers
@@ -19,9 +14,9 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
     public class MarcasContMarcaler : Controller
     {
         //Instancia para la utilización de LOGS en la clase MarcasController
-        private static readonly ILog Logs = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de marcas habilitadas de la base de datos.
+        /// Método (GET) para obtener una lista de Marcas habilitadas de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerMarcasHab")]
@@ -41,7 +36,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             return msjMarcas;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todas las marcas de la base de datos.
+        /// Método (GET) para obtener una lista de todas las Marcas de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerMarcasComp")]
@@ -61,7 +56,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             return msjMarcas;
         }
         /// <summary>
-        /// Método (POST) para registrar una nueva marca en la base de datos.
+        /// Método (POST) para registrar una nueva Marca en la base de datos.
         /// </summary>
         /// <param name="infoMarca"></param>
         /// <returns></returns>
@@ -82,7 +77,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             return msjMarcas;
         }
         /// <summary>
-        /// Método (POST) para actualizar una marca en la base de datos.
+        /// Método (POST) para actualizar una Marca en la base de datos.
         /// </summary>
         /// <param name="infoMarca"></param>
         /// <returns></returns>
@@ -103,7 +98,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             return msjMarcas;
         }
         /// <summary>
-        /// Método (POST) para actualizar el estado de una marca en la base de datos.
+        /// Método (POST) para actualizar el estado de una Marca en la base de datos.
         /// </summary>
         /// <param name="infoMarca"></param>
         /// <returns></returns>

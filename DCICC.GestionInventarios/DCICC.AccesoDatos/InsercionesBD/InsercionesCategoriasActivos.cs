@@ -2,8 +2,6 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DCICC.AccesoDatos.InsercionesBD
 {
@@ -18,7 +16,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para ingresar una nueva categoría en la base de datos.
+        /// Método para ingresar una nueva Categoría en la base de datos.
         /// </summary>
         /// <param name="infoCategoria"></param>
         /// <returns></returns>

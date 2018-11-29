@@ -2,8 +2,6 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DCICC.AccesoDatos.InsercionesBD
 {
@@ -18,16 +16,16 @@ namespace DCICC.AccesoDatos.InsercionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para ingresar un nuevo accesorio en la base de datos.
+        /// Método para ingresar un nuevo Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
         /// <returns></returns>
-        public MensajesAccesorios RegistroAccesorios(Accesorios infoAccesorios)
+        public MensajesAccesorios RegistroAccesorio(Accesorios infoAccesorios)
         {
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_accesorio(id_tipoaccesorio, id_detalleact, nombre_accesorio, serial_accesorio, modelo_accesorio, descripcion_accesorio, habilitado_accesorio)VALUES (@ita, @ida,@na, @sa, @ma, @da, @ha);", conn_BD))
+                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_accesorio(id_tipoaccesorio, id_detalleact, nombre_accesorio, serial_accesorio, modelo_accesorio, descripcion_accesorio, estado_accesorio)VALUES (@ita, @ida,@na, @sa, @ma, @da, @ea);", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdTipoAccesorio;
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdDetalleActivo;
@@ -35,7 +33,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("sa", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.SerialAccesorio) ? (object)infoAccesorios.SerialAccesorio : DBNull.Value;
                     cmd.Parameters.Add("ma", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.ModeloAccesorio) ? (object)infoAccesorios.ModeloAccesorio: DBNull.Value;
                     cmd.Parameters.Add("da", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.DescripcionAccesorio) ? (object)infoAccesorios.DescripcionAccesorio : DBNull.Value;
-                    cmd.Parameters.Add("ha", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoAccesorios.HabilitadoAccesorio;
+                    cmd.Parameters.Add("ea", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.EstadoAccesorio;
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();

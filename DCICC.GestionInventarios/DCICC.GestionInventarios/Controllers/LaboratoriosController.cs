@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -15,7 +12,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LaboratoriosController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase Usuarios
+        //Instancia para la utilización de LOGS en la clase LaboratoriosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista NuevoLaboratorio
@@ -87,7 +84,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
         /// <summary>
-        /// Método para actualizar un laboratorio en la base de datos.
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarLaboratorio.
         /// </summary>
         /// <param name="infoLaboratorio"></param>
         /// <returns></returns>
@@ -117,7 +114,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
         /// <summary>
-        /// Método para actualizar el estado de un laboratorio en la base de datos.
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarLaboratorio.
         /// </summary>
         /// <param name="infoLaboratorio"></param>
         /// <returns></returns>
@@ -147,7 +144,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
         /// <summary>
-        /// Método para obtener todos los laboratorios de la base de datos
+        /// Método para obtener todos los Laboratorios de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerLaboratoriosComp()
@@ -156,7 +153,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener todos los laboratorios de la base de datos
+        /// Método para obtener los Laboratorios habilitados de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerLaboratoriosHab()

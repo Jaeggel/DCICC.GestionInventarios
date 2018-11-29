@@ -4,7 +4,6 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
 {
@@ -19,7 +18,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para obtener los sistemas operativos de la base de datos.
+        /// Método para obtener los Sistemas Operativos de la base de datos.
         /// </summary>
         /// <param name="nombreFuncion">Tipo de función a llamar: consultaso o sohabilitados</param>
         /// <returns></returns>

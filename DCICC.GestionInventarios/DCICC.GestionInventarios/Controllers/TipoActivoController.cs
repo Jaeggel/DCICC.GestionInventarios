@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -145,7 +142,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarTipoActivo", "TipoActivo");
         }
         /// <summary>
-        /// Método para obtener los tipos de activos de la base de datos
+        /// Método para obtener todos los Tipos de Activos de la base de datos.
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerTipoActivoComp()
@@ -154,7 +151,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener los tipos de activos de la base de datos
+        /// Método para obtener los Tipos de Activos habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerTipoActivoHab()

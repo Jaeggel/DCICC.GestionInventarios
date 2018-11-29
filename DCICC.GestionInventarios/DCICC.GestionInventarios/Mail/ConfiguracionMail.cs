@@ -1,9 +1,7 @@
 ﻿using DCICC.GestionInventarios.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
 using System.Web;
 
@@ -11,10 +9,10 @@ namespace DCICC.GestionInventarios.Mail
 {
     public class ConfiguracionMail
     {
-        //Instancia para la utilización de LOGS en la clase Usuarios
+        //Instancia para la utilización de LOGS en la clase ConfiguracionMail
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método para enviar el correo electrónico para recuperación de contraseña.
+        /// Método para enviar el Correo Electrónico para recuperación de Contraseña.
         /// </summary>
         /// <param name="infoCorreo"></param>
         /// <returns></returns>

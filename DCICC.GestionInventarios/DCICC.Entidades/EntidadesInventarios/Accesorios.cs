@@ -14,14 +14,16 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public int IdDetalleActivo { get; set; }
 
+        public string NombreDetalleActivo { get; set; }
+
         public string NombreAccesorio { get; set; }
+
+        public string EstadoAccesorio { get; set; }
 
         public string SerialAccesorio { get; set; }
 
         public string ModeloAccesorio { get; set; }
 
         public string DescripcionAccesorio { get; set; }
-
-        public bool HabilitadoAccesorio { get; set; }
     }
 }

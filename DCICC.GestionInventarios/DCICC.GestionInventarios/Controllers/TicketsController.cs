@@ -4,9 +4,6 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -69,7 +66,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("GestionTickets","Tickets");
         }
         /// <summary>
-        /// Método para obtener todos los tickets de la base de datos
+        /// Método para obtener todos los Tickets de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerTicketsComp()

@@ -1,14 +1,9 @@
-﻿using DCICC.GestionInventarios.AccesoDatos;
-using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
 using DCICC.GestionInventarios.Mail;
 using DCICC.GestionInventarios.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -17,7 +12,7 @@ namespace DCICC.GestionInventarios.Controllers
     public class LoginController : Controller
     {
         public static int contMsj=0;
-        //Instancia para la utilización de LOGS en la clase Login
+        //Instancia para la utilización de LOGS en la clase LoginController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Mètodo (GET) para mostrar la vista Login.
@@ -149,7 +144,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("Login","Login");
         }
         /// <summary>
-        /// Método para obtener la IP del cliente que accede al sistema.
+        /// Método para obtener la IP del cliente actual que hace uso del sistema.
         /// </summary>
         /// <returns></returns>
         private string ObtenerIPCliente()
@@ -162,7 +157,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Request.ServerVariables["REMOTE_ADDR"];
         }
         /// <summary>
-        /// Método para registrar el inicio y cierre de sesión en la tabla logs.
+        /// Método para registrar el Inicio y Cierre de Sesión en la tabla Logs.
         /// </summary>
         /// <returns></returns>
         public void RegistroSesionLogs(string operacion)

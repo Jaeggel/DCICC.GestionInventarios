@@ -2,8 +2,6 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DCICC.AccesoDatos.ActualizacionesBD
 {
@@ -18,7 +16,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
         /// <summary>
-        /// Método para actualizar una categoría en la base de datos.
+        /// Método para actualizar una Categoría en la base de datos.
         /// </summary>
         /// <param name="infoCategoriaActivo"></param>
         /// <returns></returns>
@@ -48,7 +46,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             return msjCategorias;
         }
         /// <summary>
-        /// Método para actualizar el estado de una categoría en la base de datos.
+        /// Método para actualizar el estado de una Categoría en la base de datos.
         /// </summary>
         /// <param name="infoCategoriaActivo"></param>
         /// <returns></returns>

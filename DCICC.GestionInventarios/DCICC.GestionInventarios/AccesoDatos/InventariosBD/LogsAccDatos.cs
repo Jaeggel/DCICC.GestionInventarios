@@ -3,11 +3,8 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
 {
@@ -25,7 +22,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Método para registrar un nuevo log en la base de datos.
+        /// Método para registrar un nuevo Log en la base de datos.
         /// </summary>
         /// <param name="infoLogs"></param>
         /// <returns></returns>
@@ -48,7 +45,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjLogs;
         }
         /// <summary>
-        /// Método para obtener una lista de la función consultalogs.
+        /// Método para obtener una lista de los Logs de la base de datos.
         /// </summary>
         /// <returns></returns>
         public MensajesLogs ObtenerLogsComp()

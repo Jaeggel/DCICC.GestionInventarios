@@ -7,8 +7,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -193,7 +191,7 @@ namespace DCICC.GestionInventarios.Controllers
             return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
         }
         /// <summary>
-        /// Método para obtener las máquinas virtuales de la base de datos
+        /// Método para obtener las Máquinas virtuales de la base de datos
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerMaqVirtualesComp()
@@ -202,7 +200,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objMaqVirtualesAccDatos.ObtenerMaqVirtuales("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para obtener los propósitos del archivo JSON
+        /// Método para obtener los Propósitos registrados del archivo JSON
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerPropositosComp()
@@ -210,7 +208,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(ObtenerPropositosJSON(), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Obtener todos los propósitos del JSON
+        /// Obtener todos los Propósitos del JSON
         /// </summary>
         /// <returns></returns>
         public List<Propositos> ObtenerPropositosJSON()
@@ -224,7 +222,7 @@ namespace DCICC.GestionInventarios.Controllers
             return items;
         }
         /// <summary>
-        /// Crear Nuevo Propósito o el archivo en caso de no existir
+        /// Método para crear un nuevo Propósito o el archivo en caso de no existir
         /// </summary>
         /// <returns></returns>
         public bool NuevoPropositoJSON(Propositos infoProposito)

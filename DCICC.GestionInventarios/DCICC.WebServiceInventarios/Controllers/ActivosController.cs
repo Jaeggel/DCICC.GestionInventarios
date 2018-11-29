@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DCICC.AccesoDatos.ActualizacionesBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -18,10 +13,10 @@ namespace DCICC.WebServiceInventarios.Controllers
     [Route("Activos")]
     public class ActivosController : Controller
     {
-        //Instancia para la utilización de LOGS en la clase CQRActivoController
+        //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
-        /// Método (GET) para obtener una lista de los activos habilitadas de la base de datos.
+        /// Método (GET) para obtener una lista de los Activos habilitados de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerActivosHab")]
@@ -41,7 +36,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todos los activos de la base de datos.
+        /// Método (GET) para obtener una lista de todos los Activos de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerActivosComp")]
@@ -61,7 +56,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todos los nombres de los activos de la base de datos.
+        /// Método (GET) para obtener una lista de todos los nombres de los Activos de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerActivosNombres")]
@@ -81,7 +76,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
-        /// Método (POST) para registrar un nuevo activo en la base de datos.
+        /// Método (POST) para registrar un nuevo Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
@@ -102,7 +97,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
-        /// Método (POST) para actualizar un activo en la base de datos.
+        /// Método (POST) para actualizar un Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
@@ -123,7 +118,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
-        /// Método (POST) para actualizar el estado de un activo en la base de datos.
+        /// Método (POST) para actualizar el estado de un Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
@@ -164,7 +159,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjCQR;
         }
         /// <summary>
-        /// Método (GET) para obtener una lista de todos los CQR mostrando su id de la base de datos.
+        /// Método (GET) para obtener una lista de todos los ID de los CQR de la base de datos.
         /// </summary>
         /// <returns></returns>
         [HttpGet("ObtenerIdCQR")]
@@ -205,7 +200,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjCQR;
         }
         /// <summary>
-        /// Método (POST) para registrar un nuevo activo en el historico en la base de datos.
+        /// Método (POST) para registrar un nuevo Activo en el Historico de Activos en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
