@@ -15,11 +15,14 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
     {
         //Instancia para la utilización de LOGS en la clase TipoActivoAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        string token_Autorizacion = string.Empty;
+        HttpClient client_Service = new HttpClient();
         public TipoActivoAccDatos(string NickUsuario_Sesion)
         {
             ComunicacionServicio objComunicacionServicio = new ComunicacionServicio();
-            token_Autorizacion = "Bearer " + objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion);
+            client_Service.DefaultRequestHeaders.Clear();
+            client_Service.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+            client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
         /// Método para obtener una lista con los tipos de activos de la base de datos.
@@ -31,12 +34,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("TipoActivo/ObtenerTipoActivo" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync("TipoActivo/ObtenerTipoActivo" + nombreFuncion).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TipoActivoJson = response.Content.ReadAsStringAsync().Result;
@@ -59,12 +57,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("TipoActivo/RegistrarTipoActivo", infoTipoActivo).Result;
+                var response = client_Service.PostAsJsonAsync("TipoActivo/RegistrarTipoActivo", infoTipoActivo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TipoActivoJson = response.Content.ReadAsStringAsync().Result;
@@ -87,12 +80,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync(actEstado ? "TipoActivo/ActualizarEstadoTipoActivo" : "TipoActivo/ActualizarTipoActivo", infoTipoActivo).Result;
+                var response = client_Service.PostAsJsonAsync(actEstado ? "TipoActivo/ActualizarEstadoTipoActivo" : "TipoActivo/ActualizarTipoActivo", infoTipoActivo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TipoActivoJson = response.Content.ReadAsStringAsync().Result;

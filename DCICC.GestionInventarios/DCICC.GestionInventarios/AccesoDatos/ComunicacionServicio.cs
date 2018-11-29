@@ -18,12 +18,16 @@ namespace DCICC.GestionInventarios.AccesoDatos
         //Instancia para la utilización de LOGS en la clase ComunicacionServicio
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static string base_URL;
+        HttpClient client_Service = new HttpClient();
         /// <summary>
         /// Constructor para obtener el URL de la ubicación del Web Service (DCICC.WebServiceInventarios).
         /// </summary>
         public ComunicacionServicio()
         {
             base_URL = ConfigurationManager.AppSettings["URLWebServiceInventarios"];
+            client_Service.DefaultRequestHeaders.Clear();
+            client_Service.BaseAddress = new Uri(base_URL);
+            client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         /// <summary>
         /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
@@ -35,11 +39,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             string tokenResult = string.Empty;
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = clientService.PostAsJsonAsync("Token/ObtenerTokenInicioBD", infoUsuario).Result;
+                var response = client_Service.PostAsJsonAsync("Token/ObtenerTokenInicioBD", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var tokenJson = response.Content.ReadAsStringAsync().Result;
@@ -51,7 +51,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
                 Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
                 tokenResult= null;
             }
-            return tokenResult;
+            return "Bearer " + tokenResult;
         }
         /// <summary>
         /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
@@ -63,11 +63,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             string tokenResult = string.Empty;
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = clientService.PostAsJsonAsync("Token/ObtenerTokenInicioCorreoBD", infoCorreo).Result;
+                var response = client_Service.PostAsJsonAsync("Token/ObtenerTokenInicioCorreoBD", infoCorreo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var tokenJson = response.Content.ReadAsStringAsync().Result;
@@ -79,7 +75,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
                 Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
                 tokenResult = null;
             }
-            return tokenResult;
+            return "Bearer " + tokenResult;
         }
         /// <summary>
         /// Método para obtener el Token de autenticación para poder realizar las operaciones en el Servicio REST.
@@ -90,11 +86,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             string tokenResult = string.Empty;
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = clientService.PostAsJsonAsync("Token/ObtenerTokenTransacciones", NickUsuarioSesion).Result;
+                var response = client_Service.PostAsJsonAsync("Token/ObtenerTokenTransacciones", NickUsuarioSesion).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var tokenJson = response.Content.ReadAsStringAsync().Result;
@@ -106,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
                 Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
                 tokenResult=null;
             }
-            return tokenResult;
+            return "Bearer " + tokenResult;
         }
     }
 }

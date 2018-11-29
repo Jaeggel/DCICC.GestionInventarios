@@ -14,6 +14,7 @@ using System.Web.Mvc;
 namespace DCICC.GestionInventarios.Controllers
 {
     [SessionExpireFilter]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class MaqVirtualesController : Controller
     {
         readonly string path_JsonPropositos = System.Web.Hosting.HostingEnvironment.MapPath("~/Json/Propositos.json");

@@ -809,7 +809,7 @@ a:focus {
     display: block;
     padding: 13px 15px 12px
 }
-/*.nav.side-menu>li.current-page,
+.nav.side-menu>li.current-page,
 .nav.side-menu>li.active {
     border-right: 5px solid #1ABB9C
 }
@@ -821,7 +821,7 @@ a:focus {
 }
 .nav li li.current-page a {
     color: #fff
-}*/
+}
 .nav.side-menu>li.active>a {
     text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
     background: linear-gradient(#334556, #2C4257), #2A3F54;

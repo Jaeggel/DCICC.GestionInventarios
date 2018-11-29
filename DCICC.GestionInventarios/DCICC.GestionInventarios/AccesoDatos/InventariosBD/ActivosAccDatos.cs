@@ -15,11 +15,14 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
     {
         //Instancia para la utilización de LOGS en la clase CQRAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        string token_Autorizacion = string.Empty;
+        HttpClient client_Service = new HttpClient();
         public ActivosAccDatos(string NickUsuario_Sesion)
         {
             ComunicacionServicio objComunicacionServicio = new ComunicacionServicio();
-            token_Autorizacion = "Bearer " + objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion);
+            client_Service.DefaultRequestHeaders.Clear();
+            client_Service.BaseAddress = new Uri(ComunicacionServicio.base_URL);
+            client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client_Service.DefaultRequestHeaders.Add("Authorization", objComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
         /// Método para obtener una lista con los activos de la base de datos.
@@ -31,12 +34,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Activos/ObtenerActivos" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync("Activos/ObtenerActivos" + nombreFuncion).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var ActivosJson = response.Content.ReadAsStringAsync().Result;
@@ -59,12 +57,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Activos/RegistrarActivo", infoActivo).Result;
+                var response = client_Service.PostAsJsonAsync("Activos/RegistrarActivo", infoActivo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var ActivosJson = response.Content.ReadAsStringAsync().Result;
@@ -87,12 +80,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync(actEstado ? "Activos/ActualizarEstadoActivo" : "Activos/ActualizarActivo", infoActivo).Result;
+                var response = client_Service.PostAsJsonAsync(actEstado ? "Activos/ActualizarEstadoActivo" : "Activos/ActualizarActivo", infoActivo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var ActivosJson = response.Content.ReadAsStringAsync().Result;
@@ -114,12 +102,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Activos/ObtenerCQR").Result;
+                HttpResponseMessage response = client_Service.GetAsync("Activos/ObtenerCQR").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var CQRJson = response.Content.ReadAsStringAsync().Result;
@@ -141,12 +124,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Activos/ObtenerIdCQR").Result;
+                HttpResponseMessage response = client_Service.GetAsync("Activos/ObtenerIdCQR").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var CQRJson = response.Content.ReadAsStringAsync().Result;
@@ -169,12 +147,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Activos/RegistrarCQR", infoCQR).Result;
+                var response = client_Service.PostAsJsonAsync("Activos/RegistrarCQR", infoCQR).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var CQRJson = response.Content.ReadAsStringAsync().Result;
@@ -197,12 +170,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesHistoricoActivos msjHistActivos = new MensajesHistoricoActivos();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                var response = clientService.PostAsJsonAsync("Activos/RegistrarHistoricoActivo", infoHistActivo).Result;
+                var response = client_Service.PostAsJsonAsync("Activos/RegistrarHistoricoActivo", infoHistActivo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var histActivosJson = response.Content.ReadAsStringAsync().Result;
