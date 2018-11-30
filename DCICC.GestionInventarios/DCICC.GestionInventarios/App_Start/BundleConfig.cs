@@ -11,6 +11,7 @@ namespace DCICC.GestionInventarios
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         //"~/Content/Tema/vendors/jquery/dist/jquery.min.js",
                         "~/Content/Tema/vendors/bootstrap/dist/js/bootstrap.min.js",
+                        "~/Content/Tema/build/js/jquery-ui.js",
                         "~/Content/Tema/vendors/fastclick/lib/fastclick.js",
                         "~/Content/Tema/vendors/nprogress/nprogress.js",
 
@@ -68,6 +69,7 @@ namespace DCICC.GestionInventarios
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Tema/vendors/bootstrap/dist/css/bootstrap.min.css",
+                      "~/Content/Tema/build/css/jquery-ui.css",
                       "~/Content/Tema/vendors/font-awesome-4.7.0/css/font-awesome.min.css",
                       "~/Content/Tema/vendors/nprogress/nprogress.css",
 
