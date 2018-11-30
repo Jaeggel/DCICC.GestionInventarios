@@ -96,13 +96,17 @@ namespace DCICC.GestionInventarios.Controllers
                         }
                     }
                 }
+                else
+                {
+                    msjActivos.OperacionExitosa = false;
+                }
             }
             catch (Exception e)
             {
                 Logs.Error(mensajesActivos + ": " + e.Message);
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            return Json(msjActivos.ObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(msjActivos, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista NuevoActivo.
