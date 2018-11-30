@@ -9,7 +9,7 @@ var cmbTipoAccesorio;
 var datosActivo;
 var idActivo;
 var idCQR;
-var nombreActivo;
+var nombreActivoRegis;
 
 
 function datosTipoActivo(url) {
@@ -84,7 +84,9 @@ function datosActivoSeleccionado(data) {
     idActivo = data.IdActivo;
     console.log(idActivo);
     idCQR = data.IdCQR;
-    nombreActivo = data.nombreActivo;
+    
+    nombreActivoRegis = data.NombreActivo;
+    console.log(nombreActivoRegis);
 }
 
 
@@ -175,48 +177,10 @@ function cargarAccesoriosCmb() {
     $("#cargarAccesorios").html(str);
 }
 
-
-function validar3(url) {
-    var isValid = false;
-   
-    console.log(url);
-    //Obtener Valor del tipo de activo
-    var cmbTipoAccesorio = document.getElementById("AccesorioActivo");
-    var idTipoAccesorio = cmbTipoAccesorio.options[cmbTipoAccesorio.selectedIndex].value;
-    //Obtener Valor del estado de accesorio
-    var cmbEstadoAccesorio = document.getElementById("EstadoAccesorios");
-    var idEstadoAccesorio = cmbEstadoAccesorio.options[cmbEstadoAccesorio.selectedIndex].value;
-    //Obtener valor del nombre de activo
-    var nombreAccesorio = document.getElementById("NombreAccesorio").value;
-    //Obtener valor del serial de activo
-    var serialAccesorio = document.getElementById("SerialAccesorio").value;
-    //Obtener valor del modelo de activo
-    var modeloAccesorio = document.getElementById("ModeloAccesorio").value
-    //Obtener valor de la descripcion del accesorio
-    var descripcionAccesorio = document.getElementById("DescripcionAccesorio").value;
-
-    if (document.getElementById("AccesorioActivo").value == "") {
-        isValid = true;
-    } else {
-        $.ajax({
-            data: {
-                "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivo, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
-            },
-            async: false,
-            url: url,
-            type: 'post',
-            success: function () {
-                console.log("accesorio bienn");
-                isValid = true;
-            }, error: function (e) {
-                console.log(e);
-                console.log("fallo");
-
-                isValid = false;
-            }
-        });
-        
-    }
-    return isValid;
+function cargarCQRActivo() {
+    $('#idCQR').html(idCQR).show();
+    console.log(nombreActivoRegis);
+    $('#nombreActivoIngresado').html(nombreActivoRegis).show();
 }
+
 

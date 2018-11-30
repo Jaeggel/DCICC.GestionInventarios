@@ -17,8 +17,7 @@
     <li><a class="active">Nuevo</a></li>
 </ul>
 <div class="row">
-    <div class="col-md-1 col-sm-12 col-xs-12">
-    </div>
+    <div class="col-md-1 col-sm-12 col-xs-12"></div>
 
     @* Panel para mostrar las opciones de ingreso de un nuevo activo *@
     <div class="col-md-10 col-sm-12 col-xs-12">
@@ -52,20 +51,12 @@
                                 </span>
                             </a>
                         </li>
+
                         <li>
                             <a href="#step-3">
                                 <span class="step_no">3</span>
                                 <span class="step_descr">
                                     Paso 3<br />
-                                    <small>Accesorios del Activo</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#step-4">
-                                <span class="step_no">4</span>
-                                <span class="step_descr">
-                                    Paso 4<br />
                                     <small>Confirmación y Código QR</small>
                                 </span>
                             </a>
@@ -73,103 +64,100 @@
 
                     </ul>
                     <div id="step-1">
-                        @* Formulario para envio de datos de los componentes para el ingreso de un nuevo activo
-                            (Metodo de la clase) - Controlador (Controller) *@
-                        @using (Html.BeginForm("NuevoActivo", "Activos"))
-                        {
-                            <div class="form-horizontal form-label-left input_mask" id="Paso1">
-                                @* Combobox para seleccionar la categoría de activo *@
-                                <div class="form-group">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>Escoja la Categoría de Activo:</label>
-                                        <div id="cargarCategorias"></div>
-                                        <span id="errorCategoria" style="color:brown;"></span>
-                                    </div>
-                                </div>
-                                @* Combobox para seleccionar el tipo de activo *@
-                                <div class="form-group">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>Escoja el Tipo de Activo:</label>
-                                        <select id="TipoActivo" class="form-control" name="TipoActivo" required></select>
-                                    </div>
-                                </div>
-                                @* Combobox para seleccionar la marca del activo *@
-                                <div class="form-group">
-                                    <div class="col-md-6 col-sm-12 col-xs-12">
-                                        <label>Escoja la Marca del Activo:</label>
-                                        <div id="cargarMarcas"></div>
-                                    </div>
-                                    @* Combobox para el laboratorio del activo *@
-                                    <div class="col-md-6 col-sm-12 col-xs-12">
-                                        <label>Laboratorio del Activo:</label>
-                                        <div id="cargarLaboratorios"></div>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-
-                                </div>
-                                @* Combobox para seleccionar el estado del activo *@
-                                <div class="form-group">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>Escoja el Estado del Activo:</label>
-                                        <div id="cargarEstados"></div>
-                                    </div>
-                                </div>
-                                @* Cuadro de texto para el ingreso del nombre de un activo *@
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Activo" maxlength="50" required>
-                                    <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                    <span id="errorNombre" style="color:brown;"></span>
-                                </div>
-
-                                @* Cuadro de texto para el ingreso del modelo de un activo *@
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" maxlength="80" required>
-                                    <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                                    <span id="errorModelo" style="color:brown;"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    @* Cuadro de texto para el ingreso del serial activo *@
-                                    <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" maxlength="150" required>
-                                        <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorSerial" style="color:brown;"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del codigo UPS del activo *@
-                                    <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="20">
-                                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-
-                                </div>
-                                @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
-                                <div class="form-group">
-                                    <div class="col-md-6 col-sm-12 col-xs-12">
-                                        <label>Fecha de Adquisición del Activo:</label>
-                                        <fieldset>
-                                            <div class="control-group">
-                                                <div class="controls">
-                                                    <div class="col-md-12 xdisplay_inputx form-group has-feedback" style="padding-left: 0px;">
-                                                        <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4" style="padding-left: 60px;">
-                                                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
-                                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-
-                                </div>
-                                <div class="form-group"></div>
-                                @* Área de Texto para el ingreso de la descripción de una activo *@
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" maxlength="150"></textarea>
-                                    <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                        <div class="form-horizontal form-label-left input_mask" id="Paso1">
+                            @* Combobox para seleccionar la categoría de activo *@
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>Escoja la Categoría de Activo:</label>
+                                    <div id="cargarCategorias"></div>
+                                    <span id="errorCategoria" style="color:brown;"></span>
                                 </div>
                             </div>
-                        }
+                            @* Combobox para seleccionar el tipo de activo *@
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>Escoja el Tipo de Activo:</label>
+                                    <select id="TipoActivo" class="form-control" name="TipoActivo" required></select>
+                                </div>
+                            </div>
+                            @* Combobox para seleccionar la marca del activo *@
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Escoja la Marca del Activo:</label>
+                                    <div id="cargarMarcas"></div>
+                                </div>
+                                @* Combobox para el laboratorio del activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Laboratorio del Activo:</label>
+                                    <div id="cargarLaboratorios"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                            </div>
+                            @* Combobox para seleccionar el estado del activo *@
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>Escoja el Estado del Activo:</label>
+                                    <div id="cargarEstados"></div>
+                                </div>
+                            </div>
+                            @* Cuadro de texto para el ingreso del nombre de un activo *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Activo" maxlength="50" required>
+                                <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="errorNombre" style="color:brown;"></span>
+                            </div>
+
+                            @* Cuadro de texto para el ingreso del modelo de un activo *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" maxlength="80" required>
+                                <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                                <span id="errorModelo" style="color:brown;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                @* Cuadro de texto para el ingreso del serial activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" maxlength="150" required>
+                                    <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="errorSerial" style="color:brown;"></span>
+                                </div>
+                                @* Cuadro de texto para el ingreso del codigo UPS del activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="20">
+                                    <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+
+                            </div>
+                            @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Fecha de Adquisición del Activo:</label>
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <div class="col-md-12 xdisplay_inputx form-group has-feedback" style="padding-left: 0px;">
+                                                    <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4" style="padding-left: 60px;">
+                                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                                    <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                            </div>
+                            <div class="form-group"></div>
+                            @* Área de Texto para el ingreso de la descripción de una activo *@
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" maxlength="150"></textarea>
+                                <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
                     </div>
                     <div id="step-2">
                         <div class="form-horizontal form-label-left input_mask" id="Paso2">
@@ -252,92 +240,50 @@
 
                         </div>
                     </div>
-                    <div id="step-3">
-                        <div class="form-horizontal form-label-left input_mask" id="Paso3">
-                            @* Combobox para seleccionar el accesorio del activo *@
-                            <div class="form-group">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>Escoja Tipo de Accesorio:</label>
-                                    <div id="cargarAccesorios"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                            </div>
-                            @* Cuadro de texto para el ingreso del nombre de un accesorio *@
-                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="NombreAccesorio" type="text" class="form-control has-feedback-left" name="NombreAccesorio" placeholder="Nombre del Accesorio" maxlength="50" required>
-                                <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                <span id="msg_username" style="color:brown;"></span>
-                            </div>
-                            @* Cuadro de texto para el ingreso del modelo de un accesorio *@
-                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="SerialAccesorio" type="text" class="form-control has-feedback-left" name="SerialAccesorio" placeholder="Serial del Accesorio" maxlength="80" required>
-                                <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            @* Cuadro de texto para el ingreso del serial de un accesorio *@
-                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="ModeloAccesorio" type="text" class="form-control has-feedback-left" name="ModeloAccesorio" placeholder="Modelo del Accesorio" maxlength="80" required>
-                                <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            @* Área de Texto para el ingreso de la descripción de un accesorio *@
-                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" maxlength="150"></textarea>
-                                <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            @* Combobox para seleccionar el estado del accesorio *@
-                            <div class="form-group">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>Escoja el Estado del Activo:</label>
-                                    <div id="cargarEstadosAccesorio"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div id="step-4">
-                        <h3 class="StepTitle">El Activo ha sido Registrado Correctamente</h3>
-                        <div class="form-horizontal form-label-left input_mask" id="Paso4">
+                    <div id="step-3" style="height: 280px;">
+                        <h3 class="StepTitle text-center">El Activo ha sido Registrado Correctamente</h3>
+                        <div class="form-horizontal form-label-left input_mask" id="Paso2">
                             <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                                 <div id="imgCQR">
 
                                 </div>
-                                <label>Nombre</label>
+                                <span id="idCQR" style="font-weight: normal;"></span>
+                                <br />
+                                <span id="nombreActivoIngresado" style="font-weight: normal;"></span>
                             </div>
+
                         </div>
                     </div>
+                    <!-- Fin del contenido de SmartWizard-->
 
                 </div>
-                <!-- Fin del contenido de SmartWizard-->
-
             </div>
         </div>
     </div>
-
-    <div class="col-md-1 col-sm-12 col-xs-12"></div>
+        <div class="col-md-1 col-sm-12 col-xs-12"></div>
 </div>
 
-@* Sección para visualizar los mensajes de error o de éxito de transacción *@
-@if (TempData["Mensaje"] != null)
-{
-    <script type="text/javascript">
+    @* Sección para visualizar los mensajes de error o de éxito de transacción *@
+    @if (TempData["Mensaje"] != null)
+    {
+        <script type="text/javascript">
         window.onload = function () {
             showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
         }
-    </script>
-}
-@if (TempData["MensajeError"] != null)
-{
-    <script type="text/javascript">
+        </script>
+    }
+    @if (TempData["MensajeError"] != null)
+    {
+        <script type="text/javascript">
         window.onload = function () {
             showNotify("Error al registrar Activo", '@TempData["MensajeError"]', "error");
         }
-    </script>
-}
+        </script>
+    }
 
-<script src="~/Scripts/ScriptsInventarios/Activos.js"></script>
-@* Script para las funciones e instancia del Wizard *@
-<script>
+    <script src="~/Scripts/ScriptsInventarios/Activos.js"></script>
+    @* Script para las funciones e instancia del Wizard *@
+    <script>
     $(document).ready(function () {
         datosTipoActivo('@Url.Action("ObtenerTipoActivoHab", "TipoActivo")');
         datosCategoria('@Url.Action("ObtenerCategoriasActivosHab", "CategoriaActivo")');
@@ -355,7 +301,6 @@
             labelFinish: 'Finalizar',  // Nombre del botón finalizar
             onLeaveStep: leaveAStepCallback,//Métodos de validación de pasos
             onShowStep: showAStepCallback,
-            //enableFinishButton: habilitarFinish,
             onFinish: onFinishCallback
         });
 
@@ -379,7 +324,8 @@
 
             }
             if (currentStep > 3) {
-                console.log("fueeee")
+                console.log("fueeee");
+
                 $('.buttonFinish').removeClass('buttonDisabled');
             }
         }
@@ -410,10 +356,7 @@
                     setTimeout("$('.msgBox').fadeOut('slow');", 10000);
                 }
             }
-            if (stepnumber == 3) {
-                isStepValid = validarPaso3();
-                console.log(isStepValid);
-            }
+
 
             return isStepValid;
         }
@@ -539,6 +482,7 @@
                     datosActivoSeleccionado(data);
                     var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
                     $("#imgCQR").html(str);
+                    cargarCQRActivo();
 
                 }, error: function (e) {
                     console.log(e);
@@ -551,16 +495,7 @@
 
         }
 
-        function validarPaso3() {
-            var isValid = validar3('@Url.Action("NuevoAccesorio", "Activos")');
-            console.log(isValid);
-            return isValid;
-
-        }
-
-
-
 
 
     });
-</script>
+    </script>
