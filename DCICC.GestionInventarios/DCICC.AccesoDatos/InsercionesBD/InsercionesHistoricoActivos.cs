@@ -25,11 +25,11 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesHistoricoActivos msjHistoricoActivos = new MensajesHistoricoActivos();
             try
             {
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_historicoactivos (id_detalleact,id_accesorio, fechamodif_histactivos) VALUES (@ida,@idac, @fmh);", conn_BD))
+                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_historicoactivos(id_detalleact, fechamodif_histactivos, id_accesorio) VALUES (@ida,@fmh,@idac);", conn_BD))
                 {
-                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoHistoricoActivos.IdDetActivo.ToString()) ? (object)infoHistoricoActivos.IdDetActivo : DBNull.Value;
-                    cmd.Parameters.Add("idac", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoHistoricoActivos.IdAccesorio.ToString()) ? (object)infoHistoricoActivos.IdAccesorio : DBNull.Value;
+                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdDetActivo==0 ? DBNull.Value: (object)infoHistoricoActivos.IdDetActivo;
                     cmd.Parameters.AddWithValue("fmh", infoHistoricoActivos.FechaModifHistActivos);
+                    cmd.Parameters.Add("idac", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdAccesorio == 0 ? DBNull.Value : (object)infoHistoricoActivos.IdAccesorio;
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();
