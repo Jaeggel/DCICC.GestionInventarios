@@ -409,7 +409,7 @@
 </div>
 
 
-@* Modal de modificación de tickets en curso *@
+@* Modal de modificación de estado de accesorio *@
 <div class="modal fade" id="ModificarEstadoAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -452,6 +452,87 @@
     </div>
 </div>
 
+
+@* Modal de Ingreso de nuevo Accesorio *@
+<div class="modal fade" id="IngresoNuevoAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel5" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel5">Ingreso de Nuevo Accesorio</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask" id="Paso3">
+
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Escoja Tipo de Accesorio:</label>
+                                            <div id="cargarAccesoriosIngreso"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="NombreActivoIngreso" type="text" class="form-control has-feedback-left" name="NombreActivoIngreso" placeholder="Nombre del Activo" maxlength="50" readonly>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="msg_username" style="color:brown;"></span>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="NombreAccesorioIngreso" type="text" class="form-control has-feedback-left" name="NombreAccesorioIngreso" placeholder="Nombre del Accesorio" maxlength="50" required>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="msg_username" style="color:brown;"></span>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="SerialAccesorioIngreso" type="text" class="form-control has-feedback-left" name="SerialAccesorioIngreso" placeholder="Serial del Accesorio" maxlength="80" required>
+                                        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <input id="ModeloAccesorioIngreso" type="text" class="form-control has-feedback-left" name="ModeloAccesorioIngreso" placeholder="Modelo del Accesorio" maxlength="80" required>
+                                        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="DescripcionAccesorioIngreso" name="DescripcionAccesorioIngreso" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" maxlength="150"></textarea>
+                                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Escoja el Estado del Activo:</label>
+                                            <div id="cargarEstadosAccesorioIngreso"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success" onclick="ingresarAccesorios('@Url.Action("NuevoAccesorio", "Activos")');">Modificar</button>
+                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @* Sección para visualizar los mensajes de error o de éxito de transacción *@
 
 @if (TempData["Mensaje"] != null)
@@ -488,49 +569,8 @@
         datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
         cargarEstadosAccesoriosCmb();
         cargarEstadosAccesoriosMod();
+        cargarEstadosAccesoriosIng();
     });
 
 </script>
 
-
-@*<div class="form-horizontal form-label-left input_mask" id="Paso3">
-    
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <label>Escoja Tipo de Accesorio:</label>
-            <div id="cargarAccesorios"></div>
-        </div>
-    </div>
-    <div class="form-group">
-
-    </div>
-   
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-        <input id="NombreAccesorio" type="text" class="form-control has-feedback-left" name="NombreAccesorio" placeholder="Nombre del Accesorio" maxlength="50" required>
-        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-        <span id="msg_username" style="color:brown;"></span>
-    </div>
-    
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-        <input id="SerialAccesorio" type="text" class="form-control has-feedback-left" name="SerialAccesorio" placeholder="Serial del Accesorio" maxlength="80" required>
-        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-    </div>
-    
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-        <input id="ModeloAccesorio" type="text" class="form-control has-feedback-left" name="ModeloAccesorio" placeholder="Modelo del Accesorio" maxlength="80" required>
-        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-    </div>
-    
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-        <textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" maxlength="150"></textarea>
-        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-    </div>
-   
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <label>Escoja el Estado del Activo:</label>
-            <div id="cargarEstadosAccesorio"></div>
-        </div>
-    </div>
-
-</div>*@

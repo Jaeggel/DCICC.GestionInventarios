@@ -6,6 +6,8 @@ var idActivoMod;
 var cmbTipoActivo;
 var cmbLaboratorio;
 var cmbMarcas;
+var idActivoIng;
+var nombreActivoIng;
 
 
 //Método ajax para obtener los datos de categorias
@@ -141,7 +143,7 @@ function cargarActivosTabla() {
             '</td><td>' + datosActivos[i].IdCQR +
             '</td><td>' + datosActivos[i].EstadoActivo;
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-default text-center" data-toggle="modal" data-target="#ModificarActivo" onclick = "formUpdateActivos(' + datosActivos[i].IdActivo + ');"> <strong><i class="fa fa-plug"></i></strong></button> ' +
+            '<button type="button" class="btn btn-default text-center" data-toggle="modal" data-target="#IngresoNuevoAccesorio" onclick = "formIngresoAccesorio(' + datosActivos[i].IdActivo + ',\'' + datosActivos[i].NombreActivo +'\');" > <strong><i class="fa fa-plug"></i></strong></button> ' +
             '</div></div>';
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
             '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarActivo" onclick = "formUpdateActivos(' + datosActivos[i].IdActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
@@ -355,5 +357,73 @@ function actualizarEstadoActivo(url) {
         } else {
         }
     });
+
+}
+
+
+//////////////////////////////////////FUNCIONES PARA GUARDAR ACCESORIO/////////////////////////////////////
+
+function formIngresoAccesorio(idAct, nombreAct) {
+    idActivoIng = idAct;
+    nombreActivoIng = nombreAct;
+    console.log(nombreActivoIng);
+    document.getElementById("NombreActivoIngreso").value = nombreActivoIng;
+   
+}
+
+function ingresarAccesorios(url) {
+
+    console.log(url);
+    //Obtener Valor del tipo de activo
+    var cmbTipoAccesorio = document.getElementById("AccesorioIngreso");
+    var idTipoAccesorio = cmbTipoAccesorio.options[cmbTipoAccesorio.selectedIndex].value;
+    //Obtener Valor del estado de accesorio
+    var cmbEstadoAccesorio = document.getElementById("EstadoAccesorioIng");
+    var idEstadoAccesorio = cmbEstadoAccesorio.options[cmbEstadoAccesorio.selectedIndex].value;
+    //Obtener valor del nombre de activo
+    var nombreAccesorio = document.getElementById("NombreAccesorioIngreso").value;
+    //Obtener valor del serial de activo
+    var serialAccesorio = document.getElementById("SerialAccesorioIngreso").value;
+    //Obtener valor del modelo de activo
+    var modeloAccesorio = document.getElementById("ModeloAccesorioIngreso").value
+    //Obtener valor de la descripcion del accesorio
+    var descripcionAccesorio = document.getElementById("DescripcionAccesorioIngreso").value;
+
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el estado del Activo?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: {
+                    "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivoIng, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
+                },
+                async: false,
+                url: url,
+                type: 'post',
+                success: function () {
+                    console.log("accesorio bienn");
+                    $('#IngresoNuevoAccesorio').modal('hide');
+                    obtenerActivos(url_metodo);
+                    obtenerAccesorios(url_metodo_accesorio);
+
+                }, error: function (e) {
+                    console.log(e);
+                    console.log("fallo");
+
+                }
+            });
+        } else {
+        }
+    });
+    
+       
+
 
 }
