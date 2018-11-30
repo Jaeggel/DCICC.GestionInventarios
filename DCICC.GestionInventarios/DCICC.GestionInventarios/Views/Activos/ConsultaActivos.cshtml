@@ -71,7 +71,7 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarAccesorio", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ConsultaActivos", "Activos")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -360,7 +360,7 @@
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre de un accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Accesorio" maxlength="100" readonly>
+                                        <input id="NombreActivoAccesorio" type="text" class="form-control has-feedback-left" name="NombreActivoAccesorio" placeholder="Nombre del Accesorio" maxlength="100" readonly>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre de un accesorio *@
@@ -394,7 +394,7 @@
                                     @* Sección de botones para guardar accesorio o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarAccesorio('@Url.Action("ModificarAccesorio", "Activos")');">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick="actualizarAccesorio('@Url.Action("ModificarAccesorio", "Activos")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -408,6 +408,49 @@
     </div>
 </div>
 
+
+@* Modal de modificación de tickets en curso *@
+<div class="modal fade" id="ModificarEstadoAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel3">Cambio de Estado del Accesorio</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+                                    @* Combobox para seleccionar el estado del activo *@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Seleccione el nuevo estado para el Accesorio:</label>
+                                            <div id="cargarEstadosAccesorioMod"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn btn-success" onclick="actualizarEstadoAccesorios('@Url.Action("ModificarEstadoAccesorio", "Activos")');">Modificar</button>
+                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @* Sección para visualizar los mensajes de error o de éxito de transacción *@
 
@@ -443,6 +486,8 @@
 
         obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
         datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
+        cargarEstadosAccesoriosCmb();
+        cargarEstadosAccesoriosMod();
     });
 
 </script>
