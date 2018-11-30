@@ -35,6 +35,7 @@ function datosTipoAccesorio(url) {
         success: function (data) {
             cmbTipoAccesorio = data;
             cargarAccesoriosCmb();
+            cargarAccesoriosIngresoCmb();
 
         }
     });
@@ -70,6 +71,28 @@ function cargarAccesoriosCmb() {
     str += '</select>';
     $("#cargarTipoAccesorio").html(str);
 }
+
+////////////FUNCIONES PARA INGRESO DE ACCESORIO////////////
+function cargarEstadosAccesoriosIng() {
+    var str = '<select id="EstadoAccesorioIng" class="form-control" name="EstadoAccesorioIng" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+    };
+    str += '</select>';
+    $("#cargarEstadosAccesorioIngreso").html(str);
+}
+
+function cargarAccesoriosIngresoCmb() {
+    var str = '<select id="AccesorioIngreso" class="form-control" name="AccesorioIngreso" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < cmbTipoAccesorio.length; i++) {
+        str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
+    };
+    str += '</select>';
+    $("#cargarAccesoriosIngreso").html(str);
+}
+
 
 //Función para cargar la tabla de Activos
 function cargarAccesoriosTabla() {
@@ -227,55 +250,3 @@ function actualizarEstadoAccesorios(urlAccesorio) {
 }
 
 
-//////////////////////////////////////FUNCIONES PARA GUARDAR ACCESORIO/////////////////////////////////////
-
-function validarPaso3() {
-    var isValid = validar3('@Url.Action("NuevoAccesorio", "Activos")');
-    console.log(isValid);
-    return isValid;
-
-}
-
-function validar3(url) {
-    var isValid = false;
-
-    console.log(url);
-    //Obtener Valor del tipo de activo
-    var cmbTipoAccesorio = document.getElementById("AccesorioActivo");
-    var idTipoAccesorio = cmbTipoAccesorio.options[cmbTipoAccesorio.selectedIndex].value;
-    //Obtener Valor del estado de accesorio
-    var cmbEstadoAccesorio = document.getElementById("EstadoAccesorios");
-    var idEstadoAccesorio = cmbEstadoAccesorio.options[cmbEstadoAccesorio.selectedIndex].value;
-    //Obtener valor del nombre de activo
-    var nombreAccesorio = document.getElementById("NombreAccesorio").value;
-    //Obtener valor del serial de activo
-    var serialAccesorio = document.getElementById("SerialAccesorio").value;
-    //Obtener valor del modelo de activo
-    var modeloAccesorio = document.getElementById("ModeloAccesorio").value
-    //Obtener valor de la descripcion del accesorio
-    var descripcionAccesorio = document.getElementById("DescripcionAccesorio").value;
-
-    if (document.getElementById("AccesorioActivo").value == "") {
-        isValid = true;
-    } else {
-        $.ajax({
-            data: {
-                "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivo, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
-            },
-            async: false,
-            url: url,
-            type: 'post',
-            success: function () {
-                console.log("accesorio bienn");
-                isValid = true;
-            }, error: function (e) {
-                console.log(e);
-                console.log("fallo");
-
-                isValid = false;
-            }
-        });
-
-    }
-    return isValid;
-}
