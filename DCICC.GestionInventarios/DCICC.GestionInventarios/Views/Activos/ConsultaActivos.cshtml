@@ -514,6 +514,24 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group hide" id="cqrAccesorio">
+                                        
+                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                                @using (Html.BeginForm("ObtenerPDFQRSimple", "Activos", FormMethod.Post, new { id = "GenPDFForm" }))
+                                                {
+                                                    <div id="imgCQR">
+
+                                                    </div>
+                                                    <strong>ID Código QR: </strong><span id="idCQRAccesorio" style="font-weight: normal;"></span>
+                                                    <br />
+                                                    <strong>Nombre Activo de TI: </strong><span id="nombreAccesorioIngresado" style="font-weight: normal;"></span>
+                                                    <br /><br />
+                                                    <a class="btn btn-default" id="btnGenPDF"><i class="fa fa-qrcode"></i> Imprimir QR</a>
+                                                }
+                                            </div>
+                                        
+                                    </div>
+
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button type="submit" class="btn btn-success" onclick="ingresarAccesorios('@Url.Action("NuevoAccesorio", "Activos")');">Modificar</button>

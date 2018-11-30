@@ -191,8 +191,9 @@ function actualizarAccesorio(url) {
                     "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio
                 },
                 url: url,
+                dataType: 'json',
                 type: 'post',
-                success: function () {
+                success: function (data) {
                     $('#ModificarAccesorio').modal('hide');
                     $(".modal-body select").val("");
                     $(".modal-body input").val("");

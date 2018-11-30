@@ -63,7 +63,7 @@
                         </li>
 
                     </ul>
-                    <div id="step-1" style="height: 600px;">
+                    <div id="step-1" style="height: 630px;">
 
                         <div class="form-horizontal form-label-left input_mask" id="Paso1">
                             @* Combobox para seleccionar la categoría de activo *@
@@ -240,22 +240,25 @@
 
                         </div>
                     </div>
-                    <div id="step-3" style="height: 280px;">
+                    <div id="step-3" style="height: 400px;">
                         <h3 class="StepTitle text-center">El Activo ha sido Registrado Correctamente</h3>
-                        <div class="form-horizontal form-label-left input_mask" id="Paso2">
-                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                @using (Html.BeginForm("ObtenerPDFQRSimple", "Activos", FormMethod.Post, new { id = "GenPDFForm" }))
-                                {
-                                    <div id="imgCQR">
+                        <div class="form-horizontal form-label-left input_mask " id="Paso3">
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                    @using (Html.BeginForm("ObtenerPDFQRSimple", "Activos", FormMethod.Post, new { id = "GenPDFForm" }))
+                                    {
+                                        <div id="imgCQR">
 
-                                    </div>
-                                    <strong>ID Código QR: </strong><span id="idCQR" style="font-weight: normal;"></span>
-                                    <br />
-                                    <strong>Nombre Activo de TI: </strong><span id="nombreActivoIngresado" style="font-weight: normal;"></span>
-                                    <br /><br/>
-                                    <a class="btn btn-default" id="btnGenPDF"><i class="fa fa-qrcode"></i> Imprimir QR</a>
-                                }
+                                        </div>
+                                        <strong>ID Código QR: </strong><span id="idCQR" style="font-weight: normal;"></span>
+                                        <br />
+                                        <strong>Nombre Activo de TI: </strong><span id="nombreActivoIngresado" style="font-weight: normal;"></span>
+                                        <br /><br />
+                                        <a class="btn btn-default" id="btnGenPDF"><i class="fa fa-qrcode"></i> Imprimir QR</a>
+                                    }
+                                </div>
                             </div>
+                            
 
                         </div>
                     </div>
@@ -494,8 +497,6 @@
                         });
                         cargarCQRActivo();
                     }
-
-
 
                 }, error: function (e) {
                     console.log(e);
