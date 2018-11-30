@@ -332,6 +332,8 @@
     <Content Include="Content\Tema\build\images\loading.gif" />
     <Content Include="Content\Tema\build\js\custom.js" />
     <Content Include="Content\Tema\build\js\custom.min.js" />
+    <Content Include="Content\Tema\build\css\jquery-ui.css" />
+    <Content Include="Content\Tema\build\js\jquery-ui.js" />
     <Content Include="Content\Tema\images\american-express.png" />
     <Content Include="Content\Tema\images\cropper.jpg" />
     <Content Include="Content\Tema\images\img.jpg" />
