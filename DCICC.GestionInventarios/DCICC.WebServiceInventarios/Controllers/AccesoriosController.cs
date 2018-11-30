@@ -56,6 +56,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjAccesorios;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los nombres de los Accesorios de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerAccesoriosNombres")]
+        public MensajesAccesorios ObtenerAccesoriosNombres()
+        {
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerNombresAccesorios();
+            if (msjAccesorios.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Accesorios realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjAccesorios.MensajeError);
+            }
+            return msjAccesorios;
+        }
         #endregion
         #region Registros
         /// <summary>

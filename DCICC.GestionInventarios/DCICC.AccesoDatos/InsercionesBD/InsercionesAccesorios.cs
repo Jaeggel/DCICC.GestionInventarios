@@ -37,6 +37,23 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("ea", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.EstadoAccesorio;
                     cmd.ExecuteNonQuery();
                 }
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT id_accesorio,id_cqr, nombre_accesorio FROM public.dcicc_accesorio where nombre_accesorio=@na", conn_BD))
+                {
+                    cmd.Parameters.Add("na", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.NombreAccesorio;
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Accesorios objAccesorio = new Accesorios
+                            {
+                                IdAccesorio = (int)dr[0],
+                                IdCQR = (string)dr[1],
+                                NombreAccesorio = (string)dr[2]
+                            };
+                            msjAccesorios.ObjetoInventarios = objAccesorio;
+                        }
+                    }
+                }
                 conn_BD.Close();
                 msjAccesorios.OperacionExitosa = true;
             }

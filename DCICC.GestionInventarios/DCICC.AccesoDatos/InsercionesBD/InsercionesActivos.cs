@@ -68,8 +68,6 @@ namespace DCICC.AccesoDatos.InsercionesBD
                             };
                             msjActivos.ObjetoInventarios = objActivos;
                         }
-                        conn_BD.Close();
-                        msjActivos.OperacionExitosa = true;
                     }
                 }
                 conn_BD.Close();

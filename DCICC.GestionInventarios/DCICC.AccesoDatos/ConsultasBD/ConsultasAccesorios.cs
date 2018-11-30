@@ -108,5 +108,41 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             return msjAccesorios;
         }
+        /// <summary>
+        /// Método para obtener los Accesorios de la base de datos.
+        /// </summary>
+        /// <param name="nombreFuncion">Tipo de función a llamar: consultaaccesorios o accesorioshabilitados</param>
+        /// <returns></returns>
+        public MensajesAccesorios ObtenerNombresAccesorios()
+        {
+            List<Accesorios> lstAccesorios = new List<Accesorios>();
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_accesorio FROM public.dcicc_accesorio;", conn_BD))
+                {
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Accesorios objAccesorios = new Accesorios
+                            {
+                                NombreAccesorio = dr[3].ToString().Trim(),
+                            };
+                            lstAccesorios.Add(objAccesorios);
+                        }
+                        conn_BD.Close();
+                        msjAccesorios.ListaObjetoInventarios = lstAccesorios;
+                        msjAccesorios.OperacionExitosa = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                msjAccesorios.OperacionExitosa = false;
+                msjAccesorios.MensajeError = e.Message;
+            }
+            return msjAccesorios;
+        }
     }
 }

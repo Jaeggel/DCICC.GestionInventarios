@@ -16,7 +16,6 @@ namespace DCICC.GestionInventarios.Controllers
     {
         static string Id_CQR = string.Empty;
         static string Nombre_Activo = string.Empty;
-        static bool QR_Registrado = false;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Vistas (GET)
@@ -71,7 +70,7 @@ namespace DCICC.GestionInventarios.Controllers
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             try
             {
-                if(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios.Find(x => x.NombreActivo == infoActivo.NombreActivo)==null)
+                if(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios.Find(x => x.NombreActivo.Trim().ToLower() == infoActivo.NombreActivo.Trim().ToLower())==null)
                 {
                     MensajesCQR msjCQR = NuevoCQR();
                     if (msjCQR.OperacionExitosa)
@@ -80,7 +79,6 @@ namespace DCICC.GestionInventarios.Controllers
                         msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);                        
                         if (msjActivos.OperacionExitosa)
                         {
-                            //QR_Registrado = true;
                             SetIdCQR(infoActivo.IdCQR);
                             SetNombreActivo(infoActivo.NombreActivo);
                             ObtenerImagenQR();
@@ -118,36 +116,43 @@ namespace DCICC.GestionInventarios.Controllers
         {
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
             try
             {
-                MensajesCQR msjCQR = NuevoCQR();
-                if (msjCQR.OperacionExitosa)
+                if (objAccesoriosAccDatos.ObtenerAccesorios("Nombres").ListaObjetoInventarios.Find(x => x.NombreAccesorio.Trim().ToLower() == infoAccesorios.NombreAccesorio.Trim().ToLower()) == null)
                 {
-                    infoAccesorios.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
-                    AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
-                    msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
-                    if (msjAccesorios.OperacionExitosa)
+                    MensajesCQR msjCQR = NuevoCQR();
+                    if (msjCQR.OperacionExitosa)
                     {
-                        SetIdCQR(infoAccesorios.IdCQR);
-                        SetNombreActivo(infoAccesorios.NombreAccesorio);
-                        ObtenerImagenQR();
-                        ObtenerPDFQRSimple();
-                        mensajesAccesorios = "El activo y el accesorio ha sido registrado exitosamente.";
-                        TempData["Mensaje"] = mensajesAccesorios;
-                        Logs.Info(mensajesAccesorios);
+                        infoAccesorios.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
+                        msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
+                        if (msjAccesorios.OperacionExitosa)
+                        {
+                            SetIdCQR(infoAccesorios.IdCQR);
+                            SetNombreActivo(infoAccesorios.NombreAccesorio);
+                            ObtenerImagenQR();
+                            ObtenerPDFQRSimple();
+                            mensajesAccesorios = "El activo y el accesorio ha sido registrado exitosamente.";
+                            TempData["Mensaje"] = mensajesAccesorios;
+                            Logs.Info(mensajesAccesorios);
+                        }
+                        else
+                        {
+                            mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
+                            TempData["MensajeError"] = mensajesAccesorios;
+                        }
                     }
-                    else
-                    {
-                        mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
-                        TempData["MensajeError"] = mensajesAccesorios;
-                    }
+                }
+                else
+                {
+                    msjAccesorios.OperacionExitosa = false;
                 }
             }
             catch (Exception e)
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
-            return Json(msjAccesorios.OperacionExitosa, JsonRequestBehavior.AllowGet);
+            return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para registrar el QR del nuevo Activo en la base de datos .
@@ -411,7 +416,6 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ObtenerImagenQR()
         {
-            //QR_Registrado = false;
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
             var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
@@ -424,7 +428,6 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ObtenerPDFQRSimple()
         {
-            QR_Registrado = false;
             ReporteQR objReporteQR = new ReporteQR();
             var contentDispositionHeader = new System.Net.Mime.ContentDisposition
             {
