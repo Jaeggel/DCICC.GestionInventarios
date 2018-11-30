@@ -424,7 +424,8 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                             $('#GenPDFForm').attr('action', urlPdf).submit();
                         });
                         obtenerActivos(url_metodo);
-                        obtenerAccesorios(url_metodo_accesorio);        
+                        obtenerAccesorios(url_metodo_accesorio);
+                        showNotify("Actualización exitosa", 'El accesorio se ha ingresado correctamente', "success");
                     }                                 
                 }, error: function (e) {
                     console.log(e);
