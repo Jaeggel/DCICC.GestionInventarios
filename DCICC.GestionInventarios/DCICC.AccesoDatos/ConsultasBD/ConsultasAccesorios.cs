@@ -127,7 +127,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         {
                             Accesorios objAccesorios = new Accesorios
                             {
-                                NombreAccesorio = dr[3].ToString().Trim(),
+                                NombreAccesorio = dr[0].ToString().Trim(),
                             };
                             lstAccesorios.Add(objAccesorios);
                         }

@@ -114,6 +114,8 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoAccesorio(Accesorios infoAccesorios)
         {
+            Id_CQR = string.Empty;
+            Nombre_Activo = string.Empty;
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
