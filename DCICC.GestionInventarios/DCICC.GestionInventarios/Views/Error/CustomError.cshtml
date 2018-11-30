@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,8 +20,8 @@
                 <img src="~/Content/Images/LogoUps.png" class="center">
                 <section class="login_content">
                     <form>
-                        <h1 style="color:#cc0000">ERROR</h1>
-                        <h2>Error al Procesar la Solicitud</h2>
+                        <h1 style="color:#cc0000">@ViewBag.TipoError</h1>
+                        <h2>@ViewBag.MensajeError </h2>
                     </form>
                 </section>
             </div>

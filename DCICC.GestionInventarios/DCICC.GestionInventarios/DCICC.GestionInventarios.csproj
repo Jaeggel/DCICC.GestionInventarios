@@ -193,6 +193,7 @@
     <Compile Include="Configuration\SessionExpireFilterAttribute.cs" />
     <Compile Include="Controllers\ActivosController.cs" />
     <Compile Include="Controllers\CategoriaActivoController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaboratoriosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -4749,6 +4750,7 @@
     <Content Include="Views\Reportes\ReportesMaqVirtuales.cshtml" />
     <Content Include="Views\Reportes\ReportesTickets.cshtml" />
     <Content Include="Views\Reportes\ReportesLogs.cshtml" />
+    <Content Include="Views\Error\CustomError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
