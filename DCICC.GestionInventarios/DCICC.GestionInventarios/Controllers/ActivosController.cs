@@ -68,19 +68,19 @@ namespace DCICC.GestionInventarios.Controllers
         {
             string mensajesActivos = string.Empty;
             MensajesActivos msjActivos = new MensajesActivos();
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             try
             {
-                if(!QR_Registrado)
+                if(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios.Find(x => x.NombreActivo == infoActivo.NombreActivo)==null)
                 {
                     MensajesCQR msjCQR = NuevoCQR();
                     if (msjCQR.OperacionExitosa)
                     {
                         infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
-                        ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                         msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);                        
                         if (msjActivos.OperacionExitosa)
                         {
-                            QR_Registrado = true;
+                            //QR_Registrado = true;
                             SetIdCQR(infoActivo.IdCQR);
                             SetNombreActivo(infoActivo.NombreActivo);
                             ObtenerImagenQR();
@@ -407,7 +407,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ObtenerImagenQR()
         {
-            QR_Registrado = false;
+            //QR_Registrado = false;
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
             var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);

@@ -186,7 +186,7 @@ namespace DCICC.GestionInventarios.Controllers
                     PasswordUsuario=infoLogin.PasswordUsuario
                 };
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoUsuario);
-                var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                Usuarios datosUsuario = objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
                 if (datosUsuario != null)
                 {
                     return datosUsuario;
