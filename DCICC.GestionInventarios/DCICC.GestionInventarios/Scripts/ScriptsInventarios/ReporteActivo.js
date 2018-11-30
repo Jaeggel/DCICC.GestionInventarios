@@ -349,12 +349,15 @@ function actualizarEstadoActivo(url) {
                 type: 'post',
                 success: function () {
                     $('#ModificarEstadoActivo').modal('hide');
+                    $(".modal-body select").val("");
                     obtenerActivos(url_metodo);
                 }, error: function () {
 
                 }
             });
         } else {
+            $('#ModificarEstadoActivo').modal('hide');
+            $(".modal-body select").val("");
         }
     });
 
@@ -390,8 +393,8 @@ function ingresarAccesorios(url) {
     var descripcionAccesorio = document.getElementById("DescripcionAccesorioIngreso").value;
 
     swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el estado del Activo?",
+        title: 'Confirmación de Ingreso',
+        text: "¿Está seguro de ingresar el Accesorio?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -410,8 +413,12 @@ function ingresarAccesorios(url) {
                 success: function () {
                     console.log("accesorio bienn");
                     $('#IngresoNuevoAccesorio').modal('hide');
+                    $(".modal-body select").val("");
+                    $(".modal-body input").val("");
+                    $(".modal-body textarea").val("");
                     obtenerActivos(url_metodo);
                     obtenerAccesorios(url_metodo_accesorio);
+                    showNotify("Ingreso exitoso", 'Se ha ingresado el accesorio', "success");
 
                 }, error: function (e) {
                     console.log(e);
@@ -420,6 +427,10 @@ function ingresarAccesorios(url) {
                 }
             });
         } else {
+            $('#IngresoNuevoAccesorio').modal('hide');
+            $(".modal-body select").val("");
+            $(".modal-body input").val("");
+            $(".modal-body textarea").val("");
         }
     });
     
