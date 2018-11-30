@@ -244,12 +244,17 @@
                         <h3 class="StepTitle text-center">El Activo ha sido Registrado Correctamente</h3>
                         <div class="form-horizontal form-label-left input_mask" id="Paso2">
                             <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                <div id="imgCQR">
+                                @using (Html.BeginForm("ObtenerPDFQRSimple", "Activos", FormMethod.Post, new { id = "GenPDFForm" }))
+                                {
+                                    <div id="imgCQR">
 
-                                </div>
-                                <span id="idCQR" style="font-weight: normal;"></span>
-                                <br />
-                                <span id="nombreActivoIngresado" style="font-weight: normal;"></span>
+                                    </div>
+                                    <strong>ID Código QR: </strong><span id="idCQR" style="font-weight: normal;"></span>
+                                    <br />
+                                    <strong>Nombre Activo de TI: </strong><span id="nombreActivoIngresado" style="font-weight: normal;"></span>
+                                    <br /><br/>
+                                    <a class="btn btn-default" id="btnGenPDF"><i class="fa fa-qrcode"></i> Imprimir QR</a>
+                                }
                             </div>
 
                         </div>
@@ -271,7 +276,7 @@
             showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
         }
         </script>
-    }
+        }
     @if (TempData["MensajeError"] != null)
     {
         <script type="text/javascript">
@@ -482,7 +487,12 @@
                     datosActivoSeleccionado(data);
                     var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
                     $("#imgCQR").html(str);
+                    $("#btnGenPDF").click(function () {
+                        $('#GenPDFForm').attr('target', "_blank");
+                        $('#GenPDFForm').attr('action', "@Url.Action("ObtenerPDFQRSimple", "Activos")").submit();
+                    });
                     cargarCQRActivo();
+
 
                 }, error: function (e) {
                     console.log(e);

@@ -42,7 +42,7 @@ namespace DCICC.GestionInventarios.Reportes
                     table.WidthPercentage = 10;
                     table.AddCell(jpg);
                     PdfPCell cell;
-                    cell = new PdfPCell(new Phrase(nombreActivo, new iTextSharp.text.Font(verdana)));
+                    cell = new PdfPCell(new Phrase(idQR+"\n"+nombreActivo, new iTextSharp.text.Font(verdana)));
                     table.AddCell(cell);
                     table.HorizontalAlignment = Element.ALIGN_LEFT;
                     doc.Add(table);

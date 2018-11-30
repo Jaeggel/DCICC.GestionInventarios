@@ -396,6 +396,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para mostrar el PDF con el QR del nuevo activo
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult ObtenerPDFQRSimple()
         {
             ReporteQR objReporteQR = new ReporteQR();
@@ -405,7 +406,7 @@ namespace DCICC.GestionInventarios.Controllers
                 FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy-mm-ss") + ".pdf"
             };
             Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
-            return File(objReporteQR.GenerarPDFQRSimple(Id_CQR, Nombre_Activo), System.Net.Mime.MediaTypeNames.Application.Pdf);
+            return File(objReporteQR.GenerarPDFQRSimple(Nombre_Activo, Id_CQR), System.Net.Mime.MediaTypeNames.Application.Pdf);
         }
         #endregion
         #region Consultas (JSON)
