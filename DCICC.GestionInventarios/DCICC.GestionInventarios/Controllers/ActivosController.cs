@@ -65,6 +65,8 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoActivo(Activos infoActivo)
         {
+            Id_CQR = string.Empty;
+            Nombre_Activo = string.Empty;
             string mensajesActivos = string.Empty;
             MensajesActivos msjActivos = new MensajesActivos();
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
