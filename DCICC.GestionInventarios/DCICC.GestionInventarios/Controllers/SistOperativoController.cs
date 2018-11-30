@@ -116,7 +116,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesSistOperativos + ": " + e.Message);
             }
-            return RedirectToAction("ModificarSistOperativo", "SistOperativo");
+            return Json(msjSistOperativos, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarSistOperativo", "SistOperativo");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarSistOperativo.
@@ -146,7 +147,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesSistOperativos + ": " + e.Message);
             }
-            return RedirectToAction("ModificarSistOperativo", "SistOperativo");
+            return Json(msjSistOperativos, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarSistOperativo", "SistOperativo");
         }
         #endregion
         #region Consultas (JSON)

@@ -26,13 +26,13 @@ namespace DCICC.AccesoDatos.EliminacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("DELETE FROM public.dcicc_usuarios WHERE id_usuario=@iu;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("DELETE FROM public.dcicc_usuarios WHERE id_usuario=@iu;", conn_BD))
                 {
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
                 string query = "DROP USER @nu";
-                using (var cmd = new NpgsqlCommand(query, conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn_BD))
                 {
                     cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.NickUsuario;
                     cmd.ExecuteNonQuery();

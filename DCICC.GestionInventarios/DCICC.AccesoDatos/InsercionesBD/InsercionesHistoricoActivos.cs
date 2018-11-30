@@ -25,7 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesHistoricoActivos msjHistoricoActivos = new MensajesHistoricoActivos();
             try
             {
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_historicoactivos(id_detalleact, fechamodif_histactivos, id_accesorio) VALUES (@ida,@fmh,@idac);", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_historicoactivos(id_detalleact, fechamodif_histactivos, id_accesorio) VALUES (@ida,@fmh,@idac);", conn_BD))
                 {
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdDetActivo==0 ? DBNull.Value: (object)infoHistoricoActivos.IdDetActivo;
                     cmd.Parameters.AddWithValue("fmh", infoHistoricoActivos.FechaModifHistActivos);

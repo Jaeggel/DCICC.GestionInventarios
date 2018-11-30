@@ -26,7 +26,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE dcicc_marca set nombre_marca = @nm,descripcion_marca=@dm,habilitado_marca = @hm where id_marca = @im", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_marca set nombre_marca = @nm,descripcion_marca=@dm,habilitado_marca = @hm where id_marca = @im", conn_BD))
                 {
                     cmd.Parameters.Add("nm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMarca.NombreMarca;
                     cmd.Parameters.Add("dm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoMarca.DescripcionMarca) ? (object)infoMarca.DescripcionMarca : DBNull.Value;
@@ -56,7 +56,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE dcicc_marca set habilitado_marca = @hm where id_marca = @im", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_marca set habilitado_marca = @hm where id_marca = @im", conn_BD))
                 {
                     cmd.Parameters.Add("hm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMarca.HabilitadoMarca;
                     cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMarca.IdMarca;

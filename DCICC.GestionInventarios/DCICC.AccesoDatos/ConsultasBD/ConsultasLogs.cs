@@ -27,10 +27,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesLogs msjLogs = new MensajesLogs();
             try
             {
-                using (var cmd = new NpgsqlCommand("consultalogs", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("consultalogs", conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    using (var dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {

@@ -16,6 +16,7 @@ namespace DCICC.GestionInventarios.Controllers
     {
         static string Id_CQR = string.Empty;
         static string Nombre_Activo = string.Empty;
+        static bool QR_Registrado = false;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Vistas (GET)
@@ -69,6 +70,7 @@ namespace DCICC.GestionInventarios.Controllers
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
+                if(!QR_Registrado)
                 {
                     MensajesCQR msjCQR = NuevoCQR();
                     if (msjCQR.OperacionExitosa)
@@ -78,6 +80,7 @@ namespace DCICC.GestionInventarios.Controllers
                         msjActivos = objActivosAccDatos.RegistrarActivo(infoActivo);                        
                         if (msjActivos.OperacionExitosa)
                         {
+                            QR_Registrado = true;
                             SetIdCQR(infoActivo.IdCQR);
                             SetNombreActivo(infoActivo.NombreActivo);
                             ObtenerImagenQR();
@@ -111,20 +114,29 @@ namespace DCICC.GestionInventarios.Controllers
         {
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
-            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
             try
             {
-                msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
-                if (msjAccesorios.OperacionExitosa)
+                MensajesCQR msjCQR = NuevoCQR();
+                if (msjCQR.OperacionExitosa)
                 {
-                    mensajesAccesorios = "El activo y el accesorio ha sido registrado exitosamente.";
-                    TempData["Mensaje"] = mensajesAccesorios;
-                    Logs.Info(mensajesAccesorios);
-                }
-                else
-                {
-                    mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
-                    TempData["MensajeError"] = mensajesAccesorios;
+                    infoAccesorios.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
+                    AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
+                    msjAccesorios = objAccesoriosAccDatos.RegistrarAccesorios(infoAccesorios);
+                    if (msjAccesorios.OperacionExitosa)
+                    {
+                        SetIdCQR(infoAccesorios.IdCQR);
+                        SetNombreActivo(infoAccesorios.NombreAccesorio);
+                        ObtenerImagenQR();
+                        ObtenerPDFQRSimple();
+                        mensajesAccesorios = "El activo y el accesorio ha sido registrado exitosamente.";
+                        TempData["Mensaje"] = mensajesAccesorios;
+                        Logs.Info(mensajesAccesorios);
+                    }
+                    else
+                    {
+                        mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
+                        TempData["MensajeError"] = mensajesAccesorios;
+                    }
                 }
             }
             catch (Exception e)
@@ -190,6 +202,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,false);
                 if (msjActivos.OperacionExitosa)
                 {
+                    mensajesActivos = "El activo ha sido modificado correctamente.";
                     Logs.Info(mensajesActivos);
                 }
                 else
@@ -218,7 +231,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesActivos + ": " + e.Message);
             }
-            return RedirectToAction("ConsultaActivos", "Activos");
+            return Json(msjActivos, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ConsultaActivos", "Activos");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
@@ -237,6 +251,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,true);
                 if (msjActivos.OperacionExitosa)
                 {
+                    mensajesActivos = "El activo ha sido modificado correctamente.";
                     Logs.Info(mensajesActivos);
                 }
                 else
@@ -265,7 +280,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesActivos + ": " + e.Message);
             }
-            return RedirectToAction("ConsultaActivos", "Activos");
+            return Json(msjActivos, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ConsultaActivos", "Activos");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
@@ -284,6 +300,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,false);
                 if (msjAccesorios.OperacionExitosa)
                 {
+                    mensajesAccesorios = "El accesorio ha sido modificado correctamente.";
                     Logs.Info(mensajesAccesorios);
                 }
                 else
@@ -313,7 +330,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
-            return RedirectToAction("ConsultaActivos", "Activos");//OJO
+            return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ConsultaActivos", "Activos");//OJO
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
@@ -332,6 +350,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,true);
                 if (msjAccesorios.OperacionExitosa)
                 {
+                    mensajesAccesorios= "El accesorio ha sido modificado correctamente.";
                     Logs.Info(mensajesAccesorios);
                 }
                 else
@@ -361,7 +380,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
-            return RedirectToAction("ConsultaActivos", "Activos");
+            return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ConsultaActivos", "Activos");
         }
         #endregion
         #region Otros
@@ -387,6 +407,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ObtenerImagenQR()
         {
+            QR_Registrado = false;
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
             var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
@@ -399,6 +420,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ObtenerPDFQRSimple()
         {
+            QR_Registrado = false;
             ReporteQR objReporteQR = new ReporteQR();
             var contentDispositionHeader = new System.Net.Mime.ContentDisposition
             {

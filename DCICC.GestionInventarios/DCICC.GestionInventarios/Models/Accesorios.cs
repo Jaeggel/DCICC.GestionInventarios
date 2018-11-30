@@ -17,6 +17,8 @@ namespace DCICC.GestionInventarios.Models
 
         public string NombreDetalleActivo { get; set; }
 
+        public string IdCQR { get; set; }
+
         public string NombreAccesorio { get; set; }
 
         public string EstadoAccesorio { get; set; }

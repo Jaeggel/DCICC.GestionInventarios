@@ -26,7 +26,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_tipoactivos SET id_categoriaact=@ic, nombre_tipoact=@nt, descripcion_tipoact=@dt, vidautil_tipoact=@vua, habilitado_tipoact=@ht WHERE id_tipoact=@it", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_tipoactivos SET id_categoriaact=@ic, nombre_tipoact=@nt, descripcion_tipoact=@dt, vidautil_tipoact=@vua, habilitado_tipoact=@ht WHERE id_tipoact=@it", conn_BD))
                 {
                     cmd.Parameters.Add("ic", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTipoActivo.IdCategoriaActivo;
                     cmd.Parameters.Add("nt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTipoActivo.NombreTipoActivo;
@@ -58,7 +58,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_tipoactivos SET habilitado_tipoact=@ht WHERE id_tipoact=@it", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_tipoactivos SET habilitado_tipoact=@ht WHERE id_tipoact=@it", conn_BD))
                 {
                     cmd.Parameters.Add("ht", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoTipoActivo.HabilitadoTipoActivo;
                     cmd.Parameters.Add("it", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTipoActivo.IdTipoActivo;

@@ -116,7 +116,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesMarcas + ": " + e.Message);
             }
-            return RedirectToAction("ModificarMarca", "Marcas");
+            return Json(msjMarcas, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarMarca", "Marcas");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarMarca.
@@ -146,7 +147,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesMarcas + ": " + e.Message);
             }
-            return RedirectToAction("ModificarMarca", "Marcas");
+            return Json(msjMarcas, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarMarca", "Marcas");
         }
         #endregion
         #region Consultas (JSON)

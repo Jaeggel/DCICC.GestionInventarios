@@ -203,7 +203,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
             }
-            return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
+            return Json(msjMaqVirtuales, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarMaqVirtual.
@@ -233,7 +234,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
             }
-            return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
+            return Json(msjMaqVirtuales, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
         }
         #endregion
         #region Consultas (JSON)

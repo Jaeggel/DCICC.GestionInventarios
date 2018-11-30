@@ -134,7 +134,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
-            return RedirectToAction("ModificarUsuario", "Usuarios");
+            return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
@@ -164,7 +165,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
-            return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
+            return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
+            //return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarUsuario.
@@ -194,7 +196,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
-            return RedirectToAction("ModificarUsuario", "Usuarios");
+            return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
@@ -224,6 +227,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
+            //return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
             return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         #endregion

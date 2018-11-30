@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                using (var cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (var dr = cmd.ExecuteReader())
@@ -92,10 +92,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                using (var cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    using (var dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
@@ -130,10 +130,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                using (var cmd = new NpgsqlCommand("consultacqr", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("consultacqr", conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    using (var dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())//obtener tamaño
                         {
@@ -166,9 +166,9 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                using (var cmd = new NpgsqlCommand("SELECT nombre_detalleact FROM dcicc_detalleactivo", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_detalleact FROM dcicc_detalleactivo", conn_BD))
                 {
-                    using (var dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {

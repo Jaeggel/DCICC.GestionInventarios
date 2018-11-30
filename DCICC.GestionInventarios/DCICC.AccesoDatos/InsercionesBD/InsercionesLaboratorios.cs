@@ -25,7 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             try
             {
-                using (var cmd = new NpgsqlCommand("insert into dcicc_laboratorios (nombre_laboratorio,ubicacion_laboratorio,descripcion_laboratorio,habilitado_laboratorio) VALUES (@nl,@ul,@dl,@hl)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_laboratorios (nombre_laboratorio,ubicacion_laboratorio,descripcion_laboratorio,habilitado_laboratorio) VALUES (@nl,@ul,@dl,@hl)", conn_BD))
                 {
                     cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLaboratorio.NombreLaboratorio;
                     cmd.Parameters.Add("ul", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLaboratorio.UbicacionLaboratorio;

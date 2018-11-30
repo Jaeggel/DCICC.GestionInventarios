@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 infoTicket.IdResponsableUsuario = ConsultasUsuarios.ObtenerUsuarioPorNick(infoTicket.NombreUsuarioResponsable).ObjetoInventarios.IdUsuario;
-                using (var cmd = new NpgsqlCommand("update dcicc_tickets set idresponsable_usuario=@iru,estado_ticket=@et,fechasolucion_ticket=@fct,comentario_ticket=@ct where id_ticket=@it", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("update dcicc_tickets set idresponsable_usuario=@iru,estado_ticket=@et,fechasolucion_ticket=@fct,comentario_ticket=@ct where id_ticket=@it", conn_BD))
                 {
                     cmd.Parameters.Add("iru", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdResponsableUsuario;
                     cmd.Parameters.Add("et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.EstadoTicket;

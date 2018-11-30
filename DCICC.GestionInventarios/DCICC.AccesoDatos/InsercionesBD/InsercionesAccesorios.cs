@@ -25,10 +25,11 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_accesorio(id_tipoaccesorio, id_detalleact, nombre_accesorio, serial_accesorio, modelo_accesorio, descripcion_accesorio, estado_accesorio)VALUES (@ita, @ida,@na, @sa, @ma, @da, @ea);", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_accesorio(id_tipoaccesorio, id_detalleact,id_cqr, nombre_accesorio, serial_accesorio, modelo_accesorio, descripcion_accesorio, estado_accesorio)VALUES (@ita, @ida,@icq,@na, @sa, @ma, @da, @ea);", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdTipoAccesorio;
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdDetalleActivo;
+                    cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.IdCQR;
                     cmd.Parameters.Add("na", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.NombreAccesorio;
                     cmd.Parameters.Add("sa", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.SerialAccesorio) ? (object)infoAccesorios.SerialAccesorio : DBNull.Value;
                     cmd.Parameters.Add("ma", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.ModeloAccesorio) ? (object)infoAccesorios.ModeloAccesorio: DBNull.Value;

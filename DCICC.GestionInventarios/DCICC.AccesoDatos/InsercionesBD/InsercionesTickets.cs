@@ -25,7 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesTickets msjTickets = new MensajesTickets();
             try
             {
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_tickets(id_usuario, idresponsable_usuario, id_laboratorio, id_detalleact, estado_ticket, fechaapertura_ticket, fechasolucion_ticket, prioridad_ticket, comentario_ticket, descripcion_ticket)VALUES (@iu, @iru, @il, @ida, @et, @fat, @fct, @pt, @ct, @dt);", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_tickets(id_usuario, idresponsable_usuario, id_laboratorio, id_detalleact, estado_ticket, fechaapertura_ticket, fechasolucion_ticket, prioridad_ticket, comentario_ticket, descripcion_ticket)VALUES (@iu, @iru, @il, @ida, @et, @fat, @fct, @pt, @ct, @dt);", conn_BD))
                 {
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdUsuario;
                     cmd.Parameters.Add("iru", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoTicket.IdResponsableUsuario.ToString()) ? (object)infoTicket.IdResponsableUsuario: DBNull.Value; ;

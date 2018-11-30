@@ -56,7 +56,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT id_detalleact, id_cqr,nombre_detalleact FROM public.dcicc_detalleactivo WHERE nombre_detalleact=@nda", conn_BD))
                 {
                     cmd.Parameters.Add("nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
-                    using (var dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {

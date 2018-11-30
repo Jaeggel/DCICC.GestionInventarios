@@ -10,6 +10,8 @@
 
         public int IdDetalleActivo { get; set; }
 
+        public string IdCQR{ get; set; }
+
         public string NombreDetalleActivo { get; set; }
 
         public string NombreAccesorio { get; set; }

@@ -25,7 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             try
             {
-                using (var cmd = new NpgsqlCommand("insert into dcicc_tipoaccesorio (nombre_tipoaccesorio,descripcion_tipoaccesorio,habilitado_tipoaccesorio) VALUES (@nta,@dta,@hta)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_tipoaccesorio (nombre_tipoaccesorio,descripcion_tipoaccesorio,habilitado_tipoaccesorio) VALUES (@nta,@dta,@hta)", conn_BD))
                 {
                     cmd.Parameters.Add("nta", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTipoAccesorio.NombreTipoAccesorio;
                     cmd.Parameters.Add("dta", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTipoAccesorio.DescripcionTipoAccesorio) ? (object)infoTipoAccesorio.DescripcionTipoAccesorio : DBNull.Value;

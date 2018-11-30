@@ -27,10 +27,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                using (var cmd = new NpgsqlCommand("accesoriostotales", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("accesoriostotales", conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    using (var dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
@@ -44,8 +44,9 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 ModeloAccesorio = dr[5].ToString().Trim(),
                                 DescripcionAccesorio = dr[6].ToString().Trim(),
                                 EstadoAccesorio = dr[7].ToString().Trim(),
-                                NombreTipoAccesorio = dr[8].ToString().Trim(),
-                                NombreDetalleActivo = dr[9].ToString().Trim()
+                                IdCQR = dr[8].ToString().Trim(),
+                                NombreTipoAccesorio = dr[9].ToString().Trim(),
+                                NombreDetalleActivo = dr[10].ToString().Trim()
                             };
                             lstAccesorios.Add(objAccesorios);
                         }
@@ -73,10 +74,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                using (var cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand(nombreFuncion, conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    using (var dr = cmd.ExecuteReader())
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
@@ -89,7 +90,8 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 SerialAccesorio = dr[4].ToString().Trim(),
                                 ModeloAccesorio = dr[5].ToString().Trim(),
                                 DescripcionAccesorio = dr[6].ToString().Trim(),
-                                EstadoAccesorio = dr[7].ToString().Trim()
+                                EstadoAccesorio = dr[7].ToString().Trim(),
+                                IdCQR = dr[8].ToString().Trim(),
                             };
                             lstAccesorios.Add(objAccesorios);
                         }

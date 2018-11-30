@@ -25,7 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             try
             {
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.dcicc_tipoactivos(id_categoriaact, nombre_tipoact, descripcion_tipoact,vidautil_tipoact, habilitado_tipoact)VALUES(@ic, @nt, @dt, @vua,@ht)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_tipoactivos(id_categoriaact, nombre_tipoact, descripcion_tipoact,vidautil_tipoact, habilitado_tipoact)VALUES(@ic, @nt, @dt, @vua,@ht)", conn_BD))
                 {
                     cmd.Parameters.Add("ic", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTipoActivo.IdCategoriaActivo;
                     cmd.Parameters.Add("nt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTipoActivo.NombreTipoActivo;

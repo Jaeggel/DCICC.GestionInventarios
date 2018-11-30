@@ -26,7 +26,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET id_tipoact=@ita, id_marca=@im, id_laboratorio=@il, nombre_detalleact=@nda, modelo_detalleact=@mda, serial_detalleact=@sda, fechaingreso_detalleact=@fida, codigoups_detalleact=@cuda, cantidad_detalleact=@cada, descripcion_detalleact=@dsda, estado_detalleact=@eda, expressservicecode_detalleact=@escda, productname_detalleact=@pnda, capacidad_detalleact=@capda, velocidadtransf_detalleact=@vtda, ct_detalleact=@ctda, hpepartnumber_detalleact=@hpnda, codbarras1_detalleact=@cb1da, codbarras2_detalleact=@cb2da, numpuertos_detalleact=@npda, iosversion_detalleact=@ivda, fechamanufactura_detalleact=@fmda WHERE id_detalleact=@ida;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET id_tipoact=@ita, id_marca=@im, id_laboratorio=@il, nombre_detalleact=@nda, modelo_detalleact=@mda, serial_detalleact=@sda, fechaingreso_detalleact=@fida, codigoups_detalleact=@cuda, cantidad_detalleact=@cada, descripcion_detalleact=@dsda, estado_detalleact=@eda, expressservicecode_detalleact=@escda, productname_detalleact=@pnda, capacidad_detalleact=@capda, velocidadtransf_detalleact=@vtda, ct_detalleact=@ctda, hpepartnumber_detalleact=@hpnda, codbarras1_detalleact=@cb1da, codbarras2_detalleact=@cb2da, numpuertos_detalleact=@npda, iosversion_detalleact=@ivda, fechamanufactura_detalleact=@fmda WHERE id_detalleact=@ida;", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdTipoActivo;
                     cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdMarca;
@@ -76,7 +76,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET estado_detalleact=@eda WHERE id_detalleact=@ida;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET estado_detalleact=@eda WHERE id_detalleact=@ida;", conn_BD))
                 {
                     cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo;
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;

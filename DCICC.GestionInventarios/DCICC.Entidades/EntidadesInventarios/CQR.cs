@@ -5,5 +5,7 @@
         public string IdCqr { get; set; }
 
         public byte[] Bytea { get; set; }
+
+        public bool Impreso { get; set; }
     }
 }

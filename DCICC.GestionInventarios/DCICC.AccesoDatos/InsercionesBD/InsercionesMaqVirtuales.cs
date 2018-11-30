@@ -25,7 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
             {
-                using (var cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccionip_maqvirtuales,disco_maqvirtuales,ram_maqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales) VALUES (@iso,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccionip_maqvirtuales,disco_maqvirtuales,ram_maqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales) VALUES (@iso,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv)", conn_BD))
                 {
                     cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdSistOperativos;
                     cmd.Parameters.Add("umv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.UsuarioMaqVirtuales;

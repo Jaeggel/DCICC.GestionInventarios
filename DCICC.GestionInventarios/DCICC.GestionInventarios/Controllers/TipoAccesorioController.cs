@@ -116,7 +116,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
             }
-            return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
+            return Json(msjTipoAccesorio, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarTipoAccesorio.
@@ -146,7 +147,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
             }
-            return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
+            return Json(msjTipoAccesorio, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
         }
         #endregion
         #region Consultas (JSON)

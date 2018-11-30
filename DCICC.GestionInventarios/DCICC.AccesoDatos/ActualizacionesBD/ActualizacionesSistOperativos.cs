@@ -26,7 +26,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE dcicc_sistoperativos set nombre_so = @nso,descripcion_so=@dso,habilitado_so = @hso where id_so = @iso", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_sistoperativos set nombre_so = @nso,descripcion_so=@dso,habilitado_so = @hso where id_so = @iso", conn_BD))
                 {
                     cmd.Parameters.Add("nso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoSistOperativo.NombreSistOperativos;
                     cmd.Parameters.Add("dso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoSistOperativo.DescripcionSistOperativos) ? (object)infoSistOperativo.DescripcionSistOperativos : DBNull.Value;
@@ -56,7 +56,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE dcicc_sistoperativos set habilitado_so = @hso where id_so = @iso", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_sistoperativos set habilitado_so = @hso where id_so = @iso", conn_BD))
                 {
                     cmd.Parameters.Add("hso", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoSistOperativo.HabilitadoSistOperativos;
                     cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoSistOperativo.IdSistOperativos;

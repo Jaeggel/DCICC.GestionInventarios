@@ -101,7 +101,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 RolesAccDatos objRolesAccDatos = new RolesAccDatos((string)Session["NickUsuario"]);
-                msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
+                //msjRoles = objRolesAccDatos.(infoRol);
                 if (msjRoles.OperacionExitosa)
                 {
                     mensajes_Roles = "El rol ha sido modificado exitosamente.";
@@ -116,7 +116,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajes_Roles + ": " + e.Message);
             }
-            return RedirectToAction("ModificarRol", "Roles");
+            return Json(msjRoles, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarRol", "Roles");
         }
         #endregion
         #region Consultas (JSON)

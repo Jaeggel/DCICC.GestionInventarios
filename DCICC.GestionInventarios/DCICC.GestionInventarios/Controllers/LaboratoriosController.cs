@@ -117,7 +117,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesLaboratorios + ": " + e.Message);    
             }
-            return RedirectToAction("ModificarLaboratorio", "Laboratorios");
+            return Json(msjLaboratorios, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarLaboratorio.
@@ -148,7 +149,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesLaboratorios + ": " + e.Message);
             }
-            return RedirectToAction("ModificarLaboratorio", "Laboratorios");
+            return Json(msjLaboratorios, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ModificarLaboratorio", "Laboratorios");
         }
         #endregion
         #region Consultas (JSON)
