@@ -6,8 +6,11 @@ var idActivoMod;
 var cmbTipoActivo;
 var cmbLaboratorio;
 var cmbMarcas;
-var idActivoIng;
-var nombreActivoIng;
+var idAccesorioIng;
+var nombreAccesorioIng;
+
+var idCQRAccesorio;
+var nombreCQRAccesorio;
 
 
 //Método ajax para obtener los datos de categorias
@@ -367,10 +370,10 @@ function actualizarEstadoActivo(url) {
 //////////////////////////////////////FUNCIONES PARA GUARDAR ACCESORIO/////////////////////////////////////
 
 function formIngresoAccesorio(idAct, nombreAct) {
-    idActivoIng = idAct;
-    nombreActivoIng = nombreAct;
-    console.log(nombreActivoIng);
-    document.getElementById("NombreActivoIngreso").value = nombreActivoIng;
+    idAccesorioIng = idAct;
+    nombreAccesorioIng = nombreAct;
+    console.log(nombreAccesorioIng);
+    document.getElementById("NombreActivoIngreso").value = nombreAccesorioIng;
    
 }
 
@@ -405,21 +408,27 @@ function ingresarAccesorios(url) {
         if (result.value) {
             $.ajax({
                 data: {
-                    "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idActivoIng, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
+                    "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idAccesorioIng, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
                 },
                 async: false,
                 url: url,
+                dataType: 'json',
                 type: 'post',
                 success: function () {
-                    console.log("accesorio bienn");
-                    $('#IngresoNuevoAccesorio').modal('hide');
-                    $(".modal-body select").val("");
-                    $(".modal-body input").val("");
-                    $(".modal-body textarea").val("");
-                    obtenerActivos(url_metodo);
-                    obtenerAccesorios(url_metodo_accesorio);
-                    showNotify("Ingreso exitoso", 'Se ha ingresado el accesorio', "success");
-
+                    console.log("Inserto");
+                    var isValid = data.OperacionExitosa;
+                    if (isValid) {
+                        datosCQRAccesorio(data.ObjetoInventarios);
+                        var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
+                        $("#imgCQR").html(str);
+                        $("#btnGenPDF").click(function () {
+                            $('#GenPDFForm').attr('target', "_blank");
+                            $('#GenPDFForm').attr('action', "Inventarios/Activos/ObtenerPDFQRSimple").submit();
+                        });
+                        obtenerActivos(url_metodo);
+                        obtenerAccesorios(url_metodo_accesorio);
+                        
+                    }                                 
                 }, error: function (e) {
                     console.log(e);
                     console.log("fallo");
@@ -433,8 +442,15 @@ function ingresarAccesorios(url) {
             $(".modal-body textarea").val("");
         }
     });
-    
-       
 
+}
 
+function datosCQRAccesorio(data) {
+
+    idCQRAccesorio = data.IdCQR;
+    nombreCQRAccesorio = data.NombreAccesorio;
+    $('#idCQRAccesorio').html(idCQRAccesorio).show();
+    console.log(nombreActivoRegis);
+    $('#nombreAccesorioIngresado').html(nombreActivoRegis).show();
+    $('cqrAccesorio').html('').show();  
 }
