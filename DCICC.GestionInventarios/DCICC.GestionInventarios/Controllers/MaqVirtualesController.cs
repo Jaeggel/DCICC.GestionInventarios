@@ -191,6 +191,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual,false);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
+                    mensajesMaqVirtuales = "La máquina virtual ha sido modificada correctamente.";
                     Logs.Info(mensajesMaqVirtuales);
                 }
                 else
@@ -220,6 +221,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual, true);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
+                    mensajesMaqVirtuales = "La máquina virtual ha sido modificada correctamente.";
                     Logs.Info(mensajesMaqVirtuales);
                 }
                 else

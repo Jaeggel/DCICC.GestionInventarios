@@ -104,6 +104,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo,false);
                 if (msjSistOperativos.OperacionExitosa)
                 {
+                    mensajesSistOperativos = "El sistema operativo ha sido modificado correctamente";
                     Logs.Info(mensajesSistOperativos);
                 }
                 else
@@ -133,6 +134,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo, true);
                 if (msjSistOperativos.OperacionExitosa)
                 {
+                    mensajesSistOperativos = "El sistema operativo ha sido modificado correctamente";
                     Logs.Info(mensajesSistOperativos);
                 }
                 else

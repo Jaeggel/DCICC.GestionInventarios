@@ -104,6 +104,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo,false);
                 if (msjCategorias.OperacionExitosa)
                 {
+                    mensajesCategorias = "La categoría ha sido modificada correctamente";
                     Logs.Info(mensajesCategorias);
                 }
                 else
@@ -133,6 +134,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo, true);
                 if (msjCategorias.OperacionExitosa)
                 {
+                    mensajesCategorias = "La categoría ha sido modificada correctamente";
                     Logs.Info(mensajesCategorias);
                 }
                 else

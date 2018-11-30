@@ -55,6 +55,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTickets = objTicketsAccDatos.ActualizarTicket(infoTicket);
                 if (msjTickets.OperacionExitosa)
                 {
+                    mensajesTickets = "El ticket ha sido modificado correctamente.";
                     Logs.Info(mensajesTickets);
                 }
                 else

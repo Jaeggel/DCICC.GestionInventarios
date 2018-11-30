@@ -104,6 +104,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo,false);
                 if (msjTipoActivo.OperacionExitosa)
                 {
+                    mensajesTipoActivo = "El tipo de activo ha sido modificado correctamente";
                     Logs.Info(mensajesTipoActivo);
                 }
                 else
@@ -133,6 +134,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo, true);
                 if (msjTipoActivo.OperacionExitosa)
                 {
+                    mensajesTipoActivo = "El tipo de activo ha sido modificado correctamente";
                     Logs.Info(mensajesTipoActivo);
                 }
                 else

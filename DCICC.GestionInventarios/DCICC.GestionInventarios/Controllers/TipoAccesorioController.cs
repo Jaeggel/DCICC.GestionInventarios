@@ -104,6 +104,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,false);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
+                    mensajesTipoAccesorio = "El tipo de accesorio ha sido modificado correctamente.";
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else
@@ -133,6 +134,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,true);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
+                    mensajesTipoAccesorio = "El tipo de accesorio ha sido modificado correctamente.";
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else

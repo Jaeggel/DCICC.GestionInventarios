@@ -11,6 +11,8 @@ namespace DCICC.GestionInventarios.Models
 
         public int IdDetActivo { get; set; }
 
+        public int IdAccesorio { get; set; }
+
         public DateTime FechaModifHistActivos { get; set; }
     }
 }

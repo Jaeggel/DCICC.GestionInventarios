@@ -34,7 +34,7 @@ namespace DCICC.GestionInventarios.Mail
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = new System.Net.NetworkCredential(infoCorreo.EmailEmisor, infoCorreo.ClaveEmailEmisor);
                 SmtpServer.Send(mail);
-                Logs.Info("El correo electrónico ha sido enviado correctamente.");
+                Logs.Info("El correo electrónico de recuperación de contraseña ha sido enviado correctamente.");
             }
             catch (Exception e)
             {

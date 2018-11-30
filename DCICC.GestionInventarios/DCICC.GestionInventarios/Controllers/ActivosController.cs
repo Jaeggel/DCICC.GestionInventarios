@@ -277,6 +277,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            MensajesHistoricoActivos msjHistActivos = new MensajesHistoricoActivos();
             try
             {
                 AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
@@ -288,6 +289,24 @@ namespace DCICC.GestionInventarios.Controllers
                 else
                 {
                     mensajesAccesorios = "No se ha podido actualizar el accesorio: " + msjAccesorios.MensajeError;
+                }
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                if (infoAccesorios.EstadoAccesorio == "DE BAJA")
+                {
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdDetActivo = infoAccesorios.IdAccesorio,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
+                    if (msjHistActivos.OperacionExitosa)
+                    {
+                        Logs.Info("Historico de activo registrado exitosamente.");
+                    }
+                    else
+                    {
+                        Logs.Error("Historico de activo registrado exitosamente.");
+                    }
                 }
             }
             catch (Exception e)
@@ -306,6 +325,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            MensajesHistoricoActivos msjHistActivos = new MensajesHistoricoActivos();
             try
             {
                 AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
@@ -318,12 +338,30 @@ namespace DCICC.GestionInventarios.Controllers
                 {
                     mensajesAccesorios = "No se ha podido actualizar el accesorio: " + msjAccesorios.MensajeError;
                 }
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                if (infoAccesorios.EstadoAccesorio == "DE BAJA")
+                {
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdDetActivo = infoAccesorios.IdAccesorio,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
+                    if (msjHistActivos.OperacionExitosa)
+                    {
+                        Logs.Info("Historico de activo registrado exitosamente.");
+                    }
+                    else
+                    {
+                        Logs.Error("Historico de activo registrado exitosamente.");
+                    }
+                }
             }
             catch (Exception e)
             {
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
-            return RedirectToAction("ConsultaActivos", "Activos");//OJO
+            return RedirectToAction("ConsultaActivos", "Activos");
         }
         #endregion
         #region Otros

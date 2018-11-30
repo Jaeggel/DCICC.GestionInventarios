@@ -104,6 +104,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca,false);
                 if (msjMarcas.OperacionExitosa)
                 {
+                    mensajesMarcas = "La marca ha sido modificada correctamente.";
                     Logs.Info(mensajesMarcas);
                 }
                 else
@@ -133,6 +134,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca, true);
                 if (msjMarcas.OperacionExitosa)
                 {
+                    mensajesMarcas = "La marca ha sido modificada correctamente.";
                     Logs.Info(mensajesMarcas);
                 }
                 else

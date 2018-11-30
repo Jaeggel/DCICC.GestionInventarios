@@ -104,6 +104,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio,false);
                 if (msjLaboratorios.OperacionExitosa)
                 {
+                    mensajesLaboratorios = "El laboratorio ha sido modificado correctamente.";
                     Logs.Info(mensajesLaboratorios);
                 }
                 else
@@ -134,6 +135,7 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio, true);
                 if (msjLaboratorios.OperacionExitosa)
                 {
+                    mensajesLaboratorios = "El laboratorio ha sido modificado correctamente.";
                     Logs.Info(mensajesLaboratorios);
                 }
                 else

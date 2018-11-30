@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DCICC.Entidades.EntidadesInventarios
+﻿namespace DCICC.Entidades.EntidadesInventarios
 {
     public class Laboratorios
     {

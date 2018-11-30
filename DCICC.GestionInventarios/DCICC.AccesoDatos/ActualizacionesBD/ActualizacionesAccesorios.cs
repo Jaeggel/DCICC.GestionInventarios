@@ -26,10 +26,9 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_accesorio SET id_tipoaccesorio=@ita, id_detalleact=@ida, nombre_accesorio=@na, serial_accesorio=@sa, modelo_accesorio=@ma, descripcion_accesorio=@da, estado_accesorio=@ea WHERE id_accesorio=@ia;", conn_BD))
+                using (var cmd = new NpgsqlCommand("UPDATE public.dcicc_accesorio SET id_tipoaccesorio=@ita, nombre_accesorio=@na, serial_accesorio=@sa, modelo_accesorio=@ma, descripcion_accesorio=@da, estado_accesorio=@ea WHERE id_accesorio=@ia;", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdTipoAccesorio;
-                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdDetalleActivo;
                     cmd.Parameters.Add("na", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.NombreAccesorio;
                     cmd.Parameters.Add("sa", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.SerialAccesorio) ? (object)infoAccesorios.SerialAccesorio : DBNull.Value;
                     cmd.Parameters.Add("ma", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.ModeloAccesorio) ? (object)infoAccesorios.ModeloAccesorio : DBNull.Value;
