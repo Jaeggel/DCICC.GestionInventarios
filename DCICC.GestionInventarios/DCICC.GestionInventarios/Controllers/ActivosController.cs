@@ -136,14 +136,12 @@ namespace DCICC.GestionInventarios.Controllers
                             SetNombreActivo(infoAccesorios.NombreAccesorio);
                             ObtenerImagenQR();
                             ObtenerPDFQRSimple();
-                            mensajesAccesorios = "El activo y el accesorio ha sido registrado exitosamente.";
-                            TempData["Mensaje"] = mensajesAccesorios;
+                            mensajesAccesorios = "El accesorio ha sido registrado exitosamente.";
                             Logs.Info(mensajesAccesorios);
                         }
                         else
                         {
                             mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
-                            TempData["MensajeError"] = mensajesAccesorios;
                         }
                     }
                 }
