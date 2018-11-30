@@ -483,15 +483,18 @@
                 type: 'post',
                 success: function (data) {
                     console.log("Inserto");
-                    isValid = true;
-                    datosActivoSeleccionado(data);
-                    var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
-                    $("#imgCQR").html(str);
-                    $("#btnGenPDF").click(function () {
-                        $('#GenPDFForm').attr('target', "_blank");
-                        $('#GenPDFForm').attr('action', "@Url.Action("ObtenerPDFQRSimple", "Activos")").submit();
-                    });
-                    cargarCQRActivo();
+                    isValid = data.OperacionExitosa;
+                    if (isValid) {
+                        datosActivoSeleccionado(data.ObjetoInventarios);
+                        var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
+                        $("#imgCQR").html(str);
+                        $("#btnGenPDF").click(function () {
+                            $('#GenPDFForm').attr('target', "_blank");
+                            $('#GenPDFForm').attr('action', "@Url.Action("ObtenerPDFQRSimple", "Activos")").submit();
+                        });
+                        cargarCQRActivo();
+                    }
+
 
 
                 }, error: function (e) {
