@@ -514,7 +514,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group hide" id="cqrAccesorio">
+                                    <div class="form-group" id="cqrAccesorio" >
                                         
                                             <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                                                 @using (Html.BeginForm("ObtenerPDFQRSimple", "Activos", FormMethod.Post, new { id = "GenPDFForm" }))
@@ -531,11 +531,11 @@
                                             </div>
                                         
                                     </div>
-
+                                    <br />
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="ingresarAccesorios('@Url.Action("NuevoAccesorio", "Activos")');">Modificar</button>
-                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                            <button type="submit" class="btn btn-success" onclick="ingresarAccesorios('@Url.Action("NuevoAccesorio", "Activos")','@Url.Action("ObtenerImagenQR", "Activos")','@Url.Action("ObtenerPDFQRSimple", "Activos")');">Ingresar</button>
+                                            <button type="button" class="btn btn-primary" onclick="limpiarModal();">Salir</button>
                                         </div>
                                     </div>
 
@@ -588,6 +588,35 @@
         cargarEstadosAccesoriosCmb();
         cargarEstadosAccesoriosMod();
         cargarEstadosAccesoriosIng();
+        $('#cqrAccesorio').hide();
+
+        $('#IngresoNuevoAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body input").val("");
+            $(".modal-body textarea").val("");
+        });
+
+        $('#ModificarEstadoActivo').on('hidden.bs.modal', function () {
+            $(".modal-body select").val(""); 
+        });
+
+        $('#ModificarAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body input").val("");
+            $(".modal-body textarea").val("");
+        });
+
+        $('#ModificarEstadoAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+        });
+
+
+        $('#ModificarActivo').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body input").val("");
+            $(".modal-body textarea").val("");
+        });   
+        
 
 
     });

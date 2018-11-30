@@ -195,9 +195,6 @@ function actualizarAccesorio(url) {
                 type: 'post',
                 success: function (data) {
                     $('#ModificarAccesorio').modal('hide');
-                    $(".modal-body select").val("");
-                    $(".modal-body input").val("");
-                    $(".modal-body textarea").val("");
                     showNotify("Actualización exitosa", 'Se ha modificado el accesorio', "success");
                     obtenerAccesorios(url_metodo_accesorio);
 
@@ -209,9 +206,6 @@ function actualizarAccesorio(url) {
 
         } else {
             $('#ModificarAccesorio').modal('hide');
-            $(".modal-body select").val("");
-            $(".modal-body input").val("");
-            $(".modal-body textarea").val("");
         }
     });
 
@@ -245,7 +239,7 @@ function actualizarEstadoAccesorios(urlAccesorio) {
                 type: 'post',
                 success: function () {
                     $('#ModificarEstadoAccesorio').modal('hide');
-                    $(".modal-body select").val("");
+                    
                     obtenerAccesorios(url_metodo_accesorio);
                 }, error: function () {
 
@@ -253,7 +247,7 @@ function actualizarEstadoAccesorios(urlAccesorio) {
             });
         } else {
             $('#ModificarEstadoAccesorio').modal('hide');
-            $(".modal-body select").val("");
+            
         }
     });
 

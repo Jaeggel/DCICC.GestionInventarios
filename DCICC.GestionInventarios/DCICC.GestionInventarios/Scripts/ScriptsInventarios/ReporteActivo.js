@@ -351,8 +351,7 @@ function actualizarEstadoActivo(url) {
                 url: url,
                 type: 'post',
                 success: function () {
-                    $('#ModificarEstadoActivo').modal('hide');
-                    $(".modal-body select").val("");
+                    $('#ModificarEstadoActivo').modal('hide');                   
                     obtenerActivos(url_metodo);
                 }, error: function () {
 
@@ -360,7 +359,6 @@ function actualizarEstadoActivo(url) {
             });
         } else {
             $('#ModificarEstadoActivo').modal('hide');
-            $(".modal-body select").val("");
         }
     });
 
@@ -377,7 +375,7 @@ function formIngresoAccesorio(idAct, nombreAct) {
    
 }
 
-function ingresarAccesorios(url) {
+function ingresarAccesorios(url,urlImagen,urlPdf) {
 
     console.log(url);
     //Obtener Valor del tipo de activo
@@ -410,24 +408,23 @@ function ingresarAccesorios(url) {
                 data: {
                     "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idAccesorioIng, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
                 },
-                async: false,
                 url: url,
                 dataType: 'json',
                 type: 'post',
-                success: function () {
+                success: function (data) {
                     console.log("Inserto");
                     var isValid = data.OperacionExitosa;
+                    
                     if (isValid) {
                         datosCQRAccesorio(data.ObjetoInventarios);
-                        var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
+                        var str = '<img src="' + urlImagen +'"/>';
                         $("#imgCQR").html(str);
                         $("#btnGenPDF").click(function () {
                             $('#GenPDFForm').attr('target', "_blank");
-                            $('#GenPDFForm').attr('action', "Inventarios/Activos/ObtenerPDFQRSimple").submit();
+                            $('#GenPDFForm').attr('action', urlPdf).submit();
                         });
                         obtenerActivos(url_metodo);
-                        obtenerAccesorios(url_metodo_accesorio);
-                        
+                        obtenerAccesorios(url_metodo_accesorio);        
                     }                                 
                 }, error: function (e) {
                     console.log(e);
@@ -437,20 +434,25 @@ function ingresarAccesorios(url) {
             });
         } else {
             $('#IngresoNuevoAccesorio').modal('hide');
-            $(".modal-body select").val("");
-            $(".modal-body input").val("");
-            $(".modal-body textarea").val("");
+
         }
     });
 
 }
 
 function datosCQRAccesorio(data) {
-
     idCQRAccesorio = data.IdCQR;
     nombreCQRAccesorio = data.NombreAccesorio;
     $('#idCQRAccesorio').html(idCQRAccesorio).show();
-    console.log(nombreActivoRegis);
-    $('#nombreAccesorioIngresado').html(nombreActivoRegis).show();
-    $('cqrAccesorio').html('').show();  
+    console.log(nombreCQRAccesorio);
+    $('#nombreAccesorioIngresado').html(nombreCQRAccesorio ).show();
+    $('#cqrAccesorio').show();  
+}
+
+function limpiarModal() {
+    $('#IngresoNuevoAccesorio').modal('hide');
+    $(".modal-body select").val("");
+    $(".modal-body input").val("");
+    $(".modal-body textarea").val("");
+    $('#cqrAccesorio').hide();
 }
