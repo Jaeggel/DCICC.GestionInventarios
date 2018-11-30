@@ -295,7 +295,7 @@ namespace DCICC.GestionInventarios.Controllers
                 {
                     HistoricoActivos infoHistActivo = new HistoricoActivos
                     {
-                        IdDetActivo = infoAccesorios.IdAccesorio,
+                        IdAccesorio = infoAccesorios.IdAccesorio,
                         FechaModifHistActivos = DateTime.Now
                     };
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
@@ -343,7 +343,7 @@ namespace DCICC.GestionInventarios.Controllers
                 {
                     HistoricoActivos infoHistActivo = new HistoricoActivos
                     {
-                        IdDetActivo = infoAccesorios.IdAccesorio,
+                        IdAccesorio = infoAccesorios.IdAccesorio,
                         FechaModifHistActivos = DateTime.Now
                     };
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
