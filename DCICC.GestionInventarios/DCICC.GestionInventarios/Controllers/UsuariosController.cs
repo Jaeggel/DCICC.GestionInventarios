@@ -227,8 +227,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
-            //return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
-            return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
+            return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
+            //return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region Eliminaciones (POST)
