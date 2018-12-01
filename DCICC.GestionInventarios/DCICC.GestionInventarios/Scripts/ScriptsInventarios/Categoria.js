@@ -104,15 +104,18 @@ function modificarCategoria(url_modificar) {
                 data: { "IdCategoriaActivo": idCategoriaModificar, "NombreCategoriaActivo": nombreCategoria, "DescripcionCategoriaActivo": descripcionCategoria, "HabilitadoCategoriaActivo": habilitadoCategoria },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    console.log("actualizacion exitosa");
-                    $('#ModificarCategoria').modal('hide');
-                    showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
-                    obtenerCategorias(url_metodo);
-                }, error: function (e) {
-                    console.log(e);
-                    $('#ModificarCategoria').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        console.log("actualizacion exitosa");
+                        $('#ModificarCategoria').modal('hide');
+                        showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
+                        obtenerCategorias(url_metodo);
+                    } else {
+                        $('#ModificarCategoria').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo: '+data.MensajeError, "error");
+                    }
+                    
                 }
             });
         } else {
@@ -164,11 +167,17 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
                 data: { "IdCategoriaActivo": idCat, "HabilitadoCategoriaActivo": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
-                success: function () {
-                    console.log("actualizacion exitosa");             
-                    obtenerCategorias(url_metodo);
-                }, error: function (e) {
-                    console.log(e);
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+
+                        showNotify("Actualización exitosa", 'El Estado de la Categoria de Activo se ha modificado correctamente', "success");
+                        obtenerCategorias(url_metodo);
+                    } else {
+                       
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la Categoría del Activo: ' + data.MensajeError, "error");
+                    }            
+                    
                 }
             });
         } else {

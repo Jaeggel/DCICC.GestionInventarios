@@ -306,14 +306,17 @@ function actualizarActivo(url) {
                 },
                 url: url,
                 type: 'post',
-                success: function () {
-                    $('#ModificarActivo').modal('hide');
-                    showNotify("Actualización exitosa", 'El usuario se ha modificado correctamente', "success");
-                    obtenerActivos(url_metodo);  
-
-                }, error: function () {
-                    $('#ModificarActivo').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar el usuario', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarActivo').modal('hide');
+                        showNotify("Actualización exitosa", 'El Activo se a modificado correctamente', "success");
+                        obtenerActivos(url_metodo);  
+                    } else {
+                        $('#ModificarActivo').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Activo' + data.MensajeError, "error");
+                    }
+                  
                 }
             });
 
@@ -350,9 +353,16 @@ function actualizarEstadoActivo(url) {
                 },
                 url: url,
                 type: 'post',
-                success: function () {
-                    $('#ModificarEstadoActivo').modal('hide');                   
-                    obtenerActivos(url_metodo);
+                success: function (data) {
+                    if (data.OperacionExitosa) {
+                        $('#ModificarEstadoActivo').modal('hide');
+                        showNotify("Actualización exitosa", 'El Estado del Activo se a modificado correctamente', "success");
+                        obtenerActivos(url_metodo);
+                    } else {
+                        $('#ModificarEstadoActivo').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Activo' + data.MensajeError, "error");
+                    }
+                    
                 }, error: function () {
 
                 }
@@ -417,7 +427,7 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                     
                     if (isValid) {
                         datosCQRAccesorio(data.ObjetoInventarios);
-                        var str = '<img src="' + urlImagen +'"/>';
+                        var str = '<img src="' + urlImagen + '"/>';
                         $("#imgCQR").html(str);
                         $("#btnGenPDF").click(function () {
                             $('#GenPDFForm').attr('target', "_blank");
@@ -425,8 +435,10 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                         });
                         obtenerActivos(url_metodo);
                         obtenerAccesorios(url_metodo_accesorio);
-                        showNotify("Actualización exitosa", 'El accesorio se ha ingresado correctamente', "success");
-                    }                                 
+                        showNotify("Registro exitoso", 'El accesorio se ha ingresado correctamente', "success");
+                    } else {
+                        showNotify("Error al ingresar accesorio", "error");
+                    }                                
                 }, error: function (e) {
                     console.log(e);
                     console.log("fallo");

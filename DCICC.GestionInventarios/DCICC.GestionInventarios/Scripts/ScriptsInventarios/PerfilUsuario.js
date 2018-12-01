@@ -86,13 +86,17 @@ function guardarContraseña(urlModificar, urlSalir) {
                     data: { "IdUsuario": idUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": confirmarNuevoPasswd },
                     url: urlModificar,
                     type: 'post',
-                    success: function () {
-                        console.log("actualizacion exitosa");
-                        window.location.href = urlSalir;
-                        showNotify("Actualización exitosa", 'Se ha modificado el password de Usuario', "success");
-                    }, error: function (e) {
-                        console.log(e);
-
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            window.location.href = urlSalir;
+                            showNotify("Actualización exitosa", 'Se ha modificado el Password de Usuario', "success");
+                        } else {    
+                            $('#ModificarContraseña').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Password: ' + data.MensajeError, "error");
+                        }
+                        
+                        
                     }
                 });
             } else {
@@ -129,11 +133,15 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
                     data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
                     url: urlModificar,
                     type: 'post',
-                    success: function () {
-                        console.log("actualizacion exitosa");
-                        window.location.href = urlSalir;
-                    }, error: function () {
-                       
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            window.location.href = urlSalir;
+                            showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                        } else {
+                            $('#ModificarContraseña').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                        }
                     }
                 });
 
@@ -156,11 +164,15 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
                     data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
                     url: urlModificar,
                     type: 'post',
-                    success: function () {                       
-                        window.location.href = urlHome;
-                        showNotify("Actualización exitosa", 'Se ha modificado el perfil de Usuario', "success");
-                    }, error: function () {                       
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el usuario', "error");
+                    success: function (data) {   
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            window.location.href = urlHome;
+                            showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                        } else {
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                        }
+                        
                     }
                 });
 

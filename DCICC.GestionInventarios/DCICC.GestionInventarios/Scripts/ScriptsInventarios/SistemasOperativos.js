@@ -103,13 +103,17 @@ function modificarSO(url_modificar) {
                 data: { "IdSistOperativos": idSOMod, "NombreSistOperativos": nombreSO, "DescripcionSistOperativos": descripcionSo, "HabilitadoSistOperativos": habilitadoSo },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    $('#ModificarSo').modal('hide');
-                    showNotify("Actualización exitosa", 'El Sistema Operativo se ha modificado correctamente', "success");
-                    obtenerSO(url_metodo);
-                }, error: function () {
-                    $('#ModificarSo').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar la Marca el Sistema Operativo', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarSo').modal('hide');
+                        showNotify("Actualización exitosa", 'El Sistema Operativo se ha modificado correctamente', "success");
+                        obtenerSO(url_metodo);
+                    } else {
+                        $('#ModificarSo').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar la Marca el Sistema Operativo: ' + data.MensajeError, "error");
+                    }
+                    
                 }
             });
         } else {
@@ -160,9 +164,17 @@ function habilitarOdeshabilitar(idSistOpe, estadoSistOpe) {
                 data: { "IdSistOperativos": idSistOpe, "HabilitadoSistOperativos": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
-                success: function () {
-                    console.log("actualizacion exitosa");
-                    obtenerSO(url_metodo);
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                       
+                        showNotify("Actualización exitosa", 'El Estado del Sistema Operativo se ha modificado correctamente', "success");
+                        obtenerSO(url_metodo);
+                    } else {
+                      
+                        showNotify("Error en la Actualización", 'No se ha podido modificar El Estado del Sistema Operativo: ' + data.MensajeError, "error");
+                    }
+                 
                 }, error: function (e) {
                     console.log(e);
                 }

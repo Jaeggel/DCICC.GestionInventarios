@@ -107,13 +107,17 @@ function modificarMarca(url_modificar) {
                 data: { "IdMarca": idMarcaModificar, "NombreMarca": nombreMarca, "DescripcionMarca": descripcionMarca, "HabilitadoMarca": habilitadoMarca },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    $('#ModificarMarca').modal('hide');
-                    showNotify("Actualización exitosa", 'La Marca se ha modificado correctamente', "success");
-                    obtenerMarcas(url_metodo);
-                }, error: function () {
-                    $('#ModificarMarca').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar la Marca', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarMarca').modal('hide');
+                        showNotify("Actualización exitosa", 'La Marca se ha modificado correctamente', "success");
+                        obtenerMarcas(url_metodo);
+                    } else {
+                        $('#ModificarMarca').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar la Marca: ' + data.MensajeError, "error");
+                    }
+                    
                 }
             });
         } else {
@@ -165,10 +169,15 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
                 data: { "IdMarca": idMarc, "HabilitadoMarca": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
-                success: function () {
-                    obtenerMarcas(url_metodo);
-                }, error: function () {
-
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Actualización exitosa", 'El Estado de la Marca se ha modificado correctamente', "success");
+                        obtenerMarcas(url_metodo);
+                    } else {
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la Marca: ' + data.MensajeError, "error");
+                    }
+                    
                 }
             });
         } else {

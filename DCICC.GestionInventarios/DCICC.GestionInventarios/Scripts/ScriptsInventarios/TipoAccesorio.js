@@ -104,13 +104,17 @@ function modificarTipoAcc(url_modificar) {
                 data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "HabilitadoTipoAccesorio": habilitadoTipo },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    $('#ModificarTipoAcc').modal('hide');
-                    showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
-                    obtenerTipoAccesorio(url_metodo);
-                }, error: function () {
-                    $('#ModificarTipoAcc').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarTipoAcc').modal('hide');
+                        showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
+                        obtenerTipoAccesorio(url_metodo);
+                    } else {
+                        $('#ModificarTipoAcc').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio: ' + data.MensajeError, "error");
+                    }
+                   
                 }
             });
         } else {
@@ -161,10 +165,15 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
                 data: { "IdTipoAccesorio": idTipoAcc, "HabilitadoTipoAccesorio": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
-                success: function () {           
-                    obtenerTipoAccesorio(url_metodo);
-                }, error: function () {
-
+                success: function (data) {  
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
+                        obtenerTipoAccesorio(url_metodo);
+                    } else {
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio: ' + data.MensajeError, "error");
+                    }
+                   
                 }
             });
         } else {

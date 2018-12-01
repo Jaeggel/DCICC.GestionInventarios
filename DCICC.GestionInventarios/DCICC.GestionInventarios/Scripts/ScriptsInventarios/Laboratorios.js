@@ -109,13 +109,16 @@ function modificarLaboratorio(url_modificar) {
                 data: { "IdLaboratorio": idLaboratorio, "NombreLaboratorio": nombreLab, "UbicacionLaboratorio": ubicacionLab, "DescripcionLaboratorio": descripcionLab, "HabilitadoLaboratorio": habilitadoLab },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    $('#ModificarLaboratorios').modal('hide');
-                    showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
-                    obtenerLaboratorios(url_metodo);
-                }, error: function () {
-                    $('#ModificarLaboratorios').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarLaboratorios').modal('hide');
+                        showNotify("Actualización exitosa", 'El Laboratorio se ha modificado correctamente', "success");
+                        obtenerLaboratorios(url_metodo);
+                    } else {
+                        $('#ModificarLaboratorios').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Laboratorio: ' + data.MensajeError, "error");
+                    }                   
                 }
             });
         } else {
@@ -167,10 +170,15 @@ function habilitarOdeshabilitar(idLab, estadoLab) {
                 data: { "IdLaboratorio": idLab, "HabilitadoLaboratorio": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
-                success: function () {
-                    obtenerLaboratorios(url_metodo);
-                }, error: function () {
-
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Actualización exitosa", 'El Estado del Laboratorio se ha modificado correctamente', "success");
+                        obtenerLaboratorios(url_metodo);
+                    } else {                        
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Laboratorio: ' + data.MensajeError, "error");
+                    }
+                   
                 }
             });
         } else {

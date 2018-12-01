@@ -194,13 +194,15 @@ function actualizarAccesorio(url) {
                 dataType: 'json',
                 type: 'post',
                 success: function (data) {
-                    $('#ModificarAccesorio').modal('hide');
-                    showNotify("Actualización exitosa", 'Se ha modificado el accesorio', "success");
-                    obtenerAccesorios(url_metodo_accesorio);
-
-                }, error: function () {
-                    $('#ModificarAccesorio').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar el usuario', "error");
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarAccesorio').modal('hide');
+                        showNotify("Actualización exitosa", 'Se ha modificado el Accesorio', "success");
+                        obtenerAccesorios(url_metodo_accesorio);
+                    } else {
+                        $('#ModificarAccesorio').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Accesorio: ' + data.MensajeError, "error");
+                    }                   
                 }
             });
 
@@ -237,11 +239,16 @@ function actualizarEstadoAccesorios(urlAccesorio) {
                 },
                 url: urlAccesorio,
                 type: 'post',
-                success: function () {
-                    $('#ModificarEstadoAccesorio').modal('hide');
-                    
-                    obtenerAccesorios(url_metodo_accesorio);
-                }, error: function () {
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarEstadoAccesorio').modal('hide');
+                        showNotify("Actualización exitosa", 'Se ha modificado el Estado del Accesorio', "success");
+                        obtenerAccesorios(url_metodo_accesorio);
+                    } else {
+                        $('#ModificarEstadoAccesorio').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Accesorio: ' + data.MensajeError, "error");
+                    }  
 
                 }
             });

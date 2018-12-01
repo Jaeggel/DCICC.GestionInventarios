@@ -169,13 +169,17 @@ function modificarTipoActivo(url_modificar) {
                 data: { "IdTipoActivo": idTipoActivo, "IdCategoriaActivo": idCategoria, "NombreTipoActivo": nombreTipo, "DescripcionTipoActivo": descripcionTipo, "VidaUtilTipoActivo": vidaUtil, "HabilitadoTipoActivo": habilitadoTipo },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    $('#ModificarTipoActivo').modal('hide');
-                    showNotify("Actualización exitosa", 'El Tipo de Activo se ha modificado correctamente', "success");
-                    obtenerTipoActivo(url_metodo);
-                }, error: function () {
-                    $('#ModificarTipoActivo').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Activo', "error");
+                success: function (data) {
+                    if (data.OperacionExitosa) {
+                        $('#ModificarTipoActivo').modal('hide');
+                        showNotify("Actualización exitosa", 'El Tipo de Activo se ha modificado correctamente', "success");
+                        obtenerTipoActivo(url_metodo);
+                    } else {
+                        $('#ModificarTipoActivo').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Activo: ' + data.MensajeError, "error");
+                        
+                    }   
+                    
                 }
             });
 
@@ -227,11 +231,14 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
                 data: { "IdTipoActivo": idTipoAct, "HabilitadoTipoActivo": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
-                success: function () {
-                    console.log("actualizacion exitosa");
-                    obtenerTipoActivo(url_metodo);
-                }, error: function (e) {
-                    console.log(e);
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Actualización exitosa", 'El Estado del Tipo de Activo se ha modificado correctamente', "success");
+                        obtenerTipoActivo(url_metodo);
+                    } else {
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Tipo Activo: ' + data.MensajeError, "error");
+                    }   
                 }
             });
         } else {

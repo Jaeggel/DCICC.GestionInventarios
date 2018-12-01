@@ -4,6 +4,7 @@ var datosUsuarios;
 var cmbRoles;
 var idUsuarioModificar;
 var nick;
+var urlEstado;
 
 //Método ajax para obtener los datos de los usuarios
 function obtenerUsuarios(url) {
@@ -61,12 +62,16 @@ function cargarUsuariosTabla() {
         } else {
             str += '</td><td> Deshabilitado';
         }
-        str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarUsuario" onclick = "formUpdateUsuario(' + datosUsuarios[i].IdUsuario + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
-            '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type = "button" class="btn btn-danger text-center" > <strong><i class="fa fa-times-circle"></i></strong></button> ' +
-            '</div></div></td></tr>';
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarUsuario" onclick = "formUpdateUsuario(' + datosUsuarios[i].IdUsuario + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+                '</div></div>' +
+                '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+            if (datosUsuarios[i].HabilitadoUsuario) {
+                str += '<button type = "button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosUsuarios[i].IdUsuario + ',' + datosUsuarios[i].HabilitadoUsuario + ');"> <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+            } else {
+                str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosUsuarios[i].IdUsuario + ',' + datosUsuarios[i].HabilitadoUsuario + ');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
+            }
+            str += '</div></div></td></tr>';
         }
     };
     str += '</tbody></table>';
@@ -144,13 +149,17 @@ function modificarUsuario(url_modificar) {
                 data: { "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    $('#ModificarUsuario').modal('hide');
-                    showNotify("Actualización exitosa", 'El usuario se ha modificado correctamente', "success");
-                    obtenerUsuarios(url_metodo);
-                }, error: function () {
-                    $('#ModificarUsuario').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar el usuario', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarUsuario').modal('hide');
+                        showNotify("Actualización exitosa", 'El usuario se ha modificado correctamente', "success");
+                        obtenerUsuarios(url_metodo);
+                    } else {
+                        $('#ModificarUsuario').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el usuario: ' + data.MensajeError, "error");
+                    }
+                    
                 }
             });
 
@@ -196,4 +205,49 @@ function comprobarNick(nick) {
     } else {
         document.getElementById("NickUsuario").setCustomValidity("");
     }
+}
+
+//Función para obtener la url de modificación
+function urlEstados(url) {
+    urlEstado = url;
+}
+
+//Función para habilitar o deshabilitar la categoria
+function habilitarOdeshabilitar(idUsuario, estadoUsuario) {
+    var nuevoEstado = true;
+    if (estadoUsuario) {
+        nuevoEstado = false;
+    } else {
+        nuevoEstado = true;
+    }
+    console.log(nuevoEstado);
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar de Estado del Usuario?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: { "IdUsuario": idUsuario, "HabilitadoUsuario": nuevoEstado },
+                url: urlEstado,
+                type: 'post',
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Actualización exitosa", 'El estado del Usuario se ha modificado correctamente', "success");
+                        obtenerUsuarios(url_metodo);
+                    } else {
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el estado del Usuario: ' + data.MensajeError, "error");
+                    }
+                }
+            });
+        } else {
+
+        }
+    });
 }

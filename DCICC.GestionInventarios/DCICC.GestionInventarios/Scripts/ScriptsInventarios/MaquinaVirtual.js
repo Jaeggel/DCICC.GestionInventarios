@@ -183,13 +183,17 @@ function modificarMaquinaV(url_modificar) {
                 data: { "IdMaqVirtuales": idMaquinaV, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV, "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP, "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion, "HabilitadoMaqVirtuales": habilitadoMV },
                 url: url_modificar,
                 type: 'post',
-                success: function () {
-                    $('#ModificarMaquinaV').modal('hide');
-                    showNotify("Actualización exitosa", 'La Máquina Virtual se ha modificado correctamente', "success");
-                    obtenerMaquinaV(url_metodo);
-                }, error: function () {
-                    $('#ModificarMaquinaV').modal('hide');
-                    showNotify("Error en la Actualización", 'No se ha podido modificar la Máquina Virtual', "error");
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        $('#ModificarMaquinaV').modal('hide');
+                        showNotify("Actualización exitosa", 'La Máquina Virtual se ha modificado correctamente', "success");
+                        obtenerMaquinaV(url_metodo);
+                    } else {
+                        $('#ModificarMaquinaV').modal('hide');
+                        showNotify("Error en la Actualización", 'No se ha podido modificar la Máquina Virtual: ' + data.MensajeError, "error");
+                    }
+                   
                 }
             });
 
@@ -241,9 +245,14 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
                 data: { "IdMaqVirtuales": idMaqVir, "HabilitadoMaqVirtuales": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
-                success: function () {
-                    console.log("actualizacion exitosa");
-                    obtenerMaquinaV(url_metodo);
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Actualización exitosa", 'El estado de la Máquina Virtual se ha modificado correctamente', "success");
+                        obtenerMaquinaV(url_metodo);
+                    } else {
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el estado de la Máquina Virtual: ' + data.MensajeError, "error");
+                    }                  
                 }, error: function (e) {
                     console.log(e);
                 }
