@@ -3,6 +3,7 @@ var url_metodo;
 var datosTipoAccesorio;
 var idTipoAccesorio;
 var urlEstado;
+var nombresTipo = [];
 
 //Método ajax para obtener los datos de Tipo Accesorio
 function obtenerTipoAccesorio(url) {
@@ -13,13 +14,13 @@ function obtenerTipoAccesorio(url) {
         type: 'post',
         success: function (data) {
             datosTipoAccesorio = data;
-            console.log("siiiiii: ");
             cargarTipoAccTabla();
             $('#dataTableTipoAcc').DataTable({
                 "language": {
                     "url": url_idioma
                 }
             });
+            cargarNombresTipoAcc();
         }
     });
 }
@@ -61,7 +62,6 @@ function cargarTipoAccTabla() {
 
 //Función para setear los valores en los inputs
 function formUpdateTipoAcc(idTipo) {
-    console.log(idTipo);
     idTipoAccesorio = idTipo;
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
 
@@ -88,57 +88,40 @@ function modificarTipoAcc(url_modificar) {
     var nombreTipo=document.getElementById("NombreTipoAccesorio").value;
     var descripcionTipo=document.getElementById("DescripcionTipoAccesorio").value;
     var habilitadoTipo = $('#HabilitadoTipoAccesorio').prop('checked');
-    
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "HabilitadoTipoAccesorio": habilitadoTipo },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarTipoAcc').modal('hide');
-                        showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
-                        obtenerTipoAccesorio(url_metodo);
-                    } else {
-                        $('#ModificarTipoAcc').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio: ' + data.MensajeError, "error");
+
+    if (validarInputNombre() ) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: { "IdTipoAccesorio": idTipoAccesorio, "NombreTipoAccesorio": nombreTipo, "DescripcionTipoAccesorio": descripcionTipo, "HabilitadoTipoAccesorio": habilitadoTipo },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        if (data.OperacionExitosa) {
+                            $('#ModificarTipoAcc').modal('hide');
+                            showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
+                            obtenerTipoAccesorio(url_metodo);
+                        } else {
+                            $('#ModificarTipoAcc').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio: ' + data.MensajeError, "error");
+                        }
+
                     }
-                   
-                }
-            });
-        } else {
-            $('#ModificarTipoAcc').modal('hide');
-        }
-    });
-}
-
-//Función para evitar nombres de Tipo Accesorio repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosTipoAccesorio.length; i++) {
-        if ((datosTipoAccesorio[i].NombreTipoAccesorio).toLowerCase() == nombre) {
-            comprobar = true;
-        }
-    }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreTipoAccesorio").setCustomValidity("El nombre del tipo accesorio: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreTipoAccesorio").setCustomValidity("");
-    }
+                });
+            } else {
+                $('#ModificarTipoAcc').modal('hide');
+            }
+        });
+    }  
 }
 
 //Función para habilitar o deshabilitar la categoria
@@ -166,7 +149,6 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
                 url: urlEstado,
                 type: 'post',
                 success: function (data) {  
-                    console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
                         showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
                         obtenerTipoAccesorio(url_metodo);
@@ -180,4 +162,55 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
 
         }
     });
+}
+
+//Función para evitar nombres de Tipo Accesorio repetidos
+function comprobarNombre(nombre) {
+    nombre = nombre.toUpperCase();
+    var comprobar = false;
+    for (var i = 0; i < datosTipoAccesorio.length; i++) {
+        if ((datosTipoAccesorio[i].NombreTipoAccesorio).toUpperCase() == nombre) {
+            comprobar = true;
+        }
+    }
+
+    if (comprobar == true) {
+        document.getElementById("NombreTipoAccesorio").setCustomValidity("El nombre del tipo accesorio: " + nombre + " ya existe");
+    } else {
+        document.getElementById("NombreTipoAccesorio").setCustomValidity("");
+    }
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresTipoAcc() {
+    for (var i = 0; i < datosTipoAccesorio.length; i++) {
+        nombresTipo[i] = datosTipoAccesorio[i].NombreTipoAccesorio;  
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Tipo Accesorios
+$(function () {
+    $("#NombreTipoAccesorio").autocomplete({
+        source: nombresTipo
+    });
+});
+
+/////////////Funciones para validaciones de campos de texto
+
+function validarInputNombre() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarTipo");
+    var nomTipo = document.getElementById("NombreTipoAccesorio");
+    //Validación para el campo de texto nombre de Tipo Accesorio
+    if (nomTipo.value.length <= 0) {
+        esValido = false;
+        nomTipo.style.borderColor = "#900C3F";
+        $('#errorNombreTipo').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomTipo.style.borderColor = "#ccc";
+        $('#errorNombreTipo').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
 }

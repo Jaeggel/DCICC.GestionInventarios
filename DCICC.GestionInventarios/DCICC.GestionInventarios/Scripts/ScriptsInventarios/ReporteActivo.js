@@ -13,7 +13,7 @@ var idCQRAccesorio;
 var nombreCQRAccesorio;
 
 
-//Método ajax para obtener los datos de categorias
+//Método ajax para obtener los datos de los activos
 function obtenerActivos(url) {
     url_metodo = url;
     $.ajax({
@@ -76,7 +76,7 @@ function datosMarcas(url) {
 
 function cargarTipoActivoCmb() {
     
-    var str = '<select id="TipoActivo" class="form-control" name="TipoActivo" required>';
+    var str = '<select id="TipoActivo" class="form-control" name="TipoActivo"  required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoActivo.length; i++) {
             console.log(cmbTipoActivo[i].NombreTipoActivo);
@@ -87,7 +87,7 @@ function cargarTipoActivoCmb() {
 }
 
 function cargarLaboratoriosCmb() {
-    var str = '<select id="LaboratorioActivo" class="form-control" name="LaboratorioActivo" required>';
+    var str = '<select id="LaboratorioActivo" class="form-control" name="LaboratorioActivo"  required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbLaboratorio.length; i++) {
         str += '<option value="' + cmbLaboratorio[i].IdLaboratorio + '">' + cmbLaboratorio[i].NombreLaboratorio + '</option>';
@@ -97,7 +97,7 @@ function cargarLaboratoriosCmb() {
 }
 
 function cargarMarcasCmb() {
-    var str = '<select id="MarcaActivo" class="form-control" name="MarcaActivo" required>';
+    var str = '<select id="MarcaActivo" class="form-control" name="MarcaActivo"   required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbMarcas.length; i++) {
         str += '<option value="' + cmbMarcas[i].IdMarca + '">' + cmbMarcas[i].NombreMarca + '</option>';
@@ -107,7 +107,7 @@ function cargarMarcasCmb() {
 }
 
 function cargarEstadosCmb() {
-    var str = '<select id="EstadoActivo" class="form-control" name="EstadoActivo" required>';
+    var str = '<select id="EstadoActivo" class="form-control" name="EstadoActivo" onBlur=" validacionesCamposModificar();" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
@@ -285,45 +285,47 @@ function actualizarActivo(url) {
     //Obtener valor de VelocidadTransfActivo
     var velocidadTransf = document.getElementById("VelocidadTransfActivo").value;
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: {
-                    "IdActivo":idActivoMod,"IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
-                    "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
-                    "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
-                    "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
-                    "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
-                },
-                url: url,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarActivo').modal('hide');
-                        showNotify("Actualización exitosa", 'El Activo se a modificado correctamente', "success");
-                        obtenerActivos(url_metodo);  
-                    } else {
-                        $('#ModificarActivo').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Activo' + data.MensajeError, "error");
-                    }
-                  
-                }
-            });
+    if (validacionesCamposModificar()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: {
+                        "IdActivo": idActivoMod, "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
+                        "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
+                        "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
+                        "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
+                        "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
+                    },
+                    url: url,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarActivo').modal('hide');
+                            showNotify("Actualización exitosa", 'El Activo se a modificado correctamente', "success");
+                            obtenerActivos(url_metodo);
+                        } else {
+                            $('#ModificarActivo').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Activo' + data.MensajeError, "error");
+                        }
 
-        } else {
-            $('#ModificarActivo').modal('hide');
-        }
-    });
+                    }
+                });
+
+            } else {
+                $('#ModificarActivo').modal('hide');
+            }
+        });
+    }
  
 }
 
@@ -336,55 +338,173 @@ function actualizarEstadoActivo(url) {
     var cmbEstado = document.getElementById("EstadoActivoModificar");
     var idEstado = cmbEstado.options[cmbEstado.selectedIndex].value;
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el estado del Activo?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: {
-                    "IdActivo": idActivoMod, "EstadoActivo": idEstado
-                },
-                url: url,
-                type: 'post',
-                success: function (data) {
-                    if (data.OperacionExitosa) {
-                        $('#ModificarEstadoActivo').modal('hide');
-                        showNotify("Actualización exitosa", 'El Estado del Activo se a modificado correctamente', "success");
-                        obtenerActivos(url_metodo);
-                    } else {
-                        $('#ModificarEstadoActivo').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Activo' + data.MensajeError, "error");
+    if (validacionesEstadoActivo()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el estado del Activo?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: {
+                        "IdActivo": idActivoMod, "EstadoActivo": idEstado
+                    },
+                    url: url,
+                    type: 'post',
+                    success: function (data) {
+                        if (data.OperacionExitosa) {
+                            $('#ModificarEstadoActivo').modal('hide');
+                            showNotify("Actualización exitosa", 'El Estado del Activo se a modificado correctamente', "success");
+                            obtenerActivos(url_metodo);
+                        } else {
+                            $('#ModificarEstadoActivo').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Activo' + data.MensajeError, "error");
+                        }
+
+                    }, error: function () {
+
                     }
-                    
-                }, error: function () {
+                });
+            } else {
+                $('#ModificarEstadoActivo').modal('hide');
+            }
+        });
+    }
+}
 
-                }
-            });
-        } else {
-            $('#ModificarEstadoActivo').modal('hide');
-        }
-    });
 
+//Método de validación para validacion de información de activo
+function validacionesCamposModificar() {
+    var isValid = true;
+    var boton = document.getElementById("confirmarActivo");
+    var nombreActivo = document.getElementById("NombreActivo").value;
+    var modeloActivo = document.getElementById("ModeloActivo").value;
+    var serialActivo = document.getElementById("SerialActivo").value;
+
+    //Validación para combobox tipo de Activo
+    if (document.getElementById("TipoActivo").value == "") {
+        isValid = false;
+        document.getElementById("TipoActivo").style.borderColor = "#900C3F";
+        $('#errorTipo').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        setTimeout("$('#errorTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        document.getElementById("TipoActivo").style.borderColor = "#ccc";
+        $('#errorTipo').html('').hide();
+        boton.disabled = false;
+    }
+    //Validación para combobox laboratorio de Activo
+    if (document.getElementById("LaboratorioActivo").value == "") {
+        isValid = false;
+        document.getElementById("LaboratorioActivo").style.borderColor = "#900C3F";
+        $('#errorLaboratorio').html('Debe seleccionar una Opción de Laboratorio').show();
+        setTimeout("$('#errorLaboratorio').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        document.getElementById("LaboratorioActivo").style.borderColor = "#ccc";
+        $('#errorLaboratorio').html('').hide();
+        boton.disabled = false;
+    }
+    //Validación para combobox marca de Activo
+    if (document.getElementById("MarcaActivo").value == "") {
+        isValid = false;
+        document.getElementById("MarcaActivo").style.borderColor = "#900C3F";
+        $('#errorMarca').html('Debe seleccionar una Opción de Marca').show();
+        setTimeout("$('#errorMarca').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        document.getElementById("MarcaActivo").style.borderColor = "#ccc";
+        $('#errorMarca').html('').hide();
+        boton.disabled = false;
+    }
+    //Validación para combobox estado de Activo
+    if (document.getElementById("EstadoActivo").value == "") {
+        isValid = false;
+        document.getElementById("EstadoActivo").style.borderColor = "#900C3F";
+        $('#errorEstado').html('Debe seleccionar una Opción de Estado').show();
+        setTimeout("$('#errorEstado').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        document.getElementById("EstadoActivo").style.borderColor = "#ccc";
+        $('#errorEstado').html('').hide();
+        boton.disabled = false;
+    }
+    //Validación para el nombre de Activo
+    if (!nombreActivo && nombreActivo.length <= 0) {
+        isValid = false;
+        $("#NombreActivo").focus();
+        document.getElementById("NombreActivo").style.borderColor = "#900C3F";
+        $('#errorNombre').html('El campo Nombre del Activo es obligatorio').show();
+        setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        document.getElementById("NombreActivo").style.borderColor = "#ccc";
+        $('#errorNombre').html('').hide();
+        boton.disabled = false;
+    }
+    //Validación para el modelo del activo
+    if (!modeloActivo && modeloActivo.length <= 0) {
+        isValid = false;
+        $("#ModeloActivo").focus();
+        document.getElementById("ModeloActivo").style.borderColor = "#900C3F";
+        $('#errorModelo').html('El campo Modelo de Activo es obligatorio').show();
+        setTimeout("$('#errorModelo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        document.getElementById("ModeloActivo").style.borderColor = "#ccc";
+        $('#errorModelo').html('').hide();
+        boton.disabled = false;
+    }
+    //Validación para el serial del activo
+    if (!serialActivo && serialActivo.length <= 0) {
+        isValid = false;
+        $("#SerialActivo").focus();
+        document.getElementById("SerialActivo").style.borderColor = "#900C3F";
+        $('#errorSerial').html('El campo Serial de Activo es obligatorio').show();
+        setTimeout("$('#errorSerial').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        document.getElementById("SerialActivo").style.borderColor = "#ccc";
+        $('#errorSerial').html('').hide();
+        boton.disabled = false;
+    }
+
+    return isValid;
+}
+
+//Función para validar el estado de activo
+function validacionesEstadoActivo() {
+    var isValid = true;
+
+    //Validación para combobox tipo de Activo
+    if (document.getElementById("EstadoActivoModificar").value == "") {
+        isValid = false;
+        document.getElementById("EstadoActivoModificar").style.borderColor = "#900C3F";
+        $('#errorEstadoActivo').html('Debe seleccionar una Opción del Estado de Activo').show();
+        setTimeout("$('#errorEstadoActivo').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("EstadoActivoModificar").style.borderColor = "#ccc";
+        $('#errorEstadoActivo').html('').hide();
+    }
+    return isValid;
 }
 
 
 //////////////////////////////////////FUNCIONES PARA GUARDAR ACCESORIO/////////////////////////////////////
-
+//Función para obtener los valores del activo asociado con su accesorio
 function formIngresoAccesorio(idAct, nombreAct) {
     idAccesorioIng = idAct;
     nombreAccesorioIng = nombreAct;
-    console.log(nombreAccesorioIng);
     document.getElementById("NombreActivoIngreso").value = nombreAccesorioIng;
    
 }
 
+//Función para ingresar el nuevo accesorio
 function ingresarAccesorios(url,urlImagen,urlPdf) {
 
     console.log(url);
@@ -403,56 +523,60 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
     //Obtener valor de la descripcion del accesorio
     var descripcionAccesorio = document.getElementById("DescripcionAccesorioIngreso").value;
 
-    swal({
-        title: 'Confirmación de Ingreso',
-        text: "¿Está seguro de ingresar el Accesorio?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: {
-                    "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idAccesorioIng, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
-                },
-                url: url,
-                dataType: 'json',
-                type: 'post',
-                success: function (data) {
-                    console.log("Inserto");
-                    var isValid = data.OperacionExitosa;
-                    
-                    if (isValid) {
-                        datosCQRAccesorio(data.ObjetoInventarios);
-                        var str = '<img src="' + urlImagen + '"/>';
-                        $("#imgCQR").html(str);
-                        $("#btnGenPDF").click(function () {
-                            $('#GenPDFForm').attr('target', "_blank");
-                            $('#GenPDFForm').attr('action', urlPdf).submit();
-                        });
-                        obtenerActivos(url_metodo);
-                        obtenerAccesorios(url_metodo_accesorio);
-                        showNotify("Registro exitoso", 'El accesorio se ha ingresado correctamente', "success");
-                    } else {
-                        showNotify("Error al ingresar accesorio", "error");
-                    }                                
-                }, error: function (e) {
-                    console.log(e);
-                    console.log("fallo");
+    if (validacionesCamposAccesorio()) {
+        swal({
+            title: 'Confirmación de Ingreso',
+            text: "¿Está seguro de ingresar el Accesorio?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: {
+                        "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idAccesorioIng, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
+                    },
+                    url: url,
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (data) {
+                        console.log("Inserto");
+                        var isValid = data.OperacionExitosa;
 
-                }
-            });
-        } else {
-            $('#IngresoNuevoAccesorio').modal('hide');
+                        if (isValid) {
+                            document.getElementById("confirmarAccesorioNuevo").disabled = true;
+                            datosCQRAccesorio(data.ObjetoInventarios);
+                            var str = '<img src="' + urlImagen + '"/>';
+                            $("#imgCQR").html(str);
+                            $("#btnGenPDF").click(function () {
+                                $('#GenPDFForm').attr('target', "_blank");
+                                $('#GenPDFForm').attr('action', urlPdf).submit();
+                            });
+                            obtenerActivos(url_metodo);
+                            obtenerAccesorios(url_metodo_accesorio);
+                            showNotify("Registro exitoso", 'El accesorio se ha ingresado correctamente', "success");
+                        } else {
+                            showNotify("Error al ingresar accesorio", "error");
+                        }
+                    }, error: function (e) {
+                        console.log(e);
+                        console.log("fallo");
 
-        }
-    });
+                    }
+                });
+            } else {
+                $('#IngresoNuevoAccesorio').modal('hide');
+
+            }
+        });
+    } 
 
 }
 
+//Función para mostrar el CQR del Accesorio Ingresados
 function datosCQRAccesorio(data) {
     idCQRAccesorio = data.IdCQR;
     nombreCQRAccesorio = data.NombreAccesorio;
@@ -462,6 +586,7 @@ function datosCQRAccesorio(data) {
     $('#cqrAccesorio').show();  
 }
 
+//Función para limpiar los inputs y el  modal
 function limpiarModal() {
     $('#IngresoNuevoAccesorio').modal('hide');
     $(".modal-body select").val("");
@@ -469,3 +594,67 @@ function limpiarModal() {
     $(".modal-body textarea").val("");
     $('#cqrAccesorio').hide();
 }
+
+//Método de validación de información de accesorios
+function validacionesCamposAccesorio() {
+    var isValid = true;
+    var nombreActivo = document.getElementById("NombreAccesorioIngreso").value;
+    var modeloActivo = document.getElementById("ModeloAccesorioIngreso").value;
+    var serialActivo = document.getElementById("SerialAccesorioIngreso").value;
+
+    //Validación para combobox tipo de Activo
+    if (document.getElementById("AccesorioIngreso").value == "") {
+        isValid = false;
+        document.getElementById("AccesorioIngreso").style.borderColor = "#900C3F";
+        $('#errorTipoAccesorio').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        setTimeout("$('#errorTipoAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("AccesorioIngreso").style.borderColor = "#ccc";
+        $('#errorTipoAccesorio').html('').hide();
+    }
+
+    //Validación para combobox estado de Activo
+    if (document.getElementById("EstadoAccesorioIng").value == "") {
+        isValid = false;
+        document.getElementById("EstadoAccesorioIng").style.borderColor = "#900C3F";
+        $('#errorEstadoAccesorio').html('Debe seleccionar una Opción de Estado').show();
+        setTimeout("$('#errorEstadoAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("EstadoAccesorioIng").style.borderColor = "#ccc";
+        $('#errorEstadoAccesorio').html('').hide();
+    }
+
+    //Validación para el nombre de Activo
+    if (!nombreActivo && nombreActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("NombreAccesorioIngreso").style.borderColor = "#900C3F";
+        $('#errorNombreAccesorio').html('El campo Nombre del Activo es obligatorio').show();
+        setTimeout("$('#errorNombreAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
+        $('#errorNombreAccesorio').html('').hide();
+    }
+    //Validación para el modelo del activo
+    if (!modeloActivo && modeloActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#900C3F";
+        $('#errorModeloAccesorio').html('El campo Modelo de Activo es obligatorio').show();
+        setTimeout("$('#errorModeloAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#ccc";
+        $('#errorModeloAccesorio').html('').hide();
+    }
+    //Validación para el serial del activo
+    if (!serialActivo && serialActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("SerialAccesorioIngreso").style.borderColor = "#900C3F";
+        $('#errorSerialAccesorio').html('El campo Serial de Activo es obligatorio').show();
+        setTimeout("$('#errorSerialAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("SerialAccesorioIngreso").style.borderColor = "#ccc";
+        $('#errorSerialAccesorio').html('').hide();
+    }
+
+    return isValid;
+}
+

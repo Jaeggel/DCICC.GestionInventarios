@@ -69,12 +69,13 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo" maxlength="50" required>
+                                        <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarInputsVaciosModificacion();" minlength="3" maxlength="50" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNombreCategoria" style="color:brown;"></span>
                                     </div>
                                     @* Área de Texto para el ingreso de la descripción de una categoría de activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DescripcionCategoriaActivo" name="DescripcionCategoriaActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Categoría de Activo" maxlength="150"></textarea>
+                                        <textarea id="DescripcionCategoriaActivo" name="DescripcionCategoriaActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Categoría de Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Checkbox para habilitar o deshabilitar el uso de la nueva categoría de activo *@
@@ -88,7 +89,7 @@
                                     @* Sección de botones para modificar marca o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarCategoria('@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")');">Modificar</button>
+                                            <button id="confirmarCategoria" type="submit" class="btn btn-success" onclick="modificarCategoria('@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -128,6 +129,14 @@
         //Método para obtener la tabla de Categorías
         obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
         urlEstados('@Url.Action("ModificarEstadoCategoriaActivo", "CategoriaActivo")');
+        //Función para setear nullos los valores del modal
+        $('#ModificarCategoria').on('hidden.bs.modal', function () { 
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorNombreCategoria]").html('').hide();
+            document.getElementById("confirmarCategoria").disabled = false;
+        });
     });
 
 </script>

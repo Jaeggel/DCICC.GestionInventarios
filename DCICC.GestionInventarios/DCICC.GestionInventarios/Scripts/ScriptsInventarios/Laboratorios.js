@@ -3,6 +3,7 @@ var url_metodo;
 var datosLaboratorios;
 var idLaboratorio;
 var urlEstado;
+var nombresLabs = [];
 
 //Método ajax para obtener los datos de laboratorios
 function obtenerLaboratorios(url) {
@@ -20,10 +21,12 @@ function obtenerLaboratorios(url) {
                     "url": url_idioma
                 }
             });
+            cargarNombresLaboratorios();
         }
     });
 }
 
+//Metodo para obtener la url de cambio de estado
 function urlEstados(url) {
     urlEstado = url;
 }
@@ -65,7 +68,6 @@ function formUpdateLaboratorio(idLab) {
     console.log(idLab);
     idLaboratorio = idLab;
     for (var i = 0; i < datosLaboratorios.length; i++) {
-
         if (datosLaboratorios[i].IdLaboratorio == idLab) {
             //Métodos para setear los valores a modificar
             document.getElementById("NombreLaboratorio").value = datosLaboratorios[i].NombreLaboratorio;
@@ -93,56 +95,42 @@ function modificarLaboratorio(url_modificar) {
     var descripcionLab=document.getElementById("DescripcionLaboratorio").value;
     var habilitadoLab = $('#HabilitadoLaboratorio').prop('checked');
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            //Método ajax para modificar el laboratorio
-            $.ajax({
-                data: { "IdLaboratorio": idLaboratorio, "NombreLaboratorio": nombreLab, "UbicacionLaboratorio": ubicacionLab, "DescripcionLaboratorio": descripcionLab, "HabilitadoLaboratorio": habilitadoLab },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarLaboratorios').modal('hide');
-                        showNotify("Actualización exitosa", 'El Laboratorio se ha modificado correctamente', "success");
-                        obtenerLaboratorios(url_metodo);
-                    } else {
-                        $('#ModificarLaboratorios').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Laboratorio: ' + data.MensajeError, "error");
-                    }                   
-                }
-            });
-        } else {
-            $('#ModificarLaboratorios').modal('hide');
-        }
-    });
-}
-
-//Función para evitar nombres de laboratorios repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosLaboratorios.length; i++) {
-        if ((datosLaboratorios[i].NombreLaboratorio).toLowerCase() == nombre) {
-            comprobar = true;
-        }
+    if (validarInputNombre() && validarInputUbicacion()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                //Método ajax para modificar el laboratorio
+                $.ajax({
+                    data: { "IdLaboratorio": idLaboratorio, "NombreLaboratorio": nombreLab, "UbicacionLaboratorio": ubicacionLab, "DescripcionLaboratorio": descripcionLab, "HabilitadoLaboratorio": habilitadoLab },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarLaboratorios').modal('hide');
+                            showNotify("Actualización exitosa", 'El Laboratorio se ha modificado correctamente', "success");
+                            obtenerLaboratorios(url_metodo);
+                        } else {
+                            $('#ModificarLaboratorios').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Laboratorio: ' + data.MensajeError, "error");
+                        }
+                    }
+                });
+            } else {
+                $('#ModificarLaboratorios').modal('hide');
+            }
+        });
     }
 
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreLaboratorio").setCustomValidity("El nombre del laboratorio: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreLaboratorio").setCustomValidity("");
-    }
+    
 }
 
 //Función para habilitar o deshabilitar la categoria
@@ -185,4 +173,75 @@ function habilitarOdeshabilitar(idLab, estadoLab) {
 
         }
     });
+}
+
+//Función para evitar nombres de laboratorios repetidos
+function comprobarNombre(nombre) {
+    nombre = nombre.toUpperCase();
+    var comprobar = false;
+    for (var i = 0; i < datosLaboratorios.length; i++) {
+        if ((datosLaboratorios[i].NombreLaboratorio).toUpperCase() == nombre) {
+            comprobar = true;
+        }
+    }
+
+    console.log(comprobar);
+    if (comprobar == true) {
+        document.getElementById("NombreLaboratorio").setCustomValidity("El nombre del laboratorio: " + nombre + " ya existe");
+    } else {
+        document.getElementById("NombreLaboratorio").setCustomValidity("");
+    }
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresLaboratorios() {
+    for (var i = 0; i < datosLaboratorios.length; i++) {
+        nombresLabs[i] = datosLaboratorios[i].NombreLaboratorio;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de laboratorios
+$(function () {
+    $("#NombreLaboratorio").autocomplete({
+        source: nombresLabs
+    });
+});
+
+/////////////Funciones para validaciones de campos de texto
+
+function validarInputNombre() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarLab");
+    var nomLab = document.getElementById("NombreLaboratorio");
+    //Validación para el campo de texto nombre de laboratorio
+    if (nomLab.value.length <= 0) {
+        esValido = false;
+        nomLab.style.borderColor = "#900C3F";
+        $('#errorNombreLab').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomLab.style.borderColor = "#ccc";
+        $('#errorNombreLab').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}
+
+function validarInputUbicacion() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarLab");
+    var ubicacionLab = document.getElementById("UbicacionLaboratorio");
+    //Validación para el campo de texto ubicacion de laboratorio
+    if (ubicacionLab.value.length <= 0) {
+        esValido = false;
+        ubicacionLab.style.borderColor = "#900C3F";
+        $('#errorUbicacionLab').html('El campo ubicación no debe estar vacio').show();
+        setTimeout("$('#errorUbicacionLab').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        ubicacionLab.style.borderColor = "#ccc";
+        $('#errorUbicacionLab').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
 }

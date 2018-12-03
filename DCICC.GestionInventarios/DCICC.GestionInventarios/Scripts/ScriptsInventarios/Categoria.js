@@ -3,6 +3,7 @@ var url_metodo;
 var datosCategorias;
 var idCategoriaModificar;
 var urlEstado;
+var nombresCat=[];
 
 //Método ajax para obtener los datos de categorias
 function obtenerCategorias(url) {
@@ -15,6 +16,7 @@ function obtenerCategorias(url) {
             console.log("Datos Exitosos");
             datosCategorias = data;
             cargarCategoriaTabla();
+            cargarNombresCategoria();
             $('#dataTableCategorias').DataTable({
                 "language": {
                     "url": url_idioma
@@ -61,7 +63,6 @@ function cargarCategoriaTabla() {
 //Función para setear los valores en los inputs en modificaciones
 function formUpdateCategoria(idCategoria) {
     idCategoriaModificar = idCategoria;
-    console.log(idCategoria);
     for (var i = 0; i < datosCategorias.length; i++) {
         if (datosCategorias[i].IdCategoriaActivo == idCategoria) {
             //Métodos para setear los valores a modificar
@@ -87,60 +88,44 @@ function modificarCategoria(url_modificar) {
     var nombreCategoria=document.getElementById("NombreCategoriaActivo").value;
     var descripcionCategoria=document.getElementById("DescripcionCategoriaActivo").value;
     var habilitadoCategoria = $('#HabilitadoCategoriaActivo').prop('checked');
-    console.log(url_metodo);
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            //Método ajax para modificar la categoria de la base de datos
-            $.ajax({
-                data: { "IdCategoriaActivo": idCategoriaModificar, "NombreCategoriaActivo": nombreCategoria, "DescripcionCategoriaActivo": descripcionCategoria, "HabilitadoCategoriaActivo": habilitadoCategoria },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        console.log("actualizacion exitosa");
-                        $('#ModificarCategoria').modal('hide');
-                        showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
-                        obtenerCategorias(url_metodo);
-                    } else {
-                        $('#ModificarCategoria').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo: '+data.MensajeError, "error");
+
+    if (validarInputsVaciosModificacion()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                //Método ajax para modificar la categoria de la base de datos
+                $.ajax({
+                    data: { "IdCategoriaActivo": idCategoriaModificar, "NombreCategoriaActivo": nombreCategoria, "DescripcionCategoriaActivo": descripcionCategoria, "HabilitadoCategoriaActivo": habilitadoCategoria },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            console.log("actualizacion exitosa");
+                            $('#ModificarCategoria').modal('hide');
+                            showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
+                            obtenerCategorias(url_metodo);
+                        } else {
+                            $('#ModificarCategoria').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo: ' + data.MensajeError, "error");
+                        }
+
                     }
-                    
-                }
-            });
-        } else {
-            $('#ModificarCategoria').modal('hide');
-        }
-    });
-
-}
-
-//Función para evitar nombres de categorias repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosCategorias.length; i++) {
-        if ((datosCategorias[i].NombreCategoriaActivo).toLowerCase() == nombre) {
-            comprobar = true;
-        }
+                });
+            } else {
+                $('#ModificarCategoria').modal('hide');
+            }
+        });
     }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreCategoriaActivo").setCustomValidity("El nombre de la categoria: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreCategoriaActivo").setCustomValidity("");
-    }
+   
 }
 
 //Función para habilitar o deshabilitar la categoria
@@ -151,7 +136,6 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
     } else {
         nuevoEstado = true;
     }
-    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar de Estado la Categoria?",
@@ -170,18 +154,82 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-
                         showNotify("Actualización exitosa", 'El Estado de la Categoria de Activo se ha modificado correctamente', "success");
                         obtenerCategorias(url_metodo);
-                    } else {
-                       
+                    } else {                     
                         showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la Categoría del Activo: ' + data.MensajeError, "error");
-                    }            
-                    
+                    }                              
                 }
             });
         } else {
             
         }
     });
+}
+
+////////////Función para evitar nombres de categorias repetidos
+function comprobarNombre(nombre) {
+    nombre = nombre.toUpperCase();
+    var comprobar = false;
+    for (var i = 0; i < datosCategorias.length; i++) {
+        if ((datosCategorias[i].NombreCategoriaActivo).toUpperCase() == nombre) {
+            comprobar = true;
+        }
+    }
+
+    console.log(comprobar);
+    if (comprobar == true) {
+        document.getElementById("NombreCategoriaActivo").setCustomValidity("El nombre de la categoria: " + nombre + " ya existe");
+    } else {
+        document.getElementById("NombreCategoriaActivo").setCustomValidity("");
+    }
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresCategoria(){
+   for (var i = 0; i < datosCategorias.length; i++) {
+        nombresCat[i]=datosCategorias[i].NombreCategoriaActivo;        
+    }
+}
+//Función para cargar los nombres en el campo de nombre de ingreso  de categoria
+$(function () {
+    $("#NombreCategoriaActivo").autocomplete({
+        source: nombresCat
+    });
+});
+
+/////////////Funciones para validaciones de campos de texto
+function validarInputsVaciosIngreso() {
+    var boton = document.getElementById("confirmarCategoria");
+    var nomCat = document.getElementById("NombreCategoriaActivo");
+    //Valicación para el campo de texto nombre de categoria
+    if (nomCat.value.length <= 0) {
+        nomCat.style.borderColor = "#900C3F";
+        $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomCat.style.borderColor = "#ccc";
+        $('#errorNombreCategoria').html('').hide();
+        boton.disabled = false;
+    }
+}
+
+function validarInputsVaciosModificacion() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarCategoria");
+    var nomCat = document.getElementById("NombreCategoriaActivo");
+    //Valicación para el campo de texto nombre de categoria
+    if (nomCat.value.length <= 0) {
+        esValido = false;
+        nomCat.style.borderColor = "#900C3F";
+        $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomCat.style.borderColor = "#ccc";
+        $('#errorNombreCategoria').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
 }

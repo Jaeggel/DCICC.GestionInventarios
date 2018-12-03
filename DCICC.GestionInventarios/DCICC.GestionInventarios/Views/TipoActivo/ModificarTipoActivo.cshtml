@@ -70,24 +70,27 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Escoja la Categoría de Activo:</label>
                                             <div id="cargarCategorias"></div>
+                                            <span id="errorCategoriaTipo" style="color:brown;"></span>
                                         </div>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre de un Tipo de activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreTipoActivo" type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="Nombre del Tipo de Activo" maxlength="50" required>
+                                        <input id="NombreTipoActivo" type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="Nombre del Tipo de Activo" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarInputsVaciosIngreso();" minlength="3" maxlength="50" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNombreTipo" style="color:brown;"></span>
                                     </div>
                                     @* Área de Texto para el ingreso de la descripción de un tipo de activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DescripcionTipoActivo" name="DescripcionTipoActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Tipo de Activo" maxlength="150"></textarea>
+                                        <textarea id="DescripcionTipoActivo" name="DescripcionTipoActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Tipo de Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso de la vida útil de un Tipo de activo *@
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                             <label>Vida Útil (Años):</label>
-                                            <input id="VidaUtilTipoActivo" type="number" class="form-control has-feedback-left" name="VidaUtilTipoActivo" placeholder="0" min="0" max="40" required>
+                                            <input id="VidaUtilTipoActivo" type="number" class="form-control has-feedback-left" name="VidaUtilTipoActivo" placeholder="0" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarVidaUtil();" min="0" max="100" required>
                                             <span class="fa fa-hourglass-start form-control-feedback left" aria-hidden="true"></span>
+                                            <span id="errorVidaTipo" style="color:brown;"></span>
                                         </div>
                                     </div>
                                     @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de activo *@
@@ -101,7 +104,7 @@
                                     @* Sección de botones para guardar tipo de activo o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarTipoActivo('@Url.Action("ModificarTipoActivo", "TipoActivo")');">Modificar</button>
+                                            <button id="confirmarTipo" type="submit" class="btn btn-success" onclick="modificarTipoActivo('@Url.Action("ModificarTipoActivo", "TipoActivo")');">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -141,6 +144,19 @@
         obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         obtenerCategoriasCompletas('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
         urlEstados('@Url.Action("ModificarEstadoTipoActivo", "TipoActivo")');
+        //Función para setear nullos los valores del modal
+        $('#ModificarTipoActivo').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorCategoriaTipo]").html('').hide();
+            $(".modal-body span[id=errorNombreTipo]").html('').hide();
+            $(".modal-body span[id=errorVidaTipo]").html('').hide();
+            document.getElementById("confirmarTipo").disabled = false;
+        });
+
     });
 
 </script>

@@ -5,6 +5,7 @@ var cmbCategorias;
 var cmbCategoriasComp;
 var idTipoActivo;
 var urlEstado;
+var nombresTipoAcc=[];
 
 //Método ajax para obtener los datos de tipo de activo
 function obtenerTipoActivo(url) {
@@ -16,12 +17,13 @@ function obtenerTipoActivo(url) {
         success: function (data) {
             console.log("sii");
             datosTipoActivo = data;
-            cargarTipoActTabla();
+            cargarTipoActTabla();    
             $('#dataTableTipoAct').DataTable({
                 "language": {
                     "url": url_idioma
                 }
             });
+            cargarNombresTipo();
         }
     });
 }
@@ -39,7 +41,7 @@ function obtenerCategorias(url) {
         }
     });
 }
-
+//Método ajax para obtener los datos de las categorias completas
 function obtenerCategoriasCompletas(url) {
     $.ajax({
         dataType: 'json',
@@ -94,7 +96,7 @@ function cargarTipoActTabla() {
 
 //Función para cargar el combobox de Categorias
 function cargarCategoriasCmb() {
-    var str = '<select id="IdCategoriaActivo" class="form-control" name="IdCategoriaActivo" required>';
+    var str = '<select id="IdCategoriaActivo" class="form-control" name="IdCategoriaActivo" onBlur="validarCmbVacios();" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbCategorias.length; i++) {
         str += '<option value="' + cmbCategorias[i].IdCategoriaActivo + '">' + cmbCategorias[i].NombreCategoriaActivo + '</option>';
@@ -105,7 +107,7 @@ function cargarCategoriasCmb() {
 
 //Función para cargar el combobox de Categorias Completas
 function cargarCategoriasCompCmb() {
-    var str = '<select id="IdCategoriaComp" class="form-control" name="IdCategoriaComp" required>';
+    var str = '<select id="IdCategoriaComp" class="form-control" name="IdCategoriaComp" onBlur=" validarCmbTipoComp();" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbCategoriasComp.length; i++) {
         str += '<option value="' + cmbCategoriasComp[i].IdCategoriaActivo + '">' + cmbCategoriasComp[i].NombreCategoriaActivo + '</option>';
@@ -154,58 +156,43 @@ function modificarTipoActivo(url_modificar) {
     var vidaUtil=document.getElementById("VidaUtilTipoActivo").value;
     var habilitadoTipo = $('#HabilitadoTipoActivo').prop('checked');
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdTipoActivo": idTipoActivo, "IdCategoriaActivo": idCategoria, "NombreTipoActivo": nombreTipo, "DescripcionTipoActivo": descripcionTipo, "VidaUtilTipoActivo": vidaUtil, "HabilitadoTipoActivo": habilitadoTipo },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    if (data.OperacionExitosa) {
-                        $('#ModificarTipoActivo').modal('hide');
-                        showNotify("Actualización exitosa", 'El Tipo de Activo se ha modificado correctamente', "success");
-                        obtenerTipoActivo(url_metodo);
-                    } else {
-                        $('#ModificarTipoActivo').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Activo: ' + data.MensajeError, "error");
-                        
-                    }   
-                    
-                }
-            });
+    if (validarCmbTipoComp() && validarInputsVaciosIngreso() && validarVidaUtil()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: { "IdTipoActivo": idTipoActivo, "IdCategoriaActivo": idCategoria, "NombreTipoActivo": nombreTipo, "DescripcionTipoActivo": descripcionTipo, "VidaUtilTipoActivo": vidaUtil, "HabilitadoTipoActivo": habilitadoTipo },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        if (data.OperacionExitosa) {
+                            $('#ModificarTipoActivo').modal('hide');
+                            showNotify("Actualización exitosa", 'El Tipo de Activo se ha modificado correctamente', "success");
+                            obtenerTipoActivo(url_metodo);
+                        } else {
+                            $('#ModificarTipoActivo').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Activo: ' + data.MensajeError, "error");
+                        }
+                    }
+                });
 
-        } else {
-            $('#ModificarTipoActivo').modal('hide');
-        }
-    });
-}
-
-//Función para evitar nombres de tipo activo repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosTipoActivo.length; i++) {
-        if ((datosTipoActivo[i].NombreTipoActivo).toLowerCase() == nombre) {
-            comprobar = true;
-        }
+            } else {
+                $('#ModificarTipoActivo').modal('hide');
+            }
+        });
     }
 
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreTipoActivo").setCustomValidity("El nombre del Tipo Activo: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreTipoActivo").setCustomValidity("");
-    }
+    
 }
+
 
 //Función para habilitar o deshabilitar la categoria
 function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
@@ -246,3 +233,118 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
         }
     });
 }
+
+////////Función para evitar nombres de tipo activo repetidos
+function comprobarNombre(nombre) {
+    nombre = nombre.toUpperCase();
+    var comprobar = false;
+    for (var i = 0; i < datosTipoActivo.length; i++) {
+        if ((datosTipoActivo[i].NombreTipoActivo).toUpperCase() == nombre) {
+            comprobar = true;
+        }
+    }
+
+    console.log(comprobar);
+    if (comprobar == true) {
+        document.getElementById("NombreTipoActivo").setCustomValidity("El nombre del Tipo Activo: " + nombre + " ya existe");
+    } else {
+        document.getElementById("NombreTipoActivo").setCustomValidity("");
+    }
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresTipo() {
+    for (var i = 0; i < datosTipoActivo.length; i++) {
+        nombresTipoAcc[i]=datosTipoActivo[i].NombreTipoActivo;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de ingreso  de tipo
+$(function () {
+    $("#NombreTipoActivo").autocomplete({
+        source: nombresTipoAcc
+    });
+});
+
+/////////////Funciones para validaciones de campos de texto
+function validarCmbVacios() {
+    var boton = document.getElementById("confirmarTipo");
+    var cmbCat = document.getElementById("IdCategoriaActivo");
+    //Validación para el combobox de categorias
+    if (cmbCat.value == "") {
+        cmbCat.style.borderColor = "#900C3F";
+        $('#errorCategoriaTipo').html('Debe seleccionar una opción').show();
+        setTimeout("$('#errorCategoriaTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        cmbCat.style.borderColor = "#ccc";
+        $('#errorCategoriaTipo').html('').hide();
+        boton.disabled = false;
+    }
+}
+
+///Función para validar el combobox de modificar Tipo
+function validarCmbTipoComp() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarTipo");
+    var cmbCat = document.getElementById("IdCategoriaComp");
+    //Validación para el combobox de categorias
+    if (cmbCat.value == "") {
+        esValido = false;
+        cmbCat.style.borderColor = "#900C3F";
+        $('#errorCategoriaTipo').html('Debe seleccionar una opción').show();
+        setTimeout("$('#errorCategoriaTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        cmbCat.style.borderColor = "#ccc";
+        $('#errorCategoriaTipo').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}
+
+function validarInputsVaciosIngreso() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarTipo");
+    var nomTipo = document.getElementById("NombreTipoActivo");
+    //Validación para el campo de texto nombre de tipo
+    if (nomTipo.value.length <= 0) {
+        esValido = false;
+        nomTipo.style.borderColor = "#900C3F";
+        $('#errorNombreTipo').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomTipo.style.borderColor = "#ccc";
+        $('#errorNombreTipo').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+
+}
+//Función para validar el campo de vida útil
+function validarVidaUtil() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarTipo");
+    var vidaTipo = document.getElementById("VidaUtilTipoActivo");
+    //Validación para el campo vida útil
+    if (vidaTipo.value.length <= 0) {
+        esValido = false;
+        vidaTipo.style.borderColor = "#900C3F";
+        $('#errorVidaTipo').html('El campo vida útil no debe estar vacio').show();
+        setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else if (vidaTipo.value > 100) {
+        esValido = false;
+        vidaTipo.style.borderColor = "#900C3F";
+        vidaTipo.value = 0;
+        $('#errorVidaTipo').html('La vida útil no debe ser mayor a 100').show();
+        setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        vidaTipo.style.borderColor = "#ccc";
+        $('#errorVidaTipo').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}
+

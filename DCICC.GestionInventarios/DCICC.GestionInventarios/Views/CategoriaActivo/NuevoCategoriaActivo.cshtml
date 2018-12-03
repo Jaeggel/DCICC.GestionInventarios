@@ -28,7 +28,6 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <br>
                 @* Formulario para envio de datos de los componentes para el ingreso de una nueva categoría de activo
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoCategoriaActivo", "CategoriaActivo"))
@@ -36,12 +35,13 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo" maxlength="50" onkeyup="this.value=this.value.replace(/[^a-zA-Z]\s*$/g,'');" required>
+                            <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo"  onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarInputsVaciosIngreso();" minlength="3"  maxlength="50"  required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorNombreCategoria" style="color:brown;"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de una categoría de activo *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="DescripcionCategoriaActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Categoría de Activo" maxlength="150"></textarea>
+                            <textarea name="DescripcionCategoriaActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Categoría de Activo"  onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso de la nueva categoría de activo *@
@@ -55,7 +55,7 @@
                         @* Sección de botones para guardar categoría o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-success">Ingresar</button>
+                                <button  id="confirmarCategoria" type="submit" class="btn btn-success">Ingresar</button>
                                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")'">Cancelar</button>
                             </div>
                         </div>
@@ -79,5 +79,7 @@
         });
 
     });
+
+    
 
 </script>

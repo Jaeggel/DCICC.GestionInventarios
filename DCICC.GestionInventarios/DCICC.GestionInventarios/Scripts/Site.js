@@ -19,6 +19,30 @@ function listaEstadosActivos() {
     return ["OPERATIVO", "NO OPERATIVO", "DE BAJA"];
 }
 
+function validarNombres() {
+    return /[^A-Z0-9_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+}
+
+function validarNombresMayusMinus() {
+    return /[^a-zA-Z0-9_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+}
+
+function validarNombreSinNumeros() {
+    return /[^A-Z_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+}
+
+function validarTextos() {
+    return /[^a-zA-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
+}
+
+function validarNumeros() {
+    return /[^0-9]/g;
+}
+
+function validarFecha() {
+    return /[^0-9/-]/g;
+}
+
 /*Método para mostrar alertas notify
 title: Título de la notificación, 
 message: mensaje de la notificación, 

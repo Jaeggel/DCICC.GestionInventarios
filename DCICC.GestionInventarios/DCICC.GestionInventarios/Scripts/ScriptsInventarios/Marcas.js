@@ -3,6 +3,7 @@ var url_metodo;
 var datosMarcas;
 var idMarcaModificar;
 var urlEstado;
+var nombresMarcas = [];
 
 //Método ajax para obtener los datos de Marcas
 function obtenerMarcas(url) {
@@ -20,6 +21,7 @@ function obtenerMarcas(url) {
                     "url": url_idioma
                 }
             });
+            cargarNombresMarcas();
         }
     });
 }
@@ -91,58 +93,42 @@ function modificarMarca(url_modificar) {
     var nombreMarca=document.getElementById("NombreMarca").value;
     var descripcionMarca=document.getElementById("DescripcionMarca").value;
     var habilitadoMarca = $('#HabilitadoMarca').prop('checked');
+    if (validarInputNombre()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: { "IdMarca": idMarcaModificar, "NombreMarca": nombreMarca, "DescripcionMarca": descripcionMarca, "HabilitadoMarca": habilitadoMarca },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarMarca').modal('hide');
+                            showNotify("Actualización exitosa", 'La Marca se ha modificado correctamente', "success");
+                            obtenerMarcas(url_metodo);
+                        } else {
+                            $('#ModificarMarca').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar la Marca: ' + data.MensajeError, "error");
+                        }
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdMarca": idMarcaModificar, "NombreMarca": nombreMarca, "DescripcionMarca": descripcionMarca, "HabilitadoMarca": habilitadoMarca },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarMarca').modal('hide');
-                        showNotify("Actualización exitosa", 'La Marca se ha modificado correctamente', "success");
-                        obtenerMarcas(url_metodo);
-                    } else {
-                        $('#ModificarMarca').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar la Marca: ' + data.MensajeError, "error");
                     }
-                    
-                }
-            });
-        } else {
-            $('#ModificarMarca').modal('hide');
-        }
-    });
+                });
+            } else {
+                $('#ModificarMarca').modal('hide');
+            }
+        });
+    }  
 }
 
-//Función para evitar nombres de marcas repetidas
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosMarcas.length; i++) {
-        if ((datosMarcas[i].NombreMarca).toLowerCase() == nombre) {
-            comprobar = true;
-        }
-    }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreMarca").setCustomValidity("El nombre de la marca: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreMarca").setCustomValidity("");
-    }
-}
 
 //Función para habilitar o deshabilitar la marca
 function habilitarOdeshabilitar(idMarc, estadoMarc) {
@@ -184,4 +170,56 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
 
         }
     });
+}
+
+//Función para evitar nombres de marcas repetidas
+function comprobarNombre(nombre) {
+    nombre = nombre.toLowerCase();
+    var comprobar = false;
+    for (var i = 0; i < datosMarcas.length; i++) {
+        if ((datosMarcas[i].NombreMarca).toLowerCase() == nombre) {
+            comprobar = true;
+        }
+    }
+
+    console.log(comprobar);
+    if (comprobar == true) {
+        document.getElementById("NombreMarca").setCustomValidity("El nombre de la marca: " + nombre + " ya existe");
+    } else {
+        document.getElementById("NombreMarca").setCustomValidity("");
+    }
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresMarcas() {
+    for (var i = 0; i < datosMarcas.length; i++) {
+        nombresMarcas[i] = datosMarcas[i].NombreMarca;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Marcas
+$(function () {
+    $("#NombreMarca").autocomplete({
+        source: nombresMarcas
+    });
+});
+
+/////////////Funciones para validaciones de campos de texto
+
+function validarInputNombre() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMarca");
+    var nomMarca = document.getElementById("NombreMarca");
+    //Validación para el campo de texto nombre de Marcas
+    if (nomMarca.value.length <= 0) {
+        esValido = false;
+        nomMarca.style.borderColor = "#900C3F";
+        $('#errorNombreMarca').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomMarca.style.borderColor = "#ccc";
+        $('#errorNombreMarca').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
 }

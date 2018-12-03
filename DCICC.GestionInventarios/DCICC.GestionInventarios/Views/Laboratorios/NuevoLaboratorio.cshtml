@@ -28,7 +28,6 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <br>
                 @* Formulario para envio de datos de los componentes para el ingreso de un nuevo laboratorio
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoLaboratorio", "Laboratorios"))
@@ -36,17 +35,19 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de un laboratorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreLaboratorio" type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" maxlength="100" required>
+                            <input id="NombreLaboratorio" type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorNombreLab" style="color:brown;"></span>
                         </div>
                         @* Área de Texto para el ingreso de la ubicacion física de un laboratorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" maxlength="50" required></textarea>
+                            <textarea id="UbicacionLaboratorio" name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="validarInputUbicacion();" maxlength="50" required></textarea>
                             <span class="fa fa-compass form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorUbicacionLab" style="color:brown;"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de un laboratorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Laboratorio" maxlength="150"></textarea>
+                            <textarea name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Laboratorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
                             <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo laboratorio *@
@@ -60,7 +61,7 @@
                         @* Sección de botones para guardar un laboratorio o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-success">Ingresar</button>
+                                <button id="confirmarLab" type="submit" class="btn btn-success">Ingresar</button>
                                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarLaboratorio", "Laboratorios")'">Cancelar</button>
                             </div>
                         </div>

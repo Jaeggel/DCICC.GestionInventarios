@@ -64,12 +64,11 @@
 
                     </ul>
                     <div id="step-1" style="height: 630px;">
-
                         <div class="form-horizontal form-label-left input_mask" id="Paso1">
                             @* Combobox para seleccionar la categoría de activo *@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>Escoja la Categoría de Activo:</label>
+                                    <label>* Escoja la Categoría de Activo:</label>
                                     <div id="cargarCategorias"></div>
                                     <span id="errorCategoria" style="color:brown;"></span>
                                 </div>
@@ -77,20 +76,23 @@
                             @* Combobox para seleccionar el tipo de activo *@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>Escoja el Tipo de Activo:</label>
+                                    <label>* Escoja el Tipo de Activo:</label>
                                     <select id="TipoActivo" class="form-control" name="TipoActivo" required></select>
+                                    <span id="errorTipo" style="color:brown;"></span>
                                 </div>
                             </div>
                             @* Combobox para seleccionar la marca del activo *@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <label>Escoja la Marca del Activo:</label>
+                                    <label>* Escoja la Marca del Activo:</label>
                                     <div id="cargarMarcas"></div>
+                                    <span id="errorMarca" style="color:brown;"></span>
                                 </div>
                                 @* Combobox para el laboratorio del activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <label>Laboratorio del Activo:</label>
+                                    <label>* Laboratorio del Activo:</label>
                                     <div id="cargarLaboratorios"></div>
+                                    <span id="errorLaboratorio" style="color:brown;"></span>
                                 </div>
                             </div>
 
@@ -100,20 +102,21 @@
                             @* Combobox para seleccionar el estado del activo *@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>Escoja el Estado del Activo:</label>
+                                    <label>* Escoja el Estado del Activo:</label>
                                     <div id="cargarEstados"></div>
+                                    <span id="errorEstado" style="color:brown;"></span>
                                 </div>
                             </div>
                             @* Cuadro de texto para el ingreso del nombre de un activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Activo" maxlength="50" required>
+                                <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Activo" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" required>
                                 <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorNombre" style="color:brown;"></span>
                             </div>
 
                             @* Cuadro de texto para el ingreso del modelo de un activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" maxlength="80" required>
+                                <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');"  maxlength="80" required>
                                 <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorModelo" style="color:brown;"></span>
                             </div>
@@ -121,13 +124,13 @@
                             <div class="form-group">
                                 @* Cuadro de texto para el ingreso del serial activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" maxlength="150" required>
+                                    <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="80" required>
                                     <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                     <span id="errorSerial" style="color:brown;"></span>
                                 </div>
                                 @* Cuadro de texto para el ingreso del codigo UPS del activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" maxlength="20">
+                                    <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="16">
                                     <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                 </div>
 
@@ -140,7 +143,7 @@
                                         <div class="control-group">
                                             <div class="controls">
                                                 <div class="col-md-12 xdisplay_inputx form-group has-feedback" style="padding-left: 0px;">
-                                                    <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4" style="padding-left: 60px;">
+                                                    <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="Fecha de Adquisición" aria-describedby="inputSuccess2Status4" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');">
                                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                                                     <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                                 </div>
@@ -153,7 +156,7 @@
                             <div class="form-group"></div>
                             @* Área de Texto para el ingreso de la descripción de una activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" maxlength="150"></textarea>
+                                <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
                                 <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -166,13 +169,13 @@
                             <label>Especificaciones Adicionales comunes para todos los Activos</label>
                             @* Área de Texto para el ingreso de Express Service Code *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="ExpressServiceCodeActivo" type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" maxlength="100">
+                                <input id="ExpressServiceCodeActivo" type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="60">
                                 <span class="fa fa-code-fork form-control-feedback left" aria-hidden="true"></span>
                             </div>
 
                             @* Cuadro de texto para el ingreso de Fecha de Manufactura *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="FechaManufacturaActivo" type="text" class="form-control has-feedback-left" name="FechaManufacturaActivo" placeholder="Fecha de Manufactura" maxlength="100">
+                                <input id="FechaManufacturaActivo" type="text" class="form-control has-feedback-left" name="FechaManufacturaActivo" placeholder="Fecha de Manufactura" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');"  maxlength="80">
                                 <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                             </div>
 
@@ -181,12 +184,12 @@
                             <div class="form-group">
                                 @* Cuadro de texto para el ingreso de Número de Puertos *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="NumPuertosActivo" type="number" class="form-control has-feedback-left" name="NumPuertosActivo" placeholder="Número de Puertos" maxlength="100">
+                                    <input id="NumPuertosActivo" type="number" class="form-control has-feedback-left" name="NumPuertosActivo" placeholder="Número de Puertos" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="0" max="100">
                                     <span class="fa fa-sort-numeric-asc form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 @* Cuadro de texto para el ingreso de Version de IOS *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="IosVersionActivo" type="text" class="form-control has-feedback-left" name="IosVersionActivo" placeholder="Version de IOS" maxlength="100">
+                                    <input id="IosVersionActivo" type="text" class="form-control has-feedback-left" name="IosVersionActivo" placeholder="Version de IOS" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="40">
                                     <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -196,30 +199,30 @@
 
                             @* Cuadro de texto para el ingreso de Product Name *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="ProductNameActivo" type="text" class="form-control has-feedback-left" name="ProductNameActivo" placeholder="Product Name" maxlength="100">
+                                <input id="ProductNameActivo" type="text" class="form-control has-feedback-left" name="ProductNameActivo" placeholder="Product Name" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="50">
                                 <span class="fa fa-book form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             @* Cuadro de texto para el ingreso de Hpe Part Number *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="HpePartNumberActivo" type="text" class="form-control has-feedback-left" name="HpePartNumberActivo" placeholder="Hpe Part Number" maxlength="100">
+                                <input id="HpePartNumberActivo" type="text" class="form-control has-feedback-left" name="HpePartNumberActivo" placeholder="Hpe Part Number" onkeyup="this.value=this.value.replace(validarNombres(),'');" maxlength="40">
                                 <span class="fa fa-cubes form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <div class="form-group">
                                 @* Cuadro de texto para el ingreso de Código de Barras 1 *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="CodBarras1Activo" type="text" class="form-control has-feedback-left" name="CodBarras1Activo" placeholder="Código de Barras 1" maxlength="100">
+                                    <input id="CodBarras1Activo" type="text" class="form-control has-feedback-left" name="CodBarras1Activo" placeholder="Código de Barras 1" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="50">
                                     <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 @* Cuadro de texto para el ingreso de Código de Barras 2*@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="CodBarras2Activo" type="text" class="form-control has-feedback-left" name="CodBarras2Activo" placeholder="Código de Barras 2" maxlength="100">
+                                    <input id="CodBarras2Activo" type="text" class="form-control has-feedback-left" name="CodBarras2Activo" placeholder="Código de Barras 2" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="50">
                                     <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
 
                             @* Cuadro de texto para el ingreso de CT Code *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="CtActivo" type="text" class="form-control has-feedback-left" name="CtActivo" placeholder="CT Code" maxlength="100">
+                                <input id="CtActivo" type="text" class="form-control has-feedback-left" name="CtActivo" placeholder="CT Code" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="50">
                                 <span class="fa fa-code form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             @* ---------------- Sección de especificaciones adicionales para Discos Memorias etc---------------*@
@@ -228,12 +231,12 @@
                             <div class="form-group">
                                 @* Cuadro de texto para el ingreso de Capacidad de Activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="CapacidadActivo" type="number" class="form-control has-feedback-left" name="CapacidadActivo" placeholder="Capacidad(GB)" maxlength="100">
+                                    <input id="CapacidadActivo" type="number" class="form-control has-feedback-left" name="CapacidadActivo" placeholder="Capacidad(GB)" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="0" max="100">
                                     <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 @* Cuadro de texto para el ingreso de Velocidad de Transferencia *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="VelocidadTransfActivo" type="text" class="form-control has-feedback-left" name="VelocidadTransfActivo" placeholder="Velocidad de Transferencia" maxlength="100">
+                                    <input id="VelocidadTransfActivo" type="text" class="form-control has-feedback-left" name="VelocidadTransfActivo" placeholder="Velocidad de Transferencia" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="20">
                                     <span class="fa fa-rocket form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -268,7 +271,7 @@
             </div>
         </div>
     </div>
-        <div class="col-md-1 col-sm-12 col-xs-12"></div>
+    <div class="col-md-1 col-sm-12 col-xs-12"></div>
 </div>
 
     @* Sección para visualizar los mensajes de error o de éxito de transacción *@
@@ -357,157 +360,17 @@
                 }
             }
             if (stepnumber == 2) {
-                isStepValid = validarPaso2();
-                console.log(isStepValid);
+                isStepValid = validarPaso2('@Url.Action("NuevoActivo", "Activos")','@Url.Action("ObtenerImagenQR")','@Url.Action("ObtenerPDFQRSimple", "Activos")');
                 if (isStepValid == false) {
-                    $('#wizard').smartWizard('showMessage', 'Hubo un error en el paso ' + stepnumber + ' posiblemente existe el nombre del activo.');
+                    $('#wizard').smartWizard('showMessage', 'Hubo un error en el paso ' + stepnumber + ' : El nombre de Activo ya existe.');
                     setTimeout("$('.msgBox').fadeOut('slow');", 10000);
                 }
             }
 
-
             return isStepValid;
         }
 
-        //Método de validación para el paso 1
-        function validarPaso1() {
-            var isValid = true;
-            var nombreActivo = document.getElementById("NombreActivo").value;
-            var modeloActivo = document.getElementById("ModeloActivo").value;
-            var serialActivo = document.getElementById("SerialActivo").value;
-            if (!nombreActivo && nombreActivo.length <= 0) {
-                isValid = false;
-                document.getElementById("NombreActivo").setCustomValidity("El campo no debe estar vacio");
-                $("#NombreActivo").focus();
-                $('#errorNombre').html('El campo Nombre del Activo es obligatorio').show();
-                setTimeout("$('#errorNombre').fadeOut('slow');", 5000);
-            } else {
-                $('#errorNombre').html('').hide();
-            }
-
-            if (!modeloActivo && modeloActivo.length <= 0) {
-                isValid = false;
-                document.getElementById("NombreActivo").setCustomValidity("El campo no debe estar vacio");
-                $("#ModeloActivo").focus();
-                $('#errorModelo').html('El campo Modelo de Activo es obligatorio').show();
-                setTimeout("$('#errorModelo').fadeOut('slow');", 5000);
-            } else {
-                $('#errorModelo').html('').hide();
-            }
-
-            if (!serialActivo && serialActivo.length <= 0) {
-                isValid = false;
-                document.getElementById("SerialActivo").setCustomValidity("El campo no debe estar vacio");
-                $("#SerialActivo").focus();
-                $('#errorSerial').html('El campo Serial de Activo es obligatorio').show();
-                setTimeout("$('#errorSerial').fadeOut('slow');", 5000);
-            } else {
-                $('#errorSerial').html('').hide();
-            }
-
-            if (document.getElementById("CategoriaActivo").value == "") {
-                isValid = false;
-                $("#SerialActivo").focus();
-                $('#errorCategoria').html('Debe seleccionar una Opción de la Categoría').show();
-                setTimeout("$('#errorCategoria').fadeOut('slow');", 5000);
-
-            } else {
-                $('#errorCategoria').html('').hide();
-            }
-
-            return isValid;
-        }
-
-        function validarPaso2() {
-            var isValid = false;
-            url = '@Url.Action("NuevoActivo", "Activos")';
-            console.log(url);
-            //var confirmarIngreso = false;
-            //Obtener Valor del tipo de activo
-            var cmbTipoActivo = document.getElementById("TipoActivo");
-            var idTipoActivo = cmbTipoActivo.options[cmbTipoActivo.selectedIndex].value;
-            //Obtener valor del Laboratorio
-            var cmbLaboratorio = document.getElementById("LaboratorioActivo");
-            var idLaboratorio = cmbLaboratorio.options[cmbLaboratorio.selectedIndex].value;
-            //Obtener valor de la marca
-            var cmbMarca = document.getElementById("MarcaActivo");
-            var idMarca = cmbMarca.options[cmbMarca.selectedIndex].value;
-            //Obtener valor del Estado
-            var cmbEstado = document.getElementById("EstadoActivo");
-            var idEstado = cmbEstado.options[cmbEstado.selectedIndex].value;
-            //Obtener valor del nombre de activo
-            var nombreActivo = document.getElementById("NombreActivo").value;
-            //Obtener valor del serial de activo
-            var serialActivo = document.getElementById("SerialActivo").value;
-            //Obtener valor del modelo de activo
-            var modeloActivo = document.getElementById("ModeloActivo").value;
-            //Obtener valor del codigo UPS
-            var codigoUps = document.getElementById("CodigoUpsActivo").value;
-            //Obtener valor de la fecha de ingreso del activo
-            var fechaIngreso = $('#single_cal4').val();
-            console.log(fechaIngreso);
-            //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
-            //Obtener valor de la descripcion de activo
-            var descripcionActivo = document.getElementById("DescripcionActivo").value;
-            //Obtener valor del ExpressServiceCodeActivo
-            var expressCode = document.getElementById("ExpressServiceCodeActivo").value;
-            //Obtener valor de la FechaManufacturaActivo
-            var fechaManufactura = document.getElementById("FechaManufacturaActivo").value;
-            //Obtener valor del NumPuertosActivo
-            var numPuertos = document.getElementById("NumPuertosActivo").value;
-            //Obtener valor del IosVersionActivo
-            var iosVersion = document.getElementById("IosVersionActivo").value;
-            //Obtener valor del ProductNameActivo
-            var productName = document.getElementById("ProductNameActivo").value;
-            //Obtener valor del HpePartNumberActivo
-            var hpe = document.getElementById("HpePartNumberActivo").value;
-            //Obtener valor de CodBarras1Activo
-            var cod1 = document.getElementById("CodBarras1Activo").value;
-            //Obtener valor de CodBarras2Activo
-            var cod2 = document.getElementById("CodBarras2Activo").value;
-            //Obtener valor del CtActivo
-            var ct = document.getElementById("CtActivo").value;
-            //Obtener valor de CapacidadActivo
-            var capacidad = document.getElementById("CapacidadActivo").value;
-            //Obtener valor de VelocidadTransfActivo
-            var velocidadTransf = document.getElementById("VelocidadTransfActivo").value;
-
-            $.ajax({
-                data: {
-                    "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
-                    "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
-                    "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
-                    "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
-                    "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
-                },
-                url: url,
-                async: false,
-                dataType: 'json',
-                type: 'post',
-                success: function (data) {
-                    console.log("Inserto");
-                    isValid = data.OperacionExitosa;
-                    if (isValid) {
-                        datosActivoSeleccionado(data.ObjetoInventarios);
-                        var str = '<img src="@Url.Action("ObtenerImagenQR")"/>';
-                        $("#imgCQR").html(str);
-                        $("#btnGenPDF").click(function () {
-                            $('#GenPDFForm').attr('target', "_blank");
-                            $('#GenPDFForm').attr('action', "@Url.Action("ObtenerPDFQRSimple", "Activos")").submit();
-                        });
-                        cargarCQRActivo();
-                    }
-
-                }, error: function (e) {
-                    console.log(e);
-                    console.log("fallo");
-
-                    isvalid=false;
-                }
-            });
-            return isValid;
-
-        }
+        
 
 
 

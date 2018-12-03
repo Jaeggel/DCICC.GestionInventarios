@@ -172,44 +172,45 @@ function actualizarAccesorio(url) {
     //Obtener valor del Estado
     var cmbEstadoAccesorio = document.getElementById("EstadoAccesorio");
     var idEstadoAccesorio = cmbEstadoAccesorio.options[cmbEstadoAccesorio.selectedIndex].value;
-    console.log(idEstadoAccesorio);
-  
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: {
-                    "IdAccesorio": idAccesorioMod, "IdTipoAccesorio": idTipoAccesorio, "EstadoAccesorio": idEstadoAccesorio, "NombreAccesorio": nombreAccesorio,
-                    "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio
-                },
-                url: url,
-                dataType: 'json',
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarAccesorio').modal('hide');
-                        showNotify("Actualización exitosa", 'Se ha modificado el Accesorio', "success");
-                        obtenerAccesorios(url_metodo_accesorio);
-                    } else {
-                        $('#ModificarAccesorio').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Accesorio: ' + data.MensajeError, "error");
-                    }                   
-                }
-            });
 
-        } else {
-            $('#ModificarAccesorio').modal('hide');
-        }
-    });
+    if (validacionesModificacionAccesorio()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: {
+                        "IdAccesorio": idAccesorioMod, "IdTipoAccesorio": idTipoAccesorio, "EstadoAccesorio": idEstadoAccesorio, "NombreAccesorio": nombreAccesorio,
+                        "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio
+                    },
+                    url: url,
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarAccesorio').modal('hide');
+                            showNotify("Actualización exitosa", 'Se ha modificado el Accesorio', "success");
+                            obtenerAccesorios(url_metodo_accesorio);
+                        } else {
+                            $('#ModificarAccesorio').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Accesorio: ' + data.MensajeError, "error");
+                        }
+                    }
+                });
+
+            } else {
+                $('#ModificarAccesorio').modal('hide');
+            }
+        });
+    }   
 
 }
 
@@ -222,42 +223,124 @@ function actualizarEstadoAccesorios(urlAccesorio) {
     var cmbEstado = document.getElementById("EstadoAccesorioMod");
     var idEstado = cmbEstado.options[cmbEstado.selectedIndex].value;
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el estado del Activo?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: {
-                    "IdAccesorio": idAccesorioMod, "EstadoAccesorio": idEstado
-                },
-                url: urlAccesorio,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarEstadoAccesorio').modal('hide');
-                        showNotify("Actualización exitosa", 'Se ha modificado el Estado del Accesorio', "success");
-                        obtenerAccesorios(url_metodo_accesorio);
-                    } else {
-                        $('#ModificarEstadoAccesorio').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Accesorio: ' + data.MensajeError, "error");
-                    }  
+    if (validacionesEstadoAccesorio()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el estado del Activo?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: {
+                        "IdAccesorio": idAccesorioMod, "EstadoAccesorio": idEstado
+                    },
+                    url: urlAccesorio,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarEstadoAccesorio').modal('hide');
+                            showNotify("Actualización exitosa", 'Se ha modificado el Estado del Accesorio', "success");
+                            obtenerAccesorios(url_metodo_accesorio);
+                        } else {
+                            $('#ModificarEstadoAccesorio').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Accesorio: ' + data.MensajeError, "error");
+                        }
 
-                }
-            });
-        } else {
-            $('#ModificarEstadoAccesorio').modal('hide');
-            
-        }
-    });
+                    }
+                });
+            } else {
+                $('#ModificarEstadoAccesorio').modal('hide');
+
+            }
+        });
+    }
 
 }
 
+//función para validar campos de modificacion de accesorios
+function validacionesModificacionAccesorio() {
+    var isValid = true;
+    var nombreActivo = document.getElementById("NombreAccesorio").value;
+    var modeloActivo = document.getElementById("ModeloAccesorio").value;
+    var serialActivo = document.getElementById("SerialAccesorio").value;
+
+    //Validación para combobox tipo de Activo
+    if (document.getElementById("AccesorioActivo").value == "") {
+        isValid = false;
+        document.getElementById("AccesorioActivo").style.borderColor = "#900C3F";
+        $('#errorTipoAccesorio').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        setTimeout("$('#errorTipoAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("AccesorioActivo").style.borderColor = "#ccc";
+        $('#errorTipoAccesorio').html('').hide();
+    }
+
+    //Validación para combobox estado de Activo
+    if (document.getElementById("EstadoAccesorio").value == "") {
+        isValid = false;
+        document.getElementById("EstadoAccesorio").style.borderColor = "#900C3F";
+        $('#errorEstadoAccesorio').html('Debe seleccionar una Opción de Estado').show();
+        setTimeout("$('#errorEstadoAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("EstadoAccesorio").style.borderColor = "#ccc";
+        $('#errorEstadoAccesorio').html('').hide();
+    }
+
+    //Validación para el nombre de Activo
+    if (!nombreActivo && nombreActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("NombreAccesorio").style.borderColor = "#900C3F";
+        $('#errorNombreAccesorio').html('El campo Nombre del Activo es obligatorio').show();
+        setTimeout("$('#errorNombreAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
+        $('#errorNombreAccesorio').html('').hide();
+    }
+    //Validación para el modelo del activo
+    if (!modeloActivo && modeloActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#900C3F";
+        $('#errorModeloAccesorio').html('El campo Modelo de Activo es obligatorio').show();
+        setTimeout("$('#errorModeloAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("ModeloAccesorio").style.borderColor = "#ccc";
+        $('#errorModeloAccesorio').html('').hide();
+    }
+    //Validación para el serial del activo
+    if (!serialActivo && serialActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("SerialAccesorio").style.borderColor = "#900C3F";
+        $('#errorSerialAccesorio').html('El campo Serial de Activo es obligatorio').show();
+        setTimeout("$('#errorSerialAccesorio').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("SerialAccesorio").style.borderColor = "#ccc";
+        $('#errorSerialAccesorio').html('').hide();
+    }
+
+    return isValid;
+}
+
+//Función para validar el estado de activo
+function validacionesEstadoAccesorio() {
+    var isValid = true;
+
+    //Validación para combobox tipo de Activo
+    if (document.getElementById("EstadoAccesorioMod").value == "") {
+        isValid = false;
+        document.getElementById("EstadoAccesorioMod").style.borderColor = "#900C3F";
+        $('#errorEstadoAcc').html('Debe seleccionar una Opción del Estado de Accesorio').show();
+        console.log("ss");
+        setTimeout("$('#errorEstadoAcc').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("EstadoAccesorioMod").style.borderColor = "#ccc";
+        $('#errorEstadoAcc').html('').hide();
+    }
+    return isValid;
+}
 
