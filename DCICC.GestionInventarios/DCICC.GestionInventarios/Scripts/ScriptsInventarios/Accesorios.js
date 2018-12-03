@@ -326,7 +326,7 @@ function validacionesModificacionAccesorio() {
     return isValid;
 }
 
-//Función para validar el estado de activo
+//Función para validar el estado de accesorio
 function validacionesEstadoAccesorio() {
     var isValid = true;
 
