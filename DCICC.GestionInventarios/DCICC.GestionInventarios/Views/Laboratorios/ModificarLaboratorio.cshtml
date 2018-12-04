@@ -67,19 +67,19 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de un laboratorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreLaboratorio" type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio"  onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" required>
+                                        <input id="NombreLaboratorio" type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio"  onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreLab" style="color:brown;"></span>
                                     </div>
                                     @* Área de Texto para el ingreso de la ubicacion física de un laboratorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="UbicacionLaboratorio" name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="validarInputUbicacion();" maxlength="50" required></textarea>
+                                        <textarea id="UbicacionLaboratorio" name="UbicacionLaboratorio" class="form-control has-feedback-left" rows="2" placeholder="Ubicación del Laboratorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="validarInputUbicacion();" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required></textarea>
                                         <span class="fa fa-compass form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorUbicacionLab" style="color:brown;"></span>
                                     </div>
                                     @* Área de Texto para el ingreso de la descripción de un laboratorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DescripcionLaboratorio" name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Laboratorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
+                                        <textarea id="DescripcionLaboratorio" name="DescripcionLaboratorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Laboratorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" data-toggle="tooltip" data-placement="rigth" title="" maxlength="150"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Checkbox para habilitar o deshabilitar el uso del nuevo laboratorio *@
@@ -132,6 +132,7 @@
         //Método para obtener la tabla de Laboratorios
         obtenerLaboratorios('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
         urlEstados('@Url.Action("ModificarEstadolaboratorio", "Laboratorios")');
+        mensajesTooltips();
          //Función para setear nullos los valores del modal
         $('#ModificarLaboratorios').on('hidden.bs.modal', function () {
             document.getElementById("DescripcionLaboratorio").focus();           
@@ -140,6 +141,9 @@
             $(".modal-body textarea").css("borderColor", "#ccc");
             $(".modal-body span[id=errorNombreLab]").html('').hide();
             $(".modal-body span[id=errorUbicacionLab]").html('').hide();
+            $("#NombreLaboratorio").tooltip('hide');
+            $("#UbicacionLaboratorio").tooltip('hide');
+            $("#DescripcionLaboratorio").tooltip('hide');
             document.getElementById("confirmarLab").disabled = false;
         });
 

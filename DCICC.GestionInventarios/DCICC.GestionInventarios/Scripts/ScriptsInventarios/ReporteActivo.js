@@ -497,6 +497,16 @@ function validacionesEstadoActivo() {
 }
 
 
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("SerialActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("CodigoUpsActivo").title = "Máximo 15 caracteres numéricos.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("single_cal4").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
+    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+}
+
 //////////////////////////////////////FUNCIONES PARA GUARDAR ACCESORIO/////////////////////////////////////
 //Función para obtener los valores del activo asociado con su accesorio
 function formIngresoAccesorio(idAct, nombreAct) {
@@ -604,7 +614,7 @@ function validacionesCamposAccesorio() {
     var modeloActivo = document.getElementById("ModeloAccesorioIngreso").value;
     var serialActivo = document.getElementById("SerialAccesorioIngreso").value;
 
-    //Validación para combobox tipo de Activo
+    //Validación para combobox tipo de Accesorios
     if (document.getElementById("AccesorioIngreso").value == "") {
         isValid = false;
         document.getElementById("AccesorioIngreso").style.borderColor = "#900C3F";
@@ -660,6 +670,25 @@ function validacionesCamposAccesorio() {
     return isValid;
 }
 
+//Función para setear valores N/A
+function setearModelo() {
+    var modeloActivo = document.getElementById("ModeloAccesorioIngreso").value;
+    //Validación para el modelo del activo
+    if (!modeloActivo && modeloActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("ModeloAccesorioIngreso").value = "N/A";
+    }
+}
+
+//Función para setear valores N/A
+function setearSerial() {
+    var serialActivo = document.getElementById("SerialAccesorioIngreso").value;
+    //Validación para el serial del activo
+    if (!serialActivo && serialActivo.length <= 0) {
+        document.getElementById("SerialAccesorioIngreso").value = "N/A";
+    } 
+}
+
 /////////////////////////Funciones para cargar el campo de autocompletado
 function cargarNombresActivos(url) {
     $.ajax({
@@ -680,6 +709,23 @@ $(function () {
         source: nombresActivo
     });  
 });
+
+//Mensajes para los tooltips
+function mensajesTooltipsAccesorios() {
+    document.getElementById("NombreAccesorioIngreso").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("SerialAccesorioIngreso").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("ModeloAccesorioIngreso").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("DescripcionAccesorioIngreso").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+}
+
+//Mensajes para los tooltips
+function mensajesTooltipsAccesoriosMod() {
+    document.getElementById("NombreAccesorio").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("SerialAccesorio").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("ModeloAccesorio").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+}
+
 
 
 

@@ -35,13 +35,13 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" onkeyup="this.value=this.value.replace(/[^A-Z0-9_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g,'');"  minlength="3" maxlength="50" required>
+                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" onkeyup="this.value=this.value.replace(validarNombres(),'');"  minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreMarca" style="color:brown;"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="DescripcionMarca" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Marca" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g,'');" maxlength="150"></textarea>
+                            <textarea id="DescripcionMarca" name="DescripcionMarca" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Marca" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso de la nueva marca *@
@@ -71,6 +71,7 @@
     $(document).ready(function () {
         //Método para obtener la tabla de Marcas
         obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
+        mensajesTooltips();
         //Método para evitar la duplicidad de nombres de Marcas
         $('#NombreMarca').blur(function () {
             comprobarNombre();

@@ -28,7 +28,6 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <br>
                 @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoProposito", "MaqVirtuales"))
@@ -36,22 +35,16 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreProposito" placeholder="Nombre del Propósito" maxlength="50" required>
+                            <input id="NombreProposito" type="text" class="form-control has-feedback-left" name="NombreProposito" onkeyup="this.value=this.value.replace(validarTextos(),'');" placeholder="Nombre del Propósito" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Checkbox para habilitar o deshabilitar el uso de la nueva marca *@
-                        <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Propósito?</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input name="HabilitadoProposito" type="checkbox" class="js-switch" value="true" checked />
-                            </div>
+                            <span id="errorProposito" style="color:brown;"></span>
                         </div>
                         <div class="ln_solid"></div>
                         @* Sección de botones para guardar marca o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary"  onclick="modificarMaquinaV('@Url.Action("NuevaMaqVirtual", "MaqVirtuales")');">Cancelar</button>
+                                <button id="confirmarProposito" type="submit" class="btn btn-success">Ingresar</button>
+                                <button type="button" class="btn btn-primary" onclick="modificarMaquinaV('@Url.Action("NuevaMaqVirtual", "MaqVirtuales")');">Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -61,3 +54,20 @@
     </div>
 </div>
 
+@* Seccción para llamar al js de Máquinas Virtuales *@
+<script src="~/Scripts/ScriptsInventarios/MaquinaVirtual.js"></script>
+<script>
+    $(document).ready(function () {
+
+        listaPropositos('@Url.Action("ObtenerPropositosComp", "MaqVirtuales")');
+
+        //Método para evitar la duplicidad de nombres de Máquinas Virtuales
+        $('#NombreProposito').blur(function () {
+            comprobarNombreProposito();
+        });
+
+
+        //$('#DireccionIPMaqVirtuales').inputmask({ "mask": "(999) 999-9999" });
+    });
+
+</script>

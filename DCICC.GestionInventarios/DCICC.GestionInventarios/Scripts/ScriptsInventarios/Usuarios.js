@@ -369,8 +369,7 @@ function validarInputPass() {
 
 
 ///Función para validar los combobox de maquinas virtuales
-function validarCmbRol() {
-    
+function validarCmbRol() { 
     var esValido = true;
     var boton = document.getElementById("confirmarUsuario");
     var cmbRol = document.getElementById("IdRol");
@@ -387,6 +386,16 @@ function validarCmbRol() {
         $('#errorRol').html('').hide();
         boton.disabled = false;
     }
-
     return esValido;
+}
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombresUsuario").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("CorreoUsuario").title = "Máximo 50 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("NickUsuario").title = "Máximo 15 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("PasswordUsuario").title = "Máximo 20 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("TelefonoUsuario").title = "10 números, incluyendo el código de la provincia (02).";
+    document.getElementById("TelefonoCelUsuario").title = "10 números, empezando con el código (09)";
+    document.getElementById("DireccionUsuario").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
 }

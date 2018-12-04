@@ -43,41 +43,41 @@
                         </div>
                         @* Cuadro de texto para el ingreso del nombre completo del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="80" required>
+                            <input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreCompleto" style="color:brown;"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del correo del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="usuario@ups.edu.ec" onkeyup="this.value=this.value.replace(validarCorreo(),'');" onBlur="validarInputCorreo();" maxlength="40" required>
+                            <input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="usuario@ups.edu.ec" onkeyup="this.value=this.value.replace(validarCorreo(),'');" onBlur="validarInputCorreo();" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorCorreo" style="color:brown;"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');"  maxlength="15" required>
+                            <input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');"  maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNick" style="color:brown;"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del password del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña" onkeyup="this.value=this.value.replace(validarPassword(),'');" onBlur="validarInputPass();" maxlength="20" required>
+                            <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña" onkeyup="this.value=this.value.replace(validarPassword(),'');" onBlur="validarInputPass();" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorPassword" style="color:brown;"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del teléfono convencional del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                            <input id="TelefonoUsuario" type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" data-toggle="tooltip" data-placement="rigth" title="">
                             <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del teléfono celular del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                            <input id="TelefonoCelUsuario" type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" data-toggle="tooltip" data-placement="rigth" title="">
                             <span class="fa fa-mobile-phone form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de un usuario *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="80"></textarea>
+                            <textarea id="DireccionUsuario" name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="80" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
                             <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo usuario*@
@@ -111,6 +111,7 @@
         //Método para obtener las tablas de Usuarios
         obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
         obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
+        mensajesTooltips();
          //Método para evitar la duplicidad de correos
         $('#CorreoUsuario').blur(function () {
             var correo = document.getElementById("CorreoUsuario").value;

@@ -229,3 +229,9 @@ function validarInputNombre() {
     }
     return esValido;
 }
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreSistOperativos").title = "Máximo 80 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("DescripcionSistOperativos").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+}

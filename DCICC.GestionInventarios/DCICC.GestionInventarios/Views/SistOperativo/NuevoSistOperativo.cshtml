@@ -36,13 +36,13 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de un nuevo sistema operativo *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreSistOperativos" type="text" class="form-control has-feedback-left" name="NombreSistOperativos" placeholder="Nombre del Sistema Operativo" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" minlength="3" maxlength="80" required>
+                            <input id="NombreSistOperativos" type="text" class="form-control has-feedback-left" name="NombreSistOperativos" placeholder="Nombre del Sistema Operativo" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreSO" style="color:brown;"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de un nuevo sistema operativo*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea class="form-control has-feedback-left" name="DescripcionSistOperativos" rows="3" placeholder="Descripción del Sistema Operativo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
+                            <textarea id="DescripcionSistOperativos" class="form-control has-feedback-left" name="DescripcionSistOperativos" rows="3" placeholder="Descripción del Sistema Operativo" onkeyup="this.value=this.value.replace(validarTextos(),'');" data-toggle="tooltip" data-placement="rigth" title="" maxlength="150"></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo sistema operativo*@
@@ -73,6 +73,7 @@
     $(document).ready(function () {
         //Método para obtener la tabla de Sistemas Operativos
         obtenerSO('@Url.Action("ObtenerSistOperativosComp", "SistOperativo")');
+        mensajesTooltips();
         //Método para evitar la duplicidad de nombres de Sistemas Operativos
         $('#NombreSistOperativos').blur(function () {
             comprobarNombre();

@@ -22,18 +22,21 @@
                 <img src="~/Content/Images/LogoUps.png" class="center">
                 <section class="login_content">
                     @* Formulario para envio de datos de los componentes para el ingreso del usuario a acceder al sistema
-                        (Metodo de la clase) - Controlador (Controller) *@
+        (Metodo de la clase) - Controlador (Controller) *@
                     @using (Html.BeginForm("Login", "Login"))
                     {
                         <h1>Inicio de Sesión</h1>
                         @* Cuadro de texto para el ingreso del correo electrónico *@
                         <div>
-                            <input type="text" class="form-control" name="NickUsuario" placeholder="Nick de Usuario" maxlength="15" required />
+                            <input type="text" class="form-control" name="NickUsuario" placeholder="Nick de Usuario" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="15" required />
                         </div>
                         @* Cuadro de texto para el ingreso de la contraseña *@
-                        <div>
-                            <input type="password" class="form-control" name="PasswordUsuario" placeholder="Contraseña" required />
+                        <div class="text-left">
+                            <span id="errorPassword" style="color:brown;" ></span>
+                            <input id="PasswordUsuario" type="password" class="form-control" name="PasswordUsuario" placeholder="Contraseña" onkeyup="this.value=this.value.replace(validarPassword(),'');" onBlur="validarInputPass();" maxlength="25" required />
+
                         </div>
+
                         @* Sección de botones para realizar el Login *@
                         <div>
                             <button type="submit" class="btn btn-default">Login</button>
@@ -57,4 +60,23 @@
             showNotify("Error de Autenticación", "Credenciales Incorrectas", "error");
         }
     };
+
+    //Función para validar password
+    function validarInputPass() {
+        var passw = document.getElementById("PasswordUsuario");
+        //Validación para el campo de texto nombre de Máquina virtual
+        if (passw.value.length <= 0) {
+            passw.style.borderColor = "#900C3F";
+            $('#errorPassword').html('El campo password no debe estar vacio').show();
+            setTimeout("$('#errorPassword').html('').hide('slow')", 6000);
+        } else if (passw.value.length > 0 && passw.value.length <= 6) {
+            passw.style.borderColor = "#900C3F";
+            $('#errorPassword').html('El password debe ser mayor a 6 caracteres').show();
+            setTimeout("$('#errorPassword').html('').hide('slow')", 6000);
+        } else {
+            passw.style.borderColor = "#ccc";
+            $('#errorPassword').html('').hide();
+        }
+       
+    }
 </script>
