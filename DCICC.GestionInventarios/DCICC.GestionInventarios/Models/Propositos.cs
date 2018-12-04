@@ -8,7 +8,5 @@ namespace DCICC.GestionInventarios.Models
     public class Propositos
     {
         public string NombreProposito { get; set; }
-
-        public bool HabilitadoProposito { get; set; }
     }
 }
