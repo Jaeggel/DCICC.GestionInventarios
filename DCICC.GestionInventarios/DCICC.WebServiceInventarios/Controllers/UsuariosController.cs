@@ -101,7 +101,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjUsuarios;
         }
         #endregion
-        #region Actualizacione
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar un Usuario en la base de datos.
         /// </summary>
