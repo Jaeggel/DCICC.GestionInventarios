@@ -10,6 +10,7 @@ var datosActivo;
 var idActivo;
 var idCQR;
 var nombreActivoRegis;
+var nombresActivo = [];
 
 //Método ajax para recibir los datos del Tipo Activo
 function datosTipoActivo(url) {
@@ -370,6 +371,48 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
     });
     return isValid;
 
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresActivos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'get',
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                nombresActivo[i] = data[i].NombreActivo;
+            }   
+        }
+    });
+   
+}
+//Función para cargar los nombres en el campo de nombre de activos
+$(function () {
+    $("#NombreActivo").autocomplete({
+        source: nombresActivo
+    });
+});
+
+//Función para evitar nombres de laboratorios repetidos
+function comprobarNombre() {
+    var nombreActivo = document.getElementById("NombreActivo").value; 
+    var comprobar = false;
+    for (var i = 0; i < nombresActivo.length; i++) {
+        if ((nombresActivo[i]).toUpperCase() == nombreActivo) {
+            comprobar = true;
+        }
+    }
+    if (comprobar) {
+        isValid = false;
+        document.getElementById("NombreActivo").value="";
+        document.getElementById("NombreActivo").style.borderColor = "#900C3F";
+        $('#errorNombre').html('El Nombre del Activo ya existe').show();
+        setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("NombreActivo").style.borderColor = "#ccc";
+        $('#errorNombre').html('').hide();
+    }
 }
 
 

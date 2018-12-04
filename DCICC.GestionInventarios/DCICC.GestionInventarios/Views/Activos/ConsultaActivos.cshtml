@@ -350,7 +350,6 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_content">
-                            <br>
                             @* Formulario para envio de datos de los componentes para modificación de un accesorio
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
@@ -487,7 +486,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Escoja Tipo de Accesorio:</label>
                                             <div id="cargarAccesoriosIngreso"></div>
-                                            <span id="errorTipoAccesorio" style="color:brown;"></span>
+                                            <span id="errorTipoAccesorioIng" style="color:brown;"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -499,21 +498,21 @@
                                         
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreAccesorioIngreso" type="text" class="form-control has-feedback-left" name="NombreAccesorioIngreso" placeholder="Nombre del Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" required>
+                                        <input id="NombreAccesorioIngreso" type="text" class="form-control has-feedback-left" name="NombreAccesorioIngreso" placeholder="Nombre del Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="comprobarNombreAccesorio();" minlength="3" maxlength="50" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorNombreAccesorio" style="color:brown;"></span>
+                                        <span id="errorNombreAccesorioIng" style="color:brown;"></span>
                                     </div>
 
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="SerialAccesorioIngreso" type="text" class="form-control has-feedback-left" name="SerialAccesorioIngreso" placeholder="Serial del Accesorio" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="80" required>
                                         <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorModeloAccesorio" style="color:brown;"></span>
+                                        <span id="errorModeloAccesorioIng" style="color:brown;"></span>
                                     </div>
 
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="ModeloAccesorioIngreso" type="text" class="form-control has-feedback-left" name="ModeloAccesorioIngreso" placeholder="Modelo del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');"  maxlength="80" required>
                                         <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorSerialAccesorio" style="color:brown;"></span>
+                                        <span id="errorSerialAccesorioIng" style="color:brown;"></span>
                                     </div>
 
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -525,7 +524,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Escoja el Estado del Activo:</label>
                                             <div id="cargarEstadosAccesorioIngreso"></div>
-                                            <span id="errorEstadoAccesorio" style="color:brown;"></span>
+                                            <span id="errorEstadoAccesorioIng" style="color:brown;"></span>
                                         </div>
                                     </div>
 
@@ -603,6 +602,8 @@
         cargarEstadosAccesoriosCmb();
         cargarEstadosAccesoriosMod();
         cargarEstadosAccesoriosIng();
+        cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
+
         $('#cqrAccesorio').hide();
 
         $('#ModificarActivo').on('hidden.bs.modal', function () {
@@ -633,13 +634,13 @@
             $(".modal-body input").val("");
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");
-            $(".modal-body span[id=errorTipoAccesorio]").html('').hide();
-            $(".modal-body span[id=errorNombreAccesorio]").html('').hide();
-            $(".modal-body span[id=errorSerialAccesorio]").html('').hide();
-            $(".modal-body span[id=errorModeloAccesorio]").html('').hide();
-            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
+            $(".modal-body span[id=errorTipoAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorNombreAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorSerialAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorModeloAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorEstadoAccesorioIng]").html('').hide();
             $('#cqrAccesorio').hide();
-            document.getElementById("confirmarAccesorioNuevo").disabled = false;
+            
         });
 
         $('#ModificarAccesorio').on('hidden.bs.modal', function () {
@@ -661,11 +662,7 @@
             $(".modal-body select").css("borderColor", "#ccc");
             $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
         });
-
-
-           
-        
-
+   
 
     });
 

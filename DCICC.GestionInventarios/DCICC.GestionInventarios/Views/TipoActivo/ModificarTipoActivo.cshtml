@@ -146,9 +146,8 @@
         urlEstados('@Url.Action("ModificarEstadoTipoActivo", "TipoActivo")');
         //Función para setear nullos los valores del modal
         $('#ModificarTipoActivo').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
+            document.getElementById("NombreTipoActivo").focus();
             $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body input").val("");
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");
             $(".modal-body span[id=errorCategoriaTipo]").html('').hide();

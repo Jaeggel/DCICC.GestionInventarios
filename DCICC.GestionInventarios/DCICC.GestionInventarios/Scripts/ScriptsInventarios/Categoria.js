@@ -168,21 +168,30 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
 }
 
 ////////////Función para evitar nombres de categorias repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toUpperCase();
-    var comprobar = false;
-    for (var i = 0; i < datosCategorias.length; i++) {
-        if ((datosCategorias[i].NombreCategoriaActivo).toUpperCase() == nombre) {
-            comprobar = true;
+function comprobarNombre() {
+    var nomCat = document.getElementById("NombreCategoriaActivo");
+    nomCat.value = nomCat.value.toUpperCase();
+    console.log(nomCat.value);
+    if (nomCat.value.length <= 0) {
+        nomCat.style.borderColor = "#900C3F";
+        $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosCategorias.length; i++) {
+            if ((datosCategorias[i].NombreCategoriaActivo).toUpperCase() == nomCat.value) {
+                nomCat.style.borderColor = "#900C3F";
+                $('#errorNombreCategoria').html("El nombre de la categoria: " + nomCat.value + " ya existe").show();
+                setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
+                nomCat.value = "";
+                break;
+            } else {
+                nomCat.style.borderColor = "#ccc";
+                $('#errorNombreCategoria').html('').hide();
+            }
         }
     }
+   
 
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreCategoriaActivo").setCustomValidity("El nombre de la categoria: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreCategoriaActivo").setCustomValidity("");
-    }
 }
 
 /////////////////////////Funciones para cargar el campo de autocompletado
@@ -199,22 +208,6 @@ $(function () {
 });
 
 /////////////Funciones para validaciones de campos de texto
-function validarInputsVaciosIngreso() {
-    var boton = document.getElementById("confirmarCategoria");
-    var nomCat = document.getElementById("NombreCategoriaActivo");
-    //Valicación para el campo de texto nombre de categoria
-    if (nomCat.value.length <= 0) {
-        nomCat.style.borderColor = "#900C3F";
-        $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
-        setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
-        boton.disabled = true;
-    } else {
-        nomCat.style.borderColor = "#ccc";
-        $('#errorNombreCategoria').html('').hide();
-        boton.disabled = false;
-    }
-}
-
 function validarInputsVaciosModificacion() {
     var esValido = true;
     var boton = document.getElementById("confirmarCategoria");

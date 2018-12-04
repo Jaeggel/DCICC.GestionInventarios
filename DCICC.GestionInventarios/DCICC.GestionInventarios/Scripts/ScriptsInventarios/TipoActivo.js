@@ -235,21 +235,28 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
 }
 
 ////////Función para evitar nombres de tipo activo repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toUpperCase();
-    var comprobar = false;
-    for (var i = 0; i < datosTipoActivo.length; i++) {
-        if ((datosTipoActivo[i].NombreTipoActivo).toUpperCase() == nombre) {
-            comprobar = true;
+function comprobarNombre() {
+    var nombre = document.getElementById("NombreTipoActivo");
+    nombre.value = nombre.value.toUpperCase();
+    if (nombre.value.length <= 0) {
+        nombre.style.borderColor = "#900C3F";
+        $('#errorNombreTipo').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosTipoActivo.length; i++) {
+            if ((datosTipoActivo[i].NombreTipoActivo).toUpperCase() == nombre.value) {
+                nombre.style.borderColor = "#900C3F";
+                $('#errorNombreTipo').html("El nombre del Tipo Activo: " + nombre.value + " ya existe").show();
+                setTimeout("$('#errorNombreTipo').html('').hide('slow')", 8000);
+                nombre.value = "";
+                break;
+            } else {
+                nombre.style.borderColor = "#ccc";
+                $('#errorNombreTipo').html('').hide();
+            }
         }
     }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreTipoActivo").setCustomValidity("El nombre del Tipo Activo: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreTipoActivo").setCustomValidity("");
-    }
+    
 }
 
 /////////////////////////Funciones para cargar el campo de autocompletado

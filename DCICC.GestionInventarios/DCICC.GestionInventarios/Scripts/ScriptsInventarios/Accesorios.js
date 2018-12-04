@@ -4,6 +4,7 @@ var url_metodo_accesorio;
 var cmbTipoAccesorio;
 var datosAccesorios;
 var idAccesorioMod;
+var nombresAccesorio = [];
 
 //Método ajax para obtener los datos de categorias
 function obtenerAccesorios(url) {
@@ -22,6 +23,7 @@ function obtenerAccesorios(url) {
                 },
                 "order": [[1, "asc"]]
             });
+            cargarNombresAccesorios();
         }
     });
 }
@@ -299,13 +301,13 @@ function validacionesModificacionAccesorio() {
         $('#errorNombreAccesorio').html('El campo Nombre del Activo es obligatorio').show();
         setTimeout("$('#errorNombreAccesorio').html('').hide('slow')", 6000);
     } else {
-        document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
+        document.getElementById("NombreAccesorio").style.borderColor = "#ccc";
         $('#errorNombreAccesorio').html('').hide();
     }
     //Validación para el modelo del activo
     if (!modeloActivo && modeloActivo.length <= 0) {
         isValid = false;
-        document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#900C3F";
+        document.getElementById("ModeloAccesorio").style.borderColor = "#900C3F";
         $('#errorModeloAccesorio').html('El campo Modelo de Activo es obligatorio').show();
         setTimeout("$('#errorModeloAccesorio').html('').hide('slow')", 6000);
     } else {
@@ -344,3 +346,42 @@ function validacionesEstadoAccesorio() {
     return isValid;
 }
 
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresAccesorios() {
+    for (var i = 0; i < datosAccesorios.length; i++) {
+        nombresAccesorio[i] = datosAccesorios[i].NombreAccesorio;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de laboratorios
+$(function () {
+    $("#NombreAccesorioIngreso").autocomplete({
+        source: nombresAccesorio
+    });
+});
+
+//Función para cargar los nombres en el campo de nombre de laboratorios
+$(function () {
+    $("#NombreAccesorio").autocomplete({
+        source: nombresAccesorio
+    });
+});
+
+//Función para evitar nombres de laboratorios repetidos
+function comprobarNombreAccesorio() {
+    var nombreAcc = document.getElementById("NombreAccesorioIngreso").value;
+    var comprobar = false;
+    for (var i = 0; i < nombresAccesorio.length; i++) {
+        if ((nombresAccesorio[i]).toUpperCase() == nombreAcc) {
+            comprobar = true;
+        }
+    }
+    if (comprobar) {
+        document.getElementById("NombreAccesorioIngreso").value = "";
+        document.getElementById("NombreAccesorioIngreso").style.borderColor = "#900C3F";
+        $('#errorNombreAccesorioIng').html('El Nombre del Accesorio ya existe').show();
+        setTimeout("$('#errorNombreAccesorioIng').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
+        $('#errorNombreAccesorioIng').html('').hide();
+    }
+}

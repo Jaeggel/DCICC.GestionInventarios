@@ -131,6 +131,7 @@
         urlEstados('@Url.Action("ModificarEstadoCategoriaActivo", "CategoriaActivo")');
         //Función para setear nullos los valores del modal
         $('#ModificarCategoria').on('hidden.bs.modal', function () { 
+            document.getElementById("NombreCategoriaActivo").focus();
             $(".modal-body input").val("");
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");

@@ -35,6 +35,7 @@
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <div id="ticketsAbiertos"></div>
+                                
                             </div>
                         </div>
                     </div>
@@ -117,19 +118,20 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Cambiar de estado:</label>
                                             <div id="cargarAbiertosCmb"></div>
+                                            <span id="errorAbiertos" style="color:brown;"></span>
                                         </div>
                                     </div>
 
                                     @* Área de Texto para el ingreso de un comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="ComentarioTicket" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" maxlength="500"></textarea>
+                                        <textarea id="ComentarioTicket" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     <div class="ln_solid"></div>
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarEstadoTicket('@Url.Action("ModificarTicket", "Tickets")')">Modificar</button>
+                                            <button id="confirmarAbierto" type="submit" class="btn btn-success" onclick="modificarEstadoTicket('@Url.Action("ModificarTicket", "Tickets")')">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -193,19 +195,20 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Cambiar de estado:</label>
                                             <div id="cargarEnCursoCmb"></div>
+                                            <span id="errorEnCurso" style="color:brown;"></span>
                                         </div>
                                     </div>
 
                                     @* Área de Texto para el ingreso del comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="ComentarioTicketEC" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" maxlength="500"></textarea>
+                                        <textarea id="ComentarioTicketEC" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     <div class="ln_solid"></div>
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarEstadoTicketEnCurso('@Url.Action("ModificarTicket", "Tickets")');">Modificar</button>
+                                            <button id="confirmarEnCurso" type="submit" class="btn btn-success" onclick="modificarEstadoTicketEnCurso('@Url.Action("ModificarTicket", "Tickets")');">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -243,6 +246,14 @@
     $(document).ready(function () {
         //Método para obtener las tablas de tickets
         obtenerTickets('@Url.Action("ObtenerTicketsComp", "Tickets")');
+
+        $('#ModificarTickets').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+        });
+
+        $('#ModificarTicketsEnCurso').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+        });
 
     });
 

@@ -43,7 +43,7 @@
                         </div>
                         @* Cuadro de texto para el ingreso del nombre de un Tipo de activo *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreTipoActivo" type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="Nombre del Tipo de Activo" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarInputsVaciosIngreso();" minlength="3" maxlength="50" required>
+                            <input id="NombreTipoActivo" type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="Nombre del Tipo de Activo" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');"  minlength="3" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreTipo" style="color:brown;"></span>
                         </div>
@@ -92,8 +92,7 @@
         obtenerCategorias('@Url.Action("ObtenerCategoriasActivosHab", "CategoriaActivo")');
         //Método para evitar la duplicidad de nombres
         $('#NombreTipoActivo').blur(function () {
-            var nombre = document.getElementById("NombreTipoActivo").value;
-            comprobarNombre(nombre);
+            comprobarNombre();
         });
 
     });

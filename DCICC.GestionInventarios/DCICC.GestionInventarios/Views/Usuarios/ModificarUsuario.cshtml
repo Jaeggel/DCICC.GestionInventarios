@@ -69,29 +69,34 @@
                                     @* Combobox para seleccionar un rol de usuario*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Escoja el Rol de Usuario:</label>
+                                            <label>Escoja rol de usuario:</label>
                                             <div id="cargarRoles"></div>
+                                            <span id="errorRol" style="color:brown;"></span>
                                         </div>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre completo del usuario*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" maxlength="100" required>
+                                        <input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="80" required>
                                         <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNombreCompleto" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del correo del usuario*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="usuario@ups.edu.ec" maxlength="40" required>
+                                        <input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="usuario@ups.edu.ec" onkeyup="this.value=this.value.replace(validarCorreo(),'');" onBlur="validarInputCorreo();" maxlength="40" required>
                                         <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorCorreo" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" maxlength="15" required>
+                                        <input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="validarInputNick();" maxlength="15" required>
                                         <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNick" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del password del usuario*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña" minlength="6" maxlength="30" required>
+                                        <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña" onkeyup="this.value=this.value.replace(validarPassword(),'');" onBlur="validarInputPass();" maxlength="20" required>
                                         <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorPassword" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del teléfono convencional del usuario*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -105,7 +110,7 @@
                                     </div>
                                     @* Área de Texto para el ingreso de la direccion de un usuario *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DireccionUsuario" name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" maxlength="80"></textarea>
+                                        <textarea id="DireccionUsuario" name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" onkeyup="this.value=this.value.replace(validarTextos(),'');"  maxlength="80"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Checkbox para habilitar o deshabilitar el uso del nuevo usuario*@
@@ -120,7 +125,7 @@
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="modificarUsuario('@Url.Action("ModificarUsuario", "Usuarios")')">Modificar</button>
+                                            <button id="confirmarUsuario" type="submit" class="btn btn-success" onclick="modificarUsuario('@Url.Action("ModificarUsuario", "Usuarios")')">Modificar</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
@@ -160,6 +165,20 @@
         obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
         obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
         urlEstados('@Url.Action("ModificarEstadoUsuario", "Usuarios")');
+        //Función para setear nullos los valores del modal
+        $('#ModificarUsuario').on('hidden.bs.modal', function () {
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body input[id=TelefonoUsuario]").val("");
+            $(".modal-body input[id=TelefonoCelUsuario]").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorRol]").html('').hide();
+            $(".modal-body span[id=errorNombreCompleto]").html('').hide();
+            $(".modal-body span[id=errorCorreo]").html('').hide();
+            $(".modal-body span[id=errorNick]").html('').hide();
+            $(".modal-body span[id=errorPassword]").html('').hide();
+            document.getElementById("confirmarUsuario").disabled = false;
+        });
 
     });
 

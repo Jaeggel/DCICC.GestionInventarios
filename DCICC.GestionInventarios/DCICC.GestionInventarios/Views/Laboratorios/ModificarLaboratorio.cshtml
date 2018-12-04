@@ -134,9 +134,9 @@
         urlEstados('@Url.Action("ModificarEstadolaboratorio", "Laboratorios")');
          //Función para setear nullos los valores del modal
         $('#ModificarLaboratorios').on('hidden.bs.modal', function () {
-            $(".modal-body input").val("");
+            document.getElementById("DescripcionLaboratorio").focus();           
             $(".modal-body input").css("borderColor", "#ccc");
-            $(".modal-body textarea").val("");
+            $(".modal-body textarea[id=DescripcionLaboratorio]").val("");
             $(".modal-body textarea").css("borderColor", "#ccc");
             $(".modal-body span[id=errorNombreLab]").html('').hide();
             $(".modal-body span[id=errorUbicacionLab]").html('').hide();

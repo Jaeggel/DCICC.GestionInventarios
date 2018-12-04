@@ -176,21 +176,29 @@ function habilitarOdeshabilitar(idLab, estadoLab) {
 }
 
 //Función para evitar nombres de laboratorios repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toUpperCase();
-    var comprobar = false;
-    for (var i = 0; i < datosLaboratorios.length; i++) {
-        if ((datosLaboratorios[i].NombreLaboratorio).toUpperCase() == nombre) {
-            comprobar = true;
+function comprobarNombre() {
+    var nombre = document.getElementById("NombreLaboratorio");
+    nombre.value = nombre.value.toUpperCase();
+    if (nombre.value.length <= 0) {
+        nombre.focus();
+        nombre.style.borderColor = "#900C3F";
+        $('#errorNombreLab').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosLaboratorios.length; i++) {
+            if ((datosLaboratorios[i].NombreLaboratorio).toUpperCase() == nombre.value) {
+                nombre.style.borderColor = "#900C3F";
+                $('#errorNombreLab').html("El nombre del laboratorio: " + nombre.value + " ya existe").show();
+                setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
+                nombre.value = "";
+                break;
+            } else {
+                nombre.style.borderColor = "#ccc";
+                $('#errorNombreLab').html('').hide();
+            }
         }
     }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreLaboratorio").setCustomValidity("El nombre del laboratorio: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreLaboratorio").setCustomValidity("");
-    }
+    
 }
 
 /////////////////////////Funciones para cargar el campo de autocompletado
@@ -215,6 +223,7 @@ function validarInputNombre() {
     //Validación para el campo de texto nombre de laboratorio
     if (nomLab.value.length <= 0) {
         esValido = false;
+        nomLab.focus();
         nomLab.style.borderColor = "#900C3F";
         $('#errorNombreLab').html('El campo nombre no debe estar vacio').show();
         setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
@@ -234,6 +243,7 @@ function validarInputUbicacion() {
     //Validación para el campo de texto ubicacion de laboratorio
     if (ubicacionLab.value.length <= 0) {
         esValido = false;
+        ubicacionLab.focus();
         ubicacionLab.style.borderColor = "#900C3F";
         $('#errorUbicacionLab').html('El campo ubicación no debe estar vacio').show();
         setTimeout("$('#errorUbicacionLab').html('').hide('slow')", 6000);
