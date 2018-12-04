@@ -434,7 +434,7 @@ namespace DCICC.GestionInventarios.Controllers
             var contentDispositionHeader = new System.Net.Mime.ContentDisposition
             {
                 Inline = true,
-                FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy-mm-ss") + ".pdf"
+                FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy.hh-mm-ss") + ".pdf"
             };
             Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
             return File(objReporteQR.GenerarPDFQRSimple(Nombre_Activo, Id_CQR), System.Net.Mime.MediaTypeNames.Application.Pdf);
