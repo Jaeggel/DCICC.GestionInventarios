@@ -35,7 +35,7 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" onkeyup="this.value=this.value.replace(/[^A-Z0-9_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g,'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" required>
+                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" onkeyup="this.value=this.value.replace(/[^A-Z0-9_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g,'');"  minlength="3" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreMarca" style="color:brown;"></span>
                         </div>
@@ -73,8 +73,7 @@
         obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
         //Método para evitar la duplicidad de nombres de Marcas
         $('#NombreMarca').blur(function () {
-            var nombre = document.getElementById("NombreMarca").value;
-            comprobarNombre(nombre);
+            comprobarNombre();
         });
 
     });

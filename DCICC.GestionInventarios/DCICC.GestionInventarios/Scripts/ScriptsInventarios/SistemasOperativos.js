@@ -3,6 +3,7 @@ var url_metodo;
 var datosSO;
 var idSOMod;
 var urlEstado;
+var nombresSO = [];
 
 //Método ajax para obtener los sistemas operativos
 function obtenerSO(url) {
@@ -20,6 +21,7 @@ function obtenerSO(url) {
                     "url": url_idioma
                 }
             });
+            cargarNombresLaboratorios();
         }
     });
 }
@@ -88,56 +90,40 @@ function modificarSO(url_modificar) {
     var descripcionSo=document.getElementById("DescripcionSistOperativos").value;
     var habilitadoSo = $('#HabilitadoSistOperativos').prop('checked');
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdSistOperativos": idSOMod, "NombreSistOperativos": nombreSO, "DescripcionSistOperativos": descripcionSo, "HabilitadoSistOperativos": habilitadoSo },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarSo').modal('hide');
-                        showNotify("Actualización exitosa", 'El Sistema Operativo se ha modificado correctamente', "success");
-                        obtenerSO(url_metodo);
-                    } else {
-                        $('#ModificarSo').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar la Marca el Sistema Operativo: ' + data.MensajeError, "error");
+    if (validarInputNombre()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: { "IdSistOperativos": idSOMod, "NombreSistOperativos": nombreSO, "DescripcionSistOperativos": descripcionSo, "HabilitadoSistOperativos": habilitadoSo },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarSo').modal('hide');
+                            showNotify("Actualización exitosa", 'El Sistema Operativo se ha modificado correctamente', "success");
+                            obtenerSO(url_metodo);
+                        } else {
+                            $('#ModificarSo').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar la Marca el Sistema Operativo: ' + data.MensajeError, "error");
+                        }
+
                     }
-                    
-                }
-            });
-        } else {
-            $('#ModificarSo').modal('hide');
-        }
-    });
-}
-
-//Función para evitar nombres de sistemas operativo repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosSO.length; i++) {
-        if ((datosSO[i].NombreSistOperativos).toLowerCase() == nombre) {
-            comprobar = true;
-        }
-    }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreSistOperativos").setCustomValidity("El nombre del sistema operativo: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreSistOperativos").setCustomValidity("");
-    }
+                });
+            } else {
+                $('#ModificarSo').modal('hide');
+            }
+        });
+    }  
 }
 
 //Función para habilitar o deshabilitar un sistema operativo
@@ -183,4 +169,63 @@ function habilitarOdeshabilitar(idSistOpe, estadoSistOpe) {
 
         }
     });
+}
+
+//Función para evitar nombres de sistemas operativo repetidos
+function comprobarNombre() {
+   
+    var nomSO = document.getElementById("NombreSistOperativos");
+    nomSO.value = nomSO.value.toUpperCase();
+    //Validación para el campo de texto nombre de laboratorio
+    if (nomSO.value.length <= 0) {
+        nomSO.style.borderColor = "#900C3F";
+        $('#errorNombreSO').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreSO').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosSO.length; i++) {
+            if ((datosSO[i].NombreSistOperativos).toUpperCase() == nomSO.value) {
+                nomSO.style.borderColor = "#900C3F";
+                $('#errorNombreSO').html("El nombre del Sistema Operativo: " + nomSO.value + " ya existe").show();
+                setTimeout("$('#errorNombreSO').html('').hide('slow')", 6000);
+                nomSO.value = "";
+            } else {
+                nomSO.style.borderColor = "#ccc";
+                $('#errorNombreSO').html('').hide();
+            }
+        }
+    }
+
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresLaboratorios() {
+    for (var i = 0; i < datosSO.length; i++) {
+        nombresSO[i] = datosSO[i].NombreSistOperativos;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Sistemas Operativos
+$(function () {
+    $("#NombreSistOperativos").autocomplete({
+        source: nombresSO
+    });
+});
+
+/////////////Funciones para validaciones de campos de texto
+function validarInputNombre() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarSO");
+    var nomSO = document.getElementById("NombreSistOperativos");
+    //Validación para el campo de texto nombre de laboratorio
+    if (nomSO.value.length <= 0) {
+        esValido = false;
+        nomSO.style.borderColor = "#900C3F";
+        $('#errorNombreSO').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreSO').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomSO.style.borderColor = "#ccc";
+        $('#errorNombreSO').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
 }

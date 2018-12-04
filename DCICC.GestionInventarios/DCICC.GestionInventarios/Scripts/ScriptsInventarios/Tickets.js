@@ -218,39 +218,41 @@ function modificarEstadoTicket(url_modificar) {
     var Estado = cmbEstado.options[cmbEstado.selectedIndex].value;
     var comentario = document.getElementById("ComentarioTicket").value;
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdTicket": idTicketAbierto, "EstadoTicket": Estado, "ComentarioTicket": comentario, "NombreUsuarioResponsable": nick },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarTickets').modal('hide');
-                        showNotify("Actualización exitosa", 'El Ticket cambió de estado', "success");
-                        obtenerTickets(url_metodo);
-                    } else {
-                        $('#ModificarTickets').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket: ' + data.MensajeError, "error");
-                    }
-                    
-                }
-            });
+    if (validarCmbAbierto()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: { "IdTicket": idTicketAbierto, "EstadoTicket": Estado, "ComentarioTicket": comentario, "NombreUsuarioResponsable": nick },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarTickets').modal('hide');
+                            showNotify("Actualización exitosa", 'El Ticket cambió de estado', "success");
+                            obtenerTickets(url_metodo);
+                        } else {
+                            $('#ModificarTickets').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket: ' + data.MensajeError, "error");
+                        }
 
-        } else {
-            $('#ModificarTickets').modal('hide');
-        }
-    });
+                    }
+                });
+
+            } else {
+                $('#ModificarTickets').modal('hide');
+            }
+        });
+    } 
 }
 
 //Función para setear los valores en los inputs de tickets en curso
@@ -278,37 +280,78 @@ function modificarEstadoTicketEnCurso(url_modificar) {
     var Estado = cmbEstado.options[cmbEstado.selectedIndex].value;
     var comentario = document.getElementById("ComentarioTicketEC").value;
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdTicket": idTicketAbierto, "EstadoTicket": Estado, "ComentarioTicket": comentario, "NombreUsuarioResponsable": nick },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    if (data.OperacionExitosa) {
-                        $('#ModificarTicketsEnCurso').modal('hide');
-                        showNotify("Actualización exitosa", 'El Ticket cambió a estado Resuelto', "success");
-                        obtenerTickets(url_metodo);            
-                    } else {
-                        $('#ModificarTicketsEnCurso').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket: ' + data.MensajeError, "error");
+    if (validarCmbCurso()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: { "IdTicket": idTicketAbierto, "EstadoTicket": Estado, "ComentarioTicket": comentario, "NombreUsuarioResponsable": nick },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        if (data.OperacionExitosa) {
+                            $('#ModificarTicketsEnCurso').modal('hide');
+                            showNotify("Actualización exitosa", 'El Ticket cambió a estado Resuelto', "success");
+                            obtenerTickets(url_metodo);
+                        } else {
+                            $('#ModificarTicketsEnCurso').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket: ' + data.MensajeError, "error");
+                        }
                     }
-                }
-            });
+                });
 
-        } else {
-            $('#ModificarTicketsEnCurso').modal('hide');
-        }
-    });
+            } else {
+                $('#ModificarTicketsEnCurso').modal('hide');
+            }
+        });
+    }
+    
 }
 
+///Función para validar el combobox de Estado Abierto
+function validarCmbAbierto() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarAbierto");
+    var cmbCat = document.getElementById("Estados");
+    //Validación para el combobox de categorias
+    if (cmbCat.value == "") {
+        esValido = false;
+        cmbCat.style.borderColor = "#900C3F";
+        $('#errorAbiertos').html('Debe seleccionar una opción').show();
+        setTimeout("$('#errorAbiertos').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        cmbCat.style.borderColor = "#ccc";
+        $('#errorAbiertos').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}
 
+///Función para validar el combobox de Estado En curso
+function validarCmbCurso() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarEnCurso");
+    var cmbCat = document.getElementById("EstadosEC");
+    //Validación para el combobox de categorias
+    if (cmbCat.value == "") {
+        esValido = false;
+        cmbCat.style.borderColor = "#900C3F";
+        $('#errorEnCurso').html('Debe seleccionar una opción').show();
+        setTimeout("$('#errorEnCurso').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        cmbCat.style.borderColor = "#ccc";
+        $('#errorEnCurso').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}

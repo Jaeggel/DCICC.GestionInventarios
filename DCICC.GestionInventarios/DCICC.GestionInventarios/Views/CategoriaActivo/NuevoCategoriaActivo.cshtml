@@ -35,7 +35,7 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo"  onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarInputsVaciosIngreso();" minlength="3"  maxlength="50"  required>
+                            <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo"  onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');"  minlength="3"  maxlength="50" data-toggle="tooltip" data-placement="right" title=mensajes50();  required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreCategoria" style="color:brown;"></span>
                         </div>
@@ -74,8 +74,7 @@
         obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
         //Método para evitar la duplicidad de nombres de Categorías
         $('#NombreCategoriaActivo').blur(function () {
-            var nombre = document.getElementById("NombreCategoriaActivo").value;
-            comprobarNombre(nombre);
+            comprobarNombre();
         });
 
     });

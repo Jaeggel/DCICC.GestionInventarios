@@ -35,12 +35,33 @@ function validarTextos() {
     return /[^a-zA-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
 }
 
+function validarTextosMayus() {
+    return /[^A-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
+}
+
 function validarNumeros() {
     return /[^0-9]/g;
 }
 
 function validarFecha() {
     return /[^0-9/-]/g;
+}
+
+function validarIp() {
+    return /[^0-9.]/g;
+}
+
+function validarCorreo(){
+    return /[^a-zA-Z0-9._9\-@]/g;
+}
+
+function validarPassword() {
+    return /[^a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\^&\*\?_~\/]/g;
+}
+
+///Funciones para mensajes de tooltip
+function mensajes50() {
+    return "No se puede ingresar caracteres especiales ni espacios.\n 50 Caracteres como máximo.";
 }
 
 /*Método para mostrar alertas notify

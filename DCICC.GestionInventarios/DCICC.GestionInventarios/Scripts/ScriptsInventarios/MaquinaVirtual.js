@@ -5,6 +5,7 @@ var datosMaquinasV;
 var cmbSO;
 var idMaquinaV;
 var urlEstado;
+var nombresMV = [];
 
 //Método ajax para obtener los datos de Máquinas virtuales
 function obtenerMaquinaV(url) {
@@ -21,6 +22,7 @@ function obtenerMaquinaV(url) {
                     "url": url_idioma
                 }
             });
+            cargarNombresMV();
         }
     });
 }
@@ -110,7 +112,7 @@ function cargarSOCmb() {
 
 //Función para cargar el combobox de Propósitos
 function cargarPropositosCmb() {
-    var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales" required>';
+    var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales" onBlur="validarCmbMV();" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < propositos.length; i++) {
         str += '<option value="' + propositos[i].NombreProposito + '">' + propositos[i].NombreProposito + '</option>';
@@ -168,57 +170,41 @@ function modificarMaquinaV(url_modificar) {
     var descripcion= document.getElementById("DescripcionMaqVirtuales").value;
     var habilitadoMV = $('#HabilitadoMaqVirtuales').prop('checked');
 
-    swal({
-        title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#26B99A',
-        cancelButtonColor: '#337ab7',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                data: { "IdMaqVirtuales": idMaquinaV, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV, "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP, "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion, "HabilitadoMaqVirtuales": habilitadoMV },
-                url: url_modificar,
-                type: 'post',
-                success: function (data) {
-                    console.log(data.OperacionExitosa);
-                    if (data.OperacionExitosa) {
-                        $('#ModificarMaquinaV').modal('hide');
-                        showNotify("Actualización exitosa", 'La Máquina Virtual se ha modificado correctamente', "success");
-                        obtenerMaquinaV(url_metodo);
-                    } else {
-                        $('#ModificarMaquinaV').modal('hide');
-                        showNotify("Error en la Actualización", 'No se ha podido modificar la Máquina Virtual: ' + data.MensajeError, "error");
+    if (validarInputNombre() && validarIP() && validarDisco() && validarRam() && validarCmbMV() && validarInputUsuario()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    data: { "IdMaqVirtuales": idMaquinaV, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV, "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP, "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion, "HabilitadoMaqVirtuales": habilitadoMV },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarMaquinaV').modal('hide');
+                            showNotify("Actualización exitosa", 'La Máquina Virtual se ha modificado correctamente', "success");
+                            obtenerMaquinaV(url_metodo);
+                        } else {
+                            $('#ModificarMaquinaV').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar la Máquina Virtual: ' + data.MensajeError, "error");
+                        }
+
                     }
-                   
-                }
-            });
+                });
 
-        } else {
-            $('#ModificarTipoActivo').modal('hide');
-        }
-    });
-}
-
-//Función para evitar nombres de máquinas virtuales repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosMaquinasV.length; i++) {
-        if ((datosMaquinasV[i].NombreMaqVirtuales).toLowerCase() == nombre) {
-            comprobar = true;
-        }
-    }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreMaqVirtuales").setCustomValidity("El nombre de la Máquina Virtual: " + nombre + " ya existe");
-    } else {
-        document.getElementById("NombreMaqVirtuales").setCustomValidity("");
-    }
+            } else {
+                $('#ModificarTipoActivo').modal('hide');
+            }
+        });
+    }  
 }
 
 //Función para habilitar o deshabilitar la categoria
@@ -261,4 +247,204 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
 
         }
     });
+}
+
+
+//Función para evitar nombres de máquinas virtuales repetidos
+function comprobarNombre() {
+    var nomMV = document.getElementById("NombreMaqVirtuales");
+    nomMV.value = nomMV.value.toUpperCase();
+    //Validación para el campo de texto nombre de Máquina virtual
+    if (nomMV.value.length <= 0) {
+        nomMV.style.borderColor = "#900C3F";
+        $('#errorNombreMV').html('El campo nombre de Máquina Virtual no debe estar vacio').show();
+        setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosMaquinasV.length; i++) {
+            if ((datosMaquinasV[i].NombreMaqVirtuales).toUpperCase() == nomMV.value) {
+                nomMV.style.borderColor = "#900C3F";
+                $('#errorNombreMV').html("El nombre de la Máquina Virtual: " + nomMV.value + " ya existe").show();
+                setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
+                nomMV.value = "";
+            } else {
+                nomMV.style.borderColor = "#ccc";
+                $('#errorNombreMV').html('').hide();
+            }
+        }
+    }
+}
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresMV() {
+    for (var i = 0; i < datosMaquinasV.length; i++) {
+        nombresMV[i]= datosMaquinasV[i].NombreMaqVirtuales;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Máquinas Virtuales
+$(function () {
+    $("#NombreMaqVirtuales").autocomplete({
+        source: nombresMV
+    });
+});
+
+/////////////Funciones para validaciones de campos de texto
+function validarInputNombre() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMV");
+    var nomMV = document.getElementById("NombreMaqVirtuales");
+   
+    //Validación para el campo de texto nombre de Máquina virtual
+    if (nomMV.value.length <= 0) {
+        esValido = false;
+        nomMV.value = "";
+        nomMV.style.borderColor = "#900C3F";
+        $('#errorNombreMV').html('El campo nombre de Máquina Virtual no debe estar vacio').show();
+        setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomMV.style.borderColor = "#ccc";
+        $('#errorNombreMV').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+
+}
+
+//Función para validar el nombre de Usuario
+function validarInputUsuario() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMV");
+    var nomUsuario = document.getElementById("UsuarioMaqVirtuales");
+
+    if (nomUsuario.value.length <= 0) {
+        esValido = false;
+        nomUsuario.value = "";
+        nomUsuario.style.borderColor = "#900C3F";
+        $('#errorNombreUsuario').html('El campo nombre de usuario no debe estar vacio').show();
+        setTimeout("$('#errorNombreUsuario').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        nomUsuario.style.borderColor = "#ccc";
+        $('#errorNombreUsuario').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}
+
+//Función para validar dirección IP
+function validarIP() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMV");
+    var ip = document.getElementById("DireccionIPMaqVirtuales");
+    //Validación para el campo de texto nombre de Máquina virtual
+    if (ip.value.length <= 0) {
+        esValido = false;
+        ip.style.borderColor = "#900C3F";
+        $('#errorIpMv').html('El campo IP no debe estar vacio').show();
+        setTimeout("$('#errorIpMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else if (!/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip.value)) {
+        esValido = false;
+        ip.value = "";
+        ip.style.borderColor = "#900C3F";
+        $('#errorIpMv').html('La dirección IP es incorrecta').show();
+        setTimeout("$('#errorIpMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        ip.style.borderColor = "#ccc";
+        $('#errorIpMv').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}
+
+//Función para validar disco duro y Ram
+function validarDisco() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMV");
+    var disco = document.getElementById("DiscoMaqVirtuales");
+    //Validación para disco de Máquina virtual
+    if (disco.value.length <= 0) {
+        esValido = false;
+        disco.value = "";
+        disco.style.borderColor = "#900C3F";
+        $('#errorDiscoMv').html('El campo Disco Duro no debe estar vacio').show();
+        setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else if (disco.value > 10000) {
+        esValido = false;
+        disco.value = "";
+        disco.style.borderColor = "#900C3F";
+        $('#errorDiscoMv').html('No se puede asignar mas de 10000 de Disco Duro').show();
+        setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    }else{
+        disco.style.borderColor = "#ccc";
+        $('#errorDiscoMv').html('').hide();
+        boton.disabled = false;
+    }
+
+    return esValido;
+}
+
+//Función para validar disco duro y Ram
+function validarRam() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMV");
+    var ram = document.getElementById("RamMaqVirtuales");
+    //Validar memoria Ram
+    if (ram.value.length <= 0) {
+        esValido = false;
+        ram.value = "";
+        ram.style.borderColor = "#900C3F";
+        $('#errorRamMv').html('El campo RAM no debe estar vacio').show();
+        setTimeout("$('#errorRamMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else if (ram.value > 1000) {
+        esValido = false;
+        ram.value = "";
+        ram.style.borderColor = "#900C3F";
+        $('#errorRamMv').html('No se puede asignar mas de 1000 de Memoria Ram').show();
+        setTimeout("$('#errorRamMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        ram.style.borderColor = "#ccc";
+        $('#errorRamMv').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
+}
+
+///Función para validar los combobox de maquinas virtuales
+function validarCmbMV() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMV");
+    var cmbSO = document.getElementById("IdSistOperativos");
+    var cmbEs = document.getElementById("PropositoMaqVirtuales");
+    //Validación para el combobox de SO
+    if (cmbSO.value == "") {
+        esValido = false;
+        cmbSO.style.borderColor = "#900C3F";
+        $('#errorCmbSo').html('Debe seleccionar una opción').show();
+        setTimeout("$('#errorCmbSo').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        cmbSO.style.borderColor = "#ccc";
+        $('#errorCmbSo').html('').hide();
+        boton.disabled = false;
+    }
+
+    //Validación para el combobox de estados
+    if (cmbEs.value == "") {
+        esValido = false;
+        cmbEs.style.borderColor = "#900C3F";
+        $('#errorCmbEstado').html('Debe seleccionar una opción').show();
+        setTimeout("$('#errorCmbEstado').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        cmbEs.style.borderColor = "#ccc";
+        $('#errorCmbEstado').html('').hide();
+        boton.disabled = false;
+    }
+    return esValido;
 }

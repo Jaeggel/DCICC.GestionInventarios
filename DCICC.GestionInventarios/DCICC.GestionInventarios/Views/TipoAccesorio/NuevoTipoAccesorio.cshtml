@@ -35,7 +35,7 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de un tipo de accesorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" required>
+                            <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreTipo" style="color:brown;"></span>
                         </div>
@@ -73,9 +73,8 @@
         //Método para obtener las tablas de Tipo Accesorio
         obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
         //Método para evitar la duplicidad de nombres
-        $('#NombreTipoAccesorio').blur(function () {
-            var nombre = document.getElementById("NombreTipoAccesorio").value;
-            comprobarNombre(nombre);
+        $('#NombreTipoAccesorio').blur(function () {            
+            comprobarNombre();
         });
 
     });

@@ -30,6 +30,11 @@ ul.breadcrumb li a {
     color: #169F85;
 }
 
+/*Para mostrar el autocomplete en los modal*/
+.ui-autocomplete {
+    z-index: 2147483647 !important;
+}
+
 
 .full-width {
 	

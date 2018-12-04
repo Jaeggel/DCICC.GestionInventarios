@@ -165,19 +165,27 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
 }
 
 //Función para evitar nombres de Tipo Accesorio repetidos
-function comprobarNombre(nombre) {
-    nombre = nombre.toUpperCase();
-    var comprobar = false;
-    for (var i = 0; i < datosTipoAccesorio.length; i++) {
-        if ((datosTipoAccesorio[i].NombreTipoAccesorio).toUpperCase() == nombre) {
-            comprobar = true;
-        }
-    }
-
-    if (comprobar == true) {
-        document.getElementById("NombreTipoAccesorio").setCustomValidity("El nombre del tipo accesorio: " + nombre + " ya existe");
+function comprobarNombre() {    
+    var nomTipo = document.getElementById("NombreTipoAccesorio");
+    nomTipo.value = nomTipo.value.toUpperCase();
+    //Validación para el campo de texto nombre de Tipo Accesorio
+    if (nomTipo.value.length <= 0) {
+        nomTipo.style.borderColor = "#900C3F";
+        $('#errorNombreTipo').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
     } else {
-        document.getElementById("NombreTipoAccesorio").setCustomValidity("");
+        for (var i = 0; i < datosTipoAccesorio.length; i++) {
+            if ((datosTipoAccesorio[i].NombreTipoAccesorio).toUpperCase() == nomTipo.value) {
+                nomTipo.style.borderColor = "#900C3F";
+                $('#errorNombreTipo').html("El nombre del tipo accesorio: " + nomTipo.value + " ya existe").show();
+                setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
+                nomTipo.value = "";
+                break;
+            } else {
+                nomTipo.style.borderColor = "#ccc";
+                $('#errorNombreTipo').html('').hide();
+            }
+        }
     }
 }
 

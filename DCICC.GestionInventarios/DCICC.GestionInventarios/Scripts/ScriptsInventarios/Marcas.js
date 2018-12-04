@@ -173,20 +173,28 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
 }
 
 //Función para evitar nombres de marcas repetidas
-function comprobarNombre(nombre) {
-    nombre = nombre.toLowerCase();
-    var comprobar = false;
-    for (var i = 0; i < datosMarcas.length; i++) {
-        if ((datosMarcas[i].NombreMarca).toLowerCase() == nombre) {
-            comprobar = true;
-        }
-    }
-
-    console.log(comprobar);
-    if (comprobar == true) {
-        document.getElementById("NombreMarca").setCustomValidity("El nombre de la marca: " + nombre + " ya existe");
+function comprobarNombre() {
+    var nomMarca = document.getElementById("NombreMarca");
+    nomMarca.value = nomMarca.value.toUpperCase();
+    //Validación para el campo de texto nombre de Marcas
+    if (nomMarca.value.length <= 0) {
+        nomMarca.style.borderColor = "#900C3F";
+        $('#errorNombreMarca').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
     } else {
-        document.getElementById("NombreMarca").setCustomValidity("");
+        for (var i = 0; i < datosMarcas.length; i++) {
+            if ((datosMarcas[i].NombreMarca).toUpperCase() == nomMarca.value) {
+                console.log("si");
+                nomMarca.style.borderColor = "#900C3F";
+                $('#errorNombreMarca').html("El nombre de la marca: " + nomMarca.value + " ya existe").show();
+                setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
+                nomMarca.value = "";
+                break;
+            } else {
+                nomMarca.style.borderColor = "#ccc";
+                $('#errorNombreMarca').html('').hide();
+            }
+        }
     }
 }
 

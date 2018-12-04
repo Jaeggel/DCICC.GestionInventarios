@@ -35,7 +35,7 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de un laboratorio *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreLaboratorio" type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" required>
+                            <input id="NombreLaboratorio" type="text" class="form-control has-feedback-left" name="NombreLaboratorio" placeholder="Nombre del Laboratorio" onkeyup="this.value=this.value.replace(validarNombres(),'');"  minlength="3" maxlength="50" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreLab" style="color:brown;"></span>
                         </div>
@@ -79,9 +79,8 @@
         //Método para obtener la tabla de Laboratorios
         obtenerLaboratorios('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
         //Método para evitar la duplicidad de nombres de Laboratorios
-        $('#NombreLaboratorio').blur(function () {
-            var nombre = document.getElementById("NombreLaboratorio").value;
-            comprobarNombre(nombre);
+        $('#NombreLaboratorio').blur(function () {            
+            comprobarNombre();
         });
 
     });

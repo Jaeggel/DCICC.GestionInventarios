@@ -12,6 +12,8 @@ var nombreAccesorioIng;
 var idCQRAccesorio;
 var nombreCQRAccesorio;
 
+var nombresActivo = [];
+
 
 //Método ajax para obtener los datos de los activos
 function obtenerActivos(url) {
@@ -606,55 +608,78 @@ function validacionesCamposAccesorio() {
     if (document.getElementById("AccesorioIngreso").value == "") {
         isValid = false;
         document.getElementById("AccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorTipoAccesorio').html('Debe seleccionar una Opción del Tipo de Activo').show();
-        setTimeout("$('#errorTipoAccesorio').html('').hide('slow')", 6000);
+        $('#errorTipoAccesorioIng').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        setTimeout("$('#errorTipoAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("AccesorioIngreso").style.borderColor = "#ccc";
-        $('#errorTipoAccesorio').html('').hide();
+        $('#errorTipoAccesorioIng').html('').hide();
     }
 
     //Validación para combobox estado de Activo
     if (document.getElementById("EstadoAccesorioIng").value == "") {
         isValid = false;
         document.getElementById("EstadoAccesorioIng").style.borderColor = "#900C3F";
-        $('#errorEstadoAccesorio').html('Debe seleccionar una Opción de Estado').show();
-        setTimeout("$('#errorEstadoAccesorio').html('').hide('slow')", 6000);
+        $('#errorEstadoAccesorioIng').html('Debe seleccionar una Opción de Estado').show();
+        setTimeout("$('#errorEstadoAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("EstadoAccesorioIng").style.borderColor = "#ccc";
-        $('#errorEstadoAccesorio').html('').hide();
+        $('#errorEstadoAccesorioIng').html('').hide();
     }
 
     //Validación para el nombre de Activo
     if (!nombreActivo && nombreActivo.length <= 0) {
         isValid = false;
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorNombreAccesorio').html('El campo Nombre del Activo es obligatorio').show();
-        setTimeout("$('#errorNombreAccesorio').html('').hide('slow')", 6000);
+        $('#errorNombreAccesorioIng').html('El campo Nombre del Activo es obligatorio').show();
+        setTimeout("$('#errorNombreAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
-        $('#errorNombreAccesorio').html('').hide();
+        $('#errorNombreAccesorioIng').html('').hide();
     }
     //Validación para el modelo del activo
     if (!modeloActivo && modeloActivo.length <= 0) {
         isValid = false;
         document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorModeloAccesorio').html('El campo Modelo de Activo es obligatorio').show();
-        setTimeout("$('#errorModeloAccesorio').html('').hide('slow')", 6000);
+        $('#errorModeloAccesorioIng').html('El campo Modelo de Activo es obligatorio').show();
+        setTimeout("$('#errorModeloAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#ccc";
-        $('#errorModeloAccesorio').html('').hide();
+        $('#errorModeloAccesorioIng').html('').hide();
     }
     //Validación para el serial del activo
     if (!serialActivo && serialActivo.length <= 0) {
         isValid = false;
         document.getElementById("SerialAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorSerialAccesorio').html('El campo Serial de Activo es obligatorio').show();
-        setTimeout("$('#errorSerialAccesorio').html('').hide('slow')", 6000);
+        $('#errorSerialAccesorioIng').html('El campo Serial de Activo es obligatorio').show();
+        setTimeout("$('#errorSerialAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("SerialAccesorioIngreso").style.borderColor = "#ccc";
-        $('#errorSerialAccesorio').html('').hide();
+        $('#errorSerialAccesorioIng').html('').hide();
     }
 
     return isValid;
 }
+
+/////////////////////////Funciones para cargar el campo de autocompletado
+function cargarNombresActivos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'get',
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                nombresActivo[i] = data[i].NombreActivo;
+            }
+        }
+    });
+
+}
+//Función para cargar los nombres en el campo de nombre de activos
+$(function () { 
+    $("#NombreActivo").autocomplete({
+        source: nombresActivo
+    });  
+});
+
+
 
