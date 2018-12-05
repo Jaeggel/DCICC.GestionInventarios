@@ -305,6 +305,16 @@
         cargarEstadosAccesorioCmb();
         cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
         mensajesTooltips();
+
+        $('#single_cal4').data('DateTimePicker').minDate('01/01/1990');
+        $('#single_cal4').data('DateTimePicker').maxDate(new Date());
+
+        //$(function () {
+        //    $("#single_cal4").datepicker({
+        //        minDate:"01/10/1990",
+        //        maxDate: 0
+        //    });
+        //});
         // Inicializar Smart Wizard
         $('#wizard').smartWizard({
             // Propiedades
