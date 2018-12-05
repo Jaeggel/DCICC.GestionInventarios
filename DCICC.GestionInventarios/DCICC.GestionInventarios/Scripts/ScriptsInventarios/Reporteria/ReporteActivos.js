@@ -114,8 +114,8 @@ function cargarEstadosCmb() {
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
-    var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
+    var str = '<table id="dataTableActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Estado del Activo</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         //Método para dar formato a la fecha y hora
@@ -124,6 +124,7 @@ function cargarActivosTabla() {
 
         str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
             '</td><td>' + datosActivos[i].NombreActivo +
+            '</td><td>' + datosActivos[i].NombreMarca +
             '</td><td>' + datosActivos[i].ModeloActivo +
             '</td><td>' + datosActivos[i].SerialActivo +
             '</td><td>' + datosActivos[i].NombreLaboratorio +
@@ -133,7 +134,6 @@ function cargarActivosTabla() {
         str += '</td ></tr > ';
     };
     str += '</tbody>' +
-        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th><th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead></tfoot>' +
         '</table > ';
     $("#tablaReportesActivos").html(str);
 }

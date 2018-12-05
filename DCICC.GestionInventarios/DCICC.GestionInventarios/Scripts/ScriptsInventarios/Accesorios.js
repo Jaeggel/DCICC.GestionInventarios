@@ -89,7 +89,9 @@ function cargarAccesoriosIngresoCmb() {
     var str = '<select id="AccesorioIngreso" class="form-control" name="AccesorioIngreso" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoAccesorio.length; i++) {
-        str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
+        if (cmbTipoAccesorio[i].HabilitadoTipoAccesorio) {
+            str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
+        }      
     };
     str += '</select>';
     $("#cargarAccesoriosIngreso").html(str);

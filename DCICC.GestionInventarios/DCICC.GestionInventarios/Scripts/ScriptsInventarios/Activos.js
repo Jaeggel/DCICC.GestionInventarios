@@ -306,7 +306,7 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
     //Obtener valor del codigo UPS
     var codigoUps = document.getElementById("CodigoUpsActivo").value;
     //Obtener valor de la fecha de ingreso del activo
-    var fechaIngreso = $('#single_cal4').val();
+    var fechaIngreso = $('#FechaIngresoActivo').val();
     console.log(fechaIngreso);
     //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
     //Obtener valor de la descripcion de activo
@@ -442,6 +442,6 @@ function mensajesTooltips() {
     document.getElementById("SerialActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
     document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
     document.getElementById("CodigoUpsActivo").title = "Máximo 15 caracteres numéricos.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("single_cal4").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
+    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
 }
