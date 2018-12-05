@@ -34,9 +34,11 @@ namespace DCICC.GestionInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerLogsComp()
-        {
+        {           
             LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
-            return Json(objLogsAccDatos.ObtenerLogsComp().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(objLogsAccDatos.ObtenerLogsComp().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
         #endregion
     }
