@@ -42,6 +42,7 @@ function obtenerSO(url) {
     });
 }
 
+//Método ajax para obtener los datos de propósitos
 function listaPropositos(url) {
     $.ajax({
         dataType: 'json',

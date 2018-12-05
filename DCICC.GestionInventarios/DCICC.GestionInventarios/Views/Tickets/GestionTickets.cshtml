@@ -28,21 +28,21 @@
                 @* Sección para mostrar el acordión de las tablas con los tickets en sus diferentes estados.*@
                 <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
                     @* Sección para tickets Abiertos.*@
-                    <div class="panel panel-danger">
+                    <div class="panel panel-info">
                         <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <h4 class="panel-title">Abiertos <strong> (<span id="numeroAbiertos"></span>) </strong></h4>
+                            <h4 class="panel-title">Abiertos <strong> (<span id="numeroAbiertos"></span>) :</strong> <small> Tickets Nuevos reportados por los Usuarios.</small> </h4>
                         </a>
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <div id="ticketsAbiertos"></div>
-                                
+
                             </div>
                         </div>
                     </div>
                     @* Sección para tickets En Curso.*@
                     <div class="panel panel-warning">
                         <a class="panel-heading collapsed panel-warning" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <h4 class="panel-title">En Curso <strong> (<span id="numeroEnCurso"></span>) </strong></h4>
+                            <h4 class="panel-title">En Curso <strong> (<span id="numeroEnCurso"></span>) :</strong> <small> Tickets que se encuentran en Resolución.</small></h4>
                         </a>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
@@ -50,12 +50,23 @@
                             </div>
                         </div>
                     </div>
+                    @* Sección para tickets En Espera.*@
+                    <div class="panel panel-danger">
+                        <a class="panel-heading collapsed panel-warning" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <h4 class="panel-title">En Espera <strong> (<span id="numeroEnEspera"></span>) :</strong> <small> Tickets que se han asignado a proveedores o terceras personas.</small> </h4>
+                        </a>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div id="ticketsEnEspera"></div>
+                            </div>
+                        </div>
+                    </div>
                     @* Sección para tickets Resueltos.*@
                     <div class="panel panel-success">
-                        <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <h4 class="panel-title">Resueltos <strong> (<span id="numeroResueltos"></span>) </strong></h4>
+                        <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            <h4 class="panel-title">Resueltos <strong> (<span id="numeroResueltos"></span>) :</strong> <small> Tickets que se han Solucionado</small></h4>
                         </a>
-                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
                                 <div id="ticketsResueltos"></div>
                             </div>
@@ -222,6 +233,83 @@
     </div>
 </div>
 
+@* Modal de modificación de tickets en Espera *@
+<div class="modal fade" id="ModificarTicketsEnEspera" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel3">Solucionar Tickets para Soporte Técnico En Espera</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+
+                                    @* Cuadro de texto para el ingreso de la descripcion del ticket*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Descripción de la incidencia:</label>
+                                        <textarea id="DescripcionTicketEnEs" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
+                                        <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso de la prioridad del ticket*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Prioridad de la incidencia:</label>
+                                        <input id="PrioridadTicketEnEs" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
+                                        <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso del nombre de usuario que reporto el ticket*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Reportado por:</label>
+                                        <input id="NombreUsuarioEnEs" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
+                                        <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Cuadro de texto para el ingreso de la fecha de apertura del ticket*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Fecha de apertura del ticket:</label>
+                                        <input id="FechaAperturaTicketEnEs" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
+                                        <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    @* Combobox para seleccionar un cambio de estado*@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>Cambiar de estado:</label>
+                                            <div id="cargarEnEsperaCmb"></div>
+                                            <span id="errorEnEspera" style="color:brown;"></span>
+                                        </div>
+                                    </div>
+
+                                    @* Área de Texto para el ingreso del comentario del ticket *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="ComentarioTicketEnEs" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
+                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar usuario o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button id="confirmarEnEspera" type="submit" class="btn btn-success" onclick="modificarEstadoTicketEnEspera('@Url.Action("ModificarTicket", "Tickets")');">Modificar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
@@ -252,6 +340,10 @@
         });
 
         $('#ModificarTicketsEnCurso').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+        });
+
+        $('#ModificarTicketsEnEspera').on('hidden.bs.modal', function () {
             $(".modal-body select").val("");
         });
 

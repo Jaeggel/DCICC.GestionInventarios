@@ -36,8 +36,8 @@ function obtenerActivos(url) {
     });
 }
 
+//Método ajax para obtener los datos de tipos de activos
 function datosTipoActivo(url) {
-    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -50,8 +50,8 @@ function datosTipoActivo(url) {
     });
 }
 
+//Método ajax para obtener los datos de los laboratorios
 function datosLaboratorio(url) {
-    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -63,8 +63,8 @@ function datosLaboratorio(url) {
     });
 }
 
+//Método ajax para obtener los datos de las marcas
 function datosMarcas(url) {
-    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -76,8 +76,8 @@ function datosMarcas(url) {
     });
 }
 
-function cargarTipoActivoCmb() {
-    
+//Función para cargar el combobox de tipo de activo
+function cargarTipoActivoCmb() {   
     var str = '<select id="TipoActivo" class="form-control" name="TipoActivo"  required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoActivo.length; i++) {
@@ -88,6 +88,7 @@ function cargarTipoActivoCmb() {
     $("#cargarTipoActivos").html(str);
 }
 
+//Función para cargar el combobox de laboratorios
 function cargarLaboratoriosCmb() {
     var str = '<select id="LaboratorioActivo" class="form-control" name="LaboratorioActivo"  required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -98,6 +99,7 @@ function cargarLaboratoriosCmb() {
     $("#cargarLaboratorios").html(str);
 }
 
+//Función para cargar el combobox de Marcas
 function cargarMarcasCmb() {
     var str = '<select id="MarcaActivo" class="form-control" name="MarcaActivo"   required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -108,6 +110,7 @@ function cargarMarcasCmb() {
     $("#cargarMarcas").html(str);
 }
 
+//Función para cargar el combobox de estados
 function cargarEstadosCmb() {
     var str = '<select id="EstadoActivo" class="form-control" name="EstadoActivo" onBlur=" validacionesCamposModificar();" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -118,6 +121,7 @@ function cargarEstadosCmb() {
     $("#cargarEstados").html(str);
 }
 
+//Función para cargar el combobox de estados para modificar
 function cargarEstadosModificarCmb() {
     var str = '<select id="EstadoActivoModificar" class="form-control" name="EstadoActivoModificar" required>';
     str += '<option value="">Escoga una opción...</option>';

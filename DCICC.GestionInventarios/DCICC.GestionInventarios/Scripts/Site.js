@@ -12,7 +12,7 @@ function obtenerIdioma() {
 
 
 function listaEstadosTicket() {
-    return ["ABIERTO", "EN CURSO", "RESUELTO"];
+    return ["ABIERTO", "EN CURSO", "EN ESPERA", "RESUELTO"];
 }
 
 function listaEstadosActivos() {

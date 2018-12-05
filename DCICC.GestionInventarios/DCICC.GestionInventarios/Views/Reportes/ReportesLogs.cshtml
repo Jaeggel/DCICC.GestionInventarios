@@ -39,7 +39,7 @@
                         <div class="form-group">
                             @*Combobox para seleccionar ...*@
                             <div class="col-md-4 col-sm-12 col-xs-12">
-                                <label>Filtro por Operación:</label>
+                                <label>Filtro por Usuario:</label>
                                 <select class="form-control">
                                     <option>Seleccionar</option>
                                     <option>Option one</option>
@@ -50,7 +50,7 @@
                             </div>
                             @*Combobox para seleccionar ...*@
                             <div class="col-md-4 col-sm-12 col-xs-12">
-                                <label>Filtro por Usuario:</label>
+                                <label>Filtro por Operación:</label>
                                 <select class="form-control">
                                     <option>Seleccionar</option>
                                     <option>Option one</option>
@@ -72,40 +72,8 @@
                             </div>
                         </div>
                         @* Sección para la tabla de modificación mediante js *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="tablaReportesLogs">
-
+                        <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                            <div id="tablaReportesLogs"></div>
                         </div>
                     </div>
                 </div>
@@ -113,3 +81,15 @@
         </div>
     </div>
 </div>
+
+@* Sección para la llamar al js de Logs *@
+<script src="~/Scripts/ScriptsInventarios/Reporteria/ReporteLogs.js"></script>
+<script type="text/javascript">
+
+     $(document).ready(function () {
+        //Método para obtener la tabla de Logs
+        obtenerLogs('@Url.Action("ObtenerLogsComp", "Logs")');
+
+    });
+
+</script>

@@ -585,13 +585,13 @@
 }
 
 @* Seccción para llamar al js de Categorías *@
-<script src="~/Scripts/ScriptsInventarios/ReporteActivo.js"></script>
+<script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
 <script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
 <script>
     $(document).ready(function () {
         //Método para obtener la tabla de Categorías
         obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
-         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
+        datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');
         datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
         cargarEstadosCmb();
