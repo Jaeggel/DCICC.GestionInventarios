@@ -4696,8 +4696,12 @@
     <Content Include="Scripts\ScriptsInventarios\MaquinaVirtual.js" />
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
     <Content Include="Scripts\ScriptsInventarios\PerfilUsuario.js" />
-    <Content Include="Scripts\ScriptsInventarios\ReporteActivo.js" />
+    <Content Include="Scripts\ScriptsInventarios\ConsultaActivo.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria.js" />
+    <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteActivos.js" />
+    <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteLogs.js" />
+    <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteMaqVir.js" />
+    <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteTickets.js" />
     <Content Include="Scripts\ScriptsInventarios\Tickets.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoActivo.js" />
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
