@@ -5,8 +5,10 @@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    ViewBag.Title = "Reportes de Activos de TI";
-    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+                /**/
+
+                ViewBag.Title = "Reportes de Activos de TI";
+                Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
 @* Sección para la navegación entre pestañas*@
@@ -72,40 +74,8 @@
                             </div>
                         </div>
                         @* Sección para la tabla de modificación mediante js *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="tablaReportesActivos">
-
+                        <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                            <div id="tablaReportesActivos"></div>
                         </div>
                     </div>
                 </div>
@@ -113,3 +83,18 @@
         </div>
     </div>
 </div>
+
+
+<script src="~/Scripts/ScriptsInventarios/Reporteria/ReporteActivos.js"></script>
+<script>
+    $(document).ready(function () {
+        //Método para obtener la tabla de Categorías
+        obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
+        datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
+        datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');
+        datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
+        cargarEstadosCmb();
+
+    });
+
+</script>

@@ -255,3 +255,10 @@ function validarInputUbicacion() {
     }
     return esValido;
 }
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreLaboratorio").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("UbicacionLaboratorio").title = "Máximo 50 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("DescripcionLaboratorio").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+}

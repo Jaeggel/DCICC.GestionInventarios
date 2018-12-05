@@ -222,3 +222,9 @@ function validarInputNombre() {
     }
     return esValido;
 }
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreTipoAccesorio").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("DescripcionTipoAccesorio").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+}

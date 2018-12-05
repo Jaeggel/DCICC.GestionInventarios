@@ -6,6 +6,7 @@ var cmbSO;
 var idMaquinaV;
 var urlEstado;
 var nombresMV = [];
+var nombresPropositos = [];
 
 //Método ajax para obtener los datos de Máquinas virtuales
 function obtenerMaquinaV(url) {
@@ -41,6 +42,7 @@ function obtenerSO(url) {
     });
 }
 
+//Método ajax para obtener los datos de propósitos
 function listaPropositos(url) {
     $.ajax({
         dataType: 'json',
@@ -116,6 +118,7 @@ function cargarPropositosCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < propositos.length; i++) {
         str += '<option value="' + propositos[i].NombreProposito + '">' + propositos[i].NombreProposito + '</option>';
+        nombresPropositos[i] = propositos[i].NombreProposito;
     };
     str += '</select>';
     $("#cargarPropositos").html(str);
@@ -250,6 +253,43 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
 }
 
 
+//Función para cargar los nombres en el campo de nombre de Propósitos
+$(function () {
+    $("#NombreProposito").autocomplete({
+        source: nombresPropositos
+    });
+});
+
+//Función para evitar nombres de propositos repetidos
+function comprobarNombreProposito() {
+    console.log(nombresPropositos);
+    var boton = document.getElementById("confirmarProposito");
+    var nomPro = document.getElementById("NombreProposito");
+    nomPro.value = nomPro.value.toUpperCase();
+    //Validación para el campo de texto nombre de Máquina virtual
+    if (nomPro.value.length <= 0) {
+        nomPro.style.borderColor = "#900C3F";
+        $('#errorProposito').html('El campo nombre de Propósito no debe estar vacio').show();
+        setTimeout("$('#errorProposito').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else {
+        for (var i = 0; i < propositos.length; i++) {
+            if ((propositos[i].NombreProposito).toUpperCase() == nomPro.value) {
+                nomPro.style.borderColor = "#900C3F";
+                $('#errorProposito').html("El nombre del Propósito: " + nomPro.value + " ya existe").show();
+                setTimeout("$('#errorProposito').html('').hide('slow')", 6000);
+                nomMV.value = "";
+                boton.disabled = true;
+            } else {
+                nomPro.style.borderColor = "#ccc";
+                $('#errorProposito').html('').hide();
+                boton.disabled = false;
+            }
+        }
+    }
+}
+
+
 //Función para evitar nombres de máquinas virtuales repetidos
 function comprobarNombre() {
     var nomMV = document.getElementById("NombreMaqVirtuales");
@@ -371,6 +411,13 @@ function validarDisco() {
         $('#errorDiscoMv').html('El campo Disco Duro no debe estar vacio').show();
         setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
         boton.disabled = true;
+    } else if (disco.value <1) {
+        esValido = false;
+        disco.value = "";
+        disco.style.borderColor = "#900C3F";
+        $('#errorDiscoMv').html('El rango de Disco Duro es de 1 a 10000 GB').show();
+        setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
     } else if (disco.value > 10000) {
         esValido = false;
         disco.value = "";
@@ -398,6 +445,13 @@ function validarRam() {
         ram.value = "";
         ram.style.borderColor = "#900C3F";
         $('#errorRamMv').html('El campo RAM no debe estar vacio').show();
+        setTimeout("$('#errorRamMv').html('').hide('slow')", 6000);
+        boton.disabled = true;
+    } else if (ram.value < 1) {
+        esValido = false;
+        ram.value = "";
+        ram.style.borderColor = "#900C3F";
+        $('#errorRamMv').html('El rango de Memoria Ram es de 1 a 1000 GB').show();
         setTimeout("$('#errorRamMv').html('').hide('slow')", 6000);
         boton.disabled = true;
     } else if (ram.value > 1000) {
@@ -447,4 +501,14 @@ function validarCmbMV() {
         boton.disabled = false;
     }
     return esValido;
+}
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("UsuarioMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("DireccionIPMaqVirtuales").title = "Cuadro de texto para IpV4.\n Formato: 000.000.000.000";
+    document.getElementById("DiscoMaqVirtuales").title = "Capacidad de Disco Duro en GB. Rango de 1 a 10000 GB ";
+    document.getElementById("RamMaqVirtuales").title = "Capacidad de Memoria Ram en GB. Rango de 1 a 100GB";
+    document.getElementById("DescripcionMaqVirtuales").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
 }

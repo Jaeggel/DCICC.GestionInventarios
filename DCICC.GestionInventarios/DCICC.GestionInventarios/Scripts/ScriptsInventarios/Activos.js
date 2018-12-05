@@ -396,23 +396,52 @@ $(function () {
 
 //Función para evitar nombres de laboratorios repetidos
 function comprobarNombre() {
-    var nombreActivo = document.getElementById("NombreActivo").value; 
-    var comprobar = false;
-    for (var i = 0; i < nombresActivo.length; i++) {
-        if ((nombresActivo[i]).toUpperCase() == nombreActivo) {
-            comprobar = true;
-        }
-    }
-    if (comprobar) {
-        isValid = false;
-        document.getElementById("NombreActivo").value="";
-        document.getElementById("NombreActivo").style.borderColor = "#900C3F";
-        $('#errorNombre').html('El Nombre del Activo ya existe').show();
+    var nombreActivo = document.getElementById("NombreActivo"); 
+    if (nombreActivo.value.length <= 0) {
+        $("#NombreActivo").focus();
+        nombreActivo.style.borderColor = "#900C3F";
+        $('#errorNombre').html('El campo Nombre del Activo es obligatorio').show();
         setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
     } else {
-        document.getElementById("NombreActivo").style.borderColor = "#ccc";
-        $('#errorNombre').html('').hide();
+        for (var i = 0; i < nombresActivo.length; i++) {
+            if ((nombresActivo[i]).toUpperCase() == nombreActivo.value) {
+                nombreActivo.style.borderColor = "#900C3F";
+                $('#errorNombre').html('El Nombre del Activo ya existe').show();
+                setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
+                nombreActivo.value = "";
+                break;
+            } else {
+                nombreActivo.style.borderColor = "#ccc";
+                $('#errorNombre').html('').hide();
+            }
+        }
     }
 }
 
+//Función para setear valores N/A
+function setearModelo() {
+    var modeloActivo = document.getElementById("ModeloActivo").value;
+    //Validación para el modelo del activo
+    if (!modeloActivo && modeloActivo.length <= 0) {
+        document.getElementById("ModeloActivo").value = "N/A";
+    } 
+}
 
+//Función para setear valores N/A
+function setearSerial() {
+    var serialActivo = document.getElementById("SerialActivo").value;;
+    if (!serialActivo && serialActivo.length <= 0) {
+        document.getElementById("SerialActivo").value = "N/A";
+    }  
+}
+
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("SerialActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("CodigoUpsActivo").title = "Máximo 15 caracteres numéricos.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("single_cal4").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
+    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+}

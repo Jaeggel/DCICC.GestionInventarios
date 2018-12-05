@@ -36,8 +36,6 @@ function cargarMarcasTabla() {
     str += '<thead> <tr> <th>Nombre de la Marca</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMarcas.length; i++) {
-        var nom = "'" + datosMarcas[i].NombreMarca + "'";
-        console.log(nom);
 
         str += '<tr><td>' + datosMarcas[i].NombreMarca +
             '</td><td>' + datosMarcas[i].DescripcionMarca;
@@ -184,7 +182,6 @@ function comprobarNombre() {
     } else {
         for (var i = 0; i < datosMarcas.length; i++) {
             if ((datosMarcas[i].NombreMarca).toUpperCase() == nomMarca.value) {
-                console.log("si");
                 nomMarca.style.borderColor = "#900C3F";
                 $('#errorNombreMarca').html("El nombre de la marca: " + nomMarca.value + " ya existe").show();
                 setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
@@ -230,4 +227,10 @@ function validarInputNombre() {
         boton.disabled = false;
     }
     return esValido;
+}
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreMarca").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("DescripcionMarca").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
 }

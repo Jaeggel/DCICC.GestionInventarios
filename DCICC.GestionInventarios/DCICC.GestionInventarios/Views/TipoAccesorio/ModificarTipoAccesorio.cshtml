@@ -67,13 +67,13 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de un tipo de accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" required>
+                                        <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreTipo" style="color:brown;"></span>
                                     </div>
                                     @* Área de Texto para el ingreso de la descripción de un tipo de accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DescripcionTipoAccesorio" name="DescripcionTipoAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"></textarea>
+                                        <textarea id="DescripcionTipoAccesorio" name="DescripcionTipoAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
                                         <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de accesorio *@
@@ -126,11 +126,13 @@
         //Método para obtener las tablas de Tipo Accesorio
         obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
         urlEstados('@Url.Action("ModificarEstadoTipoAccesorio", "TipoAccesorio")');
+        mensajesTooltips();
         $('#ModificarTipoAcc').on('hidden.bs.modal', function () {
-            $(".modal-body input").val("");
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");
             $(".modal-body span[id=errorNombreTipo]").html('').hide();
+            $('#NombreTipoAccesorio').tooltip('hide');
+            $('#DescripcionTipoAccesorio').tooltip('hide');
             document.getElementById("confirmarTipo").disabled = false;
         });
     });

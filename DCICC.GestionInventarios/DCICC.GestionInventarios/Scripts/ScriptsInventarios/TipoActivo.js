@@ -340,10 +340,17 @@ function validarVidaUtil() {
         $('#errorVidaTipo').html('El campo vida útil no debe estar vacio').show();
         setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
         boton.disabled = true;
+    } else if (vidaTipo.value <1) {
+        esValido = false;
+        vidaTipo.style.borderColor = "#900C3F";
+        vidaTipo.value = "";
+        $('#errorVidaTipo').html('La vida útil debe estar en un rango de 1 a 100 años').show();
+        setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
+        boton.disabled = true;
     } else if (vidaTipo.value > 100) {
         esValido = false;
         vidaTipo.style.borderColor = "#900C3F";
-        vidaTipo.value = 0;
+        vidaTipo.value = "";
         $('#errorVidaTipo').html('La vida útil no debe ser mayor a 100').show();
         setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
         boton.disabled = true;
@@ -355,3 +362,10 @@ function validarVidaUtil() {
     return esValido;
 }
 
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreTipoActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("DescripcionTipoActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("VidaUtilTipoActivo").title = "Rango de 1 a 100 años.";
+   
+}

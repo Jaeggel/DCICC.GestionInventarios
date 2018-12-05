@@ -66,7 +66,6 @@ function formUpdateCategoria(idCategoria) {
     for (var i = 0; i < datosCategorias.length; i++) {
         if (datosCategorias[i].IdCategoriaActivo == idCategoria) {
             //Métodos para setear los valores a modificar
-            console.log(datosCategorias[i].NombreCategoriaActivo);
             document.getElementById("NombreCategoriaActivo").value = datosCategorias[i].NombreCategoriaActivo;
             document.getElementById("DescripcionCategoriaActivo").value = datosCategorias[i].DescripcionCategoriaActivo;
 
@@ -171,7 +170,6 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
 function comprobarNombre() {
     var nomCat = document.getElementById("NombreCategoriaActivo");
     nomCat.value = nomCat.value.toUpperCase();
-    console.log(nomCat.value);
     if (nomCat.value.length <= 0) {
         nomCat.style.borderColor = "#900C3F";
         $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
@@ -225,4 +223,9 @@ function validarInputsVaciosModificacion() {
         boton.disabled = false;
     }
     return esValido;
+}
+   //Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
 }
