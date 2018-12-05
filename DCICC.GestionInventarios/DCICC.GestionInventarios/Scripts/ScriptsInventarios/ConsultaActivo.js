@@ -136,7 +136,7 @@ function cargarEstadosModificarCmb() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         //Método para dar formato a la fecha y hora
@@ -145,6 +145,7 @@ function cargarActivosTabla() {
 
         str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
             '</td><td>' + datosActivos[i].NombreActivo +
+            '</td><td>' + datosActivos[i].NombreMarca +
             '</td><td>' + datosActivos[i].ModeloActivo +
             '</td><td>' + datosActivos[i].SerialActivo +
             '</td><td>' + datosActivos[i].NombreLaboratorio +
@@ -172,7 +173,7 @@ function cargarActivosTabla() {
         '</td ></tr > ';
     };
     str += '</tbody>' +
-        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th><th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead></tfoot>' +
+        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th><th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead></tfoot>' +
         '</table > ';
     $("#tablaActivos").html(str);
 }
@@ -208,7 +209,7 @@ function formUpdateActivos(idActivo) {
             //Obtener valor de la fecha de ingreso del activo
             var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
             var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
-             $('#single_cal4').val(fechaIngreso);
+            $('#FechaIngresoActivo').val(fechaIngreso);
             console.log(fechaIngreso);
             //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
             //Obtener valor de la descripcion de activo
@@ -263,7 +264,7 @@ function actualizarActivo(url) {
     //Obtener valor del codigo UPS
     var codigoUps = document.getElementById("CodigoUpsActivo").value;
     //Obtener valor de la fecha de ingreso del activo
-    var fechaIngreso = $('#single_cal4').val();
+    var fechaIngreso = $('#FechaIngresoActivo').val();
     console.log(fechaIngreso);
     //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
     //Obtener valor de la descripcion de activo
@@ -507,7 +508,7 @@ function mensajesTooltips() {
     document.getElementById("SerialActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
     document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
     document.getElementById("CodigoUpsActivo").title = "Máximo 15 caracteres numéricos.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("single_cal4").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
+    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
 }
 

@@ -23,7 +23,7 @@ function obtenerLogs(url) {
 
 //Función para cargar la tabla de Logs
 function cargarLogsTabla() {
-    var str = '<table id="dataTableLogs" class="table jambo_table bulk_action table-bordered dt-responsive nowrap" style="width:100%">';
+    var str = '<table id="dataTableLogs" class="table jambo_table bulk_action table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificados</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLogs.length; i++) {
