@@ -19,63 +19,143 @@
 <div class="row">
     @* Panel para mostrar la tabla de reportes *@
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_content">
-            <div class="x_panel">
-                <div class="x_title">
-                    <div class="x-content">
-                        <div class="col-md-6 col-sm-12 col-xs-12 ">
-                            <h3>Activos de TI</h3>
-                        </div>
-                    </div>
-                    @*Sección para botones de generar reportes en PDF y Excel*@
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-                        <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+        <div class="x_panel">
+            <div class="x_content">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Activos de TI</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
+                        </li>
+                        <li role="presentation" class="">
+                        <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Históricos</a>
+                        </li>
                     </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <br>
-                    <div class="form-horizontal form-label-left input_mask">
-                        @*Sección de filtros de búsqueda para realizar la consulta*@
-                        <div class="form-group">
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                <label>Filtro por Tipo:</label>
-                                <select class="form-control">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
-                            </div>
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                <label>Filtro por Laboratorio:</label>
-                                <select class="form-control">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
-                            </div>
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                <label>Filtro por Marca:</label>
-                                <select class="form-control">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de Activos</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @*Sección de filtros de búsqueda para realizar la consulta*@
+                                            <div class="form-group">
+                                                @*Combobox para seleccionar ...*@
+                                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Tipo:</label>
+                                                    <select class="form-control">
+                                                        <option>Seleccionar</option>
+                                                        <option>Option one</option>
+                                                        <option>Option two</option>
+                                                        <option>Option three</option>
+                                                        <option>Option four</option>
+                                                    </select>
+                                                </div>
+                                                @*Combobox para seleccionar ...*@
+                                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Laboratorio:</label>
+                                                    <select class="form-control">
+                                                        <option>Seleccionar</option>
+                                                        <option>Option one</option>
+                                                        <option>Option two</option>
+                                                        <option>Option three</option>
+                                                        <option>Option four</option>
+                                                    </select>
+                                                </div>
+                                                @*Combobox para seleccionar ...*@
+                                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Marca:</label>
+                                                    <select class="form-control">
+                                                        <option>Seleccionar</option>
+                                                        <option>Option one</option>
+                                                        <option>Option two</option>
+                                                        <option>Option three</option>
+                                                        <option>Option four</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                                                <div id="tablaReportesActivos"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        @* Sección para la tabla de modificación mediante js *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
-                            <div id="tablaReportesActivos"></div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de Accesorios</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaAccesorios"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de Históricos de Activos</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaHistoricos"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
