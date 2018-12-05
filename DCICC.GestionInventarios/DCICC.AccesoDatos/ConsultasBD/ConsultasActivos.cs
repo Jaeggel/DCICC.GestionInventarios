@@ -63,8 +63,8 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 IosVersionActivo = dr[22].ToString().Trim(),
                                 FechaManufacturaActivo = dr[23].ToString().Trim(),
                                 NombreTipoActivo = dr[24].ToString().Trim(),
-                                NombreMarca = dr[25].ToString().Trim(),
-                                NombreLaboratorio = dr[26].ToString().Trim()
+                                NombreLaboratorio = dr[25].ToString().Trim(),
+                                NombreMarca = dr[26].ToString().Trim()
                             };
                             lstActivos.Add(objActivos);
                         }
