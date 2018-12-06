@@ -21,7 +21,7 @@ function obtenerActivos(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             console.log("Datos Exitosos");
             datosActivos = data;
@@ -41,7 +41,7 @@ function datosTipoActivo(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbTipoActivo = data;
             cargarTipoActivoCmb();
@@ -55,7 +55,7 @@ function datosLaboratorio(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbLaboratorio = data;
             cargarLaboratoriosCmb();
@@ -68,7 +68,7 @@ function datosMarcas(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbMarcas = data;
             cargarMarcasCmb();
@@ -139,39 +139,37 @@ function cargarActivosTabla() {
     str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
-        //Método para dar formato a la fecha y hora
-        var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
-        var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+        if (datosActivos[i].EstadoActivo != "DE BAJA") {
+            //Método para dar formato a la fecha y hora
+            var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
+            var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
 
-        str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
-            '</td><td>' + datosActivos[i].NombreActivo +
-            '</td><td>' + datosActivos[i].NombreMarca +
-            '</td><td>' + datosActivos[i].ModeloActivo +
-            '</td><td>' + datosActivos[i].SerialActivo +
-            '</td><td>' + datosActivos[i].NombreLaboratorio +
-            '</td><td>' + fechaIngreso +
-            '</td><td>' + datosActivos[i].IdCQR +
-            '</td><td>' + datosActivos[i].EstadoActivo;
-        str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-default text-center" data-toggle="modal" data-target="#IngresoNuevoAccesorio" onclick = "formIngresoAccesorio(' + datosActivos[i].IdActivo + ',\'' + datosActivos[i].NombreActivo +'\');" > <strong><i class="fa fa-plug"></i></strong></button> ' +
-            '</div></div>';
-        str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarActivo" onclick = "formUpdateActivos(' + datosActivos[i].IdActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
-            '</div></div>' +
-            '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
-        if (datosActivos[i].EstadoActivo == "OPERATIVO") {
-            str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo + ');" > <strong><span class="fa fa-check"></span></strong></button> ';
-        } else if (datosActivos[i].EstadoActivo == "NO OPERATIVO") {
-            str += '<button type = "button" class="btn btn-warning text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo +  ');" > <strong><span class="fa fa-warning"></span></strong></button> ';
-        } else {
-            str += '<button type = "button" class="btn btn-danger text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo + ');" > <strong><span class="fa fa-close"></span></strong></button> ';
+            str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
+                '</td><td>' + datosActivos[i].NombreActivo +
+                '</td><td>' + datosActivos[i].NombreMarca +
+                '</td><td>' + datosActivos[i].ModeloActivo +
+                '</td><td>' + datosActivos[i].SerialActivo +
+                '</td><td>' + datosActivos[i].NombreLaboratorio +
+                '</td><td>' + fechaIngreso +
+                '</td><td>' + datosActivos[i].IdCQR +
+                '</td><td>' + datosActivos[i].EstadoActivo;
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button type="button" class="btn btn-default text-center" data-toggle="modal" data-target="#IngresoNuevoAccesorio" onclick = "formIngresoAccesorio(' + datosActivos[i].IdActivo + ',\'' + datosActivos[i].NombreActivo + '\');" > <strong><i class="fa fa-plug"></i></strong></button> ' +
+                '</div></div>';
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarActivo" onclick = "formUpdateActivos(' + datosActivos[i].IdActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+                '</div></div>' +
+                '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+            if (datosActivos[i].EstadoActivo == "OPERATIVO") {
+                str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo + ');" > <strong><span class="fa fa-check"></span></strong></button> ';
+            } else if (datosActivos[i].EstadoActivo == "NO OPERATIVO") {
+                str += '<button type = "button" class="btn btn-warning text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo + ');" > <strong><span class="fa fa-warning"></span></strong></button> ';
+            } 
+            str += '</div></div>' +
+                '</td ></tr > ';
         }
-
-        
-        str += '</div></div>'+
-        
-        '</td ></tr > ';
-    };
+             
+    }
     str += '</tbody>' +
         '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th><th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead></tfoot>' +
         '</table > ';

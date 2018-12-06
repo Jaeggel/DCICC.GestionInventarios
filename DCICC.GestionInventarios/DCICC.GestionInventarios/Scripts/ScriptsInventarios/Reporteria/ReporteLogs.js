@@ -7,7 +7,7 @@ function obtenerLogs(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             console.log("Datos Exitosos");
             datosLogs = data;
@@ -21,10 +21,12 @@ function obtenerLogs(url) {
     });
 }
 
+
+
 //Función para cargar la tabla de Logs
 function cargarLogsTabla() {
     var str = '<table id="dataTableLogs" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificados</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLogs.length; i++) {
         //Método para dar formato a la fecha y hora
@@ -36,12 +38,35 @@ function cargarLogsTabla() {
             '</td><td>' + fechaApertura +
             '</td><td>' + datosLogs[i].OperacionLogs +
             '</td><td>' + datosLogs[i].TablaLogs +
-            '</td><td>' + datosLogs[i].ValorAnteriorLogs +
-            '</td><td>' + datosLogs[i].ValorActualLogs +
             '</td></tr>';
-    };
+    }
     str += '</tbody>' +
-        '<tfoot><tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificads</th> </tr> </tfoot>' +
         '</table>';
     $("#tablaReportesLogs").html(str);
+}
+
+function inicioFecha(minDate, maxDate) {
+    $(function () {
+        $('input[name="FechaInicio"]').daterangepicker({
+            startDate: minDate,
+            format: 'dd-mm-yyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: maxDate
+        });
+    });
+}
+
+function finFecha(minDate, maxDate) {
+    $(function () {
+        $('input[name="FechaFin"]').daterangepicker({
+            startDate: maxDate,
+            dateFormat: 'dd-mm-yyyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: maxDate
+        });
+    });
 }

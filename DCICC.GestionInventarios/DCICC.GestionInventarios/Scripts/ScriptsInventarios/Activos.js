@@ -17,7 +17,7 @@ function datosTipoActivo(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbTipoActivo = data;
 
@@ -30,7 +30,7 @@ function datosCategoria(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbCategoria = data;
             cargarCategoriasCmb();
@@ -44,7 +44,7 @@ function datosLaboratorio(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbLaboratorio = data;
             cargarLaboratoriosCmb();
@@ -58,7 +58,7 @@ function datosMarcas(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbMarcas = data;
             cargarMarcasCmb();
@@ -72,7 +72,7 @@ function datosTipoAccesorio(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbTipoAccesorio = data;
             cargarAccesoriosCmb();
