@@ -25,7 +25,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <returns></returns>
         public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte)
         {
-            byte[] bytes;
+            byte[] bytesReportePDF;
             using (MemoryStream msReporte = new MemoryStream())
             {
                 Document documentoReporte = new Document(PageSize.A4);
@@ -33,12 +33,13 @@ namespace DCICC.GestionInventarios.Reportes
                 {
                     documentoReporte.Open();
                     GenerarEncabezadoReporte(documentoReporte,writerReporte);
+                    GenerarTituloReporte(documentoReporte, tituloReporte);
                     documentoReporte.Add(tablaReporte);
                     documentoReporte.Close();
-                    bytes = msReporte.ToArray();
+                    bytesReportePDF = msReporte.ToArray();
                 }
             }
-            return bytes;
+            return bytesReportePDF;
         }
         /// <summary>
         /// Método para generar una tabla que será insertada en en el Reporte

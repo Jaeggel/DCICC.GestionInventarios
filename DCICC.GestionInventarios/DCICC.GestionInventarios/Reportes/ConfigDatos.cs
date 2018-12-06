@@ -16,11 +16,11 @@ namespace DCICC.GestionInventarios.Reportes
         /// <returns></returns>
         public DataTable ObtenerDatosTablaHTML(string infoHTML)
         {
-            var doc = new HtmlDocument();
+            HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(infoHTML);
-            var nodes = doc.DocumentNode.SelectNodes("//table//tr");
-            var table = new DataTable("ReporteTablaHtml");
-            var headers = nodes[0]
+            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//table//tr");
+            DataTable table = new DataTable("ReporteTablaHtml");
+            IEnumerable<string> headers = nodes[0]
                 .Elements("th")
                 .Select(th => th.InnerText.Trim());
             foreach (var header in headers)
