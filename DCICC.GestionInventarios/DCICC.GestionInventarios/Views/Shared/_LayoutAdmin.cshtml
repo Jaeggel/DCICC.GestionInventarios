@@ -24,9 +24,9 @@
                                     @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
                                     <a href="@Url.Action("Index", "Home")"><img src="~/Content/Images/LogoUPSCircular.png" height="60" width="60"></a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-9 image_section" id="image_section">
                                     @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
-                                    <a href="@Url.Action("Index", "Home")" class="site_title"><span>Inventarios</span></a>
+                                    <a href="@Url.Action("Index", "Home")"><img src="~/Content/Images/imagenEncabezado.png"></a>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Universidad Politécnica Salesiana &copy; 2018
+                    Universidad Politécnica Salesiana &copy; @DateTime.Now.Year
                 </div>
                 <div class="clearfix"></div>
             </footer>

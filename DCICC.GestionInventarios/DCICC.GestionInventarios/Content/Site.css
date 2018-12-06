@@ -19,3 +19,12 @@ Descripción: Archivo que tendrá los estilos que se utilizará en toda la aplic
     margin-right: auto;
     width: 90%;
 }
+.image_section img {
+    display: block;
+}
+
+@media (max-width:800px) {
+    .image_section img:first-child {
+        display: none;
+    }
+}

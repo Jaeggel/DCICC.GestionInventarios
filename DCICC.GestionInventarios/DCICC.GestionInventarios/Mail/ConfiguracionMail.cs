@@ -58,6 +58,7 @@ namespace DCICC.GestionInventarios.Mail
             body = body.Replace("{user}", infoUsuario.NickUsuario);
             body = body.Replace("{cont}", infoUsuario.PasswordUsuario);
             body = body.Replace("{fecha}", DateTime.Now + "");
+            body = body.Replace("{year}", DateTime.Now.Year + "");
             return body;
         }
     }
