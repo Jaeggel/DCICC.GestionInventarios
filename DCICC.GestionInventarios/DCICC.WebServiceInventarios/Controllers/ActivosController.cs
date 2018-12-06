@@ -116,6 +116,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjCQR;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de todos los Historicos de Activos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerHistoricoActivosComp")]
+        public MensajesHistoricoActivos ObtenerHistoricoActivosComp()
+        {
+            MensajesHistoricoActivos msjActivos = new MensajesHistoricoActivos();
+            ConsultasHistoricoActivos objConsultasHistActivosBD = new ConsultasHistoricoActivos();
+            msjActivos = objConsultasHistActivosBD.ObtenerHistoricoActivos();
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Históricos de Activos realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
         #endregion
         #region Registros
         /// <summary>

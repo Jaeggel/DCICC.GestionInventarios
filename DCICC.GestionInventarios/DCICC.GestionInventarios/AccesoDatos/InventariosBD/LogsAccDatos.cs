@@ -29,15 +29,15 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         #endregion
         #region Consultas
         /// <summary>
-        /// Método para obtener una lista de los Logs de la base de datos.
+        /// Método para obtener una lista completa de los Logs de la base de datos.
         /// </summary>
         /// <returns></returns>
-        public MensajesLogs ObtenerLogsComp()
+        public MensajesLogs ObtenerLogs(string nombreFuncion)
         {
             MensajesLogs msjLogs = new MensajesLogs();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Logs/ObtenerLogsComp").Result;
+                HttpResponseMessage response = client_Service.GetAsync(!string.IsNullOrEmpty(nombreFuncion) ? "Logs/ObtenerLogs"+nombreFuncion:"Logs/ObtenerLogs").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var logsJson = response.Content.ReadAsStringAsync().Result;

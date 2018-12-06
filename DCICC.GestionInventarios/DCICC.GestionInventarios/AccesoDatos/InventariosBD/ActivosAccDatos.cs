@@ -95,6 +95,28 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjCQR;
         }
+        /// <summary>
+        /// Método para obtener una lista con los Históricos de Activos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public MensajesHistoricoActivos ObtenerHistoricoActivos()
+        {
+            MensajesHistoricoActivos msjHistActivos = new MensajesHistoricoActivos();
+            try
+            {
+                HttpResponseMessage response = client_Service.GetAsync("Activos/ObtenerHistoricoActivosComp").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var HistActivosJson = response.Content.ReadAsStringAsync().Result;
+                    msjHistActivos = JsonConvert.DeserializeObject<MensajesHistoricoActivos>(HistActivosJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para obtener la lista de los históricos de los activos: " + e.Message + " - " + msjHistActivos.MensajeError);
+            }
+            return msjHistActivos;
+        }
         #endregion
         #region Registros
         /// <summary>

@@ -30,9 +30,9 @@ namespace DCICC.GestionInventarios.Reportes
                 //Carga de la primera hoja de trabajo del Excel
                 var ws = pck.Workbook.Worksheets[1];
                 //Carga datos del html
-                ws.Cells["A6"].LoadFromDataTable(infoTable, true);
+                ws.Cells["A9"].LoadFromDataTable(infoTable, true);
                 //Título del la lista del reporte
-                using (ExcelRange Rng = ws.Cells[5, 1, 5, infoTable.Columns.Count])
+                using (ExcelRange Rng = ws.Cells[8, 1, 8, infoTable.Columns.Count])
                 {
                     Rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
                     Rng.Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#3c5a77"));//73879C,2a3f54,
@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.Reportes
                     Rng.Style.Border.Left.Style = ExcelBorderStyle.Thin;
                 }
                 //Encabezado de la tabla
-                using (ExcelRange Rng = ws.Cells[6, 1, 6, infoTable.Columns.Count])
+                using (ExcelRange Rng = ws.Cells[9, 1, 9, infoTable.Columns.Count])
                 {
                     Rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
                     Rng.Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#3c5a77"));
@@ -59,7 +59,7 @@ namespace DCICC.GestionInventarios.Reportes
                     Rng.Style.Border.Left.Style = ExcelBorderStyle.Thin;
                 }
                 //Datos
-                using (ExcelRange Rng = ws.Cells[7, 1, 6 + infoTable.Rows.Count, infoTable.Columns.Count])
+                using (ExcelRange Rng = ws.Cells[10, 1, 9 + infoTable.Rows.Count, infoTable.Columns.Count])
                 {
                     Rng.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     Rng.Style.Border.Right.Style = ExcelBorderStyle.Thin;
@@ -67,7 +67,7 @@ namespace DCICC.GestionInventarios.Reportes
                     Rng.Style.Border.Left.Style = ExcelBorderStyle.Thin;
                 }
                 //Autoajustar las celdas para los datos
-                ws.Cells[ws.Dimension.Address].AutoFitColumns();
+                ws.Cells[8, 1, 8 + infoTable.Rows.Count, infoTable.Columns.Count].AutoFitColumns();
                 //Transformar el archivo a Bytes
                 memStream = new MemoryStream(pck.GetAsByteArray());
             }

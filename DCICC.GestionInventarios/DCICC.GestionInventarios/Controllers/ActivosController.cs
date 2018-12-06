@@ -224,7 +224,7 @@ namespace DCICC.GestionInventarios.Controllers
                 {
                     HistoricoActivos infoHistActivo = new HistoricoActivos
                     {
-                        IdDetActivo = infoActivo.IdActivo,
+                        IdActivo = infoActivo.IdActivo,
                         FechaModifHistActivos = DateTime.Now
                     };
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
@@ -273,7 +273,7 @@ namespace DCICC.GestionInventarios.Controllers
                 {
                     HistoricoActivos infoHistActivo = new HistoricoActivos
                     {
-                        IdDetActivo = infoActivo.IdActivo,
+                        IdActivo = infoActivo.IdActivo,
                         FechaModifHistActivos = DateTime.Now
                     };
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
@@ -469,6 +469,15 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los Históricos de Activos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerHistoricoActivosComp()
+        {
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+            return Json(objActivosAccDatos.ObtenerHistoricoActivos().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

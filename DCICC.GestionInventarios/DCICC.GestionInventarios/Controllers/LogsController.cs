@@ -36,7 +36,18 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerLogsComp()
         {           
             LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
-            var jsonResult = Json(objLogsAccDatos.ObtenerLogsComp().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(objLogsAccDatos.ObtenerLogs("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+        /// <summary>
+        /// Método para obtener todos los Logs de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerLogs()
+        {
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
+            var jsonResult = Json(objLogsAccDatos.ObtenerLogs(null).ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }
