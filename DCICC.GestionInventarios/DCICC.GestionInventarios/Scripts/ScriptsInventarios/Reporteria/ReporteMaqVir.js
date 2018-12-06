@@ -64,31 +64,15 @@ function cargarSOCmb() {
     ///////CAMBIO DEL COMBOBOX
     $('#IdSistOperativos').change(function () {
         var opcion = document.getElementById("IdSistOperativos");
-        var tipoLab = opcion.options[opcion.selectedIndex];
-        if (tipoLab.value == "") {
-            cargarMaquinaVTabla();
-            $('#dataTableMaquinaV').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+        var tipoSO = opcion.options[opcion.selectedIndex];
+        if (tipoSO.value == "") {
+            $('#dataTableMaquinaV').DataTable().column(3).search(
+                ""
+            ).draw(); 
         } else {
-            var td, i, txtValue;
-            var table = document.getElementById("dataTableMaquinaV");
-            var tr = table.getElementsByTagName("tr");
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[3];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(tipoLab.text) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+            $('#dataTableMaquinaV').DataTable().column(3).search(
+                tipoSO.text
+            ).draw();            
         }
     });
 }
@@ -105,8 +89,8 @@ function cargarPropositosCmb() {
     ///////CAMBIO DEL COMBOBOX
     $('#PropositoMaqVirtuales').change(function () {
         var opcion = document.getElementById("PropositoMaqVirtuales");
-        var tipoLab = opcion.options[opcion.selectedIndex];
-        if (tipoLab.value == "") {
+        var tipoPro = opcion.options[opcion.selectedIndex];
+        if (tipoPro.value == "") {
             cargarMaquinaVTabla();
             $('#dataTableMaquinaV').DataTable({
                 "language": {
@@ -115,21 +99,9 @@ function cargarPropositosCmb() {
                 "order": [[1, "asc"]]
             });
         } else {
-            var td, i, txtValue;
-            var table = document.getElementById("dataTableMaquinaV");
-            var tr = table.getElementsByTagName("tr");
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[2];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(tipoLab.text) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+            $('#dataTableMaquinaV').DataTable().column(2).search(
+                tipoPro.text
+            ).draw();            
         }
     });
 }

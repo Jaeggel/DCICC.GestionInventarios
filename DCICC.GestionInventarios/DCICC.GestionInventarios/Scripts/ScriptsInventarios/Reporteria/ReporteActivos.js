@@ -81,31 +81,13 @@ function cargarTipoActivoCmb() {
         var opcion = document.getElementById("TipoActivo");
         var tipoAct = opcion.options[opcion.selectedIndex];
         if (tipoAct.value == "") {
-            cargarActivosTabla();
-            $('#dataTableActivos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            $('#dataTableActivos').DataTable().column(0).search(
+                ""
+            ).draw();
         } else {
-            var td, i, txtValue;
-            console.log(tipoAct);
-            var table = document.getElementById("dataTableActivos");
-            var tr = table.getElementsByTagName("tr");
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    console.log(txtValue);
-                    if (txtValue.toUpperCase().indexOf(tipoAct.text) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+            $('#dataTableActivos').DataTable().column(0).search(
+                tipoAct.text
+            ).draw();           
         }
     });
 }
@@ -124,29 +106,13 @@ function cargarLaboratoriosCmb() {
         var opcion = document.getElementById("LaboratorioActivo");
         var tipoLab = opcion.options[opcion.selectedIndex];
         if (tipoLab.value == "") {
-            cargarActivosTabla();
-            $('#dataTableActivos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            $('#dataTableActivos').DataTable().column(5).search(
+                ""
+            ).draw();
         } else {
-            var td, i, txtValue;
-            var table = document.getElementById("dataTableActivos");
-            var tr = table.getElementsByTagName("tr");
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[5];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(tipoLab.text) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+            $('#dataTableActivos').DataTable().column(5).search(
+                tipoLab.text
+            ).draw();
         }       
     });
 }
@@ -166,30 +132,13 @@ function cargarMarcasCmb() {
         var opcion = document.getElementById("MarcaActivo");
         var tipoMarca = opcion.options[opcion.selectedIndex];
         if (tipoMarca.value == "") {
-            cargarActivosTabla();
-            $('#dataTableActivos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            $('#dataTableActivos').DataTable().column(2).search(
+                ""
+            ).draw();
         } else {
-            var td, i, txtValue;            
-            var table = document.getElementById("dataTableActivos");
-            var tr = table.getElementsByTagName("tr");
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[2];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    console.log(txtValue.toUpperCase().indexOf(tipoMarca.text));
-                    if (txtValue.toUpperCase().indexOf(tipoMarca.text) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+            $('#dataTableActivos').DataTable().column(2).search(
+                tipoMarca.text
+            ).draw();            
         }
     });
 }
@@ -227,7 +176,6 @@ function cargarActivosTabla() {
         '</table > ';
     $("#tablaReportesActivos").html(str);
     fechas = fechas.sort();
-    console.log(fechas);
     var minDate = fechas[0];
     var maxDate = fechas[fechas.length - 1];
     inicioFecha(minDate, maxDate); 
