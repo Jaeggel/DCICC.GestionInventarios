@@ -117,7 +117,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesCategorias + ": " + e.Message);
             }
             return Json(msjCategorias, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarCategoriaActivo.
@@ -148,7 +147,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesCategorias + ": " + e.Message);
             }
             return Json(msjCategorias, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
         }
         #endregion
         #region Consultas (JSON)

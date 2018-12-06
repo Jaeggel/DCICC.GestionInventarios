@@ -13,6 +13,7 @@ namespace DCICC.GestionInventarios.Reportes
 {
     public class ReporteExcel
     {
+        string path_Plantilla = System.Web.Hosting.HostingEnvironment.MapPath("~/Reportes/PlantillaExcel.xlsx");
         /// <summary>
         /// Método para generar el reporte en excel.
         /// </summary>
@@ -22,9 +23,8 @@ namespace DCICC.GestionInventarios.Reportes
         public MemoryStream GenerarReporteExcel(DataTable infoTable, string tituloReporte)
         {
             MemoryStream memStream;
-            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/Reportes/PlantillaExcel.xlsx");
             //Cargar la plantilla para reportes en Excel
-            var fileinfo = new FileInfo(path);
+            var fileinfo = new FileInfo(path_Plantilla);
             using (ExcelPackage pck = new ExcelPackage(fileinfo))
             {
                 //Carga de la primera hoja de trabajo del Excel
@@ -72,34 +72,6 @@ namespace DCICC.GestionInventarios.Reportes
                 memStream = new MemoryStream(pck.GetAsByteArray());
             }
             return memStream;
-        }
-        /// <summary>
-        /// Método para generar  el DataTable a partir de una tabla HTML.
-        /// </summary>
-        /// <param name="infoHTML"></param>
-        /// <returns></returns>
-        public DataTable ObtenerDatosTablaHTML(string infoHTML)
-        {
-            var doc = new HtmlDocument();
-            doc.LoadHtml(infoHTML);
-            var nodes = doc.DocumentNode.SelectNodes("//table//tr");
-            var table = new DataTable("ReporteTablaHtml");
-            var headers = nodes[0]
-                .Elements("th")
-                .Select(th => th.InnerText.Trim());
-            foreach (var header in headers)
-            {
-                table.Columns.Add(header.ToUpper());
-            }
-            var rows = nodes.Skip(1).Select(tr => tr
-                .Elements("td")
-                .Select(td => td.InnerText.Trim())
-                .ToArray());
-            foreach (var row in rows)
-            {
-                table.Rows.Add(row);
-            }
-            return table;
         }
     }
 }

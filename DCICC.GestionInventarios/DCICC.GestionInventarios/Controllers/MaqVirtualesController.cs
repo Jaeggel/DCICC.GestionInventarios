@@ -163,6 +163,10 @@ namespace DCICC.GestionInventarios.Controllers
                     TempData["Mensaje"] = mensajesMaqVirtuales;
                     Logs.Info(mensajesMaqVirtuales);
                 }
+                else
+                {
+                    TempData["MensajeError"] = "El propósito ya se encuentra registrado.";
+                }
             }
             catch (Exception e)
             {
@@ -204,7 +208,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
             }
             return Json(msjMaqVirtuales, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarMaqVirtual.
@@ -235,7 +238,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
             }
             return Json(msjMaqVirtuales, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
         }
         #endregion
         #region Consultas (JSON)

@@ -4,6 +4,7 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -135,7 +136,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
@@ -166,7 +166,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
-            //return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarUsuario.
@@ -197,7 +196,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarUsuario", "Usuarios");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista PerfilUsuario.
@@ -228,7 +226,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesUsuarios + ": " + e.Message);
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
-            //return Json(msjUsuarios.OperacionExitosa, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region Eliminaciones (POST)
@@ -271,6 +268,21 @@ namespace DCICC.GestionInventarios.Controllers
         {
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
             return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener todos los Usuarios de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerNicksUsuarios()
+        {
+            List<string> lstNombresUsuarios = new List<string>();
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+            var lst= objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios;
+            foreach (var item in lst)
+            {
+                lstNombresUsuarios.Add(item.NickUsuario);
+            }
+            return Json(lstNombresUsuarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener el Usuario Actual del Sistema de la base de datos
