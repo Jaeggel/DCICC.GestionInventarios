@@ -51,12 +51,13 @@
                             @*Combobox para seleccionar ...*@
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <label>Filtro por Operación:</label>
-                                <select class="form-control">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
+                                <select class="form-control" id="cmbOperacion">
+                                    <option value="">Mostrar Todos</option>
+                                    <option value="Actualización">Actualización</option>
+                                    <option value="Eliminación">Eliminación</option>
+                                    <option value="Inserción">Inserción</option>
+                                    <option value="Login">Login</option>
+                                    <option value="Logout">Logout</option>
                                 </select>
                             </div>
                         </div>
@@ -95,7 +96,14 @@
 
      $(document).ready(function () {
         //Método para obtener la tabla de Logs
-        obtenerLogs('@Url.Action("ObtenerLogs", "Logs")');
+         obtenerLogs('@Url.Action("ObtenerLogs", "Logs")');
+         obtenerNicksUsuarios('@Url.Action("ObtenerNicksUsuarios", "Usuarios")');
+
+         $('#cmbOperacion').change(function () {
+             var opcion = document.getElementById("cmbOperacion");
+             var tipoOpe = opcion.options[opcion.selectedIndex];
+             consultaOperacion(tipoOpe);
+         });
 
     });
 

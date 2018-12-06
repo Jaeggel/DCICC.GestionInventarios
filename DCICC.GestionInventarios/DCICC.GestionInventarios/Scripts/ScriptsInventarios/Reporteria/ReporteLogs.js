@@ -1,6 +1,7 @@
 ﻿var url_idioma = obtenerIdioma();
 var datosLogs;
 var idCategoriaModificar;
+var datosUsuarios;
 
 //Método ajax para obtener los datos de Logs
 function obtenerLogs(url) {
@@ -15,13 +16,37 @@ function obtenerLogs(url) {
             $('#dataTableLogs').DataTable({
                 "language": {
                     "url": url_idioma
-                }
+                },
+                //"bPaginate": false
             });
         }
     });
 }
 
+//Método ajax para obtener los datos de Usuarios
+function obtenerNicksUsuarios(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("ya esta");
+            datosUsuarios = data;
+        }
+    });
+}
 
+function consultaOperacion(tipoOpe) {
+    if (tipoOpe.value == "") {
+        $('#dataTableLogs').DataTable().column(3).search(
+            ""
+        ).draw();
+    } else {
+        $('#dataTableLogs').DataTable().column(3).search(
+            tipoOpe.value
+        ).draw();
+    }       
+}
 
 //Función para cargar la tabla de Logs
 function cargarLogsTabla() {
