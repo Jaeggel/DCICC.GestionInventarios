@@ -19,7 +19,6 @@ function obtenerMaquinaV(url) {
                     "url": url_idioma
                 }
             });
-            cargarNombresMV();
         }
     });
 }
@@ -31,7 +30,6 @@ function obtenerSO(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("siiii");
             cmbSO = data;
             cargarSOCmb();
         }
@@ -45,7 +43,6 @@ function listaPropositos(url) {
         url: url,
         type: 'get',
         success: function (data) {
-            console.log("entrooo");
             propositos = data;
             cargarPropositosCmb();
 
@@ -58,30 +55,89 @@ function listaPropositos(url) {
 //Función para cargar el combobox de Sistemas Operativos
 function cargarSOCmb() {
     var str = '<select id="IdSistOperativos" class="form-control" name="IdSistOperativos" required>';
-    str += '<option value="">Escoga una opción...</option>';
+    str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbSO.length; i++) {
         str += '<option value="' + cmbSO[i].IdSistOperativos + '">' + cmbSO[i].NombreSistOperativos + '</option>';
     };
     str += '</select>';
     $("#cargarSO").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#IdSistOperativos').change(function () {
+        var opcion = document.getElementById("IdSistOperativos");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            cargarMaquinaVTabla();
+            $('#dataTableMaquinaV').DataTable({
+                "language": {
+                    "url": url_idioma
+                },
+                "order": [[1, "asc"]]
+            });
+        } else {
+            var td, i, txtValue;
+            var table = document.getElementById("dataTableMaquinaV");
+            var tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(tipoLab.text) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    });
 }
 
 //Función para cargar el combobox de Propósitos
 function cargarPropositosCmb() {
-    var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales" onBlur="validarCmbMV();" required>';
-    str += '<option value="">Escoga una opción...</option>';
+    var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales">';
+    str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < propositos.length; i++) {
-        str += '<option value="' + propositos[i].NombreProposito + '">' + propositos[i].NombreProposito + '</option>';
-        nombresPropositos[i] = propositos[i].NombreProposito;
+        str += '<option value="' + propositos[i].NombreProposito + '">' + propositos[i].NombreProposito + '</option>';        
     };
     str += '</select>';
     $("#cargarPropositos").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#PropositoMaqVirtuales').change(function () {
+        var opcion = document.getElementById("PropositoMaqVirtuales");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            cargarMaquinaVTabla();
+            $('#dataTableMaquinaV').DataTable({
+                "language": {
+                    "url": url_idioma
+                },
+                "order": [[1, "asc"]]
+            });
+        } else {
+            var td, i, txtValue;
+            var table = document.getElementById("dataTableMaquinaV");
+            var tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(tipoLab.text) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    });
 }
 
 //Función para cargar la tabla de Máquinas Virtuales
 function cargarMaquinaVTabla() {
     var str = '<table id="dataTableMaquinaV" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco</th> <th>Memoria RAM</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMaquinasV.length; i++) {
 
@@ -93,6 +149,11 @@ function cargarMaquinaVTabla() {
             '</td><td>' + datosMaquinasV[i].DiscoMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].RamMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].DescripcionMaqVirtuales;
+            if (datosMaquinasV[i].HabilitadoMaqVirtuales) {
+            str += '</td><td> Habilitado';
+        } else {
+            str += '</td><td> Deshabilitado';
+        }
         str += '</td></tr>';
 
     };
