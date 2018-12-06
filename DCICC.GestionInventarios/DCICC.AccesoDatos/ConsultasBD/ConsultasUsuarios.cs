@@ -84,6 +84,11 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     msjUsuarios.ObjetoInventarios = infoUsuarioBD;
                     msjUsuarios.OperacionExitosa = true;
                 }
+                else
+                {
+                    msjUsuarios.ObjetoInventarios = null;
+                    msjUsuarios.OperacionExitosa = true;
+                }
             }
             catch (Exception e)
             {
@@ -109,6 +114,10 @@ namespace DCICC.AccesoDatos.ConsultasBD
                 if (infoUsuarioBD != null)
                 {
                     msjUsuarios.ObjetoInventarios = infoUsuarioBD;
+                    msjUsuarios.OperacionExitosa = true;
+                }else
+                {
+                    msjUsuarios.ObjetoInventarios = null;
                     msjUsuarios.OperacionExitosa = true;
                 }
             }
