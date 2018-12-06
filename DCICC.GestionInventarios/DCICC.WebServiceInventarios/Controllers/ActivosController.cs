@@ -6,6 +6,7 @@ using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
@@ -244,6 +245,48 @@ namespace DCICC.WebServiceInventarios.Controllers
                 Logs.Error(msjActivos.MensajeError);
             }
             return msjActivos;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarCQR")]
+        public MensajesCQR ActualizarCQR([FromBody] Activos infoActivo)
+        {
+            MensajesCQR msjCQR = null;
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjCQR = objActualizacionesActivosBD.ActualizacionQR(infoActivo);
+            if (msjCQR.OperacionExitosa)
+            {
+                Logs.Info("Actualización de CQR realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjCQR.MensajeError);
+            }
+            return msjCQR;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="lstActivos"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarCQRLista")]
+        public MensajesCQR ActualizarCQR([FromBody] List<Activos> lstActivos)
+        {
+            MensajesCQR msjCQR = null;
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjCQR = objActualizacionesActivosBD.ActualizacionQR(lstActivos);
+            if (msjCQR.OperacionExitosa)
+            {
+                Logs.Info("Actualización de CQR realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjCQR.MensajeError);
+            }
+            return msjCQR;
         }
         #endregion
     }

@@ -3,6 +3,7 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -206,6 +207,30 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 {
                     var ActivosJson = response.Content.ReadAsStringAsync().Result;
                     msjActivos = JsonConvert.DeserializeObject<MensajesActivos>(ActivosJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Error en la conexión para actualizar un activo: " + e.Message + " - " + msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        /// <summary>
+        /// Método para actualizar el estado impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// /// <param name="actEstado">Boolean para definir si se actualizará un solo CQR o una lista</param>
+        /// <returns></returns>
+        public MensajesCQR ActualizarCQR(Activos infoActivo,List<Activos> lstActivos,bool actEstado)
+        {
+            MensajesCQR msjActivos = new MensajesCQR();
+            try
+            {
+                var response = actEstado?client_Service.PostAsJsonAsync("Activos/ActualizarCQRLista", lstActivos).Result: client_Service.PostAsJsonAsync("Activos/Activos/ActualizarCQR", infoActivo).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var ActivosJson = response.Content.ReadAsStringAsync().Result;
+                    msjActivos = JsonConvert.DeserializeObject<MensajesCQR>(ActivosJson);
                 }
             }
             catch (Exception e)

@@ -433,7 +433,7 @@ namespace DCICC.GestionInventarios.Controllers
                 FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy.hh-mm-ss") + ".pdf"
             };
             Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
-            return File(objReporteQR.GenerarPDFQRSimple(Nombre_Activo, Id_CQR), System.Net.Mime.MediaTypeNames.Application.Pdf);
+            return File(objReporteQR.GenerarPDFQRSimple(objReporteQR.GenerarTablaReporteQR(Id_CQR, Nombre_Activo)), System.Net.Mime.MediaTypeNames.Application.Pdf);
         }
         #endregion
         #region Consultas (JSON)
