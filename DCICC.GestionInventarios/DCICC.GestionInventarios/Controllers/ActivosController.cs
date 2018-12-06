@@ -243,7 +243,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesActivos + ": " + e.Message);
             }
             return Json(msjActivos, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ConsultaActivos", "Activos");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarActivo.
@@ -292,7 +291,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesActivos + ": " + e.Message);
             }
             return Json(msjActivos, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ConsultaActivos", "Activos");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
@@ -342,7 +340,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
             return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ConsultaActivos", "Activos");//OJO
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ConsultaActivos.
@@ -392,7 +389,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesAccesorios + ": " + e.Message);
             }
             return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ConsultaActivos", "Activos");
         }
         #endregion
         #region Otros

@@ -68,7 +68,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesTickets + ": " + e.Message);
             }
             return Json(msjTickets, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("GestionTickets","Tickets");
         }
         #endregion
         #region Consultas (JSON)

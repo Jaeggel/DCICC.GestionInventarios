@@ -117,7 +117,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesTipoActivo + ": " + e.Message);
             }
             return Json(msjTipoActivo, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarTipoActivo", "TipoActivo");
         }
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista ModificarTipoActivo.
@@ -148,7 +147,6 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(mensajesTipoActivo + ": " + e.Message);
             }
             return Json(msjTipoActivo, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarTipoActivo", "TipoActivo");
         }
         #endregion
         #region Consultas (JSON)
