@@ -152,7 +152,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objInsercionesActivosBD.RegistroActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
             {
-                Logs.Info("Registro de Activo realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Activo \"{0}\"realizado exitosamente.", infoActivo.NombreActivo));
             }
             else
             {
@@ -173,7 +173,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCQR = objInsercionesCQRBD.RegistroCQR(infoCQR);
             if (msjCQR.OperacionExitosa)
             {
-                Logs.Info("Registro de CQR realizado exitosamente.");
+                Logs.Info(string.Format("Registro de CQR \"{0}\" realizado exitosamente.",infoCQR.IdCqr));
             }
             else
             {
@@ -194,7 +194,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
             if (msjHistActivos.OperacionExitosa)
             {
-                Logs.Info("Registro de Historico de Activo realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Historico de Activo con ID: {0}-{1} realizado exitosamente.",infoHistActivo.IdActivo,infoHistActivo.IdAccesorio));
             }
             else
             {
@@ -217,7 +217,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objActualizacionesActivosBD.ActualizacionActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
             {
-                Logs.Info("Actualización de Activo realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Activo con ID: {0} realizada exitosamente.",infoActivo.IdActivo));
             }
             else
             {
@@ -238,7 +238,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objActualizacionesActivosBD.ActualizacionEstadoActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
             {
-                Logs.Info("Actualización de Activo realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Activo con ID: {0} realizada exitosamente.", infoActivo.IdActivo));
             }
             else
             {
@@ -259,7 +259,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCQR = objActualizacionesActivosBD.ActualizacionQR(infoActivo);
             if (msjCQR.OperacionExitosa)
             {
-                Logs.Info("Actualización de CQR realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de CQR con ID: {0} realizada exitosamente.",infoActivo.IdCQR));
             }
             else
             {
@@ -280,7 +280,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCQR = objActualizacionesActivosBD.ActualizacionQR(lstActivos);
             if (msjCQR.OperacionExitosa)
             {
-                Logs.Info("Actualización de CQR realizada exitosamente.");
+                Logs.Info("Actualización de Lista de CQRs realizada exitosamente.");
             }
             else
             {

@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCategorias = objInsercionesCategoriasBD.RegistroCategoria(infoCategoriaActivo);
             if (msjCategorias.OperacionExitosa)
             {
-                Logs.Info("Registro de Categoría realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Categoría \"{0}\" realizado exitosamente.",infoCategoriaActivo.NombreCategoriaActivo));
             }
             else
             {
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCategorias = objActualizacionesCategoriasActBD.ActualizacionCategoria(infoCategoriaActivo);
             if (msjCategorias.OperacionExitosa)
             {
-                Logs.Info("Actualización de Categoría realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Categoría con ID: {0} realizada exitosamente.",infoCategoriaActivo.IdCategoriaActivo));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjCategorias = objActualizacionesCategoriasActBD.ActualizacionEstadoCategoria(infoCategoriaActivo);
             if (msjCategorias.OperacionExitosa)
             {
-                Logs.Info("Actualización de estado de Categoría realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Categoría con ID: {0} realizada exitosamente.", infoCategoriaActivo.IdCategoriaActivo));
             }
             else
             {

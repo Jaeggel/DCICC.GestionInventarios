@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTipoAccesorio = objInsercionesTipoAccesorioBD.RegistroTipoAccesorio(infoTipoAccesorio);
             if (msjTipoAccesorio.OperacionExitosa)
             {
-                Logs.Info("Registro de Tipo Accesorio realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Tipo Accesorio \"{0}\" realizado exitosamente.",infoTipoAccesorio.NombreTipoAccesorio));
             }
             else
             {
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionTipoAccesorio(infoTipoAccesorio);
             if (msjTipoAccesorio.OperacionExitosa)
             {
-                Logs.Info("Actualización de Tipo Accesorio realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Tipo Accesorio con ID: {0} realizada exitosamente.",infoTipoAccesorio.IdTipoAccesorio));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionEstadoTipoAccesorio(infoTipoAccesorio);
             if (msjTipoAccesorio.OperacionExitosa)
             {
-                Logs.Info("Actualización de estado de Tipo Accesorio realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Tipo Accesorio con ID: {0} realizada exitosamente.", infoTipoAccesorio.IdTipoAccesorio));
             }
             else
             {

@@ -48,7 +48,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los activos: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de los activos: {0}.",e.Message));
             }
             return msjActivos;
         }
@@ -70,7 +70,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener el CQR: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener el CQR: {0}.",e.Message));
             }
             return msjCQR;
         }
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener el CQR: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener el CQR: {0}.",e.Message));
             }
             return msjCQR;
         }
@@ -114,7 +114,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los históricos de los activos: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de los históricos de los activos: {0}.",e.Message));
             }
             return msjHistActivos;
         }
@@ -139,7 +139,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un activo: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para registrar un activo: {0}.",e.Message));
             }
             return msjActivos;
         }
@@ -162,7 +162,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un CQR: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para registrar un CQR: {0}.",e.Message));
             }
             return msjCQR;
         }
@@ -185,7 +185,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un historico: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para registrar un historico: {0}.",e.Message));
             }
             return msjHistActivos;
         }
@@ -211,7 +211,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar un activo: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para actualizar un activo: {0}.",e.Message));
             }
             return msjActivos;
         }
@@ -235,7 +235,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar un activo: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para actualizar un activo: {0}.",e.Message));
             }
             return msjActivos;
         }

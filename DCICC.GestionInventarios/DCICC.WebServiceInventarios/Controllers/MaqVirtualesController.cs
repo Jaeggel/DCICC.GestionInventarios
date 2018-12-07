@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjMaqVirtuales = objInsercionesMaqVirtualesBD.RegistroMaqVirtual(infoMaqVirtual);
             if (msjMaqVirtuales.OperacionExitosa)
             {
-                Logs.Info("Registro de Máquina Virtual realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Máquina Virtual \"{0}\" realizado exitosamente.",infoMaqVirtual.NombreMaqVirtuales));
             }
             else
             {
@@ -79,6 +79,8 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjMaqVirtuales;
         }
+        #endregion
+        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar una Máquina Virtual en la base de datos.
         /// </summary>
@@ -92,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionMaqVirtual(infoMaqVirtual);
             if (msjMaqVirtuales.OperacionExitosa)
             {
-                Logs.Info("Actualización de Máquina Virtual realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Máquina Virtual con ID: {0} realizada exitosamente.",infoMaqVirtual.IdMaqVirtuales));
             }
             else
             {
@@ -100,8 +102,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjMaqVirtuales;
         }
-        #endregion
-        #region Actualizaciones
         /// <summary>
         /// Método (POST) para actualizar el estado de una Máquina Virtual en la base de datos.
         /// </summary>
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionEstadoMaqVirtual(infoMaqVirtual);
             if (msjMaqVirtuales.OperacionExitosa)
             {
-                Logs.Info("Actualización de estado de Máquina Virtual realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Máquina Virtual con ID: {0} realizada exitosamente.", infoMaqVirtual.IdMaqVirtuales));
             }
             else
             {

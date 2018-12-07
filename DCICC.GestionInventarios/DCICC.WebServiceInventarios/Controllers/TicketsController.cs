@@ -51,7 +51,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTickets = objInsercionesTicketsBD.RegistroTicket(infoTicket);
             if (msjTickets.OperacionExitosa)
             {
-                Logs.Info("Registro de Ticket realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Ticket de Usuario: {0} realizado exitosamente.",infoTicket.NombreUsuario));
             }
             else
             {
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTickets = objActualizacionesTicketsBD.ActualizacionTicket(infoTicket);
             if (msjTickets.OperacionExitosa)
             {
-                Logs.Info("Actualización de Ticket realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Ticket con ID: {0} realizada exitosamente.",infoTicket.IdTicket));
             }
             else
             {

@@ -46,10 +46,10 @@ namespace DCICC.GestionInventarios.AccesoDatos
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
-                tokenResult= null;
+                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}.", e.Message));
+                tokenResult = null;
             }
-            return "Bearer " + tokenResult;
+            return string.Format("Bearer {0}", tokenResult);
         }
         /// <summary>
         /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
@@ -71,10 +71,10 @@ namespace DCICC.GestionInventarios.AccesoDatos
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}.", e.Message));
                 tokenResult = null;
             }
-            return "Bearer " + tokenResult;
+            return string.Format("Bearer {0}", tokenResult);
         }
         /// <summary>
         /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
@@ -94,10 +94,10 @@ namespace DCICC.GestionInventarios.AccesoDatos
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener el token de autorización: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}.",e.Message));
                 tokenResult=null;
             }
-            return "Bearer " + tokenResult;
+            return string.Format("Bearer {0}",tokenResult);
         }
         #endregion
     }

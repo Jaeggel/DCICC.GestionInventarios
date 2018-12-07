@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTipoActivo = objInsercionesTipoActivoBD.RegistroTipoActivo(infoTipoActivo);
             if (msjTipoActivo.OperacionExitosa)
             {
-                Logs.Info("Registro de Tipo de Activo realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Tipo de Activo \"{0}\" realizado exitosamente.",infoTipoActivo.NombreTipoActivo));
             }
             else
             {
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionTipoActivo(infoTipoActivo);
             if (msjTipoActivo.OperacionExitosa)
             {
-                Logs.Info("Actualización de Tipo de Activo realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Tipo de Activo con ID: {0} realizada exitosamente.", infoTipoActivo.IdTipoActivo));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionEstadoTipoActivo(infoTipoActivo);
             if (msjTipoActivo.OperacionExitosa)
             {
-                Logs.Info("Actualización de estado de Tipo de Activo realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Tipo de Activo con ID: {0} realizada exitosamente.", infoTipoActivo.IdTipoActivo));
             }
             else
             {

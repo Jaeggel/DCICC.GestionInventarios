@@ -70,7 +70,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjLogs=objInsercionesLogsBD.RegistroLogsInicioBD(infoLogsSistema);
             if (msjLogs.OperacionExitosa)
             {
-                Logs.Info("Registro de Log realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Log de Usuario: {0} realizado exitosamente.",infoLogsSistema.IdUsuario));
             }
             else
             {

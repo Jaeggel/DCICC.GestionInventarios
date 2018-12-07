@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjLaboratorios = objInsercionesLaboratoriosBD.RegistroLaboratorio(infoLaboratorio);
             if (msjLaboratorios.OperacionExitosa)
             {
-                Logs.Info("Registro de Laboratorio realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Laboratorio \"{0}\" realizado exitosamente.",infoLaboratorio.NombreLaboratorio));
             }
             else
             {
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionLaboratorio(infoLaboratorio);
             if (msjLaboratorios.OperacionExitosa)
             {
-                Logs.Info("Actualización de Laboratorio realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Laboratorio con ID: {0} realizada exitosamente.",infoLaboratorio.IdLaboratorio));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionEstadoLaboratorio(infoLaboratorio);
             if (msjLaboratorios.OperacionExitosa)
             {
-                Logs.Info("Actualízación de estado de Laboratorio realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Laboratorio con ID: {0} realizada exitosamente.", infoLaboratorio.IdLaboratorio));
             }
             else
             {

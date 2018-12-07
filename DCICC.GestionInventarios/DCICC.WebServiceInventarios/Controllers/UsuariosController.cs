@@ -92,7 +92,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjUsuarios=objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
             {
-                Logs.Info("Registro de Usuario realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Usuario \"{0}\" realizado exitosamente.",infoUsuario.NickUsuario));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
             {
-                Logs.Info("Actualización de Usuario realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Usuario con ID: {0} realizada exitosamente.",infoUsuario.IdUsuario));
             }
             else
             {
@@ -136,7 +136,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionEstadoUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
             {
-                Logs.Info("Actualización de estado de Usuario realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Usuario con ID: {0} realizada exitosamente.", infoUsuario.IdUsuario));
             }
             else
             {
@@ -157,7 +157,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPerfilUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
             {
-                Logs.Info("Actualización de perfil de usuario realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de perfil de Usuario con ID: {0} realizada exitosamente.", infoUsuario.IdUsuario));
             }
             else
             {
@@ -178,7 +178,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPasswordUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
             {
-                Logs.Info("Actualización de perfil de usuario realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de password de Usuario con ID: {0} realizada exitosamente.", infoUsuario.IdUsuario));
             }
             else
             {
@@ -201,7 +201,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjUsuarios = objEliminacionesUsuariosBD.EliminacionUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
             {
-                Logs.Info("Eliminación de Usuario realizada exitosamente.");
+                Logs.Info(string.Format("Eliminación de Usuario con ID: {0} realizada exitosamente.", infoUsuario.IdUsuario));
             }
             else
             {

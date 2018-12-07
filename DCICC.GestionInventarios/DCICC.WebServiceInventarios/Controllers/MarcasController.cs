@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             msjMarcas = objInsercionesMarcasBD.RegistroMarca(infoMarca);
             if (msjMarcas.OperacionExitosa)
             {
-                Logs.Info("Registro de Marca realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Marca \"{0}\" realizado exitosamente.",infoMarca.NombreMarca));
             }
             else
             {
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             msjMarcas = objActualizacionesMarcasBD.ActualizacionMarca(infoMarca);
             if (msjMarcas.OperacionExitosa)
             {
-                Logs.Info("Actualización de Marca realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Marca con ID: {0} realizada exitosamente.",infoMarca.IdMarca));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
             msjMarcas = objActualizacionesMarcasBD.ActualizacionEstadoMarca(infoMarca);
             if (msjMarcas.OperacionExitosa)
             {
-                Logs.Info("Actualización de estado de Marca realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de Marca con ID: {0} realizada exitosamente.", infoMarca.IdMarca));
             }
             else
             {

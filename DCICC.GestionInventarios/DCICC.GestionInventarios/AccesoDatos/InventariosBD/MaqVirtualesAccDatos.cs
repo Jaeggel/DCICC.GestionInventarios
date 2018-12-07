@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de las máquinas virtuales: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de las máquinas virtuales: {0}.",e.Message));
             }
             return msjMaqVirtuales;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar una máquina virtual: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para registrar una máquina virtual: {0}.",e.Message));
             }
             return msjMaqVirtuales;
         }
@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar una máquina virtual: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para actualizar una máquina virtual: {0}.",e.Message));
             }
             return msjMaqVirtuales;
         }

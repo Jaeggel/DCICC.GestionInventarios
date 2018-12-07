@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los tickets: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de los tickets: {0}.",e.Message));
             }
             return msjTickets;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar un ticket: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para actualizar un ticket: {0}.",e.Message));
             }
             return msjTickets;
         }
