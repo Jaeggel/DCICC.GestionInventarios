@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de las categorías: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de las categorías: " + e.Message);
             }
             return msjCategorias;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar una categoría: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error("Error en la conexión para registrar una categoría: " + e.Message);
             }
             return msjCategorias;
         }
@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar una categoría: " + e.Message + " - " + msjCategorias.MensajeError);
+                Logs.Error("Error en la conexión para actualizar una categoría: " + e.Message);
             }
             return msjCategorias;
         }

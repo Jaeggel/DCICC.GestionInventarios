@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de las marcas: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de las marcas: " + e.Message);
             }
             return msjMarcas;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar una marca: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error("Error en la conexión para registrar una marca: " + e.Message);
             }
             return msjMarcas;
         }
@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar una marca: " + e.Message + " - " + msjMarcas.MensajeError);
+                Logs.Error("Error en la conexión para actualizar una marca: " + e.Message);
             }
             return msjMarcas;
         }

@@ -69,13 +69,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
                 if (msjRoles.OperacionExitosa)
                 {
-                    mensajes_Roles = "El rol ha sido registrado exitosamente.";
+                    mensajes_Roles = "El rol \"" + infoRol.NombreRol + "\" ha sido registrado exitosamente.";
                     TempData["Mensaje"] = mensajes_Roles;
                     Logs.Info(mensajes_Roles);
                 }
                 else
                 {
-                    mensajes_Roles = "No se ha podido registrar el rol: " + msjRoles.MensajeError;
+                    mensajes_Roles = "No se ha podido registrar el rol \"" + infoRol.NombreRol + "\": " + msjRoles.MensajeError;
                     TempData["MensajeError"] = mensajes_Roles;
                 }
             }
@@ -104,12 +104,12 @@ namespace DCICC.GestionInventarios.Controllers
                 //msjRoles = objRolesAccDatos.(infoRol);
                 if (msjRoles.OperacionExitosa)
                 {
-                    mensajes_Roles = "El rol ha sido modificado exitosamente.";
+                    mensajes_Roles = "El rol \"" + infoRol.IdRol + "\" ha sido modificado exitosamente.";
                     Logs.Info(mensajes_Roles);
                 }
                 else
                 {
-                    mensajes_Roles = "No se ha podido modificar el rol: " + msjRoles.MensajeError;
+                    mensajes_Roles = "No se ha podido modificar el rol \"" + infoRol.NombreRol + "\": " + msjRoles.MensajeError;
                 }
             }
             catch (Exception e)

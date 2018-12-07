@@ -88,13 +88,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
                 if(msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario ha sido registrado exitosamente.";
+                    mensajesUsuarios = "El usuario \"" + infoUsuario.NickUsuario + "\" ha sido registrado exitosamente.";
                     TempData["Mensaje"] = mensajesUsuarios;
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido registrar el usuario: "+msjUsuarios.MensajeError;
+                    mensajesUsuarios = "No se ha podido registrar el usuario \"" + infoUsuario.NickUsuario + "\": " + msjUsuarios.MensajeError;
                     TempData["MensajeError"] = mensajesUsuarios;
                 }
             }
@@ -123,12 +123,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,1);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario ha sido modificado correctamente.";
+                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el usuario: " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = "No se ha podido actualizar el usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
                 }
             }
             catch (Exception e)
@@ -153,12 +153,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 3);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario ha sido modificado correctamente.";
+                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el perfil de usuario: " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = "No se ha podido actualizar el perfil de usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
                 }
             }
             catch (Exception e)
@@ -183,12 +183,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 2);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario ha sido modificado correctamente.";
+                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el usuario: " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = "No se ha podido actualizar el usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
                 }
             }
             catch (Exception e)
@@ -213,12 +213,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 4);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario ha sido modificado correctamente.";
+                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el perfil de usuario: " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = "No se ha podido actualizar el perfil de usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
                 }
             }
             catch (Exception e)

@@ -55,12 +55,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTickets = objTicketsAccDatos.ActualizarTicket(infoTicket);
                 if (msjTickets.OperacionExitosa)
                 {
-                    mensajesTickets = "El ticket ha sido modificado correctamente.";
+                    mensajesTickets = "El ticket \"" + infoTicket.IdTicket + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesTickets);
                 }
                 else
                 {
-                    mensajesTickets = "No se ha podido actualizar el ticket: " + msjTickets.MensajeError;
+                    mensajesTickets = "No se ha podido actualizar el ticket \"" + infoTicket.IdTicket + "\": " + msjTickets.MensajeError;
                 }
             }
             catch (Exception e)

@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los sistemas operativos: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de los sistemas operativos: " + e.Message);
             }
             return msjSistOperativos;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error("Error en la conexión para registrar un sistema operativo: " + e.Message);
             }
             return msjSistOperativos;
         }
@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar un sistema operativo: " + e.Message + " - " + msjSistOperativos.MensajeError);
+                Logs.Error("Error en la conexión para actualizar un sistema operativo: " + e.Message);
             }
             return msjSistOperativos;
         }

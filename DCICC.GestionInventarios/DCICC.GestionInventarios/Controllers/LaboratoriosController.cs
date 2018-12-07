@@ -69,13 +69,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosActivosAccDatos.RegistrarLaboratorio(infoLaboratorio);
                 if (msjLaboratorios.OperacionExitosa)
                 {
-                    mensajesLaboratorios = "El laboratorio ha sido registrado exitosamente.";
+                    mensajesLaboratorios = "El laboratorio \"" + infoLaboratorio.NombreLaboratorio + "\" ha sido registrado exitosamente.";
                     TempData["Mensaje"] = mensajesLaboratorios;
                     Logs.Info(mensajesLaboratorios);
                 }
                 else
                 {
-                    mensajesLaboratorios = "No se ha podido registrar el laboratorio: " + msjLaboratorios.MensajeError;
+                    mensajesLaboratorios = "No se ha podido registrar el laboratorio \"" + infoLaboratorio.NombreLaboratorio + "\": " + msjLaboratorios.MensajeError;
                     TempData["MensajeError"] = mensajesLaboratorios;
                 }
             }
@@ -104,12 +104,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio,false);
                 if (msjLaboratorios.OperacionExitosa)
                 {
-                    mensajesLaboratorios = "El laboratorio ha sido modificado correctamente.";
+                    mensajesLaboratorios = "El laboratorio \"" + infoLaboratorio.IdLaboratorio + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesLaboratorios);
                 }
                 else
                 {
-                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio: " + msjLaboratorios.MensajeError;
+                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio \"" + infoLaboratorio.IdLaboratorio + "\": " + msjLaboratorios.MensajeError;
                     TempData["MensajeError"] = mensajesLaboratorios;
                 }
             }
@@ -135,12 +135,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio, true);
                 if (msjLaboratorios.OperacionExitosa)
                 {
-                    mensajesLaboratorios = "El laboratorio ha sido modificado correctamente.";
+                    mensajesLaboratorios = "El laboratorio \"" + infoLaboratorio.IdLaboratorio + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesLaboratorios);
                 }
                 else
                 {
-                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio: " + msjLaboratorios.MensajeError;
+                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio \"" + infoLaboratorio.IdLaboratorio + "\": " + msjLaboratorios.MensajeError;
                     TempData["MensajeError"] = mensajesLaboratorios;
                 }
             }

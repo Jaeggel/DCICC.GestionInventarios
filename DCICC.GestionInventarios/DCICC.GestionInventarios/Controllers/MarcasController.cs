@@ -69,13 +69,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMarcas = objMarcasAccDatos.RegistrarMarca(infoMarca);
                 if (msjMarcas.OperacionExitosa)
                 {
-                    mensajesMarcas = "La marca ha sido registrada exitosamente.";
+                    mensajesMarcas = "La marca \"" + infoMarca.NombreMarca + "\" ha sido registrada exitosamente.";
                     TempData["Mensaje"] = mensajesMarcas;
                     Logs.Info(mensajesMarcas);
                 }
                 else
                 {
-                    mensajesMarcas = "No se ha podido registrar la marca: " + msjMarcas.MensajeError;
+                    mensajesMarcas = "No se ha podido registrar la marca \"" + infoMarca.NombreMarca + "\": " + msjMarcas.MensajeError;
                     TempData["MensajeError"] = mensajesMarcas;
                 }
             }
@@ -104,12 +104,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca,false);
                 if (msjMarcas.OperacionExitosa)
                 {
-                    mensajesMarcas = "La marca ha sido modificada correctamente.";
+                    mensajesMarcas = "La marca \"" + infoMarca.IdMarca + "\" ha sido modificada correctamente.";
                     Logs.Info(mensajesMarcas);
                 }
                 else
                 {
-                    mensajesMarcas = "No se ha podido actualizar la marca: " + msjMarcas.MensajeError;
+                    mensajesMarcas = "No se ha podido actualizar la marca \"" + infoMarca.IdMarca + "\": " + msjMarcas.MensajeError;
                 }
             }
             catch (Exception e)

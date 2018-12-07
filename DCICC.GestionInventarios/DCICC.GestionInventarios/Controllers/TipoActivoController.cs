@@ -69,13 +69,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.RegistrarTipoActivo(infoTipoActivo);
                 if (msjTipoActivo.OperacionExitosa)
                 {
-                    mensajesTipoActivo = "El tipo de activo ha sido registrada exitosamente.";
+                    mensajesTipoActivo = "El tipo de activo \"" + infoTipoActivo.NombreTipoActivo + "\" ha sido registrada exitosamente.";
                     TempData["Mensaje"] = mensajesTipoActivo;
                     Logs.Info(mensajesTipoActivo);
                 }
                 else
                 {
-                    mensajesTipoActivo = "No se ha podido registrar el tipo de activo: " + msjTipoActivo.MensajeError;
+                    mensajesTipoActivo = "No se ha podido registrar el tipo de activo \"" + infoTipoActivo.NombreTipoActivo + "\": " + msjTipoActivo.MensajeError;
                     TempData["MensajeError"] = mensajesTipoActivo;
                 }
             }
@@ -104,12 +104,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo,false);
                 if (msjTipoActivo.OperacionExitosa)
                 {
-                    mensajesTipoActivo = "El tipo de activo ha sido modificado correctamente";
+                    mensajesTipoActivo = "El tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\" ha sido modificado correctamente";
                     Logs.Info(mensajesTipoActivo);
                 }
                 else
                 {
-                    mensajesTipoActivo = "No se ha podido actualizar el tipo de activo: " + msjTipoActivo.MensajeError;
+                    mensajesTipoActivo = "No se ha podido actualizar el tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\": " + msjTipoActivo.MensajeError;
                 }
             }
             catch (Exception e)
@@ -134,12 +134,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo, true);
                 if (msjTipoActivo.OperacionExitosa)
                 {
-                    mensajesTipoActivo = "El tipo de activo ha sido modificado correctamente";
+                    mensajesTipoActivo = "El tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\" ha sido modificado correctamente";
                     Logs.Info(mensajesTipoActivo);
                 }
                 else
                 {
-                    mensajesTipoActivo = "No se ha podido actualizar el tipo de activo: " + msjTipoActivo.MensajeError;
+                    mensajesTipoActivo = "No se ha podido actualizar el tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\": " + msjTipoActivo.MensajeError;
                 }
             }
             catch (Exception e)

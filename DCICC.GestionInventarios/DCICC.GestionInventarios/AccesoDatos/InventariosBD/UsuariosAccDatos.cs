@@ -65,7 +65,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de todos los usuarios: " + e.Message);
             }
             return msjUsuarios;
         }
@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error("Error en la conexión para registrar un usuario: " + e.Message);
             }
             return msjUsuarios;
         }
@@ -184,7 +184,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar un usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error("Error en la conexión para actualizar un usuario: " + e.Message);
             }
             return msjUsuarios;
         }
@@ -209,7 +209,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para eliminar un usuario: " + e.Message + " - " + msjUsuarios.MensajeError);
+                Logs.Error("Error en la conexión para eliminar un usuario: " + e.Message);
             }
             return msjUsuarios;
         }

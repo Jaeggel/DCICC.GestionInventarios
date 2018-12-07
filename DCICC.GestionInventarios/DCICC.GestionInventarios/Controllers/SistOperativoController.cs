@@ -69,13 +69,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.RegistrarSistOperativo(infoSistOperativo);
                 if (msjSistOperativos.OperacionExitosa)
                 {
-                    mensajesSistOperativos = "El sistema operativo ha sido registrado exitosamente.";
+                    mensajesSistOperativos = "El sistema operativo \"" + infoSistOperativo.NombreSistOperativos + "\" ha sido registrado exitosamente.";
                     TempData["Mensaje"] = mensajesSistOperativos;
                     Logs.Info(mensajesSistOperativos);
                 }
                 else
                 {
-                    mensajesSistOperativos = "No se ha podido registrar el sistema operativo: " + msjSistOperativos.MensajeError;
+                    mensajesSistOperativos = "No se ha podido registrar el sistema operativo \"" + infoSistOperativo.NombreSistOperativos + "\": " + msjSistOperativos.MensajeError;
                     TempData["MensajeError"] = mensajesSistOperativos;
                 }
             }
@@ -104,12 +104,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo,false);
                 if (msjSistOperativos.OperacionExitosa)
                 {
-                    mensajesSistOperativos = "El sistema operativo ha sido modificado correctamente";
+                    mensajesSistOperativos = "El sistema operativo \"" + infoSistOperativo.IdSistOperativos + "\" ha sido modificado correctamente";
                     Logs.Info(mensajesSistOperativos);
                 }
                 else
                 {
-                    mensajesSistOperativos = "No se ha podido actualizar el sistema operativo: " + msjSistOperativos.MensajeError;
+                    mensajesSistOperativos = "No se ha podido actualizar el sistema operativo \"" + infoSistOperativo.IdSistOperativos + "\": " + msjSistOperativos.MensajeError;
                 }
             }
             catch (Exception e)
@@ -134,12 +134,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo, true);
                 if (msjSistOperativos.OperacionExitosa)
                 {
-                    mensajesSistOperativos = "El sistema operativo ha sido modificado correctamente";
+                    mensajesSistOperativos = "El sistema operativo \"" + infoSistOperativo.IdSistOperativos + "\" ha sido modificado correctamente";
                     Logs.Info(mensajesSistOperativos);
                 }
                 else
                 {
-                    mensajesSistOperativos = "No se ha podido actualizar el sistema operativo: " + msjSistOperativos.MensajeError;
+                    mensajesSistOperativos = "No se ha podido actualizar el sistema operativo \"" + infoSistOperativo.IdSistOperativos + "\": " + msjSistOperativos.MensajeError;
                 }
             }
             catch (Exception e)

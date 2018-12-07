@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los roles: " + e.Message +" - "+msjRoles.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de los roles: " + e.Message);
             }
             return msjRoles;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un rol: " + e.Message + " - " + msjRoles.MensajeError);
+                Logs.Error("Error en la conexión para registrar un rol: " + e.Message);
             }
             return msjRoles;
         }

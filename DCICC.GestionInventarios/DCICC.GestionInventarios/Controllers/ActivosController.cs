@@ -83,13 +83,13 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             SetIdCQR(infoActivo.IdCQR);
                             SetNombreActivo(infoActivo.NombreActivo);
-                            mensajesActivos = "El activo ha sido registrado exitosamente.";
+                            mensajesActivos = "El activo \""+infoActivo.NombreActivo+"\" ha sido registrado exitosamente.";
                             TempData["Mensaje"] = mensajesActivos;
                             Logs.Info(mensajesActivos);
                         }
                         else
                         {
-                            mensajesActivos = "No se ha podido registrar el activo: " + msjActivos.MensajeError;
+                            mensajesActivos = "No se ha podido registrar el activo \"" + infoActivo.NombreActivo + "\": " + msjActivos.MensajeError;
                             TempData["MensajeError"] = mensajesActivos;
                         }
                     }
@@ -132,12 +132,12 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             SetIdCQR(infoAccesorios.IdCQR);
                             SetNombreActivo(infoAccesorios.NombreAccesorio);
-                            mensajesAccesorios = "El accesorio ha sido registrado exitosamente.";
+                            mensajesAccesorios = "El accesorio \"" + infoAccesorios.NombreAccesorio + "\" ha sido registrado exitosamente.";
                             Logs.Info(mensajesAccesorios);
                         }
                         else
                         {
-                            mensajesAccesorios = "No se ha podido registrar el accesorio: " + msjAccesorios.MensajeError;
+                            mensajesAccesorios = "No se ha podido registrar el accesorio \"" + infoAccesorios.NombreAccesorio + "\": " + msjAccesorios.MensajeError;
                         }
                     }
                 }
@@ -176,13 +176,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
                 if (msjCQR.OperacionExitosa)
                 {
-                    mensajesCQR = "El CQR ha sido registrado exitosamente.";
+                    mensajesCQR = "El CQR \"" + infoCQR.IdCqr + "\" ha sido registrado exitosamente.";
                     msjCQR.ObjetoInventarios = infoCQR;
                     Logs.Info(mensajesCQR);
                 }
                 else
                 {
-                    mensajesCQR = "No se ha podido registrar el CQR: " + msjCQR.MensajeError;
+                    mensajesCQR = "No se ha podido registrar el CQR \"" + infoCQR.IdCqr + "\": " + msjCQR.MensajeError;
                 }
             }
             catch (Exception e)
@@ -210,12 +210,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,false);
                 if (msjActivos.OperacionExitosa)
                 {
-                    mensajesActivos = "El activo ha sido modificado correctamente.";
+                    mensajesActivos = "El activo \"" + infoActivo.IdActivo + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesActivos);
                 }
                 else
                 {
-                    mensajesActivos = "No se ha podido actualizar el activo: " + msjActivos.MensajeError;
+                    mensajesActivos = "No se ha podido actualizar el activo \"" + infoActivo.IdActivo + "\": " + msjActivos.MensajeError;
                 }
                 if(infoActivo.EstadoActivo=="DE BAJA")
                 {
@@ -227,11 +227,11 @@ namespace DCICC.GestionInventarios.Controllers
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
                     if(msjHistActivos.OperacionExitosa)
                     {
-                        Logs.Info("Historico de activo registrado exitosamente.");
+                        Logs.Info("Historico de activo \"" + infoHistActivo.IdActivo + "\" registrado exitosamente.");
                     }
                     else
                     {
-                        Logs.Error("Historico de activo registrado exitosamente.");
+                        Logs.Error("Historico de activo \"" + infoHistActivo.IdActivo + "\" registrado exitosamente.");
                     }
                 }
             }
@@ -258,12 +258,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,true);
                 if (msjActivos.OperacionExitosa)
                 {
-                    mensajesActivos = "El activo ha sido modificado correctamente.";
+                    mensajesActivos = "El activo \"" + infoActivo.IdActivo + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesActivos);
                 }
                 else
                 {
-                    mensajesActivos = "No se ha podido actualizar el activo: " + msjActivos.MensajeError;
+                    mensajesActivos = "No se ha podido actualizar el activo \"" + infoActivo.IdActivo + "\": " + msjActivos.MensajeError;
                 }
                 if (infoActivo.EstadoActivo == "DE BAJA")
                 {
@@ -306,12 +306,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,false);
                 if (msjAccesorios.OperacionExitosa)
                 {
-                    mensajesAccesorios = "El accesorio ha sido modificado correctamente.";
+                    mensajesAccesorios = "El accesorio \"" + infoAccesorios.IdAccesorio + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesAccesorios);
                 }
                 else
                 {
-                    mensajesAccesorios = "No se ha podido actualizar el accesorio: " + msjAccesorios.MensajeError;
+                    mensajesAccesorios = "No se ha podido actualizar el accesorio \"" + infoAccesorios.IdAccesorio + "\": " + msjAccesorios.MensajeError;
                 }
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 if (infoAccesorios.EstadoAccesorio == "DE BAJA")
@@ -355,12 +355,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,true);
                 if (msjAccesorios.OperacionExitosa)
                 {
-                    mensajesAccesorios= "El accesorio ha sido modificado correctamente.";
+                    mensajesAccesorios= "El accesorio \"" + infoAccesorios.IdAccesorio + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesAccesorios);
                 }
                 else
                 {
-                    mensajesAccesorios = "No se ha podido actualizar el accesorio: " + msjAccesorios.MensajeError;
+                    mensajesAccesorios = "No se ha podido actualizar el accesorio \"" + infoAccesorios.IdAccesorio + "\": " + msjAccesorios.MensajeError;
                 }
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 if (infoAccesorios.EstadoAccesorio == "DE BAJA")

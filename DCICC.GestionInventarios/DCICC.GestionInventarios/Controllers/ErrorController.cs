@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace DCICC.GestionInventarios.Controllers
 {
     public class ErrorController : Controller
     {
+        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método (GET) para mostrar la vista relacionada al error 404.
         /// </summary>
@@ -16,6 +18,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 404";
             ViewBag.MensajeError = "Página No Encontrada";
+            Logs.Error(ViewBag.TipoError+": "+ViewBag.MensajeError);
             return View("CustomError");
         }
         /// <summary>
@@ -26,6 +29,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 403";
             ViewBag.MensajeError = "Acceso Prohibido";
+            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
             return View("CustomError");
         }
         /// <summary>
@@ -36,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 500";
             ViewBag.MensajeError = "Error Interno del Servidor";
+            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
             return View("CustomError");
         }
         /// <summary>
@@ -46,6 +51,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 503";
             ViewBag.MensajeError = "Servicio No Disponible";
+            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
             return View("CustomError");
         }
         /// <summary>
@@ -56,6 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 401";
             ViewBag.MensajeError = "No Autorizado";
+            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
             return View("CustomError");
         }
     }

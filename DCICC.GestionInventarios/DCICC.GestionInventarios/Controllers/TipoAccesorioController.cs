@@ -69,13 +69,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.RegistrarTipoAccesorio(infoTipoAccesorio);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
-                    mensajesTipoAccesorio = "El tipo de accesorio ha sido registrado exitosamente.";
+                    mensajesTipoAccesorio = "El tipo de accesorio \"" + infoTipoAccesorio.NombreTipoAccesorio + "\" ha sido registrado exitosamente.";
                     TempData["Mensaje"] = mensajesTipoAccesorio;
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else
                 {
-                    mensajesTipoAccesorio = "No se ha podido registrar el tipo de accesorio: " + msjTipoAccesorio.MensajeError;
+                    mensajesTipoAccesorio = "No se ha podido registrar el tipo de accesorio \"" + infoTipoAccesorio.NombreTipoAccesorio + "\": " + msjTipoAccesorio.MensajeError;
                     TempData["MensajeError"] = mensajesTipoAccesorio;
                 }
             }
@@ -104,12 +104,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,false);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
-                    mensajesTipoAccesorio = "El tipo de accesorio ha sido modificado correctamente.";
+                    mensajesTipoAccesorio = "El tipo de accesorio \"" + infoTipoAccesorio.IdTipoAccesorio + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else
                 {
-                    mensajesTipoAccesorio = "No se ha podido actualizar el tipo de accesorio: " + msjTipoAccesorio.MensajeError;
+                    mensajesTipoAccesorio = "No se ha podido actualizar el tipo de accesorio \"" + infoTipoAccesorio.IdTipoAccesorio + "\": " + msjTipoAccesorio.MensajeError;
                 }
             }
             catch (Exception e)
@@ -134,12 +134,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,true);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
-                    mensajesTipoAccesorio = "El tipo de accesorio ha sido modificado correctamente.";
+                    mensajesTipoAccesorio = "El tipo de accesorio \"" + infoTipoAccesorio.IdTipoAccesorio + "\" ha sido modificado correctamente.";
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else
                 {
-                    mensajesTipoAccesorio = "No se ha podido actualizar el tipo de accesorio: " + msjTipoAccesorio.MensajeError;
+                    mensajesTipoAccesorio = "No se ha podido actualizar el tipo de accesorio \"" + infoTipoAccesorio.IdTipoAccesorio + "\": " + msjTipoAccesorio.MensajeError;
                 }
             }
             catch (Exception e)

@@ -88,6 +88,7 @@ namespace DCICC.GestionInventarios.Controllers
                 lstPropositos.Add(infoProposito);
                 string dataJson = JsonConvert.SerializeObject(lstPropositos);
                 System.IO.File.WriteAllText(@path_JsonPropositos, dataJson);
+                Logs.Info("El propósito \"" + infoProposito.NombreProposito + "\" ha sido registrado correctamente.");
                 return true;
             }
             else
@@ -110,7 +111,9 @@ namespace DCICC.GestionInventarios.Controllers
                         return true;
                     }
                 }
+                Logs.Info("El propósito \"" + infoProposito.NombreProposito + "\" ha sido registrado correctamente.");
             }
+            Logs.Info("No se ha podido registrar el propósito");
             return false;
         }
         /// <summary>
@@ -129,13 +132,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMaqVirtuales = objMaqVirtualesAccDatos.RegistrarMaqVirtual(infoMaqVirtual);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
-                    mensajesMaqVirtuales = "La máquina virtual ha sido registrada exitosamente.";
+                    mensajesMaqVirtuales = "La máquina virtual \"" + infoMaqVirtual.NombreMaqVirtuales + "\" ha sido registrada exitosamente.";
                     TempData["Mensaje"] = mensajesMaqVirtuales;
                     Logs.Info(mensajesMaqVirtuales);
                 }
                 else
                 {
-                    mensajesMaqVirtuales = "No se ha podido registrar la máquina virtual: " + msjMaqVirtuales.MensajeError;
+                    mensajesMaqVirtuales = "No se ha podido registrar la máquina virtual \"" + infoMaqVirtual.NombreMaqVirtuales + "\": " + msjMaqVirtuales.MensajeError;
                     TempData["MensajeError"] = mensajesMaqVirtuales;
                 }
             }
@@ -195,12 +198,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual,false);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
-                    mensajesMaqVirtuales = "La máquina virtual ha sido modificada correctamente.";
+                    mensajesMaqVirtuales = "La máquina virtual \"" + infoMaqVirtual.IdMaqVirtuales + "\" ha sido modificada correctamente.";
                     Logs.Info(mensajesMaqVirtuales);
                 }
                 else
                 {
-                    mensajesMaqVirtuales = "No se ha podido actualizar la máquina virtual: " + msjMaqVirtuales.MensajeError;
+                    mensajesMaqVirtuales = "No se ha podido actualizar la máquina virtual \"" + infoMaqVirtual.IdMaqVirtuales + "\": " + msjMaqVirtuales.MensajeError;
                 }
             }
             catch (Exception e)
@@ -225,12 +228,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual, true);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
-                    mensajesMaqVirtuales = "La máquina virtual ha sido modificada correctamente.";
+                    mensajesMaqVirtuales = "La máquina virtual \"" + infoMaqVirtual.IdMaqVirtuales + "\" ha sido modificada correctamente.";
                     Logs.Info(mensajesMaqVirtuales);
                 }
                 else
                 {
-                    mensajesMaqVirtuales = "No se ha podido actualizar la máquina virtual: " + msjMaqVirtuales.MensajeError;
+                    mensajesMaqVirtuales = "No se ha podido actualizar la máquina virtual \"" + infoMaqVirtual.IdMaqVirtuales + "\": " + msjMaqVirtuales.MensajeError;
                 }
             }
             catch (Exception e)

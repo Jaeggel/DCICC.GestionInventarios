@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los laboratorios: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error("Error en la conexión para obtener la lista de los laboratorios: " + e.Message);
             }
             return msjLaboratorios;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error("Error en la conexión para registrar un laboratorio: " + e.Message);
             }
             return msjLaboratorios;
         }
@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar un laboratorio: " + e.Message + " - " + msjLaboratorios.MensajeError);
+                Logs.Error("Error en la conexión para actualizar un laboratorio: " + e.Message);
             }
             return msjLaboratorios;
         }

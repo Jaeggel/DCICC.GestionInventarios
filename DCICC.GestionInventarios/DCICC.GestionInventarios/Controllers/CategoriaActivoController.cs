@@ -69,13 +69,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasActivosAccDatos.RegistrarCategoriaActivo(infoCategoriaActivo);
                 if (msjCategorias.OperacionExitosa)
                 {
-                    mensajesCategorias = "La categoría ha sido registrada exitosamente.";
+                    mensajesCategorias = "La categoría \"" + infoCategoriaActivo.NombreCategoriaActivo + "\" ha sido registrada exitosamente.";
                     TempData["Mensaje"] = mensajesCategorias;
                     Logs.Info(mensajesCategorias);
                 }
                 else
                 {
-                    mensajesCategorias = "No se ha podido registrar la categoría: " + msjCategorias.MensajeError;
+                    mensajesCategorias = "No se ha podido registrar la categoría \"" + infoCategoriaActivo.NombreCategoriaActivo + "\": " + msjCategorias.MensajeError;
                     TempData["MensajeError"] = mensajesCategorias;
                 }
             }
@@ -104,12 +104,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo,false);
                 if (msjCategorias.OperacionExitosa)
                 {
-                    mensajesCategorias = "La categoría ha sido modificada correctamente";
+                    mensajesCategorias = "La categoría \"" + infoCategoriaActivo.IdCategoriaActivo + "\" ha sido modificada correctamente";
                     Logs.Info(mensajesCategorias);
                 }
                 else
                 {
-                    mensajesCategorias= "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
+                    mensajesCategorias= "No se ha podido actualizar la categoría \"" + infoCategoriaActivo.IdCategoriaActivo + "\": " + msjCategorias.MensajeError;
                 }
             }
             catch (Exception e)
@@ -134,12 +134,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo, true);
                 if (msjCategorias.OperacionExitosa)
                 {
-                    mensajesCategorias = "La categoría ha sido modificada correctamente";
+                    mensajesCategorias = "La categoría \"" + infoCategoriaActivo.  IdCategoriaActivo + "\" ha sido modificada correctamente";
                     Logs.Info(mensajesCategorias);
                 }
                 else
                 {
-                    mensajesCategorias = "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
+                    mensajesCategorias = "No se ha podido actualizar la categoría \"" + infoCategoriaActivo.IdCategoriaActivo + "\": " + msjCategorias.MensajeError;
                 }
             }
             catch (Exception e)
