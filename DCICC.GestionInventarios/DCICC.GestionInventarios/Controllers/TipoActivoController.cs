@@ -69,19 +69,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.RegistrarTipoActivo(infoTipoActivo);
                 if (msjTipoActivo.OperacionExitosa)
                 {
-                    mensajesTipoActivo = "El tipo de activo \"" + infoTipoActivo.NombreTipoActivo + "\" ha sido registrada exitosamente.";
+                    mensajesTipoActivo = string.Format("El tipo de activo \"{0}\" ha sido registrada exitosamente.",infoTipoActivo.NombreTipoActivo);
                     TempData["Mensaje"] = mensajesTipoActivo;
                     Logs.Info(mensajesTipoActivo);
                 }
                 else
                 {
-                    mensajesTipoActivo = "No se ha podido registrar el tipo de activo \"" + infoTipoActivo.NombreTipoActivo + "\": " + msjTipoActivo.MensajeError;
+                    mensajesTipoActivo = string.Format("No se ha podido registrar el tipo de activo \"{0}\": {1}.",infoTipoActivo.NombreTipoActivo,msjTipoActivo.MensajeError);
                     TempData["MensajeError"] = mensajesTipoActivo;
+                    Logs.Error(mensajesTipoActivo);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesTipoActivo + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesTipoActivo, e.Message));
                 return View();
             }
             return RedirectToAction("ModificarTipoActivo", "TipoActivo");
@@ -104,17 +105,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo,false);
                 if (msjTipoActivo.OperacionExitosa)
                 {
-                    mensajesTipoActivo = "El tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\" ha sido modificado correctamente";
+                    mensajesTipoActivo = string.Format("El tipo de activo con ID: {0} ha sido modificado correctamente.",infoTipoActivo.IdTipoActivo);
                     Logs.Info(mensajesTipoActivo);
                 }
                 else
                 {
-                    mensajesTipoActivo = "No se ha podido actualizar el tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\": " + msjTipoActivo.MensajeError;
+                    mensajesTipoActivo = string.Format("No se ha podido actualizar el tipo de activo con ID: {0}: {1}.",infoTipoActivo.IdTipoActivo,msjTipoActivo.MensajeError);
+                    Logs.Error(mensajesTipoActivo);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesTipoActivo + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesTipoActivo, e.Message));
             }
             return Json(msjTipoActivo, JsonRequestBehavior.AllowGet);
         }
@@ -134,17 +136,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoActivo = objTipoActivoAccDatos.ActualizarTipoActivo(infoTipoActivo, true);
                 if (msjTipoActivo.OperacionExitosa)
                 {
-                    mensajesTipoActivo = "El tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\" ha sido modificado correctamente";
+                    mensajesTipoActivo = string.Format("El tipo de activo con ID: {0} ha sido modificado correctamente.", infoTipoActivo.IdTipoActivo);
                     Logs.Info(mensajesTipoActivo);
                 }
                 else
                 {
-                    mensajesTipoActivo = "No se ha podido actualizar el tipo de activo \"" + infoTipoActivo.IdTipoActivo + "\": " + msjTipoActivo.MensajeError;
+                    mensajesTipoActivo = string.Format("No se ha podido actualizar el tipo de activo con ID: {0}: {1}.", infoTipoActivo.IdTipoActivo, msjTipoActivo.MensajeError);
+                    Logs.Error(mensajesTipoActivo);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesTipoActivo + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesTipoActivo, e.Message));
             }
             return Json(msjTipoActivo, JsonRequestBehavior.AllowGet);
         }

@@ -83,14 +83,15 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             SetIdCQR(infoActivo.IdCQR);
                             SetNombreActivo(infoActivo.NombreActivo);
-                            mensajesActivos = "El activo \""+infoActivo.NombreActivo+"\" ha sido registrado exitosamente.";
+                            mensajesActivos = string.Format("El activo \"{0}\" ha sido registrado exitosamente.",infoActivo.NombreActivo);
                             TempData["Mensaje"] = mensajesActivos;
                             Logs.Info(mensajesActivos);
                         }
                         else
                         {
-                            mensajesActivos = "No se ha podido registrar el activo \"" + infoActivo.NombreActivo + "\": " + msjActivos.MensajeError;
+                            mensajesActivos = string.Format("No se ha podido registrar el activo \"{0}\": {1}.",infoActivo.NombreActivo,msjActivos.MensajeError);
                             TempData["MensajeError"] = mensajesActivos;
+                            Logs.Error(mensajesActivos);
                         }
                     }
                 }
@@ -101,7 +102,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesActivos + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesActivos, e.Message));
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
             return Json(msjActivos, JsonRequestBehavior.AllowGet);
@@ -132,12 +133,13 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             SetIdCQR(infoAccesorios.IdCQR);
                             SetNombreActivo(infoAccesorios.NombreAccesorio);
-                            mensajesAccesorios = "El accesorio \"" + infoAccesorios.NombreAccesorio + "\" ha sido registrado exitosamente.";
+                            mensajesAccesorios = string.Format("El accesorio \"{0}\" ha sido registrado exitosamente.",infoAccesorios.NombreAccesorio);
                             Logs.Info(mensajesAccesorios);
                         }
                         else
                         {
-                            mensajesAccesorios = "No se ha podido registrar el accesorio \"" + infoAccesorios.NombreAccesorio + "\": " + msjAccesorios.MensajeError;
+                            mensajesAccesorios = string.Format("No se ha podido registrar el accesorio \"{0}\": {1}.",infoAccesorios.NombreAccesorio,msjAccesorios.MensajeError);
+                            Logs.Error(mensajesAccesorios);
                         }
                     }
                 }
@@ -148,7 +150,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesAccesorios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesAccesorios, e.Message));
             }
             return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
         }
@@ -176,18 +178,19 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCQR = objCQRAccDatos.RegistrarCQR(infoCQR);
                 if (msjCQR.OperacionExitosa)
                 {
-                    mensajesCQR = "El CQR \"" + infoCQR.IdCqr + "\" ha sido registrado exitosamente.";
+                    mensajesCQR = string.Format("El CQR \"{0}\" ha sido registrado exitosamente.",infoCQR.IdCqr);
                     msjCQR.ObjetoInventarios = infoCQR;
                     Logs.Info(mensajesCQR);
                 }
                 else
                 {
-                    mensajesCQR = "No se ha podido registrar el CQR \"" + infoCQR.IdCqr + "\": " + msjCQR.MensajeError;
+                    mensajesCQR = string.Format("No se ha podido registrar el CQR \"{0}\": {1}.",infoCQR.IdCqr,msjCQR.MensajeError);
+                    Logs.Error(mensajesCQR);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesCQR + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesCQR, e.Message));
             }
             return msjCQR;
         }
@@ -210,12 +213,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,false);
                 if (msjActivos.OperacionExitosa)
                 {
-                    mensajesActivos = "El activo \"" + infoActivo.IdActivo + "\" ha sido modificado correctamente.";
+                    mensajesActivos = string.Format("El activo con ID: {0} ha sido modificado correctamente.", infoActivo.IdActivo);
                     Logs.Info(mensajesActivos);
                 }
                 else
                 {
-                    mensajesActivos = "No se ha podido actualizar el activo \"" + infoActivo.IdActivo + "\": " + msjActivos.MensajeError;
+                    mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}.",infoActivo.IdActivo,msjActivos.MensajeError);
+                    Logs.Error(mensajesActivos);
                 }
                 if(infoActivo.EstadoActivo=="DE BAJA")
                 {
@@ -227,17 +231,17 @@ namespace DCICC.GestionInventarios.Controllers
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
                     if(msjHistActivos.OperacionExitosa)
                     {
-                        Logs.Info("Historico de activo \"" + infoHistActivo.IdActivo + "\" registrado exitosamente.");
+                        Logs.Info(string.Format("Historico de activo con con ID: {0} registrado exitosamente.",infoHistActivo.IdActivo));
                     }
                     else
                     {
-                        Logs.Error("Historico de activo \"" + infoHistActivo.IdActivo + "\" registrado exitosamente.");
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
                     }
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesActivos + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesActivos, e.Message));
             }
             return Json(msjActivos, JsonRequestBehavior.AllowGet);
         }
@@ -258,12 +262,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjActivos = objActivosAccDatos.ActualizarActivo(infoActivo,true);
                 if (msjActivos.OperacionExitosa)
                 {
-                    mensajesActivos = "El activo \"" + infoActivo.IdActivo + "\" ha sido modificado correctamente.";
+                    mensajesActivos = string.Format("El activo con ID: {0} ha sido modificado correctamente.",infoActivo.IdActivo);
                     Logs.Info(mensajesActivos);
                 }
                 else
                 {
-                    mensajesActivos = "No se ha podido actualizar el activo \"" + infoActivo.IdActivo + "\": " + msjActivos.MensajeError;
+                    mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}.",infoActivo.IdActivo,msjActivos.MensajeError);
+                    Logs.Error(mensajesActivos);
                 }
                 if (infoActivo.EstadoActivo == "DE BAJA")
                 {
@@ -275,17 +280,17 @@ namespace DCICC.GestionInventarios.Controllers
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
                     if (msjHistActivos.OperacionExitosa)
                     {
-                        Logs.Info("Historico de activo registrado exitosamente.");
+                        Logs.Info(string.Format("Historico de activo con ID: {0} registrado exitosamente.",infoHistActivo.IdActivo));
                     }
                     else
                     {
-                        Logs.Error("Historico de activo registrado exitosamente.");
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo,msjHistActivos.MensajeError));
                     }
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesActivos + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesActivos, e.Message));
             }
             return Json(msjActivos, JsonRequestBehavior.AllowGet);
         }
@@ -306,12 +311,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,false);
                 if (msjAccesorios.OperacionExitosa)
                 {
-                    mensajesAccesorios = "El accesorio \"" + infoAccesorios.IdAccesorio + "\" ha sido modificado correctamente.";
+                    mensajesAccesorios = string.Format("El accesorio con ID: {0} ha sido modificado correctamente.",infoAccesorios.NombreAccesorio);
                     Logs.Info(mensajesAccesorios);
                 }
                 else
                 {
-                    mensajesAccesorios = "No se ha podido actualizar el accesorio \"" + infoAccesorios.IdAccesorio + "\": " + msjAccesorios.MensajeError;
+                    mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}.", infoAccesorios.NombreAccesorio,msjAccesorios.MensajeError);
+                    Logs.Error(mensajesAccesorios);
                 }
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 if (infoAccesorios.EstadoAccesorio == "DE BAJA")
@@ -324,17 +330,17 @@ namespace DCICC.GestionInventarios.Controllers
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
                     if (msjHistActivos.OperacionExitosa)
                     {
-                        Logs.Info("Historico de activo registrado exitosamente.");
+                        Logs.Info(string.Format("Historico de activo con ID: {0} registrado exitosamente.", infoHistActivo.IdActivo));
                     }
                     else
                     {
-                        Logs.Error("Historico de activo registrado exitosamente.");
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
                     }
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesAccesorios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesAccesorios, e.Message));
             }
             return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
         }
@@ -355,12 +361,13 @@ namespace DCICC.GestionInventarios.Controllers
                 msjAccesorios = objAccesoriosAccDatos.ActualizarAccesorios(infoAccesorios,true);
                 if (msjAccesorios.OperacionExitosa)
                 {
-                    mensajesAccesorios= "El accesorio \"" + infoAccesorios.IdAccesorio + "\" ha sido modificado correctamente.";
+                    mensajesAccesorios= string.Format("El accesorio con ID: {0} ha sido modificado correctamente.",infoAccesorios.IdAccesorio);
                     Logs.Info(mensajesAccesorios);
                 }
                 else
                 {
-                    mensajesAccesorios = "No se ha podido actualizar el accesorio \"" + infoAccesorios.IdAccesorio + "\": " + msjAccesorios.MensajeError;
+                    mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}.",infoAccesorios.IdAccesorio,msjAccesorios.MensajeError);
+                    Logs.Error(mensajesAccesorios);
                 }
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 if (infoAccesorios.EstadoAccesorio == "DE BAJA")
@@ -373,17 +380,17 @@ namespace DCICC.GestionInventarios.Controllers
                     msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
                     if (msjHistActivos.OperacionExitosa)
                     {
-                        Logs.Info("Historico de activo registrado exitosamente.");
+                        Logs.Info(string.Format("Historico de activo con ID: {0} registrado exitosamente.", infoHistActivo.IdActivo));
                     }
                     else
                     {
-                        Logs.Error("Historico de activo registrado exitosamente.");
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
                     }
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesAccesorios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesAccesorios, e.Message));
             }
             return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
         }
@@ -440,24 +447,24 @@ namespace DCICC.GestionInventarios.Controllers
                     msjCQR = objActivosAccDatos.ActualizarCQR(infoActivo, null, false);
                     if (msjCQR.OperacionExitosa)
                     {
-                        mensajesActivos = "El CQR ha sido modificado correctamente.";
+                        mensajesActivos = string.Format("El CQR con ID: {0} ha sido modificado correctamente.",infoActivo.IdCQR);
                         Logs.Info(mensajesActivos);
                         var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                         {
                             Inline = true,
-                            FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy.hh-mm-ss") + ".pdf"
+                            FileName = string.Format("DCICC.CQR.{0}.{1}.{2}",Nombre_Activo, DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf")
                         };
                         Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
                     }
                     else
                     {
-                        mensajesActivos = "No se ha podido actualizar el CQR: " + msjCQR.MensajeError;
+                        mensajesActivos = string.Format("No se ha podido actualizar el CQR con ID: {0}: {1}.",infoActivo.IdCQR,msjCQR.MensajeError);
                     }
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesActivos + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesActivos, e.Message));
             }
             return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
         }

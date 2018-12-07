@@ -111,7 +111,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se ha podido generar el DataTable: " + e.Message);
+                Logs.Error(string.Format("No se ha podido generar el DataTable: {0}.",e.Message));
             }
         }
         /// <summary>
@@ -131,7 +131,7 @@ namespace DCICC.GestionInventarios.Controllers
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
                     Inline = true,
-                    FileName = "Reporte"+ titulo_Reporte+ DateTime.Now.ToString(".MM-dd-yyyy.hh-mm-ss") + ".pdf",
+                    FileName = string.Format("Reporte{0}.{1}.{2}",titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"pdf"),
                 };
                 Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
                 Logs.Info("Reporte PDF generado correctamente.");
@@ -139,7 +139,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch(Exception e)
             {
-                Logs.Error("No se ha podido generar el reporte PDF: "+e.Message);
+                Logs.Error(string.Format("No se ha podido generar el reporte PDF: {0}.", e.Message));
             }
             return File(bytesReportePDF, System.Net.Mime.MediaTypeNames.Application.Pdf);
         }
@@ -159,9 +159,9 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se ha podido generar el reporte Excel: " + e.Message);
+                Logs.Error(string.Format("No se ha podido generar el reporte Excel: {0}.", e.Message));
             }
-            return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Reporte"+ titulo_Reporte + DateTime.Now.ToString(".MM-dd-yyyy.hh-mm-ss") + ".xlsx");
+            return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte{0}.{1}.{2}", titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"xlsx"));
         }
         #endregion
     }

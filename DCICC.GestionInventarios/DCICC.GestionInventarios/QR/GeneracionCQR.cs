@@ -10,7 +10,7 @@ namespace DCICC.GestionInventarios.QR
 {
     public class GeneracionCQR
     {
-        //Instancia para la utilización de LOGS en la clase GeneracionCQR
+        //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método para generar el Id del código QR
@@ -20,34 +20,32 @@ namespace DCICC.GestionInventarios.QR
         {
             string mensajesCQR = string.Empty;
             string idCQR = "DCICC.CQR";
-            MensajesCQR msjCQR = new MensajesCQR();
             try
             {
+                MensajesCQR msjCQR = new MensajesCQR();
                 ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(NickUsuarioSesion);
                 msjCQR = objCQRAccDatos.ObtenerIdCQR();
                 if (msjCQR.OperacionExitosa)
                 {
-                    var sizeLst = msjCQR.ListaObjetoInventarios.Count;
+                    int sizeLst = msjCQR.ListaObjetoInventarios.Count;
                     if (sizeLst == 0)
                     {
                         idCQR += "1";
                     }
                     else
                     {
-                        idCQR+=(sizeLst+1);
+                        idCQR += sizeLst + 1;
                     }
-                    mensajesCQR = "La lista de los Id de CQR ha sido obtenido exitosamente.";
-                    Logs.Info(mensajesCQR);
+                    Logs.Info("El ID para el código QR ha sido generado correctamente.");
                 }
                 else
                 {
-                    mensajesCQR = "No se ha podido obtener los CQR: " + msjCQR.MensajeError;
+                    idCQR += "0";
                 }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                Logs.Error(mensajesCQR + ": " + e.Message);
-                return null;
+                Logs.Error(string.Format("No se ha podido generar el Id para el código QR: {0}.",e.Message));
             }
             return idCQR;
         }
@@ -57,10 +55,19 @@ namespace DCICC.GestionInventarios.QR
         /// </summary>
         public Bitmap GenerarCodigoQR(string idCqr)
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(idCqr, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(6);
+            Bitmap qrCodeImage = null;
+            try
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(idCqr, QRCodeGenerator.ECCLevel.Q);
+                QRCode qrCode = new QRCode(qrCodeData);
+                qrCodeImage = qrCode.GetGraphic(6);
+                Logs.Info("El bitmap para el Código QR ha sido generado correctamente.");
+            }
+            catch(Exception e)
+            {
+                Logs.Error(string.Format("No se ha podido generar el Bitmap para el código QR: {0}.",e.Message));
+            }
             return qrCodeImage;
         }
         /// <summary>
@@ -70,10 +77,19 @@ namespace DCICC.GestionInventarios.QR
         /// <returns></returns>
         public byte[] GenQRBytes(Bitmap datosQR)
         {
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                datosQR.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                return memoryStream.ToArray();
+                using (var memoryStream = new MemoryStream())
+                {
+                    datosQR.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    Logs.Info("Los bytes para el Código QR ha sido generado correctamente.");
+                    return memoryStream.ToArray();
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("No se han podido generar los bytes para el código QR: {0}.",e.Message));
+                return null;
             }
         }
         /// <summary>

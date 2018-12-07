@@ -35,7 +35,7 @@ namespace DCICC.WebServiceInventarios.Configuration
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener el EncriptionKey del archivo de configuración: "+e.Message);
+                Logs.Error(string.Format("No se pudo obtener el EncriptionKey del archivo de configuración: {0}.",e.Message));
                 llaveEncriptacion = null;
             }
             return llaveEncriptacion;
@@ -53,7 +53,7 @@ namespace DCICC.WebServiceInventarios.Configuration
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener la cadena de conexión del archivo de configuración: " + e.Message);
+                Logs.Error(string.Format("No se pudo obtener la cadena de conexión del archivo de configuración: {0}.", e.Message));
                 cadenaConexion = null;
             }
             return cadenaConexion;
@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Configuration
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener el ExpirationTimeToken del archivo de configuración: " + e.Message);
+                Logs.Error(string.Format("No se pudo obtener el ExpirationTimeToken del archivo de configuración: {0}.",e.Message));
                 time = 0;
             }
             return time;

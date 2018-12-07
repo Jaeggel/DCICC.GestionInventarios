@@ -88,19 +88,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.RegistrarUsuario(infoUsuario);
                 if(msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario \"" + infoUsuario.NickUsuario + "\" ha sido registrado exitosamente.";
+                    mensajesUsuarios = string.Format("El usuario \"{0}\" ha sido registrado exitosamente.",infoUsuario.NickUsuario);
                     TempData["Mensaje"] = mensajesUsuarios;
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido registrar el usuario \"" + infoUsuario.NickUsuario + "\": " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = string.Format("No se ha podido registrar el usuario \"{0}\": {1}.",infoUsuario.NickUsuario,msjUsuarios.MensajeError);
                     TempData["MensajeError"] = mensajesUsuarios;
+                    Logs.Error(mensajesUsuarios);
                 }
             }
             catch(Exception e)
             {
-                Logs.Error(mensajesUsuarios+": "+e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesUsuarios, e.Message));
                 return View();
             }
             return RedirectToAction("ModificarUsuario", "Usuarios");
@@ -123,17 +124,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario,1);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
+                    mensajesUsuarios = string.Format("El usuario con ID: {0} ha sido modificado correctamente.",infoUsuario.IdUsuario);
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}.",infoUsuario.IdUsuario,msjUsuarios.MensajeError);
+                    Logs.Error(mensajesUsuarios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesUsuarios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesUsuarios, e.Message));
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
         }
@@ -153,17 +155,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 3);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
+                    mensajesUsuarios = string.Format("El perfil de usuario con ID: {0} ha sido modificado correctamente.", infoUsuario.IdUsuario);
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el perfil de usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el perfil de usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    Logs.Error(mensajesUsuarios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesUsuarios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesUsuarios, e.Message));
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
         }
@@ -183,17 +186,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 2);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
+                    mensajesUsuarios = string.Format("El usuario con ID: {0} ha sido modificado correctamente.", infoUsuario.IdUsuario);
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    Logs.Error(mensajesUsuarios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesUsuarios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesUsuarios, e.Message));
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
         }
@@ -213,17 +217,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.ActualizarUsuario(infoUsuario, 4);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    mensajesUsuarios = "El usuario \"" + infoUsuario.IdUsuario + "\" ha sido modificado correctamente.";
+                    mensajesUsuarios = string.Format("El usuario con ID: {0} ha sido modificado correctamente.", infoUsuario.IdUsuario);
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajesUsuarios = "No se ha podido actualizar el perfil de usuario \"" + infoUsuario.IdUsuario + "\": " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    Logs.Error(mensajesUsuarios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesUsuarios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesUsuarios, e.Message));
             }
             return Json(msjUsuarios, JsonRequestBehavior.AllowGet);
         }
@@ -237,7 +242,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult EliminarUsuario(Usuarios infoUsuario)
         {
-            string mensajes_Usuarios = string.Empty;
+            string mensajesUsuarios = string.Empty;
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
@@ -245,16 +250,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjUsuarios = objUsuariosAccDatos.EliminarUsuario(infoUsuario);
                 if (msjUsuarios.OperacionExitosa)
                 {
-                    Logs.Info(mensajes_Usuarios);
+                    mensajesUsuarios = string.Format("El usuario con ID: {0} ha sido eliminado correctamente.", infoUsuario.IdUsuario);
+                    Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
-                    mensajes_Usuarios = "No se ha podido eliminar el usuario: " + msjUsuarios.MensajeError;
+                    mensajesUsuarios = string.Format("No se ha podido eliminar el usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    Logs.Error(mensajesUsuarios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajes_Usuarios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesUsuarios, e.Message));
             }
             return RedirectToAction("ModificarUsuario", "Usuarios");
         }

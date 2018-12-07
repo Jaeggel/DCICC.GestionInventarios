@@ -69,19 +69,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMarcas = objMarcasAccDatos.RegistrarMarca(infoMarca);
                 if (msjMarcas.OperacionExitosa)
                 {
-                    mensajesMarcas = "La marca \"" + infoMarca.NombreMarca + "\" ha sido registrada exitosamente.";
+                    mensajesMarcas = string.Format("La marca \"{0}\" ha sido registrada exitosamente.",infoMarca.NombreMarca);
                     TempData["Mensaje"] = mensajesMarcas;
                     Logs.Info(mensajesMarcas);
                 }
                 else
                 {
-                    mensajesMarcas = "No se ha podido registrar la marca \"" + infoMarca.NombreMarca + "\": " + msjMarcas.MensajeError;
+                    mensajesMarcas = string.Format("No se ha podido registrar la marca \"{0}\": {1}.",infoMarca.NombreMarca,msjMarcas.MensajeError);
                     TempData["MensajeError"] = mensajesMarcas;
+                    Logs.Error(mensajesMarcas);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesMarcas + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesMarcas, e.Message));
                 return View();
             }
             return RedirectToAction("ModificarMarca", "Marcas");
@@ -104,17 +105,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca,false);
                 if (msjMarcas.OperacionExitosa)
                 {
-                    mensajesMarcas = "La marca \"" + infoMarca.IdMarca + "\" ha sido modificada correctamente.";
+                    mensajesMarcas = string.Format("La marca con ID: {0} ha sido modificada correctamente.",infoMarca.IdMarca);
                     Logs.Info(mensajesMarcas);
                 }
                 else
                 {
-                    mensajesMarcas = "No se ha podido actualizar la marca \"" + infoMarca.IdMarca + "\": " + msjMarcas.MensajeError;
+                    mensajesMarcas = string.Format("No se ha podido actualizar la marca con ID: {0}: {1}.",infoMarca.IdMarca,msjMarcas.MensajeError);
+                    Logs.Error(mensajesMarcas);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesMarcas + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesMarcas, e.Message));
             }
             return Json(msjMarcas, JsonRequestBehavior.AllowGet);
         }
@@ -134,17 +136,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMarcas = objMarcasAccDatos.ActualizarMarca(infoMarca, true);
                 if (msjMarcas.OperacionExitosa)
                 {
-                    mensajesMarcas = "La marca ha sido modificada correctamente.";
+                    mensajesMarcas = string.Format("La marca con ID: {0} ha sido modificada correctamente.", infoMarca.IdMarca);
                     Logs.Info(mensajesMarcas);
                 }
                 else
                 {
-                    mensajesMarcas = "No se ha podido actualizar la marca: " + msjMarcas.MensajeError;
+                    mensajesMarcas = string.Format("No se ha podido actualizar la marca con ID: {0}: {1}.", infoMarca.IdMarca, msjMarcas.MensajeError);
+                    Logs.Error(mensajesMarcas);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesMarcas + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesMarcas, e.Message));
             }
             return Json(msjMarcas, JsonRequestBehavior.AllowGet);
         }

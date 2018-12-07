@@ -69,19 +69,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosActivosAccDatos.RegistrarLaboratorio(infoLaboratorio);
                 if (msjLaboratorios.OperacionExitosa)
                 {
-                    mensajesLaboratorios = "El laboratorio \"" + infoLaboratorio.NombreLaboratorio + "\" ha sido registrado exitosamente.";
+                    mensajesLaboratorios = string.Format("El laboratorio \"{0}\" ha sido registrado exitosamente.",infoLaboratorio.NombreLaboratorio);
                     TempData["Mensaje"] = mensajesLaboratorios;
                     Logs.Info(mensajesLaboratorios);
                 }
                 else
                 {
-                    mensajesLaboratorios = "No se ha podido registrar el laboratorio \"" + infoLaboratorio.NombreLaboratorio + "\": " + msjLaboratorios.MensajeError;
+                    mensajesLaboratorios = string.Format("No se ha podido registrar el laboratorio \"{0}\": {1}.",infoLaboratorio.NombreLaboratorio,msjLaboratorios.MensajeError);
                     TempData["MensajeError"] = mensajesLaboratorios;
+                    Logs.Error(mensajesLaboratorios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesLaboratorios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesLaboratorios, e.Message));
                 return View();
             }
             return RedirectToAction("ModificarLaboratorio", "Laboratorios");
@@ -104,18 +105,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio,false);
                 if (msjLaboratorios.OperacionExitosa)
                 {
-                    mensajesLaboratorios = "El laboratorio \"" + infoLaboratorio.IdLaboratorio + "\" ha sido modificado correctamente.";
+                    mensajesLaboratorios = string.Format("El laboratorio con ID: {0} ha sido modificado correctamente.",infoLaboratorio.IdLaboratorio);
                     Logs.Info(mensajesLaboratorios);
                 }
                 else
                 {
-                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio \"" + infoLaboratorio.IdLaboratorio + "\": " + msjLaboratorios.MensajeError;
-                    TempData["MensajeError"] = mensajesLaboratorios;
+                    mensajesLaboratorios = string.Format("No se ha podido actualizar el laboratorio con ID: {0}: {1}.",infoLaboratorio.IdLaboratorio ,msjLaboratorios.MensajeError);
+                    Logs.Error(mensajesLaboratorios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesLaboratorios + ": " + e.Message);    
+                Logs.Error(string.Format("{0}: {1}", mensajesLaboratorios, e.Message));
             }
             return Json(msjLaboratorios, JsonRequestBehavior.AllowGet);
         }
@@ -135,18 +136,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLaboratorios = objLaboratoriosAccDatos.ActualizarLaboratorio(infoLaboratorio, true);
                 if (msjLaboratorios.OperacionExitosa)
                 {
-                    mensajesLaboratorios = "El laboratorio \"" + infoLaboratorio.IdLaboratorio + "\" ha sido modificado correctamente.";
+                    mensajesLaboratorios = string.Format("El laboratorio con ID: {0} ha sido modificado correctamente.", infoLaboratorio.IdLaboratorio);
                     Logs.Info(mensajesLaboratorios);
                 }
                 else
                 {
-                    mensajesLaboratorios = "No se ha podido actualizar el laboratorio \"" + infoLaboratorio.IdLaboratorio + "\": " + msjLaboratorios.MensajeError;
-                    TempData["MensajeError"] = mensajesLaboratorios;
+                    mensajesLaboratorios = string.Format("No se ha podido actualizar el laboratorio con ID: {0}: {1}.", infoLaboratorio.IdLaboratorio, msjLaboratorios.MensajeError);
+                    Logs.Error(mensajesLaboratorios);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesLaboratorios + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesLaboratorios, e.Message));
             }
             return Json(msjLaboratorios, JsonRequestBehavior.AllowGet);
         }

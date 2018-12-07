@@ -12,9 +12,7 @@ namespace DCICC.GestionInventarios.Reportes
 {
     public class ReporteQR
     {
-        //Instancia para la utilización de LOGS en la clase ReporteQR
-        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        iTextSharp.text.Font fuente_Datos = FontFactory.GetFont("Arial", 8);
+        readonly iTextSharp.text.Font fuente_Datos = FontFactory.GetFont("Arial", 8);
         /// <summary>
         /// Método para generar el PDF con el código QR de un nuevo activo.
         /// </summary>
@@ -24,23 +22,16 @@ namespace DCICC.GestionInventarios.Reportes
         public byte[] GenerarPDFQRSimple(PdfPTable tablaQR)
         {
             byte[] pdfBytes = null;
-            try
+            using (MemoryStream msReporte = new MemoryStream())
             {
-                using (MemoryStream msReporte = new MemoryStream())
+                Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
+                using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
-                    Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
-                    using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
-                    {
-                        documentoReporte.Open();
-                        documentoReporte.Add(tablaQR);
-                        documentoReporte.Close();
-                        pdfBytes = msReporte.ToArray();
-                        Logs.Info("Bytes para PDF generados exitosamente.");
-                    }
+                    documentoReporte.Open();
+                    documentoReporte.Add(tablaQR);
+                    documentoReporte.Close();
+                    pdfBytes = msReporte.ToArray();
                 }
-            } catch (Exception e)
-            {
-                Logs.Error("No se han podido generar los bytes: " + e.Message);
             }
             return pdfBytes;
         }
@@ -53,28 +44,20 @@ namespace DCICC.GestionInventarios.Reportes
         public byte[] GenerarPDFQRLista(List<Activos> lstActivos)
         {
             byte[] pdfBytes = null;
-            try
+            using (MemoryStream msReporte = new MemoryStream())
             {
-                using (MemoryStream msReporte = new MemoryStream())
+                Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
+                using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
-                    Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
-                    using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
+                    documentoReporte.Open();
+                    foreach (var item in lstActivos)
                     {
-                        documentoReporte.Open();
-                        foreach (var item in lstActivos)
-                        {
-                            var tablaQR = GenerarTablaReporteQR(item.IdCQR, item.NombreActivo);
-                            documentoReporte.Add(tablaQR);
-                        }
-                        documentoReporte.Close();
-                        pdfBytes = msReporte.ToArray();
-                        Logs.Info("Bytes para PDF de Lista de QRs generados exitosamente.");
+                        var tablaQR = GenerarTablaReporteQR(item.IdCQR, item.NombreActivo);
+                        documentoReporte.Add(tablaQR);
                     }
+                    documentoReporte.Close();
+                    pdfBytes = msReporte.ToArray();
                 }
-            }
-            catch (Exception e)
-            {
-                Logs.Error("No se han podido generar los bytes: " + e.Message);
             }
             return pdfBytes;
         }

@@ -18,7 +18,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 404";
             ViewBag.MensajeError = "Página No Encontrada";
-            Logs.Error(ViewBag.TipoError+": "+ViewBag.MensajeError);
+            Logs.Error(string.Format("{0}: {1}.",ViewBag.TipoError,ViewBag.MensajeError));
             return View("CustomError");
         }
         /// <summary>
@@ -29,7 +29,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 403";
             ViewBag.MensajeError = "Acceso Prohibido";
-            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
+            Logs.Error(string.Format("{0}: {1}.", ViewBag.TipoError, ViewBag.MensajeError));
             return View("CustomError");
         }
         /// <summary>
@@ -40,7 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 500";
             ViewBag.MensajeError = "Error Interno del Servidor";
-            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
+            Logs.Error(string.Format("{0}: {1}.", ViewBag.TipoError, ViewBag.MensajeError));
             return View("CustomError");
         }
         /// <summary>
@@ -51,7 +51,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 503";
             ViewBag.MensajeError = "Servicio No Disponible";
-            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
+            Logs.Error(string.Format("{0}: {1}.", ViewBag.TipoError, ViewBag.MensajeError));
             return View("CustomError");
         }
         /// <summary>
@@ -62,7 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ViewBag.TipoError = "ERROR HTTP 401";
             ViewBag.MensajeError = "No Autorizado";
-            Logs.Error(ViewBag.TipoError + ": " + ViewBag.MensajeError);
+            Logs.Error(string.Format("{0}: {1}.", ViewBag.TipoError, ViewBag.MensajeError));
             return View("CustomError");
         }
     }
