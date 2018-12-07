@@ -367,19 +367,19 @@
                                     @* Cuadro de texto para el ingreso del serial de un accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="SerialAccesorio" type="text" class="form-control has-feedback-left" name="SerialAccesorio" placeholder="Serial del Accesorio" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();"  data-toggle="tooltip" data-placement="rigth" title="" maxlength="80">
-                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span class="fa fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorSerialAccesorio" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del modelo de un accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="ModeloAccesorio" type="text" class="form-control has-feedback-left" name="ModeloAccesorio" placeholder="Modelo del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();"  data-toggle="tooltip" data-placement="rigth" title="" maxlength="80">
-                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorModeloAccesorio" style="color:brown;"></span>
                                     </div>
                                     @* Área de Texto para el ingreso de la descripción de un accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150"  data-toggle="tooltip" data-placement="rigth" title=""></textarea>
-                                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     @* Combobox para seleccionar el estado del activo *@
                                     <div class="form-group">
@@ -495,7 +495,7 @@
 
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="SerialAccesorioIngreso" type="text" class="form-control has-feedback-left" name="SerialAccesorioIngreso" placeholder="Serial del Accesorio" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+                                        <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorModeloAccesorioIng" style="color:brown;"></span>
                                     </div>
 
