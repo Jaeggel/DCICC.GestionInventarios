@@ -83,8 +83,6 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             SetIdCQR(infoActivo.IdCQR);
                             SetNombreActivo(infoActivo.NombreActivo);
-                            ObtenerImagenQR();
-                            ObtenerPDFQRSimple();
                             mensajesActivos = "El activo ha sido registrado exitosamente.";
                             TempData["Mensaje"] = mensajesActivos;
                             Logs.Info(mensajesActivos);
@@ -134,8 +132,6 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             SetIdCQR(infoAccesorios.IdCQR);
                             SetNombreActivo(infoAccesorios.NombreAccesorio);
-                            ObtenerImagenQR();
-                            ObtenerPDFQRSimple();
                             mensajesAccesorios = "El accesorio ha sido registrado exitosamente.";
                             Logs.Info(mensajesAccesorios);
                         }
@@ -169,7 +165,8 @@ namespace DCICC.GestionInventarios.Controllers
             CQR infoCQR = new CQR
             {
                 IdCqr = IdCQR,
-                Bytea = bitmapBytes
+                Bytea = bitmapBytes,
+                Impreso = false
             };
             string mensajesCQR = string.Empty;
             MensajesCQR msjCQR = new MensajesCQR();
@@ -391,12 +388,12 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
         }
         #endregion
-        #region Otros
+        #region PDF e Imagen Código QR
         /// <summary>
         /// Método para llenar la variable global Id_CQR.
         /// </summary>
         /// <param name="idCQR"></param>
-        public void SetIdCQR(string idCQR)
+        public static void SetIdCQR(string idCQR)
         {
             Id_CQR = idCQR;
         }
@@ -404,7 +401,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para llenar la variable global Nombre_Activo.
         /// </summary>
         /// <param name="nombreActivo"></param>
-        public void SetNombreActivo(string nombreActivo)
+        public static void SetNombreActivo(string nombreActivo)
         {
             Nombre_Activo = nombreActivo;
         }
@@ -427,13 +424,42 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult ObtenerPDFQRSimple()
         {
             ReporteQR objReporteQR = new ReporteQR();
-            var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+            string mensajesActivos = string.Empty;
+            MensajesCQR msjCQR = new MensajesCQR();
+            byte[] pdfQR = null;
+            try
             {
-                Inline = true,
-                FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy.hh-mm-ss") + ".pdf"
-            };
-            Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
-            return File(objReporteQR.GenerarPDFQRSimple(objReporteQR.GenerarTablaReporteQR(Id_CQR, Nombre_Activo)), System.Net.Mime.MediaTypeNames.Application.Pdf);
+                pdfQR = objReporteQR.GenerarPDFQRSimple(objReporteQR.GenerarTablaReporteQR(Id_CQR, Nombre_Activo));
+                Activos infoActivo = new Activos()
+                {
+                    IdCQR=Id_CQR,
+                    NombreActivo=Nombre_Activo
+                };
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                {
+                    msjCQR = objActivosAccDatos.ActualizarCQR(infoActivo, null, false);
+                    if (msjCQR.OperacionExitosa)
+                    {
+                        mensajesActivos = "El CQR ha sido modificado correctamente.";
+                        Logs.Info(mensajesActivos);
+                        var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+                        {
+                            Inline = true,
+                            FileName = "DCICC.CQR." + Nombre_Activo + DateTime.Now.ToString(".MM-dd-yyyy.hh-mm-ss") + ".pdf"
+                        };
+                        Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
+                    }
+                    else
+                    {
+                        mensajesActivos = "No se ha podido actualizar el CQR: " + msjCQR.MensajeError;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(mensajesActivos + ": " + e.Message);
+            }
+            return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
         }
         #endregion
         #region Consultas (JSON)

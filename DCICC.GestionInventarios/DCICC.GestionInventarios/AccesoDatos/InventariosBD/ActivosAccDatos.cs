@@ -226,7 +226,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesCQR msjActivos = new MensajesCQR();
             try
             {
-                var response = actEstado?client_Service.PostAsJsonAsync("Activos/ActualizarCQRLista", lstActivos).Result: client_Service.PostAsJsonAsync("Activos/Activos/ActualizarCQR", infoActivo).Result;
+                var response = actEstado?client_Service.PostAsJsonAsync("Activos/ActualizarCQRLista", lstActivos).Result: client_Service.PostAsJsonAsync("Activos/ActualizarCQR", infoActivo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var ActivosJson = response.Content.ReadAsStringAsync().Result;
