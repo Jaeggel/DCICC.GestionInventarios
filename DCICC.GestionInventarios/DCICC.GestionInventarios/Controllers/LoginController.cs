@@ -176,14 +176,26 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoLogin"></param>
         /// <returns></returns>
         public Usuarios ComprobarCredenciales(Login infoLogin)
-        {            
-            Usuarios infoUsuario = new Usuarios
+        {
+            try
             {
-                NickUsuario=infoLogin.NickUsuario,
-                PasswordUsuario=infoLogin.PasswordUsuario
-            };
-            UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoUsuario);
-            return objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                Usuarios infoUsuario = new Usuarios
+                {
+                    NickUsuario = infoLogin.NickUsuario,
+                    PasswordUsuario = infoLogin.PasswordUsuario
+                };
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoUsuario);
+                Usuarios datosUsuario = objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                if (datosUsuario != null)
+                {
+                    return datosUsuario;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la comprobacíón de credenciales de Usuario: {0}: {1}.", infoLogin.NickUsuario, e.Message));
+            }
+            return null;
         }
         /// <summary>
         /// Método para cerrar la sesión actual
