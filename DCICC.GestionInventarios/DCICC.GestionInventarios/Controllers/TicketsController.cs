@@ -60,7 +60,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesTickets = string.Format("No se ha podido actualizar el ticket con ID: {0}: {1}.",infoTicket.IdTicket,msjTickets.MensajeError);
+                    mensajesTickets = string.Format("No se ha podido actualizar el ticket con ID: {0}: {1}",infoTicket.IdTicket,msjTickets.MensajeError);
                     Logs.Error(mensajesTickets);
                 }
             }

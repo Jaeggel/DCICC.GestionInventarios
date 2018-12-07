@@ -46,7 +46,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}.", e.Message));
+                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}", e.Message));
                 tokenResult = null;
             }
             return string.Format("Bearer {0}", tokenResult);
@@ -71,7 +71,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}.", e.Message));
+                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}", e.Message));
                 tokenResult = null;
             }
             return string.Format("Bearer {0}", tokenResult);
@@ -94,7 +94,7 @@ namespace DCICC.GestionInventarios.AccesoDatos
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}.",e.Message));
+                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}",e.Message));
                 tokenResult=null;
             }
             return string.Format("Bearer {0}",tokenResult);

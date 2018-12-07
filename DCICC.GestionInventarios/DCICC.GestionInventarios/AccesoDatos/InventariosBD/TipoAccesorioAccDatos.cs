@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para obtener la lista de los tipos de accesorios: {0}.",e.Message));
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de los tipos de accesorios: {0}",e.Message));
             }
             return msjTipoAccesorio;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un tipo de accesorio: " + e.Message);
+                Logs.Error(string.Format("Error en la conexión para registrar un tipo de accesorio: {0}",e.Message));
             }
             return msjTipoAccesorio;
         }
@@ -97,7 +97,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para actualizar un tipo de accesorio: {0}.",e.Message));
+                Logs.Error(string.Format("Error en la conexión para actualizar un tipo de accesorio: {0}",e.Message));
             }
             return msjTipoAccesorio;
         }

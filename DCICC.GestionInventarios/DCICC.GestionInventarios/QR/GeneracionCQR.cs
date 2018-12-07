@@ -45,7 +45,7 @@ namespace DCICC.GestionInventarios.QR
             }
             catch(Exception e)
             {
-                Logs.Error(string.Format("No se ha podido generar el Id para el código QR: {0}.",e.Message));
+                Logs.Error(string.Format("No se ha podido generar el Id para el código QR: {0}",e.Message));
             }
             return idCQR;
         }
@@ -66,7 +66,7 @@ namespace DCICC.GestionInventarios.QR
             }
             catch(Exception e)
             {
-                Logs.Error(string.Format("No se ha podido generar el Bitmap para el código QR: {0}.",e.Message));
+                Logs.Error(string.Format("No se ha podido generar el Bitmap para el código QR: {0}",e.Message));
             }
             return qrCodeImage;
         }
@@ -88,7 +88,7 @@ namespace DCICC.GestionInventarios.QR
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("No se han podido generar los bytes para el código QR: {0}.",e.Message));
+                Logs.Error(string.Format("No se han podido generar los bytes para el código QR: {0}",e.Message));
                 return null;
             }
         }

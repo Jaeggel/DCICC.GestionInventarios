@@ -89,7 +89,7 @@ namespace DCICC.GestionInventarios.Controllers
                         }
                         else
                         {
-                            mensajesActivos = string.Format("No se ha podido registrar el activo \"{0}\": {1}.",infoActivo.NombreActivo,msjActivos.MensajeError);
+                            mensajesActivos = string.Format("No se ha podido registrar el activo \"{0}\": {1}",infoActivo.NombreActivo,msjActivos.MensajeError);
                             TempData["MensajeError"] = mensajesActivos;
                             Logs.Error(mensajesActivos);
                         }
@@ -138,7 +138,7 @@ namespace DCICC.GestionInventarios.Controllers
                         }
                         else
                         {
-                            mensajesAccesorios = string.Format("No se ha podido registrar el accesorio \"{0}\": {1}.",infoAccesorios.NombreAccesorio,msjAccesorios.MensajeError);
+                            mensajesAccesorios = string.Format("No se ha podido registrar el accesorio \"{0}\": {1}",infoAccesorios.NombreAccesorio,msjAccesorios.MensajeError);
                             Logs.Error(mensajesAccesorios);
                         }
                     }
@@ -184,7 +184,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesCQR = string.Format("No se ha podido registrar el CQR \"{0}\": {1}.",infoCQR.IdCqr,msjCQR.MensajeError);
+                    mensajesCQR = string.Format("No se ha podido registrar el CQR \"{0}\": {1}",infoCQR.IdCqr,msjCQR.MensajeError);
                     Logs.Error(mensajesCQR);
                 }
             }
@@ -218,7 +218,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}.",infoActivo.IdActivo,msjActivos.MensajeError);
+                    mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}",infoActivo.IdActivo,msjActivos.MensajeError);
                     Logs.Error(mensajesActivos);
                 }
                 if(infoActivo.EstadoActivo=="DE BAJA")
@@ -235,7 +235,7 @@ namespace DCICC.GestionInventarios.Controllers
                     }
                     else
                     {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
                     }
                 }
             }
@@ -267,7 +267,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}.",infoActivo.IdActivo,msjActivos.MensajeError);
+                    mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}",infoActivo.IdActivo,msjActivos.MensajeError);
                     Logs.Error(mensajesActivos);
                 }
                 if (infoActivo.EstadoActivo == "DE BAJA")
@@ -284,7 +284,7 @@ namespace DCICC.GestionInventarios.Controllers
                     }
                     else
                     {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo,msjHistActivos.MensajeError));
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo,msjHistActivos.MensajeError));
                     }
                 }
             }
@@ -316,7 +316,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}.", infoAccesorios.NombreAccesorio,msjAccesorios.MensajeError);
+                    mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}", infoAccesorios.NombreAccesorio,msjAccesorios.MensajeError);
                     Logs.Error(mensajesAccesorios);
                 }
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
@@ -334,7 +334,7 @@ namespace DCICC.GestionInventarios.Controllers
                     }
                     else
                     {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
                     }
                 }
             }
@@ -366,7 +366,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}.",infoAccesorios.IdAccesorio,msjAccesorios.MensajeError);
+                    mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}",infoAccesorios.IdAccesorio,msjAccesorios.MensajeError);
                     Logs.Error(mensajesAccesorios);
                 }
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
@@ -384,7 +384,7 @@ namespace DCICC.GestionInventarios.Controllers
                     }
                     else
                     {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}.", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
+                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
                     }
                 }
             }
@@ -458,7 +458,7 @@ namespace DCICC.GestionInventarios.Controllers
                     }
                     else
                     {
-                        mensajesActivos = string.Format("No se ha podido actualizar el CQR con ID: {0}: {1}.",infoActivo.IdCQR,msjCQR.MensajeError);
+                        mensajesActivos = string.Format("No se ha podido actualizar el CQR con ID: {0}: {1}",infoActivo.IdCQR,msjCQR.MensajeError);
                     }
                 }
             }

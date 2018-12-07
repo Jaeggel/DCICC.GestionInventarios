@@ -94,7 +94,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesUsuarios = string.Format("No se ha podido registrar el usuario \"{0}\": {1}.",infoUsuario.NickUsuario,msjUsuarios.MensajeError);
+                    mensajesUsuarios = string.Format("No se ha podido registrar el usuario \"{0}\": {1}",infoUsuario.NickUsuario,msjUsuarios.MensajeError);
                     TempData["MensajeError"] = mensajesUsuarios;
                     Logs.Error(mensajesUsuarios);
                 }
@@ -129,7 +129,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}.",infoUsuario.IdUsuario,msjUsuarios.MensajeError);
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}",infoUsuario.IdUsuario,msjUsuarios.MensajeError);
                     Logs.Error(mensajesUsuarios);
                 }
             }
@@ -160,7 +160,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesUsuarios = string.Format("No se ha podido actualizar el perfil de usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el perfil de usuario con ID: {0}: {1}", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
                     Logs.Error(mensajesUsuarios);
                 }
             }
@@ -191,7 +191,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
                     Logs.Error(mensajesUsuarios);
                 }
             }
@@ -222,7 +222,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    mensajesUsuarios = string.Format("No se ha podido actualizar el usuario con ID: {0}: {1}", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
                     Logs.Error(mensajesUsuarios);
                 }
             }
@@ -255,7 +255,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesUsuarios = string.Format("No se ha podido eliminar el usuario con ID: {0}: {1}.", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    mensajesUsuarios = string.Format("No se ha podido eliminar el usuario con ID: {0}: {1}", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
                     Logs.Error(mensajesUsuarios);
                 }
             }

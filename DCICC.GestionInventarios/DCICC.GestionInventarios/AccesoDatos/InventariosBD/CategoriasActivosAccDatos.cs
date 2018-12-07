@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para registrar una categoría: {0}." + e.Message));
+                Logs.Error(string.Format("Error en la conexión para registrar una categoría: {0}" + e.Message));
             }
             return msjCategorias;
         }
@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para actualizar una categoría: {0}.",e.Message));
+                Logs.Error(string.Format("Error en la conexión para actualizar una categoría: {0}",e.Message));
             }
             return msjCategorias;
         }

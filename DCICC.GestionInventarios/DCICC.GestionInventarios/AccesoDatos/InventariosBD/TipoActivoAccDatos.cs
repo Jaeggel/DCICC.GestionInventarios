@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para obtener la lista de los tipos de activos: {0}.",e.Message));
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de los tipos de activos: {0}",e.Message));
             }
             return msjTipoActivo;
         }
@@ -98,7 +98,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para actualizar una tipo de activo: {0}.",e.Message));
+                Logs.Error(string.Format("Error en la conexión para actualizar una tipo de activo: {0}",e.Message));
             }
             return msjTipoActivo;
         }

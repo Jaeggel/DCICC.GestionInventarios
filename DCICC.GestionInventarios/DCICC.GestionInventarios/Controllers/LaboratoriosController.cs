@@ -75,7 +75,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesLaboratorios = string.Format("No se ha podido registrar el laboratorio \"{0}\": {1}.",infoLaboratorio.NombreLaboratorio,msjLaboratorios.MensajeError);
+                    mensajesLaboratorios = string.Format("No se ha podido registrar el laboratorio \"{0}\": {1}",infoLaboratorio.NombreLaboratorio,msjLaboratorios.MensajeError);
                     TempData["MensajeError"] = mensajesLaboratorios;
                     Logs.Error(mensajesLaboratorios);
                 }
@@ -110,7 +110,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesLaboratorios = string.Format("No se ha podido actualizar el laboratorio con ID: {0}: {1}.",infoLaboratorio.IdLaboratorio ,msjLaboratorios.MensajeError);
+                    mensajesLaboratorios = string.Format("No se ha podido actualizar el laboratorio con ID: {0}: {1}",infoLaboratorio.IdLaboratorio ,msjLaboratorios.MensajeError);
                     Logs.Error(mensajesLaboratorios);
                 }
             }
@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesLaboratorios = string.Format("No se ha podido actualizar el laboratorio con ID: {0}: {1}.", infoLaboratorio.IdLaboratorio, msjLaboratorios.MensajeError);
+                    mensajesLaboratorios = string.Format("No se ha podido actualizar el laboratorio con ID: {0}: {1}", infoLaboratorio.IdLaboratorio, msjLaboratorios.MensajeError);
                     Logs.Error(mensajesLaboratorios);
                 }
             }

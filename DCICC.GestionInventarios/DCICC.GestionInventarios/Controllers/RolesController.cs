@@ -75,7 +75,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesRoles = string.Format("No se ha podido registrar el rol \"{0}\": {1}.",infoRol.NombreRol,msjRoles.MensajeError);
+                    mensajesRoles = string.Format("No se ha podido registrar el rol \"{0}\": {1}",infoRol.NombreRol,msjRoles.MensajeError);
                     TempData["MensajeError"] = mensajesRoles;
                     Logs.Error(mensajesRoles);
                 }
@@ -110,7 +110,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesRoles = string.Format("No se ha podido modificar el rol con ID: {0}: {1}.",infoRol.NombreRol,msjRoles.MensajeError);
+                    mensajesRoles = string.Format("No se ha podido modificar el rol con ID: {0}: {1}",infoRol.NombreRol,msjRoles.MensajeError);
                     Logs.Error(mensajesRoles);
                 }
             }

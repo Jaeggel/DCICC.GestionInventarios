@@ -46,7 +46,6 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     }
                     tran.Commit();
                     msjUsuarios = ActualizacionNickUsuario(infoUsuario);
-                    msjUsuarios.OperacionExitosa = true;
                     conn_BD.Close();
                 }
                 else

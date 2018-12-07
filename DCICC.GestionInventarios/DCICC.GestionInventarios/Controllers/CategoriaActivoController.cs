@@ -75,7 +75,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesCategorias = string.Format("No se ha podido registrar la categoría \"{0}\": {1}. ",infoCategoriaActivo.NombreCategoriaActivo,msjCategorias.MensajeError);
+                    mensajesCategorias = string.Format("No se ha podido registrar la categoría \"{0}\": {1} ",infoCategoriaActivo.NombreCategoriaActivo,msjCategorias.MensajeError);
                     TempData["MensajeError"] = mensajesCategorias;
                     Logs.Error(mensajesCategorias);
                 }
@@ -110,7 +110,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesCategorias= string.Format("No se ha podido actualizar la categoría con ID: {0}: {1}.",infoCategoriaActivo.IdCategoriaActivo,msjCategorias.MensajeError);
+                    mensajesCategorias= string.Format("No se ha podido actualizar la categoría con ID: {0}: {1}",infoCategoriaActivo.IdCategoriaActivo,msjCategorias.MensajeError);
                     Logs.Error(mensajesCategorias);
                 }
             }
@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesCategorias = string.Format("No se ha podido actualizar la categoría con ID: {0}: {1}.",infoCategoriaActivo.IdCategoriaActivo,msjCategorias.MensajeError);
+                    mensajesCategorias = string.Format("No se ha podido actualizar la categoría con ID: {0}: {1}",infoCategoriaActivo.IdCategoriaActivo,msjCategorias.MensajeError);
                     Logs.Error(mensajesCategorias);
                 }
             }

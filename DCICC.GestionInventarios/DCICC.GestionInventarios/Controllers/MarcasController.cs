@@ -75,7 +75,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesMarcas = string.Format("No se ha podido registrar la marca \"{0}\": {1}.",infoMarca.NombreMarca,msjMarcas.MensajeError);
+                    mensajesMarcas = string.Format("No se ha podido registrar la marca \"{0}\": {1}",infoMarca.NombreMarca,msjMarcas.MensajeError);
                     TempData["MensajeError"] = mensajesMarcas;
                     Logs.Error(mensajesMarcas);
                 }
@@ -110,7 +110,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesMarcas = string.Format("No se ha podido actualizar la marca con ID: {0}: {1}.",infoMarca.IdMarca,msjMarcas.MensajeError);
+                    mensajesMarcas = string.Format("No se ha podido actualizar la marca con ID: {0}: {1}",infoMarca.IdMarca,msjMarcas.MensajeError);
                     Logs.Error(mensajesMarcas);
                 }
             }
@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesMarcas = string.Format("No se ha podido actualizar la marca con ID: {0}: {1}.", infoMarca.IdMarca, msjMarcas.MensajeError);
+                    mensajesMarcas = string.Format("No se ha podido actualizar la marca con ID: {0}: {1}", infoMarca.IdMarca, msjMarcas.MensajeError);
                     Logs.Error(mensajesMarcas);
                 }
             }

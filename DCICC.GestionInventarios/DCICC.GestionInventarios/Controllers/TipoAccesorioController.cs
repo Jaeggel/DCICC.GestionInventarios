@@ -75,7 +75,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesTipoAccesorio = string.Format("No se ha podido registrar el tipo de accesorio \"{0}\": {1}.",infoTipoAccesorio.NombreTipoAccesorio,msjTipoAccesorio.MensajeError);
+                    mensajesTipoAccesorio = string.Format("No se ha podido registrar el tipo de accesorio \"{0}\": {1}",infoTipoAccesorio.NombreTipoAccesorio,msjTipoAccesorio.MensajeError);
                     TempData["MensajeError"] = mensajesTipoAccesorio;
                     Logs.Error(mensajesTipoAccesorio);
                 }
@@ -109,7 +109,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesTipoAccesorio = string.Format("No se ha podido actualizar el tipo de accesorio con ID: {0}: {1}.",infoTipoAccesorio.IdTipoAccesorio,msjTipoAccesorio.MensajeError);
+                    mensajesTipoAccesorio = string.Format("No se ha podido actualizar el tipo de accesorio con ID: {0}: {1}",infoTipoAccesorio.IdTipoAccesorio,msjTipoAccesorio.MensajeError);
                     Logs.Error(mensajesTipoAccesorio);
                 }
             }
@@ -140,7 +140,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesTipoAccesorio = string.Format("No se ha podido actualizar el tipo de accesorio con ID: {0}: {1}.", infoTipoAccesorio.IdTipoAccesorio, msjTipoAccesorio.MensajeError);
+                    mensajesTipoAccesorio = string.Format("No se ha podido actualizar el tipo de accesorio con ID: {0}: {1}", infoTipoAccesorio.IdTipoAccesorio, msjTipoAccesorio.MensajeError);
                     Logs.Error(mensajesTipoAccesorio);
                 }
             }

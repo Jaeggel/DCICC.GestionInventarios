@@ -193,7 +193,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la comprobacíón de credenciales de Usuario: {0}: {1}.", infoLogin.NickUsuario, e.Message));
+                Logs.Error(string.Format("Error en la comprobacíón de credenciales de Usuario: {0}: {1}", infoLogin.NickUsuario, e.Message));
             }
             return null;
         }

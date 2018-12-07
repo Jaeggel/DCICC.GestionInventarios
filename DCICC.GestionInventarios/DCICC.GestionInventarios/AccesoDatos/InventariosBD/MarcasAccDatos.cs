@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para obtener la lista de las marcas: {0}." + e.Message));
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de las marcas: {0}" + e.Message));
             }
             return msjMarcas;
         }
@@ -72,7 +72,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para registrar una marca: {0}.",e.Message));
+                Logs.Error(string.Format("Error en la conexión para registrar una marca: {0}",e.Message));
             }
             return msjMarcas;
         }

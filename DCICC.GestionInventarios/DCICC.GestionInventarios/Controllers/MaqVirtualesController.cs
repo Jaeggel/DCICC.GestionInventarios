@@ -97,7 +97,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesMaqVirtuales = string.Format("No se ha podido registrar la máquina virtual \"{0}\": {1}.",infoMaqVirtual.NombreMaqVirtuales,msjMaqVirtuales.MensajeError);
+                    mensajesMaqVirtuales = string.Format("No se ha podido registrar la máquina virtual \"{0}\": {1}",infoMaqVirtual.NombreMaqVirtuales,msjMaqVirtuales.MensajeError);
                     TempData["MensajeError"] = mensajesMaqVirtuales;
                     Logs.Error(mensajesMaqVirtuales);
                 }
@@ -200,7 +200,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesMaqVirtuales = string.Format("No se ha podido actualizar la máquina virtual con ID: {0}: {1}.",infoMaqVirtual.IdMaqVirtuales,msjMaqVirtuales.MensajeError);
+                    mensajesMaqVirtuales = string.Format("No se ha podido actualizar la máquina virtual con ID: {0}: {1}",infoMaqVirtual.IdMaqVirtuales,msjMaqVirtuales.MensajeError);
                     Logs.Error(mensajesMaqVirtuales);
                 }
             }
@@ -231,7 +231,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesMaqVirtuales = string.Format("No se ha podido actualizar la máquina virtual con ID: {0}: {1}.",infoMaqVirtual.IdMaqVirtuales,msjMaqVirtuales.MensajeError);
+                    mensajesMaqVirtuales = string.Format("No se ha podido actualizar la máquina virtual con ID: {0}: {1}",infoMaqVirtual.IdMaqVirtuales,msjMaqVirtuales.MensajeError);
                     Logs.Error(mensajesMaqVirtuales);
                 }
             }

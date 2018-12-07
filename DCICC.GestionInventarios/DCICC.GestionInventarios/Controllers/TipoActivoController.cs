@@ -75,7 +75,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesTipoActivo = string.Format("No se ha podido registrar el tipo de activo \"{0}\": {1}.",infoTipoActivo.NombreTipoActivo,msjTipoActivo.MensajeError);
+                    mensajesTipoActivo = string.Format("No se ha podido registrar el tipo de activo \"{0}\": {1}",infoTipoActivo.NombreTipoActivo,msjTipoActivo.MensajeError);
                     TempData["MensajeError"] = mensajesTipoActivo;
                     Logs.Error(mensajesTipoActivo);
                 }
@@ -110,7 +110,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesTipoActivo = string.Format("No se ha podido actualizar el tipo de activo con ID: {0}: {1}.",infoTipoActivo.IdTipoActivo,msjTipoActivo.MensajeError);
+                    mensajesTipoActivo = string.Format("No se ha podido actualizar el tipo de activo con ID: {0}: {1}",infoTipoActivo.IdTipoActivo,msjTipoActivo.MensajeError);
                     Logs.Error(mensajesTipoActivo);
                 }
             }
@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesTipoActivo = string.Format("No se ha podido actualizar el tipo de activo con ID: {0}: {1}.", infoTipoActivo.IdTipoActivo, msjTipoActivo.MensajeError);
+                    mensajesTipoActivo = string.Format("No se ha podido actualizar el tipo de activo con ID: {0}: {1}", infoTipoActivo.IdTipoActivo, msjTipoActivo.MensajeError);
                     Logs.Error(mensajesTipoActivo);
                 }
             }

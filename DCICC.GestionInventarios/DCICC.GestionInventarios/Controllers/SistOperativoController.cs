@@ -75,7 +75,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesSistOperativos = string.Format("No se ha podido registrar el sistema operativo \"{0}\": {1}.", infoSistOperativo.NombreSistOperativos,msjSistOperativos.MensajeError);
+                    mensajesSistOperativos = string.Format("No se ha podido registrar el sistema operativo \"{0}\": {1}", infoSistOperativo.NombreSistOperativos,msjSistOperativos.MensajeError);
                     TempData["MensajeError"] = mensajesSistOperativos;
                     Logs.Error(mensajesSistOperativos);
                 }
@@ -110,7 +110,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesSistOperativos = string.Format("No se ha podido actualizar el sistema operativo con ID: {0}: {1}.",infoSistOperativo.IdSistOperativos,msjSistOperativos.MensajeError);
+                    mensajesSistOperativos = string.Format("No se ha podido actualizar el sistema operativo con ID: {0}: {1}",infoSistOperativo.IdSistOperativos,msjSistOperativos.MensajeError);
                     Logs.Error(mensajesSistOperativos);
                 }
             }
@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 else
                 {
-                    mensajesSistOperativos = string.Format("No se ha podido actualizar el sistema operativo con ID: {0}: {1}.", infoSistOperativo.IdSistOperativos, msjSistOperativos.MensajeError);
+                    mensajesSistOperativos = string.Format("No se ha podido actualizar el sistema operativo con ID: {0}: {1}", infoSistOperativo.IdSistOperativos, msjSistOperativos.MensajeError);
                     Logs.Error(mensajesSistOperativos);
                 }
             }
