@@ -135,7 +135,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())//obtener tamaño
+                        while (dr.Read())
                         {
                             CQR objCQR = new CQR
                             {

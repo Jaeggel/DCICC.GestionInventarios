@@ -40,7 +40,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string query = "create user " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "' LOGIN CREATEROLE CREATEUSER in group " + ConsultasRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol + ";";
+                string query = string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario,ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario),ConsultasRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn_BD))
                 {
                     cmd.ExecuteNonQuery();

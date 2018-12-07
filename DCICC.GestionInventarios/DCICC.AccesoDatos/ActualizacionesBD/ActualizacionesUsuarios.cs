@@ -64,7 +64,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                         cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                         cmd.ExecuteNonQuery();
                     }
-                    string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                    string query = string.Format("ALTER USER {0} with password '{1}';",infoUsuario.NickUsuario,ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
                     using (var cmd = new NpgsqlCommand(query, conn_BD))
                     {
                         cmd.ExecuteNonQuery();
@@ -103,7 +103,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                string query = string.Format("ALTER USER {0} with password '{1}';",infoUsuario.NickUsuario,ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
                 using (var cmd = new NpgsqlCommand(query, conn_BD))
                 {
                     cmd.ExecuteNonQuery();
@@ -131,7 +131,6 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             {
                 Usuarios infoUsuarioBD=ConsultasUsuarios.ObtenerUsuarioPorId(infoUsuario.IdUsuario).ObjetoInventarios;
                 string nickAnterior = infoUsuarioBD.NickUsuario;
-
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nick_usuario = @niu where id_usuario = @iu", conn_BD))
                 {
@@ -139,12 +138,12 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string queryUser = "ALTER USER "+nickAnterior+" RENAME TO "+infoUsuario.NickUsuario+";";
+                string queryUser = string.Format("ALTER USER {0} RENAME TO {1};",nickAnterior,infoUsuario.NickUsuario);
                 using (var cmd = new NpgsqlCommand(queryUser, conn_BD))
                 {
                     cmd.ExecuteNonQuery();
                 }
-                string queryPwd = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                string queryPwd = string.Format("ALTER USER {0} with password '{1}';",infoUsuario.NickUsuario,ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
                 using (var cmd = new NpgsqlCommand(queryPwd, conn_BD))
                 {
                     cmd.ExecuteNonQuery();
@@ -177,7 +176,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string query = "ALTER USER " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "';";
+                string query = string.Format("ALTER USER {0} with password '{1}';" ,infoUsuario.NickUsuario,ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
                 using (var cmd = new NpgsqlCommand(query, conn_BD))
                 {
                     cmd.ExecuteNonQuery();
