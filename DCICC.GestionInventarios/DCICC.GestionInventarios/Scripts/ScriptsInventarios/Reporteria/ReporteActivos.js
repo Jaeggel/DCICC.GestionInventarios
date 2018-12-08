@@ -7,9 +7,15 @@ var cmbMarcas;
 var fechas = [];
 var maxDate;
 var minDate;
+
+//accesorios
+var datosAccesorios;
+var cmbTipoAccesorio;
+//Historicos
+var datosHistoricos;
+
 //Método ajax para obtener los datos de los activos
 function obtenerActivos(url) {
-    url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -143,7 +149,6 @@ function cargarMarcasCmb() {
     });
 }
 
-
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
@@ -179,15 +184,15 @@ function cargarActivosTabla() {
     console.log(fechas);
     var minDate = fechas[0];
     var maxDate = fechas[fechas.length - 1];
-    inicioFecha(minDate, maxDate); 
-    finFecha(minDate, maxDate);
+    inicioFechaAct(minDate, maxDate); 
+    finFechaAct(minDate, maxDate);
 
 }
 
 
-function inicioFecha(minDate, maxDate) {
+function inicioFechaAct(minDate, maxDate) {
     $(function () {
-        $('input[name="FechaInicio"]').daterangepicker({
+        $('input[name="FechaInicioAct"]').daterangepicker({
             startDate: minDate,
             format: 'mm-dd-yyyy',
             singleDatePicker: true,
@@ -198,9 +203,9 @@ function inicioFecha(minDate, maxDate) {
     });
 }
 
-function finFecha(minDate, maxDate) {
+function finFechaAct(minDate, maxDate) {
     $(function () {
-        $('input[name="FechaFin"]').daterangepicker({
+        $('input[name="FechaFinAct"]').daterangepicker({
             startDate: 0,
             dateFormat: 'mm-dd-yyyyy',
             singleDatePicker: true,
@@ -216,8 +221,8 @@ function consultarFechas() {
     var table = $('#dataTableActivos').DataTable();
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            var min = new Date($("#FechaInicio").val()).getTime();
-            var max = new Date($("#FechaFin").val()).getTime();
+            var min = new Date($("#FechaInicioAct").val()).getTime();
+            var max = new Date($("#FechaFinAct").val()).getTime();
             var startDate = new Date(data[6]).getTime();
             if (min == null && max == null) { return true; }
             if (min == null && startDate <= max) { return true; }
@@ -235,12 +240,174 @@ function limpiarFechas() {
     
 }
 
-
-
-
 //////////////////////////////////////////////////////MÉTODOS PARA TABLAS DE ACCESORIOS//////////////////////////////////
 
+//Método ajax para obtener accesorios
+function obtenerAccesorios(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("Datos Exitosos");
+            datosAccesorios = data;
+            cargarAccesoriosTabla();
+            $('#dataTableAccesorios').DataTable({
+                "language": {
+                    "url": url_idioma
+                },
+                "order": [[1, "asc"]]
+            });
+        }
+    });
+}
 
+//Método ajax para obtener los tipo de accesorios
+function datosTipoAccesorio(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            cmbTipoAccesorio = data;
+            cargarAccesoriosCmb();
+            cargarEstadosAccesoriosCmb();
+        }
+    });
+}
 
+//Función para cargar el combobox de accesorios
+function cargarAccesoriosCmb() {
+    var str = '<select id="AccesorioActivo" class="form-control" name="AccesorioActivo" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbTipoAccesorio.length; i++) {
+        str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
+    };
+    str += '</select>';
+    $("#cargarTipoAccesorio").html(str);
+    //Método para búsqueda con filtros
+    $('#AccesorioActivo').change(function () {
+        var opcion = document.getElementById("AccesorioActivo");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableAccesorios').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableAccesorios').DataTable().column(0).search(
+                tipoLab.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar estados de accesorios
+function cargarEstadosAccesoriosCmb() {
+    var str = '<select id="EstadoAccesorio" class="form-control" name="EstadoAccesorio" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        if (cmbEstados[i]!="DE BAJA") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }
+        
+    };
+    str += '</select>';
+    $("#cargarEstadosAccesorio").html(str);
+    //Método para búsqueda con filtros
+    $('#EstadoAccesorio').change(function () {
+        var opcion = document.getElementById("EstadoAccesorio");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableAccesorios').DataTable().column(5).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableAccesorios').DataTable().column(5).search(
+                tipoLab.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar la tabla de Activos
+function cargarAccesoriosTabla() {
+    var str = '<table id="dataTableAccesorios" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece</th> <th>Serial de Accesorio</th> <th>Modelo de Accesorio</th> <th>Estado de Accesorio</th> </tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosAccesorios.length; i++) {
+        if (datosAccesorios[i].EstadoAccesorio != "DE BAJA") {
+            str += '<tr><td>' + datosAccesorios[i].NombreTipoAccesorio +
+                '</td><td>' + datosAccesorios[i].NombreAccesorio +
+                '</td><td>' + datosAccesorios[i].NombreDetalleActivo +
+                '</td><td>' + datosAccesorios[i].SerialAccesorio +
+                '</td><td>' + datosAccesorios[i].ModeloAccesorio +
+                '</td><td>' + datosAccesorios[i].EstadoAccesorio;
+            str += '</td></tr>';
+        }       
+    }
+    str += '</tbody>' +
+        '</table > ';
+    $("#tablaAccesorios").html(str);
+}
 
 /////////////////////////////////////////////////////MÉTODOS PARA TABLA DE HISTORICOS////////////////////////////////////
+
+//Método ajax para obtener accesorios
+function obtenerHistoricos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("Datos Exitosos");
+            datosHistoricos = data;
+            cargarHistoricosTabla();
+            $('#dataTableHistoricos').DataTable({
+                "language": {
+                    "url": url_idioma
+                },
+                "order": [[1, "asc"]]
+            });
+        }
+    });
+}
+
+//Función para cargar la tabla de Activos
+function cargarHistoricosTabla() {
+    var str = '<table id="dataTableHistoricos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Nombre de Activo o Accesorio</th> <th>Modelo</th> <th>Serie</th> <th>Fecha de Baja</th></tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosHistoricos.length; i++) {
+            //Método para dar formato a la fecha y hora
+        var fechaIng = new Date(parseInt((datosHistoricos[i].FechaIngresoActivo).substr(6)));
+            //Fecha para ordenar el string mm/dd/yyyy
+            var fechaordenar = (fechaIng.toLocaleDateString("en-US"));
+            //fecha para la tabla y busquedas
+            function pad(n) { return n < 10 ? "0" + n : n; }
+            var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
+
+            fechas[i] = fechaordenar;
+
+        if (datosHistoricos[i].IdDetActivo!= 0) {
+            str += '</td><td>' + datosHistoricos[i].NombreActivo +
+                '</td><td>' + datosHistoricos[i].ModeloActivo +
+                '</td><td>' + datosHistoricos[i].SerialActivo ;
+        } else {
+            str += '</td><td>' + datosHistoricos[i].NombreAccesorio +
+                '</td><td>' + datosHistoricos[i].ModeloAccesorio +
+                '</td><td>' + datosHistoricos[i].SerialAccesorio ;
+        }
+        str += '</td><td>' + fechaIngreso +
+                '</td ></tr> ';
+    }
+    str += '</tbody>' +
+        '</table > ';
+    $("#tablaHistoricos").html(str);
+    //fechas = fechas.sort();
+    //console.log(fechas);
+    //var minDate = fechas[0];
+    //var maxDate = fechas[fechas.length - 1];
+    //inicioFechaAct(minDate, maxDate);
+    //finFechaAct(minDate, maxDate);
+
+}

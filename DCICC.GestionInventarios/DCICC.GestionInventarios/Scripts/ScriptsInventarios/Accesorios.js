@@ -48,7 +48,7 @@ function cargarEstadosAccesoriosCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarEstadosAccesorio").html(str);
 }
@@ -59,7 +59,7 @@ function cargarEstadosAccesoriosMod() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarEstadosAccesorioMod").html(str);
 }
@@ -69,7 +69,7 @@ function cargarAccesoriosCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoAccesorio.length; i++) {
         str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarTipoAccesorio").html(str);
 }
@@ -80,7 +80,7 @@ function cargarEstadosAccesoriosIng() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarEstadosAccesorioIngreso").html(str);
 }
@@ -92,7 +92,7 @@ function cargarAccesoriosIngresoCmb() {
         if (cmbTipoAccesorio[i].HabilitadoTipoAccesorio) {
             str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
         }      
-    };
+    }
     str += '</select>';
     $("#cargarAccesoriosIngreso").html(str);
 }
@@ -104,27 +104,28 @@ function cargarAccesoriosTabla() {
     str += '<thead> <tr> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece:</th> <th>Serial de Accesorio</th> <th>Modelo de Accesorio</th> <th>Estado de Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosAccesorios.length; i++) {
+        if (datosAccesorios[i].EstadoAccesorio != "DE BAJA") {
+            str += '<tr><td>' + datosAccesorios[i].NombreTipoAccesorio +
+                '</td><td>' + datosAccesorios[i].NombreAccesorio +
+                '</td><td>' + datosAccesorios[i].NombreDetalleActivo +
+                '</td><td>' + datosAccesorios[i].SerialAccesorio +
+                '</td><td>' + datosAccesorios[i].ModeloAccesorio +
+                '</td><td>' + datosAccesorios[i].EstadoAccesorio;
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarAccesorio" onclick = "formUpdateAccesorio(' + datosAccesorios[i].IdAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+                '</div></div>' +
+                '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+            if (datosAccesorios[i].EstadoAccesorio == "OPERATIVO") {
+                str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoAccesorio" onclick = "habilitarOdeshabilitarAcc(' + datosAccesorios[i].IdAccesorio + ');" > <strong><span class="fa fa-check"></span></strong></button> ';
+            } else if (datosAccesorios[i].EstadoAccesorio == "NO OPERATIVO") {
+                str += '<button type = "button" class="btn btn-warning text-center" data-toggle="modal" data-target="#ModificarEstadoAccesorio" onclick = "habilitarOdeshabilitarAcc(' + datosAccesorios[i].IdAccesorio + ');" > <strong><span class="fa fa-warning"></span></strong></button> ';
+            } else {
+                str += '<button type = "button" class="btn btn-danger text-center" data-toggle="modal" data-target="#ModificarEstadoAccesorio" onclick = "habilitarOdeshabilitarAcc(' + datosAccesorios[i].IdAccesorio + ');" > <strong><span class="fa fa-close"></span></strong></button> ';
+            }
 
-        str += '<tr><td>' + datosAccesorios[i].NombreTipoAccesorio +
-            '</td><td>' + datosAccesorios[i].NombreAccesorio +
-            '</td><td>' + datosAccesorios[i].NombreDetalleActivo +            
-            '</td><td>' + datosAccesorios[i].SerialAccesorio +
-            '</td><td>' + datosAccesorios[i].ModeloAccesorio +
-            '</td><td>' + datosAccesorios[i].EstadoAccesorio;
-        str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarAccesorio" onclick = "formUpdateAccesorio(' + datosAccesorios[i].IdAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
-            '</div></div>' +
-            '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
-        if (datosAccesorios[i].EstadoAccesorio == "OPERATIVO") {
-            str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoAccesorio" onclick = "habilitarOdeshabilitarAcc(' + datosAccesorios[i].IdAccesorio + ');" > <strong><span class="fa fa-check"></span></strong></button> ';
-        } else if (datosAccesorios[i].EstadoAccesorio == "NO OPERATIVO") {
-            str += '<button type = "button" class="btn btn-warning text-center" data-toggle="modal" data-target="#ModificarEstadoAccesorio" onclick = "habilitarOdeshabilitarAcc(' + datosAccesorios[i].IdAccesorio + ');" > <strong><span class="fa fa-warning"></span></strong></button> ';
-        } else {
-            str += '<button type = "button" class="btn btn-danger text-center" data-toggle="modal" data-target="#ModificarEstadoAccesorio" onclick = "habilitarOdeshabilitarAcc(' + datosAccesorios[i].IdAccesorio + ');" > <strong><span class="fa fa-close"></span></strong></button> ';
-        }
-
-        str += '</div></div></td></tr>';
-    };
+            str += '</div></div></td></tr>';
+        }     
+    }
     str += '</tbody>' +
         '</table > ';
     $("#tablaAccesorios").html(str);
