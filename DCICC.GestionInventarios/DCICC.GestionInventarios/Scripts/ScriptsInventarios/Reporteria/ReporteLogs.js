@@ -2,6 +2,7 @@
 var datosLogs;
 var idCategoriaModificar;
 var datosUsuarios;
+var fechas = [];
 
 //Método ajax para obtener los datos de Logs
 function obtenerLogs(url) {
@@ -32,6 +33,32 @@ function obtenerNicksUsuarios(url) {
         success: function (data) {
             console.log("ya esta");
             datosUsuarios = data;
+            cargarNicksCmb()
+        }
+    });
+}
+
+//Función para cargar el combobox de tipo de activo
+function cargarNicksCmb() {
+    var str = '<select id="NicksUsuario" class="form-control" name="NicksUsuario">';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < datosUsuarios.length; i++) {
+        str += '<option value="' + datosUsuarios[i] + '">' + datosUsuarios[i] + '</option>';
+    };
+    str += '</select>';
+    $("#cargarNicks").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#NicksUsuario').change(function () {
+        var opcion = document.getElementById("NicksUsuario");
+        var nick = opcion.options[opcion.selectedIndex];
+        if (nick.value == "") {
+            $('#dataTableLogs').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableLogs').DataTable().column(0).search(
+                nick.text
+            ).draw();
         }
     });
 }
@@ -56,7 +83,12 @@ function cargarLogsTabla() {
     for (var i = 0; i < datosLogs.length; i++) {
         //Método para dar formato a la fecha y hora
         var fechaLog = new Date(parseInt((datosLogs[i].FechaLogs).substr(6)));
-        var fechaApertura = (fechaLog.toLocaleDateString("es-ES") + " " + fechaLog.getHours() + ":" + fechaLog.getMinutes() + ":" + fechaLog.getSeconds());
+        var fechaordenar = (fechaLog.toLocaleDateString("en-US"));
+
+        function pad(n) { return n < 10 ? "0" + n : n; }
+        var fechaApertura = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
+
+        fechas[i] = fechaordenar;
 
         str += '<tr><td>' + datosLogs[i].IdUsuario +
             '</td><td>' + datosLogs[i].IpLogs +
@@ -68,13 +100,19 @@ function cargarLogsTabla() {
     str += '</tbody>' +
         '</table>';
     $("#tablaReportesLogs").html(str);
+    fechas = fechas.sort();
+    console.log(fechas);
+    var minDate = fechas[0];
+    var maxDate = fechas[fechas.length - 1];
+    inicioFecha(minDate, maxDate);
+    finFecha(minDate, maxDate);
 }
 
 function inicioFecha(minDate, maxDate) {
     $(function () {
         $('input[name="FechaInicio"]').daterangepicker({
             startDate: minDate,
-            format: 'dd-mm-yyyy',
+            format: 'mm-dd-yyyy',
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
@@ -86,12 +124,30 @@ function inicioFecha(minDate, maxDate) {
 function finFecha(minDate, maxDate) {
     $(function () {
         $('input[name="FechaFin"]').daterangepicker({
-            startDate: maxDate,
-            dateFormat: 'dd-mm-yyyyy',
+            startDate: 0,
+            dateFormat: 'mm-dd-yyyyy',
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: maxDate
+            maxDate: 0
         });
     });
+}
+
+//Funcion para consultar x Fechas
+function consultarFechas() {
+    var table = $('#dataTableLogs').DataTable();
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = new Date($("#FechaInicio").val()).getTime();
+            var max = new Date($("#FechaFin").val()).getTime();
+            var startDate = new Date(data[2]).getTime();
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true; }
+            if (max == null && startDate >= min) { return true; }
+            if (startDate <= max && startDate >= min) { return true; }
+            return false;
+        }
+    );
+    table.draw();
 }

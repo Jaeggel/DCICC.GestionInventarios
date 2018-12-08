@@ -152,12 +152,12 @@ function cargarActivosTabla() {
     for (var i = 0; i < datosActivos.length; i++) {
         if (datosActivos[i].EstadoActivo != "DE BAJA") {
             //Método para dar formato a la fecha y hora
-            var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
+            var fechaIng = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
             //Fecha para ordenar el string mm/dd/yyyy
-            var fechaordenar = (fechaLog.toLocaleDateString("en-US"));
+            var fechaordenar = (fechaIng.toLocaleDateString("en-US"));
             //fecha para la tabla y busquedas
             function pad(n) { return n < 10 ? "0" + n : n; }
-            var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
+            var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
             
             fechas[i] = fechaordenar;
 
@@ -176,10 +176,12 @@ function cargarActivosTabla() {
         '</table > ';
     $("#tablaReportesActivos").html(str);
     fechas = fechas.sort();
+    console.log(fechas);
     var minDate = fechas[0];
     var maxDate = fechas[fechas.length - 1];
     inicioFecha(minDate, maxDate); 
     finFecha(minDate, maxDate);
+
 }
 
 
@@ -187,7 +189,7 @@ function inicioFecha(minDate, maxDate) {
     $(function () {
         $('input[name="FechaInicio"]').daterangepicker({
             startDate: minDate,
-            format: 'dd-mm-yyyy',
+            format: 'mm-dd-yyyy',
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
@@ -199,78 +201,42 @@ function inicioFecha(minDate, maxDate) {
 function finFecha(minDate, maxDate) {
     $(function () {
         $('input[name="FechaFin"]').daterangepicker({
-            startDate: maxDate,
-            dateFormat: 'dd-mm-yyyyy',
+            startDate: 0,
+            dateFormat: 'mm-dd-yyyyy',
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: maxDate
+            maxDate: 0
         });
     });
 }
 
+
 function consultarFechas() {
-    var from = $('#FechaInicio').val();
-    var to = $('#FechaFin').val();
-    from.toString();
-    to.toString();
+    var table = $('#dataTableActivos').DataTable();
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = new Date($("#FechaInicio").val()).getTime();
+            var max = new Date($("#FechaFin").val()).getTime();
+            var startDate = new Date(data[6]).getTime();
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true; }
+            if (max == null && startDate >= min) { return true; }
+            if (startDate <= max && startDate >= min) { return true; }
+            return false;
+        }
+    ); 
+    table.draw();
+}
+
+//Función para limpiar las fechas
+function limpiarFechas() {
+    var table = $('#dataTableActivos').DataTable();
     
-
-    $("#dataTableActivos tr").each(function () {
-        var row = $(this);
-        var date = stringToDate(row.find("td").eq(6).text());
-
-        //show all rows by default
-        var show = true;
-
-        //if from date is valid and row date is less than from date, hide the row
-        if (from && date < from)
-            show = false;
-
-        //if to date is valid and row date is greater than to date, hide the row
-        if (to && date > to)
-            show = false;
-
-        if (show)
-            row.show();
-        else
-            row.hide();
-    });
-
-
-
-    //var td, i, txtValue;
-    //var table = document.getElementById("dataTableActivos");
-    //var tr = table.getElementsByTagName("tr");
-    //// Loop through all table rows, and hide those who don't match the search query
-    //for (i = 0; i < tr.length; i++) {
-    //    td = tr[i].getElementsByTagName("td")[6];
-    //    if (td) {
-    //        txtValue = td.textContent || td.innerText;
-            
-    //        console.log(txtValue);
-    //        console.log(txtValue.toUpperCase().indexOf(fechaInicio));
-    //        console.log(txtValue.toUpperCase().indexOf(fechaFin));
-    //        if (txtValue.toUpperCase().indexOf(fechaInicio) > -1 || txtValue.toUpperCase().indexOf(fechaFin) > -1) {
-    //            console.log("mayor");
-    //            tr[i].style.display = "";
-    //        } else {
-    //            tr[i].style.display = "none";
-    //        }
-    //    }
-    //}
-
 }
 
-function stringToDate(s) {
-    var ret = NaN;
-    var parts = s.split("/");
-    date = new Date(parts[2], parts[0], parts[1]);
-    if (!isNaN(date.getTime())) {
-        ret = date;
-    }
-    return ret;
-}
+
+
 
 //////////////////////////////////////////////////////MÉTODOS PARA TABLAS DE ACCESORIOS//////////////////////////////////
 

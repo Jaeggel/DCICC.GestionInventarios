@@ -37,40 +37,35 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @*Sección de filtros de búsqueda para realizar la consulta*@
                         <div class="form-group">
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-4 col-sm-12 col-xs-12">
+                            @*Combobox para seleccionar Estados*@
+                            <div class="col-md-6 col-sm-12 col-xs-12">
                                 <label>Filtro por Estado:</label>
-                                <select class="form-control">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
+                                <div id="cargarEstados"></div>
                             </div>
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                <label>Filtro por Laboratorio:</label>
-                                <select class="form-control">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
-                            </div>
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-4 col-sm-12 col-xs-12">
+                            @*Combobox para seleccionar Responsables*@
+                            <div class="col-md-6 col-sm-12 col-xs-12">
                                 <label>Filtro por Responsable:</label>
-                                <select class="form-control">
-                                    <option>Seleccionar</option>
-                                    <option>Option one</option>
-                                    <option>Option two</option>
-                                    <option>Option three</option>
-                                    <option>Option four</option>
-                                </select>
+                                <div id="cargarResponsables"></div>
                             </div>
                         </div>
+                        <br />
+                        @*Sección de filtros de búsqueda para realizar la consulta*@
+                        <div class="form-group">
+                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+                                <label>Fecha de Inicio: (mm/dd/yyyy)</label>
+                                <input name="FechaInicio" type="text" class="form-control has-feedback-left" id="FechaInicio" placeholder="Fecha de Inicio" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+                                <label>Fecha de Fin: (mm/dd/yyyy)</label>
+                                <input name="FechaFin" type="text" class="form-control has-feedback-left" id="FechaFin" placeholder="Fecha de Fin" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
+                                <button type="button" class="btn btn-default" onclick="consultarFechas();">Consultar</button>
+                            </div>
+                        </div>
+                        <br />
                         @* Sección para la tabla de modificación mediante js *@
                         <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
                             <div id="tablaReportesTickets"></div>
