@@ -18,28 +18,20 @@ namespace DCICC.GestionInventarios.Mail
         /// <returns></returns>
         public void SendMail(Correo infoCorreo)
         {
-            try
-            {
-                MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient();
-                mail.From = new MailAddress(infoCorreo.EmailEmisor);
-                mail.To.Add(infoCorreo.EmailReceptor);
-                mail.Subject = infoCorreo.Asunto;
-                mail.Body = infoCorreo.Body;
-                mail.IsBodyHtml = true;
-                SmtpServer.Port = infoCorreo.Puerto;
-                SmtpServer.Host = infoCorreo.Smtp;
-                SmtpServer.EnableSsl = infoCorreo.SSL;
-                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-                SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(infoCorreo.EmailEmisor, infoCorreo.ClaveEmailEmisor);
-                SmtpServer.Send(mail);
-                Logs.Info("El correo electrónico de recuperación de contraseña ha sido enviado correctamente.");
-            }
-            catch (Exception e)
-            {
-                Logs.Error("No se pudo enviar el correo electrónico: "+e.Message);
-            }
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient();
+            mail.From = new MailAddress(infoCorreo.EmailEmisor);
+            mail.To.Add(infoCorreo.EmailReceptor);
+            mail.Subject = infoCorreo.Asunto;
+            mail.Body = infoCorreo.Body;
+            mail.IsBodyHtml = true;
+            SmtpServer.Port = infoCorreo.Puerto;
+            SmtpServer.Host = infoCorreo.Smtp;
+            SmtpServer.EnableSsl = infoCorreo.SSL;
+            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(infoCorreo.EmailEmisor, infoCorreo.ClaveEmailEmisor);
+            SmtpServer.Send(mail);
         }
         /// <summary>
         /// Método para dar formato al Email mediante un archivo HTML (PlantillaEmailPassword.html)
@@ -58,6 +50,7 @@ namespace DCICC.GestionInventarios.Mail
             body = body.Replace("{user}", infoUsuario.NickUsuario);
             body = body.Replace("{cont}", infoUsuario.PasswordUsuario);
             body = body.Replace("{fecha}", DateTime.Now + "");
+            body = body.Replace("{year}", DateTime.Now.Year + "");
             return body;
         }
     }

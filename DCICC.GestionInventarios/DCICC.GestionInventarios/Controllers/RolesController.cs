@@ -61,7 +61,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoRol(Roles infoRol)
         {
-            string mensajes_Roles = string.Empty;
+            string mensajesRoles = string.Empty;
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
@@ -69,19 +69,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjRoles = objRolesAccDatos.RegistrarRol(infoRol);
                 if (msjRoles.OperacionExitosa)
                 {
-                    mensajes_Roles = "El rol ha sido registrado exitosamente.";
-                    TempData["Mensaje"] = mensajes_Roles;
-                    Logs.Info(mensajes_Roles);
+                    mensajesRoles = string.Format("El rol \"{0}\" ha sido registrado exitosamente.",infoRol.NombreRol);
+                    TempData["Mensaje"] = mensajesRoles;
+                    Logs.Info(mensajesRoles);
                 }
                 else
                 {
-                    mensajes_Roles = "No se ha podido registrar el rol: " + msjRoles.MensajeError;
-                    TempData["MensajeError"] = mensajes_Roles;
+                    mensajesRoles = string.Format("No se ha podido registrar el rol \"{0}\": {1}",infoRol.NombreRol,msjRoles.MensajeError);
+                    TempData["MensajeError"] = mensajesRoles;
+                    Logs.Error(mensajesRoles);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajes_Roles + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesRoles, e.Message));
                 return View();
             }
             return RedirectToAction("ModificarRol", "Roles");
@@ -96,7 +97,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ModificarRol(Roles infoRol)
         {
-            string mensajes_Roles = string.Empty;
+            string mensajesRoles = string.Empty;
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
@@ -104,20 +105,20 @@ namespace DCICC.GestionInventarios.Controllers
                 //msjRoles = objRolesAccDatos.(infoRol);
                 if (msjRoles.OperacionExitosa)
                 {
-                    mensajes_Roles = "El rol ha sido modificado exitosamente.";
-                    Logs.Info(mensajes_Roles);
+                    mensajesRoles = string.Format("El rol con ID: {0} ha sido modificado exitosamente.",infoRol.IdRol);
+                    Logs.Info(mensajesRoles);
                 }
                 else
                 {
-                    mensajes_Roles = "No se ha podido modificar el rol: " + msjRoles.MensajeError;
+                    mensajesRoles = string.Format("No se ha podido modificar el rol con ID: {0}: {1}",infoRol.NombreRol,msjRoles.MensajeError);
+                    Logs.Error(mensajesRoles);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajes_Roles + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesRoles, e.Message));
             }
             return Json(msjRoles, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("ModificarRol", "Roles");
         }
         #endregion
         #region Consultas (JSON)

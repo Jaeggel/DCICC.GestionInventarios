@@ -11,7 +11,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class LoginController : Controller
     {
-        public static int contMsj=0;
+        public static int cont_Msj=0;
         //Instancia para la utilización de LOGS en la clase LoginController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Vistas (GET)
@@ -31,7 +31,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
         }
         #endregion
-        #region Registros (POST)
+        #region Login (POST)
         /// <summary>
         /// Método (POST) para recibir los datos provenientes de la vista Login.
         /// </summary>
@@ -69,12 +69,10 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             Session["PerfilUsuario"] = "Usuarios";
                         }//OJO REDIRECCIONAMIENTO -> NO HOME
-                        Session.Timeout = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);
-                                               
+                        Session.Timeout = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);           
                         //Logs de reporte de transacción.
-                        Logs.Info("Autenticación Exitosa");
-                        contMsj = 1;
-
+                        Logs.Info(string.Format("Autenticación exitosa de usuario: {0}.",infoLogin.NickUsuario));
+                        cont_Msj = 1;
                         //Registro de Log para Login
                         RegistroSesionLogs("Login");
                     }
@@ -87,7 +85,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch(Exception e)
             {
-                Logs.Error("Error en la autenticación con el sistema: " + e.Message);
+                Logs.Error(string.Format("Error en la autenticación con el sistema de usuario: {0}: {1}.",infoLogin.NickUsuario,e.Message));
                 return View();
             }
             return RedirectToAction("Index", "Home");
@@ -117,11 +115,11 @@ namespace DCICC.GestionInventarios.Controllers
             }
             if (objLogsAccDatos.RegistrarLog(infoLogs).OperacionExitosa)
             {
-                Logs.Info("Registro de log exitoso.");
+                Logs.Info(string.Format("Registro de log exitoso de usuario: {0}.",infoLogs.IdUsuario));
             }
             else
             {
-                Logs.Error("No se pudo registrar el log.");
+                Logs.Error(string.Format("No se pudo registrar el log de usuario: {0}.",infoLogs.IdUsuario));
             }
         }
         #endregion
@@ -155,6 +153,7 @@ namespace DCICC.GestionInventarios.Controllers
                             Asunto = "Recuperación de Contraseña - Gestión de Inventarios y Ticketing"
                         };
                         mail.SendMail(correo);
+                        Logs.Info(string.Format("El correo electrónico de recuperación de contraseña ha sido enviado correctamente a: {0}.",infoCorreo));
                         return Json(true, JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -165,7 +164,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo obtener los datos para recuperar la contraseña: " + e.Message);
+                Logs.Error(string.Format("No se pudo obtener los datos para recuperar la contraseña: {0}",e.Message));
             }
             return Json(false, JsonRequestBehavior.AllowGet);
         }
@@ -182,20 +181,19 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Usuarios infoUsuario = new Usuarios
                 {
-                    NickUsuario=infoLogin.NickUsuario,
-                    PasswordUsuario=infoLogin.PasswordUsuario
+                    NickUsuario = infoLogin.NickUsuario,
+                    PasswordUsuario = infoLogin.PasswordUsuario
                 };
                 UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoUsuario);
                 Usuarios datosUsuario = objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
                 if (datosUsuario != null)
                 {
                     return datosUsuario;
-                }                
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Logs.Error("Error en la comprobación de las credenciales: " + e.Message);
-                return null;
+                Logs.Error(string.Format("Error en la comprobacíón de credenciales de Usuario: {0}: {1}", infoLogin.NickUsuario, e.Message));
             }
             return null;
         }
@@ -207,21 +205,20 @@ namespace DCICC.GestionInventarios.Controllers
         {
             try
             {
-                //Registro de Log para Login
+                Logs.Info(string.Format("Cierre de sesión exitoso de: {0}.",(string)Session["NickUsuario"]));
                 RegistroSesionLogs("Logout");
-                //Cerrar Sesión
                 Session["NickUsuario"] = null;
                 Session["CorreoUsuario"] = null;
                 Session["IpUsuario"] = null;
                 Session["PerfilUsuario"] = null;
-                contMsj = 0;
+                cont_Msj = 0;
                 Session.Abandon();
                 Session.Clear();
                 Session.RemoveAll();
             }
             catch(Exception e)
             {
-                Logs.Error("Error en el cierre de la sesión: " + e.Message);
+                Logs.Error(string.Format("Error en el cierre de la sesión: {0}.",e.Message));
             }
             return RedirectToAction("Login","Login");
         }
@@ -231,10 +228,17 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         private string ObtenerIPCliente()
         {
-            string ipList = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (!string.IsNullOrEmpty(ipList))
+            try
             {
-                return ipList.Split(',')[0];
+                string ipList = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                if (!string.IsNullOrEmpty(ipList))
+                {
+                    return ipList.Split(',')[0];
+                }
+            }catch(Exception e)
+            {
+                Logs.Error(string.Format("No se ha podido obtener la IP del cliente actual: {0}."+e.Message));
+                return string.Empty;
             }
             return Request.ServerVariables["REMOTE_ADDR"];
         }

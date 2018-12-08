@@ -27,7 +27,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo encriptar la cadena: " + e.Message);
+                Logs.Error(string.Format("No se pudo encriptar la cadena: {0}.",e.Message));
                 return null;
             }
         }
@@ -47,7 +47,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo desencriptar la cadena: " + e.Message);
+                Logs.Error(string.Format("No se pudo desencriptar la cadena: {0}.", e.Message));
                 return null;
             }
         }

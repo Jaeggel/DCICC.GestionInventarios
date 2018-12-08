@@ -69,19 +69,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasActivosAccDatos.RegistrarCategoriaActivo(infoCategoriaActivo);
                 if (msjCategorias.OperacionExitosa)
                 {
-                    mensajesCategorias = "La categoría ha sido registrada exitosamente.";
+                    mensajesCategorias = string.Format("La categoría \"{0}\" ha sido registrada exitosamente.",infoCategoriaActivo.NombreCategoriaActivo);
                     TempData["Mensaje"] = mensajesCategorias;
                     Logs.Info(mensajesCategorias);
                 }
                 else
                 {
-                    mensajesCategorias = "No se ha podido registrar la categoría: " + msjCategorias.MensajeError;
+                    mensajesCategorias = string.Format("No se ha podido registrar la categoría \"{0}\": {1} ",infoCategoriaActivo.NombreCategoriaActivo,msjCategorias.MensajeError);
                     TempData["MensajeError"] = mensajesCategorias;
+                    Logs.Error(mensajesCategorias);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesCategorias + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesCategorias, e.Message));
                 return View();
             }
             return RedirectToAction("ModificarCategoriaActivo", "CategoriaActivo");
@@ -104,17 +105,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo,false);
                 if (msjCategorias.OperacionExitosa)
                 {
-                    mensajesCategorias = "La categoría ha sido modificada correctamente";
+                    mensajesCategorias = string.Format("La categoría con ID: {0} ha sido modificada correctamente.",infoCategoriaActivo.IdCategoriaActivo);
                     Logs.Info(mensajesCategorias);
                 }
                 else
                 {
-                    mensajesCategorias= "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
+                    mensajesCategorias= string.Format("No se ha podido actualizar la categoría con ID: {0}: {1}",infoCategoriaActivo.IdCategoriaActivo,msjCategorias.MensajeError);
+                    Logs.Error(mensajesCategorias);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesCategorias + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesCategorias, e.Message));
             }
             return Json(msjCategorias, JsonRequestBehavior.AllowGet);
         }
@@ -134,17 +136,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjCategorias = objCategoriasAccDatos.ActualizarCategoriaActivo(infoCategoriaActivo, true);
                 if (msjCategorias.OperacionExitosa)
                 {
-                    mensajesCategorias = "La categoría ha sido modificada correctamente";
+                    mensajesCategorias = string.Format("La categoría con ID: {0} ha sido modificada correctamente.",infoCategoriaActivo.IdCategoriaActivo);
                     Logs.Info(mensajesCategorias);
                 }
                 else
                 {
-                    mensajesCategorias = "No se ha podido actualizar la categoría: " + msjCategorias.MensajeError;
+                    mensajesCategorias = string.Format("No se ha podido actualizar la categoría con ID: {0}: {1}",infoCategoriaActivo.IdCategoriaActivo,msjCategorias.MensajeError);
+                    Logs.Error(mensajesCategorias);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesCategorias + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesCategorias, e.Message));
             }
             return Json(msjCategorias, JsonRequestBehavior.AllowGet);
         }

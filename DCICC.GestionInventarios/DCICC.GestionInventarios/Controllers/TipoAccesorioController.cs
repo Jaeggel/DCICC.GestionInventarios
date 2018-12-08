@@ -69,20 +69,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.RegistrarTipoAccesorio(infoTipoAccesorio);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
-                    mensajesTipoAccesorio = "El tipo de accesorio ha sido registrado exitosamente.";
+                    mensajesTipoAccesorio = string.Format("El tipo de accesorio \"{0}\" ha sido registrado exitosamente.",infoTipoAccesorio.NombreTipoAccesorio);
                     TempData["Mensaje"] = mensajesTipoAccesorio;
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else
                 {
-                    mensajesTipoAccesorio = "No se ha podido registrar el tipo de accesorio: " + msjTipoAccesorio.MensajeError;
+                    mensajesTipoAccesorio = string.Format("No se ha podido registrar el tipo de accesorio \"{0}\": {1}",infoTipoAccesorio.NombreTipoAccesorio,msjTipoAccesorio.MensajeError);
                     TempData["MensajeError"] = mensajesTipoAccesorio;
+                    Logs.Error(mensajesTipoAccesorio);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
-                return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
+                Logs.Error(string.Format("{0}: {1}", mensajesTipoAccesorio, e.Message));
             }
             return RedirectToAction("ModificarTipoAccesorio", "TipoAccesorio");
         }
@@ -104,17 +104,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,false);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
-                    mensajesTipoAccesorio = "El tipo de accesorio ha sido modificado correctamente.";
+                    mensajesTipoAccesorio = string.Format("El tipo de accesorio con ID: {0} ha sido modificado correctamente.",infoTipoAccesorio.IdTipoAccesorio);
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else
                 {
-                    mensajesTipoAccesorio = "No se ha podido actualizar el tipo de accesorio: " + msjTipoAccesorio.MensajeError;
+                    mensajesTipoAccesorio = string.Format("No se ha podido actualizar el tipo de accesorio con ID: {0}: {1}",infoTipoAccesorio.IdTipoAccesorio,msjTipoAccesorio.MensajeError);
+                    Logs.Error(mensajesTipoAccesorio);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesTipoAccesorio, e.Message));
             }
             return Json(msjTipoAccesorio, JsonRequestBehavior.AllowGet);
         }
@@ -134,17 +135,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTipoAccesorio = objTipoAccesorioAccDatos.ActualizarTipoAccesorio(infoTipoAccesorio,true);
                 if (msjTipoAccesorio.OperacionExitosa)
                 {
-                    mensajesTipoAccesorio = "El tipo de accesorio ha sido modificado correctamente.";
+                    mensajesTipoAccesorio = string.Format("El tipo de accesorio con ID: {0} ha sido modificado correctamente.", infoTipoAccesorio.IdTipoAccesorio);
                     Logs.Info(mensajesTipoAccesorio);
                 }
                 else
                 {
-                    mensajesTipoAccesorio = "No se ha podido actualizar el tipo de accesorio: " + msjTipoAccesorio.MensajeError;
+                    mensajesTipoAccesorio = string.Format("No se ha podido actualizar el tipo de accesorio con ID: {0}: {1}", infoTipoAccesorio.IdTipoAccesorio, msjTipoAccesorio.MensajeError);
+                    Logs.Error(mensajesTipoAccesorio);
                 }
             }
             catch (Exception e)
-            {
-                Logs.Error(mensajesTipoAccesorio + ": " + e.Message);
+            {                
+                Logs.Error(string.Format("{0}: {1}", mensajesTipoAccesorio, e.Message));
             }
             return Json(msjTipoAccesorio, JsonRequestBehavior.AllowGet);
         }

@@ -46,7 +46,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs4n.Error("Error en la conexión para obtener la lista de todos los logs: " + e.Message + " - " + msjLogs.MensajeError);
+                Logs4n.Error(string.Format("Error en la conexión para obtener la lista de todos los logs: {0}",e.Message));
             }
             return msjLogs;
         }
@@ -71,7 +71,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs4n.Error("Error en la conexión para registrar un log: " + e.Message + " - " + msjLogs.MensajeError);
+                Logs4n.Error(string.Format("Error en la conexión para registrar un log: {0}",e.Message));
             }
             return msjLogs;
         }

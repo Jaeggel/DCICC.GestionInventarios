@@ -13,7 +13,7 @@ namespace DCICC.GestionInventarios.Reportes
 {
     public class ReporteExcel
     {
-        string path_Plantilla = System.Web.Hosting.HostingEnvironment.MapPath("~/Reportes/PlantillaExcel.xlsx");
+        readonly string path_Plantilla = System.Web.Hosting.HostingEnvironment.MapPath("~/Reportes/PlantillaExcel.xlsx");
         /// <summary>
         /// Método para generar el reporte en excel.
         /// </summary>

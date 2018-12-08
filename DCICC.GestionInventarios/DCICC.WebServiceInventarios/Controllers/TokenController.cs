@@ -47,7 +47,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch(Exception e)
             {
-                Logs.Error("No se pudo generar el token de autorización: " + e.Message);
+                Logs.Error(string.Format("No se pudo generar el token de autorización para inicio de transacciones: {0}.",e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);
@@ -83,7 +83,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo generar el token de autorización: " + e.Message);
+                Logs.Error(string.Format("No se pudo generar el token de autorización para recuperación de contraseña: {0}.",e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);
@@ -108,7 +108,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                     if(infoUsuario!=null)
                     {
                         token = ConfiguracionToken();
-                        ConfigBaseDatos.SetCadenaConexion("Server='192.168.0.5';Port=5432;User Id=" + infoUsuario.NickUsuario + ";Password=" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + ";Database=DCICC_BDInventario; CommandTimeout=3020;");
+                        ConfigBaseDatos.SetCadenaConexion(string.Format("Server=localhost;Port=5432;User Id={0};Password={1};Database=DCICC_BDInventario; CommandTimeout=3020;", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario)));
                     }
                     else
                     {
@@ -122,7 +122,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error("No se pudo generar el token de autorización: " + e.Message);
+                Logs.Error(string.Format("No se pudo generar el token de autorización para transacciones: {0}.",e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);    

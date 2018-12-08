@@ -24,6 +24,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// <returns></returns>
         public MensajesUsuarios RegistroUsuario(Usuarios infoUsuario)
         {
+            string pwdUsuario = ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario);
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {                
@@ -32,7 +33,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdRol;
                     cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario;
                     cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
-                    cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario);
+                    cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario;
                     cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario;
                     cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
                     cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
@@ -40,7 +41,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string query = "create user " + infoUsuario.NickUsuario + " with password '" + ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario) + "' LOGIN CREATEROLE CREATEUSER in group " + ConsultasRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol + ";";
+                string query = string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario,pwdUsuario,ConsultasRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn_BD))
                 {
                     cmd.ExecuteNonQuery();

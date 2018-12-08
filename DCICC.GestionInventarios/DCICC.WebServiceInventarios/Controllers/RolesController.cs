@@ -50,7 +50,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjRoles = objInsercionesRolesBD.RegistroRol(infoRol);
             if (msjRoles.OperacionExitosa)
             {
-                Logs.Info("Registro de Rol realizado exitosamente.");
+                Logs.Info(string.Format("Registro de Rol \"{0}\" realizado exitosamente.",infoRol.NombreRol));
             }
             else
             {
@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             MensajesRoles msjRoles = null;
             if (msjRoles.OperacionExitosa)
             {
-                Logs.Info("Actualización de Rol realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de Rol con ID: {0} realizada exitosamente.",infoRol.IdRol));
             }
             else
             {

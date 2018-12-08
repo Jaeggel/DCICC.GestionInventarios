@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjSistOperativos = objInsercionesSistOperativosBD.RegistroSistOperativo(infoSistOperativo);
             if (msjSistOperativos.OperacionExitosa)
             {
-                Logs.Info("Registro de SO realizado exitosamente.");
+                Logs.Info(string.Format("Registro de SO \"{0}\" realizado exitosamente.",infoSistOperativo.NombreSistOperativos));
             }
             else
             {
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionSistOperativo(infoSistOperativo);
             if (msjSistOperativos.OperacionExitosa)
             {
-                Logs.Info("Actualización de SO realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de SO con ID: {0} realizada exitosamente.",infoSistOperativo));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionEstadoSistOperativo(infoSistOperativo);
             if (msjSistOperativos.OperacionExitosa)
             {
-                Logs.Info("Actualización de estado de SO realizada exitosamente.");
+                Logs.Info(string.Format("Actualización de estado de SO con ID: {0} realizada exitosamente.", infoSistOperativo));
             }
             else
             {

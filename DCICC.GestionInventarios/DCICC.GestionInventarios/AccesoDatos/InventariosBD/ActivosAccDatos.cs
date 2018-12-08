@@ -3,6 +3,7 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -47,7 +48,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los activos: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de los activos: {0}",e.Message));
             }
             return msjActivos;
         }
@@ -69,7 +70,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener el CQR: " + e.Message + " - " + msjCQR.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para obtener el CQR: {0}.",e.Message));
             }
             return msjCQR;
         }
@@ -91,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener el CQR: " + e.Message + " - " + msjCQR.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para obtener el CQR: {0}.",e.Message));
             }
             return msjCQR;
         }
@@ -113,7 +114,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para obtener la lista de los históricos de los activos: " + e.Message + " - " + msjHistActivos.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para obtener la lista de los históricos de los activos: {0}.",e.Message));
             }
             return msjHistActivos;
         }
@@ -138,7 +139,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un activo: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para registrar un activo: {0}",e.Message));
             }
             return msjActivos;
         }
@@ -161,7 +162,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un CQR: " + e.Message + " - " + msjCQR.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para registrar un CQR: {0}",e.Message));
             }
             return msjCQR;
         }
@@ -184,7 +185,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para registrar un historico: " + e.Message + " - " + msjHistActivos.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para registrar un historico: {0}",e.Message));
             }
             return msjHistActivos;
         }
@@ -210,7 +211,31 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error("Error en la conexión para actualizar un activo: " + e.Message + " - " + msjActivos.MensajeError);
+                Logs.Error(string.Format("Error en la conexión para actualizar un activo: {0}",e.Message));
+            }
+            return msjActivos;
+        }
+        /// <summary>
+        /// Método para actualizar el estado impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// /// <param name="actEstado">Boolean para definir si se actualizará un solo CQR o una lista</param>
+        /// <returns></returns>
+        public MensajesCQR ActualizarCQR(Activos infoActivo,List<Activos> lstActivos,bool actEstado)
+        {
+            MensajesCQR msjActivos = new MensajesCQR();
+            try
+            {
+                var response = actEstado?client_Service.PostAsJsonAsync("Activos/ActualizarCQRLista", lstActivos).Result: client_Service.PostAsJsonAsync("Activos/ActualizarCQR", infoActivo).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var ActivosJson = response.Content.ReadAsStringAsync().Result;
+                    msjActivos = JsonConvert.DeserializeObject<MensajesCQR>(ActivosJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la conexión para actualizar un activo: {0}",e.Message));
             }
             return msjActivos;
         }

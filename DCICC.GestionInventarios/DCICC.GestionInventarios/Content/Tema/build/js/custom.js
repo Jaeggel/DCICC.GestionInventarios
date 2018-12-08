@@ -96,11 +96,13 @@ var setContentHeight = function () {
 // toggle small or large menu 
 $MENU_TOGGLE.on('click', function() {
 		console.log('clicked - menu toggle');
-		
-		if ($BODY.hasClass('nav-md')) {
+        var x = document.getElementById("image_section");
+        if ($BODY.hasClass('nav-md')) {
+            x.style = "display:none;";
 			$SIDEBAR_MENU.find('li.active ul').hide();
 			$SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
-		} else {
+        } else {
+            x.style = "display:block;";
 			$SIDEBAR_MENU.find('li.active-sm ul').show();
 			$SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
 		}

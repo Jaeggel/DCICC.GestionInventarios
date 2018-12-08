@@ -2,6 +2,7 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
+using System.Collections.Generic;
 
 namespace DCICC.AccesoDatos.ActualizacionesBD
 {
@@ -92,6 +93,65 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 msjActivos.MensajeError = e.Message;
             }
             return msjActivos;
+        }
+        /// <summary>
+        /// Método para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        public MensajesCQR ActualizacionQR(Activos infoActivo)
+        {
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_cqr SET impreso_cqr=@imcq WHERE id_cqr=@icq;", conn_BD))
+                {
+                    cmd.Parameters.Add("imcq", NpgsqlTypes.NpgsqlDbType.Boolean).Value = true;
+                    cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.IdCQR;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjCQR.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjCQR.OperacionExitosa = false;
+                msjCQR.MensajeError = e.Message;
+            }
+            return msjCQR;
+        }
+        /// <summary>
+        /// Método para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        public MensajesCQR ActualizacionQR(List<Activos> lstActivos)
+        {
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                foreach (var item in lstActivos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_cqr SET impreso_cqr=@imcq WHERE id_cqr=@icq;", conn_BD))
+                    {
+                        cmd.Parameters.Add("imcq", NpgsqlTypes.NpgsqlDbType.Boolean).Value = true;
+                        cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = item.IdCQR;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjCQR.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjCQR.OperacionExitosa = false;
+                msjCQR.MensajeError = e.Message;
+            }
+            return msjCQR;
         }
     }
 }

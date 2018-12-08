@@ -25,7 +25,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <returns></returns>
         public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte)
         {
-            byte[] bytes;
+            byte[] bytesReportePDF;
             using (MemoryStream msReporte = new MemoryStream())
             {
                 Document documentoReporte = new Document(PageSize.A4);
@@ -33,12 +33,13 @@ namespace DCICC.GestionInventarios.Reportes
                 {
                     documentoReporte.Open();
                     GenerarEncabezadoReporte(documentoReporte,writerReporte);
+                    GenerarTituloReporte(documentoReporte, tituloReporte);
                     documentoReporte.Add(tablaReporte);
                     documentoReporte.Close();
-                    bytes = msReporte.ToArray();
+                    bytesReportePDF = msReporte.ToArray();
                 }
             }
-            return bytes;
+            return bytesReportePDF;
         }
         /// <summary>
         /// Método para generar una tabla que será insertada en en el Reporte
@@ -78,7 +79,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="tituloReporte">Título que será mostrado en el Reporte.</param>
         public void GenerarTituloReporte(Document documentoReporte,string tituloReporte)
         {
-            using (var htmlWorker = new HTMLWorker(documentoReporte))
+            using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
                 using (var sr = new StringReader("<br/><br/><u><h1 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de "+ tituloReporte + "</h1></u><br/><br/>"))
                 {
@@ -97,7 +98,7 @@ namespace DCICC.GestionInventarios.Reportes
             var encabezadoCss = @"body{font-family:Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif}table,th,td{border:1px solid black;border-collapse:collapse}";
             using (var msCss = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(encabezadoCss)))
             {
-                using (var msHtml = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(encabezadoHtml)))
+                using (MemoryStream msHtml = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(encabezadoHtml)))
                 {
                     XMLWorkerHelper.GetInstance().ParseXHtml(writerReporte, documentoReporte, msHtml, msCss);
                 }

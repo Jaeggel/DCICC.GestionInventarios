@@ -34,24 +34,48 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        if(nombreFuncion=="consultausuarios")
                         {
-                            Usuarios objUsuarios = new Usuarios
+                            while (dr.Read())
                             {
-                                IdUsuario = (int)dr[0],
-                                IdRol = (int)dr[1],
-                                NombresUsuario = dr[2].ToString().Trim(),
-                                NickUsuario = dr[3].ToString().Trim(),
-                                PasswordUsuario = ConfigEncryption.DesencriptarValor(dr[4].ToString().Trim()),
-                                CorreoUsuario = dr[5].ToString().Trim(),
-                                TelefonoUsuario = dr[6].ToString().Trim(),
-                                TelefonoCelUsuario = dr[7].ToString().Trim(),
-                                DireccionUsuario = dr[8].ToString().Trim(),
-                                HabilitadoUsuario = (bool)dr[9],
-                                NombreRol = dr[10].ToString().Trim()
-                            };
-                            lstUsuarios.Add(objUsuarios);
+                                Usuarios objUsuarios = new Usuarios
+                                {
+                                    IdUsuario = (int)dr[0],
+                                    IdRol = (int)dr[1],
+                                    NombresUsuario = dr[2].ToString().Trim(),
+                                    NickUsuario = dr[3].ToString().Trim(),
+                                    PasswordUsuario = ConfigEncryption.DesencriptarValor(dr[4].ToString().Trim()),
+                                    CorreoUsuario = dr[5].ToString().Trim(),
+                                    TelefonoUsuario = dr[6].ToString().Trim(),
+                                    TelefonoCelUsuario = dr[7].ToString().Trim(),
+                                    DireccionUsuario = dr[8].ToString().Trim(),
+                                    HabilitadoUsuario = (bool)dr[9],
+                                };
+                                lstUsuarios.Add(objUsuarios);
+                            }
                         }
+                        else
+                        {
+                            while (dr.Read())
+                            {
+                                Usuarios objUsuarios = new Usuarios
+                                {
+                                    IdUsuario = (int)dr[0],
+                                    IdRol = (int)dr[1],
+                                    NombresUsuario = dr[2].ToString().Trim(),
+                                    NickUsuario = dr[3].ToString().Trim(),
+                                    PasswordUsuario = ConfigEncryption.DesencriptarValor(dr[4].ToString().Trim()),
+                                    CorreoUsuario = dr[5].ToString().Trim(),
+                                    TelefonoUsuario = dr[6].ToString().Trim(),
+                                    TelefonoCelUsuario = dr[7].ToString().Trim(),
+                                    DireccionUsuario = dr[8].ToString().Trim(),
+                                    HabilitadoUsuario = (bool)dr[9],
+                                    NombreRol = dr[10].ToString().Trim()
+                                };
+                                lstUsuarios.Add(objUsuarios);
+                            }
+                        }
+                        
                         conn_BD.Close();
                         msjUsuarios.ListaObjetoInventarios = lstUsuarios;
                         msjUsuarios.OperacionExitosa = true;
@@ -77,11 +101,16 @@ namespace DCICC.AccesoDatos.ConsultasBD
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
                 Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.IdUsuario == IdUsuario);
                 if (infoUsuarioBD != null)
                 {
                     msjUsuarios.ObjetoInventarios = infoUsuarioBD;
+                    msjUsuarios.OperacionExitosa = true;
+                }
+                else
+                {
+                    msjUsuarios.ObjetoInventarios = null;
                     msjUsuarios.OperacionExitosa = true;
                 }
             }
@@ -104,11 +133,15 @@ namespace DCICC.AccesoDatos.ConsultasBD
             try
             {
                 ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
                 Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.NickUsuario == nickUsuario);
                 if (infoUsuarioBD != null)
                 {
                     msjUsuarios.ObjetoInventarios = infoUsuarioBD;
+                    msjUsuarios.OperacionExitosa = true;
+                }else
+                {
+                    msjUsuarios.ObjetoInventarios = null;
                     msjUsuarios.OperacionExitosa = true;
                 }
             }

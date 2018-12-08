@@ -76,6 +76,70 @@ namespace DCICC.GestionInventarios.Controllers
         #endregion
         #region Registros (POST)
         /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista NuevaMaqVirtual.
+        /// </summary>
+        /// <param name="infoMaqVirtual"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult NuevaMaqVirtual(MaqVirtuales infoMaqVirtual)
+        {
+            string mensajesMaqVirtuales = string.Empty;
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
+            try
+            {
+                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
+                msjMaqVirtuales = objMaqVirtualesAccDatos.RegistrarMaqVirtual(infoMaqVirtual);
+                if (msjMaqVirtuales.OperacionExitosa)
+                {
+                    mensajesMaqVirtuales = string.Format("La máquina virtual \"{0}\" ha sido registrada exitosamente.",infoMaqVirtual.NombreMaqVirtuales);
+                    TempData["Mensaje"] = mensajesMaqVirtuales;
+                    Logs.Info(mensajesMaqVirtuales);
+                }
+                else
+                {
+                    mensajesMaqVirtuales = string.Format("No se ha podido registrar la máquina virtual \"{0}\": {1}",infoMaqVirtual.NombreMaqVirtuales,msjMaqVirtuales.MensajeError);
+                    TempData["MensajeError"] = mensajesMaqVirtuales;
+                    Logs.Error(mensajesMaqVirtuales);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("{0}: {1}", mensajesMaqVirtuales, e.Message));
+                return View();
+            }
+            return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista NuevoProposito.
+        /// </summary>
+        /// <param name="infoProposito"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult NuevoProposito(Propositos infoProposito)
+        {
+            string mensajesMaqVirtuales = string.Empty;
+            try
+            {
+                if (NuevoPropositoJSON(infoProposito))
+                {
+                    mensajesMaqVirtuales = string.Format("El propósito \"{0}\" ha sido registrado exitosamente.", infoProposito.NombreProposito);
+                    TempData["Mensaje"] = mensajesMaqVirtuales;
+                    Logs.Info(mensajesMaqVirtuales);
+                }
+                else
+                {
+                    mensajesMaqVirtuales = string.Format("El propósito \"{0}\" ya se encuentra registrado.", infoProposito.NombreProposito);
+                    TempData["MensajeError"] = mensajesMaqVirtuales;
+                    Logs.Error(mensajesMaqVirtuales);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("{0}: {1}", mensajesMaqVirtuales, e.Message));
+            }
+            return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
+        }
+        /// <summary>
         /// Método para crear un nuevo Propósito o el archivo en caso de no existir
         /// </summary>
         /// <returns></returns>
@@ -113,70 +177,6 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return false;
         }
-        /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista NuevaMaqVirtual.
-        /// </summary>
-        /// <param name="infoMaqVirtual"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult NuevaMaqVirtual(MaqVirtuales infoMaqVirtual)
-        {
-            string mensajesMaqVirtuales = string.Empty;
-            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
-            try
-            {
-                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
-                msjMaqVirtuales = objMaqVirtualesAccDatos.RegistrarMaqVirtual(infoMaqVirtual);
-                if (msjMaqVirtuales.OperacionExitosa)
-                {
-                    mensajesMaqVirtuales = "La máquina virtual ha sido registrada exitosamente.";
-                    TempData["Mensaje"] = mensajesMaqVirtuales;
-                    Logs.Info(mensajesMaqVirtuales);
-                }
-                else
-                {
-                    mensajesMaqVirtuales = "No se ha podido registrar la máquina virtual: " + msjMaqVirtuales.MensajeError;
-                    TempData["MensajeError"] = mensajesMaqVirtuales;
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
-                return View();
-            }
-            return RedirectToAction("ModificarMaqVirtual", "MaqVirtuales");
-        }
-        /// <summary>
-        /// Método (POST) para recibir los datos provenientes de la vista NuevoProposito.
-        /// </summary>
-        /// <param name="infoProposito"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult NuevoProposito(Propositos infoProposito)
-        {
-            string mensajesMaqVirtuales = string.Empty;
-            try
-            {
-                if (NuevoPropositoJSON(infoProposito))
-                {
-                    mensajesMaqVirtuales = "El propósito ha sido registrado exitosamente. ";
-                    TempData["Mensaje"] = mensajesMaqVirtuales;
-                    Logs.Info(mensajesMaqVirtuales);
-                }
-                else
-                {
-                    TempData["MensajeError"] = "El propósito ya se encuentra registrado.";
-                }
-            }
-            catch (Exception e)
-            {
-                mensajesMaqVirtuales = "No se ha podido registrar el propósito: ";
-                Logs.Error(mensajesMaqVirtuales + e.Message);
-                TempData["MensajeError"] = mensajesMaqVirtuales + e.Message;
-                return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
-            }
-            return RedirectToAction("NuevaMaqVirtual", "MaqVirtuales");
-        }
         #endregion
         #region Actualizaciones (POST)
         /// <summary>
@@ -195,17 +195,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual,false);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
-                    mensajesMaqVirtuales = "La máquina virtual ha sido modificada correctamente.";
+                    mensajesMaqVirtuales = string.Format("La máquina virtual con ID: {0} ha sido modificada correctamente.",infoMaqVirtual.IdMaqVirtuales);
                     Logs.Info(mensajesMaqVirtuales);
                 }
                 else
                 {
-                    mensajesMaqVirtuales = "No se ha podido actualizar la máquina virtual: " + msjMaqVirtuales.MensajeError;
+                    mensajesMaqVirtuales = string.Format("No se ha podido actualizar la máquina virtual con ID: {0}: {1}",infoMaqVirtual.IdMaqVirtuales,msjMaqVirtuales.MensajeError);
+                    Logs.Error(mensajesMaqVirtuales);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesMaqVirtuales, e.Message));
             }
             return Json(msjMaqVirtuales, JsonRequestBehavior.AllowGet);
         }
@@ -225,17 +226,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjMaqVirtuales = objMaqVirtualesAccDatos.ActualizarMaqVirtual(infoMaqVirtual, true);
                 if (msjMaqVirtuales.OperacionExitosa)
                 {
-                    mensajesMaqVirtuales = "La máquina virtual ha sido modificada correctamente.";
+                    mensajesMaqVirtuales = string.Format("La máquina virtual con ID: {0} ha sido modificada correctamente.",infoMaqVirtual.IdMaqVirtuales);
                     Logs.Info(mensajesMaqVirtuales);
                 }
                 else
                 {
-                    mensajesMaqVirtuales = "No se ha podido actualizar la máquina virtual: " + msjMaqVirtuales.MensajeError;
+                    mensajesMaqVirtuales = string.Format("No se ha podido actualizar la máquina virtual con ID: {0}: {1}",infoMaqVirtual.IdMaqVirtuales,msjMaqVirtuales.MensajeError);
+                    Logs.Error(mensajesMaqVirtuales);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesMaqVirtuales + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesMaqVirtuales, e.Message));
             }
             return Json(msjMaqVirtuales, JsonRequestBehavior.AllowGet);
         }

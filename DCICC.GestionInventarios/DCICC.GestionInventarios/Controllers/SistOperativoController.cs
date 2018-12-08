@@ -69,19 +69,20 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.RegistrarSistOperativo(infoSistOperativo);
                 if (msjSistOperativos.OperacionExitosa)
                 {
-                    mensajesSistOperativos = "El sistema operativo ha sido registrado exitosamente.";
+                    mensajesSistOperativos = string.Format("El sistema operativo \"{0}\" ha sido registrado exitosamente.",infoSistOperativo.NombreSistOperativos);
                     TempData["Mensaje"] = mensajesSistOperativos;
                     Logs.Info(mensajesSistOperativos);
                 }
                 else
                 {
-                    mensajesSistOperativos = "No se ha podido registrar el sistema operativo: " + msjSistOperativos.MensajeError;
+                    mensajesSistOperativos = string.Format("No se ha podido registrar el sistema operativo \"{0}\": {1}", infoSistOperativo.NombreSistOperativos,msjSistOperativos.MensajeError);
                     TempData["MensajeError"] = mensajesSistOperativos;
+                    Logs.Error(mensajesSistOperativos);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesSistOperativos + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesSistOperativos, e.Message));
                 return View();
             }
             return RedirectToAction("ModificarSistOperativo", "SistOperativo");
@@ -104,17 +105,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo,false);
                 if (msjSistOperativos.OperacionExitosa)
                 {
-                    mensajesSistOperativos = "El sistema operativo ha sido modificado correctamente";
+                    mensajesSistOperativos = string.Format("El sistema operativo con ID: {0} ha sido modificado correctamente.",infoSistOperativo.IdSistOperativos);
                     Logs.Info(mensajesSistOperativos);
                 }
                 else
                 {
-                    mensajesSistOperativos = "No se ha podido actualizar el sistema operativo: " + msjSistOperativos.MensajeError;
+                    mensajesSistOperativos = string.Format("No se ha podido actualizar el sistema operativo con ID: {0}: {1}",infoSistOperativo.IdSistOperativos,msjSistOperativos.MensajeError);
+                    Logs.Error(mensajesSistOperativos);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesSistOperativos + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesSistOperativos, e.Message));
             }
             return Json(msjSistOperativos, JsonRequestBehavior.AllowGet);
         }
@@ -134,17 +136,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjSistOperativos = objSistOperativosAccDatos.ActualizarSistOperativo(infoSistOperativo, true);
                 if (msjSistOperativos.OperacionExitosa)
                 {
-                    mensajesSistOperativos = "El sistema operativo ha sido modificado correctamente";
+                    mensajesSistOperativos = string.Format("El sistema operativo con ID: {0} ha sido modificado correctamente.", infoSistOperativo.IdSistOperativos);
                     Logs.Info(mensajesSistOperativos);
                 }
                 else
                 {
-                    mensajesSistOperativos = "No se ha podido actualizar el sistema operativo: " + msjSistOperativos.MensajeError;
+                    mensajesSistOperativos = string.Format("No se ha podido actualizar el sistema operativo con ID: {0}: {1}", infoSistOperativo.IdSistOperativos, msjSistOperativos.MensajeError);
+                    Logs.Error(mensajesSistOperativos);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesSistOperativos + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesSistOperativos, e.Message));
             }
             return Json(msjSistOperativos, JsonRequestBehavior.AllowGet);
         }

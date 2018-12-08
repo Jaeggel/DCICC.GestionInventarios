@@ -55,17 +55,18 @@ namespace DCICC.GestionInventarios.Controllers
                 msjTickets = objTicketsAccDatos.ActualizarTicket(infoTicket);
                 if (msjTickets.OperacionExitosa)
                 {
-                    mensajesTickets = "El ticket ha sido modificado correctamente.";
+                    mensajesTickets = string.Format("El ticket con ID: {0} ha sido modificado correctamente.",infoTicket.IdTicket);
                     Logs.Info(mensajesTickets);
                 }
                 else
                 {
-                    mensajesTickets = "No se ha podido actualizar el ticket: " + msjTickets.MensajeError;
+                    mensajesTickets = string.Format("No se ha podido actualizar el ticket con ID: {0}: {1}",infoTicket.IdTicket,msjTickets.MensajeError);
+                    Logs.Error(mensajesTickets);
                 }
             }
             catch (Exception e)
             {
-                Logs.Error(mensajesTickets + ": " + e.Message);
+                Logs.Error(string.Format("{0}: {1}", mensajesTickets, e.Message));
             }
             return Json(msjTickets, JsonRequestBehavior.AllowGet);
         }
