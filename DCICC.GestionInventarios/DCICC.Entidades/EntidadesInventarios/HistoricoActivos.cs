@@ -20,6 +20,10 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string ModeloHistActivo { get; set; }
 
+        public string SerialHistAccesorio { get; set; }
+
+        public string ModeloHistAccesorio { get; set; }
+
         public DateTime FechaModifHistActivos { get; set; }
     }
 }
