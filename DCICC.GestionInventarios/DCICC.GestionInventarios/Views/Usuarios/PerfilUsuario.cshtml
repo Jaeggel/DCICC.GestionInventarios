@@ -70,7 +70,7 @@
                         @* Sección de botones para modificar usuario o cancelar el registro *@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-success" onclick=" modificarDatosUsuario('@Url.Action("ModificarPerfilUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")','@Url.Action("Index", "Home")');">Modificar</button>
+                                <button type="submit" class="btn btn-success" onclick=" modificarDatosUsuario('@Url.Action("ModificarPerfilUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")','@Url.Action("PerfilUsuario", "Usuarios")');">Modificar</button>
                                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Home")'">Cancelar</button>
                             </div>
                         </div>
@@ -105,20 +105,21 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del password del usuario*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña Actual" maxlength="30" required>
+                                        <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña Actual" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-unlock-alt form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorPassword" style="color:brown;"></span>
                                     </div>
 
                                     @* Cuadro de texto para el ingreso del password del usuario*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="PasswordUsuarioNuevo" type="password" class="form-control has-feedback-left" name="PasswordUsuarioNuevo" placeholder="Nueva Contraseña" maxlength="30" required>
+                                        <input id="PasswordUsuarioNuevo" type="password" class="form-control has-feedback-left" name="PasswordUsuarioNuevo" placeholder="Nueva Contraseña" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorVacios" style="color:brown;"></span>
                                     </div>
 
                                     @* Cuadro de texto para el ingreso del password del usuario*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="PasswordUsuarioConfirmar" type="password" class="form-control has-feedback-left" name="PasswordUsuarioConfirmar" placeholder="Confirmar Nueva Contraseña" maxlength="30" required>
+                                        <input id="PasswordUsuarioConfirmar" type="password" class="form-control has-feedback-left" name="PasswordUsuarioConfirmar" placeholder="Confirmar Nueva Contraseña" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNuevoPassword" style="color:brown;"></span>
                                     </div>
@@ -150,6 +151,18 @@
     $(document).ready(function () {
         //Método para obtener las tablas de Usuarios
         obtenerUsuario('@Url.Action("ObtenerUsuarioPorNick", "Usuarios")');
+        mensajesTooltips();
+
+        $('#ModificarContraseña').on('hidden.bs.modal', function () {
+            $(".modal-body input").val("");
+            $(".modal-body span[id=errorPassword]").html('').hide();
+            $(".modal-body span[id=errorNuevoPassword]").html('').hide();
+            $(".modal-body span[id=errorVacios]").html('').hide();
+
+            $("#PasswordUsuario").tooltip('hide');
+            $("#PasswordUsuarioNuevo").tooltip('hide');
+            $("#PasswordUsuarioConfirmar").tooltip('hide');
+        });
 
     });
 

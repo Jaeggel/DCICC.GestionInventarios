@@ -16,7 +16,7 @@ function obtenerTickets(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             console.log("Datos Exitosos");
             ticketsReportados = data;
@@ -377,7 +377,6 @@ function modificarEstadoTicketEnCurso(url_modificar) {
 ///Función para validar el combobox de Estado Abierto
 function validarCmbAbierto() {
     var esValido = true;
-    var boton = document.getElementById("confirmarAbierto");
     var cmbCat = document.getElementById("Estados");
     //Validación para el combobox de categorias
     if (cmbCat.value == "") {
@@ -385,11 +384,9 @@ function validarCmbAbierto() {
         cmbCat.style.borderColor = "#900C3F";
         $('#errorAbiertos').html('Debe seleccionar una opción').show();
         setTimeout("$('#errorAbiertos').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         cmbCat.style.borderColor = "#ccc";
         $('#errorAbiertos').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -397,7 +394,6 @@ function validarCmbAbierto() {
 ///Función para validar el combobox de Estado En curso
 function validarCmbCurso() {
     var esValido = true;
-    var boton = document.getElementById("confirmarEnCurso");
     var cmbCat = document.getElementById("EstadosEC");
     //Validación para el combobox de categorias
     if (cmbCat.value == "") {
@@ -405,11 +401,9 @@ function validarCmbCurso() {
         cmbCat.style.borderColor = "#900C3F";
         $('#errorEnCurso').html('Debe seleccionar una opción').show();
         setTimeout("$('#errorEnCurso').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         cmbCat.style.borderColor = "#ccc";
         $('#errorEnCurso').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }

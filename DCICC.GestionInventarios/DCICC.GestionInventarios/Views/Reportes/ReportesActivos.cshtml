@@ -30,7 +30,7 @@
                             <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');">Accesorios</a>
                         </li>
                         <li role="presentation" class="">
-                        <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Históricos</a>
+                        <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerHistoricos('@Url.Action("ObtenerHistoricoActivosComp", "Activos")');">Históricos</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -77,12 +77,12 @@
                                             <div class="form-group">
                                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
                                                     <label>Fecha de Inicio: (mm/dd/yyyy)</label>
-                                                    <input name="FechaInicio" type="text" class="form-control has-feedback-left" id="FechaInicioAct" placeholder="Fecha de Inicio" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                                    <input name="FechaInicio" type="text" class="form-control has-feedback-left" id="FechaInicio" placeholder="Fecha de Inicio" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
                                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                                                 </div>
                                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
                                                     <label>Fecha de Fin: (mm/dd/yyyy)</label>
-                                                    <input name="FechaFin" type="text" class="form-control has-feedback-left" id="FechaFinAct" placeholder="Fecha de Fin" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                                    <input name="FechaFin" type="text" class="form-control has-feedback-left" id="FechaFin" placeholder="Fecha de Fin" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
                                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                                                 </div>
                                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
@@ -162,6 +162,24 @@
                                     </div>
                                     <div class="x_content">
                                         <br>
+                                        @*Sección de filtros de búsqueda para realizar la consulta*@
+                                        <div class="form-group">
+                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+                                                <label>Fecha de Inicio: (mm/dd/yyyy)</label>
+                                                <input name="FechaInicioHist" type="text" class="form-control has-feedback-left" id="FechaInicioHist" placeholder="Fecha de Inicio" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+                                                <label>Fecha de Fin: (mm/dd/yyyy)</label>
+                                                <input name="FechaFinHist" type="text" class="form-control has-feedback-left" id="FechaFinHist" placeholder="Fecha de Fin" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
+                                                <button type="button" class="btn btn-default" onclick="consultarFechasHist();">Consultar</button>
+                                                <button type="button" class="btn btn-default" onclick="limpiarFechas();">Limpiar</button>
+                                            </div>
+                                        </div>
+                                        <br />
                                         <div class="form-horizontal form-label-left input_mask">
                                             @* Sección para la tabla de modificación mediante js *@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
