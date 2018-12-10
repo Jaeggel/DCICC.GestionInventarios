@@ -9,7 +9,7 @@ function obtenerUsuario(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             console.log("Datos Exitosos");
             datosUsuario = data;
@@ -37,10 +37,6 @@ function cargarDatosUsuario(){
 function modificarPassword() {
     var esValido = true;
     var antiguoPassword = document.getElementById("PasswordUsuario").value;
-    var nuevoPassword = document.getElementById("PasswordUsuarioNuevo").value;
-    var confirmarNuevoPasswd = document.getElementById("PasswordUsuarioConfirmar").value;
-    
-
     if (antiguoPassword != passwdUser) {
         esValido = false;
         $("#PasswordUsuario").focus();
@@ -49,7 +45,14 @@ function modificarPassword() {
     } else {
         $('#errorPassword').html('').hide();
     }
+    return esValido;
 
+}
+
+function contrasenaIgual() {
+    var esValido = true;
+    var nuevoPassword = document.getElementById("PasswordUsuarioNuevo").value;
+    var confirmarNuevoPasswd = document.getElementById("PasswordUsuarioConfirmar").value;
     if (nuevoPassword != confirmarNuevoPasswd) {
         esValido = false;
         $("#PasswordUsuarioNuevo").focus();
@@ -57,17 +60,30 @@ function modificarPassword() {
         setTimeout("$('#errorNuevoPassword').fadeOut('slow');", 5000);
     } else {
         $('#errorNuevoPassword').html('').hide();
-       
     }
-
     return esValido;
+}
 
+function contrasenaMayor() {
+    var esValido = true;
+    var nuevoPassword = document.getElementById("PasswordUsuarioNuevo").value;
+    var confirmarNuevoPasswd = document.getElementById("PasswordUsuarioConfirmar").value;
+    if (nuevoPassword.length < 6 || confirmarNuevoPasswd.length < 6) {
+        esValido = false;
+        $('#errorVacios').html('La nueva contraseña debe ser mayor a 6 caracteres').show();
+        setTimeout("$('#errorVacios').html('').hide('slow')", 5000);
+    } else {
+        $('#errorVacios').html('').hide();
+    }
+    return esValido;
 }
 
 function guardarContraseña(urlModificar, urlSalir) {
-    var comprobar = modificarPassword();
-    console.log(comprobar);
-    if (comprobar == true) {
+    var comprobarIgual = modificarPassword();
+    var comprobarNuevo = contrasenaIgual();
+    var comprobarMayor = contrasenaMayor();
+    console.log(comprobarMayor);
+    if (comprobarIgual && comprobarNuevo && comprobarMayor) {
         var confirmarNuevoPasswd = document.getElementById("PasswordUsuarioConfirmar").value;
         console.log(urlModificar + "-" + urlSalir)
         swal({
@@ -181,4 +197,11 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
         });
     }
 
+}
+
+//Mensajes para los tooltips
+function mensajesTooltips() {
+    document.getElementById("PasswordUsuario").title = "Ingreso de la contraseña Anterior.";
+    document.getElementById("PasswordUsuarioNuevo").title = "La contraseña nueva debe ser mayor a 6 caracteres";
+    document.getElementById("PasswordUsuarioConfirmar").title = "La confirmación de nueva contraseña debe ser igual a la nueva contraseña";
 }

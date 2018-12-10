@@ -182,6 +182,7 @@ function cargarActivosTabla() {
         '</table > ';
     $("#tablaReportesActivos").html(str);
     fechas = fechas.sort();
+    console.log(fechas);
     var minDate = fechas[0];
     var maxDate = fechas[fechas.length - 1];
     inicioFechaAct(minDate, maxDate); 
@@ -237,6 +238,18 @@ function consultarFechas() {
         }
     ); 
     table.draw();
+}
+
+function consultarDatos() {
+    var table = $('#dataTableActivos').DataTable();
+
+    var cols=table.rows({ filter: 'applied' }).nodes();
+
+    console.log(cols);
+
+    var title = table.columns().header();
+    console.log(title);
+    
 }
 
 //Función para limpiar las fechas
