@@ -92,21 +92,24 @@ namespace DCICC.GestionInventarios.Controllers
         #region Generación Reportes
         static DataTable info_DataTable;
         static string titulo_Reporte;
+        static string lab_Filtro;
         /// <summary>
         /// Método para generar el DataTable con el cual se generarán los reportes en Excel y PDF.
         /// </summary>
         /// <param name="infoHtml">Cadena de HTML con los datos para generar el reporte.</param>
         [HttpPost]
         [ValidateInput(false)]
-        public void GenerarDataTable(string infoHtml,string tituloReporte)
+        public void GenerarDataTable(string infoHtml,string tituloReporte,string labFiltro)
         {
             info_DataTable = null;
             titulo_Reporte = null;
+            lab_Filtro = null;
             try
             {
-                titulo_Reporte = tituloReporte;
                 ConfigDatos objDatosReporte = new ConfigDatos();
+                titulo_Reporte = tituloReporte;
                 info_DataTable = objDatosReporte.ObtenerDatosTablaHTML(infoHtml);
+                lab_Filtro = labFiltro;
                 Logs.Info("DataTable generado correctamente.");
             }
             catch (Exception e)
@@ -118,10 +121,8 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para obtener el Reporte PDF.
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
         public ActionResult ObtenerReportePDF()
         {
-            info_DataTable = null;
             byte[] bytesReportePDF=null;
             try
             {
@@ -131,11 +132,10 @@ namespace DCICC.GestionInventarios.Controllers
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
                     Inline = true,
-                    FileName = string.Format("Reporte{0}.{1}.{2}",titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"pdf"),
+                    FileName = string.Format("Reporte.{0}.{1}.{2}",titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"pdf"),
                 };
                 Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
                 Logs.Info("Reporte PDF generado correctamente.");
-                titulo_Reporte = string.Empty;
             }
             catch(Exception e)
             {
@@ -153,15 +153,14 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 ReporteExcel objReporteExcel = new ReporteExcel();
-                streamReporteExcel = objReporteExcel.GenerarReporteExcel(info_DataTable, titulo_Reporte);
+                streamReporteExcel = objReporteExcel.GenerarReporteExcel(info_DataTable, titulo_Reporte, lab_Filtro);
                 Logs.Info("Reporte Excel generado correctamente.");
-                titulo_Reporte = string.Empty;
             }
             catch (Exception e)
             {
                 Logs.Error(string.Format("No se ha podido generar el reporte Excel: {0}", e.Message));
             }
-            return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte{0}.{1}.{2}", titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"xlsx"));
+            return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte.{0}.{1}.{2}", titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"xlsx"));
         }
         #endregion
     }

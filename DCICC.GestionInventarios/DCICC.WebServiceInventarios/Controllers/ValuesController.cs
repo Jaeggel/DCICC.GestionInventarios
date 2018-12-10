@@ -19,5 +19,10 @@ namespace DCICC.WebServiceInventarios.Controllers
             Logs.Info("Ejecución de Web Service");
             return "DCICC WEB SERVICE INVENTARIOS";
         }
+        [HttpPost("valor")]
+        public string valor([FromBody] string value)
+        {
+            return "hola mundo"+value;
+        }
     }
 }

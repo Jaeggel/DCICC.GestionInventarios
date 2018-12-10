@@ -20,7 +20,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="infoTable">Datatable con la información que se desplegará en el Excel</param> 
         /// <param name="tituloReporte">Título que se mostrará en el Excel</param>
         /// <returns></returns>
-        public MemoryStream GenerarReporteExcel(DataTable infoTable, string tituloReporte)
+        public MemoryStream GenerarReporteExcel(DataTable infoTable, string tituloReporte,string labFiltro)
         {
             MemoryStream memStream;
             //Cargar la plantilla para reportes en Excel
@@ -31,6 +31,13 @@ namespace DCICC.GestionInventarios.Reportes
                 var ws = pck.Workbook.Worksheets[1];
                 //Carga datos del html
                 ws.Cells["A9"].LoadFromDataTable(infoTable, true);
+                //Carga de Parámetros
+                ws.Cells["B5"].Value=DateTime.Now.ToString();
+                ws.Cells["B5"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Cells["B6"].Value = labFiltro = (labFiltro == "Mostrar Todos") ? "Todos" : labFiltro;
+                ws.Cells["B6"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Cells["B7"].Value = infoTable.Rows.Count;
+                ws.Cells["B7"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 //Título del la lista del reporte
                 using (ExcelRange Rng = ws.Cells[8, 1, 8, infoTable.Columns.Count])
                 {

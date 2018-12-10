@@ -14,8 +14,8 @@ namespace DCICC.GestionInventarios.Reportes
 {
     public class ReportePDF
     {
-        readonly Font fuente_Datos = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-        readonly Font fuente_Titulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, WebColors.GetRGBColor("#E7E7E7"));
+        readonly Font fuente_Datos = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+        readonly Font fuente_Titulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, WebColors.GetRGBColor("#E7E7E7"));
         readonly BaseColor color_Datos = WebColors.GetRGBColor("#3c5a77");
         /// <summary>
         /// Método para generar el Reporte PDF.
