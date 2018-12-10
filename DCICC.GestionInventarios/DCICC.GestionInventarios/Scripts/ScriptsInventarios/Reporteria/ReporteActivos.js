@@ -13,13 +13,14 @@ var datosAccesorios;
 var cmbTipoAccesorio;
 //Historicos
 var datosHistoricos;
+var fechasHist = [];
 
 //Método ajax para obtener los datos de los activos
 function obtenerActivos(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             console.log("Datos Exitosos");
             datosActivos = data;
@@ -39,7 +40,7 @@ function datosTipoActivo(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbTipoActivo = data;
             cargarTipoActivoCmb();
@@ -52,7 +53,7 @@ function datosLaboratorio(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbLaboratorio = data;
             cargarLaboratoriosCmb();
@@ -65,7 +66,7 @@ function datosMarcas(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbMarcas = data;
             cargarMarcasCmb();
@@ -181,7 +182,6 @@ function cargarActivosTabla() {
         '</table > ';
     $("#tablaReportesActivos").html(str);
     fechas = fechas.sort();
-    console.log(fechas);
     var minDate = fechas[0];
     var maxDate = fechas[fechas.length - 1];
     inicioFechaAct(minDate, maxDate); 
@@ -192,7 +192,7 @@ function cargarActivosTabla() {
 
 function inicioFechaAct(minDate, maxDate) {
     $(function () {
-        $('input[name="FechaInicioAct"]').daterangepicker({
+        $('input[name="FechaInicio"]').daterangepicker({
             startDate: minDate,
             format: 'mm-dd-yyyy',
             singleDatePicker: true,
@@ -205,7 +205,7 @@ function inicioFechaAct(minDate, maxDate) {
 
 function finFechaAct(minDate, maxDate) {
     $(function () {
-        $('input[name="FechaFinAct"]').daterangepicker({
+        $('input[name="FechaFin"]').daterangepicker({
             startDate: 0,
             dateFormat: 'mm-dd-yyyyy',
             singleDatePicker: true,
@@ -219,16 +219,21 @@ function finFechaAct(minDate, maxDate) {
 
 function consultarFechas() {
     var table = $('#dataTableActivos').DataTable();
-    $.fn.dataTable.ext.search.push(
+    $.fn.DataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            var min = new Date($("#FechaInicioAct").val()).getTime();
-            var max = new Date($("#FechaFinAct").val()).getTime();
-            var startDate = new Date(data[6]).getTime();
-            if (min == null && max == null) { return true; }
-            if (min == null && startDate <= max) { return true; }
-            if (max == null && startDate >= min) { return true; }
-            if (startDate <= max && startDate >= min) { return true; }
-            return false;
+            if (settings.sTableId == 'dataTableActivos') {
+                var min = new Date($("#FechaInicio").val()).getTime();
+                var max = new Date($("#FechaFin").val()).getTime();
+                var startDate = new Date(data[6]).getTime();
+                if (min == null && max == null) { return true; }
+                if (min == null && startDate <= max) { return true; }
+                if (max == null && startDate >= min) { return true; }
+                if (startDate <= max && startDate >= min) { return true; }
+                return false;
+            } else {
+                return true;
+            }
+            
         }
     ); 
     table.draw();
@@ -379,23 +384,23 @@ function cargarHistoricosTabla() {
     str += '<tbody>';
     for (var i = 0; i < datosHistoricos.length; i++) {
             //Método para dar formato a la fecha y hora
-        var fechaIng = new Date(parseInt((datosHistoricos[i].FechaIngresoActivo).substr(6)));
+        var fechaIng = new Date(parseInt((datosHistoricos[i].FechaModifHistActivos).substr(6)));
             //Fecha para ordenar el string mm/dd/yyyy
             var fechaordenar = (fechaIng.toLocaleDateString("en-US"));
             //fecha para la tabla y busquedas
             function pad(n) { return n < 10 ? "0" + n : n; }
             var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
 
-            fechas[i] = fechaordenar;
+            fechasHist[i] = fechaordenar;
 
-        if (datosHistoricos[i].IdDetActivo!= 0) {
+        if (datosHistoricos[i].IdActivo!= 0) {
             str += '</td><td>' + datosHistoricos[i].NombreActivo +
-                '</td><td>' + datosHistoricos[i].ModeloActivo +
-                '</td><td>' + datosHistoricos[i].SerialActivo ;
+                '</td><td>' + datosHistoricos[i].ModeloHistActivo +
+                '</td><td>' + datosHistoricos[i].SerialHistActivo ;
         } else {
             str += '</td><td>' + datosHistoricos[i].NombreAccesorio +
-                '</td><td>' + datosHistoricos[i].ModeloAccesorio +
-                '</td><td>' + datosHistoricos[i].SerialAccesorio ;
+                '</td><td>' + datosHistoricos[i].ModeloHistAccesorio +
+                '</td><td>' + datosHistoricos[i].SerialHistAccesorio ;
         }
         str += '</td><td>' + fechaIngreso +
                 '</td ></tr> ';
@@ -403,11 +408,59 @@ function cargarHistoricosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaHistoricos").html(str);
-    //fechas = fechas.sort();
-    //console.log(fechas);
-    //var minDate = fechas[0];
-    //var maxDate = fechas[fechas.length - 1];
-    //inicioFechaAct(minDate, maxDate);
-    //finFechaAct(minDate, maxDate);
+    fechasHist = fechasHist.sort();
+    var minDate = fechasHist[0];
+    var maxDate = fechasHist[fechasHist.length - 1];
+     inicioFechaHist(minDate, maxDate);
+    finFechaHist(minDate, maxDate);
 
+}
+
+function inicioFechaHist(minDate, maxDate) {
+    $(function () {
+        $('input[name="FechaInicioHist"]').daterangepicker({
+            startDate: minDate,
+            format: 'mm-dd-yyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: maxDate
+        });
+    });
+}
+
+function finFechaHist(minDate, maxDate) {
+    $(function () {
+        $('input[name="FechaFinHist"]').daterangepicker({
+            startDate: 0,
+            dateFormat: 'mm-dd-yyyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: 0
+        });
+    });
+}
+
+
+function consultarFechasHist() {
+    var table = $('#dataTableHistoricos').DataTable();
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            if (settings.sTableId == 'dataTableHistoricos') {
+                var min = new Date($("#FechaInicioHist").val()).getTime();
+                var max = new Date($("#FechaFinHist").val()).getTime();
+                var startDate = new Date(data[3]).getTime();
+                if (min == null && max == null) { return true; }
+                if (min == null && startDate <= max) { return true; }
+                if (max == null && startDate >= min) { return true; }
+                if (startDate <= max && startDate >= min) { return true; }
+                return false;
+            } else {
+                return true;
+            }
+            
+        }
+    );
+    table.draw();
 }
