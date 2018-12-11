@@ -1,10 +1,11 @@
-﻿using log4net;
+﻿using DCICC.Entidades.EntidadesInventarios;
+using log4net;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
     public class ValuesController : ControllerBase
     {
         //Instancia para la utilización de LOGS en la clase Values
@@ -20,9 +21,14 @@ namespace DCICC.WebServiceInventarios.Controllers
             return "DCICC WEB SERVICE INVENTARIOS";
         }
         [HttpPost("valor")]
-        public string valor([FromBody] string value)
+        public string valor()
         {
-            return "hola mundo"+value;
+            return "hola mundo";
+        }
+        [HttpPost("obj")]
+        public string obj([FromBody] Usuarios user)
+        {
+            return "hola " + user.NickUsuario;
         }
     }
 }
