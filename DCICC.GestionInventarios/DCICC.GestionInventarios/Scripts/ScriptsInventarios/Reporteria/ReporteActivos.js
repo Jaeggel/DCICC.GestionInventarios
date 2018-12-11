@@ -240,17 +240,17 @@ function consultarFechas() {
     table.draw();
 }
 
-function consultarDatos() {
-    var table = $('#dataTableActivos').DataTable();
+//function consultarDatos() {
+//    var table = $('#dataTableActivos').DataTable();
 
-    var cols=table.rows({ filter: 'applied' }).nodes();
+//    var cols=table.rows({ filter: 'applied' }).nodes();
 
-    console.log(cols);
+//    console.log(cols);
 
-    var title = table.columns().header();
-    console.log(title);
+//    var title = table.columns().header();
+//    console.log(title);
     
-}
+//}
 
 //Función para limpiar las fechas
 function limpiarFechas() {
@@ -393,7 +393,7 @@ function obtenerHistoricos(url) {
 //Función para cargar la tabla de Activos
 function cargarHistoricosTabla() {
     var str = '<table id="dataTableHistoricos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Nombre de Activo o Accesorio</th> <th>Modelo</th> <th>Serie</th> <th>Fecha de Baja</th></tr> </thead>';
+    str += '<thead> <tr> <th>Nombre del Activo o Accesorio</th> <th>Modelo del Activo o Accesorio</th> <th>Serial del Activo o Accesorio</th> <th>Fecha de Baja</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosHistoricos.length; i++) {
             //Método para dar formato a la fecha y hora
