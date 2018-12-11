@@ -14,8 +14,8 @@ namespace DCICC.GestionInventarios.Reportes
 {
     public class ReportePDF
     {
-        readonly Font fuente_Datos = FontFactory.GetFont(FontFactory.HELVETICA, 9);
-        readonly Font fuente_Titulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, WebColors.GetRGBColor("#E7E7E7"));
+        readonly Font fuente_Datos = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+        readonly Font fuente_Titulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8.5f, WebColors.GetRGBColor("#E7E7E7"));
         readonly BaseColor color_Datos = WebColors.GetRGBColor("#3c5a77");
         /// <summary>
         /// Método para generar el Reporte PDF.
@@ -81,7 +81,7 @@ namespace DCICC.GestionInventarios.Reportes
         {
             using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
-                using (var sr = new StringReader("<br/><br/><u><h1 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de "+ tituloReporte + "</h1></u><br/><br/>"))
+                using (var sr = new StringReader("<br/><br/><u><h2 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de "+ tituloReporte + "</h2></u><br/><br/>"))
                 {
                     htmlWorker.Parse(sr);
                 }

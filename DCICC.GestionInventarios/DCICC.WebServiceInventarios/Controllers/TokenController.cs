@@ -47,7 +47,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch(Exception e)
             {
-                Logs.Error(string.Format("No se pudo generar el token de autorización para inicio de transacciones: {0}.",e.Message));
+                Logs.Error(string.Format("No se pudo generar el token de autorización para inicio de transacciones: {0}",e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);
@@ -83,7 +83,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("No se pudo generar el token de autorización para recuperación de contraseña: {0}.",e.Message));
+                Logs.Error(string.Format("No se pudo generar el token de autorización para recuperación de contraseña: {0}",e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);
@@ -122,7 +122,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("No se pudo generar el token de autorización para transacciones: {0}.",e.Message));
+                Logs.Error(string.Format("No se pudo generar el token de autorización para transacciones: {0}",e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);    
