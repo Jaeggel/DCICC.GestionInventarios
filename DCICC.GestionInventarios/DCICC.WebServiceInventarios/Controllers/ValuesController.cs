@@ -20,9 +20,9 @@ namespace DCICC.WebServiceInventarios.Controllers
             return "DCICC WEB SERVICE INVENTARIOS";
         }
         [HttpPost("valor")]
-        public string valor([FromBody] string value)
+        public string valor([FromBody]  string value)
         {
-            return "hola mundo"+value;
+            return "hola mundo "+value;
         }
     }
 }

@@ -81,7 +81,7 @@ function cargarResponsablesCmb(unicos) {
 //Función para cargar la tabla de tickets Abiertos
 function cargarTablaTickets() {
     var str = '<table id="dataTableTickets" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Estado</th> <th>Laboratorio o Activo</th> <th>Descripción del Incidente</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado Por</th><th>Fecha de Atención del Ticket</th> <th>Atendido Por</th></tr> </thead>';
+    str += '<thead> <tr> <th>Estado del Ticket</th> <th>Laboratorio o Activo</th> <th>Descripción del Incidente</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado Por</th><th>Fecha de Atención del Ticket</th> <th>Atendido Por</th></tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < ticketsReportados.length; i++) {      

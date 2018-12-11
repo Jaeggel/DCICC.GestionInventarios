@@ -78,7 +78,7 @@ function consultaOperacion(tipoOpe) {
 //Función para cargar la tabla de Logs
 function cargarLogsTabla() {
     var str = '<table id="dataTableLogs" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th></tr> </thead>';
+    str += '<thead> <tr> <th>Responsable de la Operación</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLogs.length; i++) {
         //Método para dar formato a la fecha y hora
