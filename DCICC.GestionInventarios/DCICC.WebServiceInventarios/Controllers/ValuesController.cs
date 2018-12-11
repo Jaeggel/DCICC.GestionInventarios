@@ -21,7 +21,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             return "DCICC WEB SERVICE INVENTARIOS";
         }
         [HttpPost("valor")]
-        public string valor()
+        public string valor(string value)
         {
             return "hola mundo";
         }
