@@ -4,6 +4,7 @@ var datosStorage;
 var idStorageModificar;
 var urlEstado;
 var nombresStorage = [];
+var nicksStorage = [];
 
 //Método ajax para obtener los datos de categorias
 function obtenerStorage(url) {
@@ -198,12 +199,19 @@ function comprobarNombre() {
 function cargarNombresStorage() {
     for (var i = 0; i < datosStorage.length; i++) {
         nombresStorage[i] = datosStorage[i].NombreStorage;
+        nicksStorage[i] = datosStorage[i].NombreStorage;
     }
 }
-//Función para cargar los nombres en el campo de nombre de ingreso  de categoria
+//Función para cargar los nombres en el campo de nombre de ingreso  de storage
 $(function () {
     $("#NombreStorage").autocomplete({
-        source: nombresCat
+        source: nombresStorage
+    });
+});
+
+$(function () {
+    $("#NickStorage").autocomplete({
+        source: nicksStorage
     });
 });
 
@@ -228,6 +236,8 @@ function validarInputsVaciosModificacion() {
 }
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreStorage").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos -/_.";
+    document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula y sin espacios.\n Caracteres especiales permitidos -/_.";
+    document.getElementById("CapacidadStorage").title = "Solo números. De 1 a 100 GB o TB";
+    document.getElementById("DescripcionStorage").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos -/_.";
 }
