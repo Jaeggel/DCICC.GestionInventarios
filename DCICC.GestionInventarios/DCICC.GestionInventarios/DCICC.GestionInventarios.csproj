@@ -188,12 +188,14 @@
     <Compile Include="AccesoDatos\InventariosBD\AccesoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\ActivosAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\LUNAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\MaqVirtualesAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LaboratoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LogsAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\MarcasAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\RolesAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\SistOperativosAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\StorageAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\TicketsAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\TipoAccesorioAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\TipoActivoAccDatos.cs" />
@@ -209,11 +211,13 @@
     <Compile Include="Controllers\LaboratoriosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
+    <Compile Include="Controllers\LUNController.cs" />
     <Compile Include="Controllers\MaqVirtualesController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SistOperativoController.cs" />
+    <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TipoAccesorioController.cs" />
     <Compile Include="Controllers\TipoActivoController.cs" />
@@ -231,6 +235,7 @@
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Logs.cs" />
+    <Compile Include="Models\LUN.cs" />
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesHistoricoActivos.cs" />
@@ -240,10 +245,12 @@
     <Compile Include="Models\MensajesInventarios\MensajesActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLaboratorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesLogs.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesLUN.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesMaqVirtuales.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesMarcas.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesRoles.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesSistOperativos.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesStorage.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesTickets.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesTipoAccesorio.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesTipoActivo.cs" />
@@ -251,6 +258,7 @@
     <Compile Include="Models\Propositos.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SistOperativos.cs" />
+    <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\Tickets.cs" />
     <Compile Include="Models\TipoAccesorio.cs" />
     <Compile Include="Models\TipoActivo.cs" />
@@ -4773,6 +4781,9 @@
     <Content Include="Views\Reportes\ReportesTickets.cshtml" />
     <Content Include="Views\Reportes\ReportesLogs.cshtml" />
     <Content Include="Views\Error\CustomError.cshtml" />
+    <Content Include="Views\LUN\NuevaLUN.cshtml" />
+    <Content Include="Views\LUN\ModificarLUN.cshtml" />
+    <Content Include="Views\LUN\NuevoStorage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,278 @@
+﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
+    Autores: Andres Chisaguano - Joel Ludeña
+    Descripción: Vista para la consulta de LUNs y Storage.
+*@
+
+@* Sección para la definición del menú de administrador o auxiliar técnico *@
+@{
+    ViewBag.Title = "Consulta de LUNs/Storage";
+    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+}
+
+@* Sección para la navegación entre pestañas *@
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a>@ViewBag.Title </a></li>
+    <li><a class="active">LUNs/Storage</a></li>
+</ul>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">LUNs</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Storage</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de LUNs</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevaLUN", "LUN")'"><i class="fa fa-plus"></i> Agregar LUN</button></li>
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaActivos">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de Storage</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoStorage", "Storage")'"><i class="fa fa-plus"></i> Agregar Storage</button></li>
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarLUN", "Storage")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaStorage">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal de modificación de Activos *@
+<div class="modal fade" id="ModificarActivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Modificación de información del LUN</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            @* Formulario para actualización de datos de los tickets.
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* Modal de modificación de Accesorios *@
+<div class="modal fade" id="ModificarAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel3">Modificar Storage</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            @* Formulario para envio de datos de los componentes para modificación de un storage
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* Seccción para llamar al js de Categorías *@
+<script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
+<script>
+    $(document).ready(function () {
+        //Método para obtener la tabla de Categorías
+        
+        @*obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
+        datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
+        datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');
+        datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
+        cargarEstadosCmb();
+        cargarEstadosModificarCmb();
+        mensajesTooltips();
+
+        obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
+        datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
+        cargarEstadosAccesoriosCmb();
+        cargarEstadosAccesoriosMod();
+        cargarEstadosAccesoriosIng();
+        cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
+        mensajesTooltipsAccesorios();
+        mensajesTooltipsAccesoriosMod();
+
+        $(function () {
+            $('input[name="FechaIngresoActivo"]').daterangepicker({
+                startDate: new Date(),
+                format: 'dd-mm-yyyy',
+                singleDatePicker: true,
+                showDropdowns: true,
+                minDate: "01/01/1990",
+                maxDate: new Date()
+            }, function (start, end, label) {
+                //console.log(start);
+                var years = moment().diff(start, 'years');
+                //alert("You are " + years + " years old!");
+            });
+        });
+
+        $('#cqrAccesorio').hide();
+
+        $('#ModificarActivo').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor","#ccc");
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorTipo]").html('').hide();
+            $(".modal-body span[id=errorMarca]").html('').hide();
+            $(".modal-body span[id=errorLaboratorio]").html('').hide();
+            $(".modal-body span[id=errorEstado]").html('').hide();
+            $(".modal-body span[id=errorNombre]").html('').hide();
+            $(".modal-body span[id=errorModelo]").html('').hide();
+            $(".modal-body span[id=errorSerial]").html('').hide();
+            $("#NombreActivo").tooltip('hide');
+            $("#SerialActivo").tooltip('hide');
+            $("#ModeloActivo").tooltip('hide');
+            $("#CodigoUpsActivo").tooltip('hide');
+            $("#single_cal4").tooltip('hide');
+            $("#DescripcionActivo").tooltip('hide');
+            document.getElementById("confirmarActivo").disabled = false;
+        });
+
+        $('#ModificarEstadoActivo').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body span[id=errorEstadoActivo]").html('').hide();
+        });
+
+        $('#IngresoNuevoAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorTipoAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorNombreAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorSerialAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorModeloAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorEstadoAccesorioIng]").html('').hide();
+            $("#NombreAccesorioIngreso").tooltip('hide');
+            $("#SerialAccesorioIngreso").tooltip('hide');
+            $("#ModeloAccesorioIngreso").tooltip('hide');
+            $("#DescripcionAccesorioIngreso").tooltip('hide');
+            $('#cqrAccesorio').hide();
+            document.getElementById("confirmarAccesorioNuevo").disabled = false;
+        });
+
+        $('#ModificarAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorTipoAccesorio]").html('').hide();
+            $(".modal-body span[id=errorNombreAccesorio]").html('').hide();
+            $(".modal-body span[id=errorSerialAccesorio]").html('').hide();
+            $(".modal-body span[id=errorModeloAccesorio]").html('').hide();
+            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
+            $("#NombreAccesorio").tooltip('hide');
+            $("#SerialAccesorio").tooltip('hide');
+            $("#ModeloAccesorio").tooltip('hide');
+            $("#DescripcionAccesorio").tooltip('hide');
+            document.getElementById("confirmarAccesorioModificacion").disabled = false;
+        });
+
+        $('#ModificarEstadoAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
+        });*@
+
+
+    });
+
+</script>
+
