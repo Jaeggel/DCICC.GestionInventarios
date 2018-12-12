@@ -76,7 +76,7 @@ function formUpdateStorage(idStorage) {
             document.getElementById("CapacidadStorage").value = datosStorage[i].SizeStorage;
 
             var element = document.getElementById("UnidadStorage");
-            element.value = datosTipoActivo[i].UnidadStorage;
+            element.value = datosStorage[i].UnidadStorage;
 
             document.getElementById("DescripcionStorage").value = datosStorage[i].DescripcionStorage;
 
@@ -95,11 +95,18 @@ function formUpdateStorage(idStorage) {
 
 //Función para modificar la categoria especificada
 function modificarStorage(url_modificar) {
-    var nombreCategoria = document.getElementById("NombreCategoriaActivo").value;
-    var descripcionCategoria = document.getElementById("DescripcionCategoriaActivo").value;
-    var habilitadoCategoria = $('#HabilitadoCategoriaActivo').prop('checked');
+    var nombre=document.getElementById("NombreStorage").value;
+    var nick=document.getElementById("NickStorage").value;
+    var capacidad = document.getElementById("CapacidadStorage").value;
+    //Obtener valor del combobox
+    var cmbUnidad = document.getElementById("UnidadStorage");
+    var unidad = cmbUnidad.options[cmbUnidad.selectedIndex].value;
+    console.log(unidad);
+    //Obtener valores de inputs
+    var descripcion=document.getElementById("DescripcionStorage").value;
+    var habilitadoStorage = $('#HabilitadoStorage').prop('checked');
 
-    if (validarInputsVacios && validarNickVacios() && validarNumero()) {
+    if (validarInputsVacios() && validarNickVacios() && validarNumero()) {
         swal({
             title: 'Confirmación de Actualización',
             text: "¿Está seguro de modificar el registro?",
@@ -113,25 +120,29 @@ function modificarStorage(url_modificar) {
             if (result.value) {
                 //Método ajax para modificar la categoria de la base de datos
                 $.ajax({
-                    data: { "IdCategoriaActivo": idCategoriaModificar, "NombreCategoriaActivo": nombreCategoria, "DescripcionCategoriaActivo": descripcionCategoria, "HabilitadoCategoriaActivo": habilitadoCategoria },
+                    data: {
+                        "IdStorage": idStorageModificar, "NombreStorage": nombre, "NickStorage": nick,
+                        "CapacidadStorage": capacidad, "UnidadStorage": unidad,
+                        "DescripcionStorage": descripcion, "HabilitadoStorage": habilitadoStorage
+                    },
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             console.log("actualizacion exitosa");
-                            $('#ModificarCategoria').modal('hide');
-                            showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
-                            obtenerCategorias(url_metodo);
+                            $('#ModificarStorage').modal('hide');
+                            showNotify("Actualización exitosa", 'El Storage se ha modificado correctamente', "success");
+                            obtenerStorage(url_metodo);
                         } else {
-                            $('#ModificarCategoria').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo: ' + data.MensajeError, "error");
+                            $('#ModificarStorage').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar el Storage: ' + data.MensajeError, "error");
                         }
 
                     }
                 });
             } else {
-                $('#ModificarCategoria').modal('hide');
+                $('#ModificarStorage').modal('hide');
             }
         });
     }
@@ -253,12 +264,13 @@ function validarInputsVacios() {
     var nomStr = document.getElementById("NombreStorage");
     //Valicación para el campo de texto nombre de categoria
     if (nomStr.value.length <= 0) {
+        esValido = false;
         nomStr.style.borderColor = "#900C3F";
         $('#errorNombreStorage').html('El campo nombre no debe estar vacio').show();
         setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
     }else {
-                nomStr.style.borderColor = "#ccc";
-                $('#errorNombreStorage').html('').hide();
+        nomStr.style.borderColor = "#ccc";
+        $('#errorNombreStorage').html('').hide();
      }
     return esValido;
 }
@@ -269,6 +281,7 @@ function validarNickVacios() {
     var nickStr = document.getElementById("NickStorage");
     //Valicación para el campo de texto nombre de categoria
     if (nickStr.value.length <= 0) {
+        esValido = false;
         nickStr.style.borderColor = "#900C3F";
         $('#errorNickStorage').html('El campo nick no debe estar vacio').show();
         setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
