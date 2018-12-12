@@ -22,26 +22,6 @@ namespace DCICC.WebServiceInventarios.Controllers
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Consultas
         /// <summary>
-        /// Método (GET) para obtener una lista de LUN habilitadas de la base de datos.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("ObtenerLUNSHab")]
-        public MensajesLUN ObtenerLUNHab()
-        {
-            MensajesLUN msjLUN = new MensajesLUN();
-            ConsultasLUN objConsultasLUNBD = new ConsultasLUN();
-            msjLUN = objConsultasLUNBD.ObtenerLUN("");
-            if (msjLUN.OperacionExitosa)
-            {
-                Logs.Info("Consulta de LUNS realizada exitosamente.");
-            }
-            else
-            {
-                Logs.Error(msjLUN.MensajeError);
-            }
-            return msjLUN;
-        }
-        /// <summary>
         /// Método (GET) para obtener una lista de todas las LUN de la base de datos.
         /// </summary>
         /// <returns></returns>

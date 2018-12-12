@@ -51,6 +51,16 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 NombreSistOperativos = dr[11].ToString().Trim(),
                                 NombreLUN = dr[12].ToString().Trim(),
                             };
+                            string[] capacidadTemp = objMaqVirtuales.DiscoMaqVirtuales.Split(new char[0]);
+                            if (capacidadTemp.Length == 2)
+                            {
+                                objMaqVirtuales.SizeMaqVirtuales = int.Parse(capacidadTemp[0]);
+                                objMaqVirtuales.UnidadMaqVirtuales = capacidadTemp[1];
+                            }
+                            else
+                            {
+                                objMaqVirtuales.SizeMaqVirtuales = int.Parse(capacidadTemp[0]);
+                            }
                             lstMaqVirtuales.Add(objMaqVirtuales);
                         }
                         conn_BD.Close();

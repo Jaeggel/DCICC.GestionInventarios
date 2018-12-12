@@ -27,6 +27,9 @@
                         <li role="presentation" class="">
                             <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
                         </li>
+                        <li role="presentation" class="">
+                            <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Códigos QR</a>
+                        </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -87,6 +90,34 @@
                                 </div>
                             </div>
                         </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI códigos QR*@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Impresión de Códigos QR</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reporte en PDF*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Accesorios','dataTableAccesorios');"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaLotesQR"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,7 +166,6 @@
                                             <span id="errorLaboratorio" style="color:brown;"></span>
                                         </div>
                                     </div>
-
                                     <div class="form-group"></div>
                                     @* Combobox para seleccionar el estado del activo *@
                                     <div class="form-group">
@@ -151,14 +181,12 @@
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombre" style="color:brown;"></span>
                                     </div>
-
                                     @* Cuadro de texto para el ingreso del modelo de un activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorModelo" style="color:brown;"></span>
                                     </div>
-
                                     <div class="form-group">
                                         @* Cuadro de texto para el ingreso del serial activo *@
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
@@ -171,7 +199,6 @@
                                             <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="16" data-toggle="tooltip" data-placement="rigth" title="">
                                             <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                         </div>
-
                                     </div>
                                     @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
                                     <div class="form-group">
@@ -269,7 +296,6 @@
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -279,8 +305,6 @@
         </div>
     </div>
 </div>
-
-
 @* Modal de modificación de estado de activo*@
 <div class="modal fade" id="ModificarEstadoActivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -307,14 +331,12 @@
                                             <span id="errorEstadoActivo" style="color:brown;"></span>
                                         </div>
                                     </div>
-
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button type="submit" class="btn btn-success" onclick="actualizarEstadoActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -324,8 +346,6 @@
         </div>
     </div>
 </div>
-
-
 @* Modal de modificación de Accesorios *@
 <div class="modal fade" id="ModificarAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -344,7 +364,6 @@
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
-
                                     @* Combobox para seleccionar un Tipo de Accesorio *@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -406,8 +425,6 @@
         </div>
     </div>
 </div>
-
-
 @* Modal de modificación de estado de accesorio *@
 <div class="modal fade" id="ModificarEstadoAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -441,7 +458,6 @@
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -451,8 +467,6 @@
         </div>
     </div>
 </div>
-
-
 @* Modal de Ingreso de nuevo Accesorio *@
 <div class="modal fade" id="IngresoNuevoAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel5" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -471,7 +485,6 @@
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask" id="Paso3">
-
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>Escoja Tipo de Accesorio:</label>
@@ -479,32 +492,26 @@
                                             <span id="errorTipoAccesorioIng" style="color:brown;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-
-                                    </div>
+                                    <div class="form-group"></div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreActivoIngreso" type="text" class="form-control has-feedback-left" name="NombreActivoIngreso" placeholder="Nombre del Activo" maxlength="50"  readonly>
+                                        <input id="NombreActivoIngreso" type="text" class="form-control has-feedback-left" name="NombreActivoIngreso" placeholder="Nombre del Activo" maxlength="50" readonly>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                        
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="NombreAccesorioIngreso" type="text" class="form-control has-feedback-left" name="NombreAccesorioIngreso" placeholder="Nombre del Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="comprobarNombreAccesorio();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreAccesorioIng" style="color:brown;"></span>
                                     </div>
-
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="SerialAccesorioIngreso" type="text" class="form-control has-feedback-left" name="SerialAccesorioIngreso" placeholder="Serial del Accesorio" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorModeloAccesorioIng" style="color:brown;"></span>
                                     </div>
-
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="ModeloAccesorioIngreso" type="text" class="form-control has-feedback-left" name="ModeloAccesorioIngreso" placeholder="Modelo del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();"  maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <input id="ModeloAccesorioIngreso" type="text" class="form-control has-feedback-left" name="ModeloAccesorioIngreso" placeholder="Modelo del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorSerialAccesorioIng" style="color:brown;"></span>
                                     </div>
-
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <textarea id="DescripcionAccesorioIngreso" name="DescripcionAccesorioIngreso" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
                                         <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
@@ -517,23 +524,20 @@
                                             <span id="errorEstadoAccesorioIng" style="color:brown;"></span>
                                         </div>
                                     </div>
+                                    <div class="form-group" id="cqrAccesorio">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                            @using (Html.BeginForm("ObtenerPDFQRSimple", "Activos", FormMethod.Post, new { id = "GenPDFForm" }))
+                                            {
+                                                <div id="imgCQR">
 
-                                    <div class="form-group" id="cqrAccesorio" >
-                                        
-                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                                @using (Html.BeginForm("ObtenerPDFQRSimple", "Activos", FormMethod.Post, new { id = "GenPDFForm" }))
-                                                {
-                                                    <div id="imgCQR">
-
-                                                    </div>
-                                                    <strong>ID Código QR: </strong><span id="idCQRAccesorio" style="font-weight: normal;"></span>
-                                                    <br />
-                                                    <strong>Nombre Activo de TI: </strong><span id="nombreAccesorioIngresado" style="font-weight: normal;"></span>
-                                                    <br /><br />
-                                                    <a class="btn btn-default" id="btnGenPDF"><i class="fa fa-qrcode"></i> Imprimir QR</a>
-                                                }
-                                            </div>
-                                        
+                                                </div>
+                                                <strong>ID Código QR: </strong><span id="idCQRAccesorio" style="font-weight: normal;"></span>
+                                                <br />
+                                                <strong>Nombre Activo de TI: </strong><span id="nombreAccesorioIngresado" style="font-weight: normal;"></span>
+                                                <br /><br />
+                                                <a class="btn btn-default" id="btnGenPDF"><i class="fa fa-qrcode"></i> Imprimir QR</a>
+                                            }
+                                        </div>
                                     </div>
                                     <br />
                                     <div class="form-group text-center">
@@ -542,7 +546,6 @@
                                             <button type="button" class="btn btn-primary" onclick="limpiarModal();">Salir</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -552,11 +555,7 @@
         </div>
     </div>
 </div>
-
-
-
 @* Sección para visualizar los mensajes de error o de éxito de transacción *@
-
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -573,7 +572,6 @@
         }
     </script>
 }
-
 @* Seccción para llamar al js de Categorías *@
 <script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
 <script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
@@ -684,9 +682,6 @@
             $(".modal-body select").css("borderColor", "#ccc");
             $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
         });
-   
-
     });
-
 </script>
 

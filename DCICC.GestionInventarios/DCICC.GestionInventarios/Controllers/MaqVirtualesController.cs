@@ -83,6 +83,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevaMaqVirtual(MaqVirtuales infoMaqVirtual)
         {
+            infoMaqVirtual.DiscoMaqVirtuales = string.Format("{0} {1}", infoMaqVirtual.DiscoMaqVirtuales, infoMaqVirtual.UnidadMaqVirtuales);
             string mensajesMaqVirtuales = string.Empty;
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
@@ -187,6 +188,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ModificarMaqVirtual(MaqVirtuales infoMaqVirtual)
         {
+            infoMaqVirtual.DiscoMaqVirtuales = string.Format("{0} {1}", infoMaqVirtual.DiscoMaqVirtuales, infoMaqVirtual.UnidadMaqVirtuales);
             string mensajesMaqVirtuales = string.Empty;
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
