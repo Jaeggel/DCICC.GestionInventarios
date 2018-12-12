@@ -82,7 +82,7 @@
                                         <div class="form-horizontal form-label-left input_mask">
                                             @* Sección para la tabla de modificación mediante js *@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaStorage">
+                                                <div id="tablaModificarStorage">
 
                                                 </div>
                                             </div>
@@ -178,12 +178,12 @@
     </script>
 }
 @* Seccción para llamar al js de Categorías *@
-<script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
-<script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Storage.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Luns.js"></script>
 <script>
     $(document).ready(function () {
-        //Método para obtener la tabla de Categorías
-
+        //Métodos para Storage
+        obtenerStorage('@Url.Action("ObtenerStorageComp", "Lun")');
         @*obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');

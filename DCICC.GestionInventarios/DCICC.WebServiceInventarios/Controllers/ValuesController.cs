@@ -28,7 +28,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("obj")]
         public string obj([FromBody] Usuarios user)
         {
-            return "hola " + user.NickUsuario;
+            return "hola " + user.NickUsuario + "-"+ user.PasswordUsuario;
         }
     }
 }

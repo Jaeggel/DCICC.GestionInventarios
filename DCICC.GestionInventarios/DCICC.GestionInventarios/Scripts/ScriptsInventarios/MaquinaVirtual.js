@@ -3,6 +3,7 @@ var url_metodo;
 var propositos;
 var datosMaquinasV;
 var cmbSO;
+var datosLuns;
 var idMaquinaV;
 var urlEstado;
 var nombresMV = [];
@@ -53,6 +54,22 @@ function listaPropositos(url) {
             propositos = data;
             cargarPropositosCmb();
             
+        }, error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
+//Método ajax para obtener los datos de las luns
+function obtenerLuns(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("entrooo");
+            luns = data;
+            cargarPropositosCmb();
         }, error: function (e) {
             console.log(e);
         }
@@ -123,6 +140,18 @@ function cargarPropositosCmb() {
     str += '</select>';
     $("#cargarPropositos").html(str);
 }
+
+//Función para cargar el combobox de Luns
+function cargarLunsCmb() {
+    var str = '<select id="LunsMaqVirtuales" class="form-control" name="LunsMaqVirtuales" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < datosLuns.length; i++) {
+        str += '<option value="' + datosLuns[i].NombreProposito + '">' + datosLuns[i].NombreProposito + '</option>';
+    };
+    str += '</select>';
+    $("#cargarLuns").html(str);
+}
+
 
 //Función para setear los valores en los inputs
 function formUpdateMaquinaV(idMV) {

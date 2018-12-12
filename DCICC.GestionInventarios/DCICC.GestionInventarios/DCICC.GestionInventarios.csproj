@@ -4707,6 +4707,7 @@
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Login.js" />
     <Content Include="Scripts\ScriptsInventarios\Logs.js" />
+    <Content Include="Scripts\ScriptsInventarios\Luns.js" />
     <Content Include="Scripts\ScriptsInventarios\MaquinaVirtual.js" />
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
     <Content Include="Scripts\ScriptsInventarios\PerfilUsuario.js" />
@@ -4716,6 +4717,7 @@
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteLogs.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteMaqVir.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteTickets.js" />
+    <Content Include="Scripts\ScriptsInventarios\Storage.js" />
     <Content Include="Scripts\ScriptsInventarios\Tickets.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoActivo.js" />
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
