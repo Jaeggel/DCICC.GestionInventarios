@@ -128,7 +128,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 ReportePDF objReporte = new ReportePDF();
                 PdfPTable tablaReporte = objReporte.GenerarTablaReporte(info_DataTable);
-                bytesReportePDF = objReporte.GenerarReportePDF(tablaReporte, titulo_Reporte);
+                bytesReportePDF = objReporte.GenerarReportePDF(tablaReporte, titulo_Reporte,(string)Session["NombresUsuario"]);
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
                     Inline = true,

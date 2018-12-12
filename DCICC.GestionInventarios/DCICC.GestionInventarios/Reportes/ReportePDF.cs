@@ -2,12 +2,14 @@
 using iTextSharp.text.html;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using iTextSharp.tool.xml;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace DCICC.GestionInventarios.Reportes
@@ -23,7 +25,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="tablaReporte">Tabla para insertar en el Reporte</param>
         /// <param name="tituloReporte">Título que tendrá el Reporte</param>
         /// <returns></returns>
-        public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte)
+        public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte,string firmaUsuario)
         {
             byte[] bytesReportePDF;
             using (MemoryStream msReporte = new MemoryStream())
@@ -32,9 +34,10 @@ namespace DCICC.GestionInventarios.Reportes
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
-                    GenerarEncabezadoReporte(documentoReporte,writerReporte);
+                    GenerarEncabezadoReporte(documentoReporte, writerReporte);
                     GenerarTituloReporte(documentoReporte, tituloReporte);
                     documentoReporte.Add(tablaReporte);
+                    GenerarFirmaReporte(documentoReporte, firmaUsuario);
                     documentoReporte.Close();
                     bytesReportePDF = msReporte.ToArray();
                 }
@@ -103,6 +106,30 @@ namespace DCICC.GestionInventarios.Reportes
                     XMLWorkerHelper.GetInstance().ParseXHtml(writerReporte, documentoReporte, msHtml, msCss);
                 }
                 msCss.Close();
+            }
+        }
+        /// <summary>
+        /// Método para generar la firma del responsable del Reporte.
+        /// </summary>
+        /// <param name="documentoReporte"></param>
+        /// <param name="firmaUsuario"></param>
+        public void GenerarFirmaReporte(Document documentoReporte,string firmaUsuario)
+        {
+            using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
+            {
+                using (var sr = new StringReader("<br/><br/><br/><br/><br/>"))
+                {
+                    htmlWorker.Parse(sr);
+                }
+            }
+            Paragraph p = new Paragraph(new Chunk(new LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)));
+            documentoReporte.Add(p);
+            using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
+            {
+                using (var sr = new StringReader(string.Format("<div style='text-align: center;'><p style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'><b>Elaborado por: </b>{0}</p></div>", Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))))
+                {
+                    htmlWorker.Parse(sr);
+                }
             }
         }
     }

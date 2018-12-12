@@ -52,6 +52,7 @@ namespace DCICC.GestionInventarios.Controllers
                         Session["NickUsuario"] = datosUsuario.NickUsuario;
                         Session["CorreoUsuario"] = datosUsuario.CorreoUsuario;
                         Session["IpUsuario"] = ObtenerIPCliente();
+                        Session["NombresUsuario"] = datosUsuario.NombresUsuario;
                         //Definición del menú que tendrá el usuario en el sistema
                         if (datosUsuario.NombreRol.ToLower() == "administrador")
                         {
@@ -208,6 +209,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Info(string.Format("Cierre de sesión exitoso de: {0}.",(string)Session["NickUsuario"]));
                 RegistroSesionLogs("Logout");
                 Session["NickUsuario"] = null;
+                Session["NombresUsuario"] = null;
                 Session["CorreoUsuario"] = null;
                 Session["IpUsuario"] = null;
                 Session["PerfilUsuario"] = null;
