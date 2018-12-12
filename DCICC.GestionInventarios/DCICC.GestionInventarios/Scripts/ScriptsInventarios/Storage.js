@@ -9,6 +9,7 @@ var nicksStorage = [];
 //Método ajax para obtener los datos de categorias
 function obtenerStorage(url) {
     url_metodo = url;
+    console.log(url_metodo);
     $.ajax({
         dataType: 'json',
         url: url,
@@ -28,7 +29,7 @@ function obtenerStorage(url) {
 }
 
 //Función para obtener la url de modificación
-function urlEstados(url) {
+function urlEstadosStorage(url) {
     urlEstado = url;
 }
 
@@ -65,10 +66,8 @@ function cargarStorageTabla() {
 
 //Función para setear los valores en los inputs en modificaciones
 function formUpdateStorage(idStorage) {
-    console.log(idStorage);
     idStorageModificar = idStorage;
     for (var i = 0; i < datosStorage.length; i++) {
-        console.log(datosStorage[i].IdStorage);
         if (datosStorage[i].IdStorage == idStorage) {
             //Métodos para setear los valores a modificar
             document.getElementById("NombreStorage").value = datosStorage[i].NombreStorage;
@@ -101,7 +100,6 @@ function modificarStorage(url_modificar) {
     //Obtener valor del combobox
     var cmbUnidad = document.getElementById("UnidadStorage");
     var unidad = cmbUnidad.options[cmbUnidad.selectedIndex].value;
-    console.log(unidad);
     //Obtener valores de inputs
     var descripcion=document.getElementById("DescripcionStorage").value;
     var habilitadoStorage = $('#HabilitadoStorage').prop('checked');
@@ -130,7 +128,6 @@ function modificarStorage(url_modificar) {
                     success: function (data) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
-                            console.log("actualizacion exitosa");
                             $('#ModificarStorage').modal('hide');
                             showNotify("Actualización exitosa", 'El Storage se ha modificado correctamente', "success");
                             obtenerStorage(url_metodo);
@@ -326,7 +323,7 @@ function validarNumero() {
 
 
 //Mensajes para los tooltips
-function mensajesTooltips() {
+function mensajesTooltipStorage() {
     document.getElementById("NombreStorage").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula y sin espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CapacidadStorage").title = "Solo números. De 1 a 100 GB o TB";
