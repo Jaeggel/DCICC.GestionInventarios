@@ -52,7 +52,7 @@
                                             @* Sección para la tabla de modificación mediante js *@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div id="tablaActivos">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -72,8 +72,8 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoStorage", "Storage")'"><i class="fa fa-plus"></i> Agregar Storage</button></li>
-                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarLUN", "Storage")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoStorage", "LUN")'"><i class="fa fa-plus"></i> Agregar Storage</button></li>
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -83,7 +83,7 @@
                                             @* Sección para la tabla de modificación mediante js *@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div id="tablaStorage">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
 
-                                   
+
 
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
 
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -159,13 +159,31 @@
         </div>
     </div>
 </div>
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
+
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Registro Exitoso", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error en el registro", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
 @* Seccción para llamar al js de Categorías *@
 <script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
 <script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
 <script>
     $(document).ready(function () {
         //Método para obtener la tabla de Categorías
-        
+
         @*obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');

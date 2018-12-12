@@ -33,25 +33,7 @@ namespace DCICC.GestionInventarios.Controllers
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
-                return View();
-            }
-        }
-        /// <summary>
-        /// Método (GET) para mostrar la vista ModificarStorage
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ModificarStorage()
-        {
-            if ((string)Session["NickUsuario"] == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
-            else
-            {
-                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
-                ViewBag.Correo = (string)Session["CorreoUsuario"];
-                ViewBag.Menu = (string)Session["PerfilUsuario"];
-                return View();
+                return View("NuevoStorage");
             }
         }
         #endregion

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace DCICC.GestionInventarios.Reportes
@@ -20,7 +21,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="infoTable">Datatable con la información que se desplegará en el Excel</param> 
         /// <param name="tituloReporte">Título que se mostrará en el Excel</param>
         /// <returns></returns>
-        public MemoryStream GenerarReporteExcel(DataTable infoTable, string tituloReporte,string labFiltro)
+        public MemoryStream GenerarReporteExcel(DataTable infoTable, string tituloReporte,string labFiltro,string firmaUsuario)
         {
             MemoryStream memStream;
             //Cargar la plantilla para reportes en Excel
@@ -53,7 +54,9 @@ namespace DCICC.GestionInventarios.Reportes
                 ConfigCell(9, 1, 9, infoTable.Columns.Count, ws, infoTable.Columns.Count, null, false, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Center);
                 //Datos
                 ConfigCell(10, 1, 9 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, null, false, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
-                
+                //Elaborado por
+                ConfigCell(10 + infoTable.Rows.Count, 1, 10 + infoTable.Rows.Count, 1, ws, 1, "ELABORADO POR: ", false, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Left);
+                ConfigCell(10 + infoTable.Rows.Count, 2, 10 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()), true, false, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Left);
                 //Autoajustar las celdas para los datos
                 ws.Cells[8, 1, 8 + infoTable.Rows.Count, infoTable.Columns.Count].AutoFitColumns();
                 

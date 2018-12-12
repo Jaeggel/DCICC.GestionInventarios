@@ -153,7 +153,7 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 ReporteExcel objReporteExcel = new ReporteExcel();
-                streamReporteExcel = objReporteExcel.GenerarReporteExcel(info_DataTable, titulo_Reporte, lab_Filtro);
+                streamReporteExcel = objReporteExcel.GenerarReporteExcel(info_DataTable, titulo_Reporte, lab_Filtro, (string)Session["NombresUsuario"]);
                 Logs.Info("Reporte Excel generado correctamente.");
             }
             catch (Exception e)

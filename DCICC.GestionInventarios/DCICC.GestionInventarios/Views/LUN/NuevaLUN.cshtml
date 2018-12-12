@@ -1,17 +1,112 @@
-﻿
+﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
+    Autores: Andres Chisaguano - Joel Ludeña
+    Descripción: Vista para el ingreso de una nueva LUN.
+*@
+
+@* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    Layout = null;
+    ViewBag.Title = "LUN";
+    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
+@model DCICC.GestionInventarios.Models.LUN
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>NuevaLUN</title>
-</head>
-<body>
-    <div> 
+@* Sección para la navegación entre pestañas *@
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a href="@Url.Action("ModificarLUN", "LUN")">LUNs/Storage</a></li>
+    <li><a class="active">Nuevo</a></li>
+</ul>
+<div class="row">
+    <div class="col-md-2 col-sm-12 col-xs-12"></div>
+    @* Panel para mostrar las opciones de ingreso de una LUN *@
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Nueva LUN </h2>
+                <ul class="nav navbar-right panel_toolbox"></ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                @* Formulario para envio de datos de los componentes para el ingreso de una nueva LUN
+                    (Metodo de la clase) - Controlador (Controller) *@
+                @using (Html.BeginForm("NuevaLUN", "LUN"))
+                {
+                    <div class="form-horizontal form-label-left input_mask">
+                        @* Cuadro de texto para el ingreso del ID de una LUN *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input id="IdLUN" type="text" class="form-control has-feedback-left" name="IdLUN" placeholder="ID de la LUN" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorIdLUN" style="color:brown;"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del nombre de una LUN *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input id="NombreLUN" type="text" class="form-control has-feedback-left" name="NombreLUN" placeholder="Nombre de la LUN" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorNombreLUN" style="color:brown;"></span>
+                        </div>
+                        @* Combobox para seleccionar el sistema (storage) *@
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>* Escoja el Sistema:</label>
+                                <div id="cargarStorage"></div>
+                                <span id="errorStorage" style="color:brown;"></span>
+                            </div>
+                        </div>
+                        @* Cuadro de texto para el ingreso del tamaño de una LUN *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input id="SizeLUN" type="number" class="form-control has-feedback-left" name="SizeLUN" placeholder="Tamaño de la LUN" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <span class="fa fa-floppy-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Cuadro de texto para el ingreso del RAID de una LUN *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input id="RaidLUN" type="text" class="form-control has-feedback-left" name="RaidLUN" placeholder="RAID" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Combobox para seleccionar el tipo de conexión *@
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>* Escoja el Tipo de Conexión:</label>
+                                <div id="cargarTipoConexion"></div>
+                                <span id="errorTipoConexion" style="color:brown;"></span>
+                            </div>
+                        </div>
+                        @* Área de Texto para el ingreso de la descripción de una LUN *@
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <textarea id="DescripcionLUN" name="DescripcionLUN" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la LUN" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+                            <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        @* Checkbox para habilitar o deshabilitar el uso de la nueva LUN *@
+                        <div class="form-group">
+                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar LUN?</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input name="HabilitadoLUN" type="checkbox" class="js-switch" value="true" checked />
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        @* Sección de botones para guardar LUN o cancelar el registro *@
+                        <div class="form-group text-center">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <button id="confirmarLUN" type="submit" class="btn btn-success">Ingresar</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+@* Seccción para llamar al js de LUN *@
+@*<script src="~/Scripts/ScriptsInventarios/LUN.js"></script>*@
+<script>
+    $(document).ready(function () {
+        @*//Método para obtener la tabla de LUN
+        obtenerLUN('@Url.Action("ObtenerLUNComp", "LUN")');
+        mensajesTooltips();
+        //Método para evitar la duplicidad de nombres de LUN
+        $('#NombreLUN').blur(function () {
+            comprobarNombre();
+        });*@
+    });
+</script>
+

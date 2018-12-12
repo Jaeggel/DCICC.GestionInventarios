@@ -15,11 +15,11 @@ namespace DCICC.GestionInventarios.Models
 
         public string NombreLUN { get; set; }
 
-        public string NombreStorage { get; set; }
+        public string NombreStorage { get; set; }//COMBO
 
         public string RaidLUN { get; set; }
 
-        public string TipoConexionLUN { get; set; }
+        public string TipoConexionLUN { get; set; }//COMBO
 
         public string DescripcionLUN { get; set; }
 
