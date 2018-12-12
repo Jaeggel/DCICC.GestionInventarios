@@ -159,26 +159,26 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
-                                        <br>
-                                        @*Sección de filtros de búsqueda para realizar la consulta*@
-                                        <div class="form-group">
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <label>Fecha de Inicio: (mm/dd/yyyy)</label>
-                                                <input name="FechaInicioHist" type="text" class="form-control has-feedback-left" id="FechaInicioHist" placeholder="Fecha de Inicio" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
-                                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <label>Fecha de Fin: (mm/dd/yyyy)</label>
-                                                <input name="FechaFinHist" type="text" class="form-control has-feedback-left" id="FechaFinHist" placeholder="Fecha de Fin" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
-                                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
-                                                <button type="button" class="btn btn-default" onclick="consultarFechasHist();">Consultar</button>
-                                                <button type="button" class="btn btn-default" onclick="limpiarFechas();">Limpiar</button>
-                                            </div>
-                                        </div>
-                                        <br />
+                                        <br>                                        
                                         <div class="form-horizontal form-label-left input_mask">
+                                            @*Sección de filtros de búsqueda para realizar la consulta*@
+                                            <div class="form-group">
+                                                <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+                                                    <label>Fecha de Inicio: (mm/dd/yyyy)</label>
+                                                    <input name="FechaInicioHist" type="text" class="form-control has-feedback-left" id="FechaInicioHist" placeholder="Fecha de Inicio" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                                </div>
+                                                <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+                                                    <label>Fecha de Fin: (mm/dd/yyyy)</label>
+                                                    <input name="FechaFinHist" type="text" class="form-control has-feedback-left" id="FechaFinHist" placeholder="Fecha de Fin" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                                </div>
+                                                <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
+                                                    <button type="button" class="btn btn-default" onclick="consultarFechasHist();">Consultar</button>
+                                                    <button type="button" class="btn btn-default" onclick="limpiarFechas();">Limpiar</button>
+                                                </div>
+                                            </div>
+                                            <br />
                                             @* Sección para la tabla de modificación mediante js *@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div id="tablaHistoricos"> </div>
