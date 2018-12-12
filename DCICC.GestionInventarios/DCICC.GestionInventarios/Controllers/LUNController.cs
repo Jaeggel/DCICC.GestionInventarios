@@ -141,7 +141,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(string.Format("{0}: {1}", mensajesStorage, e.Message));
                 return View();
             }
-            return RedirectToAction("ModificarStorage", "Storage");
+            return RedirectToAction("ModificarLUN", "LUN");
         }
         #endregion
         #region Actualizaciones (POST)

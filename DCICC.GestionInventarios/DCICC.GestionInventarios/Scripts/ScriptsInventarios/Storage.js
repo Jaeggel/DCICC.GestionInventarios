@@ -40,8 +40,8 @@ function cargarStorageTabla() {
     for (var i = 0; i < datosStorage.length; i++) {
         str += '<tr><td>' + datosStorage[i].NombreStorage +
             '</td><td>' + datosStorage[i].NickStorage+
-            '<tr><td>' + datosStorage[i].CapacidadStorage +
-            '<tr><td>' + datosStorage[i].DescripcionStorage ;
+            '</td><td>' + datosStorage[i].CapacidadStorage +
+            '</td><td>' + datosStorage[i].DescripcionStorage ;
 
         if (datosStorage[i].HabilitadoStorage) {
             str += '</td><td> Habilitado';
@@ -64,34 +64,42 @@ function cargarStorageTabla() {
 }
 
 //Función para setear los valores en los inputs en modificaciones
-function formUpdateCategoria(idCategoria) {
-    idCategoriaModificar = idCategoria;
+function formUpdateStorage(idStorage) {
+    console.log(idStorage);
+    idStorageModificar = idStorage;
     for (var i = 0; i < datosStorage.length; i++) {
-        if (datosStorage[i].IdCategoriaActivo == idCategoria) {
+        console.log(datosStorage[i].IdStorage);
+        if (datosStorage[i].IdStorage == idStorage) {
             //Métodos para setear los valores a modificar
-            document.getElementById("NombreCategoriaActivo").value = datosStorage[i].NombreCategoriaActivo;
-            document.getElementById("DescripcionCategoriaActivo").value = datosStorage[i].DescripcionCategoriaActivo;
+            document.getElementById("NombreStorage").value = datosStorage[i].NombreStorage;
+            document.getElementById("NickStorage").value = datosStorage[i].NickStorage;
+            document.getElementById("CapacidadStorage").value = datosStorage[i].SizeStorage;
+
+            var element = document.getElementById("UnidadStorage");
+            element.value = datosTipoActivo[i].UnidadStorage;
+
+            document.getElementById("DescripcionStorage").value = datosStorage[i].DescripcionStorage;
 
             //Método para el check del update de Categorias
-            var valor = datosStorage[i].HabilitadoCategoriaActivo;
-            var estado = $('#HabilitadoCategoriaActivo').prop('checked');
+            var valor = datosStorage[i].HabilitadoStorage;
+            var estado = $('#HabilitadoStorage').prop('checked');
             if (estado && valor == false) {
-                document.getElementById("HabilitadoCategoriaActivo").click();
+                document.getElementById("HabilitadoStorage").click();
             }
             if (estado == false && valor == true) {
-                document.getElementById("HabilitadoCategoriaActivo").click();
+                document.getElementById("HabilitadoStorage").click();
             }
         };
     };
 }
 
 //Función para modificar la categoria especificada
-function modificarCategoria(url_modificar) {
+function modificarStorage(url_modificar) {
     var nombreCategoria = document.getElementById("NombreCategoriaActivo").value;
     var descripcionCategoria = document.getElementById("DescripcionCategoriaActivo").value;
     var habilitadoCategoria = $('#HabilitadoCategoriaActivo').prop('checked');
 
-    if (validarInputsVaciosModificacion()) {
+    if (validarInputsVacios && validarNickVacios() && validarNumero()) {
         swal({
             title: 'Confirmación de Actualización',
             text: "¿Está seguro de modificar el registro?",
@@ -131,16 +139,16 @@ function modificarCategoria(url_modificar) {
 }
 
 //Función para habilitar o deshabilitar la categoria
-function habilitarOdeshabilitar(idCat, estadoCat) {
+function habilitarOdeshabilitar(idStr, estadoStr) {
     var nuevoEstado = true;
-    if (estadoCat) {
+    if (estadoStr) {
         nuevoEstado = false;
     } else {
         nuevoEstado = true;
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado la Categoria?",
+        text: "¿Está seguro de Cambiar de Estado el Storage?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -150,16 +158,16 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                data: { "IdCategoriaActivo": idCat, "HabilitadoCategoriaActivo": nuevoEstado },
+                data: { "IdStorage": idStr, "HabilitadoStorage": nuevoEstado },
                 url: urlEstado,
                 type: 'post',
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado de la Categoria de Activo se ha modificado correctamente', "success");
-                        obtenerCategorias(url_metodo);
+                        showNotify("Actualización exitosa", 'El Estado del Storage se ha modificado correctamente', "success");
+                        obtenerStorage(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la Categoría del Activo: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Storage: ' + data.MensajeError, "error");
                     }
                 }
             });
@@ -169,25 +177,48 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
     });
 }
 
-////////////Función para evitar nombres de categorias repetidos
+////////////Función para evitar nombres de storage repetidos
 function comprobarNombre() {
-    var nomCat = document.getElementById("NombreCategoriaActivo");
-    nomCat.value = nomCat.value.toUpperCase();
-    if (nomCat.value.length <= 0) {
-        nomCat.style.borderColor = "#900C3F";
-        $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
-        setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
+    var nomStr = document.getElementById("NombreStorage");
+    nomStr.value = nomStr.value.toUpperCase();
+    if (nomStr.value.length <= 0) {
+        nomStr.style.borderColor = "#900C3F";
+        $('#errorNombreStorage').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
     } else {
         for (var i = 0; i < datosStorage.length; i++) {
-            if ((datosStorage[i].NombreCategoriaActivo).toUpperCase() == nomCat.value) {
-                nomCat.style.borderColor = "#900C3F";
-                $('#errorNombreCategoria').html("El nombre de la categoria: " + nomCat.value + " ya existe").show();
-                setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
-                nomCat.value = "";
+            if ((datosStorage[i].NombreStorage).toUpperCase() == nomStr.value) {
+                nomStr.style.borderColor = "#900C3F";
+                $('#errorNombreStorage').html("El nombre del Storage: " + nomStr.value + " ya existe").show();
+                setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
+                nomStr.value = "";
                 break;
             } else {
-                nomCat.style.borderColor = "#ccc";
-                $('#errorNombreCategoria').html('').hide();
+                nomStr.style.borderColor = "#ccc";
+                $('#errorNombreStorage').html('').hide();
+            }
+        }
+    }
+}
+
+function comprobarNick() {
+    var nickStr = document.getElementById("NickStorage");
+    nickStr.value = nickStr.value.toUpperCase();
+    if (nickStr.value.length <= 0) {
+        nickStr.style.borderColor = "#900C3F";
+        $('#errorNickStorage').html('El campo nick no debe estar vacio').show();
+        setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosStorage.length; i++) {
+            if ((datosStorage[i].NickStorage).toUpperCase() == nickStr.value) {
+                nickStr.style.borderColor = "#900C3F";
+                $('#errorNickStorage').html("El nick del Storage: " + nickStr.value + " ya existe").show();
+                setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
+                nickStr.value = "";
+                break;
+            } else {
+                nickStr.style.borderColor = "#ccc";
+                $('#errorNickStorage').html('').hide();
             }
         }
     }
@@ -199,7 +230,7 @@ function comprobarNombre() {
 function cargarNombresStorage() {
     for (var i = 0; i < datosStorage.length; i++) {
         nombresStorage[i] = datosStorage[i].NombreStorage;
-        nicksStorage[i] = datosStorage[i].NombreStorage;
+        nicksStorage[i] = datosStorage[i].NickStorage;
     }
 }
 //Función para cargar los nombres en el campo de nombre de ingreso  de storage
@@ -216,28 +247,75 @@ $(function () {
 });
 
 /////////////Funciones para validaciones de campos de texto
-function validarInputsVaciosModificacion() {
+function validarInputsVacios() {
     var esValido = true;
-    var boton = document.getElementById("confirmarCategoria");
-    var nomCat = document.getElementById("NombreCategoriaActivo");
+    
+    var nomStr = document.getElementById("NombreStorage");
     //Valicación para el campo de texto nombre de categoria
-    if (nomCat.value.length <= 0) {
-        esValido = false;
-        nomCat.style.borderColor = "#900C3F";
-        $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
-        setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
-        boton.disabled = true;
+    if (nomStr.value.length <= 0) {
+        nomStr.style.borderColor = "#900C3F";
+        $('#errorNombreStorage').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
+    }else {
+                nomStr.style.borderColor = "#ccc";
+                $('#errorNombreStorage').html('').hide();
+     }
+    return esValido;
+}
+
+function validarNickVacios() {
+    var esValido = true;
+
+    var nickStr = document.getElementById("NickStorage");
+    //Valicación para el campo de texto nombre de categoria
+    if (nickStr.value.length <= 0) {
+        nickStr.style.borderColor = "#900C3F";
+        $('#errorNickStorage').html('El campo nick no debe estar vacio').show();
+        setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
     } else {
-        nomCat.style.borderColor = "#ccc";
-        $('#errorNombreCategoria').html('').hide();
-        boton.disabled = false;
+        nickStr.style.borderColor = "#ccc";
+        $('#errorNickStorage').html('').hide();
     }
     return esValido;
 }
+
+//Función para validar disco duro y Ram
+function validarNumero() {
+    var esValido = true;
+    var boton = document.getElementById("confirmarMV");
+    var capa = document.getElementById("CapacidadStorage");
+    //Validar memoria capa
+    if (capa.value.length <= 0) {
+        esValido = false;
+        capa.value = "";
+        capa.style.borderColor = "#900C3F";
+        $('#errorCapacidadStorage').html('El campo capacidad no debe estar vacio').show();
+        setTimeout("$('#errorCapacidadStorage').html('').hide('slow')", 6000);
+    } else if (capa.value < 1) {
+        esValido = false;
+        capa.value = "";
+        capa.style.borderColor = "#900C3F";
+        $('#errorCapacidadStorage').html('El rango de capacidad es de 1 a 100').show();
+        setTimeout("$('#errorCapacidadStorage').html('').hide('slow')", 6000);
+    } else if (capa.value > 100) {
+        esValido = false;
+        capa.value = "";
+        capa.style.borderColor = "#900C3F";
+        $('#errorCapacidadStorage').html('No se puede ingresar un valor mayor a 100').show();
+        setTimeout("$('#errorCapacidadStorage').html('').hide('slow')", 6000);
+    } else {
+        capa.style.borderColor = "#ccc";
+        $('#errorCapacidadStorage').html('').hide();
+    }
+    return esValido;
+}
+
+
+
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreStorage").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos -/_.";
-    document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula y sin espacios.\n Caracteres especiales permitidos -/_.";
+    document.getElementById("NombreStorage").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula y sin espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CapacidadStorage").title = "Solo números. De 1 a 100 GB o TB";
-    document.getElementById("DescripcionStorage").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos -/_.";
+    document.getElementById("DescripcionStorage").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

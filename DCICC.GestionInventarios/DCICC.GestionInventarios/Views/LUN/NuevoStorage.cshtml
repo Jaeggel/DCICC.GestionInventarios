@@ -37,23 +37,24 @@
                         <label>*Nombre de Storage</label>
                         <input id="NombreStorage" type="text" class="form-control has-feedback-left" name="NombreStorage" placeholder="HP 3PAR 8200" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        <span id="errorNombreLab" style="color:brown;"></span>
+                        <span id="errorNombreStorage" style="color:brown;"></span>
                     </div>
                     @* Cuadro de texto para el ingreso del nick de un Storage *@
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                         <label>*Nick de Storage</label>
                         <input id="NickStorage" type="text" class="form-control has-feedback-left" name="NickStorage" placeholder="3PAR-UPS" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        <span id="errorNombreLab" style="color:brown;"></span>
+                        <span id="errorNickStorage" style="color:brown;"></span>
                     </div>
                     @* Cuadro de texto para el ingreso de la capacidad de un Storage *@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <label>*Capacidad de Storage</label>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">                            
+                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                             <input id="CapacidadStorage" type="number" class="form-control has-feedback-left" name="CapacidadStorage" placeholder="20 TB" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorCapacidadStorage" style="color:brown;"></span>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <select id="UnidadStorage" class="form-control" name="UnidadStorage" required>
@@ -79,7 +80,7 @@
                     @* Sección de botones para guardar un Storage o cancelar el registro *@
                     <div class="form-group text-center">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <button id="confirmarLab" type="submit" class="btn btn-success">Ingresar</button>
+                            <button type="submit" class="btn btn-success">Ingresar</button>
                             <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'">Cancelar</button>
                         </div>
                     </div>
@@ -95,12 +96,20 @@
 <script>
     $(document).ready(function () {
         //Método para obtener la tabla de Storage
-        obtenerStorage('@Url.Action("ObtenerStorageComp", "Storage")');
+        obtenerStorage('@Url.Action("ObtenerStorageComp", "Lun")');
         mensajesTooltips();
         //Método para evitar la duplicidad de nombres de Storage
-        //$('#NombreStorage').blur(function () {
-        //    comprobarNombre();
-        //});
+        $('#NombreStorage').blur(function () {
+            comprobarNombre();
+        });
+
+        $('#NickStorage').blur(function () {
+            comprobarNick();
+        });
+
+        $('#CapacidadStorage').blur(function () {
+            validarNumero();
+        });
 
     });
 </script>

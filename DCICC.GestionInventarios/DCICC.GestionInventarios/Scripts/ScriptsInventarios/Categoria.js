@@ -11,7 +11,7 @@ function obtenerCategorias(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             console.log("Datos Exitosos");
             datosCategorias = data;
