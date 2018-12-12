@@ -2,8 +2,9 @@
 var url_metodo;
 var datosLuns;
 var cmbStorage;
+var cmbStorageComp;
 var idLunModificar;
-var urlEstado;
+var urlEstadoLuns;
 var nombresLun = [];
 
 //Método ajax para obtener los datos de categorias
@@ -22,12 +23,12 @@ function obtenerLuns(url) {
                     "url": url_idioma
                 }
             });
-            //cargarNombresStorage();
+            cargarNombresLun();
         }
     });
 }
 
-//Método ajax para obtener los datos de categorias
+//Método ajax para obtener los datos de StorageHab
 function obtenerCmbStorageHab(url) {    
     $.ajax({
         dataType: 'json',
@@ -41,7 +42,7 @@ function obtenerCmbStorageHab(url) {
     });
 }
 
-//Función para cargar el combobox de Storage
+//Función para cargar el combobox de StorageHab
 function cargarStorageCmb() {
     var str = '<select id="IdStorage" class="form-control" name="IdStorage" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -52,10 +53,33 @@ function cargarStorageCmb() {
     $("#cargarStorage").html(str);
 }
 
+//Método ajax para obtener los datos de todos Storage
+function obtenerCmbStorageComp(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("Datos Exitosos");
+            cmbStorageComp = data;
+            cargarStorageCompCmb();
+        }
+    });
+}
+
+//Función para cargar el combobox de Storage
+function cargarStorageCompCmb() {
+    var str = '<select id="IdStorage" class="form-control" name="IdStorage" required>';
+    for (var i = 0; i < cmbStorageComp.length; i++) {
+        str += '<option value="' + cmbStorageComp[i].IdStorage + '">' + cmbStorageComp[i].NickStorage + '</option>';
+    };
+    str += '</select>';
+    $("#cargarStorage").html(str);
+}
 
 //Función para obtener la url de modificación
-function urlEstados(url) {
-    urlEstado = url;
+function urlEstadosLun(url) {
+    urlEstadoLuns = url;
 }
 
 //Función para cargar la tabla de Categorias
@@ -76,18 +100,154 @@ function cargarLunTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarStorage" onclick = "formUpdateStorage(' + datosLuns[i].IdLUN + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarLuns" onclick = "formUpdateLun(' + datosLuns[i].IdLUN + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosLuns[i].HabilitadoLUN) {
-            str += '<button type = "button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosLuns[i].IdLUN + ',' + datosLuns[i].HabilitadoLUN + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
+            str += '<button type = "button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitarLun(' + datosLuns[i].IdLUN + ',' + datosLuns[i].HabilitadoLUN + ');" > <strong><span class="fa fa-toggle-on"></span></strong></button> ';
         } else {
-            str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosLuns[i].IdLUN + ',' + datosLuns[i].HabilitadoLUN + ');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
+            str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitarLun(' + datosLuns[i].IdLUN + ',' + datosLuns[i].HabilitadoLUN + ');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
         }
         str += '</div></div></td></tr>';
     };
     str += '</tbody></table>';
     $("#tablaModificarLuns").html(str);
+}
+
+//Función para setear los valores en los inputs en modificaciones
+function formUpdateLun(idLun) {
+    idLunModificar = idLun;
+    for (var i = 0; i < datosLuns.length; i++) {
+        if (datosLuns[i].IdLUN == idLun) {
+            //Métodos para setear los valores a modificar
+            document.getElementById("NombreLUN").value = datosLuns[i].NombreLUN;
+            //Método para setear combobox
+            var element = document.getElementById("IdStorage");
+            element.value = datosLuns[i].IdStorage;
+            //Método para setear inputs
+            document.getElementById("CapacidadLUN").value = datosLuns[i].SizeLUN;
+
+            var element1 = document.getElementById("UnidadLUN");
+            element1.value = datosLuns[i].UnidadLUN;
+
+            var element1 = document.getElementById("RaidTPLUN");
+            element1.value = datosLuns[i].RaidTPLUN;
+
+            document.getElementById("DescripcionLUN").value = datosLuns[i].DescripcionLUN;
+
+            //Método para el check del update de Categorias
+            var valor = datosLuns[i].HabilitadoLUN;
+            var estado = $('#HabilitadoLUN').prop('checked');
+            if (estado && valor == false) {
+                document.getElementById("HabilitadoLUN").click();
+            }
+            if (estado == false && valor == true) {
+                document.getElementById("HabilitadoLUN").click();
+            }
+        }
+    }
+}
+
+//Función para modificar la categoria especificada
+function modificarLun(url_modificar) {
+    //Métodos para setear los valores a modificar
+    var nombre= document.getElementById("NombreLUN").value;
+    //Método para setear combobox
+    //Obtener valor del combobox
+    var cmbStor = document.getElementById("IdStorage");
+    var idStor = cmbStor.options[cmbStor.selectedIndex].value;
+
+    //Método para setear inputs
+    var capacidad=document.getElementById("CapacidadLUN").value;
+
+    var cmbUnidad = document.getElementById("UnidadLUN");
+    var unidad = cmbUnidad.options[cmbUnidad.selectedIndex].value;
+
+    var cmbRaid = document.getElementById("RaidTPLUN");
+    var raid = cmbRaid.options[cmbRaid.selectedIndex].value;
+
+    var descripcion=document.getElementById("DescripcionLUN").value;
+    var habilitadoLun = $('#HabilitadoLUN').prop('checked');
+
+    if (validarNombreLun() && validarNumeroLun()) {
+        swal({
+            title: 'Confirmación de Actualización',
+            text: "¿Está seguro de modificar el registro?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#26B99A',
+            cancelButtonColor: '#337ab7',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                //Método ajax para modificar la categoria de la base de datos
+                $.ajax({
+                    data: {
+                        "IdLUN": idLunModificar, "IdStorage": idStor, "NombreLUN": nombre,
+                        "CapacidadLUN": capacidad, "UnidadLUN": unidad, "RaidTPLUN": raid,
+                        "DescripcionLUN": descripcion, "HabilitadoLUN": habilitadoLun
+                    },
+                    url: url_modificar,
+                    type: 'post',
+                    success: function (data) {
+                        console.log(data.OperacionExitosa);
+                        if (data.OperacionExitosa) {
+                            $('#ModificarLuns').modal('hide');
+                            showNotify("Actualización exitosa", 'La LUN se ha modificado correctamente', "success");
+                            obtenerLuns(url_metodo);
+                        } else {
+                            $('#ModificarLuns').modal('hide');
+                            showNotify("Error en la Actualización", 'No se ha podido modificar la LUN: ' + data.MensajeError, "error");
+                        }
+
+                    }
+                });
+            } else {
+                $('#ModificarLuns').modal('hide');
+            }
+        });
+    }
+
+}
+
+//Función para habilitar o deshabilitar la categoria
+function habilitarOdeshabilitarLun(idLun, estadoLun) {
+    var nuevoEstado = true;
+    if (estadoLun) {
+        nuevoEstado = false;
+    } else {
+        nuevoEstado = true;
+    }
+    swal({
+        title: 'Confirmación de Cambio de Estado',
+        text: "¿Está seguro de Cambiar de Estado la LUN?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: { "IdLUN": idLun, "HabilitadoLUN": nuevoEstado },
+                url: urlEstadoLuns,
+                type: 'post',
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Actualización exitosa", 'La LUN se ha modificado correctamente', "success");
+                        obtenerLuns(url_metodo);
+                    } else {
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la LUN: ' + data.MensajeError, "error");
+                    }
+                }
+            });
+        } else {
+
+        }
+    });
 }
 
 
@@ -129,6 +289,24 @@ function comprobarNombreLun() {
     }
 }
 
+////////////Función para evitar nombres de storage repetidos
+function validarNombreLun() {
+    var esValido = true;
+    var nomLun = document.getElementById("NombreLUN");
+    nomLun.value = nomLun.value.toUpperCase();
+    if (nomLun.value.length <= 0) {
+        esValido = false;
+        nomLun.style.borderColor = "#900C3F";
+        $('#errorNombreLUN').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreLUN').html('').hide('slow')", 6000);
+    } else {
+        nomLun.style.borderColor = "#ccc";
+        $('#errorNombreLUN').html('').hide();
+    }
+    return esValido;
+
+}
+
 
 //Función para validar disco duro 
 function validarNumeroLun() {
@@ -159,6 +337,9 @@ function validarNumeroLun() {
     }
     return esValido;
 }
+
+
+
 
 //Mensajes para los tooltips
 function mensajesTooltipLun() {

@@ -42,7 +42,7 @@
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevaLUN", "LUN")'"><i class="fa fa-plus"></i> Agregar LUN</button></li>
-                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="obtenerLuns('@Url.Action("ObtenerLUNComp", "LUN")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -106,7 +106,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Modificación de información de Storage</h4>
+                <h4 class="modal-title" id="myModalLabel">Modificación de Storage</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -180,14 +180,14 @@
 
 
 @* Modal de modificación de LUNS *@
-<div class="modal fade" id="ModificarAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+<div class="modal fade" id="ModificarLuns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel3">Modificar Storage</h4>
+                <h4 class="modal-title" id="myModalLabel1">Modificación de LUN's</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -197,7 +197,70 @@
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
+                                    @* Cuadro de texto para el ingreso del nombre de una LUN *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>*Nombre de LUN</label>
+                                        <input id="NombreLUN" type="text" class="form-control has-feedback-left" name="NombreLUN" placeholder="CDP_REPOSITORIO" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNombreLUN" style="color:brown;"></span>
+                                    </div>
+                                    @* Combobox para seleccionar el sistema (storage) *@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>* Escoja el Sistema:</label>
+                                            <div id="cargarStorage"></div>
+                                            <span id="errorcmbStorage" style="color:brown;"></span>
+                                        </div>
+                                    </div>
 
+                                    @* Cuadro de texto para el ingreso de la capacidad de una Lun *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label>*Capacidad de LUN</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <input id="CapacidadLUN" type="number" class="form-control has-feedback-left" name="CapacidadLUN" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                            <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+                                            <span id="errorCapacidadLun" style="color:brown;"></span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <select id="UnidadLUN" class="form-control" name="UnidadLUN" required>
+                                                <option value="GB">GB</option>
+                                                <option value="TB">TB</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    @* Cuadro de texto para el ingreso del RAID de una LUN *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>*Tipo de RAID y Conexión</label>
+                                        <select id="RaidTPLUN" class="form-control" name="RaidTPLUN" required>
+                                            <option value="RAID 1 FC">RAID 1 FC</option>
+                                            <option value="RAID 5 FC">RAID 5 FC</option>
+                                            <option value="RAID 5 SSD">RAID 5 SSD</option>
+                                        </select>
+                                    </div>
+
+                                    @* Área de Texto para el ingreso de la descripción de una LUN *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="DescripcionLUN" name="DescripcionLUN" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la LUN" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Checkbox para habilitar o deshabilitar el uso de la nueva LUN *@
+                                    <div class="form-group">
+                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar LUN?</label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input id="HabilitadoLUN" name="HabilitadoLUN" type="checkbox" class="js-switch" value="true" checked />
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar LUN o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button id="confirmarLUN" type="submit" class="btn btn-success" onclick="modificarLun('@Url.Action("ModificarLUN", "LUN")');">Modificar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -208,6 +271,7 @@
         </div>
     </div>
 </div>
+
 @* Sección para visualizar los mensajes de error o de éxito de transacción *@
 
 @if (TempData["Mensaje"] != null)
@@ -251,87 +315,22 @@
 
         //Métodos para Luns
         obtenerLuns('@Url.Action("ObtenerLUNComp", "LUN")');
+        obtenerCmbStorageComp('@Url.Action("ObtenerStorageComp", "LUN")');
+        urlEstadosLun('@Url.Action("ModificarEstadoLUN", "LUN")');
         mensajesTooltipLun();
-        @*obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
-        datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
-        cargarEstadosAccesoriosCmb();
-        cargarEstadosAccesoriosMod();
-        cargarEstadosAccesoriosIng();
-        cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
-        mensajesTooltipsAccesorios();
-        mensajesTooltipsAccesoriosMod();
 
-        $('#ModificarActivo').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor","#ccc");
-            $(".modal-body input").val("");
+        $('#ModificarLuns').on('hidden.bs.modal', function () {
+            $(".modal-body select").css("borderColor", "#ccc");
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");
-            $(".modal-body span[id=errorTipo]").html('').hide();
-            $(".modal-body span[id=errorMarca]").html('').hide();
-            $(".modal-body span[id=errorLaboratorio]").html('').hide();
-            $(".modal-body span[id=errorEstado]").html('').hide();
-            $(".modal-body span[id=errorNombre]").html('').hide();
-            $(".modal-body span[id=errorModelo]").html('').hide();
-            $(".modal-body span[id=errorSerial]").html('').hide();
-            $("#NombreActivo").tooltip('hide');
-            $("#SerialActivo").tooltip('hide');
-            $("#ModeloActivo").tooltip('hide');
-            $("#CodigoUpsActivo").tooltip('hide');
-            $("#single_cal4").tooltip('hide');
-            $("#DescripcionActivo").tooltip('hide');
-            document.getElementById("confirmarActivo").disabled = false;
+            $(".modal-body span[id=errorNombreLUN]").html('').hide();
+            $(".modal-body span[id=errorcmbStorage]").html('').hide();
+            $(".modal-body span[id=errorCapacidadLun]").html('').hide();
+            $("#NombreLUN").tooltip('hide');
+            $("#CapacidadLUN").tooltip('hide');
+            $("#DescripcionLUN").tooltip('hide');
+            document.getElementById("confirmarLUN").disabled = false;
         });
-
-        $('#ModificarEstadoActivo').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body span[id=errorEstadoActivo]").html('').hide();
-        });
-
-        $('#IngresoNuevoAccesorio').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body input").val("");
-            $(".modal-body input").css("borderColor", "#ccc");
-            $(".modal-body textarea").val("");
-            $(".modal-body span[id=errorTipoAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorNombreAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorSerialAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorModeloAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorEstadoAccesorioIng]").html('').hide();
-            $("#NombreAccesorioIngreso").tooltip('hide');
-            $("#SerialAccesorioIngreso").tooltip('hide');
-            $("#ModeloAccesorioIngreso").tooltip('hide');
-            $("#DescripcionAccesorioIngreso").tooltip('hide');
-            $('#cqrAccesorio').hide();
-            document.getElementById("confirmarAccesorioNuevo").disabled = false;
-        });
-
-        $('#ModificarAccesorio').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body input").val("");
-            $(".modal-body input").css("borderColor", "#ccc");
-            $(".modal-body textarea").val("");
-            $(".modal-body span[id=errorTipoAccesorio]").html('').hide();
-            $(".modal-body span[id=errorNombreAccesorio]").html('').hide();
-            $(".modal-body span[id=errorSerialAccesorio]").html('').hide();
-            $(".modal-body span[id=errorModeloAccesorio]").html('').hide();
-            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
-            $("#NombreAccesorio").tooltip('hide');
-            $("#SerialAccesorio").tooltip('hide');
-            $("#ModeloAccesorio").tooltip('hide');
-            $("#DescripcionAccesorio").tooltip('hide');
-            document.getElementById("confirmarAccesorioModificacion").disabled = false;
-        });
-
-        $('#ModificarEstadoAccesorio').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
-        });*@
-
 
     });
 
