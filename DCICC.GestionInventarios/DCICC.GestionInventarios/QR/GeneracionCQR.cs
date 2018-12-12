@@ -100,9 +100,17 @@ namespace DCICC.GestionInventarios.QR
         public Bitmap GenQRBitmap(byte[] datosQR)
         {
             Bitmap bmp;
-            using (var ms = new MemoryStream(datosQR))
+            try
             {
-                bmp = new Bitmap(ms);
+                using (var ms = new MemoryStream(datosQR))
+                {
+                    bmp = new Bitmap(ms);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("No se ha podido generar el bitmap para el código QR: {0}", e.Message));
+                return null;
             }
             return bmp;
         }

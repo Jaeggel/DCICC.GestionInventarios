@@ -3,10 +3,13 @@ using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
+using DCICC.WebServiceInventarios.Configuration;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
@@ -287,6 +290,29 @@ namespace DCICC.WebServiceInventarios.Controllers
                 Logs.Error(msjCQR.MensajeError);
             }
             return msjCQR;
+        }
+        #endregion
+        #region Generación Bytes QR
+        /// <summary>
+        /// Método (POST) para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="lstActivos"></param>
+        /// <returns></returns>
+        [HttpPost("GenerarBytesQR")]
+        public byte[] GenerarBytesQR([FromBody] string idCQR)//tipo de metodo por definir
+        {
+            byte[] bytesQR=null;
+            try
+            {
+                GeneracionCQR objGeneracionQR = new GeneracionCQR();
+                Bitmap bitmapQR = objGeneracionQR.GenerarCodigoQR(idCQR);
+                bytesQR = objGeneracionQR.GenQRBytes(bitmapQR);
+            }
+            catch(Exception e)
+            {
+                Logs.Error(string.Format("No se ha podido generar el bitmap para el código QR: {0}", e.Message));
+            }
+            return bytesQR;
         }
         #endregion
     }
