@@ -116,6 +116,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevoStorage(Storage infoStorage)
         {
+            infoStorage.CapacidadStorage = string.Format("{0} {1}",infoStorage.CapacidadStorage,infoStorage.UnidadStorage);
             string mensajesStorage = string.Empty;
             MensajesStorage msjStorage = new MensajesStorage();
             try

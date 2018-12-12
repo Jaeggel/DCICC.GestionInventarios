@@ -17,6 +17,8 @@ namespace DCICC.GestionInventarios.Models
 
         public string CapacidadLun { get; set; }
 
+        public string UnidadLUN { get; set; }
+
         public string RaidTPLUN { get; set; }
 
         public string DescripcionLUN { get; set; }
