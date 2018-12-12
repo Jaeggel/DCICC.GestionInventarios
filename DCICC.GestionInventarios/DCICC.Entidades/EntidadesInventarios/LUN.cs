@@ -14,7 +14,11 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string NombreLUN { get; set; }
 
-        public string CapacidadLun { get; set; }
+        public string CapacidadLUN { get; set; }
+
+        public int SizeLUN { get; set; }
+
+        public string UnidadLUN { get; set; }
 
         public string RaidTPLUN { get; set; }
 

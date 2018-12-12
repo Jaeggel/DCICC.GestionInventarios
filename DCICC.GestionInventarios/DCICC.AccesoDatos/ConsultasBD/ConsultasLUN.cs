@@ -41,12 +41,22 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 IdLUN = (int)dr[0],
                                 IdStorage = (int)dr[1],
                                 NombreLUN = dr[2].ToString().Trim(),
-                                CapacidadLun = dr[3].ToString().Trim(),
+                                CapacidadLUN = dr[3].ToString().Trim(),
                                 RaidTPLUN = dr[4].ToString().Trim(),
                                 DescripcionLUN = dr[5].ToString().Trim(),
                                 HabilitadoLUN = (bool)dr[6],
                                 NombreStorage= dr[7].ToString().Trim()
                             };
+                            string[] capacidadTemp = objLUN.CapacidadLUN.Split(new char[0]);
+                            if (capacidadTemp.Length == 2)
+                            {
+                                objLUN.SizeLUN = int.Parse(capacidadTemp[0]);
+                                objLUN.UnidadLUN = capacidadTemp[1];
+                            }
+                            else
+                            {
+                                objLUN.SizeLUN = int.Parse(capacidadTemp[0]);
+                            }
                             lstLUN.Add(objLUN);
                         }
                         conn_BD.Close();

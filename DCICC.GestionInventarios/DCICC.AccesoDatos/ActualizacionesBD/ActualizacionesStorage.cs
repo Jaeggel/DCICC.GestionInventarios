@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_storage SET nombre_storage=@ns, nick_storage=@nis, capacidad_storage=@cs,  descripcion_storage=@cs, habilitado_storage=@hs WHERE id_storage=@is;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_storage SET nombre_storage=@ns, nick_storage=@nis, capacidad_storage=@cs,  descripcion_storage=@ds, habilitado_storage=@hs WHERE id_storage=@is;", conn_BD))
                 {
                     cmd.Parameters.Add("ns", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoStorage.NombreStorage;
                     cmd.Parameters.Add("nis", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoStorage.NickStorage;
