@@ -3,6 +3,7 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -39,6 +40,59 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// Constructor para acceder a usuarios para recuperar contraseña
         /// </summary>
         public UsuariosAccDatos() { }
+        #endregion
+        #region Autenticación de Usuarios
+        /// <summary>
+        /// Método para obtener una lista con los Usuarios Habilitados de la base de datos.
+        /// Importante para inicializar los procesos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public MensajesUsuarios AutenticarUsuario(Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLWebServiceInventarios"]);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = clientService.PostAsJsonAsync("Token/AutenticarUsuario", infoUsuario).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var usersJson = response.Content.ReadAsStringAsync().Result;
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la conexión para autenticar el usuario: {0}", e.Message));
+            }
+            return msjUsuarios;
+        }
+        #endregion
+        #region Recuperar Password
+        public MensajesUsuarios RecuperarPassword(string infoCorreo)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            try
+            {
+                HttpClient clientService = new HttpClient();
+                clientService.DefaultRequestHeaders.Clear();
+                clientService.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLWebServiceInventarios"]);
+                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = clientService.PostAsJsonAsync("Token/RecuperarPassword", infoCorreo).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var usersJson = response.Content.ReadAsStringAsync().Result;
+                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la conexión para autenticar el usuario: {0}", e.Message));
+            }
+            return msjUsuarios;
+        }
         #endregion
         #region Consultas
         /// <summary>

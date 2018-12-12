@@ -45,6 +45,9 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 DescripcionStorage = dr[4].ToString().Trim(),
                                 HabilitadoStorage = (bool)dr[5]
                             };
+                            string[] capacidadTemp = objStorage.CapacidadStorage.Split(new char[0]);
+                            objStorage.SizeStorage =int.Parse(capacidadTemp[0]);
+                            objStorage.UnidadStorage = capacidadTemp[1];
                             lstStorage.Add(objStorage);
                         }
                         conn_BD.Close();

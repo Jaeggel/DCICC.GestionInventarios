@@ -60,7 +60,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_storage SET  habilitado_storage=@hs WHERE id_storage=@is;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_storage SET habilitado_storage=@hs WHERE id_storage=@is;", conn_BD))
                 {
                     cmd.Parameters.Add("hs", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoStorage.HabilitadoStorage;
                     cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoStorage.IdStorage;

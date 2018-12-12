@@ -15,6 +15,8 @@ namespace DCICC.GestionInventarios.Models
 
         public string CapacidadStorage { get; set; }
 
+        public int SizeStorage { get; set; }
+
         public string UnidadStorage { get; set; }
 
         public string DescripcionStorage { get; set; }

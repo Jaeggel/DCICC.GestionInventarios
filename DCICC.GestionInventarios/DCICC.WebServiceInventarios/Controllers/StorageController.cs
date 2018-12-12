@@ -30,7 +30,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesStorage msjStorage = null;
             ConsultasStorage objConsultasStorageBD = new ConsultasStorage();
-            msjStorage = objConsultasStorageBD.ObtenerStorage("");
+            msjStorage = objConsultasStorageBD.ObtenerStorage("storagehabilitado");
             if (msjStorage.OperacionExitosa)
             {
                 Logs.Info("Consulta de Storage realizada exitosamente.");

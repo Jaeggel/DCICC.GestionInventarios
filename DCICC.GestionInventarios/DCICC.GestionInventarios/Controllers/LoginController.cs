@@ -124,7 +124,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
         }
         #endregion
-        #region Recuperación de Contraseña (POST)
+        #region Recuperación de Password (POST)
         /// <summary>
         /// Método [POST] para la recuperación de contraseña mediante el envío de la misma por correo electrónico.
         /// El mismo es llamado mediante ajax desde la vista Login.cshtml.
@@ -139,11 +139,9 @@ namespace DCICC.GestionInventarios.Controllers
                 if (infoCorreo != null)
                 {
                     UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                    Usuarios infoUsuario = new Usuarios();
-                    var datosUsuario = objUsuariosAccDatos.ObtenerUsuarioCorreo(infoCorreo).ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo);
+                    var datosUsuario = objUsuariosAccDatos.RecuperarPassword(infoCorreo).ObjetoInventarios;
                     if (datosUsuario != null)
                     {
-                        infoUsuario = datosUsuario;
                         ConfiguracionMail mail = new ConfiguracionMail();
                         Correo correo = new Correo
                         {
@@ -185,8 +183,8 @@ namespace DCICC.GestionInventarios.Controllers
                     NickUsuario = infoLogin.NickUsuario,
                     PasswordUsuario = infoLogin.PasswordUsuario
                 };
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoUsuario);
-                Usuarios datosUsuario = objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
+                Usuarios datosUsuario = objUsuariosAccDatos.AutenticarUsuario(infoUsuario).ObjetoInventarios;
                 if (datosUsuario != null)
                 {
                     return datosUsuario;

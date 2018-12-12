@@ -29,6 +29,8 @@ namespace DCICC.GestionInventarios.Models
 
         public string UnidadMaqVirtuales { get; set; }
 
+        public int SizeMaqVirtuales { get; set; }
+
         public int RamMaqVirtuales { get; set; }
 
         public string DescripcionMaqVirtuales{ get; set; }

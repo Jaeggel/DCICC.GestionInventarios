@@ -50,7 +50,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesLUN msjLUN = new MensajesLUN();
             ConsultasLUN objConsultasLUNBD = new ConsultasLUN();
-            msjLUN = objConsultasLUNBD.ObtenerLUN("");
+            msjLUN = objConsultasLUNBD.ObtenerLUN("lunstorage");
             if (msjLUN.OperacionExitosa)
             {
                 Logs.Info("Consulta de LUN realizada exitosamente.");

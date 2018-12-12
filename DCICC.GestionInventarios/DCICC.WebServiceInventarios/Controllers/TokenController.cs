@@ -83,7 +83,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("No se pudo generar el token de autorización para recuperación de contraseña: {0}",e.Message));
+                Logs.Error(string.Format("No se pudo generar el token de autorización para recuperación de contraseña: {0}", e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);
@@ -108,7 +108,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                     if(infoUsuario!=null)
                     {
                         token = ConfiguracionToken();
-                        ConfigBaseDatos.SetCadenaConexion(string.Format("Server=localhost;Port=5432;User Id={0};Password={1};Database=DCICC_BDInventario; CommandTimeout=3020;", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario)));
+                        ConfigBaseDatos.SetCadenaConexion(string.Format("Server='192.168.0.4';Port=5432;User Id={0};Password={1};Database=DCICC_BDInventario; CommandTimeout=3020;", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario)));
                     }
                     else
                     {
@@ -145,6 +145,77 @@ namespace DCICC.WebServiceInventarios.Controllers
                             .AddExpiry(confServ.ObtenerTimeExpToken())
                             .Build();
             return token;
+        }
+        #endregion
+        #region Autenticación de Usuarios
+        /// <summary>
+        /// Método para autenticar el usuario en el web service y retornar sus respectivos datos.
+        /// </summary>
+        /// <param name="infoUsuario">Información del usuario para </param>
+        /// <returns></returns>
+        [HttpPost("AutenticarUsuario")]
+        public MensajesUsuarios AutenticarUsuario([FromBody] Usuarios infoUsuario)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            Usuarios datosUsuario = null;
+            try
+            {
+                if (infoUsuario.NickUsuario != null && infoUsuario.NickUsuario != null)
+                {
+                    ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
+                    datosUsuario = objConUsuarios.ObtenerUsuarios("usuarioshabilitados").ListaObjetoInventarios.Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario);
+                    if(datosUsuario!=null)
+                    {
+                        msjUsuarios.ObjetoInventarios = datosUsuario;
+                        msjUsuarios.OperacionExitosa = true;
+                    }
+                    else
+                    {
+                        msjUsuarios.ObjetoInventarios = null;
+                        msjUsuarios.OperacionExitosa = false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("No se pudo generar el token de autorización para inicio de transacciones: {0}", e.Message));
+                msjUsuarios.ObjetoInventarios = null;
+                msjUsuarios.OperacionExitosa = false;
+            }
+            return msjUsuarios;
+        }
+        #endregion
+        #region Recuperación de Contraseña
+        [HttpPost("RecuperarPassword")]
+        public MensajesUsuarios RecuperarPassword([FromBody] string infoCorreo)
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            Usuarios datosUsuario = null;
+            try
+            {
+                if (infoCorreo != null)
+                {
+                    ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+                    datosUsuario = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados").ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo);
+                    if(datosUsuario!=null)
+                    {
+                        msjUsuarios.ObjetoInventarios = datosUsuario;
+                        msjUsuarios.OperacionExitosa = true;
+                    }
+                    else
+                    {
+                        msjUsuarios.ObjetoInventarios = null;
+                        msjUsuarios.OperacionExitosa = false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("No se pudo generar obtener el usuario para la recuperación de contraseña: {0}", e.Message));
+                msjUsuarios.ObjetoInventarios = null;
+                msjUsuarios.OperacionExitosa = false;
+            }
+            return msjUsuarios;
         }
         #endregion
     }
