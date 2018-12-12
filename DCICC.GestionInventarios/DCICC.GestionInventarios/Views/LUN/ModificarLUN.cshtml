@@ -51,7 +51,7 @@
                                         <div class="form-horizontal form-label-left input_mask">
                                             @* Sección para la tabla de modificación mediante js *@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaActivos">
+                                                <div id="tablaModificarLuns">
 
                                                 </div>
                                             </div>
@@ -136,7 +136,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <input id="CapacidadStorage" type="number" class="form-control has-feedback-left" name="CapacidadStorage" placeholder="20 TB" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                            <input id="CapacidadStorage" type="number" class="form-control has-feedback-left" name="CapacidadStorage" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
                                             <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                                             <span id="errorCapacidadStorage" style="color:brown;"></span>
                                         </div>
@@ -179,7 +179,7 @@
 </div>
 
 
-@* Modal de modificación de Accesorios *@
+@* Modal de modificación de LUNS *@
 <div class="modal fade" id="ModificarAccesorio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -233,9 +233,10 @@
     $(document).ready(function () {
         //Métodos para Storage
         obtenerStorage('@Url.Action("ObtenerStorageComp", "LUN")');
-        urlEstados('@Url.Action("ModificarEstadoStorage", "LUN")');
+        urlEstadosStorage('@Url.Action("ModificarEstadoStorage", "LUN")');
+        mensajesTooltipStorage();
 
-        $('#ModificarStorage').on('hidden.bs.modal', function () {           
+        $('#ModificarStorage').on('hidden.bs.modal', function () {
             $(".modal-body select").css("borderColor", "#ccc");
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");
@@ -248,19 +249,10 @@
             document.getElementById("confirmarStorage").disabled = false;
         });
 
-        @*obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
-        datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
-        datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');
-        datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
-        cargarEstadosCmb();
-        cargarEstadosModificarCmb();
-        mensajesTooltips();
-
-        
-
         //Métodos para Luns
-
-        obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
+        obtenerLuns('@Url.Action("ObtenerLUNComp", "LUN")');
+        mensajesTooltipLun();
+        @*obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
         datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
         cargarEstadosAccesoriosCmb();
         cargarEstadosAccesoriosMod();

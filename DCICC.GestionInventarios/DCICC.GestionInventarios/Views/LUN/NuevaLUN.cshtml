@@ -31,82 +31,95 @@
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevaLUN", "LUN"))
                 {
-                    <div class="form-horizontal form-label-left input_mask">
-                        @* Cuadro de texto para el ingreso del ID de una LUN *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="IdLUN" type="text" class="form-control has-feedback-left" name="IdLUN" placeholder="ID de la LUN" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
-                            <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                            <span id="errorIdLUN" style="color:brown;"></span>
-                        </div>
-                        @* Cuadro de texto para el ingreso del nombre de una LUN *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreLUN" type="text" class="form-control has-feedback-left" name="NombreLUN" placeholder="Nombre de la LUN" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
-                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="errorNombreLUN" style="color:brown;"></span>
-                        </div>
-                        @* Combobox para seleccionar el sistema (storage) *@
-                        <div class="form-group">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label>* Escoja el Sistema:</label>
-                                <div id="cargarStorage"></div>
-                                <span id="errorStorage" style="color:brown;"></span>
-                            </div>
-                        </div>
-                        @* Cuadro de texto para el ingreso del tamaño de una LUN *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="SizeLUN" type="number" class="form-control has-feedback-left" name="SizeLUN" placeholder="Tamaño de la LUN" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
-                            <span class="fa fa-floppy-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Cuadro de texto para el ingreso del RAID de una LUN *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="RaidLUN" type="text" class="form-control has-feedback-left" name="RaidLUN" placeholder="RAID" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
-                            <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Combobox para seleccionar el tipo de conexión *@
-                        <div class="form-group">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label>* Escoja el Tipo de Conexión:</label>
-                                <div id="cargarTipoConexion"></div>
-                                <span id="errorTipoConexion" style="color:brown;"></span>
-                            </div>
-                        </div>
-                        @* Área de Texto para el ingreso de la descripción de una LUN *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea id="DescripcionLUN" name="DescripcionLUN" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la LUN" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
-                            <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Checkbox para habilitar o deshabilitar el uso de la nueva LUN *@
-                        <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar LUN?</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input name="HabilitadoLUN" type="checkbox" class="js-switch" value="true" checked />
-                            </div>
-                        </div>
-                        <div class="ln_solid"></div>
-                        @* Sección de botones para guardar LUN o cancelar el registro *@
-                        <div class="form-group text-center">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button id="confirmarLUN" type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'">Cancelar</button>
-                            </div>
+                <div class="form-horizontal form-label-left input_mask">
+
+                    @* Cuadro de texto para el ingreso del nombre de una LUN *@
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <label>*Nombre de LUN</label>
+                        <input id="NombreLUN" type="text" class="form-control has-feedback-left" name="NombreLUN" placeholder="CDP_REPOSITORIO" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                        <span id="errorNombreLUN" style="color:brown;"></span>
+                    </div>
+                    @* Combobox para seleccionar el sistema (storage) *@
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label>* Escoja el Sistema:</label>
+                            <div id="cargarStorage"></div>
+                            <span id="errorcmbStorage" style="color:brown;"></span>
                         </div>
                     </div>
+
+                    @* Cuadro de texto para el ingreso de la capacidad de una Lun *@
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label>*Capacidad de LUN</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input id="CapacidadLUN" type="number" class="form-control has-feedback-left" name="CapacidadLUN" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorCapacidadLun" style="color:brown;"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <select id="UnidadLUN" class="form-control" name="UnidadLUN" required>
+                                <option value="GB">GB</option>
+                                <option value="TB">TB</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    @* Cuadro de texto para el ingreso del RAID de una LUN *@
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <label>*Tipo de RAID y Conexión</label>
+                        <select id="RaidTPLUN" class="form-control" name="RaidTPLUN" required>
+                            <option value="RAID 1 FC">RAID 1 FC</option>
+                            <option value="RAID 5 FC">RAID 5 FC</option>
+                            <option value="RAID 5 SSD">RAID 5 SSD</option>
+                        </select>
+                    </div>
+                   
+                    @* Área de Texto para el ingreso de la descripción de una LUN *@
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <textarea id="DescripcionLUN" name="DescripcionLUN" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la LUN" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                    @* Checkbox para habilitar o deshabilitar el uso de la nueva LUN *@
+                    <div class="form-group">
+                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar LUN?</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input name="HabilitadoLUN" type="checkbox" class="js-switch" value="true" checked />
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    @* Sección de botones para guardar LUN o cancelar el registro *@
+                    <div class="form-group text-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <button id="confirmarLUN" type="submit" class="btn btn-success">Ingresar</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
                 }
             </div>
         </div>
     </div>
 </div>
 @* Seccción para llamar al js de LUN *@
-@*<script src="~/Scripts/ScriptsInventarios/LUN.js"></script>*@
+<script src="~/Scripts/ScriptsInventarios/Luns.js"></script>
 <script>
     $(document).ready(function () {
-        @*//Método para obtener la tabla de LUN
-        obtenerLUN('@Url.Action("ObtenerLUNComp", "LUN")');
-        mensajesTooltips();
+        //Método para obtener la tabla de LUN
+        obtenerLuns('@Url.Action("ObtenerLUNComp", "LUN")');
+        obtenerCmbStorageHab('@Url.Action("ObtenerStorageHab", "LUN")');
+        mensajesTooltipLun();
+        //mensajesTooltips();
         //Método para evitar la duplicidad de nombres de LUN
         $('#NombreLUN').blur(function () {
-            comprobarNombre();
-        });*@
+            comprobarNombreLun();
+        });
+
+        $('#CapacidadLUN').blur(function () {
+            validarNumeroLun();
+        });
     });
 </script>
 

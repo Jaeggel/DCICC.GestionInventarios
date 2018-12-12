@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="CapacidadStorage" type="number" class="form-control has-feedback-left" name="CapacidadStorage" placeholder="20 TB" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <input id="CapacidadStorage" type="number" class="form-control has-feedback-left" name="CapacidadStorage" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorCapacidadStorage" style="color:brown;"></span>
                         </div>
@@ -96,8 +96,8 @@
 <script>
     $(document).ready(function () {
         //Método para obtener la tabla de Storage
-        obtenerStorage('@Url.Action("ObtenerStorageComp", "Lun")');
-        mensajesTooltips();
+        obtenerStorage('@Url.Action("ObtenerStorageComp", "LUN")');
+        mensajesTooltipStorage();
         //Método para evitar la duplicidad de nombres de Storage
         $('#NombreStorage').blur(function () {
             comprobarNombre();
