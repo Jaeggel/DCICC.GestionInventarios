@@ -46,8 +46,15 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 HabilitadoStorage = (bool)dr[5]
                             };
                             string[] capacidadTemp = objStorage.CapacidadStorage.Split(new char[0]);
-                            objStorage.SizeStorage =int.Parse(capacidadTemp[0]);
-                            objStorage.UnidadStorage = capacidadTemp[1];
+                            if(capacidadTemp.Length==2)
+                            {
+                                objStorage.SizeStorage = int.Parse(capacidadTemp[0]);
+                                objStorage.UnidadStorage = capacidadTemp[1];
+                            }
+                            else
+                            {
+                                objStorage.SizeStorage = int.Parse(capacidadTemp[0]);
+                            }
                             lstStorage.Add(objStorage);
                         }
                         conn_BD.Close();

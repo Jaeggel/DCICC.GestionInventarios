@@ -31,7 +31,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 {
                     cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdStorage;
                     cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.NombreLUN;
-                    cmd.Parameters.Add("cl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.CapacidadLun;
+                    cmd.Parameters.Add("cl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.CapacidadLUN;
                     cmd.Parameters.Add("rl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.RaidTPLUN;
                     cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoLUN.DescripcionLUN) ? (object)infoLUN.DescripcionLUN: DBNull.Value;
                     cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;

@@ -20,6 +20,10 @@
 
         public string DireccionIPMaqVirtuales { get; set; }
 
+        public string UnidadMaqVirtuales { get; set; }
+
+        public int SizeMaqVirtuales { get; set; }
+
         public string DiscoMaqVirtuales { get; set; }
 
         public int RamMaqVirtuales { get; set; }

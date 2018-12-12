@@ -188,6 +188,7 @@
     <Compile Include="AccesoDatos\InventariosBD\AccesoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\ActivosAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\EncriptacionAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LUNAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\MaqVirtualesAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LaboratoriosAccDatos.cs" />
@@ -268,7 +269,6 @@
     <Compile Include="Reportes\ReporteExcel.cs" />
     <Compile Include="Reportes\ReportePDF.cs" />
     <Compile Include="Reportes\ReporteQR.cs" />
-    <Compile Include="Seguridad\ConfigEncryption.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />

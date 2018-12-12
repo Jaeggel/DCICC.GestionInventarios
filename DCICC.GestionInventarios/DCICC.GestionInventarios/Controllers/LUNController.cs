@@ -82,6 +82,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevaLUN(LUN infoLUN)
         {
+            infoLUN.CapacidadLUN = string.Format("{0} {1}", infoLUN.CapacidadLUN, infoLUN.UnidadLUN);
             string mensajesLUN = string.Empty;
             MensajesLUN msjLUN = new MensajesLUN();
             try
@@ -153,6 +154,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ModificarLUN(LUN infoLUN)
         {
+            infoLUN.CapacidadLUN = string.Format("{0} {1}", infoLUN.CapacidadLUN, infoLUN.UnidadLUN);
             string mensajesLUN = string.Empty;
             MensajesLUN msjLUN = new MensajesLUN();
             try
