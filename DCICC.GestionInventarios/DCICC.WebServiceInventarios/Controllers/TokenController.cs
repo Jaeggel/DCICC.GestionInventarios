@@ -199,6 +199,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                     datosUsuario = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados").ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo);
                     if(datosUsuario!=null)
                     {
+                        datosUsuario.PasswordUsuario = ConfigEncryption.EncriptarValor(datosUsuario.PasswordUsuario);
                         msjUsuarios.ObjetoInventarios = datosUsuario;
                         msjUsuarios.OperacionExitosa = true;
                     }
