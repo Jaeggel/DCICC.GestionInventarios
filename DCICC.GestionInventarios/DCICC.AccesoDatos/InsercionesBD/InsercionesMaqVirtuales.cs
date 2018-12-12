@@ -25,15 +25,16 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccionip_maqvirtuales,disco_maqvirtuales,ram_maqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales) VALUES (@iso,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,id_lun,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccionip_maqvirtuales,disco_maqvirtuales,ram_maqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales) VALUES (@iso,@ilun,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv)", conn_BD))
                 {
                     cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdSistOperativos;
+                    cmd.Parameters.Add("ilun", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdLUN;
                     cmd.Parameters.Add("umv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.UsuarioMaqVirtuales;
                     cmd.Parameters.Add("nmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.NombreMaqVirtuales;
                     cmd.Parameters.Add("pmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.PropositoMaqVirtuales;
                     cmd.Parameters.Add("dimv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.DireccionIPMaqVirtuales;
                     cmd.Parameters.Add("rmv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.RamMaqVirtuales;
-                    cmd.Parameters.Add("dsmv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.DiscoMaqVirtuales;
+                    cmd.Parameters.Add("dsmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.DiscoMaqVirtuales;
                     cmd.Parameters.Add("dcmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoMaqVirtual.DescripcionMaqVirtuales) ? (object)infoMaqVirtual.DescripcionMaqVirtuales : DBNull.Value;
                     cmd.Parameters.Add("hmv", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMaqVirtual.HabilitadoMaqVirtuales;
                     cmd.ExecuteNonQuery();

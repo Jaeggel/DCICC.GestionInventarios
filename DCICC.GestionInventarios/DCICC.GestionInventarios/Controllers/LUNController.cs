@@ -160,12 +160,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLUN = objLUNAccDatos.ActualizarLUN(infoLUN, false);
                 if (msjLUN.OperacionExitosa)
                 {
-                    mensajesLUN = string.Format("La LUN con ID: {0} ha sido modificada correctamente.", infoLUN.IdBDLUN);
+                    mensajesLUN = string.Format("La LUN con ID: {0} ha sido modificada correctamente.", infoLUN.IdLUN);
                     Logs.Info(mensajesLUN);
                 }
                 else
                 {
-                    mensajesLUN = string.Format("No se ha podido actualizar la LUN con ID: {0}: {1}", infoLUN.IdBDLUN, msjLUN.MensajeError);
+                    mensajesLUN = string.Format("No se ha podido actualizar la LUN con ID: {0}: {1}", infoLUN.IdLUN, msjLUN.MensajeError);
                     Logs.Error(mensajesLUN);
                 }
             }
@@ -191,12 +191,12 @@ namespace DCICC.GestionInventarios.Controllers
                 msjLUN = objLUNAccDatos.ActualizarLUN(infoLUN, true);
                 if (msjLUN.OperacionExitosa)
                 {
-                    mensajesLUN = string.Format("La LUN con ID: {0} ha sido modificada correctamente.", infoLUN.IdBDLUN);
+                    mensajesLUN = string.Format("La LUN con ID: {0} ha sido modificada correctamente.", infoLUN.IdLUN);
                     Logs.Info(mensajesLUN);
                 }
                 else
                 {
-                    mensajesLUN = string.Format("No se ha podido actualizar la LUN con ID: {0}: {1}", infoLUN.IdBDLUN, msjLUN.MensajeError);
+                    mensajesLUN = string.Format("No se ha podido actualizar la LUN con ID: {0}: {1}", infoLUN.IdLUN, msjLUN.MensajeError);
                     Logs.Error(mensajesLUN);
                 }
             }

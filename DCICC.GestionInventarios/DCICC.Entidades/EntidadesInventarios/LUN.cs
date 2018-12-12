@@ -6,19 +6,17 @@ namespace DCICC.Entidades.EntidadesInventarios
 {
     public class LUN
     {
-        public int IdBDLUN { get; set; }
+        public int IdLUN { get; set; }
 
-        public string IdLUN { get; set; }
-
-        public int SizeLun { get; set; }//?
-
-        public string NombreLUN { get; set; }
+        public int IdStorage { get; set; }
 
         public string NombreStorage { get; set; }
 
-        public string RaidLUN { get; set; }
+        public string NombreLUN { get; set; }
 
-        public string TipoConexionLUN { get; set; }
+        public string CapacidadLun { get; set; }
+
+        public string RaidTPLUN { get; set; }
 
         public string DescripcionLUN { get; set; }
 

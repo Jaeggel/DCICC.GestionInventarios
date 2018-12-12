@@ -167,7 +167,6 @@ namespace DCICC.GestionInventarios.Controllers
             CQR infoCQR = new CQR
             {
                 IdCqr = IdCQR,
-                Bytea = bitmapBytes,
                 Impreso = false
             };
             string mensajesCQR = string.Empty;

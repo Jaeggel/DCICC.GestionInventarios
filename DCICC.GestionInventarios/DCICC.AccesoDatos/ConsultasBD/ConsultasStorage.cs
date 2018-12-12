@@ -36,15 +36,16 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     {
                         while (dr.Read())
                         {
-                            //Storage objStorage = new Storage
-                            //{
-                            //    IdStorage = (int)dr[0],
-                            //    NombreStorage = dr[1].ToString().Trim(),
-                            //    UbicacionStorage = dr[2].ToString().Trim(),
-                            //    DescripcionStorage = dr[3].ToString().Trim(),
-                            //    HabilitadoStorage = (bool)dr[4]
-                            //};
-                            //lstStorage.Add(objStorage);
+                            Storage objStorage = new Storage
+                            {
+                                IdStorage = (int)dr[0],
+                                NombreStorage = dr[1].ToString().Trim(),
+                                NickStorage= dr[2].ToString().Trim(),
+                                CapacidadStorage= dr[3].ToString().Trim(),
+                                DescripcionStorage = dr[4].ToString().Trim(),
+                                HabilitadoStorage = (bool)dr[5]
+                            };
+                            lstStorage.Add(objStorage);
                         }
                         conn_BD.Close();
                         msjStorage.ListaObjetoInventarios = lstStorage;

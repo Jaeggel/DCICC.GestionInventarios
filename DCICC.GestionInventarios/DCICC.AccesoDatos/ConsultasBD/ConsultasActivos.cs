@@ -102,7 +102,6 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             CQR objCQR = new CQR
                             {
                                 IdCqr = dr[0].ToString().Trim(),
-                                Bytea = (byte[])dr[1],
                             };
                             lstCQR.Add(objCQR);
                         }

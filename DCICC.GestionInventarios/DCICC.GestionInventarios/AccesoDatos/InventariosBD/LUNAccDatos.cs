@@ -41,7 +41,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesLUN msjLUN = new MensajesLUN();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("LUN/ObtenerLUN" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync("LUNS/ObtenerLUNS" + nombreFuncion).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var LUNJson = response.Content.ReadAsStringAsync().Result;
@@ -66,7 +66,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesLUN msjLUN = new MensajesLUN();
             try
             {
-                var response = client_Service.PostAsJsonAsync("LUN/RegistrarLUN", infoLUN).Result;
+                var response = client_Service.PostAsJsonAsync("LUNS/RegistrarLUN", infoLUN).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var LUNJson = response.Content.ReadAsStringAsync().Result;
@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesLUN msjLUN = new MensajesLUN();
             try
             {
-                var response = client_Service.PostAsJsonAsync(actEstado ? "LUN/ActualizarEstadoLUN" : "LUN/ActualizarLUN", infoLUN).Result;
+                var response = client_Service.PostAsJsonAsync(actEstado ? "LUNS/ActualizarEstadoLUN" : "LUNS/ActualizarLUN", infoLUN).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var LUNJson = response.Content.ReadAsStringAsync().Result;

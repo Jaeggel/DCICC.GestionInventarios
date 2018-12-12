@@ -217,7 +217,6 @@
     <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SistOperativoController.cs" />
-    <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\TipoAccesorioController.cs" />
     <Compile Include="Controllers\TipoActivoController.cs" />

@@ -27,11 +27,14 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesLUN msjLUN = new MensajesLUN();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_LUN (nombre_LUN,descripcion_LUN,habilitado_LUN) VALUES (@nm,@dm,@hm)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_lun(id_storage, nombre_lun, capacidad_lun, raid_tp_lun, descripcion_lun, habilitado_lun) VALUES (@is, @nl, @cl, @rl, @dl, @hl);", conn_BD))
                 {
-                    //cmd.Parameters.Add("nm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.NombreLUN;
-                    //cmd.Parameters.Add("dm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoLUN.DescripcionLUN) ? (object)infoLUN.DescripcionLUN : DBNull.Value;
-                    //cmd.Parameters.Add("hm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
+                    cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdStorage;
+                    cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.NombreLUN;
+                    cmd.Parameters.Add("cl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.CapacidadLun;
+                    cmd.Parameters.Add("rl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.RaidTPLUN;
+                    cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoLUN.DescripcionLUN) ? (object)infoLUN.DescripcionLUN: DBNull.Value;
+                    cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
                     cmd.ExecuteNonQuery();
                 }
                 conn_BD.Close();

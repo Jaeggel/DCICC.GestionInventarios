@@ -36,14 +36,18 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     {
                         while (dr.Read())
                         {
-                            //LUN objLUN = new LUN
-                            //{
-                            //    IdLUN = (int)dr[0],
-                            //    NombreLUN = dr[1].ToString().Trim(),
-                            //    DescripcionLUN = dr[2].ToString().Trim(),
-                            //    HabilitadoLUN = (bool)dr[3]
-                            //};
-                            //lstLUN.Add(objLUN);
+                            LUN objLUN = new LUN
+                            {
+                                IdLUN = (int)dr[0],
+                                IdStorage = (int)dr[1],
+                                NombreLUN = dr[2].ToString().Trim(),
+                                CapacidadLun = dr[3].ToString().Trim(),
+                                RaidTPLUN = dr[4].ToString().Trim(),
+                                DescripcionLUN = dr[5].ToString().Trim(),
+                                HabilitadoLUN = (bool)dr[6],
+                                NombreStorage= dr[7].ToString().Trim()
+                            };
+                            lstLUN.Add(objLUN);
                         }
                         conn_BD.Close();
                         msjLUN.ListaObjetoInventarios = lstLUN;

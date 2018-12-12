@@ -10,10 +10,12 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string NombreStorage { get; set; }
 
-        public int CapacidadStorage { get; set; }
+        public string NickStorage { get; set; }
+
+        public string CapacidadStorage { get; set; }
 
         public string DescripcionStorage { get; set; }
 
-        public string HabilitadoStorage { get; set; }
+        public bool HabilitadoStorage { get; set; }
     }
 }

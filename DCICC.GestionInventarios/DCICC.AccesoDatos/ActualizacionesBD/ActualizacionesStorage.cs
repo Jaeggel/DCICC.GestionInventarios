@@ -28,14 +28,15 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_Storage set nombre_Storage = @nl,descripcion_Storage=@dl,ubicacion_Storage=@ul,habilitado_Storage = @hl where id_Storage = @il", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_storage SET nombre_storage=@ns, nick_storage=@nis, capacidad_storage=@cs,  descripcion_storage=@cs, habilitado_storage=@hs WHERE id_storage=@is;", conn_BD))
                 {
-                    //cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoStorage.NombreStorage;
-                    //cmd.Parameters.Add("ul", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoStorage.UbicacionStorage;
-                    //cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoStorage.DescripcionStorage) ? (object)infoStorage.DescripcionStorage : DBNull.Value;
-                    //cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoStorage.HabilitadoStorage;
-                    //cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoStorage.IdStorage;
-                    //cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("ns", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoStorage.NombreStorage;
+                    cmd.Parameters.Add("nis", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoStorage.NickStorage;
+                    cmd.Parameters.Add("cs", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoStorage.CapacidadStorage;
+                    cmd.Parameters.Add("ds", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoStorage.DescripcionStorage) ? (object)infoStorage.DescripcionStorage : DBNull.Value;
+                    cmd.Parameters.Add("hs", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoStorage.HabilitadoStorage;
+                    cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoStorage.IdStorage;
+                    cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
                 conn_BD.Close();
@@ -59,11 +60,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_Storage set habilitado_Storage = @hl where id_Storage = @il", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_storage SET  habilitado_storage=@hs WHERE id_storage=@is;", conn_BD))
                 {
-                    //cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoStorage.HabilitadoStorage;
-                    //cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoStorage.IdStorage;
-                    //cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("hs", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoStorage.HabilitadoStorage;
+                    cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoStorage.IdStorage;
+                    cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
                 conn_BD.Close();

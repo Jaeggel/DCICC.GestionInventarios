@@ -8,11 +8,14 @@ using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using log4net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
+    [Authorize(Policy = "Member")]
+    [Route("Storage")]
     public class StorageController : Controller
     {
         //Instancia para la utilización de LOGS en la clase StorageActivoController
@@ -27,7 +30,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesStorage msjStorage = null;
             ConsultasStorage objConsultasStorageBD = new ConsultasStorage();
-            msjStorage = objConsultasStorageBD.ObtenerStorage("Storagehabilitados");
+            msjStorage = objConsultasStorageBD.ObtenerStorage("");
             if (msjStorage.OperacionExitosa)
             {
                 Logs.Info("Consulta de Storage realizada exitosamente.");
@@ -47,7 +50,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesStorage msjStorage = null;
             ConsultasStorage objConsultasStorageBD = new ConsultasStorage();
-            msjStorage = objConsultasStorageBD.ObtenerStorage("consultaStorage");
+            msjStorage = objConsultasStorageBD.ObtenerStorage("consultastorage");
             if (msjStorage.OperacionExitosa)
             {
                 Logs.Info("Consulta de Storage realizada exitosamente.");

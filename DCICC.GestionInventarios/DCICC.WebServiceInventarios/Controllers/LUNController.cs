@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DCICC.WebServiceInventarios.Controllers
 {
     [Authorize(Policy = "Member")]
-    [Route("LUN")]
+    [Route("LUNS")]
     public class LUNController : Controller
     {
         //Instancia para la utilización de LOGS en la clase LUNController
@@ -25,15 +25,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// Método (GET) para obtener una lista de LUN habilitadas de la base de datos.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("ObtenerLUNHab")]
+        [HttpGet("ObtenerLUNSHab")]
         public MensajesLUN ObtenerLUNHab()
         {
             MensajesLUN msjLUN = new MensajesLUN();
             ConsultasLUN objConsultasLUNBD = new ConsultasLUN();
-            msjLUN = objConsultasLUNBD.ObtenerLUN("LUNhabilitadas");
+            msjLUN = objConsultasLUNBD.ObtenerLUN("");
             if (msjLUN.OperacionExitosa)
             {
-                Logs.Info("Consulta de LUN realizada exitosamente.");
+                Logs.Info("Consulta de LUNS realizada exitosamente.");
             }
             else
             {
@@ -45,12 +45,12 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// Método (GET) para obtener una lista de todas las LUN de la base de datos.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("ObtenerLUNComp")]
+        [HttpGet("ObtenerLUNSComp")]
         public MensajesLUN ObtenerLUNComp()
         {
             MensajesLUN msjLUN = new MensajesLUN();
             ConsultasLUN objConsultasLUNBD = new ConsultasLUN();
-            msjLUN = objConsultasLUNBD.ObtenerLUN("consultaLUN");
+            msjLUN = objConsultasLUNBD.ObtenerLUN("");
             if (msjLUN.OperacionExitosa)
             {
                 Logs.Info("Consulta de LUN realizada exitosamente.");

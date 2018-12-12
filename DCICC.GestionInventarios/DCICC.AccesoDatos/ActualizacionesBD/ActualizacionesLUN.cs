@@ -28,13 +28,16 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_LUN set nombre_LUN = @nm,descripcion_LUN=@dm,habilitado_LUN = @hm where id_LUN = @im", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_lun SET id_storage=@is, nombre_lun=@nl, capacidad_lun=@cl, raid_tp_lun=@rl, descripcion_lun=@dl, habilitado_lun=@hl WHERE id_lun=@il;", conn_BD))
                 {
-                    //cmd.Parameters.Add("nm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.NombreLUN;
-                    //cmd.Parameters.Add("dm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoLUN.DescripcionLUN) ? (object)infoLUN.DescripcionLUN : DBNull.Value;
-                    //cmd.Parameters.Add("hm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
-                    //cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdLUN;
-                    //cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdStorage;
+                    cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.NombreLUN;
+                    cmd.Parameters.Add("cl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.CapacidadLun;
+                    cmd.Parameters.Add("rl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.RaidTPLUN;
+                    cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoLUN.DescripcionLUN) ? (object)infoLUN.DescripcionLUN : DBNull.Value;
+                    cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
+                    cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdLUN;
+                    cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
                 conn_BD.Close();
@@ -58,11 +61,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_LUN set habilitado_LUN = @hm where id_LUN = @im", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_lun SET habilitado_lun=@hl WHERE id_lun=@il;", conn_BD))
                 {
-                    //cmd.Parameters.Add("hm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
-                    //cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdLUN;
-                    //cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
+                    cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdLUN;
+                    cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
                 conn_BD.Close();
