@@ -31,39 +31,59 @@
                     (Metodo de la clase) - Controlador (Controller) *@
                 @using (Html.BeginForm("NuevoStorage", "LUN"))
                 {
-                    <div class="form-horizontal form-label-left input_mask">
-                        @* Cuadro de texto para el ingreso del nombre de un Storage *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreStorage" type="text" class="form-control has-feedback-left" name="NombreStorage" placeholder="Nombre del Storage" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
-                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="errorNombreLab" style="color:brown;"></span>
-                        </div>
-                        @* Cuadro de texto para el ingreso de la capacidad de un Storage *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="CapacidadStorage" type="number" class="form-control has-feedback-left" name="CapacidadStorage" placeholder="Capacidad del Storage" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                <div class="form-horizontal form-label-left input_mask">
+                    @* Cuadro de texto para el ingreso del nombre de un Storage *@
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <label>*Nombre de Storage</label>
+                        <input id="NombreStorage" type="text" class="form-control has-feedback-left" name="NombreStorage" placeholder="HP 3PAR 8200" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                        <span id="errorNombreLab" style="color:brown;"></span>
+                    </div>
+                    @* Cuadro de texto para el ingreso del nick de un Storage *@
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <label>*Nick de Storage</label>
+                        <input id="NickStorage" type="text" class="form-control has-feedback-left" name="NickStorage" placeholder="3PAR-UPS" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
+                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                        <span id="errorNombreLab" style="color:brown;"></span>
+                    </div>
+                    @* Cuadro de texto para el ingreso de la capacidad de un Storage *@
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label>*Capacidad de Storage</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">                            
+                            <input id="CapacidadStorage" type="number" class="form-control has-feedback-left" name="CapacidadStorage" placeholder="20 TB" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                         </div>
-                        @* Área de Texto para el ingreso de la descripción de un Storage *@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea id="DescripcionStorage" name="DescripcionStorage" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Storage" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
-                            <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Checkbox para habilitar o deshabilitar el uso del nuevo Storage *@
-                        <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Storage?</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input name="HabilitadoStorage" type="checkbox" class="js-switch" value="true" checked />
-                            </div>
-                        </div>
-                        <div class="ln_solid"></div>
-                        @* Sección de botones para guardar un Storage o cancelar el registro *@
-                        <div class="form-group text-center">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button id="confirmarLab" type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'">Cancelar</button>
-                            </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <select id="UnidadStorage" class="form-control" name="UnidadStorage" required>
+                                <option value="GB">GB</option>
+                                <option value="TB">TB</option>
+                            </select>
                         </div>
                     </div>
+
+                    @* Área de Texto para el ingreso de la descripción de un Storage *@
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <textarea id="DescripcionStorage" name="DescripcionStorage" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Storage" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                    @* Checkbox para habilitar o deshabilitar el uso del nuevo Storage *@
+                    <div class="form-group">
+                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Storage?</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input name="HabilitadoStorage" type="checkbox" class="js-switch" value="true" checked />
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    @* Sección de botones para guardar un Storage o cancelar el registro *@
+                    <div class="form-group text-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <button id="confirmarLab" type="submit" class="btn btn-success">Ingresar</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarLUN", "LUN")'">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
                 }
             </div>
         </div>
@@ -71,16 +91,16 @@
 </div>
 
 @* Seccción para llamar al js de Storage *@
-@*<script src="~/Scripts/ScriptsInventarios/Storage.js"></script>*@
+<script src="~/Scripts/ScriptsInventarios/Storage.js"></script>
 <script>
-    @*$(document).ready(function () {
+    $(document).ready(function () {
         //Método para obtener la tabla de Storage
         obtenerStorage('@Url.Action("ObtenerStorageComp", "Storage")');
         mensajesTooltips();
         //Método para evitar la duplicidad de nombres de Storage
-        $('#NombreStorage').blur(function () {
-            comprobarNombre();
-        });
+        //$('#NombreStorage').blur(function () {
+        //    comprobarNombre();
+        //});
 
-    });*@
+    });
 </script>
