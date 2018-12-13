@@ -42,7 +42,7 @@
                     @* Sección para tickets En Curso.*@
                     <div class="panel panel-warning">
                         <a class="panel-heading collapsed panel-warning" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <h4 class="panel-title">En Curso <strong> (<span id="numeroEnCurso"></span>) :</strong> <small> Tickets que se encuentran en Resolución.</small></h4>
+                            <h4 class="panel-title">En Proceso <strong> (<span id="numeroEnCurso"></span>) :</strong> <small> Tickets que se encuentran en proceso de Solución.</small></h4>
                         </a>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
@@ -87,7 +87,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Solucionar Tickets para Soporte Técnico</h4>
+                <h4 class="modal-title" id="myModalLabel">Gestión de Tickets para Soporte Técnico</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -123,10 +123,19 @@
                                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                     </div>
 
+                                    @* Combobox para seleccionar una responsable del ticket*@
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label>* Asignar responsable:</label>
+                                            <div id="cargarResponsablesCmb"></div>
+                                            <span id="errorAbiertos" style="color:brown;"></span>
+                                        </div>
+                                    </div>
+
                                     @* Combobox para seleccionar una acción del ticket*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Cambiar de estado:</label>
+                                            <label>* Cambiar de estado:</label>
                                             <div id="cargarAbiertosCmb"></div>
                                             <span id="errorAbiertos" style="color:brown;"></span>
                                         </div>
@@ -333,17 +342,21 @@
     $(document).ready(function () {
         //Método para obtener las tablas de tickets
         obtenerTickets('@Url.Action("ObtenerTicketsComp", "Tickets")');
+        datosResponsables('@Url.Action("ObtenerUsuarios", "Usuarios")');
 
         $('#ModificarTickets').on('hidden.bs.modal', function () {
             $(".modal-body select").val("");
+            $(".modal-body textarea").val("");
         });
 
         $('#ModificarTicketsEnCurso').on('hidden.bs.modal', function () {
             $(".modal-body select").val("");
+            $(".modal-body textarea").val("");
         });
 
         $('#ModificarTicketsEnEspera').on('hidden.bs.modal', function () {
             $(".modal-body select").val("");
+            $(".modal-body textarea").val("");
         });
 
     });

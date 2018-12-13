@@ -56,7 +56,7 @@ function BuildTableHTML(infoDT) {
 
 
 function listaEstadosTicket() {
-    return ["ABIERTO", "EN CURSO", "EN ESPERA", "RESUELTO"];
+    return ["ABIERTO", "EN PROCESO", "EN ESPERA", "RESUELTO"];
 }
 
 function listaEstadosActivos() {

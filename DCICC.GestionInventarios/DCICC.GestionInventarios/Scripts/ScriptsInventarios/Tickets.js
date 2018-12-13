@@ -1,14 +1,15 @@
 ﻿var url_idioma = obtenerIdioma();
 var estados = listaEstadosTicket();
 var url_metodo;
-//var url_abierto;
-//var url_en_curso;
-//var url_resuelto;
 var ticketsReportados;
-//var ticketsAbiertos;
-//var ticketsEnCurso;
-//var ticketsResueltos;
 var idTicketAbierto;
+var responsables;
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES DE TICKETS ABIERTOS
+ * *********************************************************************************
+ */
 
 //Método para obtener los tickets
 function obtenerTickets(url) {
@@ -83,7 +84,20 @@ function contarTickets() {
     $('#numeroResueltos').html(contResueltos).show();
 }
 
-///////////////Funciones para cargar los combobox
+//Método ajax para obtener los datos de los usuarios administradores y pasantes
+function datosResponsables(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            responsables = data;
+            cargarResponsablesCmb();
+        }
+    });
+}
+
+//Funciones para cargar los combobox de estados abierto
 function cargarEstadosAbiertoCmb() {
     var str = '<select id="Estados" class="form-control" name="Estados" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -91,41 +105,28 @@ function cargarEstadosAbiertoCmb() {
         if (estados[i] != 'ABIERTO') {
             str += '<option value="' + estados[i] + '">' + estados[i] + '</option>';
         }
-    };
+    }
     str += '</select>';
     $("#cargarAbiertosCmb").html(str);
 }
 
-//Función para el combobox de estados
-function cargarEstadosEnCursoCmb() {
-    var str = '<select id="EstadosEC" class="form-control" name="EstadosEC" required>';
+//Funciones para cargar los combobox de estados abierto
+function cargarResponsablesCmb() {
+    var str = '<select id="Responsables" class="form-control" name="Responsables" required>';
     str += '<option value="">Escoga una opción...</option>';
-    for (var i = 0; i < estados.length; i++) {
-        if (estados[i] != 'ABIERTO' && estados[i] != 'EN CURSO') {
-            str += '<option value="' + estados[i] + '">' + estados[i] + '</option>';
+    for (var i = 0; i < responsables.length; i++) {
+        if (responsable[i].NombreRol == "administrador" || responsable[i].NombreRol == "pasante") {
+            str += '<option value="' + responsable[i].IdUsuario + '">' + responsable[i].NombresUsuario + '</option>';
         }
-    };
+    }
     str += '</select>';
-    $("#cargarEnCursoCmb").html(str);
-}
-
-//Función para el combobox de estados
-function cargarEstadosEnEsperaCmb() {
-    var str = '<select id="EstadosEnEs" class="form-control" name="EstadosEnEs" required>';
-    str += '<option value="">Escoga una opción...</option>';
-    for (var i = 0; i < estados.length; i++) {
-        if (estados[i] == 'ABIERTO') {
-            str += '<option value="' + estados[i] + '">' + estados[i] + '</option>';
-        }
-    };
-    str += '</select>';
-    $("#cargarEnEsperaCmb").html(str);
+    $("#cargarResponsablesCmb").html(str);
 }
 
 //Función para cargar la tabla de tickets Abiertos
 function cargarTablaAbiertos() {
     var str = '<table id="dataTableAbiertos" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Modificar Estado</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Gestionar Ticket</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < ticketsReportados.length; i++) {
@@ -152,104 +153,6 @@ function cargarTablaAbiertos() {
     };
     str += '</tbody></table>';
     $("#ticketsAbiertos").html(str);
-}
-
-//Función para cargar la tabla de tickets en curso
-function cargarTablaEnCurso() {
-    var str = '<table id="dataTableEnCurso" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Comentario</th> <th>Modificar Estado</th> </tr> </thead>';
-    str += '<tbody>';
-
-    for (var i = 0; i < ticketsReportados.length; i++) {
-        if (ticketsReportados[i].EstadoTicket == 'EN CURSO') {
-            //Función para dar formato a la fecha
-            var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
-            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
-
-            str += '<tr><td>' + ticketsReportados[i].DescripcionTicket;
-            if (ticketsReportados[i].IdLaboratorio != 0) {
-                str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
-                str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
-            }
-            str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
-                '</td><td>' + fechaApertura +
-                '</td><td>' + ticketsReportados[i].NombreUsuario +
-                '</td><td>' + ticketsReportados[i].ComentarioTicket;
-            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnCurso" onclick = "formUpdateEnCurso(' + ticketsReportados[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
-                '</div></div>' +
-                '</td></tr>';
-        }   
-    };
-    str += '</tbody></table>';
-    $("#ticketsEnCurso").html(str);
-}
-
-//Función para cargar la tabla de tickets en espera
-function cargarTablaEnEspera() {
-    var str = '<table id="dataTableEnEspera" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Comentario</th> <th>Modificar Estado</th> </tr> </thead>';
-    str += '<tbody>';
-
-    for (var i = 0; i < ticketsReportados.length; i++) {
-        if (ticketsReportados[i].EstadoTicket == 'EN ESPERA') {
-            //Función para dar formato a la fecha
-            var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
-            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
-
-            str += '<tr><td>' + ticketsReportados[i].DescripcionTicket;
-            if (ticketsReportados[i].IdLaboratorio != 0) {
-                str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
-                str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
-            }
-            str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
-                '</td><td>' + fechaApertura +
-                '</td><td>' + ticketsReportados[i].NombreUsuario +
-                '</td><td>' + ticketsReportados[i].ComentarioTicket;
-            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnEspera" onclick = "formUpdateEnCurso(' + ticketsReportados[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
-                '</div></div>' +
-                '</td></tr>';
-        }
-    };
-    str += '</tbody></table>';
-    $("#ticketsEnEspera").html(str);
-}
-
-//Función para cargar la tabla de Usuarios
-function cargarTablaResueltos() {
-    var str = '<table id="dataTableResueltos" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Fecha de Resolución</th> <th>Resuelto por:</th> <th>Comentario</th> </tr> </thead>';
-    str += '<tbody>';
-
-    for (var i = 0; i < ticketsReportados.length; i++) {
-        if (ticketsReportados[i].EstadoTicket == 'RESUELTO') {
-            //Función para dar formato a la fecha
-            var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
-            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
-
-            var fechaSol = new Date(parseInt((ticketsReportados[i].FechaSolucionTicket).substr(6)));
-            var fechaSolucion = (fechaSol.toLocaleDateString("es-ES") + " " + fechaSol.getHours() + ":" + fechaSol.getMinutes() + ":" + fechaSol.getSeconds());
-
-            str += '<tr><td>' + ticketsReportados[i].DescripcionTicket;
-            if (ticketsReportados[i].IdLaboratorio != 0) {
-                str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
-                str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
-            }
-            str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
-                '</td><td>' + fechaApertura +
-                '</td><td>' + ticketsReportados[i].NombreUsuario +
-                '</td><td>' + fechaSolucion +
-                '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
-                '</td><td>' + ticketsReportados[i].ComentarioTicket +
-                '</td></tr>';
-        }  
-    };
-    str += '</tbody></table>';
-    $("#ticketsResueltos").html(str);
 }
 
 //Función para setear los valores en los inputs de tickets abiertos
@@ -310,8 +213,79 @@ function modificarEstadoTicket(url_modificar) {
                 $('#ModificarTickets').modal('hide');
             }
         });
-    } 
+    }
 }
+
+
+///Función para validar el combobox de Estado Abierto
+function validarCmbAbierto() {
+    var esValido = true;
+    var cmbCat = document.getElementById("Estados");
+    //Validación para el combobox de categorias
+    if (cmbCat.value == "") {
+        esValido = false;
+        cmbCat.style.borderColor = "#900C3F";
+        $('#errorAbiertos').html('Debe seleccionar una opción').show();
+        setTimeout("$('#errorAbiertos').html('').hide('slow')", 6000);
+    } else {
+        cmbCat.style.borderColor = "#ccc";
+        $('#errorAbiertos').html('').hide();
+    }
+    return esValido;
+}
+
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES DE TICKETS EN PROCESO
+ * *********************************************************************************
+ */
+
+//Función para cargar la tabla de tickets en curso
+function cargarTablaEnCurso() {
+    var str = '<table id="dataTableEnCurso" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
+    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Comentario</th> <th>Modificar Estado</th> </tr> </thead>';
+    str += '<tbody>';
+
+    for (var i = 0; i < ticketsReportados.length; i++) {
+        if (ticketsReportados[i].EstadoTicket == 'EN CURSO') {
+            //Función para dar formato a la fecha
+            var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
+            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
+
+            str += '<tr><td>' + ticketsReportados[i].DescripcionTicket;
+            if (ticketsReportados[i].IdLaboratorio != 0) {
+                str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
+            } else {
+                str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            }
+            str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
+                '</td><td>' + fechaApertura +
+                '</td><td>' + ticketsReportados[i].NombreUsuario +
+                '</td><td>' + ticketsReportados[i].ComentarioTicket;
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnCurso" onclick = "formUpdateEnCurso(' + ticketsReportados[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
+                '</div></div>' +
+                '</td></tr>';
+        }   
+    };
+    str += '</tbody></table>';
+    $("#ticketsEnCurso").html(str);
+}
+
+//Función para el combobox de estados
+function cargarEstadosEnCursoCmb() {
+    var str = '<select id="EstadosEC" class="form-control" name="EstadosEC" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < estados.length; i++) {
+        if (estados[i] != 'ABIERTO' && estados[i] != 'EN CURSO') {
+            str += '<option value="' + estados[i] + '">' + estados[i] + '</option>';
+        }
+    };
+    str += '</select>';
+    $("#cargarEnCursoCmb").html(str);
+}
+
 
 //Función para setear los valores en los inputs de tickets en curso
 function formUpdateEnCurso(idTicket) {
@@ -371,24 +345,7 @@ function modificarEstadoTicketEnCurso(url_modificar) {
             }
         });
     }
-    
-}
 
-///Función para validar el combobox de Estado Abierto
-function validarCmbAbierto() {
-    var esValido = true;
-    var cmbCat = document.getElementById("Estados");
-    //Validación para el combobox de categorias
-    if (cmbCat.value == "") {
-        esValido = false;
-        cmbCat.style.borderColor = "#900C3F";
-        $('#errorAbiertos').html('Debe seleccionar una opción').show();
-        setTimeout("$('#errorAbiertos').html('').hide('slow')", 6000);
-    } else {
-        cmbCat.style.borderColor = "#ccc";
-        $('#errorAbiertos').html('').hide();
-    }
-    return esValido;
 }
 
 ///Función para validar el combobox de Estado En curso
@@ -407,3 +364,98 @@ function validarCmbCurso() {
     }
     return esValido;
 }
+
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES DE TICKETS EN ESPERA
+ * *********************************************************************************
+ */
+
+//Función para cargar la tabla de tickets en espera
+function cargarTablaEnEspera() {
+    var str = '<table id="dataTableEnEspera" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
+    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Comentario</th> <th>Modificar Estado</th> </tr> </thead>';
+    str += '<tbody>';
+
+    for (var i = 0; i < ticketsReportados.length; i++) {
+        if (ticketsReportados[i].EstadoTicket == 'EN ESPERA') {
+            //Función para dar formato a la fecha
+            var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
+            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
+
+            str += '<tr><td>' + ticketsReportados[i].DescripcionTicket;
+            if (ticketsReportados[i].IdLaboratorio != 0) {
+                str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
+            } else {
+                str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            }
+            str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
+                '</td><td>' + fechaApertura +
+                '</td><td>' + ticketsReportados[i].NombreUsuario +
+                '</td><td>' + ticketsReportados[i].ComentarioTicket;
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnEspera" onclick = "formUpdateEnCurso(' + ticketsReportados[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
+                '</div></div>' +
+                '</td></tr>';
+        }
+    };
+    str += '</tbody></table>';
+    $("#ticketsEnEspera").html(str);
+}
+
+//Función para el combobox de estados
+function cargarEstadosEnEsperaCmb() {
+    var str = '<select id="EstadosEnEs" class="form-control" name="EstadosEnEs" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < estados.length; i++) {
+        if (estados[i] == 'ABIERTO') {
+            str += '<option value="' + estados[i] + '">' + estados[i] + '</option>';
+        }
+    };
+    str += '</select>';
+    $("#cargarEnEsperaCmb").html(str);
+}
+
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES DE TICKETS RESUELTOS
+ * *********************************************************************************
+ */
+//Función para cargar la tabla de Usuarios
+function cargarTablaResueltos() {
+    var str = '<table id="dataTableResueltos" class="table jambo_table bulk_action table-bordered" style="width:100%">';
+    str += '<thead> <tr> <th>Descripción del Incidente</th> <th>Laboratorio o Activo</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado por:</th> <th>Fecha de Resolución</th> <th>Resuelto por:</th> <th>Comentario</th> </tr> </thead>';
+    str += '<tbody>';
+
+    for (var i = 0; i < ticketsReportados.length; i++) {
+        if (ticketsReportados[i].EstadoTicket == 'RESUELTO') {
+            //Función para dar formato a la fecha
+            var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
+            var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() + ":" + fechaAper.getSeconds());
+
+            var fechaSol = new Date(parseInt((ticketsReportados[i].FechaSolucionTicket).substr(6)));
+            var fechaSolucion = (fechaSol.toLocaleDateString("es-ES") + " " + fechaSol.getHours() + ":" + fechaSol.getMinutes() + ":" + fechaSol.getSeconds());
+
+            str += '<tr><td>' + ticketsReportados[i].DescripcionTicket;
+            if (ticketsReportados[i].IdLaboratorio != 0) {
+                str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
+            } else {
+                str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            }
+            str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
+                '</td><td>' + fechaApertura +
+                '</td><td>' + ticketsReportados[i].NombreUsuario +
+                '</td><td>' + fechaSolucion +
+                '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
+                '</td><td>' + ticketsReportados[i].ComentarioTicket +
+                '</td></tr>';
+        }  
+    };
+    str += '</tbody></table>';
+    $("#ticketsResueltos").html(str);
+}
+
+
+
