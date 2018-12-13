@@ -52,9 +52,7 @@ namespace DCICC.GestionInventarios.Controllers
                 return RedirectToAction("Login", "Login");
             }
             else
-            {
-                ModificarResponsableJSON("Jorge López");
-                ObtenerResponsableActual();
+            {                 
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
@@ -222,11 +220,12 @@ namespace DCICC.GestionInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public string ModificarResponsableJSON(string nombreResponsable)
+        public  JsonResult ModificarResponsableJSON(string nombreResponsable)
         {
+            Activos objActivos = null;
             try
             {
-                Activos objActivos = new Activos();
+                
                 objActivos.ResponsableActivo = nombreResponsable;
                 string dataJson = JsonConvert.SerializeObject(objActivos);
                 System.IO.File.WriteAllText(@path_JsonResponsable, dataJson);
@@ -236,7 +235,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(string.Format("No se pudo registrar el Responsable {0} en el JSON: {1}",nombreResponsable,e.Message));
                 return null;
             }
-            return nombreResponsable;
+            return Json(objActivos.ResponsableActivo, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region Actualizaciones (POST)
