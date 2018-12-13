@@ -222,7 +222,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public  JsonResult ModificarResponsableJSON(string nombreResponsable)
         {
-            Activos objActivos = null;
+            Activos objActivos = new Activos();
             try
             {
                 

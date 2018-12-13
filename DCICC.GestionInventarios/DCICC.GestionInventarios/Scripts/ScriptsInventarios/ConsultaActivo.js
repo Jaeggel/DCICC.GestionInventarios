@@ -135,7 +135,7 @@ function cargarEstadosModificarCmb() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Custodio</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         if (datosActivos[i].EstadoActivo != "DE BAJA") {
@@ -151,6 +151,7 @@ function cargarActivosTabla() {
                 '</td><td>' + datosActivos[i].NombreLaboratorio +
                 '</td><td>' + fechaIngreso +
                 '</td><td>' + datosActivos[i].IdCQR +
+                '</td><td>' + datosActivos[i].ResponsableActivo +
                 '</td><td>' + datosActivos[i].EstadoActivo;
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
                 '<button type="button" class="btn btn-default text-center" data-toggle="modal" data-target="#IngresoNuevoAccesorio" onclick = "formIngresoAccesorio(' + datosActivos[i].IdActivo + ',\'' + datosActivos[i].NombreActivo + '\');" > <strong><i class="fa fa-plug"></i></strong></button> ' +
@@ -170,8 +171,7 @@ function cargarActivosTabla() {
              
     }
     str += '</tbody>' +
-        '<tfoot><tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th><th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead></tfoot>' +
-        '</table > ';
+           '</table > ';
     $("#tablaActivos").html(str);
 }
 
@@ -213,6 +213,8 @@ function formUpdateActivos(idActivo) {
             //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
             //Obtener valor de la descripcion de activo
             document.getElementById("DescripcionActivo").value = datosActivos[i].DescripcionActivo;
+            //Obtener valor de la descripcion de activo
+            document.getElementById("ResponsableActivo").value = datosActivos[i].ResponsableActivo;
             //Obtener valor del ExpressServiceCodeActivo
             document.getElementById("ExpressServiceCodeActivo").value = datosActivos[i].ExpressServiceCodeActivo;
             //Obtener valor de la FechaManufacturaActivo
@@ -269,6 +271,8 @@ function actualizarActivo(url) {
     //Obtener valor de la descripcion de activo
     var descripcionActivo = document.getElementById("DescripcionActivo").value;
     //Obtener valor del ExpressServiceCodeActivo
+    //Obtener valor de la descripcion de activo
+    var responsable=document.getElementById("ResponsableActivo").value;
     var expressCode = document.getElementById("ExpressServiceCodeActivo").value;
     //Obtener valor de la FechaManufacturaActivo
     var fechaManufactura = document.getElementById("FechaManufacturaActivo").value;
@@ -307,7 +311,7 @@ function actualizarActivo(url) {
                     data: {
                         "IdActivo": idActivoMod, "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
                         "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
-                        "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
+                        "ResponsableActivo": responsable, "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
                         "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
                         "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
                     },
