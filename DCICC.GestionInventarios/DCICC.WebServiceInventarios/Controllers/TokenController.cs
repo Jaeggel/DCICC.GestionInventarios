@@ -18,82 +18,6 @@ namespace DCICC.WebServiceInventarios.Controllers
         //Instancia para la utilización de LOGS en la clase TokenController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Obtención Token
-        /// <summary>
-        /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
-        /// Utilizado para tener acceso a los usuarios y poder realizar el login.
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("ObtenerTokenInicioBD")]
-        public IActionResult ObtenerTokenInicioBD([FromBody] Usuarios infoUsuario)
-        {
-            JwtToken token = null;
-            try{
-                if (infoUsuario.NickUsuario != null && infoUsuario.NickUsuario != null)
-                {
-                    ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
-                    if (objConUsuarios.ObtenerUsuarios("usuarioshabilitados").ListaObjetoInventarios.Find(x => x.NickUsuario == infoUsuario.NickUsuario && x.PasswordUsuario == infoUsuario.PasswordUsuario) != null)
-                    {
-                        token=ConfiguracionToken();
-                    }
-                    else
-                    {
-                        return Unauthorized();
-                    }
-                }
-                else
-                {
-                    return Unauthorized();
-                }
-            }
-            catch(Exception e)
-            {
-                Logs.Error(string.Format("No se pudo generar el token de autorización para inicio de transacciones: {0}.",e.Message));
-                return Unauthorized();
-            }
-            return Ok(token.Value);
-        }
-        /// <summary>
-        /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
-        /// Utilizado para la recuperación de contraseña.
-        /// </summary>
-        /// <param name="infoCorreo">Correo electrónico para recuperación de contraseña.</param>
-        /// <returns></returns>
-        [HttpPost("ObtenerTokenInicioCorreoBD")]
-        public IActionResult ObtenerTokenInicioCorreoBD([FromBody] string infoCorreo)
-        {
-            JwtToken token = null;
-            try
-            {
-                if (infoCorreo != null)
-                {
-                    ConsultasUsuarios objConUsuarios = new ConsultasUsuarios();
-                    if (objConUsuarios.ObtenerUsuarios("usuarioshabilitados").ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo) != null)
-                    {
-                        token = ConfiguracionToken();
-                    }
-                    else
-                    {
-                        return Unauthorized();
-                    }
-                }
-                else
-                {
-                    return Unauthorized();
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("No se pudo generar el token de autorización para recuperación de contraseña: {0}.",e.Message));
-                return Unauthorized();
-            }
-            return Ok(token.Value);
-        }
-        /// <summary>
-        /// Método para crear y obtener el Token de autenticación para realizar las operaciones con el Servicio REST.
-        /// A diferencia del anterior, en este método se recibe el usuario con la sesión actual.
-        /// </summary>
-        /// <param name="infoUsuario">Cadena del usuario de la sesión actual.</param>
-        /// <returns></returns>
         [HttpPost("ObtenerTokenTransacciones")]
         public IActionResult ObtenerTokenTransacciones([FromBody] string infoUsuarioSesion)
         {
@@ -122,7 +46,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("No se pudo generar el token de autorización para transacciones: {0}.",e.Message));
+                Logs.Error(string.Format("No se pudo generar el token de autorización para transacciones del usuario: {0}: {1}",infoUsuarioSesion,e.Message));
                 return Unauthorized();
             }
             return Ok(token.Value);    

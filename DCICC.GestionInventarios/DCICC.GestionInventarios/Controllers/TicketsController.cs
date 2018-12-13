@@ -43,7 +43,7 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ModificarTicket(Tickets infoTicket)
         {
-            if(infoTicket.EstadoTicket=="Resuelto")
+            if(infoTicket.EstadoTicket=="RESUELTO")
             {
                 infoTicket.FechaSolucionTicket = DateTime.Now;
             }

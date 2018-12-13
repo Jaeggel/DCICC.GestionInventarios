@@ -52,6 +52,7 @@ namespace DCICC.GestionInventarios.Controllers
                         Session["NickUsuario"] = datosUsuario.NickUsuario;
                         Session["CorreoUsuario"] = datosUsuario.CorreoUsuario;
                         Session["IpUsuario"] = ObtenerIPCliente();
+                        Session["NombresUsuario"] = datosUsuario.NombresUsuario;
                         //Definición del menú que tendrá el usuario en el sistema
                         if (datosUsuario.NombreRol.ToLower() == "administrador")
                         {
@@ -123,7 +124,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
         }
         #endregion
-        #region Recuperación de Contraseña (POST)
+        #region Recuperación de Password (POST)
         /// <summary>
         /// Método [POST] para la recuperación de contraseña mediante el envío de la misma por correo electrónico.
         /// El mismo es llamado mediante ajax desde la vista Login.cshtml.
@@ -138,11 +139,9 @@ namespace DCICC.GestionInventarios.Controllers
                 if (infoCorreo != null)
                 {
                     UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
-                    Usuarios infoUsuario = new Usuarios();
-                    var datosUsuario = objUsuariosAccDatos.ObtenerUsuarioCorreo(infoCorreo).ListaObjetoInventarios.Find(x => x.CorreoUsuario == infoCorreo);
+                    var datosUsuario = objUsuariosAccDatos.RecuperarPassword(infoCorreo).ObjetoInventarios;
                     if (datosUsuario != null)
                     {
-                        infoUsuario = datosUsuario;
                         ConfiguracionMail mail = new ConfiguracionMail();
                         Correo correo = new Correo
                         {
@@ -184,8 +183,8 @@ namespace DCICC.GestionInventarios.Controllers
                     NickUsuario = infoLogin.NickUsuario,
                     PasswordUsuario = infoLogin.PasswordUsuario
                 };
-                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos(infoUsuario);
-                Usuarios datosUsuario = objUsuariosAccDatos.ObtenerUsuariosHab().ListaObjetoInventarios.Find(x => x.NickUsuario == infoLogin.NickUsuario && x.PasswordUsuario == infoLogin.PasswordUsuario);
+                UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos();
+                Usuarios datosUsuario = objUsuariosAccDatos.AutenticarUsuario(infoUsuario).ObjetoInventarios;
                 if (datosUsuario != null)
                 {
                     return datosUsuario;
@@ -208,6 +207,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Info(string.Format("Cierre de sesión exitoso de: {0}.",(string)Session["NickUsuario"]));
                 RegistroSesionLogs("Logout");
                 Session["NickUsuario"] = null;
+                Session["NombresUsuario"] = null;
                 Session["CorreoUsuario"] = null;
                 Session["IpUsuario"] = null;
                 Session["PerfilUsuario"] = null;

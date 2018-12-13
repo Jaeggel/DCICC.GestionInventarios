@@ -90,10 +90,9 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesCQR msjCQR = new MensajesCQR();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_CQR (id_CQR,datos_CQR,impreso_cqr) VALUES (@ic,@dc,@imc)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_CQR (id_CQR,impreso_cqr) VALUES (@ic,@imc)", conn_BD))
                 {
                     cmd.Parameters.Add("ic", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCQR.IdCqr;
-                    cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Bytea).Value = infoCQR.Bytea;
                     cmd.Parameters.Add("imc", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoCQR.Impreso;
                     cmd.ExecuteNonQuery();
                 }

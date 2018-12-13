@@ -167,7 +167,6 @@ namespace DCICC.GestionInventarios.Controllers
             CQR infoCQR = new CQR
             {
                 IdCqr = IdCQR,
-                Bytea = bitmapBytes,
                 Impreso = false
             };
             string mensajesCQR = string.Empty;
@@ -419,9 +418,9 @@ namespace DCICC.GestionInventarios.Controllers
         public ActionResult ObtenerImagenQR()
         {
             GeneracionCQR objGeneracionQR = new GeneracionCQR();
-            var bitmap = objGeneracionQR.GenerarCodigoQR(Id_CQR);
-            var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-            return File(bitmapBytes, "image/jpeg");
+            var bytesQR = objGeneracionQR.GenerarCodigoQR(Id_CQR);
+            var bitmapQR = objGeneracionQR.GenQRBytes(bytesQR);
+            return File(bitmapQR, "image/jpeg");
         }
         /// <summary>
         /// Método para mostrar el PDF con el QR del nuevo activo

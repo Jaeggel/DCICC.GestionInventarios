@@ -81,7 +81,7 @@ namespace DCICC.GestionInventarios.Reportes
             tablaQR.AddCell(imagenQRReporte);
             //Configuración de celda para imagen QR
             PdfPCell celdaQR;
-            celdaQR = new PdfPCell(new Phrase(idQR + "\n" + nombreActivo, new iTextSharp.text.Font(fuente_Datos)));
+            celdaQR = new PdfPCell(new Phrase(string.Format("{0}\n{1}",idQR,nombreActivo), new iTextSharp.text.Font(fuente_Datos)));
             celdaQR.HorizontalAlignment = Element.ALIGN_CENTER;
             tablaQR.AddCell(celdaQR);
             tablaQR.HorizontalAlignment = Element.ALIGN_LEFT;

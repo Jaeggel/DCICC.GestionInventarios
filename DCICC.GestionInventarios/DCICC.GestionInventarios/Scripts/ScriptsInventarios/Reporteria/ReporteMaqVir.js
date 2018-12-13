@@ -109,18 +109,18 @@ function cargarPropositosCmb() {
 //Función para cargar la tabla de Máquinas Virtuales
 function cargarMaquinaVTabla() {
     var str = '<table id="dataTableMaquinaV" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th></tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Nombre LUN</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB)</th> <th>Memoria RAM (GB)</th><th>Estado</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMaquinasV.length; i++) {
 
         str += '<tr><td>' + datosMaquinasV[i].NombreMaqVirtuales +
+            '</td><td>' + datosMaquinasV[i].NombreLUN +
             '</td><td>' + datosMaquinasV[i].UsuarioMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].PropositoMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].NombreSistOperativos +
             '</td><td>' + datosMaquinasV[i].DireccionIPMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].DiscoMaqVirtuales +
-            '</td><td>' + datosMaquinasV[i].RamMaqVirtuales +
-            '</td><td>' + datosMaquinasV[i].DescripcionMaqVirtuales;
+            '</td><td>' + datosMaquinasV[i].RamMaqVirtuales;
             if (datosMaquinasV[i].HabilitadoMaqVirtuales) {
             str += '</td><td> Habilitado';
         } else {

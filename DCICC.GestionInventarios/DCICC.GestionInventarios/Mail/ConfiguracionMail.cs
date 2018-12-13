@@ -1,4 +1,5 @@
-﻿using DCICC.GestionInventarios.Models;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Models;
 using log4net;
 using System;
 using System.IO;
@@ -46,9 +47,10 @@ namespace DCICC.GestionInventarios.Mail
             {
                 body = reader.ReadToEnd();
             }
+            EncriptacionAccDatos objEncriptacionBD = new EncriptacionAccDatos(infoUsuario.NickUsuario);
             body = body.Replace("{nombre}", infoUsuario.NombresUsuario);
             body = body.Replace("{user}", infoUsuario.NickUsuario);
-            body = body.Replace("{cont}", infoUsuario.PasswordUsuario);
+            body = body.Replace("{cont}", objEncriptacionBD.Desencriptar(infoUsuario.PasswordUsuario));
             body = body.Replace("{fecha}", DateTime.Now + "");
             body = body.Replace("{year}", DateTime.Now.Year + "");
             return body;

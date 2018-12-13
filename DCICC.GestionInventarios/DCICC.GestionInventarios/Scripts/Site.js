@@ -8,7 +8,39 @@ function obtenerIdioma() {
     var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
 }
-
+function GenerarReportePDF(urlDT, urlRPDF, titulo, info) {
+    var dataInfo=BuildTableHTML(info);
+    $.ajax({
+        url: urlDT,
+        dataType: 'json',
+        data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": "" },
+        type: 'post'
+    });
+    window.open(urlRPDF);
+}
+function GenerarReporteExcel(urlDT, urlExcel, titulo,info,lab) {
+    var dataInfo = BuildTableHTML(info);
+    $.ajax({
+        url: urlDT,
+        dataType: 'json',
+        data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": lab },
+        type: 'post'
+    });
+    window.location.href = urlExcel;
+}
+function BuildTableHTML(infoDT) {
+    var table = $('#' + infoDT).DataTable();
+    var str = "";
+    str += "<table><thead>";
+    str += document.getElementById(infoDT).tHead.innerHTML;
+    str += "</thead><tbody>";
+    var trArray = table.rows({ filter: 'applied' }).nodes();
+    for (var i = 0; i < trArray.length; i++) {
+        str += trArray[i].outerHTML;
+    }
+    str += "</tbody></table>";
+    return str;
+}
 
 
 function listaEstadosTicket() {

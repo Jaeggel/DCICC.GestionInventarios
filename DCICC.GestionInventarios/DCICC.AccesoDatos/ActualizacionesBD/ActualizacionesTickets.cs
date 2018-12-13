@@ -32,7 +32,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 {
                     cmd.Parameters.Add("iru", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdResponsableUsuario;
                     cmd.Parameters.Add("et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.EstadoTicket;
-                    cmd.Parameters.AddWithValue("fct", infoTicket.FechaSolucionTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaSolucionTicket.ToLongDateString()) ? (object)infoTicket.FechaSolucionTicket : DBNull.Value;
+                    cmd.Parameters.AddWithValue("fct", infoTicket.FechaSolucionTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaSolucionTicket.ToString()) ? (object)infoTicket.FechaSolucionTicket : DBNull.Value;
                     cmd.Parameters.Add("ct", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTicket.ComentarioTicket) ? (object)infoTicket.ComentarioTicket : DBNull.Value;
                     cmd.Parameters.Add("it", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdTicket;
                     cmd.ExecuteNonQuery();

@@ -39,16 +39,28 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             {
                                 IdMaqVirtuales = (int)dr[0],
                                 IdSistOperativos= (int)dr[1],
-                                UsuarioMaqVirtuales = dr[2].ToString().Trim(),
-                                NombreMaqVirtuales = dr[3].ToString().Trim(),
-                                PropositoMaqVirtuales = dr[4].ToString().Trim(),
-                                DireccionIPMaqVirtuales = dr[5].ToString().Trim(),
-                                DiscoMaqVirtuales = (int)dr[6],
-                                RamMaqVirtuales = (int)dr[7],
-                                DescripcionMaqVirtuales = dr[8].ToString().Trim(),
-                                HabilitadoMaqVirtuales = (bool)dr[9],
-                                NombreSistOperativos = dr[10].ToString().Trim()
+                                IdLUN = (int)dr[2],
+                                UsuarioMaqVirtuales = dr[3].ToString().Trim(),
+                                NombreMaqVirtuales = dr[4].ToString().Trim(),
+                                PropositoMaqVirtuales = dr[5].ToString().Trim(),
+                                DireccionIPMaqVirtuales = dr[6].ToString().Trim(),
+                                DiscoMaqVirtuales = dr[7].ToString().Trim(),
+                                RamMaqVirtuales = (int)dr[8],
+                                DescripcionMaqVirtuales = dr[9].ToString().Trim(),
+                                HabilitadoMaqVirtuales = (bool)dr[10],
+                                NombreSistOperativos = dr[11].ToString().Trim(),
+                                NombreLUN = dr[12].ToString().Trim(),
                             };
+                            string[] capacidadTemp = objMaqVirtuales.DiscoMaqVirtuales.Split(new char[0]);
+                            if (capacidadTemp.Length == 2)
+                            {
+                                objMaqVirtuales.SizeMaqVirtuales = int.Parse(capacidadTemp[0]);
+                                objMaqVirtuales.UnidadMaqVirtuales = capacidadTemp[1];
+                            }
+                            else
+                            {
+                                objMaqVirtuales.SizeMaqVirtuales = int.Parse(capacidadTemp[0]);
+                            }
                             lstMaqVirtuales.Add(objMaqVirtuales);
                         }
                         conn_BD.Close();

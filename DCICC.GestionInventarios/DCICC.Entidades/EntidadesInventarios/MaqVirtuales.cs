@@ -8,6 +8,10 @@
 
         public int IdSistOperativos{ get; set; }
 
+        public int IdLUN { get; set; }
+
+        public string NombreLUN { get; set; }
+
         public string UsuarioMaqVirtuales { get; set; }
 
         public string NombreMaqVirtuales { get; set; }
@@ -16,7 +20,11 @@
 
         public string DireccionIPMaqVirtuales { get; set; }
 
-        public int DiscoMaqVirtuales { get; set; }
+        public string UnidadMaqVirtuales { get; set; }
+
+        public int SizeMaqVirtuales { get; set; }
+
+        public string DiscoMaqVirtuales { get; set; }
 
         public int RamMaqVirtuales { get; set; }
 

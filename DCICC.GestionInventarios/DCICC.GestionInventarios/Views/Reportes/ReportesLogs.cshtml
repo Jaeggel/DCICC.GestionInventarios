@@ -27,8 +27,8 @@
                     </div>
                     @*Sección para botones de generar reportes en PDF y Excel*@
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><button type="button" class="btn btn-round btn-danger float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-                        <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("", "")'"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                        <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Logs','dataTableLogs');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                        <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Logs','dataTableLogs','');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>

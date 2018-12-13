@@ -28,7 +28,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesHistoricoActivos msjHistoricoActivos = new MensajesHistoricoActivos();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("historicostotales", conn_BD))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
@@ -36,13 +36,18 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         while (dr.Read())
                         {
                             HistoricoActivos objHistoricoActivos = new HistoricoActivos
-                            {                                
-                                NombreActivo= dr[1].ToString().Trim(),
-                                NombreAccesorio = dr[2].ToString().Trim(),
-                                NombreTipoActivo = dr[2].ToString().Trim(),
+                            {                   
+                                IdHistActivos= dr[0] != DBNull.Value ? (int)dr[0] : 0,
+                                IdActivo = dr[1] != DBNull.Value ? (int)dr[1] : 0,
                                 FechaModifHistActivos = DateTime.Parse(dr[2].ToString().Trim()),
-                                SerialHistActivo = dr[2].ToString().Trim(),
-                                ModeloHistActivo = dr[2].ToString().Trim()
+                                IdAccesorio= dr[3] != DBNull.Value ? (int)dr[3] : 0,
+                                NombreActivo = dr[4].ToString().Trim(),
+                                ModeloHistActivo = dr[5].ToString().Trim(),
+                                SerialHistActivo = dr[6].ToString().Trim(),
+                                NombreAccesorio = dr[7].ToString().Trim(),
+                                ModeloHistAccesorio= dr[8].ToString().Trim(),
+                                SerialHistAccesorio= dr[9].ToString().Trim(),
+
                             };
                             lstHistoricoActivos.Add(objHistoricoActivos);
                         }

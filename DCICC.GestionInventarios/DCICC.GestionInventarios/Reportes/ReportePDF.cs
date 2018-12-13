@@ -2,20 +2,22 @@
 using iTextSharp.text.html;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using iTextSharp.tool.xml;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace DCICC.GestionInventarios.Reportes
 {
     public class ReportePDF
     {
-        readonly Font fuente_Datos = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-        readonly Font fuente_Titulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, WebColors.GetRGBColor("#E7E7E7"));
+        readonly Font fuente_Datos = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+        readonly Font fuente_Titulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8.5f, WebColors.GetRGBColor("#E7E7E7"));
         readonly BaseColor color_Datos = WebColors.GetRGBColor("#3c5a77");
         /// <summary>
         /// Método para generar el Reporte PDF.
@@ -23,7 +25,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="tablaReporte">Tabla para insertar en el Reporte</param>
         /// <param name="tituloReporte">Título que tendrá el Reporte</param>
         /// <returns></returns>
-        public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte)
+        public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte,string firmaUsuario)
         {
             byte[] bytesReportePDF;
             using (MemoryStream msReporte = new MemoryStream())
@@ -32,9 +34,10 @@ namespace DCICC.GestionInventarios.Reportes
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
-                    GenerarEncabezadoReporte(documentoReporte,writerReporte);
+                    GenerarEncabezadoReporte(documentoReporte, writerReporte);
                     GenerarTituloReporte(documentoReporte, tituloReporte);
                     documentoReporte.Add(tablaReporte);
+                    GenerarFirmaReporte(documentoReporte, firmaUsuario);
                     documentoReporte.Close();
                     bytesReportePDF = msReporte.ToArray();
                 }
@@ -81,7 +84,7 @@ namespace DCICC.GestionInventarios.Reportes
         {
             using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
-                using (var sr = new StringReader("<br/><br/><u><h1 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de "+ tituloReporte + "</h1></u><br/><br/>"))
+                using (var sr = new StringReader(string.Format("<br/><br/><u><h2 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de {0}</h2></u><br/><br/>", tituloReporte)))
                 {
                     htmlWorker.Parse(sr);
                 }
@@ -94,7 +97,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="writerReporte">Writer actual con el cual se está generando el PDF.</param>
         public void GenerarEncabezadoReporte(Document documentoReporte, PdfWriter writerReporte)
         {
-            var encabezadoHtml = @"<!DOCTYPE html><html><head></head><body><table style='width:100%;'><tr><th rowspan='2'><img src='" + System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoUPS.png") + "' height=65 width=225></img></th><td rowspan='1'><p style='text-align:center'><b>Ingeniería de Ciencias de la Computación <br/>Sede Quito Campus Sur</b></p></td></tr><tr><td><p style='text-align:center'><b>Reporte de Activos de TI <br/>del Data Center y Laboratorios del ICC</b></p></td></tr></table></body></html>";
+            var encabezadoHtml = string.Format(@"<!DOCTYPE html><html><head></head><body><table style='width:100%;'><tr><th rowspan='2'><img src='{0}' height=65 width=225></img></th><td rowspan='1'><p style='text-align:center'><b>Ingeniería de Ciencias de la Computación <br/>Sede Quito Campus Sur</b></p></td></tr><tr><td><p style='text-align:center'><b>Reporte de Activos de TI <br/>del Data Center y Laboratorios del ICC</b></p></td></tr></table></body></html>", System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoUPS.png"));
             var encabezadoCss = @"body{font-family:Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif}table,th,td{border:1px solid black;border-collapse:collapse}";
             using (var msCss = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(encabezadoCss)))
             {
@@ -103,6 +106,30 @@ namespace DCICC.GestionInventarios.Reportes
                     XMLWorkerHelper.GetInstance().ParseXHtml(writerReporte, documentoReporte, msHtml, msCss);
                 }
                 msCss.Close();
+            }
+        }
+        /// <summary>
+        /// Método para generar la firma del responsable del Reporte.
+        /// </summary>
+        /// <param name="documentoReporte"></param>
+        /// <param name="firmaUsuario"></param>
+        public void GenerarFirmaReporte(Document documentoReporte,string firmaUsuario)
+        {
+            using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
+            {
+                using (var sr = new StringReader("<br/><br/><br/><br/><br/>"))
+                {
+                    htmlWorker.Parse(sr);
+                }
+            }
+            Paragraph p = new Paragraph(new Chunk(new LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)));
+            documentoReporte.Add(p);
+            using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
+            {
+                using (var sr = new StringReader(string.Format("<div style='text-align: center;'><p style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'><b>Elaborado por: </b>{0}</p></div>", Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))))
+                {
+                    htmlWorker.Parse(sr);
+                }
             }
         }
     }
