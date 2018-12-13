@@ -53,7 +53,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
-                //ModificarResponsableJSON("Jorge López");
+                ModificarResponsableJSON("Jorge López");
                 ObtenerResponsableActual();
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
@@ -226,7 +226,10 @@ namespace DCICC.GestionInventarios.Controllers
         {
             try
             {
-                System.IO.File.WriteAllText(@path_JsonResponsable, string.Format("\"{0}\"", nombreResponsable.Trim()));
+                Activos objActivos = new Activos();
+                objActivos.ResponsableActivo = nombreResponsable;
+                string dataJson = JsonConvert.SerializeObject(objActivos);
+                System.IO.File.WriteAllText(@path_JsonResponsable, dataJson);
             }
             catch(Exception e)
             {
@@ -613,13 +616,13 @@ namespace DCICC.GestionInventarios.Controllers
         }
         public JsonResult ObtenerResponsableActual()
         {
-            string responsableActual=string.Empty;
+            Activos objActivos=null;
             using (StreamReader r = new StreamReader(path_JsonResponsable))
             {
                 string json = r.ReadToEnd();
-                responsableActual = JsonConvert.DeserializeObject<string>(json);
+                objActivos = JsonConvert.DeserializeObject<Activos>(json);
             }
-            return Json(responsableActual, JsonRequestBehavior.AllowGet);
+            return Json(objActivos.ResponsableActivo, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
