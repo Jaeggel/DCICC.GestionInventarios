@@ -32,7 +32,9 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 {
                     cmd.Parameters.Add("iru", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdResponsableUsuario;
                     cmd.Parameters.Add("et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.EstadoTicket;
-                    cmd.Parameters.AddWithValue("fct", infoTicket.FechaSolucionTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaSolucionTicket.ToString()) ? (object)infoTicket.FechaSolucionTicket : DBNull.Value;
+                    cmd.Parameters.AddWithValue("fec", infoTicket.FechaEnProcesoTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaEnProcesoTicket.ToString()) ? (object)infoTicket.FechaEnProcesoTicket : DBNull.Value;
+                    cmd.Parameters.AddWithValue("fee", infoTicket.FechaEnEsperaTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaEnEsperaTicket.ToString()) ? (object)infoTicket.FechaEnEsperaTicket : DBNull.Value;
+                    cmd.Parameters.AddWithValue("fs", infoTicket.FechaResueltoTicket).Value = !string.IsNullOrEmpty(infoTicket.FechaResueltoTicket.ToString()) ? (object)infoTicket.FechaResueltoTicket : DBNull.Value;
                     cmd.Parameters.Add("ct", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTicket.ComentarioTicket) ? (object)infoTicket.ComentarioTicket : DBNull.Value;
                     cmd.Parameters.Add("it", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdTicket;
                     cmd.ExecuteNonQuery();

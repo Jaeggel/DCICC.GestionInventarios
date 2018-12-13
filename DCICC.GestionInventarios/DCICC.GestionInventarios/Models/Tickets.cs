@@ -29,11 +29,21 @@ namespace DCICC.GestionInventarios.Models
 
         public DateTime FechaAperturaTicket { get; set; }
 
-        public DateTime FechaSolucionTicket { get; set; }
+        public DateTime FechaEnProcesoTicket { get; set; }
+
+        public DateTime FechaEnEsperaTicket { get; set; }
+
+        public DateTime FechaResueltoTicket { get; set; }
 
         public string PrioridadTicket { get; set; }
 
         public string ComentarioTicket { get; set; }
+
+        public string ComentarioEnProcesoTicket { get; set; }
+
+        public string ComentarioEnEsperaTicket { get; set; }
+
+        public string ComentarioResueltoTicket { get; set; }
 
         public string DescripcionTicket { get; set; }
     }

@@ -615,7 +615,7 @@ namespace DCICC.GestionInventarios.Controllers
         }
         public JsonResult ObtenerResponsableActual()
         {
-            Activos objActivos=null;
+            Activos objActivos=new Activos();
             using (StreamReader r = new StreamReader(path_JsonResponsable))
             {
                 string json = r.ReadToEnd();

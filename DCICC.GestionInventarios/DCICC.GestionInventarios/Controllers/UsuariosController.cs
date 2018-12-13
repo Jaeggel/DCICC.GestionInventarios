@@ -294,6 +294,27 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(lstNombresUsuarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
+        /// Método para obtener todos los ids, nombres y roles de los Usuarios de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerUsuarios()
+        {
+            List<Usuarios> lstNombresUsuarios = new List<Usuarios>();
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+            var lst = objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios;
+            foreach (var item in lst)
+            {
+                Usuarios objUsuario = new Usuarios()
+                {
+                    NombresUsuario = item.NombresUsuario,
+                    NombreRol = item.NombreRol,
+                    IdUsuario = item.IdUsuario
+                };
+                lstNombresUsuarios.Add(objUsuario);
+            }
+            return Json(lstNombresUsuarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
         /// Método para obtener el Usuario Actual del Sistema de la base de datos
         /// </summary>
         /// <returns></returns>

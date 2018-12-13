@@ -45,7 +45,18 @@ namespace DCICC.GestionInventarios.Controllers
         {
             if(infoTicket.EstadoTicket=="RESUELTO")
             {
-                infoTicket.FechaSolucionTicket = DateTime.Now;
+                infoTicket.FechaResueltoTicket = DateTime.Now;
+                infoTicket.ComentarioResueltoTicket = infoTicket.ComentarioTicket;
+            }
+            else if(infoTicket.EstadoTicket == "EN PROCESO")
+            {
+                infoTicket.FechaEnProcesoTicket = DateTime.Now;
+                infoTicket.ComentarioEnProcesoTicket = infoTicket.ComentarioTicket;
+            }
+            else if (infoTicket.EstadoTicket == "EN ESPERA")
+            {
+                infoTicket.FechaEnEsperaTicket = DateTime.Now;
+                infoTicket.ComentarioEnEsperaTicket = infoTicket.ComentarioTicket;
             }
             string mensajesTickets = string.Empty;
             MensajesTickets msjTickets = new MensajesTickets();
