@@ -36,9 +36,9 @@ function obtenerSO(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("siiii");
             cmbSO = data;
             cargarSOCmb();
+            cargarSOModificarCmb();
         }
     });
 }
@@ -50,7 +50,6 @@ function listaPropositos(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("entrooo");
             propositos = data;
             cargarPropositosCmb();
             
@@ -68,10 +67,9 @@ function obtenerLuns(url) {
         type: 'post',
         success: function (data) {
             console.log("entrooo");
-            luns = data;
-            cargarPropositosCmb();
-        }, error: function (e) {
-            console.log(e);
+            datosLuns = data;
+            cargarLunsCmb();
+            cargarLunsCmbModificar();
         }
     });
 }
@@ -84,11 +82,12 @@ function urlEstados(url) {
 //Función para cargar la tabla de Máquinas Virtuales
 function cargarMaquinaVTabla() {
     var str = '<table id="dataTableMaquinaV" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Nombre LUN</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB/TB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMaquinasV.length; i++) {
 
         str += '<tr><td>' + datosMaquinasV[i].NombreMaqVirtuales +
+            '</td><td>' + datosMaquinasV[i].NombreLUN +
             '</td><td>' + datosMaquinasV[i].UsuarioMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].PropositoMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].NombreSistOperativos +
@@ -124,7 +123,17 @@ function cargarSOCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbSO.length; i++) {
         str += '<option value="' + cmbSO[i].IdSistOperativos + '">' + cmbSO[i].NombreSistOperativos + '</option>';
-    };
+    }
+    str += '</select>';
+    $("#cargarSO").html(str);
+}
+
+//Función para cargar el combobox de Sistemas Operativos
+function cargarSOModificarCmb() {
+    var str = '<select id="IdSistOperativos" class="form-control" name="IdSistOperativos" required>';
+    for (var i = 0; i < cmbSO.length; i++) {
+        str += '<option value="' + cmbSO[i].IdSistOperativos + '">' + cmbSO[i].NombreSistOperativos + '</option>';
+    }
     str += '</select>';
     $("#cargarSO").html(str);
 }
@@ -143,15 +152,27 @@ function cargarPropositosCmb() {
 
 //Función para cargar el combobox de Luns
 function cargarLunsCmb() {
-    var str = '<select id="LunsMaqVirtuales" class="form-control" name="LunsMaqVirtuales" required>';
+    var str = '<select id="IdLUN" class="form-control" name="IdLUN" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < datosLuns.length; i++) {
-        str += '<option value="' + datosLuns[i].NombreProposito + '">' + datosLuns[i].NombreProposito + '</option>';
-    };
+        if (datosLuns[i].HabilitadoLUN) {
+            str += '<option value="' + datosLuns[i].IdLUN + '">' + datosLuns[i].NombreLUN + '</option>';
+        }   
+    }
     str += '</select>';
     $("#cargarLuns").html(str);
 }
 
+//Función para cargar el combobox de Luns
+function cargarLunsCmbModificar() {
+    var str = '<select id="IdLUN" class="form-control" name="IdLUN" required>';
+    for (var i = 0; i < datosLuns.length; i++) {
+      
+            str += '<option value="' + datosLuns[i].IdLUN + '">' + datosLuns[i].NombreLUN + '</option>';
+    }
+    str += '</select>';
+    $("#cargarLunsModificar").html(str);
+}
 
 //Función para setear los valores en los inputs
 function formUpdateMaquinaV(idMV) {
@@ -161,6 +182,9 @@ function formUpdateMaquinaV(idMV) {
 
         if (datosMaquinasV[i].IdMaqVirtuales == idMV) {
             //Métodos para setear los valores a modificar
+            var element4 = document.getElementById("IdLUN");
+            element4.value = datosMaquinasV[i].IdLUN;
+
             var element = document.getElementById("IdSistOperativos");
             element.value = datosMaquinasV[i].IdSistOperativos;
             document.getElementById("NombreMaqVirtuales").value = datosMaquinasV[i].NombreMaqVirtuales;
@@ -169,7 +193,10 @@ function formUpdateMaquinaV(idMV) {
             element2.value = datosMaquinasV[i].PropositoMaqVirtuales;
             
             document.getElementById("DireccionIPMaqVirtuales").value = datosMaquinasV[i].DireccionIPMaqVirtuales;
-            document.getElementById("DiscoMaqVirtuales").value = datosMaquinasV[i].DiscoMaqVirtuales;
+            document.getElementById("DiscoMaqVirtuales").value = datosMaquinasV[i].SizeMaqVirtuales;
+            var element3 = document.getElementById("UnidadMaqVirtuales");
+            element3.value = datosMaquinasV[i].UnidadMaqVirtuales;
+
             document.getElementById("RamMaqVirtuales").value = datosMaquinasV[i].RamMaqVirtuales;
             document.getElementById("DescripcionMaqVirtuales").value = datosMaquinasV[i].DescripcionMaqVirtuales;
 
@@ -189,7 +216,8 @@ function formUpdateMaquinaV(idMV) {
 
 //Función para modificar el la Máquina virtual
 function modificarMaquinaV(url_modificar) {
-    console.log(url_modificar);
+    var cmbLun = document.getElementById("IdLUN");
+    var idLun = cmbLun.options[cmbLun.selectedIndex].value;
     var cmbSO = document.getElementById("IdSistOperativos");
     var idSO = cmbSO.options[cmbSO.selectedIndex].value;
     var nombreMV= document.getElementById("NombreMaqVirtuales").value;
@@ -197,7 +225,11 @@ function modificarMaquinaV(url_modificar) {
     var cmbProposito = document.getElementById("PropositoMaqVirtuales");
     var propositoMV = cmbProposito.options[cmbProposito.selectedIndex].value;
     var direccionIP= document.getElementById("DireccionIPMaqVirtuales").value;
-    var disco= document.getElementById("DiscoMaqVirtuales").value;
+    var disco = document.getElementById("DiscoMaqVirtuales").value;
+
+    var cmbUnidad = document.getElementById("UnidadMaqVirtuales");
+    var idUnidad = cmbUnidad.options[cmbUnidad.selectedIndex].value;
+
     var ram= document.getElementById("RamMaqVirtuales").value;
     var descripcion= document.getElementById("DescripcionMaqVirtuales").value;
     var habilitadoMV = $('#HabilitadoMaqVirtuales').prop('checked');
@@ -215,7 +247,12 @@ function modificarMaquinaV(url_modificar) {
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    data: { "IdMaqVirtuales": idMaquinaV, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV, "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP, "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion, "HabilitadoMaqVirtuales": habilitadoMV },
+                    data: {
+                        "IdMaqVirtuales": idMaquinaV, "IdLUN": idLun, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV,
+                        "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP,
+                        "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion,
+                        "UnidadMaqVirtuales": idUnidad, "HabilitadoMaqVirtuales": habilitadoMV
+                    },
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
@@ -444,7 +481,7 @@ function validarDisco() {
         esValido = false;
         disco.value = "";
         disco.style.borderColor = "#900C3F";
-        $('#errorDiscoMv').html('El rango de Disco Duro es de 1 a 10000 GB').show();
+        $('#errorDiscoMv').html('El rango de Disco Duro es de 1 a 10000').show();
         setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
         boton.disabled = true;
     } else if (disco.value > 10000) {

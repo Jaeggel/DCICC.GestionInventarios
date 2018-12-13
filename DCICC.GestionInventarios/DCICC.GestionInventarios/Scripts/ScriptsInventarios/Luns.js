@@ -323,13 +323,13 @@ function validarNumeroLun() {
         esValido = false;
         capa.value = "";
         capa.style.borderColor = "#900C3F";
-        $('#errorCapacidadLun').html('El rango de capacidad es de 1 a 100').show();
+        $('#errorCapacidadLun').html('El rango de capacidad es de 1 a 1000').show();
         setTimeout("$('#errorCapacidadLun').html('').hide('slow')", 6000);
-    } else if (capa.value > 100) {
+    } else if (capa.value > 1000) {
         esValido = false;
         capa.value = "";
         capa.style.borderColor = "#900C3F";
-        $('#errorCapacidadLun').html('No se puede ingresar un valor mayor a 100').show();
+        $('#errorCapacidadLun').html('No se puede ingresar un valor mayor a 1000').show();
         setTimeout("$('#errorCapacidadLun').html('').hide('slow')", 6000);
     } else {
         capa.style.borderColor = "#ccc";
