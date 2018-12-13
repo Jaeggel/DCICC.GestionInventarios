@@ -35,7 +35,15 @@
                         @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label>Escoja el Sistema Operativo:</label>
+                                <label>*Seleccione la LUN:</label>
+                                <div id="cargarLuns"></div>
+                                <span id="errorLun" style="color:brown;"></span>
+                            </div>
+                        </div>
+                        @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>*Seleccione el Sistema Operativo:</label>
                                 <div id="cargarSO"></div>
                                 <span id="errorCmbSo" style="color:brown;"></span>
                             </div>
@@ -43,7 +51,7 @@
                         @* Área de Texto para seleccionar el propósito de la máquina virtual *@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label>Escoja el Propósito:</label>
+                                <label>*Selecione el Propósito:</label>
                                 <div id="cargarPropositos"></div>
                                 <span id="errorCmbEstado" style="color:brown;"></span>
                             </div>
@@ -62,20 +70,32 @@
                         </div>
                         @* Cuadro de texto para el ingreso de la dirección IP de una máquina virtual *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="DireccionIPMaqVirtuales" type="text" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="Dirección IP" onkeyup="this.value=this.value.replace(validarIp(),'');" onBlur="validarIP();" maxlength="16" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <input id="DireccionIPMaqVirtuales" type="text" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="Dirección IP" onkeyup="this.value=this.value.replace(validarIp(),'');" onBlur="validarIP();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-wifi form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorIpMv" style="color:brown;"></span>
                         </div>
+
                         @* Cuadro de texto para el ingreso del disco y RAM de una máquina virtual *@
                         <div class="form-group">
-                            <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                <label>Disco (GB):</label>
-                                <input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="0" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarDisco();" min="0" max="10000" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
-                                <span id="errorDiscoMv" style="color:brown;"></span>
+                            <div class="col-md-8 col-sm-12 col-xs-12 ">
+                                
+                                <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <label>*Tamaño en Disco:</label>
+                                    <input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="1000" onBlur="validarDisco();" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                    <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="errorDiscoMv" style="color:brown;"></span>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                    <label>*Unidad</label>
+                                    <select id="UnidadMaqVirtuales" class="form-control" name="UnidadMaqVirtuales" required>
+                                        <option value="GB">GB</option>
+                                        <option value="TB">TB</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                <label>RAM (GB):</label>
+
+                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+                                <label>*RAM (GB):</label>
                                 <input id="RamMaqVirtuales" type="number" class="form-control has-feedback-left" name="RamMaqVirtuales" placeholder="0" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarRam();" min="0" max="1000" data-toggle="tooltip" data-placement="rigth" title="" required>
                                 <span class="fa fa-tachometer form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorRamMv" style="color:brown;"></span>
@@ -134,6 +154,7 @@
         obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');
         obtenerSO('@Url.Action("ObtenerSistOperativosHab", "SistOperativo")');
         listaPropositos('@Url.Action("ObtenerPropositosComp", "MaqVirtuales")');
+        obtenerLuns('@Url.Action("ObtenerLUNComp", "LUN")');
         mensajesTooltips();
         //Método para evitar la duplicidad de nombres de Máquinas Virtuales
         $('#NombreMaqVirtuales').blur(function () {
