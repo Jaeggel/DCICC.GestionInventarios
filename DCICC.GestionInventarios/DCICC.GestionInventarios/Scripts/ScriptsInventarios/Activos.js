@@ -88,7 +88,6 @@ function obtenerResponsable(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log(data);
             document.getElementById("ResponsableActivo").value = data;
 
         }, error: function (request,status,error) {
@@ -117,7 +116,7 @@ function modificarResponsable(url) {
         if (result.value) {
             //Método ajax para modificar la categoria de la base de datos
             $.ajax({
-                data: { "NombreResponsable": nombre },
+                data: { "NombreResponsable": nombre},
                 dataType: 'json',
                 url: url,
                 type: 'post',
@@ -126,16 +125,10 @@ function modificarResponsable(url) {
                     document.getElementById("ResponsableActivo").value = data;
                     $('#ModificarResponsable').modal('hide');
                     showNotify("Actualización exitosa", 'Se ha modificado el Responsable', "success");
-                }, error: function (request, status, error) {
-                    $('#ModificarResponsable').modal('hide');
-                    //showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
-                    console.log(request);
-                    console.log(status);
-                    console.log(error);
                 }
             });
         } else {
-
+            $('#ModificarResponsable').modal('hide');
         }
     });
 
@@ -385,6 +378,8 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
     var fechaIngreso = $('#FechaIngresoActivo').val();
     console.log(fechaIngreso);
     //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
+    var responsable = document.getElementById("ResponsableActivo").value;
+
     //Obtener valor de la descripcion de activo
     var descripcionActivo = document.getElementById("DescripcionActivo").value;
     //Obtener valor del ExpressServiceCodeActivo
@@ -414,7 +409,7 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
         data: {
             "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
             "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
-            "DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
+            "ResponsableActivo": responsable,"DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
             "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
             "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
         },
@@ -519,6 +514,6 @@ function mensajesTooltips() {
     document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
     document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
-    document.getElementById("ResponsableActivo").title = "Máximo 50 caracteres. \n  Caracteres especiales permitidos - / _ .";
+    document.getElementById("ResponsableActivo").title = "Responsable Actual del Data Center";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
 }
