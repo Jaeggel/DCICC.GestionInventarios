@@ -101,22 +101,46 @@ function obtenerResponsable(url) {
 
 //Método ajax para modificar los datos del Responsable
 function modificarResponsable(url) {
-    var nombre = document.getElementById("ResponsableActivo").value;
-    $.ajax({
-        data: {"NombreResponsable":nombre },
-        dataType: 'json',
-        url: url,
-        type: 'post',
-        success: function (data) {
-            console.log(data);
-            document.getElementById("ResponsableActivo").value = data;
+    var nombre = document.getElementById("NombreResponsableActivo").value;
+    console.log(nombre);
 
-        }, error: function (request, status, error) {
-            console.log(request);
-            console.log(status);
-            console.log(error);
+    swal({
+        title: 'Confirmación de Actualización',
+        text: "¿Está seguro de modificar el Responsable?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            //Método ajax para modificar la categoria de la base de datos
+            $.ajax({
+                data: { "NombreResponsable": nombre },
+                dataType: 'json',
+                url: url,
+                type: 'post',
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById("ResponsableActivo").value = data;
+                    $('#ModificarResponsable').modal('hide');
+                    showNotify("Actualización exitosa", 'Se ha modificado el Responsable', "success");
+                }, error: function (request, status, error) {
+                    $('#ModificarResponsable').modal('hide');
+                    //showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                    console.log(request);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        } else {
+
         }
     });
+
+
+    
 }
 
 //Método para obtener los datos del activo de TI ingresado para generar el código CQR

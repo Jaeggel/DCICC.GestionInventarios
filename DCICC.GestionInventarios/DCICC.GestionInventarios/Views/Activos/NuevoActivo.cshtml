@@ -163,7 +163,7 @@
                             <div class="form-group"></div>
                             @* Área de Texto para el ingreso de la descripción de una activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" onkeyup="this.value=this.value.replace(validarTextosSinNum(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+                                <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
                                 <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -302,14 +302,14 @@
                                     @* Cuadro de texto para el ingreso del nombre de un activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>* Nombre del Responsable</label>
-                                        <input id="NombreResponsableActivo" type="text" class="form-control has-feedback-left" name="NombreResponsableActivo" placeholder="Pepe Pérez" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <input id="NombreResponsableActivo" type="text" class="form-control has-feedback-left" name="NombreResponsableActivo" placeholder="Pepe Pérez" onkeyup="this.value=this.value.replace(validarTextosSinNum(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-child form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombre" style="color:brown;"></span>
                                     </div>
                                     <div class="form-group"></div>
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="actualizarEstadoActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
+                                            <button type="submit" class="btn btn-success" onclick=" modificarResponsable('@Url.Action("ModificarResponsableJSON", "Activos")');">Modificar</button>
                                             <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
                                         </div>
                                     </div>
