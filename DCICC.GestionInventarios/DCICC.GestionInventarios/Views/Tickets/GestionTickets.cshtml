@@ -97,56 +97,52 @@
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
-
-                                    @* Cuadro de texto para el ingreso de la descripción del ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Descripción de la incidencia:</label>
-                                        <textarea id="DescripcionTicket" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
-                                        <span class="fa fa-commenting-o form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso de la prioridad del ticket *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Prioridad de la incidencia:</label>
-                                        <input id="PrioridadTicket" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
-                                        <span class="fa fa-exclamation-triangle form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso de+l usuario que reporto el ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Reportado por:</label>
-                                        <input id="NombreUsuario" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
-                                        <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
                                     @* Cuadro de texto para el ingreso de la fecha de apertura del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Fecha de apertura del ticket:</label>
                                         <input id="FechaAperturaTicket" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
                                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-
-                                    @* Combobox para seleccionar una responsable del ticket*@
+                                    @* Cuadro de texto para el ingreso de la descripción del ticket*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Descripción de la incidencia:</label>
+                                        <textarea id="DescripcionTicket" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
+                                        <span class="fa fa-commenting-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
                                     <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>* Asignar responsable:</label>
-                                            <div id="cargarResponsablesCmb"></div>
-                                            <span id="errorAbiertos" style="color:brown;"></span>
+                                        @* Cuadro de texto para el ingreso de+l usuario que reporto el ticket*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Reportado por:</label>
+                                            <input id="NombreUsuario" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
+                                            <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso de la prioridad del ticket *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Prioridad de la incidencia:</label>
+                                            <input id="PrioridadTicket" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
+                                            <span class="fa fa-exclamation-triangle form-control-feedback left" aria-hidden="true"></span>
                                         </div>
                                     </div>
-
-                                    @* Combobox para seleccionar una acción del ticket*@
                                     <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        @* Combobox para seleccionar una responsable del ticket*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <label>* Asignar responsable:</label>
+                                            <div id="cargarResponsablesCmb"></div>
+                                            <span id="errorResponsableAbi" style="color:brown;"></span>
+                                        </div>
+                                        @* Combobox para seleccionar una acción del ticket*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
                                             <label>* Cambiar de estado:</label>
                                             <div id="cargarAbiertosCmb"></div>
                                             <span id="errorAbiertos" style="color:brown;"></span>
                                         </div>
                                     </div>
-
                                     @* Área de Texto para el ingreso de un comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <textarea id="ComentarioTicket" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    <div class="ln_solid"></div>
+
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -172,7 +168,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel1">Solucionar Tickets para Soporte Técnico En Curso</h4>
+                <h4 class="modal-title" id="myModalLabel1">Solucionar Tickets para Soporte Técnico En Proceso</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -183,32 +179,46 @@
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
-
-                                    @* Cuadro de texto para el ingreso de la descripcion del ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Descripción de la incidencia:</label>
-                                        <textarea id="DescripcionTicketEC" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
-                                        <span class="fa fa-commenting-o form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso de la prioridad del ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Prioridad de la incidencia:</label>
-                                        <input id="PrioridadTicketEC" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
-                                        <span class="fa fa-exclamation-triangle form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del nombre de usuario que reporto el ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Reportado por:</label>
-                                        <input id="NombreUsuarioEC" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
-                                        <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
                                     @* Cuadro de texto para el ingreso de la fecha de apertura del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Fecha de apertura del ticket:</label>
                                         <input id="FechaAperturaTicketEC" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
                                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-
+                                    @* Cuadro de texto para el ingreso de la descripcion del ticket*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Descripción de la incidencia:</label>
+                                        <textarea id="DescripcionTicketEC" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
+                                        <span class="fa fa-commenting-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso del nombre de usuario que reporto el ticket*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Reportado por:</label>
+                                            <input id="NombreUsuarioEC" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
+                                            <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso de la prioridad del ticket*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Prioridad de la incidencia:</label>
+                                            <input id="PrioridadTicketEC" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
+                                            <span class="fa fa-exclamation-triangle form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso del usuario asignado*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Responsable Asignado:</label>
+                                            <input id="ResponsableAsignadoEC" type="text" class="form-control has-feedback-left" name="ResponsableAsignadoEC" placeholder="Responsable Asignado" readonly>
+                                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso del usuario asignado*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Fecha de Asignación:</label>
+                                            <input id="FechaAsignadoEC" type="text" class="form-control has-feedback-left" name="FechaAsignadoEC" placeholder="Fecha Asignacion" readonly>
+                                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
                                     @* Combobox para seleccionar un cambio de estado*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -223,7 +233,7 @@
                                         <textarea id="ComentarioTicketEC" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-                                    <div class="ln_solid"></div>
+
                                     @* Sección de botones para guardar usuario o cancelar el registro *@
                                     <div class="form-group text-center">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -260,32 +270,46 @@
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
-
-                                    @* Cuadro de texto para el ingreso de la descripcion del ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Descripción de la incidencia:</label>
-                                        <textarea id="DescripcionTicketEnEs" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
-                                        <span class="fa fa-commenting-o form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso de la prioridad del ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Prioridad de la incidencia:</label>
-                                        <input id="PrioridadTicketEnEs" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
-                                        <span class="fa fa-exclamation-triangle form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del nombre de usuario que reporto el ticket*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Reportado por:</label>
-                                        <input id="NombreUsuarioEnEs" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
-                                        <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
                                     @* Cuadro de texto para el ingreso de la fecha de apertura del ticket*@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Fecha de apertura del ticket:</label>
                                         <input id="FechaAperturaTicketEnEs" type="text" class="form-control has-feedback-left" name="FechaAperturaTicket" placeholder="Fecha Apertura" readonly>
                                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                     </div>
-
+                                    @* Cuadro de texto para el ingreso de la descripcion del ticket*@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Descripción de la incidencia:</label>
+                                        <textarea id="DescripcionTicketEnEs" name="DescripcionTicket" class="form-control has-feedback-left" rows="3" placeholder="Descripción del ticket" readonly></textarea>
+                                        <span class="fa fa-commenting-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso del nombre de usuario que reporto el ticket*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Reportado por:</label>
+                                            <input id="NombreUsuarioEnEs" type="text" class="form-control has-feedback-left" name="NombreUsuario" placeholder="Usuario que reporta" readonly>
+                                            <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso de la prioridad del ticket*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Prioridad de la incidencia:</label>
+                                            <input id="PrioridadTicketEnEs" type="text" class="form-control has-feedback-left" name="PrioridadTicket" placeholder="Prioridad del ticket" readonly>
+                                            <span class="fa fa-exclamation-triangle form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @* Cuadro de texto para el ingreso del usuario asignado*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Responsable Asignado:</label>
+                                            <input id="ResponsableAsignadoEnEs" type="text" class="form-control has-feedback-left" name="ResponsableAsignadoEnEs" placeholder="Responsable Asignado" readonly>
+                                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        @* Cuadro de texto para el ingreso del usuario asignado*@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Fecha de Asignación:</label>
+                                            <input id="FechaAsignadoEnEs" type="text" class="form-control has-feedback-left" name="FechaAsignadoEnEs" placeholder="Fecha Asignacion" readonly>
+                                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
                                     @* Combobox para seleccionar un cambio de estado*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
