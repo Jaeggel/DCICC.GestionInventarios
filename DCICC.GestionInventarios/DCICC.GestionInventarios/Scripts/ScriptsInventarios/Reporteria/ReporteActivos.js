@@ -15,6 +15,13 @@ var cmbTipoAccesorio;
 var datosHistoricos;
 var fechasHist = [];
 
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON ACTIVOS
+ * *********************************************************************************
+ */
+
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de los activos
 function obtenerActivos(url) {
     $.ajax({
@@ -31,6 +38,7 @@ function obtenerActivos(url) {
                 },
                 "order": [[1, "asc"]]
             });
+            cargarEstadosActivoCmb();
         }
     });
 }
@@ -74,6 +82,7 @@ function datosMarcas(url) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 //Función para cargar el combobox de tipo de activo
 function cargarTipoActivoCmb() {
     var str = '<select id="TipoActivo" class="form-control" name="TipoActivo">';
@@ -150,10 +159,39 @@ function cargarMarcasCmb() {
     });
 }
 
+//Función para cargar estados de activos
+function cargarEstadosActivoCmb() {
+    var str = '<select id="EstadoActivo" class="form-control" name="EstadoActivo" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        if (cmbEstados[i] != "DE BAJA") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }
+
+    };
+    str += '</select>';
+    $("#cargarEstadosActivo").html(str);
+    //Método para búsqueda con filtros
+    $('#EstadoActivo').change(function () {
+        var opcion = document.getElementById("EstadoActivo");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableActivos').DataTable().column(8).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(8).search(
+                tipoLab.text
+            ).draw();
+        }
+    });
+}
+
+
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Estado del Activo</th></tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Custodio</th> <th>Estado del Activo</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         if (datosActivos[i].EstadoActivo != "DE BAJA") {
@@ -174,6 +212,7 @@ function cargarActivosTabla() {
                 '</td><td>' + datosActivos[i].SerialActivo +
                 '</td><td>' + datosActivos[i].NombreLaboratorio +
                 '</td><td>' + fechaIngreso +
+                '</td><td>' + datosActivos[i].ResponsableActivo +
                 '</td><td>' + datosActivos[i].EstadoActivo;
             str += '</td ></tr> ';
         }
@@ -190,7 +229,8 @@ function cargarActivosTabla() {
 
 }
 
-
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON FECHAS---------------------------------*/
+//Fecha de inicio
 function inicioFechaAct(minDate, maxDate) {
     $(function () {
         $('input[name="FechaInicio"]').daterangepicker({
@@ -199,11 +239,11 @@ function inicioFechaAct(minDate, maxDate) {
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: maxDate
+            maxDate: new Date()
         });
     });
 }
-
+//Fecha de Fin
 function finFechaAct(minDate, maxDate) {
     $(function () {
         $('input[name="FechaFin"]').daterangepicker({
@@ -212,12 +252,12 @@ function finFechaAct(minDate, maxDate) {
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: 0
+            maxDate: new Date()
         });
     });
 }
 
-
+//Función para obtener el filtro por rango de fechas
 function consultarFechas() {
     var table = $('#dataTableActivos').DataTable();
     $.fn.DataTable.ext.search.push(
@@ -240,26 +280,21 @@ function consultarFechas() {
     table.draw();
 }
 
-//function consultarDatos() {
-//    var table = $('#dataTableActivos').DataTable();
-
-//    var cols=table.rows({ filter: 'applied' }).nodes();
-
-//    console.log(cols);
-
-//    var title = table.columns().header();
-//    console.log(title);
-    
-//}
 
 //Función para limpiar las fechas
 function limpiarFechas() {
-    var table = $('#dataTableActivos').DataTable();
-    
+    //obtenerAccesorios(url);  
 }
 
-//////////////////////////////////////////////////////MÉTODOS PARA TABLAS DE ACCESORIOS//////////////////////////////////
 
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON ACCESORIOS
+ * *********************************************************************************
+ */
+
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener accesorios
 function obtenerAccesorios(url) {
     $.ajax({
@@ -293,6 +328,8 @@ function datosTipoAccesorio(url) {
         }
     });
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar el combobox de accesorios
 function cargarAccesoriosCmb() {
@@ -368,8 +405,13 @@ function cargarAccesoriosTabla() {
     $("#tablaAccesorios").html(str);
 }
 
-/////////////////////////////////////////////////////MÉTODOS PARA TABLA DE HISTORICOS////////////////////////////////////
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON HISTORICOS
+ * *********************************************************************************
+ */
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener accesorios
 function obtenerHistoricos(url) {
     $.ajax({
@@ -377,7 +419,6 @@ function obtenerHistoricos(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
             datosHistoricos = data;
             cargarHistoricosTabla();
             $('#dataTableHistoricos').DataTable({
@@ -389,6 +430,8 @@ function obtenerHistoricos(url) {
         }
     });
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de Activos
 function cargarHistoricosTabla() {
@@ -429,6 +472,8 @@ function cargarHistoricosTabla() {
 
 }
 
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON FECHAS---------------------------------*/
+//Fecha de inicio para historicos
 function inicioFechaHist(minDate, maxDate) {
     $(function () {
         $('input[name="FechaInicioHist"]').daterangepicker({
@@ -437,11 +482,12 @@ function inicioFechaHist(minDate, maxDate) {
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: maxDate
+            maxDate: new Date()
         });
     });
 }
 
+//Fecha Fin para Historicos
 function finFechaHist(minDate, maxDate) {
     $(function () {
         $('input[name="FechaFinHist"]').daterangepicker({
@@ -450,12 +496,12 @@ function finFechaHist(minDate, maxDate) {
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: 0
+            maxDate: new Date()
         });
     });
 }
 
-
+//Función para el filtro de fechas de historicos
 function consultarFechasHist() {
     var table = $('#dataTableHistoricos').DataTable();
     $.fn.dataTable.ext.search.push(

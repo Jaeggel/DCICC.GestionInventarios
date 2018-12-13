@@ -539,6 +539,23 @@ function validacionesEstadoActivo() {
     return isValid;
 }
 
+//Función para setear valores N/A
+function setearModeloAct() {
+    var modeloActivo = document.getElementById("ModeloActivo").value;
+    //Validación para el modelo del activo
+    if (!modeloActivo && modeloActivo.length <= 0) {
+        document.getElementById("ModeloActivo").value = "N/A";
+    }
+}
+
+//Función para setear valores N/A
+function setearSerialAct() {
+    var serialActivo = document.getElementById("SerialActivo").value;;
+    if (!serialActivo && serialActivo.length <= 0) {
+        document.getElementById("SerialActivo").value = "N/A";
+    }
+}
+
 /* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
@@ -547,7 +564,7 @@ function mensajesTooltips() {
     document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
     document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
-    document.getElementById("ResponsableActivo").title = "Máximo 80 caracteres. \n  Caracteres especiales permitidos - / _ .";
+    document.getElementById("ResponsableActivo").title = "Responsable Actual del Data Center";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
 }
 

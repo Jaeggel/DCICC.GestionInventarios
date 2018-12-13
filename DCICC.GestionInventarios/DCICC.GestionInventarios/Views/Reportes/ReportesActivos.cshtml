@@ -55,19 +55,24 @@
                                             @*Sección de filtros de búsqueda para realizar la consulta*@
                                             <div class="form-group">
                                                 @*Combobox para seleccionar Tipo Activo*@
-                                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
                                                     <label>Filtro por Tipo:</label>
                                                     <div id="cargarTipoActivo"></div>
                                                 </div>
                                                 @*Combobox para seleccionar Laboratorios*@
-                                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
                                                     <label>Filtro por Laboratorio:</label>
                                                     <div id="cargarLaboratorios"></div>
                                                 </div>
                                                 @*Combobox para seleccionar Marcas*@
-                                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
                                                     <label>Filtro por Marca:</label>
                                                     <div id="cargarMarcas"></div>
+                                                </div>
+                                                @*Combobox para seleccionar Marcas*@
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Estado:</label>
+                                                    <div id="cargarEstadosActivo"></div>
                                                 </div>
                                             </div>
                                             <br />
@@ -85,7 +90,7 @@
                                                 </div>
                                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
                                                     <button type="button" class="btn btn-default" onclick="consultarFechas();">Consultar</button>
-                                                    <button type="button" class="btn btn-default" onclick="limpiarFechas();">Limpiar</button>
+                                                    <button type="button" class="btn btn-default" onclick="obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');">Limpiar</button>
                                                 </div>
                                             </div>
                                             <br />
@@ -175,7 +180,7 @@
                                                 </div>
                                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
                                                     <button type="button" class="btn btn-default" onclick="consultarFechasHist();">Consultar</button>
-                                                    <button type="button" class="btn btn-default" onclick="limpiarFechas();">Limpiar</button>
+                                                    <button type="button" class="btn btn-default" onclick="obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');">Limpiar</button>
                                                 </div>
                                             </div>
                                             <br />
