@@ -30,55 +30,6 @@ namespace DCICC.GestionInventarios.AccesoDatos
         /// <summary>
         /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
         /// </summary>
-        /// <param name="infoUsuario"></param>
-        /// <returns></returns>
-        public string ObtenerTokenInicioBD(Usuarios infoUsuario)
-        {
-            string tokenResult = string.Empty;
-            try
-            {
-                var response = client_Service.PostAsJsonAsync("Token/ObtenerTokenInicioBD", infoUsuario).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var tokenJson = response.Content.ReadAsStringAsync().Result;
-                    tokenResult = JsonConvert.DeserializeObject<string>(tokenJson);
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}", e.Message));
-                tokenResult = null;
-            }
-            return string.Format("Bearer {0}", tokenResult);
-        }
-        /// <summary>
-        /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
-        /// Utilizado para la recuperación de contraseña mediante correo electrónico.
-        /// </summary>
-        /// <param name="infoCorreo"></param>
-        /// <returns></returns>
-        public string ObtenerTokenInicioCorreoBD(string infoCorreo)
-        {
-            string tokenResult = string.Empty;
-            try
-            {
-                var response = client_Service.PostAsJsonAsync("Token/ObtenerTokenInicioCorreoBD", infoCorreo).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var tokenJson = response.Content.ReadAsStringAsync().Result;
-                    tokenResult = JsonConvert.DeserializeObject<string>(tokenJson);
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("Error en la conexión para obtener el token de autorización: {0}", e.Message));
-                tokenResult = null;
-            }
-            return string.Format("Bearer {0}", tokenResult);
-        }
-        /// <summary>
-        /// Método para obtener el Token de Autenticación para poder realizar las operaciones con el Servicio REST.
-        /// </summary>
         /// <returns></returns>
         public string ObtenerTokenTransacciones(string NickUsuarioSesion)
         {

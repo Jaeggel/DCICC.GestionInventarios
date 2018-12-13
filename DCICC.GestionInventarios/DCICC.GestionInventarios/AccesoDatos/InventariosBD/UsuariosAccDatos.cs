@@ -14,7 +14,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         //Instancia para la utilización de LOGS en la clase UsuariosAccDatos
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Constructores Comunicación Servicio
-        string token_Autorizacion = string.Empty;
         HttpClient client_Service = new HttpClient();
         ComunicacionServicio obj_ComunicacionServicio = new ComunicacionServicio();
         /// <summary>
@@ -29,34 +28,26 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             client_Service.DefaultRequestHeaders.Add("Authorization", obj_ComunicacionServicio.ObtenerTokenTransacciones(NickUsuario_Sesion));
         }
         /// <summary>
-        /// Constructor para inicializar el Token de Autorización de Inicio de Comunicación con la base de datos.
-        /// </summary>
-        /// <param name="infoUsuario">Objeto del usuario</param>
-        public UsuariosAccDatos(Usuarios infoUsuario)
-        {
-            token_Autorizacion = obj_ComunicacionServicio.ObtenerTokenInicioBD(infoUsuario);
-        }
-        /// <summary>
         /// Constructor para acceder a usuarios para recuperar contraseña
         /// </summary>
-        public UsuariosAccDatos() { }
+        public UsuariosAccDatos() {
+            client_Service.DefaultRequestHeaders.Clear();
+            client_Service.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLWebServiceInventarios"]);
+            client_Service.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
         #endregion
         #region Autenticación de Usuarios
         /// <summary>
-        /// Método para obtener una lista con los Usuarios Habilitados de la base de datos.
-        /// Importante para inicializar los procesos de la base de datos
+        /// Método para obtener los datos del usuario con el que se está accediendo al sistema.
         /// </summary>
+        /// <param name="infoUsuario"></param>
         /// <returns></returns>
         public MensajesUsuarios AutenticarUsuario(Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLWebServiceInventarios"]);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = clientService.PostAsJsonAsync("Token/AutenticarUsuario", infoUsuario).Result;
+                var response = client_Service.PostAsJsonAsync("AccesoServicio/AutenticarUsuario", infoUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
@@ -71,16 +62,17 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         }
         #endregion
         #region Recuperar Password
+        /// <summary>
+        /// Método para obtener los datos del usuario que desee recuperar su contraseña.
+        /// </summary>
+        /// <param name="infoCorreo"></param>
+        /// <returns></returns>
         public MensajesUsuarios RecuperarPassword(string infoCorreo)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ConfigurationManager.AppSettings["URLWebServiceInventarios"]);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = clientService.PostAsJsonAsync("Token/RecuperarPassword", infoCorreo).Result;
+                var response = client_Service.PostAsJsonAsync("AccesoServicio/RecuperarPassword", infoCorreo).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
@@ -95,63 +87,6 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         }
         #endregion
         #region Consultas
-        /// <summary>
-        /// Método para obtener una lista con los Usuarios Habilitados de la base de datos.
-        /// Importante para inicializar los procesos de la base de datos
-        /// </summary>
-        /// <returns></returns>
-        public MensajesUsuarios ObtenerUsuariosHab()
-        {
-            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
-            try
-            {
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", token_Autorizacion);
-                HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuariosHab").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var usersJson = response.Content.ReadAsStringAsync().Result;
-                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("Error en la conexión para obtener la lista de los usuarios habilitados: {0}",e.Message));
-            }
-            return msjUsuarios;
-        }
-        /// <summary>
-        /// Método para obtener una lista con todos los usuarios de la base de datos.
-        /// Utilizado para la recuperación de contraseña mediante correo electrónico.
-        /// </summary>
-        /// <returns></returns>
-        public MensajesUsuarios ObtenerUsuarioCorreo(string infoCorreo)
-        {
-            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
-            try
-            {
-                ComunicacionServicio objComServ = new ComunicacionServicio();
-                HttpClient clientService = new HttpClient();
-                clientService.DefaultRequestHeaders.Clear();
-                clientService.BaseAddress = new Uri(ComunicacionServicio.base_URL);
-                clientService.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                clientService.DefaultRequestHeaders.Add("Authorization", objComServ.ObtenerTokenInicioCorreoBD(infoCorreo));
-                HttpResponseMessage response = clientService.GetAsync("Usuarios/ObtenerUsuariosHab").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var usersJson = response.Content.ReadAsStringAsync().Result;
-                    msjUsuarios = JsonConvert.DeserializeObject<MensajesUsuarios>(usersJson);
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("Error en la conexión para obtener la lista de los usuarios para recuperación de contraseña: {0}.",e.Message));
-            }
-            return msjUsuarios;
-        }
         /// <summary>
         /// Método para obtener una lista todos los Usuarios de la base de datos.
         /// </summary>
