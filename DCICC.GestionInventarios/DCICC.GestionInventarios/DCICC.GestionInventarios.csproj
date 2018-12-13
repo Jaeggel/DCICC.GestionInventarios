@@ -279,7 +279,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\imagenEncabezado.png" />
+    <Content Include="Content\Images\LogoDCICC.png" />
     <Content Include="Content\Images\LogoUPS.png" />
+    <Content Include="Content\Images\LogoUPSCircular.ico" />
     <Content Include="Content\Images\LogoUPSCircular.png" />
     <Content Include="Content\pnotify.custom.min.css" />
     <Content Include="Content\SweetAlert\dist\sweetalert2.all.js" />
@@ -4684,6 +4686,7 @@
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="JSON\Propositos.json" />
     <Content Include="Reportes\PlantillaExcel.xlsx" />
+    <Content Include="JSON\Responsable.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4724,7 +4727,7 @@
     <Content Include="Scripts\ScriptsInventarios\TipoAccesorio.js" />
     <Content Include="Scripts\ScriptsInventarios\Usuarios.js" />
     <Content Include="Scripts\Site.js" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\Images\favicon.ico" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />

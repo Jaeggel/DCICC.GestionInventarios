@@ -5,8 +5,10 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using DCICC.GestionInventarios.QR;
 using DCICC.GestionInventarios.Reportes;
 using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -15,6 +17,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class ActivosController : Controller
     {
+        readonly string path_JsonResponsable = System.Web.Hosting.HostingEnvironment.MapPath("~/Json/Responsable.json");
         static string Id_CQR = string.Empty;
         static string Nombre_Activo = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
@@ -50,6 +53,8 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                //ModificarResponsableJSON("Jorge López");
+                ObtenerResponsableActual();
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
@@ -211,6 +216,24 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(string.Format("{0}: {1}", mensajesCQR, e.Message));
             }
             return msjCQR;
+        }
+        /// <summary>
+        /// Método para crear un nuevo Propósito o el archivo en caso de no existir
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public string ModificarResponsableJSON(string nombreResponsable)
+        {
+            try
+            {
+                System.IO.File.WriteAllText(@path_JsonResponsable, string.Format("\"{0}\"", nombreResponsable.Trim()));
+            }
+            catch(Exception e)
+            {
+                Logs.Error(string.Format("No se pudo registrar el Responsable {0} en el JSON: {1}",nombreResponsable,e.Message));
+                return null;
+            }
+            return nombreResponsable;
         }
         #endregion
         #region Actualizaciones (POST)
@@ -587,6 +610,16 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objActivosAccDatos.ObtenerHistoricoActivos().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ObtenerResponsableActual()
+        {
+            string responsableActual=string.Empty;
+            using (StreamReader r = new StreamReader(path_JsonResponsable))
+            {
+                string json = r.ReadToEnd();
+                responsableActual = JsonConvert.DeserializeObject<string>(json);
+            }
+            return Json(responsableActual, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

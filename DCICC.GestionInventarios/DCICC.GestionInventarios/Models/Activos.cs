@@ -27,7 +27,9 @@ namespace DCICC.GestionInventarios.Models
 
         public string NombreMarca { get; set; }
 
-        public string IdCQR { get; set; }       
+        public string IdCQR { get; set; }
+
+        public string ResponsableActivo { get; set; }
 
         public string NombreActivo { get; set; }
 

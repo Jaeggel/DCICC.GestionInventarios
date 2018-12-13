@@ -26,6 +26,8 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string IdCQR { get; set; }
 
+        public string ResponsableActivo { get; set; }
+
         public string NombreActivo { get; set; }
 
         public string EstadoActivo { get; set; }

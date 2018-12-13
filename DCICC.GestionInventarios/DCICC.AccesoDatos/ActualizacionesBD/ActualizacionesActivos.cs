@@ -27,11 +27,12 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET id_tipoact=@ita, id_marca=@im, id_laboratorio=@il, nombre_detalleact=@nda, modelo_detalleact=@mda, serial_detalleact=@sda, fechaingreso_detalleact=@fida, codigoups_detalleact=@cuda, cantidad_detalleact=@cada, descripcion_detalleact=@dsda, estado_detalleact=@eda, expressservicecode_detalleact=@escda, productname_detalleact=@pnda, capacidad_detalleact=@capda, velocidadtransf_detalleact=@vtda, ct_detalleact=@ctda, hpepartnumber_detalleact=@hpnda, codbarras1_detalleact=@cb1da, codbarras2_detalleact=@cb2da, numpuertos_detalleact=@npda, iosversion_detalleact=@ivda, fechamanufactura_detalleact=@fmda WHERE id_detalleact=@ida;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET id_tipoact=@ita, id_marca=@im, id_laboratorio=@il,responsable_detalleact=@rpa, nombre_detalleact=@nda, modelo_detalleact=@mda, serial_detalleact=@sda, fechaingreso_detalleact=@fida, codigoups_detalleact=@cuda, cantidad_detalleact=@cada, descripcion_detalleact=@dsda, estado_detalleact=@eda, expressservicecode_detalleact=@escda, productname_detalleact=@pnda, capacidad_detalleact=@capda, velocidadtransf_detalleact=@vtda, ct_detalleact=@ctda, hpepartnumber_detalleact=@hpnda, codbarras1_detalleact=@cb1da, codbarras2_detalleact=@cb2da, numpuertos_detalleact=@npda, iosversion_detalleact=@ivda, fechamanufactura_detalleact=@fmda WHERE id_detalleact=@ida;", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdTipoActivo;
                     cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdMarca;
                     cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdLaboratorio;
+                    cmd.Parameters.Add("rpa", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.ResponsableActivo;
                     cmd.Parameters.Add("nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
                     cmd.Parameters.Add("mda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.ModeloActivo) ? (object)infoActivo.ModeloActivo : DBNull.Value;
                     cmd.Parameters.Add("sda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.SerialActivo) ? (object)infoActivo.SerialActivo : DBNull.Value;
