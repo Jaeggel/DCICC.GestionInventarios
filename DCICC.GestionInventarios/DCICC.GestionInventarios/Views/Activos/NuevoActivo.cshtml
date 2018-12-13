@@ -354,6 +354,7 @@
         cargarEstadosCmb();
         cargarEstadosAccesorioCmb();
         cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
+        obtenerResponsable('@Url.Action("ObtenerResponsableActual", "Activos")');
         mensajesTooltips();
 
         $(function () {

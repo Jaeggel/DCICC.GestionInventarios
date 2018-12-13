@@ -88,8 +88,33 @@ function obtenerResponsable(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            document.getElementById("ResponsableActivo").value = "";
+            console.log(data);
+            document.getElementById("ResponsableActivo").value = data;
 
+        }, error: function (request,status,error) {
+            console.log(request);
+            console.log(status);
+            console.log(error);
+        }
+    });
+}
+
+//Método ajax para modificar los datos del Responsable
+function modificarResponsable(url) {
+    var nombre = document.getElementById("ResponsableActivo").value;
+    $.ajax({
+        data: {"NombreResponsable":nombre },
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log(data);
+            document.getElementById("ResponsableActivo").value = data;
+
+        }, error: function (request, status, error) {
+            console.log(request);
+            console.log(status);
+            console.log(error);
         }
     });
 }
