@@ -32,7 +32,7 @@ namespace DCICC.WebServiceInventarios.Controllers
                     if(infoUsuario!=null)
                     {
                         token = ConfiguracionToken();
-                        ConfigBaseDatos.SetCadenaConexion(string.Format("Server=localhost;Port=5432;User Id={0};Password={1};Database=DCICC_BDInventario; CommandTimeout=3020;", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario)));
+                        ConfigBaseDatos.SetCadenaConexion(string.Format("Server='192.168.1.11';Port=5432;User Id={0};Password={1};Database=DCICC_BDInventario; CommandTimeout=3020;", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario)));
                     }
                     else
                     {
