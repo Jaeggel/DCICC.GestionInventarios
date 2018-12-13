@@ -72,15 +72,26 @@
                                         <li><a href="@Url.Action("NuevoActivo", "Activos")">Nuevo Activo de TI</a></li>
                                     </ul>
                                 </li>
-                                @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
+                                @* Seccción de enlaces Consulta de Activos o Consulta de Códigos QR *@
                                 <li>
-                                    <a href="@Url.Action("ConsultaActivos", "Activos")"><i class="fa fa-table"></i> Consulta de Activos</a>
+                                    <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @* Seccción de enlaces para consulta de activos y CQR*@
+                                        <li>
+                                            @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
+                                            <a href="@Url.Action("ConsultaActivos", "Activos")">Consulta General de Activos</a>
+                                        </li>
+                                        <li>
+                                            @* Enlace al método ConsultaQR (Metodo de la clase) del Controlador Activos(Controller) *@
+                                            <a href="@Url.Action("ConsultaCQR", "Activos")">Consulta de Códigos QR</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 @* Seccción de enlaces a Máquinas Virtuales y Sistemas Operativos *@
                                 <li>
                                     <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        @* Seccción de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
+                                        @* Seccción de enlaces a ingreso de nuevo sistema operativo,maq virtuales o Luns*@
                                         <li>
                                             @* Enlace al método ModificarLUN (Metodo de la clase) del Controlador LUN(Controller) *@
                                             <a href="@Url.Action("ModificarLUN", "LUN")">LUN's/Storage</a>

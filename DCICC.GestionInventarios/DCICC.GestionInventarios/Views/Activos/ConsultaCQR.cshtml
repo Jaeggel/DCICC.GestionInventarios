@@ -1,0 +1,236 @@
+﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
+    Autores: Andres Chisaguano - Joel Ludeña
+    Descripción: Vista para la consulta e impresión de códigos QR de Activos y Accesorios.
+*@
+
+@* Sección para la definición del menú de administrador o auxiliar técnico *@
+@{
+    ViewBag.Title = "Consulta de Códigos QR";
+    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+}
+
+@* Sección para la navegación entre pestañas *@
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+    <li><a>Consulta de Activos</a></li>
+    <li><a class="active">@ViewBag.Title</a></li>
+</ul>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Activos de TI</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Códigos QR de Activos</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick=""><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaCQRActivos"> </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Códigos QR de Accesorios</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick=""><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaCQRAccesorios"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI códigos QR*@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Impresión de Códigos QR</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reporte en PDF*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Accesorios','dataTableAccesorios');"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+                                        <div class="form-horizontal form-label-left input_mask">
+                                            @* Sección para la tabla de modificación mediante js *@
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="tablaLotesQR"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Seccción para llamar al js de Categorías *@
+<script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
+<script>
+    $(document).ready(function () {
+        @*//Método para obtener la tabla de Categorías
+        obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
+        datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
+        datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');
+        datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
+        cargarEstadosCmb();
+        cargarEstadosModificarCmb();
+        mensajesTooltips();
+
+        obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
+        datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
+        cargarEstadosAccesoriosCmb();
+        cargarEstadosAccesoriosMod();
+        cargarEstadosAccesoriosIng();
+        cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
+        mensajesTooltipsAccesorios();
+        mensajesTooltipsAccesoriosMod();
+
+        $(function () {
+            $('input[name="FechaIngresoActivo"]').daterangepicker({
+                startDate: new Date(),
+                format: 'dd-mm-yyyy',
+                singleDatePicker: true,
+                showDropdowns: true,
+                minDate: "01/01/1990",
+                maxDate: new Date()
+            }, function (start, end, label) {
+                //console.log(start);
+                var years = moment().diff(start, 'years');
+                //alert("You are " + years + " years old!");
+            });
+        });
+
+        $('#cqrAccesorio').hide();
+
+        $('#ModificarActivo').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor","#ccc");
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorTipo]").html('').hide();
+            $(".modal-body span[id=errorMarca]").html('').hide();
+            $(".modal-body span[id=errorLaboratorio]").html('').hide();
+            $(".modal-body span[id=errorEstado]").html('').hide();
+            $(".modal-body span[id=errorNombre]").html('').hide();
+            $(".modal-body span[id=errorModelo]").html('').hide();
+            $(".modal-body span[id=errorSerial]").html('').hide();
+            $("#NombreActivo").tooltip('hide');
+            $("#SerialActivo").tooltip('hide');
+            $("#ModeloActivo").tooltip('hide');
+            $("#CodigoUpsActivo").tooltip('hide');
+            $("#single_cal4").tooltip('hide');
+            $("#DescripcionActivo").tooltip('hide');
+            document.getElementById("confirmarActivo").disabled = false;
+        });
+
+        $('#ModificarEstadoActivo').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body span[id=errorEstadoActivo]").html('').hide();
+        });
+
+        $('#IngresoNuevoAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorTipoAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorNombreAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorSerialAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorModeloAccesorioIng]").html('').hide();
+            $(".modal-body span[id=errorEstadoAccesorioIng]").html('').hide();
+            $("#NombreAccesorioIngreso").tooltip('hide');
+            $("#SerialAccesorioIngreso").tooltip('hide');
+            $("#ModeloAccesorioIngreso").tooltip('hide');
+            $("#DescripcionAccesorioIngreso").tooltip('hide');
+            $('#cqrAccesorio').hide();
+            document.getElementById("confirmarAccesorioNuevo").disabled = false;
+        });
+
+        $('#ModificarAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body input").val("");
+            $(".modal-body input").css("borderColor", "#ccc");
+            $(".modal-body textarea").val("");
+            $(".modal-body span[id=errorTipoAccesorio]").html('').hide();
+            $(".modal-body span[id=errorNombreAccesorio]").html('').hide();
+            $(".modal-body span[id=errorSerialAccesorio]").html('').hide();
+            $(".modal-body span[id=errorModeloAccesorio]").html('').hide();
+            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
+            $("#NombreAccesorio").tooltip('hide');
+            $("#SerialAccesorio").tooltip('hide');
+            $("#ModeloAccesorio").tooltip('hide');
+            $("#DescripcionAccesorio").tooltip('hide');
+            document.getElementById("confirmarAccesorioModificacion").disabled = false;
+        });
+
+        $('#ModificarEstadoAccesorio').on('hidden.bs.modal', function () {
+            $(".modal-body select").val("");
+            $(".modal-body select").css("borderColor", "#ccc");
+            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
+        });*@
+    });
+</script>
+

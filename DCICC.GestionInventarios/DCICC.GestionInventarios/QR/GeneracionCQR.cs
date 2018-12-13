@@ -55,19 +55,11 @@ namespace DCICC.GestionInventarios.QR
         /// </summary>
         public Bitmap GenerarCodigoQR(string idCqr)
         {
-            Bitmap qrCodeImage = null;
-            try
-            {
-                QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                QRCodeData qrCodeData = qrGenerator.CreateQrCode(idCqr, QRCodeGenerator.ECCLevel.Q);
-                QRCode qrCode = new QRCode(qrCodeData);
-                qrCodeImage = qrCode.GetGraphic(6);
-                Logs.Info("El bitmap para el Código QR ha sido generado correctamente.");
-            }
-            catch(Exception e)
-            {
-                Logs.Error(string.Format("No se ha podido generar el Bitmap para el código QR: {0}",e.Message));
-            }
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(idCqr, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(6);
+            Logs.Info("El bitmap para el Código QR ha sido generado correctamente.");
             return qrCodeImage;
         }
         /// <summary>
@@ -77,19 +69,11 @@ namespace DCICC.GestionInventarios.QR
         /// <returns></returns>
         public byte[] GenQRBytes(Bitmap datosQR)
         {
-            try
+            using (var memoryStream = new MemoryStream())
             {
-                using (var memoryStream = new MemoryStream())
-                {
-                    datosQR.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    Logs.Info("Los bytes para el Código QR ha sido generado correctamente.");
-                    return memoryStream.ToArray();
-                }
-            }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("No se han podido generar los bytes para el código QR: {0}",e.Message));
-                return null;
+                datosQR.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                Logs.Info("Los bytes para el Código QR ha sido generado correctamente.");
+                return memoryStream.ToArray();
             }
         }
         /// <summary>
@@ -99,20 +83,10 @@ namespace DCICC.GestionInventarios.QR
         /// <returns></returns>
         public Bitmap GenQRBitmap(byte[] datosQR)
         {
-            Bitmap bmp;
-            try
+            using (var ms = new MemoryStream(datosQR))
             {
-                using (var ms = new MemoryStream(datosQR))
-                {
-                    bmp = new Bitmap(ms);
-                }
+                return new Bitmap(ms);
             }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("No se ha podido generar el bitmap para el código QR: {0}", e.Message));
-                return null;
-            }
-            return bmp;
         }
     }
 }

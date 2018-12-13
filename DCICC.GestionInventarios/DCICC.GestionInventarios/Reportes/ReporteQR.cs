@@ -62,6 +62,32 @@ namespace DCICC.GestionInventarios.Reportes
             return pdfBytes;
         }
         /// <summary>
+        /// Método para generar el PDF con los códigos QR de los accesorios enviados como parámetro.
+        /// </summary>
+        /// <param name="nombreActivo"></param>
+        /// <param name="idQR"></param>
+        /// <returns></returns>
+        public byte[] GenerarPDFQRLista(List<Accesorios> lstAccesorios)
+        {
+            byte[] pdfBytes = null;
+            using (MemoryStream msReporte = new MemoryStream())
+            {
+                Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
+                using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
+                {
+                    documentoReporte.Open();
+                    foreach (var item in lstAccesorios)
+                    {
+                        var tablaQR = GenerarTablaReporteQR(item.IdCQR, item.NombreAccesorio);
+                        documentoReporte.Add(tablaQR);
+                    }
+                    documentoReporte.Close();
+                    pdfBytes = msReporte.ToArray();
+                }
+            }
+            return pdfBytes;
+        }
+        /// <summary>
         /// Método para generar una tabla en donde se insertará la imagén del CQR con el nombre e id del QR.
         /// </summary>
         /// <param name="idQR"></param>

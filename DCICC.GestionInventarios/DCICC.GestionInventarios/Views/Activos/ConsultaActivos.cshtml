@@ -5,14 +5,14 @@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    ViewBag.Title = "Consulta de Activos";
+    ViewBag.Title = "Consulta General de Activos";
     Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 
 @* Sección para la navegación entre pestañas *@
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
-    <li><a>Activos de TI</a></li>
+    <li><a>Consulta de Activos</a></li>
     <li><a class="active">@ViewBag.Title</a></li>
 </ul>
 <div class="row">
@@ -26,9 +26,6 @@
                         </li>
                         <li role="presentation" class="">
                             <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
-                        </li>
-                        <li role="presentation" class="">
-                            <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Códigos QR</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -84,34 +81,6 @@
                                             @* Sección para la tabla de modificación mediante js *@
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div id="tablaAccesorios"> </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            @* Panel para visualizar la información de los activos de TI códigos QR*@
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <div class="x-content">
-                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
-                                                <h3>Impresión de Códigos QR</h3>
-                                            </div>
-                                        </div>
-                                        @*Sección para botones de generar reporte en PDF*@
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Accesorios','dataTableAccesorios');"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <br>
-                                        <div class="form-horizontal form-label-left input_mask">
-                                            @* Sección para la tabla de modificación mediante js *@
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaLotesQR"> </div>
                                             </div>
                                         </div>
                                     </div>
