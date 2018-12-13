@@ -81,21 +81,22 @@ function cargarResponsablesCmb(unicos) {
 //Función para cargar la tabla de tickets Abiertos
 function cargarTablaTickets() {
     var str = '<table id="dataTableTickets" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Estado del Ticket</th> <th>Laboratorio o Activo</th> <th>Descripción del Incidente</th> <th>Prioridad</th> <th>Fecha de Apertura</th> <th>Reportado Por</th><th>Fecha de Atención del Ticket</th> <th>Atendido Por</th></tr> </thead>';
+    str += '<thead> <tr> <th>Fecha de Apertura</th>  <th>Usuario Solicitante</th>  <th>Laboratorio o Activo</th> <th>Descripción del Incidente</th> <th>Prioridad</th> <th>Estado del Ticket</th>  <th>Responsable Asignado</th> <th>Comentario En Proceso</th> <th>Comentario En Espera</th> <th>Comentario Resuelto</th></tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < ticketsReportados.length; i++) {      
             //Función para dar formato a la fecha
         var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
         var fechaordenar = (fechaAper.toLocaleDateString("en-US"));
-        var fechaSol = new Date(parseInt((ticketsReportados[i].FechaSolucionTicket).substr(6)));
+        var fechaSol = new Date(parseInt((ticketsReportados[i].FechaResueltoTicket ).substr(6)));
         var fechaSolucion = (fechaSol.toLocaleDateString("en-US"));
 
         function pad(n) { return n < 10 ? "0" + n : n; }
         var fechaApertura = pad(fechaAper.getMonth() + 1) + "/" + pad(fechaAper.getDate()) + "/" + fechaAper.getFullYear();
         fechas[i] = fechaordenar;
 
-        str += '<tr><td>' + ticketsReportados[i].EstadoTicket;
+        str += '<tr><td>' + fechaApertura +
+            '</td><td>' + ticketsReportados[i].NombreUsuario;
         if (ticketsReportados[i].IdLaboratorio != 0) {
             str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
         } else {
@@ -103,9 +104,11 @@ function cargarTablaTickets() {
         }
         str +='</td><td>' + ticketsReportados[i].DescripcionTicket+
               '</td><td>' + ticketsReportados[i].PrioridadTicket +
-              '</td><td>' + fechaApertura +
-              '</td><td>' + ticketsReportados[i].NombreUsuario +
-              '</td><td>' + fechaSolucion +
+            '</td><td>' + ticketsReportados[i].EstadoTicket +
+            '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
+              
+            '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
+            '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
             '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable;
         str += '</td></tr>';
         responsables[i] = ticketsReportados[i].NombreUsuarioResponsable;
