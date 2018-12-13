@@ -52,7 +52,7 @@
                             <ul class="nav side-menu">
                                 <li>
                                     @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
-                                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a>
+                                    <a href="@Url.Action("Index", "Home")" accesskey="h"><i class="fa fa-home"></i> Home</a>
                                 </li>
                                 <li>
                                     <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
@@ -69,7 +69,7 @@
                                         @* Seccción de enlaces a ingreso de nuevo Tipo de Accesorio  o a modificación de Tipo de Accesorio *@
                                         <li><a href="@Url.Action("ModificarTipoAccesorio", "TipoAccesorio")">Tipo de Accesorio</a></li>
                                         @* Enlace al método NuevoActivo (Metodo de la clase) del Controlador Activos(Controller) *@
-                                        <li><a href="@Url.Action("NuevoActivo", "Activos")">Nuevo Activo de TI</a></li>
+                                        <li><a href="@Url.Action("NuevoActivo", "Activos")" accesskey="n">Nuevo Activo de TI</a></li>
                                     </ul>
                                 </li>
                                 @* Seccción de enlaces Consulta de Activos o Consulta de Códigos QR *@
@@ -79,7 +79,7 @@
                                         @* Seccción de enlaces para consulta de activos y CQR*@
                                         <li>
                                             @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
-                                            <a href="@Url.Action("ConsultaActivos", "Activos")">Consulta General de Activos</a>
+                                            <a href="@Url.Action("ConsultaActivos", "Activos")" accesskey="a">Consulta General de Activos</a>
                                         </li>
                                         <li>
                                             @* Enlace al método ConsultaQR (Metodo de la clase) del Controlador Activos(Controller) *@
@@ -102,7 +102,7 @@
                                         </li>
                                         <li>
                                             @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
-                                            <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")">Máquinas Virtuales</a>
+                                            <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")" accesskey="m">Máquinas Virtuales</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -111,7 +111,7 @@
                                     <a><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         @* Seccción de enlaces a reportes de Activos *@
-                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")">Activos de TI</a></li>
+                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")" accesskey="r">Activos de TI</a></li>
                                         @* Seccción de enlaces a reportes de Máquinas virtuales *@
                                         <li><a href="@Url.Action("ReportesMaqVirtuales", "Reportes")">Máquinas Virtuales</a></li>
                                         @* Seccción de enlaces a reportes de Tickets *@
@@ -122,7 +122,7 @@
                                 </li>
                                 <li>
                                     @* Enlace al método GestionTickets (Metodo de la clase) del Controlador Tickets(Controller) *@
-                                    <a href="@Url.Action("GestionTickets", "Tickets")"><i class="fa fa-ticket"></i>Gestión de Tickets</a>
+                                    <a href="@Url.Action("GestionTickets", "Tickets")" accesskey="t"><i class="fa fa-ticket"></i>Gestión de Tickets</a>
                                 </li>
                             </ul>
                         </div>
@@ -132,7 +132,7 @@
                                 @* Sección de enlaces a ingreso de nuevo Usuario  o a modificación de Usuarios *@
                                 <li>
                                     @* Enlace al método ModificarUsuario (Metodo de la clase) del Controlador Usuarios(Controller) *@
-                                    <a href="@Url.Action("ModificarUsuario", "Usuarios")"><i class="fa fa-user"></i> Usuarios</a>
+                                    <a href="@Url.Action("ModificarUsuario", "Usuarios")" accesskey="u"><i class="fa fa-user"></i> Usuarios</a>
                                 </li>
                                 @* Sección de enlaces a ingreso de nuevo Rol  o a modificación de Roles *@
                                 <li>
@@ -167,7 +167,7 @@
                                 @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="@Url.Action("PerfilUsuario", "Usuarios")"> Perfil</a></li>
-                                    <li><a href="">Ayuda</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#combinacion">Ayuda</a></li>
                                     <li><a onclick="cerrarSesion('@Url.Action("CerrarSesion", "Login")','@Url.Action("Login", "Login")')"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a></li>
                                 </ul>
                             </li>
@@ -179,7 +179,7 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <br />
-                <!-- top tiles -->                                                                               
+                <!-- top tiles -->
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         @* Construcción del Body en el resto de las vistas que hacen uso de este Layout*@
@@ -197,6 +197,36 @@
                 <div class="clearfix"></div>
             </footer>
             <!-- /footer content -->
+        </div>
+    </div>
+    @*Modal de Ayuda*@
+    <div class="modal fade product_view" id="combinacion">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                    <h3 class="modal-title">Teclas de Acceso Rápido</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 product_img">
+                            <img src="~/Content/Images/LogoUPSCircular.png" class="img-responsive" alt="" style="width: 80%;"/>
+                        </div>
+                        <div class="col-md-8 product_content">
+                            <p>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</p>
+                            <ul>
+                                <li><b>ALT + H: </b><a href='@Url.Action("Index","Home")'> Home</a></li>
+                                <li><b>ALT + A: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Activos de TI</a></li>
+                                <li><b>ALT + N: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Nuevo Activo de TI</a></li>
+                                <li><b>ALT + T: </b><a href='@Url.Action("GestionTickets","Tickets")'> Gestión de Tickets</a></li>
+                                <li><b>ALT + M: </b><a href='@Url.Action("ModificarMaqVirtual","MaqVirtuales")'> Máquinas Virtuales</a></li>
+                                <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
+                                <li><b>ALT + U: </b><a href='@Url.Action("ModificarUsuario","Usuarios")'> Usuarios</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
