@@ -49,22 +49,23 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 CodigoUpsActivo = dr[9].ToString().Trim(),
                                 CantidadActivo = (int)dr[10],
                                 DescripcionActivo = dr[11].ToString().Trim(),
-                                EstadoActivo = dr[12].ToString().Trim(),
+                                ResponsableActivo = dr[12].ToString().Trim(),
+                                EstadoActivo = dr[13].ToString().Trim(),
                                 //Especificaciones adicionales
-                                ExpressServiceCodeActivo = dr[13].ToString().Trim(),
-                                ProductNameActivo = dr[14].ToString().Trim(),
-                                CapacidadActivo = dr[15].ToString().Trim(),
-                                VelocidadTransfActivo = dr[16].ToString().Trim(),
-                                CtActivo = dr[17].ToString().Trim(),
-                                HpePartNumberActivo = dr[18].ToString().Trim(),
-                                CodBarras1Activo = dr[19].ToString().Trim(),
-                                CodBarras2Activo = dr[20].ToString().Trim(),
-                                NumPuertosActivo = dr[21] != DBNull.Value ? (int)dr[21] : 0,
-                                IosVersionActivo = dr[22].ToString().Trim(),
-                                FechaManufacturaActivo = dr[23].ToString().Trim(),
-                                NombreTipoActivo = dr[24].ToString().Trim(),
-                                NombreLaboratorio = dr[25].ToString().Trim(),
-                                NombreMarca = dr[26].ToString().Trim()
+                                ExpressServiceCodeActivo = dr[14].ToString().Trim(),
+                                ProductNameActivo = dr[15].ToString().Trim(),
+                                CapacidadActivo = dr[16].ToString().Trim(),
+                                VelocidadTransfActivo = dr[17].ToString().Trim(),
+                                CtActivo = dr[18].ToString().Trim(),
+                                HpePartNumberActivo = dr[19].ToString().Trim(),
+                                CodBarras1Activo = dr[20].ToString().Trim(),
+                                CodBarras2Activo = dr[21].ToString().Trim(),
+                                NumPuertosActivo = dr[22] != DBNull.Value ? (int)dr[22] : 0,
+                                IosVersionActivo = dr[23].ToString().Trim(),
+                                FechaManufacturaActivo = dr[24].ToString().Trim(),
+                                NombreTipoActivo = dr[25].ToString().Trim(),
+                                NombreLaboratorio = dr[26].ToString().Trim(),
+                                NombreMarca = dr[27].ToString().Trim()
                             };
                             lstActivos.Add(objActivos);
                         }

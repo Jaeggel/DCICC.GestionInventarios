@@ -9,24 +9,32 @@ function obtenerIdioma() {
     return url_idioma;
 }
 function GenerarReportePDF(urlDT, urlRPDF, titulo, info) {
-    var dataInfo=BuildTableHTML(info);
-    $.ajax({
-        url: urlDT,
-        dataType: 'json',
-        data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": "" },
-        type: 'post'
-    });
-    window.open(urlRPDF);
+    var dataInfo = BuildTableHTML(info);
+    if (dataInfo !== null) {
+        $.ajax({
+            url: urlDT,
+            dataType: 'json',
+            data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": "" },
+            type: 'post'
+        });
+        window.open(urlRPDF);
+    } else {
+        showNotify("Error al generar el Reporte", "No se puede generar el reporte sin datos", "error");
+    }
 }
 function GenerarReporteExcel(urlDT, urlExcel, titulo,info,lab) {
     var dataInfo = BuildTableHTML(info);
-    $.ajax({
-        url: urlDT,
-        dataType: 'json',
-        data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": lab },
-        type: 'post'
-    });
-    window.location.href = urlExcel;
+    if (dataInfo !== null) {
+        $.ajax({
+            url: urlDT,
+            dataType: 'json',
+            data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": lab },
+            type: 'post'
+        });
+        window.location.href = urlExcel;
+    } else {
+        showNotify("Error al generar el Reporte","No se puede generar el reporte sin datos","error");
+    }
 }
 function BuildTableHTML(infoDT) {
     var table = $('#' + infoDT).DataTable();
@@ -35,10 +43,14 @@ function BuildTableHTML(infoDT) {
     str += document.getElementById(infoDT).tHead.innerHTML;
     str += "</thead><tbody>";
     var trArray = table.rows({ filter: 'applied' }).nodes();
-    for (var i = 0; i < trArray.length; i++) {
-        str += trArray[i].outerHTML;
+    if (trArray.length !== 0) {
+        for (var i = 0; i < trArray.length; i++) {
+            str += trArray[i].outerHTML;
+        }
+        str += "</tbody></table>";
+    } else {
+        str = null;
     }
-    str += "</tbody></table>";
     return str;
 }
 
