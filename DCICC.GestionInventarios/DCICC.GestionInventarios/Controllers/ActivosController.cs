@@ -220,7 +220,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public string ModificarResponsableJSON(string nombreResponsable)
+        public  JsonResult ModificarResponsableJSON(string nombreResponsable)
         {
             Activos objActivos = null;
             try
@@ -235,7 +235,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(string.Format("No se pudo registrar el Responsable {0} en el JSON: {1}",nombreResponsable,e.Message));
                 return null;
             }
-            return objActivos.ResponsableActivo;
+            return Json(objActivos.ResponsableActivo, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region Actualizaciones (POST)
