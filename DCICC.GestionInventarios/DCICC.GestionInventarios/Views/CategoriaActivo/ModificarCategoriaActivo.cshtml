@@ -29,7 +29,7 @@
                 @* Sección para botones de ingresar nueva categoria y actualizar página *@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoCategoriaActivo", "CategoriaActivo")'"><i class="fa fa-plus"></i> Agregar Categoría</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -68,8 +68,9 @@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" >
-                                        <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="Nombre de la Categoría de Activo" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarInputsVaciosModificacion();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Nombre de Categoría de Activo</label>
+                                        <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="SISTEMA_ELECTRICO/SEGURIDAD" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarInputsVaciosModificacion();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreCategoria" style="color:brown;"></span>
                                     </div>

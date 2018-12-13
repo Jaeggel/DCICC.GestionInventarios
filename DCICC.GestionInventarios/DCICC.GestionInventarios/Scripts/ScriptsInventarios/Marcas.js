@@ -5,6 +5,7 @@ var idMarcaModificar;
 var urlEstado;
 var nombresMarcas = [];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de Marcas
 function obtenerMarcas(url) {
     url_metodo = url;
@@ -13,7 +14,6 @@ function obtenerMarcas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("siiii");
             datosMarcas= data ;
             cargarMarcasTabla();
             $('#dataTableMarcas').DataTable({
@@ -29,6 +29,8 @@ function obtenerMarcas(url) {
 function urlEstados(url) {
     urlEstado = url;
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de las Marcas
 function cargarMarcasTabla() {
@@ -56,14 +58,14 @@ function cargarMarcasTabla() {
         }   
         str +='</div></div></td></tr>';
 
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarMarca").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
 //Función para setear los valores en los inputs
 function formUpdateMarca(idMarca) {
-    console.log(idMarca);
     idMarcaModificar = idMarca;
     for (var i = 0; i < datosMarcas.length; i++) {
 
@@ -87,7 +89,6 @@ function formUpdateMarca(idMarca) {
 
 //Función para modificar la marca especificada
 function modificarMarca(url_modificar) {
-    console.log(url_modificar);
     var nombreMarca=document.getElementById("NombreMarca").value;
     var descripcionMarca=document.getElementById("DescripcionMarca").value;
     var habilitadoMarca = $('#HabilitadoMarca').prop('checked');
@@ -127,7 +128,6 @@ function modificarMarca(url_modificar) {
     }  
 }
 
-
 //Función para habilitar o deshabilitar la marca
 function habilitarOdeshabilitar(idMarc, estadoMarc) {
     var nuevoEstado = true;
@@ -136,7 +136,6 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
     } else {
         nuevoEstado = true;
     }
-    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar de Estado la Categoria?",
@@ -170,6 +169,22 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+
+//Funciones para cargar el campo de autocompletado
+function cargarNombresMarcas() {
+    for (var i = 0; i < datosMarcas.length; i++) {
+        nombresMarcas[i] = datosMarcas[i].NombreMarca;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Marcas
+$(function () {
+    $("#NombreMarca").autocomplete({
+        source: nombresMarcas
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar nombres de marcas repetidas
 function comprobarNombre() {
     var nomMarca = document.getElementById("NombreMarca");
@@ -195,21 +210,7 @@ function comprobarNombre() {
     }
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresMarcas() {
-    for (var i = 0; i < datosMarcas.length; i++) {
-        nombresMarcas[i] = datosMarcas[i].NombreMarca;
-    }
-}
-//Función para cargar los nombres en el campo de nombre de Marcas
-$(function () {
-    $("#NombreMarca").autocomplete({
-        source: nombresMarcas
-    });
-});
-
-/////////////Funciones para validaciones de campos de texto
-
+//Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
     var boton = document.getElementById("confirmarMarca");
@@ -229,8 +230,10 @@ function validarInputNombre() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
+
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreMarca").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("DescripcionMarca").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreMarca").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionMarca").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

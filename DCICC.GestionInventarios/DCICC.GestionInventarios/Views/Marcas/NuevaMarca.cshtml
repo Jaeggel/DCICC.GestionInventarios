@@ -35,7 +35,8 @@
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" onkeyup="this.value=this.value.replace(validarNombres(),'');"  minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <label>* Nombre de la marca</label>
+                            <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="CISCO" onkeyup="this.value=this.value.replace(validarNombres(),'');"  minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreMarca" style="color:brown;"></span>
                         </div>

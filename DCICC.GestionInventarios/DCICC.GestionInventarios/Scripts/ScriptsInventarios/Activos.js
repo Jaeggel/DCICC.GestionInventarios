@@ -12,6 +12,8 @@ var idCQR;
 var nombreActivoRegis;
 var nombresActivo = [];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
+
 //Método ajax para recibir los datos del Tipo Activo
 function datosTipoActivo(url) {
     $.ajax({
@@ -54,7 +56,6 @@ function datosLaboratorio(url) {
 
 //Método ajax para obtener los datos de las marcas
 function datosMarcas(url) {
-    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -68,7 +69,6 @@ function datosMarcas(url) {
 
 //Método ajax para obtener los datos de los tipos de accesorio
 function datosTipoAccesorio(url) {
-    //url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -88,6 +88,7 @@ function datosActivoSeleccionado(data) {
     nombreActivoRegis = data.NombreActivo;
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR COMBOBOX PARA ACTIVOS---------------------------------*/
 
 //Función para cargar el combobox de categorias de activo
 function cargarCategoriasCmb() {
@@ -113,7 +114,6 @@ function cargarCategoriasCmb() {
 function cargarTipoActivoCmb(idCategoria) {
     for (var i = 0; i < cmbTipoActivo.length; i++) {
         if (cmbTipoActivo[i].IdCategoriaActivo == idCategoria) {
-            console.log(cmbTipoActivo[i].NombreTipoActivo);
             $("#TipoActivo").append('<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>');
         }     
     };
@@ -181,12 +181,15 @@ function cargarCQRActivo() {
     $('#nombreActivoIngresado').html(nombreActivoRegis).show();
 }
 
+/* -------------------------------------SECCIÓN PARA VALIDACIÓN DEL PASO 1 Y 2 DEL SMARTWIZARD---------------------------------*/
+
 //Método de validación para el paso 1
 function validarPaso1() {
     var isValid = true;
     var nombreActivo = document.getElementById("NombreActivo").value;
     var modeloActivo = document.getElementById("ModeloActivo").value;
     var serialActivo = document.getElementById("SerialActivo").value;
+    var responsableActivo = document.getElementById("ResponsableActivo").value;
     //Validación para combobox categoria de Activo
     if (document.getElementById("CategoriaActivo").value == "") {
         isValid = false;
@@ -276,6 +279,18 @@ function validarPaso1() {
         $('#errorSerial').html('').hide();
     }
 
+    //Validación para el nombre del responsable
+    if (!responsableActivo && responsableActivo.length <= 0) {
+        isValid = false;
+        $("#ResponsableActivo").focus();
+        document.getElementById("ResponsableActivo").style.borderColor = "#900C3F";
+        $('#errorResponsable').html('El campo Responsable es obligatorio').show();
+        setTimeout("$('#errorResponsable').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("ResponsableActivo").style.borderColor = "#ccc";
+        $('errorResponsable').html('').hide();
+    }
+
     return isValid;
 }
 
@@ -283,7 +298,6 @@ function validarPaso1() {
 function validarPaso2(urlMetodo,urlImagen,urlPdf) {
     var isValid = false;
     //url = '@Url.Action("NuevoActivo", "Activos")';
-    
     //var confirmarIngreso = false;
     //Obtener Valor del tipo de activo
     var cmbTipoActivo = document.getElementById("TipoActivo");
@@ -363,9 +377,6 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
             }
 
         }, error: function (e) {
-            console.log(e);
-            console.log("fallo");
-
             isvalid = false;
         }
     });
@@ -373,7 +384,8 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
 
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+//Funciones para cargar el campo de autocompletado
 function cargarNombresActivos(url) {
     $.ajax({
         dataType: 'json',
@@ -394,6 +406,7 @@ $(function () {
     });
 });
 
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar nombres de laboratorios repetidos
 function comprobarNombre() {
     var nombreActivo = document.getElementById("NombreActivo"); 
@@ -435,13 +448,15 @@ function setearSerial() {
     }  
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("SerialActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("CodigoUpsActivo").title = "Máximo 15 caracteres numéricos.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("SerialActivo").title = "Máximo 80 caracteres, sin Espacios.\n  Caracteres especiales permitidos - / _ .";
+    document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
     document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
-    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("ResponsableActivo").title = "Máximo 80 caracteres. \n  Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
 }

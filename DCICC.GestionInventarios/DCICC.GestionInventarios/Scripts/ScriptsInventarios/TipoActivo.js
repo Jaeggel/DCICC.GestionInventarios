@@ -7,6 +7,7 @@ var idTipoActivo;
 var urlEstado;
 var nombresTipoAcc=[];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de tipo de activo
 function obtenerTipoActivo(url) {
     url_metodo = url;
@@ -15,7 +16,6 @@ function obtenerTipoActivo(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("sii");
             datosTipoActivo = data;
             cargarTipoActTabla();    
             $('#dataTableTipoAct').DataTable({
@@ -35,7 +35,6 @@ function obtenerCategorias(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("siii");
             cmbCategorias = data;
             cargarCategoriasCmb();
         }
@@ -48,7 +47,6 @@ function obtenerCategoriasCompletas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("siii");
             cmbCategoriasComp = data;
             cargarCategoriasCompCmb();
         }
@@ -60,14 +58,14 @@ function urlEstados(url) {
     urlEstado = url;
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+
 //Función para cargar la tabla de Tipo de Activo
 function cargarTipoActTabla() {
     var str = '<table id="dataTableTipoAct" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre Tipo Activo</th> <th>Categoría</th> <th>Descripción</th> <th>Vida Útil</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
-    str += '<tbody>';
-    
-    for (var i = 0; i < datosTipoActivo.length; i++) {
-        
+    str += '<tbody>';   
+    for (var i = 0; i < datosTipoActivo.length; i++) {      
         str += '<tr><td>' + datosTipoActivo[i].NombreTipoActivo +
             '</td><td>' + datosTipoActivo[i].NombreCategoriaActivo +
             '</td><td>' + datosTipoActivo[i].DescripcionTipoActivo +
@@ -89,7 +87,7 @@ function cargarTipoActTabla() {
         }
         str +='</div></div></td></tr>';
         
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarTipoActivo").html(str);
 }
@@ -108,7 +106,6 @@ function cargarCategoriasCmb() {
 //Función para cargar el combobox de Categorias Completas
 function cargarCategoriasCompCmb() {
     var str = '<select id="IdCategoriaComp" class="form-control" name="IdCategoriaComp" onBlur=" validarCmbTipoComp();" required>';
-    str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbCategoriasComp.length; i++) {
         str += '<option value="' + cmbCategoriasComp[i].IdCategoriaActivo + '">' + cmbCategoriasComp[i].NombreCategoriaActivo + '</option>';
     };
@@ -116,12 +113,11 @@ function cargarCategoriasCompCmb() {
     $("#cargarCategorias").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
 //Función para setear los valores en los inputs
 function formUpdateTipoAct(idTipoAct) {
-    console.log(idTipoAct);
     idTipoActivo = idTipoAct;
     for (var i = 0; i < datosTipoActivo.length; i++) {
-
         if (datosTipoActivo[i].IdTipoActivo == idTipoAct) {
             //Métodos para setear los valores a modificar
             var element = document.getElementById("IdCategoriaComp");
@@ -143,7 +139,7 @@ function formUpdateTipoAct(idTipoAct) {
             }
             break;
         }
-    };
+    }
 }
 
 //Función para modificar el Tipo de activo especificado
@@ -188,11 +184,8 @@ function modificarTipoActivo(url_modificar) {
                 $('#ModificarTipoActivo').modal('hide');
             }
         });
-    }
-
-    
+    }  
 }
-
 
 //Función para habilitar o deshabilitar la categoria
 function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
@@ -202,7 +195,6 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
     } else {
         nuevoEstado = true;
     }
-    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar de Estado del Tipo de Activo?",
@@ -234,7 +226,24 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
     });
 }
 
-////////Función para evitar nombres de tipo activo repetidos
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+
+//Funciones para cargar el campo de autocompletado
+function cargarNombresTipo() {
+    for (var i = 0; i < datosTipoActivo.length; i++) {
+        nombresTipoAcc[i] = datosTipoActivo[i].NombreTipoActivo;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de ingreso  de tipo
+$(function () {
+    $("#NombreTipoActivo").autocomplete({
+        source: nombresTipoAcc
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
+
+//Función para evitar nombres de tipo activo repetidos
 function comprobarNombre() {
     var nombre = document.getElementById("NombreTipoActivo");
     nombre.value = nombre.value.toUpperCase();
@@ -259,20 +268,7 @@ function comprobarNombre() {
     
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresTipo() {
-    for (var i = 0; i < datosTipoActivo.length; i++) {
-        nombresTipoAcc[i]=datosTipoActivo[i].NombreTipoActivo;
-    }
-}
-//Función para cargar los nombres en el campo de nombre de ingreso  de tipo
-$(function () {
-    $("#NombreTipoActivo").autocomplete({
-        source: nombresTipoAcc
-    });
-});
-
-/////////////Funciones para validaciones de campos de texto
+///Funciones para validaciones de campos de texto
 function validarCmbVacios() {
     var boton = document.getElementById("confirmarTipo");
     var cmbCat = document.getElementById("IdCategoriaActivo");
@@ -309,6 +305,7 @@ function validarCmbTipoComp() {
     return esValido;
 }
 
+//Función para validación de input de ingreso
 function validarInputsVaciosIngreso() {
     var esValido = true;
     var boton = document.getElementById("confirmarTipo");
@@ -328,6 +325,7 @@ function validarInputsVaciosIngreso() {
     return esValido;
 
 }
+
 //Función para validar el campo de vida útil
 function validarVidaUtil() {
     var esValido = true;
@@ -362,10 +360,12 @@ function validarVidaUtil() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
+
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreTipoActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("DescripcionTipoActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("VidaUtilTipoActivo").title = "Rango de 1 a 100 años.";
+    document.getElementById("NombreTipoActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionTipoActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("VidaUtilTipoActivo").title = "Solo Números. Rango de 1 a 100 años.";
    
 }

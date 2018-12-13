@@ -5,6 +5,7 @@ var idCategoriaModificar;
 var urlEstado;
 var nombresCat=[];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de categorias
 function obtenerCategorias(url) {
     url_metodo = url;
@@ -13,7 +14,6 @@ function obtenerCategorias(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
             datosCategorias = data;
             cargarCategoriaTabla();
             cargarNombresCategoria();
@@ -30,6 +30,8 @@ function obtenerCategorias(url) {
 function urlEstados(url) {
     urlEstado = url;
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de Categorias
 function cargarCategoriaTabla() {
@@ -55,10 +57,12 @@ function cargarCategoriaTabla() {
             str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosCategorias[i].IdCategoriaActivo + ',' + datosCategorias[i].HabilitadoCategoriaActivo +');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
         }  
         str += '</div></div></td></tr>';
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarCategorias").html(str);
 }
+
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
 
 //Función para setear los valores en los inputs en modificaciones
 function formUpdateCategoria(idCategoria) {
@@ -78,8 +82,8 @@ function formUpdateCategoria(idCategoria) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoCategoriaActivo").click();
             }
-        };
-    };
+        }
+    }
 }
 
 //Función para modificar la categoria especificada
@@ -166,7 +170,24 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
     });
 }
 
-////////////Función para evitar nombres de categorias repetidos
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+
+//Funciones para cargar el campo de autocompletado
+function cargarNombresCategoria() {
+    for (var i = 0; i < datosCategorias.length; i++) {
+        nombresCat[i] = datosCategorias[i].NombreCategoriaActivo;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de ingreso  de categoria
+$(function () {
+    $("#NombreCategoriaActivo").autocomplete({
+        source: nombresCat
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
+
+//Función para evitar nombres de categorias repetidos
 function comprobarNombre() {
     var nomCat = document.getElementById("NombreCategoriaActivo");
     nomCat.value = nomCat.value.toUpperCase();
@@ -188,24 +209,9 @@ function comprobarNombre() {
             }
         }
     }
-   
-
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresCategoria(){
-   for (var i = 0; i < datosCategorias.length; i++) {
-        nombresCat[i]=datosCategorias[i].NombreCategoriaActivo;        
-    }
-}
-//Función para cargar los nombres en el campo de nombre de ingreso  de categoria
-$(function () {
-    $("#NombreCategoriaActivo").autocomplete({
-        source: nombresCat
-    });
-});
-
-/////////////Funciones para validaciones de campos de texto
+//Funciones para validaciones de campos de texto
 function validarInputsVaciosModificacion() {
     var esValido = true;
     var boton = document.getElementById("confirmarCategoria");
@@ -224,8 +230,12 @@ function validarInputsVaciosModificacion() {
     }
     return esValido;
 }
-   //Mensajes para los tooltips
+
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
+
+//Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+
 }

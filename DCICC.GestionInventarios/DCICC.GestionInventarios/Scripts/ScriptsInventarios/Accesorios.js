@@ -6,13 +6,14 @@ var datosAccesorios;
 var idAccesorioMod;
 var nombresAccesorio = [];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de categorias
 function obtenerAccesorios(url) {
     url_metodo_accesorio = url;
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             console.log("Datos Exitosos");
             datosAccesorios = data;
@@ -33,7 +34,7 @@ function datosTipoAccesorio(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             cmbTipoAccesorio = data;
             cargarAccesoriosCmb();
@@ -43,9 +44,10 @@ function datosTipoAccesorio(url) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+//Función para cargar el combobox de estados de accesorios
 function cargarEstadosAccesoriosCmb() {
     var str = '<select id="EstadoAccesorio" class="form-control" name="EstadoAccesorio" required>';
-    str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
     }
@@ -53,7 +55,7 @@ function cargarEstadosAccesoriosCmb() {
     $("#cargarEstadosAccesorio").html(str);
 }
 
-
+//Función para cargar el combobox de cambio de estado de un accesorio
 function cargarEstadosAccesoriosMod() {
     var str = '<select id="EstadoAccesorioMod" class="form-control" name="EstadoAccesorioMod" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -64,9 +66,9 @@ function cargarEstadosAccesoriosMod() {
     $("#cargarEstadosAccesorioMod").html(str);
 }
 
+//Función para cargar el combobox de tipos de accesorios
 function cargarAccesoriosCmb() {
     var str = '<select id="AccesorioActivo" class="form-control" name="AccesorioActivo" required>';
-    str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoAccesorio.length; i++) {
         str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
     }
@@ -74,7 +76,7 @@ function cargarAccesoriosCmb() {
     $("#cargarTipoAccesorio").html(str);
 }
 
-////////////FUNCIONES PARA INGRESO DE ACCESORIO////////////
+//Función para cargar el combobox de estados para ingreso de accesorios
 function cargarEstadosAccesoriosIng() {
     var str = '<select id="EstadoAccesorioIng" class="form-control" name="EstadoAccesorioIng" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -85,6 +87,7 @@ function cargarEstadosAccesoriosIng() {
     $("#cargarEstadosAccesorioIngreso").html(str);
 }
 
+//Función para cargar el combobox de tipos de accesorios para ingreso
 function cargarAccesoriosIngresoCmb() {
     var str = '<select id="AccesorioIngreso" class="form-control" name="AccesorioIngreso" required>';
     str += '<option value="">Escoga una opción...</option>';
@@ -96,7 +99,6 @@ function cargarAccesoriosIngresoCmb() {
     str += '</select>';
     $("#cargarAccesoriosIngreso").html(str);
 }
-
 
 //Función para cargar la tabla de Activos
 function cargarAccesoriosTabla() {
@@ -131,6 +133,8 @@ function cargarAccesoriosTabla() {
     $("#tablaAccesorios").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
+//Función para setear los inputs con el accesorio seleccionado
 function formUpdateAccesorio(idAccesorio) {
     idAccesorioMod = idAccesorio;
     for (var i = 0; i < datosAccesorios.length; i++) {
@@ -151,15 +155,13 @@ function formUpdateAccesorio(idAccesorio) {
             document.getElementById("DescripcionAccesorio").value = datosAccesorios[i].DescripcionAccesorio;
 
             var element3 = document.getElementById("EstadoAccesorio");
-            element3.value = datosAccesorios[i].EstadoAccesorio;
-
-            
-            
+            element3.value = datosAccesorios[i].EstadoAccesorio;          
         }
-    };
+    }
 
 }
 
+//Función para actualizar un accesorio
 function actualizarAccesorio(url) {
 
     //Obtener Valor del tipo de activo
@@ -219,10 +221,11 @@ function actualizarAccesorio(url) {
 
 }
 
+//Función para cambiar el estado de un accesorio
 function habilitarOdeshabilitarAcc(idActivo) {
     idAccesorioMod = idActivo;
 }
-
+//Función para cambiar el estado de un accesorio
 function actualizarEstadoAccesorios(urlAccesorio) {
 
     var cmbEstado = document.getElementById("EstadoAccesorioMod");
@@ -268,6 +271,28 @@ function actualizarEstadoAccesorios(urlAccesorio) {
 
 }
 
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+//Funciones para cargar el campo de autocompletado
+function cargarNombresAccesorios() {
+    for (var i = 0; i < datosAccesorios.length; i++) {
+        nombresAccesorio[i] = datosAccesorios[i].NombreAccesorio;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de accesorios para ingresos
+$(function () {
+    $("#NombreAccesorioIngreso").autocomplete({
+        source: nombresAccesorio
+    });
+});
+
+//Función para cargar los nombres en el campo de nombre de accesorios para modificaciones
+$(function () {
+    $("#NombreAccesorio").autocomplete({
+        source: nombresAccesorio
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //función para validar campos de modificacion de accesorios
 function validacionesModificacionAccesorio() {
     var isValid = true;
@@ -349,27 +374,7 @@ function validacionesEstadoAccesorio() {
     return isValid;
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresAccesorios() {
-    for (var i = 0; i < datosAccesorios.length; i++) {
-        nombresAccesorio[i] = datosAccesorios[i].NombreAccesorio;
-    }
-}
-//Función para cargar los nombres en el campo de nombre de laboratorios
-$(function () {
-    $("#NombreAccesorioIngreso").autocomplete({
-        source: nombresAccesorio
-    });
-});
-
-//Función para cargar los nombres en el campo de nombre de laboratorios
-$(function () {
-    $("#NombreAccesorio").autocomplete({
-        source: nombresAccesorio
-    });
-});
-
-//Función para evitar nombres de laboratorios repetidos
+//Función para evitar nombres de accesorios repetidos
 function comprobarNombreAccesorio() {
     var nombreAcc = document.getElementById("NombreAccesorioIngreso").value;
     var comprobar = false;

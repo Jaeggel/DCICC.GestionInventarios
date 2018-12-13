@@ -5,15 +5,15 @@ var idLaboratorio;
 var urlEstado;
 var nombresLabs = [];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de laboratorios
 function obtenerLaboratorios(url) {
     url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
-            console.log("Datos Exitos");
             datosLaboratorios = data;
             cargarLaboratoriosTabla();
             $('#dataTableLaboratorios').DataTable({
@@ -30,6 +30,8 @@ function obtenerLaboratorios(url) {
 function urlEstados(url) {
     urlEstado = url;
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de Laboratorios
 function cargarLaboratoriosTabla() {
@@ -57,15 +59,15 @@ function cargarLaboratoriosTabla() {
             str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosLaboratorios[i].IdLaboratorio + ',' + datosLaboratorios[i].HabilitadoLaboratorio +');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
         }
          str +='</div></div></td></tr>';
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarLaboratorios").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
+
 //Función para setear los valores en los inputs
 function formUpdateLaboratorio(idLab) {
-    console.log(url_metodo);
-    console.log(idLab);
     idLaboratorio = idLab;
     for (var i = 0; i < datosLaboratorios.length; i++) {
         if (datosLaboratorios[i].IdLaboratorio == idLab) {
@@ -89,7 +91,6 @@ function formUpdateLaboratorio(idLab) {
 
 //Función para modificar el laboratorio especificado
 function modificarLaboratorio(url_modificar) {
-    console.log(url_modificar);
     var nombreLab=document.getElementById("NombreLaboratorio").value;
     var ubicacionLab=document.getElementById("UbicacionLaboratorio").value;
     var descripcionLab=document.getElementById("DescripcionLaboratorio").value;
@@ -128,9 +129,7 @@ function modificarLaboratorio(url_modificar) {
                 $('#ModificarLaboratorios').modal('hide');
             }
         });
-    }
-
-    
+    }    
 }
 
 //Función para habilitar o deshabilitar la categoria
@@ -175,6 +174,23 @@ function habilitarOdeshabilitar(idLab, estadoLab) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+
+//Funciones para cargar el campo de autocompletado
+function cargarNombresLaboratorios() {
+    for (var i = 0; i < datosLaboratorios.length; i++) {
+        nombresLabs[i] = datosLaboratorios[i].NombreLaboratorio;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de laboratorios
+$(function () {
+    $("#NombreLaboratorio").autocomplete({
+        source: nombresLabs
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
+
 //Función para evitar nombres de laboratorios repetidos
 function comprobarNombre() {
     var nombre = document.getElementById("NombreLaboratorio");
@@ -201,21 +217,7 @@ function comprobarNombre() {
     
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresLaboratorios() {
-    for (var i = 0; i < datosLaboratorios.length; i++) {
-        nombresLabs[i] = datosLaboratorios[i].NombreLaboratorio;
-    }
-}
-//Función para cargar los nombres en el campo de nombre de laboratorios
-$(function () {
-    $("#NombreLaboratorio").autocomplete({
-        source: nombresLabs
-    });
-});
-
-/////////////Funciones para validaciones de campos de texto
-
+//Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
     var boton = document.getElementById("confirmarLab");
@@ -236,6 +238,7 @@ function validarInputNombre() {
     return esValido;
 }
 
+//Función para validar el campo Ubicación
 function validarInputUbicacion() {
     var esValido = true;
     var boton = document.getElementById("confirmarLab");
@@ -256,9 +259,11 @@ function validarInputUbicacion() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
+
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreLaboratorio").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("UbicacionLaboratorio").title = "Máximo 50 caracteres.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("DescripcionLaboratorio").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreLaboratorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("UbicacionLaboratorio").title = "Máximo 50 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionLaboratorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

@@ -7,8 +7,8 @@ var datosLuns;
 var idMaquinaV;
 var urlEstado;
 var nombresMV = [];
-var nombresPropositos = [];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de Máquinas virtuales
 function obtenerMaquinaV(url) {
     url_metodo = url;
@@ -52,9 +52,7 @@ function listaPropositos(url) {
         success: function (data) {
             propositos = data;
             cargarPropositosCmb();
-            
-        }, error: function (e) {
-            console.log(e);
+            cargarPropositosCmbModificar();
         }
     });
 }
@@ -66,7 +64,6 @@ function obtenerLuns(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("entrooo");
             datosLuns = data;
             cargarLunsCmb();
             cargarLunsCmbModificar();
@@ -78,6 +75,8 @@ function obtenerLuns(url) {
 function urlEstados(url) {
     urlEstado = url;
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de Máquinas Virtuales
 function cargarMaquinaVTabla() {
@@ -112,7 +111,7 @@ function cargarMaquinaVTabla() {
         }
            str +=   '</div></div></td></tr>';
 
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarMaquinaV").html(str);
 }
@@ -128,14 +127,14 @@ function cargarSOCmb() {
     $("#cargarSO").html(str);
 }
 
-//Función para cargar el combobox de Sistemas Operativos
+//Función para cargar el combobox de Sistemas Operativos para modificar
 function cargarSOModificarCmb() {
     var str = '<select id="IdSistOperativos" class="form-control" name="IdSistOperativos" required>';
     for (var i = 0; i < cmbSO.length; i++) {
         str += '<option value="' + cmbSO[i].IdSistOperativos + '">' + cmbSO[i].NombreSistOperativos + '</option>';
     }
     str += '</select>';
-    $("#cargarSO").html(str);
+    $("#cargarSOModificar").html(str);
 }
 
 //Función para cargar el combobox de Propósitos
@@ -144,10 +143,19 @@ function cargarPropositosCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < propositos.length; i++) {
         str += '<option value="' + propositos[i].NombreProposito + '">' + propositos[i].NombreProposito + '</option>';
-        nombresPropositos[i] = propositos[i].NombreProposito;
-    };
+    }
     str += '</select>';
     $("#cargarPropositos").html(str);
+}
+
+//Función para cargar el combobox de Propositos Modificados
+function cargarPropositosCmbModificar() {
+    var str = '<select id="PropositoMaqVirtuales" class="form-control" name="PropositoMaqVirtuales" onBlur="validarCmbMV();" required>';
+    for (var i = 0; i < propositos.length; i++) {
+        str += '<option value="' + propositos[i].NombreProposito + '">' + propositos[i].NombreProposito + '</option>';
+    }
+    str += '</select>';
+    $("#cargarPropositosModificar").html(str);
 }
 
 //Función para cargar el combobox de Luns
@@ -163,7 +171,7 @@ function cargarLunsCmb() {
     $("#cargarLuns").html(str);
 }
 
-//Función para cargar el combobox de Luns
+//Función para cargar el combobox de Luns modificadas
 function cargarLunsCmbModificar() {
     var str = '<select id="IdLUN" class="form-control" name="IdLUN" required>';
     for (var i = 0; i < datosLuns.length; i++) {
@@ -174,9 +182,10 @@ function cargarLunsCmbModificar() {
     $("#cargarLunsModificar").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
+
 //Función para setear los valores en los inputs
 function formUpdateMaquinaV(idMV) {
-    console.log(idMV);
     idMaquinaV = idMV;
     for (var i = 0; i < datosMaquinasV.length; i++) {
 
@@ -284,7 +293,6 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
     } else {
         nuevoEstado = true;
     }
-    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar de Estado la Categoria?",
@@ -318,44 +326,22 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
 
-//Función para cargar los nombres en el campo de nombre de Propósitos
+//Funciones para cargar el campo de autocompletado
+function cargarNombresMV() {
+    for (var i = 0; i < datosMaquinasV.length; i++) {
+        nombresMV[i] = datosMaquinasV[i].NombreMaqVirtuales;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Máquinas Virtuales
 $(function () {
-    $("#NombreProposito").autocomplete({
-        source: nombresPropositos
+    $("#NombreMaqVirtuales").autocomplete({
+        source: nombresMV
     });
 });
 
-//Función para evitar nombres de propositos repetidos
-function comprobarNombreProposito() {
-    console.log(nombresPropositos);
-    var boton = document.getElementById("confirmarProposito");
-    var nomPro = document.getElementById("NombreProposito");
-    nomPro.value = nomPro.value.toUpperCase();
-    //Validación para el campo de texto nombre de Máquina virtual
-    if (nomPro.value.length <= 0) {
-        nomPro.style.borderColor = "#900C3F";
-        $('#errorProposito').html('El campo nombre de Propósito no debe estar vacio').show();
-        setTimeout("$('#errorProposito').html('').hide('slow')", 6000);
-        boton.disabled = true;
-    } else {
-        for (var i = 0; i < propositos.length; i++) {
-            if ((propositos[i].NombreProposito).toUpperCase() == nomPro.value) {
-                nomPro.style.borderColor = "#900C3F";
-                $('#errorProposito').html("El nombre del Propósito: " + nomPro.value + " ya existe").show();
-                setTimeout("$('#errorProposito').html('').hide('slow')", 6000);
-                nomMV.value = "";
-                boton.disabled = true;
-            } else {
-                nomPro.style.borderColor = "#ccc";
-                $('#errorProposito').html('').hide();
-                boton.disabled = false;
-            }
-        }
-    }
-}
-
-
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar nombres de máquinas virtuales repetidos
 function comprobarNombre() {
     var nomMV = document.getElementById("NombreMaqVirtuales");
@@ -380,20 +366,7 @@ function comprobarNombre() {
     }
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresMV() {
-    for (var i = 0; i < datosMaquinasV.length; i++) {
-        nombresMV[i]= datosMaquinasV[i].NombreMaqVirtuales;
-    }
-}
-//Función para cargar los nombres en el campo de nombre de Máquinas Virtuales
-$(function () {
-    $("#NombreMaqVirtuales").autocomplete({
-        source: nombresMV
-    });
-});
-
-/////////////Funciones para validaciones de campos de texto
+//Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
     var boton = document.getElementById("confirmarMV");
@@ -569,12 +542,13 @@ function validarCmbMV() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("UsuarioMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("UsuarioMaqVirtuales").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DireccionIPMaqVirtuales").title = "Cuadro de texto para IpV4.\n Formato: 000.000.000.000";
-    document.getElementById("DiscoMaqVirtuales").title = "Capacidad de Disco Duro en GB. Rango de 1 a 10000 GB ";
-    document.getElementById("RamMaqVirtuales").title = "Capacidad de Memoria Ram en GB. Rango de 1 a 100GB";
-    document.getElementById("DescripcionMaqVirtuales").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("DiscoMaqVirtuales").title = "Solo Números. Rango de 1 a 10000";
+    document.getElementById("RamMaqVirtuales").title = "Solo Números. Rango de 1 a 100GB";
+    document.getElementById("DescripcionMaqVirtuales").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

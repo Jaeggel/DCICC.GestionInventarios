@@ -29,7 +29,7 @@
                 @* Sección para botones de ingresar nueva marca y actualizar página *@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevaMarca", "Marcas")'"><i class="fa fa-plus"></i> Agregar Marca</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarMarca", "Marcas")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -68,7 +68,8 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de una marca *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="Nombre de la Marca" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <label>Nombre de la marca</label>
+                                        <input id="NombreMarca" type="text" class="form-control has-feedback-left" name="NombreMarca" placeholder="CISCO" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreMarca" style="color:brown;"></span>
                                     </div>

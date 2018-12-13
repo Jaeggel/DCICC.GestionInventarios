@@ -5,6 +5,7 @@ var idTipoAccesorio;
 var urlEstado;
 var nombresTipo = [];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de Tipo Accesorio
 function obtenerTipoAccesorio(url) {
     url_metodo = url;
@@ -29,6 +30,8 @@ function obtenerTipoAccesorio(url) {
 function urlEstados(url) {
     urlEstado = url;
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de Tipos de Accesorio
 function cargarTipoAccTabla() {
@@ -55,16 +58,16 @@ function cargarTipoAccTabla() {
         }    
         str +='</div></div></td></tr>';
 
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarTipoAccesorio").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
 //Función para setear los valores en los inputs
 function formUpdateTipoAcc(idTipo) {
     idTipoAccesorio = idTipo;
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
-
         if (datosTipoAccesorio[i].IdTipoAccesorio == idTipo) {
             //Métodos para setear los valores a modificar
             document.getElementById("NombreTipoAccesorio").value = datosTipoAccesorio[i].NombreTipoAccesorio;
@@ -79,8 +82,8 @@ function formUpdateTipoAcc(idTipo) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoTipoAccesorio").click();
             }
-        };
-    };
+        }
+    }
 }
 
 //Función para modificar el Tipo Accesorio especificado
@@ -132,7 +135,6 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
     } else {
         nuevoEstado = true;
     }
-    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar de Estado el Tipo de Accesorio?",
@@ -150,10 +152,10 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
                 type: 'post',
                 success: function (data) {  
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado del Tipo de Accesorio se ha modificado correctamente', "success");
                         obtenerTipoAccesorio(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Tipo de Accesorio: ' + data.MensajeError, "error");
                     }
                    
                 }
@@ -163,6 +165,22 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
         }
     });
 }
+
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+//Funciones para cargar el campo de autocompletado
+function cargarNombresTipoAcc() {
+    for (var i = 0; i < datosTipoAccesorio.length; i++) {
+        nombresTipo[i] = datosTipoAccesorio[i].NombreTipoAccesorio;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Tipo Accesorios
+$(function () {
+    $("#NombreTipoAccesorio").autocomplete({
+        source: nombresTipo
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 
 //Función para evitar nombres de Tipo Accesorio repetidos
 function comprobarNombre() {    
@@ -189,21 +207,7 @@ function comprobarNombre() {
     }
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresTipoAcc() {
-    for (var i = 0; i < datosTipoAccesorio.length; i++) {
-        nombresTipo[i] = datosTipoAccesorio[i].NombreTipoAccesorio;  
-    }
-}
-//Función para cargar los nombres en el campo de nombre de Tipo Accesorios
-$(function () {
-    $("#NombreTipoAccesorio").autocomplete({
-        source: nombresTipo
-    });
-});
-
-/////////////Funciones para validaciones de campos de texto
-
+//Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
     var boton = document.getElementById("confirmarTipo");
@@ -223,8 +227,9 @@ function validarInputNombre() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreTipoAccesorio").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("DescripcionTipoAccesorio").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreTipoAccesorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionTipoAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

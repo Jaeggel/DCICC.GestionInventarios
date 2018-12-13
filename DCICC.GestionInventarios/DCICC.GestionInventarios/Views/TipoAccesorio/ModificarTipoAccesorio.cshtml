@@ -29,7 +29,7 @@
                 @* Sección para botones de ingresar nueva categoria y actualizar página *@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoTipoAccesorio", "TipoAccesorio")'"><i class="fa fa-plus"></i> Agregar Tipo de Accesorio</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarTipoAccesorio", "TipoAccesorio")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -67,7 +67,8 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de un tipo de accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <label>Nombre del Tipo de Accesorio</label>
+                                        <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="AUDIFONOS" placeholder="Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarInputNombre();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreTipo" style="color:brown;"></span>
                                     </div>

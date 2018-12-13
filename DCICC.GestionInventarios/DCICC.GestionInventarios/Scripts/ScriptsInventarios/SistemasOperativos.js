@@ -5,6 +5,7 @@ var idSOMod;
 var urlEstado;
 var nombresSO = [];
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los sistemas operativos
 function obtenerSO(url) {
     url_metodo = url;
@@ -13,7 +14,6 @@ function obtenerSO(url) {
         url: url,
         type: 'get',
         success: function (data) {
-            console.log("Datos Exitos");
             datosSO = data; 
             cargarSOTabla();
             $('#dataTableSO').DataTable({
@@ -31,6 +31,7 @@ function urlEstados(url) {
     urlEstado = url;
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 //Función para cargar la tabla de Sistemas Operativos
 function cargarSOTabla() {
     var str = '<table id="dataTableSO" class="table jambo_table bulk_action table-bordered" style="width:100%">';
@@ -60,9 +61,9 @@ function cargarSOTabla() {
     $("#tablaModificarSistOperativo").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
 //Función para setear los valores en los inputs
 function formUpdateSO(idSO) {
-    console.log(idSO);
     idSOMod = idSO;
     for (var i = 0; i < datosSO.length; i++) {
 
@@ -134,7 +135,6 @@ function habilitarOdeshabilitar(idSistOpe, estadoSistOpe) {
     } else {
         nuevoEstado = true;
     }
-    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
         text: "¿Está seguro de Cambiar de Estado del Sistema Operativo?",
@@ -171,6 +171,21 @@ function habilitarOdeshabilitar(idSistOpe, estadoSistOpe) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+//Funciones para cargar el campo de autocompletado
+function cargarNombresLaboratorios() {
+    for (var i = 0; i < datosSO.length; i++) {
+        nombresSO[i] = datosSO[i].NombreSistOperativos;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de Sistemas Operativos
+$(function () {
+    $("#NombreSistOperativos").autocomplete({
+        source: nombresSO
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar nombres de sistemas operativo repetidos
 function comprobarNombre() {
    
@@ -197,20 +212,7 @@ function comprobarNombre() {
 
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresLaboratorios() {
-    for (var i = 0; i < datosSO.length; i++) {
-        nombresSO[i] = datosSO[i].NombreSistOperativos;
-    }
-}
-//Función para cargar los nombres en el campo de nombre de Sistemas Operativos
-$(function () {
-    $("#NombreSistOperativos").autocomplete({
-        source: nombresSO
-    });
-});
-
-/////////////Funciones para validaciones de campos de texto
+//Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
     var boton = document.getElementById("confirmarSO");
@@ -230,8 +232,9 @@ function validarInputNombre() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreSistOperativos").title = "Máximo 80 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("DescripcionSistOperativos").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreSistOperativos").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionSistOperativos").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

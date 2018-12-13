@@ -14,7 +14,13 @@ var nombreCQRAccesorio;
 
 var nombresActivo = [];
 
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON ACTIVOS
+ * *********************************************************************************
+ */
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de los activos
 function obtenerActivos(url) {
     url_metodo = url;
@@ -23,7 +29,6 @@ function obtenerActivos(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
             datosActivos = data;
             cargarActivosTabla();
             $('#dataTableActivos').DataTable({
@@ -45,7 +50,6 @@ function datosTipoActivo(url) {
         success: function (data) {
             cmbTipoActivo = data;
             cargarTipoActivoCmb();
-
         }
     });
 }
@@ -76,14 +80,13 @@ function datosMarcas(url) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 //Función para cargar el combobox de tipo de activo
 function cargarTipoActivoCmb() {   
     var str = '<select id="TipoActivo" class="form-control" name="TipoActivo"  required>';
-    str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoActivo.length; i++) {
-            console.log(cmbTipoActivo[i].NombreTipoActivo);
             str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarTipoActivos").html(str);
 }
@@ -91,10 +94,9 @@ function cargarTipoActivoCmb() {
 //Función para cargar el combobox de laboratorios
 function cargarLaboratoriosCmb() {
     var str = '<select id="LaboratorioActivo" class="form-control" name="LaboratorioActivo"  required>';
-    str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbLaboratorio.length; i++) {
         str += '<option value="' + cmbLaboratorio[i].IdLaboratorio + '">' + cmbLaboratorio[i].NombreLaboratorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarLaboratorios").html(str);
 }
@@ -102,10 +104,9 @@ function cargarLaboratoriosCmb() {
 //Función para cargar el combobox de Marcas
 function cargarMarcasCmb() {
     var str = '<select id="MarcaActivo" class="form-control" name="MarcaActivo"   required>';
-    str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbMarcas.length; i++) {
         str += '<option value="' + cmbMarcas[i].IdMarca + '">' + cmbMarcas[i].NombreMarca + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarMarcas").html(str);
 }
@@ -113,10 +114,9 @@ function cargarMarcasCmb() {
 //Función para cargar el combobox de estados
 function cargarEstadosCmb() {
     var str = '<select id="EstadoActivo" class="form-control" name="EstadoActivo" onBlur=" validacionesCamposModificar();" required>';
-    str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarEstados").html(str);
 }
@@ -127,11 +127,10 @@ function cargarEstadosModificarCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarEstadosActivo").html(str);
 }
-
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
@@ -176,6 +175,8 @@ function cargarActivosTabla() {
     $("#tablaActivos").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
+//Función para setear los valores en los inputs en modificaciones
 function formUpdateActivos(idActivo) {
     idActivoMod = idActivo;
     for (var i = 0; i < datosActivos.length; i++) {
@@ -235,11 +236,11 @@ function formUpdateActivos(idActivo) {
             //Obtener valor de VelocidadTransfActivo
             document.getElementById("VelocidadTransfActivo").value = datosActivos[i].VelocidadTransfActivo;           
         }
-    };
+    }
     
 }
 
-
+//Función para modificar el activo especificado
 function actualizarActivo(url) {
     //Obtener Valor del tipo de activo
     var cmbTipoActivo = document.getElementById("TipoActivo");
@@ -334,10 +335,12 @@ function actualizarActivo(url) {
  
 }
 
+//Función para cambiar de estado al Activo
 function habilitarOdeshabilitar(idActivo) {
     idActivoMod = idActivo;
 }
 
+//Función para cambiar de estado al Activo
 function actualizarEstadoActivo(url) {
 
     var cmbEstado = document.getElementById("EstadoActivoModificar");
@@ -382,7 +385,29 @@ function actualizarEstadoActivo(url) {
     }
 }
 
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+//Funciones para cargar el campo de autocompletado
+function cargarNombresActivos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'get',
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                nombresActivo[i] = data[i].NombreActivo;
+            }
+        }
+    });
 
+}
+//Función para cargar los nombres en el campo de nombre de activos
+$(function () {
+    $("#NombreActivo").autocomplete({
+        source: nombresActivo
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Método de validación para validacion de información de activo
 function validacionesCamposModificar() {
     var isValid = true;
@@ -390,7 +415,7 @@ function validacionesCamposModificar() {
     var nombreActivo = document.getElementById("NombreActivo").value;
     var modeloActivo = document.getElementById("ModeloActivo").value;
     var serialActivo = document.getElementById("SerialActivo").value;
-
+    var responsableActivo = document.getElementById("ResponsableActivo").value;
     //Validación para combobox tipo de Activo
     if (document.getElementById("TipoActivo").value == "") {
         isValid = false;
@@ -478,6 +503,17 @@ function validacionesCamposModificar() {
         $('#errorSerial').html('').hide();
         boton.disabled = false;
     }
+    //Validación para el nombre del responsable
+    if (!responsableActivo && responsableActivo.length <= 0) {
+        isValid = false;
+        $("#ResponsableActivo").focus();
+        document.getElementById("ResponsableActivo").style.borderColor = "#900C3F";
+        $('#errorResponsable').html('El campo Responsable es obligatorio').show();
+        setTimeout("$('#errorResponsable').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("ResponsableActivo").style.borderColor = "#ccc";
+        $('errorResponsable').html('').hide();
+    }
 
     return isValid;
 }
@@ -499,18 +535,26 @@ function validacionesEstadoActivo() {
     return isValid;
 }
 
-
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("SerialActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("CodigoUpsActivo").title = "Máximo 15 caracteres numéricos.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("SerialActivo").title = "Máximo 80 caracteres, sin Espacios.\n  Caracteres especiales permitidos - / _ .";
+    document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
     document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
-    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("ResponsableActivo").title = "Máximo 80 caracteres. \n  Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
 }
 
-//////////////////////////////////////FUNCIONES PARA GUARDAR ACCESORIO/////////////////////////////////////
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON ACCESORIOS
+ * *********************************************************************************
+ */
+
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL ACCESORIOS---------------------------------*/
 //Función para obtener los valores del activo asociado con su accesorio
 function formIngresoAccesorio(idAct, nombreAct) {
     idAccesorioIng = idAct;
@@ -518,7 +562,7 @@ function formIngresoAccesorio(idAct, nombreAct) {
     document.getElementById("NombreActivoIngreso").value = nombreAccesorioIng;
    
 }
-
+/* --------------------------------------SECCIÓN PARA INSERTAR NUEVO ACCESORIO---------------------------------*/
 //Función para ingresar el nuevo accesorio
 function ingresarAccesorios(url,urlImagen,urlPdf) {
 
@@ -610,6 +654,8 @@ function limpiarModal() {
     $('#cqrAccesorio').hide();
 }
 
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Método de validación de información de accesorios
 function validacionesCamposAccesorio() {
     var isValid = true;
@@ -673,8 +719,28 @@ function validacionesCamposAccesorio() {
     return isValid;
 }
 
-//Función para setear valores N/A
+/* --------------------------------------SECCIÓN PARA SETEAR VALORES---------------------------------*/
+//Función para setear valores N/A en modificacion
 function setearModelo() {
+    var modeloActivo = document.getElementById("ModeloAccesorio").value;
+    //Validación para el modelo del activo
+    if (!modeloActivo && modeloActivo.length <= 0) {
+        isValid = false;
+        document.getElementById("ModeloAccesorio").value = "N/A";
+    }
+}
+
+//Función para setear valores N/A en modificacion
+function setearSerial() {
+    var serialActivo = document.getElementById("SerialAccesorio").value;
+    //Validación para el serial del activo
+    if (!serialActivo && serialActivo.length <= 0) {
+        document.getElementById("SerialAccesorio").value = "N/A";
+    } 
+}
+
+//Función para setear valores N/A en Ingreso
+function setearModeloIngreso() {
     var modeloActivo = document.getElementById("ModeloAccesorioIngreso").value;
     //Validación para el modelo del activo
     if (!modeloActivo && modeloActivo.length <= 0) {
@@ -683,50 +749,30 @@ function setearModelo() {
     }
 }
 
-//Función para setear valores N/A
-function setearSerial() {
+//Función para setear valores N/A en Ingreso
+function setearSerialIngreso() {
     var serialActivo = document.getElementById("SerialAccesorioIngreso").value;
     //Validación para el serial del activo
     if (!serialActivo && serialActivo.length <= 0) {
         document.getElementById("SerialAccesorioIngreso").value = "N/A";
-    } 
+    }
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresActivos(url) {
-    $.ajax({
-        dataType: 'json',
-        url: url,
-        type: 'get',
-        success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                nombresActivo[i] = data[i].NombreActivo;
-            }
-        }
-    });
-
-}
-//Función para cargar los nombres en el campo de nombre de activos
-$(function () { 
-    $("#NombreActivo").autocomplete({
-        source: nombresActivo
-    });  
-});
-
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltipsAccesorios() {
-    document.getElementById("NombreAccesorioIngreso").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("SerialAccesorioIngreso").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("ModeloAccesorioIngreso").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("DescripcionAccesorioIngreso").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreAccesorioIngreso").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("SerialAccesorioIngreso").title = "Máximo 80 caracteres, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("ModeloAccesorioIngreso").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionAccesorioIngreso").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }
 
 //Mensajes para los tooltips
 function mensajesTooltipsAccesoriosMod() {
-    document.getElementById("NombreAccesorio").title = "Máximo 50 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("SerialAccesorio").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
-    document.getElementById("ModeloAccesorio").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("NombreAccesorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("SerialAccesorio").title = "Máximo 80 caracteres, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("ModeloAccesorio").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }
 
 

@@ -36,14 +36,15 @@
                         @* Combobox para seleccionar la categoria de un activo *@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label>* Escoja la Categoría de Activo:</label>
+                                <label>* Seleccione la Categoría del Activo</label>
                                 <div id="cargarCategorias"></div>
                                 <span id="errorCategoriaTipo" style="color:brown;"></span>
                             </div>
                         </div>
                         @* Cuadro de texto para el ingreso del nombre de un Tipo de activo *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombreTipoActivo" type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="Nombre del Tipo de Activo" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');"  minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <label>* Nombre del Tipo de Activo:</label>
+                            <input id="NombreTipoActivo" type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="SWITCH/LAN" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorNombreTipo" style="color:brown;"></span>
                         </div>

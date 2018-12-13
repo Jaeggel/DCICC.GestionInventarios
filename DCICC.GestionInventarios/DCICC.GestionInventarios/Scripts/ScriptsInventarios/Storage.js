@@ -325,7 +325,7 @@ function validarNumero() {
 //Mensajes para los tooltips
 function mensajesTooltipStorage() {
     document.getElementById("NombreStorage").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula y sin espacios.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("CapacidadStorage").title = "Solo números. De 1 a 100 GB o TB";
+    document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula y sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("CapacidadStorage").title = "Solo Números. De 1 a 100 GB o TB";
     document.getElementById("DescripcionStorage").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

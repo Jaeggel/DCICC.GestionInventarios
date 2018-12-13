@@ -63,12 +63,12 @@
                         </li>
 
                     </ul>
-                    <div id="step-1" style="height: 630px;">
+                    <div id="step-1" style="height: 700px;">
                         <div class="form-horizontal form-label-left input_mask" id="Paso1">
                             @* Combobox para seleccionar la categoría de activo *@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>* Escoja la Categoría de Activo:</label>
+                                    <label>* Seleccione la Categoría de Activo</label>
                                     <div id="cargarCategorias"></div>
                                     <span id="errorCategoria" style="color:brown;"></span>
                                 </div>
@@ -76,7 +76,7 @@
                             @* Combobox para seleccionar el tipo de activo *@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>* Escoja el Tipo de Activo:</label>
+                                    <label>* Seleccione el Tipo de Activo:</label>
                                     <select id="TipoActivo" class="form-control" name="TipoActivo" required></select>
                                     <span id="errorTipo" style="color:brown;"></span>
                                 </div>
@@ -84,13 +84,13 @@
                             @* Combobox para seleccionar la marca del activo *@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <label>* Escoja la Marca del Activo:</label>
+                                    <label>* Seleccione la Marca del Activo</label>
                                     <div id="cargarMarcas"></div>
                                     <span id="errorMarca" style="color:brown;"></span>
                                 </div>
                                 @* Combobox para el laboratorio del activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <label>* Laboratorio del Activo:</label>
+                                    <label>* Laboratorio del Activo</label>
                                     <div id="cargarLaboratorios"></div>
                                     <span id="errorLaboratorio" style="color:brown;"></span>
                                 </div>
@@ -102,21 +102,23 @@
                             @* Combobox para seleccionar el estado del activo *@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label>* Escoja el Estado del Activo:</label>
+                                    <label>* Seleccione el Estado del Activo</label>
                                     <div id="cargarEstados"></div>
                                     <span id="errorEstado" style="color:brown;"></span>
                                 </div>
                             </div>
                             @* Cuadro de texto para el ingreso del nombre de un activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="Nombre del Activo" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                <label>* Nombre del Activo</label>
+                                <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="LIHM_MAC01" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                 <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorNombre" style="color:brown;"></span>
                             </div>
 
                             @* Cuadro de texto para el ingreso del modelo de un activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="Modelo del Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                <label>* Modelo del Activo</label>
+                                <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="iMAC Pro Turbo Boost" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                 <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorModelo" style="color:brown;"></span>
                             </div>
@@ -124,13 +126,15 @@
                             <div class="form-group">
                                 @* Cuadro de texto para el ingreso del serial activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="Serial del Activo" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                    <label>* Serial del Activo</label>
+                                    <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="C02WC1YAJ1G5" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                     <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                     <span id="errorSerial" style="color:brown;"></span>
                                 </div>
                                 @* Cuadro de texto para el ingreso del codigo UPS del activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="Código UPS" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="16" data-toggle="tooltip" data-placement="rigth" title="">
+                                    <label>Código de barras UPS</label>
+                                    <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="80042000619268" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="16" data-toggle="tooltip" data-placement="rigth" title="">
                                     <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                 </div>
 
@@ -141,6 +145,13 @@
                                     <label>Fecha de Adquisición del Activo:</label>
                                     <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="FechaIngresoActivo" placeholder="Fecha de Adquisición" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                </div>
+                                @* Cuadro de texto para el ingreso del responsable del activo *@
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <label>* Responsable del Activo</label>
+                                    <input id="ResponsableActivo" type="text" class="form-control has-feedback-left" name="ResponsableActivo" placeholder="Pepe Peréz" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="">
+                                    <span class="fa fa-child form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="errorResponsable" style="color:brown;"></span>
                                 </div>
                             </div>
                             <div class="form-group"></div>
