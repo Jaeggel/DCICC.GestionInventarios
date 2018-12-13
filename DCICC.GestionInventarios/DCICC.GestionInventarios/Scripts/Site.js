@@ -67,9 +67,14 @@ function validarTextos() {
     return /[^a-zA-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
 }
 
+function validarTextosSinNum() {
+    return /[^a-zA-Z_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
+}
+
 function validarTextosMayus() {
     return /[^A-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
 }
+
 
 function validarNumeros() {
     return /[^0-9]/g;
