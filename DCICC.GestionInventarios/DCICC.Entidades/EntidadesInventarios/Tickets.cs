@@ -34,7 +34,7 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string ComentarioTicket { get; set; }
 
-        public string ComentarioEnCursoTicket { get; set; }
+        public string ComentarioEnEsperaTicket { get; set; }
 
         public string ComentarioEnProcesoTicket { get; set; }
 

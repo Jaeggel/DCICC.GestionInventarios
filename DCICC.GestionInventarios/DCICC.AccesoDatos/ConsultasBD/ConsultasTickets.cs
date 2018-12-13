@@ -44,14 +44,18 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 IdDetalleActivo = dr[4] != DBNull.Value ? (int)dr[4] : 0,
                                 EstadoTicket = dr[5].ToString().Trim(),
                                 FechaAperturaTicket = DateTime.Parse(dr[6].ToString().Trim()),
-                                FechaResueltoTicket = dr[7] != DBNull.Value ? DateTime.Parse(dr[7].ToString().Trim()) : new DateTime(DateTime.Now.Year, 1, 1),
-                                PrioridadTicket = dr[8].ToString().Trim(),
-                                ComentarioResueltoTicket = dr[9].ToString().Trim(),
-                                DescripcionTicket = dr[10].ToString().Trim(),
-                                NombreUsuario = dr[11].ToString().Trim(),
-                                NombreUsuarioResponsable = dr[12].ToString().Trim(),
-                                NombreLaboratorio = dr[13].ToString().Trim(),
-                                NombreDetalleActivo = dr[14].ToString().Trim()
+                                DescripcionTicket = dr[7].ToString().Trim(),
+                                ComentarioEnProcesoTicket= dr[8].ToString().Trim(),
+                                ComentarioEnEsperaTicket= dr[9].ToString().Trim(),
+                                ComentarioResueltoTicket = dr[10].ToString().Trim(),
+                                FechaEnProcesoTicket = dr[11] != DBNull.Value ? DateTime.Parse(dr[11].ToString().Trim()) : new DateTime(DateTime.Now.Year, 1, 1),
+                                FechaEnEsperaTicket = dr[12] != DBNull.Value ? DateTime.Parse(dr[12].ToString().Trim()) : new DateTime(DateTime.Now.Year, 1, 1),
+                                FechaResueltoTicket = dr[13] != DBNull.Value ? DateTime.Parse(dr[13].ToString().Trim()) : new DateTime(DateTime.Now.Year, 1, 1),
+                                PrioridadTicket = dr[14].ToString().Trim(),
+                                NombreUsuario = dr[15].ToString().Trim(),
+                                NombreUsuarioResponsable = dr[16].ToString().Trim(),
+                                NombreLaboratorio = dr[17].ToString().Trim(),
+                                NombreDetalleActivo = dr[18].ToString().Trim()
                             };
                             lstTickets.Add(objTickets);
                         }
