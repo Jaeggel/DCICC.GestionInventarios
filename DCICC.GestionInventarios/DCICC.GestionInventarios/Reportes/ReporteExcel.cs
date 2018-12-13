@@ -28,11 +28,12 @@ namespace DCICC.GestionInventarios.Reportes
             var fileinfo = new FileInfo(path_Plantilla);
             using (ExcelPackage pck = new ExcelPackage(fileinfo))
             {
+                
                 //Carga de la primera hoja de trabajo del Excel
                 ExcelWorksheet ws = pck.Workbook.Worksheets[1];
                 //Carga datos del html
+                ws.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Cells["A9"].LoadFromDataTable(infoTable, true);
-                
                 //Titulos Organización
                 ConfigCell(1, 2, 1, infoTable.Columns.Count, ws, infoTable.Columns.Count, "SISTEMA DE GESTIÓN DE INVENTARIOS Y TICKETING PARA SOPORTE TÉCNICO", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
                 ConfigCell(2, 2, 2, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Departamento de Laboratorios del ICC", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
@@ -55,8 +56,8 @@ namespace DCICC.GestionInventarios.Reportes
                 //Datos
                 ConfigCell(10, 1, 9 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, null, false, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Elaborado por
-                ConfigCell(10 + infoTable.Rows.Count, 1, 10 + infoTable.Rows.Count, 1, ws, 1, "ELABORADO POR: ", false, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Left);
-                ConfigCell(10 + infoTable.Rows.Count, 2, 10 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()), true, false, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Left);
+                ConfigCell(10 + infoTable.Rows.Count, 1, 10 + infoTable.Rows.Count, 1, ws, 1, "ELABORADO POR: ", false, true, ColorTranslator.FromHtml("#ededed"), ColorTranslator.FromHtml("#23527c"), ExcelHorizontalAlignment.Left);
+                ConfigCell(10 + infoTable.Rows.Count, 2, 10 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()), true, false, ColorTranslator.FromHtml("#ededed"), ColorTranslator.FromHtml("#23527c"), ExcelHorizontalAlignment.Left);
                 //Autoajustar las celdas para los datos
                 ws.Cells[8, 1, 8 + infoTable.Rows.Count, infoTable.Columns.Count].AutoFitColumns();
                 

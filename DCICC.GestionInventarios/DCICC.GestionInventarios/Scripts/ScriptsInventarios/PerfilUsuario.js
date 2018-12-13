@@ -106,10 +106,10 @@ function guardarContraseña(urlModificar, urlSalir) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             window.location.href = urlSalir;
-                            showNotify("Actualización exitosa", 'Se ha modificado el Password de Usuario', "success");
+                            //showNotify("Actualización exitosa", 'Se ha modificado el Password de Usuario', "success");
                         } else {    
                             $('#ModificarContraseña').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Password: ' + data.MensajeError, "error");
+                            //showNotify("Error en la Actualización", 'No se ha podido modificar el Password: ' + data.MensajeError, "error");
                         }
                         
                         
@@ -153,10 +153,10 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             window.location.href = urlSalir;
-                            showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                            //showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
                         } else {
                             $('#ModificarContraseña').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                            //showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
                         }
                     }
                 });
@@ -184,9 +184,9 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             window.location.href = urlHome;
-                            showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                            //showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
                         } else {
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                            //showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
                         }
                         
                     }

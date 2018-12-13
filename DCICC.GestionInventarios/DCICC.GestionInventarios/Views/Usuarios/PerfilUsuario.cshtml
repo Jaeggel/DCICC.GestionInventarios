@@ -41,7 +41,7 @@
                         </div>
                         @* Cuadro de texto para el ingreso del correo del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input  id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" maxlength="40" required>
+                            <input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" maxlength="40" required>
                             <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
@@ -97,42 +97,41 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form" >
+                        <div class="form">
 
                             @* Formulario para actualizaci[on de datos de los componentes para el ingreso de un nuevo usuario.
                                 (Metodo de la clase) - Controlador (Controller) *@
-                            
-                                <div class="form-horizontal form-label-left input_mask">
-                                    @* Cuadro de texto para el ingreso del password del usuario*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña Actual" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-unlock-alt form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorPassword" style="color:brown;"></span>
-                                    </div>
 
-                                    @* Cuadro de texto para el ingreso del password del usuario*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="PasswordUsuarioNuevo" type="password" class="form-control has-feedback-left" name="PasswordUsuarioNuevo" placeholder="Nueva Contraseña" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorVacios" style="color:brown;"></span>
-                                    </div>
+                            <div class="form-horizontal form-label-left input_mask">
+                                @* Cuadro de texto para el ingreso del password del usuario*@
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input id="PasswordUsuario" type="password" class="form-control has-feedback-left" name="PasswordUsuario" placeholder="Contraseña Actual" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                    <span class="fa fa-unlock-alt form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="errorPassword" style="color:brown;"></span>
+                                </div>
 
-                                    @* Cuadro de texto para el ingreso del password del usuario*@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="PasswordUsuarioConfirmar" type="password" class="form-control has-feedback-left" name="PasswordUsuarioConfirmar" placeholder="Confirmar Nueva Contraseña" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorNuevoPassword" style="color:brown;"></span>
-                                    </div>
+                                @* Cuadro de texto para el ingreso del password del usuario*@
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input id="PasswordUsuarioNuevo" type="password" class="form-control has-feedback-left" name="PasswordUsuarioNuevo" placeholder="Nueva Contraseña" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                    <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="errorVacios" style="color:brown;"></span>
+                                </div>
 
-                                    <div class="form-group"> </div>
+                                @* Cuadro de texto para el ingreso del password del usuario*@
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input id="PasswordUsuarioConfirmar" type="password" class="form-control has-feedback-left" name="PasswordUsuarioConfirmar" placeholder="Confirmar Nueva Contraseña" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                    <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="errorNuevoPassword" style="color:brown;"></span>
+                                </div>
 
-                                    <div class="ln_solid"></div>
-                                    @* Sección de botones para guardar usuario o cancelar el registro *@
-                                    <div class="form-group text-center">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick=" guardarContraseña('@Url.Action("ModificarPasswordUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")');">Modificar</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
-                                        </div>
+                                <div class="form-group"> </div>
+
+                                <div class="ln_solid"></div>
+                                @* Sección de botones para guardar usuario o cancelar el registro *@
+                                <div class="form-group text-center">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <button type="submit" class="btn btn-success" onclick=" guardarContraseña('@Url.Action("ModificarPasswordUsuario", "Usuarios")','@Url.Action("CerrarSesion", "Login")');">Modificar</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
                                     </div>
                                 </div>
                             </div>
@@ -144,6 +143,23 @@
     </div>
 </div>
 
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Modificación Exitosa", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error en la modificación", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
 
 @* Seccción para llamar al js de Usuarios*@
 <script src="~/Scripts/ScriptsInventarios/PerfilUsuario.js"></script>

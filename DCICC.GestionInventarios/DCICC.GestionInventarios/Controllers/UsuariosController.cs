@@ -156,11 +156,13 @@ namespace DCICC.GestionInventarios.Controllers
                 if (msjUsuarios.OperacionExitosa)
                 {
                     mensajesUsuarios = string.Format("El perfil de usuario con ID: {0} ha sido modificado correctamente.", infoUsuario.IdUsuario);
+                    TempData["Mensaje"]= string.Format("El usuario \"{0}\" ha sido modificado correctamente.", (string)Session["NickUsuario"]);
                     Logs.Info(mensajesUsuarios);
                 }
                 else
                 {
                     mensajesUsuarios = string.Format("No se ha podido actualizar el perfil de usuario con ID: {0}: {1}", infoUsuario.IdUsuario, msjUsuarios.MensajeError);
+                    TempData["MensajeError"] = mensajesUsuarios;
                     Logs.Error(mensajesUsuarios);
                 }
             }

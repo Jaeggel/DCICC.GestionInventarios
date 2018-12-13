@@ -283,7 +283,6 @@ namespace DCICC.GestionInventarios.Controllers
             LUNAccDatos objLUNAccDatos = new LUNAccDatos((string)Session["NickUsuario"]);
             return Json(objLUNAccDatos.ObtenerLUN("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
-        #endregion
         /// <summary>
         /// Método para obtener todos los Storage de la base de datos
         /// </summary>
@@ -302,5 +301,6 @@ namespace DCICC.GestionInventarios.Controllers
             StorageAccDatos objStorageActAccDatos = new StorageAccDatos((string)Session["NickUsuario"]);
             return Json(objStorageActAccDatos.ObtenerStorage("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }
