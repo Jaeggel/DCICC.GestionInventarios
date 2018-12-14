@@ -167,7 +167,6 @@ namespace DCICC.GestionInventarios.Controllers
         /// </summary>
         /// <param name="lstActivos"></param>
         /// <returns></returns>
-        [HttpPost]
         public ActionResult ObtenerPDFActivosQRLote()
         {
             byte[] pdfQR = null;
@@ -196,7 +195,6 @@ namespace DCICC.GestionInventarios.Controllers
         /// </summary>
         /// <param name="lstAccesorios"></param>
         /// <returns></returns>
-        [HttpPost]
         public ActionResult ObtenerPDFAccesoriosQRLote()
         {
             byte[] pdfQR = null;

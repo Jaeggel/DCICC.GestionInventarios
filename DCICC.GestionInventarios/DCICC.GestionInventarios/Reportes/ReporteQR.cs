@@ -52,7 +52,7 @@ namespace DCICC.GestionInventarios.Reportes
                     documentoReporte.Open();
                     foreach (var item in lstActivos)
                     {
-                        var tablaQR = GenerarTablaReporteQR(item.IdCQR, item.NombreActivo);
+                        var tablaQR = GenerarTablaReporteQR(item.IdCQR, item.NombreActivo,lstActivos.Count);
                         documentoReporte.Add(tablaQR);
                     }
                     documentoReporte.Close();
@@ -108,6 +108,32 @@ namespace DCICC.GestionInventarios.Reportes
             //Configuración de celda para imagen QR
             PdfPCell celdaQR;
             celdaQR = new PdfPCell(new Phrase(string.Format("{0}\n{1}",idQR,nombreActivo), new iTextSharp.text.Font(fuente_Datos)));
+            celdaQR.HorizontalAlignment = Element.ALIGN_CENTER;
+            tablaQR.AddCell(celdaQR);
+            tablaQR.HorizontalAlignment = Element.ALIGN_LEFT;
+            return tablaQR;
+        }
+        /// <summary>
+        /// Método para generar una tabla en donde se insertará la imagén del CQR con el nombre e id del QR.
+        /// </summary>
+        /// <param name="idQR"></param>
+        /// <param name="nombreActivo"></param>
+        /// <returns></returns>
+        public PdfPTable GenerarTablaReporteQR(string idQR, string nombreActivo, int sizeLista)
+        {
+            //Generación de imagen de Código QR para colocarlo en el PDF
+            GeneracionCQR objGeneracionQR = new GeneracionCQR();
+            Bitmap bitmap = objGeneracionQR.GenerarCodigoQR(idQR);
+            byte[] bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
+            System.Drawing.Image bitmapQRReporte = (Bitmap)new ImageConverter().ConvertFrom(bitmapBytes);
+            iTextSharp.text.Image imagenQRReporte = iTextSharp.text.Image.GetInstance(bitmapQRReporte, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //Configuración de tabla e imagen que irá en el PDF
+            PdfPTable tablaQR = new PdfPTable(6);
+            tablaQR.WidthPercentage = 10;
+            tablaQR.AddCell(imagenQRReporte);
+            //Configuración de celda para imagen QR
+            PdfPCell celdaQR;
+            celdaQR = new PdfPCell(new Phrase(string.Format("{0}\n{1}", idQR, nombreActivo), new iTextSharp.text.Font(fuente_Datos)));
             celdaQR.HorizontalAlignment = Element.ALIGN_CENTER;
             tablaQR.AddCell(celdaQR);
             tablaQR.HorizontalAlignment = Element.ALIGN_LEFT;
