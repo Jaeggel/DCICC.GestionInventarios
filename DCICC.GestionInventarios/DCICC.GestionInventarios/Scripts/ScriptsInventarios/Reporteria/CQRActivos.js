@@ -58,34 +58,41 @@ function obtenerActivos(url) {
 
     
 }
-
 //Metodo chekbox
-function ver() {
+function GenerarReportePDFActivosCQR(url,urlRPDF) {
     var table = $('#dataTableCQRActivos').DataTable();
-
-    //var checks = $('#dataTableCQRActivos tbody input[type="checkbox"]:checked').map(function () {
-    //    return $(this).val();
-    //}).get();
-    //console.log(checks);
-
+    var rows = $(table.$('input[type="checkbox"]:checked').map(function () {
+        return $(this).val();
+    })).get();
+    if (rows.length !== 0) {
+        $.ajax({
+            data: { "lstIdCQRActivos": rows },
+            dataType: 'json',
+            url: url,
+            type: 'post'
+        });
+        window.open(urlRPDF);
+    } else {
+        showNotify("Error al generar el Reporte", "No se puede generar el reporte sin seleccionar activos", "error");
+    }
+}
+function GenerarReportePDFAccesoriosCQR(url, urlRPDF) {
+    var table = $('#dataTableAccesorios').DataTable();
     var rows = $(table.$('input[type="checkbox"]:checked').map(function () {
         return $(this).val();
     })).get();
     console.log(rows);
-
-    $.ajax({
-        data: { "lista": rows },
-        dataType: 'json',
-        url: '/Inventarios/home/datos',
-        type: 'post',
-        success: function () {
-            console.log("sii");
-        }
-    });
-
-    //console.log(rows);
-        
-    
+    if (rows.length !== 0) {
+        $.ajax({
+            data: { "lstIdCQRAccesorios": rows },
+            dataType: 'json',
+            url: url,
+            type: 'post'
+        });
+        window.open(urlRPDF);
+    } else {
+        showNotify("Error al generar el Reporte", "No se puede generar el reporte sin seleccionar accesorios", "error");
+    }
 }
 
 //Método ajax para obtener los datos de tipos de activos

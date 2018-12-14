@@ -1,8 +1,11 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Configuration;
+using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Reportes;
 using iTextSharp.text.pdf;
 using log4net;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Web.Mvc;
@@ -93,6 +96,8 @@ namespace DCICC.GestionInventarios.Controllers
         static DataTable info_DataTable;
         static string titulo_Reporte;
         static string lab_Filtro;
+        static List<Activos> lst_ActivosCQR = null;
+        static List<Accesorios> lst_AccesoriosCQR = null;
         /// <summary>
         /// Método para generar el DataTable con el cual se generarán los reportes en Excel y PDF.
         /// </summary>
@@ -110,11 +115,71 @@ namespace DCICC.GestionInventarios.Controllers
                 titulo_Reporte = tituloReporte;
                 info_DataTable = objDatosReporte.ObtenerDatosTablaHTML(infoHtml);
                 lab_Filtro = labFiltro;
-                Logs.Info("DataTable generado correctamente.");
+                Logs.Info("El DataTable ha sido generado correctamente.");
             }
             catch (Exception e)
             {
                 Logs.Error(string.Format("No se ha podido generar el DataTable: {0}",e.Message));
+            }
+        }
+        [HttpPost]
+        public void GenerarListaAccesoriosCQR(List<string> lstIdCQRAccesorios)
+        {
+            try
+            {
+                lst_AccesoriosCQR = new List<Accesorios>();
+                AccesoriosAccDatos objActivosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
+                List<Accesorios> lstNombresAccesorios = objActivosAccDatos.ObtenerAccesorios("Nombres").ListaObjetoInventarios;
+                foreach (var item in lstNombresAccesorios)
+                {
+                    foreach (var idcqr in lstIdCQRAccesorios)
+                    {
+                        if (idcqr == item.IdCQR)
+                        {
+                            Accesorios objAccesorios = new Accesorios()
+                            {
+                                IdCQR = idcqr,
+                                NombreAccesorio = item.NombreAccesorio
+                            };
+                            lst_AccesoriosCQR.Add(objAccesorios);
+                        }
+                    }
+                }
+                Logs.Info("La Lista Accesorios CQR ha sido generado correctamente.");
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("No se ha podido generar la lista de Accesorios CQR: {0}", e.Message));
+            }
+        }
+        [HttpPost]
+        public void GenerarListaActivosCQR(List<string> lstIdCQRActivos)
+        {
+            try
+            {
+                lst_ActivosCQR = new List<Activos>();
+                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+                List<Activos> lstNombresActivos = objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios;
+                foreach (var item in lstNombresActivos)
+                {
+                    foreach (var idcqr in lstIdCQRActivos)
+                    {
+                        if (idcqr == item.IdCQR)
+                        {
+                            Activos objActivos = new Activos()
+                            {
+                                IdCQR = idcqr,
+                                NombreActivo = item.NombreActivo
+                            };
+                            lst_ActivosCQR.Add(objActivos);
+                        }
+                    }
+                }
+                Logs.Info("La Lista Activos CQR ha sido generado correctamente.");
+            }
+            catch(Exception e)
+            {
+                Logs.Error(string.Format("No se ha podido generar la lista de Activos CQR: {0}", e.Message));
             }
         }
         /// <summary>
@@ -172,10 +237,9 @@ namespace DCICC.GestionInventarios.Controllers
             byte[] pdfQR = null;
             try
             {
-                ConfigDatos objDatosReporte = new ConfigDatos();
-                var lstActivos = objDatosReporte.ObtenerListaActivosQR(info_DataTable);
                 ReporteQR objReporteQR = new ReporteQR();
-                pdfQR = objReporteQR.GenerarPDFQRLista(lstActivos);
+                pdfQR = objReporteQR.GenerarPDFQRLista(lst_ActivosCQR);
+                objReporteQR.ActualizarImpresoActivosQR(lst_ActivosCQR,(string)Session["NickUsuario"]);
                 Logs.Info("El PDF con códigos QR de activos en lote ha sido generado exitosamente.");
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
@@ -200,11 +264,10 @@ namespace DCICC.GestionInventarios.Controllers
             byte[] pdfQR = null;
             try
             {
-                ConfigDatos objDatosReporte = new ConfigDatos();
-                var lstAccesorios = objDatosReporte.ObtenerListaAccesoriosQR(info_DataTable);
                 ReporteQR objReporteQR = new ReporteQR();
-                pdfQR = objReporteQR.GenerarPDFQRLista(lstAccesorios);
-                Logs.Info("El PDF con códigos QR de activos en lote ha sido generado exitosamente.");
+                pdfQR = objReporteQR.GenerarPDFQRLista(lst_AccesoriosCQR);
+                objReporteQR.ActualizarImpresoAccesoriosQR(lst_AccesoriosCQR, (string)Session["NickUsuario"]);
+                Logs.Info("El PDF con códigos QR de accesorios en lote ha sido generado exitosamente.");
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
                     Inline = true,
@@ -214,7 +277,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("{0}: {1}", "No se ha podido generar el PDF con los códigos QR de activos en lote", e.Message));
+                Logs.Error(string.Format("{0}: {1}", "No se ha podido generar el PDF con los códigos QR de accesorios en lote", e.Message));
             }
             return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
         }

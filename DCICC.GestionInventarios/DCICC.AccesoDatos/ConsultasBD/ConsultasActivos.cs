@@ -191,7 +191,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_detalleact FROM dcicc_detalleactivo", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_detalleact,id_cqr FROM dcicc_detalleactivo", conn_BD))
                 {
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -200,7 +200,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             Activos objActivos = new Activos
                             {
                                 NombreActivo = (string)dr[0],
-
+                                IdCQR= (string)dr[1]
                             };
                             lstActivos.Add(objActivos);
                         }

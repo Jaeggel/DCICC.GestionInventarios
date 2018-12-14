@@ -3,6 +3,7 @@ using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -101,6 +102,29 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
                 Logs.Error(string.Format("Error en la conexión para actualizar un accesorio: {0}",e.Message));
             }
             return msjAccesorios;
+        }
+        /// <summary>
+        /// Método para actualizar el estado impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="lstAccesorios"></param>
+        /// <returns></returns>
+        public MensajesCQR ActualizarCQR(List<Accesorios> lstAccesorios)
+        {
+            MensajesCQR msjActivos = new MensajesCQR();
+            try
+            {
+                var response = client_Service.PostAsJsonAsync("Accesorios/ActualizarCQR", lstAccesorios).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var ActivosJson = response.Content.ReadAsStringAsync().Result;
+                    msjActivos = JsonConvert.DeserializeObject<MensajesCQR>(ActivosJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la conexión para actualizar un CQR: {0}", e.Message));
+            }
+            return msjActivos;
         }
         #endregion
     }

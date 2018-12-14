@@ -2,6 +2,7 @@
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
+using System.Collections.Generic;
 
 namespace DCICC.AccesoDatos.ActualizacionesBD
 {
@@ -75,6 +76,37 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 msjAccesorios.MensajeError = e.Message;
             }
             return msjAccesorios;
+        }
+        /// <summary>
+        /// Método para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        public MensajesCQR ActualizacionQR(List<Accesorios> lstAccesorios)
+        {
+            MensajesCQR msjCQR = new MensajesCQR();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                foreach (var item in lstAccesorios)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_cqr SET impreso_cqr=@imcq WHERE id_cqr=@icq;", conn_BD))
+                    {
+                        cmd.Parameters.Add("imcq", NpgsqlTypes.NpgsqlDbType.Boolean).Value = true;
+                        cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = item.IdCQR;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjCQR.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                msjCQR.OperacionExitosa = false;
+                msjCQR.MensajeError = e.Message;
+            }
+            return msjCQR;
         }
     }
 }

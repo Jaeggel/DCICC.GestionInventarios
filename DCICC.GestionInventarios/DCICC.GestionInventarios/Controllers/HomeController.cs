@@ -32,11 +32,6 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
-		[HttpPost]
-		public void datos(List<string> lista)
-		{
-
-		}
         #endregion
     }
 }
