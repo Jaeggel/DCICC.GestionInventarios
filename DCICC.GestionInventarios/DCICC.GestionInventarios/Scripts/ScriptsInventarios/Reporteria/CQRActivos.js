@@ -32,9 +32,8 @@ function obtenerActivos(url) {
                 "order": [[1, "asc"]]
             });
 
-
             // Handle click on "Select all" control
-            $('#example-select-all').on('click', function () {
+            $('#selecionar-activo').on('click', function () {
                 // Check/uncheck all checkboxes in the table
                 var rows = table.rows({ 'search': 'applied' }).nodes();
                 $('input[type="checkbox"]', rows).prop('checked', this.checked);
@@ -44,7 +43,7 @@ function obtenerActivos(url) {
             $('#dataTableCQRActivos tbody').on('change', 'input[type="checkbox"]', function () {
                 // If checkbox is not checked
                 if (!this.checked) {
-                    var el = $('#example-select-all').get(0);
+                    var el = $('#selecionar-activo').get(0);
                     // If "Select all" control is checked and has 'indeterminate' property
                     if (el && el.checked && ('indeterminate' in el)) {
                         // Set visual state of "Select all" control 
@@ -62,14 +61,29 @@ function obtenerActivos(url) {
 
 //Metodo chekbox
 function ver() {
+    var table = $('#dataTableCQRActivos').DataTable();
 
-    var id = $('#dataTableCQRActivos tbody input[type="checkbox"]:checked');
-    console.log(id.outerHTML);
-        var checks = $('#dataTableCQRActivos tbody input[type="checkbox"]:checked').map(function () {
-            return $(this).val();
-        }).get()
-    console.log(checks);
-    
+    //var checks = $('#dataTableCQRActivos tbody input[type="checkbox"]:checked').map(function () {
+    //    return $(this).val();
+    //}).get();
+    //console.log(checks);
+
+    var rows = $(table.$('input[type="checkbox"]:checked').map(function () {
+        return $(this).val();
+    })).get();
+    console.log(rows);
+
+    $.ajax({
+        data: { "lista": rows },
+        dataType: 'json',
+        url: '/Inventarios/home/datos',
+        type: 'post',
+        success: function () {
+            console.log("sii");
+        }
+    });
+
+    //console.log(rows);
         
     
 }
@@ -219,7 +233,7 @@ function cargarEstadosActivoCmb() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableCQRActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr><th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>  <th>Código QR</th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th><th>¿CQR Impreso?</th></tr> </thead>';
+    str += '<thead> <tr><th><input name="select_all" value="1" id="selecionar-activo" type="checkbox" /></th><th>Código QR</th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th><th>¿CQR Impreso?</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         str += '<tr><td> <input id="chk" name="chk" value="' + datosActivos[i].IdCQR + '"  type="checkbox"/>' +
@@ -260,11 +274,32 @@ function obtenerAccesorios(url) {
             console.log("Datos Exitosos");
             datosAccesorios = data;
             cargarAccesoriosTabla();
-            $('#dataTableAccesorios').DataTable({
+            var table=$('#dataTableAccesorios').DataTable({
                 "language": {
                     "url": url_idioma
                 },
                 "order": [[1, "asc"]]
+            });
+
+            // Handle click on "Select all" control
+            $('#seleccionar-accesorio').on('click', function () {
+                // Check/uncheck all checkboxes in the table
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            // Handle click on checkbox to set state of "Select all" control
+            $('#dataTableAccesorios tbody').on('change', 'input[type="checkbox"]', function () {
+                // If checkbox is not checked
+                if (!this.checked) {
+                    var el = $('#seleccionar-accesorio').get(0);
+                    // If "Select all" control is checked and has 'indeterminate' property
+                    if (el && el.checked && ('indeterminate' in el)) {
+                        // Set visual state of "Select all" control 
+                        // as 'indeterminate'
+                        el.indeterminate = true;
+                    }
+                }
             });
         }
     });
@@ -300,15 +335,16 @@ function cargarAccesoriosCmb() {
         var opcion = document.getElementById("AccesorioActivo");
         var tipoLab = opcion.options[opcion.selectedIndex];
         if (tipoLab.value == "") {
-            $('#dataTableAccesorios').DataTable().column(0).search(
+            $('#dataTableAccesorios').DataTable().column(1).search(
                 ""
             ).draw();
         } else {
-            $('#dataTableAccesorios').DataTable().column(0).search(
+            $('#dataTableAccesorios').DataTable().column(1).search(
                 tipoLab.text
             ).draw();
         }
     });
+
 }
 
 //Función para cargar estados de accesorios
@@ -316,11 +352,8 @@ function cargarEstadosAccesoriosCmb() {
     var str = '<select id="EstadoAccesorio" class="form-control" name="EstadoAccesorio" required>';
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
-        if (cmbEstados[i] != "DE BAJA") {
             str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-        }
-
-    };
+    }
     str += '</select>';
     $("#cargarEstadosAccesorio").html(str);
     //Método para búsqueda con filtros
@@ -328,11 +361,11 @@ function cargarEstadosAccesoriosCmb() {
         var opcion = document.getElementById("EstadoAccesorio");
         var tipoLab = opcion.options[opcion.selectedIndex];
         if (tipoLab.value == "") {
-            $('#dataTableAccesorios').DataTable().column(5).search(
+            $('#dataTableAccesorios').DataTable().column(4).search(
                 ""
             ).draw();
         } else {
-            $('#dataTableAccesorios').DataTable().column(5).search(
+            $('#dataTableAccesorios').DataTable().column(4).search(
                 tipoLab.text
             ).draw();
         }
@@ -342,18 +375,20 @@ function cargarEstadosAccesoriosCmb() {
 //Función para cargar la tabla de Activos
 function cargarAccesoriosTabla() {
     var str = '<table id="dataTableAccesorios" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece</th> <th>Serial de Accesorio</th> <th>Modelo de Accesorio</th> <th>Estado de Accesorio</th> </tr> </thead>';
+    str += '<thead> <tr><th><input name="select_all" value="1" id="seleccionar-accesorio" type="checkbox" /></th> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece</th> <th>Estado de Accesorio</th><th>¿CQR Impreso?</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosAccesorios.length; i++) {
-        if (datosAccesorios[i].EstadoAccesorio != "DE BAJA") {
-            str += '<tr><td>' + datosAccesorios[i].NombreTipoAccesorio +
-                '</td><td>' + datosAccesorios[i].NombreAccesorio +
-                '</td><td>' + datosAccesorios[i].NombreDetalleActivo +
-                '</td><td>' + datosAccesorios[i].SerialAccesorio +
-                '</td><td>' + datosAccesorios[i].ModeloAccesorio +
-                '</td><td>' + datosAccesorios[i].EstadoAccesorio;
-            str += '</td></tr>';
-        }
+        str += '<tr><td> <input id="chk-accesorio" name="chk-accesorio" value="' + datosAccesorios[i].IdCQR + '"  type="checkbox"/>' +
+            '</td><td>' + datosAccesorios[i].NombreTipoAccesorio +
+            '</td><td>' + datosAccesorios[i].NombreAccesorio +
+            '</td><td>' + datosAccesorios[i].NombreDetalleActivo +
+            '</td><td>' + datosAccesorios[i].EstadoAccesorio;
+        if (datosAccesorios[i].ImpresoCQR) {
+            str += '</td><td> Impreso';
+        } else {
+            str += '</td><td> No Impreso';
+        } 
+        str += '</td></tr>';
     }
     str += '</tbody>' +
         '</table > ';
