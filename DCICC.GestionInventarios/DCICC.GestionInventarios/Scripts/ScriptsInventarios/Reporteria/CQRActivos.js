@@ -25,7 +25,7 @@ function obtenerActivos(url) {
             console.log("Datos Exitosos");
             datosActivos = data;
             cargarActivosTabla();
-            $('#dataTableActivos').DataTable({
+            $('#dataTableCQRActivos').DataTable({
                 "language": {
                     "url": url_idioma
                 },
@@ -189,7 +189,7 @@ function cargarEstadosActivoCmb() {
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
-    var str = '<table id="dataTableActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
+    var str = '<table id="dataTableCQRActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
     str += '<thead> <tr><th></th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th> <th>Código QR</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
