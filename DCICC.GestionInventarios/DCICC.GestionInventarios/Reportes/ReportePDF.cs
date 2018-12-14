@@ -123,7 +123,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="writerReporte">Writer actual con el cual se está generando el PDF.</param>
         public void GenerarEncabezadoHorizontalReporte(Document documentoReporte, PdfWriter writerReporte)
         {
-            var encabezadoHtml = string.Format(@"<!DOCTYPE html><html><head></head><body><table style='width:80%;text-align:center'><tr><th rowspan='2'><img src='{0}' height=65 width=225></img></th><td rowspan='1'><p style='text-align:center'><b>Ingeniería de Ciencias de la Computación <br/>Sede Quito Campus Sur</b></p></td></tr><tr><td><p style='text-align:center'><b>Reporte de Activos de TI <br/>del Data Center y Laboratorios del ICC</b></p></td></tr></table></body></html>", System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoUPS.png"));
+            var encabezadoHtml = string.Format(@"<!DOCTYPE html><html><head></head><body><table align='center' style='width:80%;'><tr><th rowspan='2'><img src='{0}' height=65 width=225></img></th><td rowspan='1'><p style='text-align:center'><b>Ingeniería de Ciencias de la Computación <br/>Sede Quito Campus Sur</b></p></td></tr><tr><td><p style='text-align:center'><b>Reporte de Activos de TI <br/>del Data Center y Laboratorios del ICC</b></p></td></tr></table></body></html>", System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoUPS.png"));
             var encabezadoCss = @"body{font-family:Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif}table,th,td{border:1px solid black;border-collapse:collapse}";
             using (var msCss = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(encabezadoCss)))
             {
@@ -152,7 +152,7 @@ namespace DCICC.GestionInventarios.Reportes
             documentoReporte.Add(p);
             using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
-                using (var sr = new StringReader(string.Format("<div style='text-align: center;'><p style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'><b>Elaborado por: </b>{0}</p></div>", Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))))
+                using (var sr = new StringReader(string.Format("<div style='text-align: center;'><p style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;font-size:10px'><b>Elaborado por: </b>{0}</p></div>", Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))))
                 {
                     htmlWorker.Parse(sr);
                 }
