@@ -16,14 +16,19 @@ function obtenerTipoActivo(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosTipoActivo = data;
-            cargarTipoActTabla();    
-            $('#dataTableTipoAct').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresTipo();
+            if (data.OperacionExitosa) {
+                datosTipoActivo = data.ListaObjetoInventarios;
+                cargarTipoActTabla();
+                $('#dataTableTipoAct').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresTipo();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 }
@@ -35,8 +40,12 @@ function obtenerCategorias(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbCategorias = data;
-            cargarCategoriasCmb();
+            if (data.OperacionExitosa) {
+                cmbCategorias = data.ListaObjetoInventarios;
+                cargarCategoriasCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }         
         }
     });
 }
@@ -47,8 +56,12 @@ function obtenerCategoriasCompletas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbCategoriasComp = data;
-            cargarCategoriasCompCmb();
+            if (data.OperacionExitosa) {
+                cmbCategoriasComp = data.ListaObjetoInventarios;
+                cargarCategoriasCompCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }           
         }
     });
 }
@@ -98,7 +111,7 @@ function cargarCategoriasCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbCategorias.length; i++) {
         str += '<option value="' + cmbCategorias[i].IdCategoriaActivo + '">' + cmbCategorias[i].NombreCategoriaActivo + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarCategorias").html(str);
 }
@@ -108,7 +121,7 @@ function cargarCategoriasCompCmb() {
     var str = '<select id="IdCategoriaComp" class="form-control" name="IdCategoriaComp" onBlur=" validarCmbTipoComp();" required>';
     for (var i = 0; i < cmbCategoriasComp.length; i++) {
         str += '<option value="' + cmbCategoriasComp[i].IdCategoriaActivo + '">' + cmbCategoriasComp[i].NombreCategoriaActivo + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarCategorias").html(str);
 }
@@ -144,7 +157,6 @@ function formUpdateTipoAct(idTipoAct) {
 
 //Función para modificar el Tipo de activo especificado
 function modificarTipoActivo(url_modificar) {
-    console.log(url_modificar);
     var cmbCategoria = document.getElementById("IdCategoriaComp");
     var idCategoria = cmbCategoria.options[cmbCategoria.selectedIndex].value;
     var nombreTipo=document.getElementById("NombreTipoActivo").value;
@@ -367,5 +379,4 @@ function mensajesTooltips() {
     document.getElementById("NombreTipoActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionTipoActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("VidaUtilTipoActivo").title = "Solo Números. Rango de 1 a 100 años.";
-   
 }
