@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {                
-                HttpResponseMessage response = client_Service.GetAsync(string.Format("Accesorios/ObtenerAccesorios",nombreFuncion)).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Accesorios/ObtenerAccesorios{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var AccesoriosJson = response.Content.ReadAsStringAsync().Result;
