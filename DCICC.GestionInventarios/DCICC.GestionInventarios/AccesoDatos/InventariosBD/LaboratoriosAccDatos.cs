@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Laboratorios/ObtenerLaboratorios" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Laboratorios/ObtenerLaboratorios{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var catJson = response.Content.ReadAsStringAsync().Result;
