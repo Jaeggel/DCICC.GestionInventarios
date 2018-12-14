@@ -19,6 +19,8 @@ namespace DCICC.GestionInventarios.Models
 
         public string IdCQR { get; set; }
 
+        public bool ImpresoCQR { get; set; }
+
         public string NombreAccesorio { get; set; }
 
         public string EstadoAccesorio { get; set; }
