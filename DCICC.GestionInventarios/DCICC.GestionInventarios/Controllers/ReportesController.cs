@@ -162,6 +162,64 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte.{0}.{1}.{2}", titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"xlsx"));
         }
+        /// <summary>
+        /// Método para mostrar el PDF con los códigos QR de activos seleccionados en la vista.
+        /// </summary>
+        /// <param name="lstActivos"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ObtenerPDFActivosQRLote()
+        {
+            byte[] pdfQR = null;
+            try
+            {
+                ConfigDatos objDatosReporte = new ConfigDatos();
+                var lstActivos = objDatosReporte.ObtenerListaActivosQR(info_DataTable);
+                ReporteQR objReporteQR = new ReporteQR();
+                pdfQR = objReporteQR.GenerarPDFQRLista(lstActivos);
+                Logs.Info("El PDF con códigos QR de activos en lote ha sido generado exitosamente.");
+                var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+                {
+                    Inline = true,
+                    FileName = string.Format("DCICC.ActivosCQR.{0}.{1}", DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf")
+                };
+                Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("{0}: {1}", "No se ha podido generar el PDF con los códigos QR de activos en lote", e.Message));
+            }
+            return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
+        }
+        /// <summary>
+        /// Método para mostrar el PDF con los códigos QR de accesorios seleccionados en la vista.
+        /// </summary>
+        /// <param name="lstAccesorios"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ObtenerPDFAccesoriosQRLote()
+        {
+            byte[] pdfQR = null;
+            try
+            {
+                ConfigDatos objDatosReporte = new ConfigDatos();
+                var lstAccesorios = objDatosReporte.ObtenerListaAccesoriosQR(info_DataTable);
+                ReporteQR objReporteQR = new ReporteQR();
+                pdfQR = objReporteQR.GenerarPDFQRLista(lstAccesorios);
+                Logs.Info("El PDF con códigos QR de activos en lote ha sido generado exitosamente.");
+                var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+                {
+                    Inline = true,
+                    FileName = string.Format("DCICC.AccesoriosCQR.{0}.{1}",DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf")
+                };
+                Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("{0}: {1}", "No se ha podido generar el PDF con los códigos QR de activos en lote", e.Message));
+            }
+            return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
+        }
         #endregion
     }
 }
