@@ -25,7 +25,7 @@ function obtenerActivos(url) {
             console.log("Datos Exitosos");
             datosActivos = data;
             cargarActivosTabla();
-            $('#dataTableCQRActivos').DataTable({
+            var table = $('#dataTableCQRActivos').DataTable({
                 "language": {
                     "url": url_idioma
                 },
@@ -35,14 +35,49 @@ function obtenerActivos(url) {
                     'orderable': false,
                     'className': 'dt-body-center',
                     'render': function (data, type, full, meta) {
-                        return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
+                        return '<input id="check" type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
+                        
                     }
                 }],
                 "order": [[1, "asc"]]
             });
+
+
+            // Handle click on "Select all" control
+            $('#example-select-all').on('click', function () {
+                // Check/uncheck all checkboxes in the table
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            // Handle click on checkbox to set state of "Select all" control
+            $('#dataTableCQRActivos tbody').on('change', 'input[type="checkbox"]', function () {
+                // If checkbox is not checked
+                if (!this.checked) {
+                    var el = $('#example-select-all').get(0);
+                    // If "Select all" control is checked and has 'indeterminate' property
+                    if (el && el.checked && ('indeterminate' in el)) {
+                        // Set visual state of "Select all" control 
+                        // as 'indeterminate'
+                        el.indeterminate = true;
+                    }
+                }
+            });
+
+
+
+            
             cargarEstadosActivoCmb();
         }
     });
+
+    
+}
+
+//Metodo chekbox
+function ver() {
+    var data = $('#dataTableCQRActivos input[type="checkbox"]').serialize();
+    console.log(data);
 }
 
 //Método ajax para obtener los datos de tipos de activos
@@ -190,7 +225,7 @@ function cargarEstadosActivoCmb() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableCQRActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr><th></th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th> <th>Código QR</th></tr> </thead>';
+    str += '<thead> <tr><th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th> <th>Código QR</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
 
@@ -207,6 +242,7 @@ function cargarActivosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaReportesActivos").html(str);
+
 
 
 }

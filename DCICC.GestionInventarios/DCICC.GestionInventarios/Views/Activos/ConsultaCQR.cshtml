@@ -42,6 +42,7 @@
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','CQRActivos','dataTableCQRActivos');"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
+                                            <li><button id="frm-example" name="frm-example" type="button" class="btn btn-round btn-danger float-right" onclick="ver();"><i class="fa fa-file-pdf-o"></i> Imprimir </button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
