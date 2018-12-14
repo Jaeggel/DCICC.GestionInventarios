@@ -50,11 +50,8 @@ namespace DCICC.GestionInventarios.Reportes
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
-                    foreach (var item in lstActivos)
-                    {
-                        var tablaQR = GenerarTablaReporteQR(item.IdCQR, item.NombreActivo,lstActivos.Count);
-                        documentoReporte.Add(tablaQR);
-                    }
+                    var tablaQR = GenerarTablaReporteQR(lstActivos);
+                    documentoReporte.Add(tablaQR);
                     documentoReporte.Close();
                     pdfBytes = msReporte.ToArray();
                 }
@@ -72,7 +69,7 @@ namespace DCICC.GestionInventarios.Reportes
             byte[] pdfBytes = null;
             using (MemoryStream msReporte = new MemoryStream())
             {
-                Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
+                Document documentoReporte = new Document(PageSize.A4);
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
@@ -119,25 +116,31 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="idQR"></param>
         /// <param name="nombreActivo"></param>
         /// <returns></returns>
-        public PdfPTable GenerarTablaReporteQR(string idQR, string nombreActivo, int sizeLista)
+        public PdfPTable GenerarTablaReporteQR(List<Activos> lstActivos)
         {
-            //Generación de imagen de Código QR para colocarlo en el PDF
-            GeneracionCQR objGeneracionQR = new GeneracionCQR();
-            Bitmap bitmap = objGeneracionQR.GenerarCodigoQR(idQR);
-            byte[] bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
-            System.Drawing.Image bitmapQRReporte = (Bitmap)new ImageConverter().ConvertFrom(bitmapBytes);
-            iTextSharp.text.Image imagenQRReporte = iTextSharp.text.Image.GetInstance(bitmapQRReporte, System.Drawing.Imaging.ImageFormat.Jpeg);
-            //Configuración de tabla e imagen que irá en el PDF
-            PdfPTable tablaQR = new PdfPTable(6);
-            tablaQR.WidthPercentage = 10;
-            tablaQR.AddCell(imagenQRReporte);
-            //Configuración de celda para imagen QR
-            PdfPCell celdaQR;
-            celdaQR = new PdfPCell(new Phrase(string.Format("{0}\n{1}", idQR, nombreActivo), new iTextSharp.text.Font(fuente_Datos)));
-            celdaQR.HorizontalAlignment = Element.ALIGN_CENTER;
-            tablaQR.AddCell(celdaQR);
-            tablaQR.HorizontalAlignment = Element.ALIGN_LEFT;
-            return tablaQR;
+            PdfPTable tablaReporteQR = new PdfPTable(8);
+            tablaReporteQR.DefaultCell.Border = PdfPCell.NO_BORDER;
+            foreach (var item in lstActivos)
+            {
+                GeneracionCQR objGeneracionQR = new GeneracionCQR();
+                Bitmap bitmap = objGeneracionQR.GenerarCodigoQR(item.IdCQR);
+                byte[] bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
+                System.Drawing.Image bitmapQRReporte = (Bitmap)new ImageConverter().ConvertFrom(bitmapBytes);
+                iTextSharp.text.Image imagenQRReporte = iTextSharp.text.Image.GetInstance(bitmapQRReporte, System.Drawing.Imaging.ImageFormat.Jpeg);
+                PdfPCell celda = new PdfPCell();
+                celda.BorderColorTop=BaseColor.BLACK;
+                celda.BorderColorBottom = BaseColor.BLACK;
+                celda.BorderColorLeft = BaseColor.BLACK;
+                celda.BorderColorRight = BaseColor.BLACK;
+                celda.AddElement(imagenQRReporte);
+                celda.AddElement(new Phrase(item.IdCQR, new iTextSharp.text.Font(fuente_Datos)));
+                celda.AddElement(new Phrase(item.NombreActivo, new iTextSharp.text.Font(fuente_Datos)));
+                celda.HorizontalAlignment = Element.ALIGN_CENTER;
+                tablaReporteQR.AddCell(celda);
+            }
+            tablaReporteQR.CompleteRow();
+            tablaReporteQR.HorizontalAlignment = Element.ALIGN_CENTER;
+            return tablaReporteQR;
         }
     }
 }
