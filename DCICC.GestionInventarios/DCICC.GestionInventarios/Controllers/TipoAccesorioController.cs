@@ -159,7 +159,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerTipoAccesorioComp()
         {
             TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
-            return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Tipos de Accesorios habilitados de la base de datos

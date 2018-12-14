@@ -160,7 +160,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerLaboratoriosComp()
         {
             LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
-            return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Laboratorios habilitados de la base de datos

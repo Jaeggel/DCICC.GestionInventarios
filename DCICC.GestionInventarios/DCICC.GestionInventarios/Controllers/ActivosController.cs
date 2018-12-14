@@ -528,7 +528,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerAccesoriosComp()
         {
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
-            return Json(objAccesoriosAccDatos.ObtenerAccesorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objAccesoriosAccDatos.ObtenerAccesorios("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Activos de la base de datos
@@ -537,7 +537,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerActivosComp()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }
@@ -548,7 +548,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerActivosCQR()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objActivosAccDatos.ObtenerActivos("CQR").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objActivosAccDatos.ObtenerActivos("CQR"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Accesorios CQR de la base de datos
