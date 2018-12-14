@@ -169,7 +169,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerTipoActivoHab()
         {
             TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
-            return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

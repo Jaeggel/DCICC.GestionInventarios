@@ -169,7 +169,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerLaboratoriosHab()
         {
             LaboratoriosAccDatos objLaboratoriosActAccDatos = new LaboratoriosAccDatos((string)Session["NickUsuario"]);
-            return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objLaboratoriosActAccDatos.ObtenerLaboratorios("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

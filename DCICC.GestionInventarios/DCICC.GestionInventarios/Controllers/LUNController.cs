@@ -281,7 +281,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerLUNComp()
         {
             LUNAccDatos objLUNAccDatos = new LUNAccDatos((string)Session["NickUsuario"]);
-            return Json(objLUNAccDatos.ObtenerLUN("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objLUNAccDatos.ObtenerLUN("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener todos los Storage de la base de datos
@@ -290,7 +290,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerStorageComp()
         {
             StorageAccDatos objStorageActAccDatos = new StorageAccDatos((string)Session["NickUsuario"]);
-            return Json(objStorageActAccDatos.ObtenerStorage("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objStorageActAccDatos.ObtenerStorage("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Storage habilitados de la base de datos
@@ -299,7 +299,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerStorageHab()
         {
             StorageAccDatos objStorageActAccDatos = new StorageAccDatos((string)Session["NickUsuario"]);
-            return Json(objStorageActAccDatos.ObtenerStorage("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objStorageActAccDatos.ObtenerStorage("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

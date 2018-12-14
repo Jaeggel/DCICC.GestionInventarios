@@ -92,7 +92,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
         }
         #endregion
-        #region Generación Reportes
+        #region Generación de Datos para Reportes
         static DataTable info_DataTable;
         static string titulo_Reporte;
         static string lab_Filtro;
@@ -104,7 +104,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoHtml">Cadena de HTML con los datos para generar el reporte.</param>
         [HttpPost]
         [ValidateInput(false)]
-        public void GenerarDataTable(string infoHtml,string tituloReporte,string labFiltro)
+        public void GenerarDataTable(string infoHtml, string tituloReporte, string labFiltro)
         {
             info_DataTable = null;
             titulo_Reporte = null;
@@ -119,9 +119,13 @@ namespace DCICC.GestionInventarios.Controllers
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("No se ha podido generar el DataTable: {0}",e.Message));
+                Logs.Error(string.Format("No se ha podido generar el DataTable: {0}", e.Message));
             }
         }
+        /// <summary>
+        /// Método para generar la lista de Accesorios y CQR para obtener el PDF de QR en lotes.
+        /// </summary>
+        /// <param name="lstIdCQRAccesorios"></param>
         [HttpPost]
         public void GenerarListaAccesoriosCQR(List<string> lstIdCQRAccesorios)
         {
@@ -152,6 +156,10 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(string.Format("No se ha podido generar la lista de Accesorios CQR: {0}", e.Message));
             }
         }
+        /// <summary>
+        /// Método para generar la lista de Activos y CQR para obtener el PDF de QR en lotes.
+        /// </summary>
+        /// <param name="lstIdCQRActivos"></param>
         [HttpPost]
         public void GenerarListaActivosCQR(List<string> lstIdCQRActivos)
         {
@@ -177,32 +185,34 @@ namespace DCICC.GestionInventarios.Controllers
                 }
                 Logs.Info("La Lista Activos CQR ha sido generado correctamente.");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logs.Error(string.Format("No se ha podido generar la lista de Activos CQR: {0}", e.Message));
             }
         }
+        #endregion
+        #region Generación de Reportes 
         /// <summary>
         /// Método para obtener el Reporte PDF.
         /// </summary>
         /// <returns></returns>
         public ActionResult ObtenerReportePDF()
         {
-            byte[] bytesReportePDF=null;
+            byte[] bytesReportePDF = null;
             try
             {
                 ReportePDF objReporte = new ReportePDF();
                 PdfPTable tablaReporte = objReporte.GenerarTablaReporte(info_DataTable);
-                bytesReportePDF = objReporte.GenerarReportePDF(tablaReporte, titulo_Reporte,(string)Session["NombresUsuario"]);
+                bytesReportePDF = objReporte.GenerarReportePDF(tablaReporte, titulo_Reporte, (string)Session["NombresUsuario"]);
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
                     Inline = true,
-                    FileName = string.Format("Reporte.{0}.{1}.{2}",titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"pdf"),
+                    FileName = string.Format("Reporte.{0}.{1}.{2}", titulo_Reporte, DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf"),
                 };
                 Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
                 Logs.Info("Reporte PDF generado correctamente.");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logs.Error(string.Format("No se ha podido generar el reporte PDF: {0}", e.Message));
             }
@@ -225,7 +235,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(string.Format("No se ha podido generar el reporte Excel: {0}", e.Message));
             }
-            return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte.{0}.{1}.{2}", titulo_Reporte,DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"),"xlsx"));
+            return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte.{0}.{1}.{2}", titulo_Reporte, DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "xlsx"));
         }
         /// <summary>
         /// Método para mostrar el PDF con los códigos QR de activos seleccionados en la vista.
@@ -239,7 +249,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 ReporteQR objReporteQR = new ReporteQR();
                 pdfQR = objReporteQR.GenerarPDFQRLista(lst_ActivosCQR);
-                objReporteQR.ActualizarImpresoActivosQR(lst_ActivosCQR,(string)Session["NickUsuario"]);
+                objReporteQR.ActualizarImpresoActivosQR(lst_ActivosCQR, (string)Session["NickUsuario"]);
                 Logs.Info("El PDF con códigos QR de activos en lote ha sido generado exitosamente.");
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
@@ -271,7 +281,7 @@ namespace DCICC.GestionInventarios.Controllers
                 var contentDispositionHeader = new System.Net.Mime.ContentDisposition
                 {
                     Inline = true,
-                    FileName = string.Format("DCICC.AccesoriosCQR.{0}.{1}",DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf")
+                    FileName = string.Format("DCICC.AccesoriosCQR.{0}.{1}", DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf")
                 };
                 Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
             }

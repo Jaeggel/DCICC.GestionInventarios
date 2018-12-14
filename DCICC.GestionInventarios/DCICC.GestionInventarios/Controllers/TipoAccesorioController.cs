@@ -168,7 +168,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerTipoAccesorioHab()
         {
             TipoAccesorioAccDatos objTipoAccesorioAccDatos = new TipoAccesorioAccDatos((string)Session["NickUsuario"]);
-            return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objTipoAccesorioAccDatos.ObtenerTipoAccesorio("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

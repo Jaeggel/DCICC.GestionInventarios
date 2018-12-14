@@ -276,7 +276,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerUsuariosRoles()
         {
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-            return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles(), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener todos los Usuarios de la base de datos

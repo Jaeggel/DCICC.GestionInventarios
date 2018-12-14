@@ -566,7 +566,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerNombresActivos()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objActivosAccDatos.ObtenerActivos("Nombres"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Históricos de Activos de la base de datos
@@ -575,8 +575,12 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerHistoricoActivosComp()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objActivosAccDatos.ObtenerHistoricoActivos().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objActivosAccDatos.ObtenerHistoricoActivos(), JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener el responsable actual de los activos de TI del JSON
+        /// </summary>
+        /// <returns></returns>
         public JsonResult ObtenerResponsableActual()
         {
             Activos objActivos=new Activos();
