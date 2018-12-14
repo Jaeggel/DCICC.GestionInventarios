@@ -135,7 +135,7 @@ namespace DCICC.GestionInventarios.Reportes
                 celda.AddElement(imagenQRReporte);
                 celda.AddElement(new Phrase(item.IdCQR, new iTextSharp.text.Font(fuente_Datos)));
                 celda.AddElement(new Phrase(item.NombreActivo, new iTextSharp.text.Font(fuente_Datos)));
-                celda.HorizontalAlignment = Element.ALIGN_CENTER;
+                celda.HorizontalAlignment = Element.ALIGN_MIDDLE;
                 tablaReporteQR.AddCell(celda);
             }
             tablaReporteQR.CompleteRow();
