@@ -20,41 +20,44 @@ function obtenerTickets(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            ticketsReportados = data;
-            contarTickets();            
-            cargarEstadosAbiertoCmb();
-            cargarEstadosEnCursoCmb();
-            cargarEstadosEnEsperaCmb();
-            cargarTablaAbiertos();
-            $('#dataTableAbiertos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "aaSorting": []
-            });
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                ticketsReportados = data.ListaObjetoInventarios;
+                contarTickets();
+                cargarEstadosAbiertoCmb();
+                cargarEstadosEnCursoCmb();
+                cargarEstadosEnEsperaCmb();
+                cargarTablaAbiertos();
+                $('#dataTableAbiertos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "aaSorting": []
+                });
 
-            cargarTablaEnCurso();
-            $('#dataTableEnCurso').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
+                cargarTablaEnCurso();
+                $('#dataTableEnCurso').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
 
-            cargarTablaEnEspera();
-            $('#dataTableEnEspera').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
+                cargarTablaEnEspera();
+                $('#dataTableEnEspera').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
 
-            cargarTablaResueltos();
-            $('#dataTableResueltos').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-
+                cargarTablaResueltos();
+                $('#dataTableResueltos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }

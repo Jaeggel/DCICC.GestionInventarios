@@ -27,17 +27,25 @@ namespace DCICC.WebServiceInventarios.Controllers
                 if (infoUsuarioSesion != null)
                 {
                     ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                    MensajesUsuarios msjUsuarios = objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
-                    Usuarios infoUsuario = msjUsuarios.ListaObjetoInventarios.Find(x => x.NickUsuario == infoUsuarioSesion);
-                    if(infoUsuario!=null)
+                    MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+                    msjUsuarios= objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
+                    if (msjUsuarios.OperacionExitosa)
                     {
-                        token = ConfiguracionToken();
-                        ConfigBaseDatos.SetCadenaConexion(string.Format("Server='192.168.0.4';Port=5432;User Id={0};Password={1};Database=DCICC_BDInventario; CommandTimeout=3020;", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario)));
+                        Usuarios infoUsuario = msjUsuarios.ListaObjetoInventarios.Find(x => x.NickUsuario == infoUsuarioSesion);
+                        if (infoUsuario != null)
+                        {
+                            token = ConfiguracionToken();
+                            ConfigBaseDatos.SetCadenaConexion(string.Format("Server='192.168.0.4';Port=5432;User Id={0};Password={1};Database=DCICC_BDInventario; CommandTimeout=3020;", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario)));
+                        }
+                        else
+                        {
+                            return Unauthorized();
+                        }
                     }
                     else
                     {
                         return Unauthorized();
-                    }   
+                    }
                 }
                 else
                 {
