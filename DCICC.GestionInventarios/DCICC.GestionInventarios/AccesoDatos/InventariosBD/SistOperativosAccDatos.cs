@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("SistOperativos/ObtenerSistOperativos" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("SistOperativos/ObtenerSistOperativos{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var SistOperativosJson = response.Content.ReadAsStringAsync().Result;

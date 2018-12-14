@@ -41,7 +41,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesStorage msjStorage = new MensajesStorage();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Storage/ObtenerStorage" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Storage/ObtenerStorage{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var catJson = response.Content.ReadAsStringAsync().Result;
