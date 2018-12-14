@@ -144,7 +144,7 @@ function datosMarcas(url) {
         type: 'post',
         success: function (data) {
             if (data.OperacionExitosa) {
-                cmbMarcas = data;
+                cmbMarcas = data.ListaObjetoInventarios;
                 cargarMarcasCmb();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
@@ -161,7 +161,7 @@ function cargarTipoActivoCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbTipoActivo.length; i++) {
         str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarTipoActivo").html(str);
     ///////CAMBIO DEL COMBOBOX
@@ -186,7 +186,7 @@ function cargarLaboratoriosCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbLaboratorio.length; i++) {
         str += '<option value="' + cmbLaboratorio[i].IdLaboratorio + '">' + cmbLaboratorio[i].NombreLaboratorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarLaboratorios").html(str);
 
@@ -211,7 +211,7 @@ function cargarMarcasCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbMarcas.length; i++) {
         str += '<option value="' + cmbMarcas[i].IdMarca + '">' + cmbMarcas[i].NombreMarca + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarMarcas").html(str);
 
@@ -364,7 +364,7 @@ function cargarAccesoriosCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbTipoAccesorio.length; i++) {
         str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarTipoAccesorio").html(str);
     //Método para búsqueda con filtros
