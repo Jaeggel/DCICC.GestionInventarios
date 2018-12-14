@@ -54,6 +54,9 @@ function BuildTableHTML(infoDT) {
     return str;
 }
 
+function listaPrioridadesTicket() {
+    return ["URGENTE", "ALTA", "MEDIA", "BAJA"];
+}
 
 function listaEstadosTicket() {
     return ["ABIERTO", "EN PROCESO", "EN ESPERA", "RESUELTO"];

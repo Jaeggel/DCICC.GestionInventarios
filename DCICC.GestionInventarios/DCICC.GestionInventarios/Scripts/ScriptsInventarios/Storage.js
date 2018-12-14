@@ -1,5 +1,5 @@
 ﻿var url_idioma = obtenerIdioma();
-var url_metodo;
+var url_metodo_storage;
 var datosStorage;
 var idStorageModificar;
 var urlEstado;
@@ -8,8 +8,8 @@ var nicksStorage = [];
 
 //Método ajax para obtener los datos de categorias
 function obtenerStorage(url) {
-    url_metodo = url;
-    console.log(url_metodo);
+    url_metodo_storage = url;
+    console.log(url_metodo_storage);
     $.ajax({
         dataType: 'json',
         url: url,
@@ -130,7 +130,7 @@ function modificarStorage(url_modificar) {
                         if (data.OperacionExitosa) {
                             $('#ModificarStorage').modal('hide');
                             showNotify("Actualización exitosa", 'El Storage se ha modificado correctamente', "success");
-                            obtenerStorage(url_metodo);
+                            obtenerStorage(url_metodo_storage);
                         } else {
                             $('#ModificarStorage').modal('hide');
                             showNotify("Error en la Actualización", 'No se ha podido modificar el Storage: ' + data.MensajeError, "error");
@@ -173,7 +173,7 @@ function habilitarOdeshabilitar(idStr, estadoStr) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
                         showNotify("Actualización exitosa", 'El Estado del Storage se ha modificado correctamente', "success");
-                        obtenerStorage(url_metodo);
+                        obtenerStorage(url_metodo_storage);
                     } else {
                         showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Storage: ' + data.MensajeError, "error");
                     }
