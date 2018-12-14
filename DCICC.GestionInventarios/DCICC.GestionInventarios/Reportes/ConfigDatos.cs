@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using DCICC.GestionInventarios.Models;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,6 +37,45 @@ namespace DCICC.GestionInventarios.Reportes
                 table.Rows.Add(row);
             }
             return table;
+        }
+        /// <summary>
+        /// Método para generar una lista tipo Activos a partir de un DataTable.
+        /// </summary>
+        /// <param name="dtInfoActivosQR"></param>
+        /// <returns></returns>
+        public List<Activos> ObtenerListaActivosQR(DataTable dtInfoActivosQR)
+        {
+            List<Activos> lstActivos = new List<Activos>();
+            foreach (DataRow r in dtInfoActivosQR.Rows)
+            {
+                Activos objActivo = new Activos();
+                objActivo.NombreTipoActivo=r[1].ToString();
+                objActivo.NombreActivo= r[2].ToString();
+                objActivo.NombreMarca = r[3].ToString();
+                objActivo.NombreLaboratorio = r[4].ToString();
+                objActivo.ResponsableActivo= r[5].ToString();
+                objActivo.IdCQR= r[6].ToString();
+                lstActivos.Add(objActivo);
+            }
+            return lstActivos;
+        }
+        /// <summary>
+        /// Método para generar una lista tipo Accesorios a partir de un DataTable.
+        /// </summary>
+        /// <param name="dtInfoAccesoriosQR"></param>
+        /// <returns></returns>
+        public List<Accesorios> ObtenerListaAccesoriosQR(DataTable dtInfoAccesoriosQR)
+        {
+            List<Accesorios> lstAccesorios = new List<Accesorios>();
+            foreach (DataRow r in dtInfoAccesoriosQR.Rows)
+            {
+                Accesorios objAccesorio = new Accesorios();
+                objAccesorio.NombreDetalleActivo = r[1].ToString();
+                objAccesorio.NombreAccesorio = r[2].ToString();
+                objAccesorio.IdCQR = r[6].ToString();
+                lstAccesorios.Add(objAccesorio);
+            }
+            return lstAccesorios;
         }
     }
 }

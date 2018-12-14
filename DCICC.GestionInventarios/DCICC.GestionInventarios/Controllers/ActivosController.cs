@@ -519,60 +519,6 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
         }
-        /// <summary>
-        /// Método para mostrar el PDF con los códigos QR de activos seleccionados en la vista.
-        /// </summary>
-        /// <param name="lstActivos"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult ObtenerPDFActivosQRLote(List<Activos> lstActivos)
-        {
-            byte[] pdfQR = null;
-            try
-            {
-                ReporteQR objReporteQR = new ReporteQR();
-                pdfQR=objReporteQR.GenerarPDFQRLista(lstActivos);
-                Logs.Info("El PDF con códigos QR de activos en lote ha sido generado exitosamente.");
-                var contentDispositionHeader = new System.Net.Mime.ContentDisposition
-                {
-                    Inline = true,
-                    FileName = string.Format("DCICC.ActivosCQR.{0}.{1}.{2}", Nombre_Activo, DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf")
-                };
-                Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
-            }
-            catch(Exception e)
-            {
-                Logs.Error(string.Format("{0}: {1}", "No se ha podido generar el PDF con los códigos QR de activos en lote", e.Message));
-            }
-            return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
-        }
-        /// <summary>
-        /// Método para mostrar el PDF con los códigos QR de accesorios seleccionados en la vista.
-        /// </summary>
-        /// <param name="lstAccesorios"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult ObtenerPDFAccesoriosQRLote(List<Accesorios> lstAccesorios)
-        {
-            byte[] pdfQR = null;
-            try
-            {
-                ReporteQR objReporteQR = new ReporteQR();
-                pdfQR = objReporteQR.GenerarPDFQRLista(lstAccesorios);
-                Logs.Info("El PDF con códigos QR de activos en lote ha sido generado exitosamente.");
-                var contentDispositionHeader = new System.Net.Mime.ContentDisposition
-                {
-                    Inline = true,
-                    FileName = string.Format("DCICC.AccesoriosCQR.{0}.{1}.{2}", Nombre_Activo, DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "pdf")
-                };
-                Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
-            }
-            catch (Exception e)
-            {
-                Logs.Error(string.Format("{0}: {1}", "No se ha podido generar el PDF con los códigos QR de activos en lote", e.Message));
-            }
-            return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
-        }
         #endregion
         #region Consultas (JSON)
         /// <summary>
