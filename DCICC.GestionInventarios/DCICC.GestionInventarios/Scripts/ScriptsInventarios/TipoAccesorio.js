@@ -14,14 +14,18 @@ function obtenerTipoAccesorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosTipoAccesorio = data;
-            cargarTipoAccTabla();
-            $('#dataTableTipoAcc').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresTipoAcc();
+            if (data.OperacionExitosa) {
+                datosTipoAccesorio = data.ListaObjetoInventarios;
+                cargarTipoAccTabla();
+                $('#dataTableTipoAcc').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresTipoAcc();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }          
         }
     });
 }
