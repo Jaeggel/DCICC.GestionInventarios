@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesMarcas msjMarcas = new MensajesMarcas();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Marcas/ObtenerMarcas" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Marcas/ObtenerMarcas{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var MarcasJson = response.Content.ReadAsStringAsync().Result;

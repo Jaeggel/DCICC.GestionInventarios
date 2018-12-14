@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("MaqVirtuales/ObtenerMaqVirtuales" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("MaqVirtuales/ObtenerMaqVirtuales{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var MaqVirtualesJson = response.Content.ReadAsStringAsync().Result;

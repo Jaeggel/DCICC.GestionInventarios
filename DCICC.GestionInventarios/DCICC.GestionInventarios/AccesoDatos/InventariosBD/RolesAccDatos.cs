@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Roles/ObtenerRoles"+nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Roles/ObtenerRoles{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var rolesJson = response.Content.ReadAsStringAsync().Result;
