@@ -586,7 +586,6 @@ function formIngresoAccesorio(idAct, nombreAct) {
 /* --------------------------------------SECCIÓN PARA INSERTAR NUEVO ACCESORIO---------------------------------*/
 //Función para ingresar el nuevo accesorio
 function ingresarAccesorios(url,urlImagen,urlPdf) {
-
     console.log(url);
     //Obtener Valor del tipo de activo
     var cmbTipoAccesorio = document.getElementById("AccesorioIngreso");
@@ -622,10 +621,9 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                     url: url,
                     dataType: 'json',
                     type: 'post',
-                    success: function (data) {
-                        console.log("Inserto");
+                    success: function (data) {                       
                         var isValid = data.OperacionExitosa;
-
+                        console.log(isValid);
                         if (isValid) {
                             document.getElementById("confirmarAccesorioNuevo").disabled = true;
                             datosCQRAccesorio(data.ObjetoInventarios);
@@ -644,7 +642,6 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                     }, error: function (e) {
                         console.log(e);
                         console.log("fallo");
-
                     }
                 });
             } else {

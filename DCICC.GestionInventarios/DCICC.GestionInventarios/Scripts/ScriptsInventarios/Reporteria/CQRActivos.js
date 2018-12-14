@@ -128,11 +128,11 @@ function cargarTipoActivoCmb() {
         var opcion = document.getElementById("TipoActivo");
         var tipoAct = opcion.options[opcion.selectedIndex];
         if (tipoAct.value == "") {
-            $('#dataTableActivos').DataTable().column(0).search(
+            $('#dataTableCQRActivos').DataTable().column(2).search(
                 ""
             ).draw();
         } else {
-            $('#dataTableActivos').DataTable().column(0).search(
+            $('#dataTableCQRActivos').DataTable().column(2).search(
                 tipoAct.text
             ).draw();
         }
@@ -153,11 +153,11 @@ function cargarLaboratoriosCmb() {
         var opcion = document.getElementById("LaboratorioActivo");
         var tipoLab = opcion.options[opcion.selectedIndex];
         if (tipoLab.value == "") {
-            $('#dataTableActivos').DataTable().column(3).search(
+            $('#dataTableCQRActivos').DataTable().column(5).search(
                 ""
             ).draw();
         } else {
-            $('#dataTableActivos').DataTable().column(3).search(
+            $('#dataTableCQRActivos').DataTable().column(5).search(
                 tipoLab.text
             ).draw();
         }
@@ -179,11 +179,11 @@ function cargarMarcasCmb() {
         var opcion = document.getElementById("MarcaActivo");
         var tipoMarca = opcion.options[opcion.selectedIndex];
         if (tipoMarca.value == "") {
-            $('#dataTableActivos').DataTable().column(2).search(
+            $('#dataTableCQRActivos').DataTable().column(4).search(
                 ""
             ).draw();
         } else {
-            $('#dataTableActivos').DataTable().column(2).search(
+            $('#dataTableCQRActivos').DataTable().column(4).search(
                 tipoMarca.text
             ).draw();
         }
@@ -204,11 +204,11 @@ function cargarEstadosActivoCmb() {
         var opcion = document.getElementById("EstadoActivo");
         var tipoLab = opcion.options[opcion.selectedIndex];
         if (tipoLab.value == "") {
-            $('#dataTableActivos').DataTable().column(5).search(
+            $('#dataTableCQRActivos').DataTable().column(7).search(
                 ""
             ).draw();
         } else {
-            $('#dataTableActivos').DataTable().column(5).search(
+            $('#dataTableCQRActivos').DataTable().column(7).search(
                 tipoLab.text
             ).draw();
         }
@@ -219,20 +219,143 @@ function cargarEstadosActivoCmb() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableCQRActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr><th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th> <th>Código QR</th></tr> </thead>';
+    str += '<thead> <tr><th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>  <th>Código QR</th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th><th>¿CQR Impreso?</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
-        str += '<tr><td> <input id="chk" name="chk" value="' + datosActivos[i].IdCQR+'"  type="checkbox"/>'+
-                '</td><td>' + datosActivos[i].NombreTipoActivo +
-                '</td><td>' + datosActivos[i].NombreActivo +
-                '</td><td>' + datosActivos[i].NombreMarca +
-                '</td><td>' + datosActivos[i].NombreLaboratorio +
-                '</td><td>' + datosActivos[i].ResponsableActivo +
-                '</td><td>' + datosActivos[i].EstadoActivo +
-                '</td><td>' + datosActivos[i].IdCQR;
-            str += '</td ></tr> ';
+        str += '<tr><td> <input id="chk" name="chk" value="' + datosActivos[i].IdCQR + '"  type="checkbox"/>' +
+            '</td><td>' + datosActivos[i].IdCQR +
+            '</td><td>' + datosActivos[i].NombreTipoActivo +
+            '</td><td>' + datosActivos[i].NombreActivo +
+            '</td><td>' + datosActivos[i].NombreMarca +
+            '</td><td>' + datosActivos[i].NombreLaboratorio +
+            '</td><td>' + datosActivos[i].ResponsableActivo +
+            '</td><td>' + datosActivos[i].EstadoActivo;
+        if (datosActivos[i].ImpresoCQR) {
+            str +='</td><td> Impreso' ;
+        } else {
+            str += '</td><td> No Impreso';
+        }   
+        str += '</td ></tr> ';
     }
     str += '</tbody>' +
         '</table > ';
     $("#tablaReportesActivos").html(str);
+}
+
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON ACCESORIOS
+ * *********************************************************************************
+ */
+
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
+//Método ajax para obtener accesorios
+function obtenerAccesorios(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("Datos Exitosos");
+            datosAccesorios = data;
+            cargarAccesoriosTabla();
+            $('#dataTableAccesorios').DataTable({
+                "language": {
+                    "url": url_idioma
+                },
+                "order": [[1, "asc"]]
+            });
+        }
+    });
+}
+
+//Método ajax para obtener los tipo de accesorios
+function datosTipoAccesorio(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            cmbTipoAccesorio = data;
+            cargarAccesoriosCmb();
+            cargarEstadosAccesoriosCmb();
+        }
+    });
+}
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+
+//Función para cargar el combobox de accesorios
+function cargarAccesoriosCmb() {
+    var str = '<select id="AccesorioActivo" class="form-control" name="AccesorioActivo" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbTipoAccesorio.length; i++) {
+        str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
+    };
+    str += '</select>';
+    $("#cargarTipoAccesorio").html(str);
+    //Método para búsqueda con filtros
+    $('#AccesorioActivo').change(function () {
+        var opcion = document.getElementById("AccesorioActivo");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableAccesorios').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableAccesorios').DataTable().column(0).search(
+                tipoLab.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar estados de accesorios
+function cargarEstadosAccesoriosCmb() {
+    var str = '<select id="EstadoAccesorio" class="form-control" name="EstadoAccesorio" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        if (cmbEstados[i] != "DE BAJA") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }
+
+    };
+    str += '</select>';
+    $("#cargarEstadosAccesorio").html(str);
+    //Método para búsqueda con filtros
+    $('#EstadoAccesorio').change(function () {
+        var opcion = document.getElementById("EstadoAccesorio");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableAccesorios').DataTable().column(5).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableAccesorios').DataTable().column(5).search(
+                tipoLab.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar la tabla de Activos
+function cargarAccesoriosTabla() {
+    var str = '<table id="dataTableAccesorios" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece</th> <th>Serial de Accesorio</th> <th>Modelo de Accesorio</th> <th>Estado de Accesorio</th> </tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosAccesorios.length; i++) {
+        if (datosAccesorios[i].EstadoAccesorio != "DE BAJA") {
+            str += '<tr><td>' + datosAccesorios[i].NombreTipoAccesorio +
+                '</td><td>' + datosAccesorios[i].NombreAccesorio +
+                '</td><td>' + datosAccesorios[i].NombreDetalleActivo +
+                '</td><td>' + datosAccesorios[i].SerialAccesorio +
+                '</td><td>' + datosAccesorios[i].ModeloAccesorio +
+                '</td><td>' + datosAccesorios[i].EstadoAccesorio;
+            str += '</td></tr>';
+        }
+    }
+    str += '</tbody>' +
+        '</table > ';
+    $("#tablaAccesorios").html(str);
 }
