@@ -14,6 +14,8 @@ var cmbTipoAccesorio;
 //Historicos
 var datosHistoricos;
 var fechasHist = [];
+//Esp Adicionales
+var datosEspAdicionales;
 
 /**
  * *********************************************************************************
@@ -52,6 +54,7 @@ function datosTipoActivo(url) {
         success: function (data) {
             cmbTipoActivo = data;
             cargarTipoActivoCmb();
+            cargarTipoActivoAdicionalesCmb();
         }
     });
 }
@@ -522,4 +525,82 @@ function consultarFechasHist() {
         }
     );
     table.draw();
+}
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON ESPECIFICACIONES ADICIONALES
+ * *********************************************************************************
+ */
+
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
+//Método ajax para obtener accesorios
+function obtenerEspAdicionales(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            datosEspAdicionales = data;
+            cargaEspAdicionalesTabla();
+            $('#dataTableEspAdicionales').DataTable({
+                "language": {
+                    "url": url_idioma
+                },
+                "order": [[0, "asc"]]
+            });
+        }
+    });
+}
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+//Función para cargar el combobox de tipo de activo
+function cargarTipoActivoAdicionalesCmb() {
+    var str = '<select id="TipoActivoAdicionales" class="form-control" name="TipoActivoAdicionales">';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbTipoActivo.length; i++) {
+        str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
+    };
+    str += '</select>';
+    $("#cargarTipoActivoAdicionales").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#TipoActivoAdicionales').change(function () {
+        var opcion = document.getElementById("TipoActivoAdicionales");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableEspAdicionales').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableEspAdicionales').DataTable().column(0).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar la tabla de Activos
+function cargaEspAdicionalesTabla() {
+    var str = '<table id="dataTableEspAdicionales" class="table jambo_table bulk_action table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Express Service Code</th> <th>Fecha Manufactura</th> <th>Número de Puertos</th> <th>Versión de IOS</th> <th>Capacidad de Disco</th> <th>Velocidad de Transferencia</th>  <th>Product Name</th> <th>HPE Part Number</th> <th>Código de Barras 1</th> <th>Código de Barras 2</th> <th>CT Code</th></tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosEspAdicionales.length; i++) {
+        str += '<tr><td>' + datosEspAdicionales[i].NombreTipoActivo +
+            '</td><td>' + datosEspAdicionales[i].NombreActivo +
+            '</td><td>' + datosEspAdicionales[i].ExpressServiceCodeActivo +
+            '</td><td>' + datosEspAdicionales[i].FechaManufacturaActivo +
+            '</td><td>' + datosEspAdicionales[i].NumPuertosActivo +
+            '</td><td>' + datosEspAdicionales[i].IosVersionActivo +
+            '</td><td>' + datosEspAdicionales[i].CapacidadActivo +
+            '</td><td>' + datosEspAdicionales[i].VelocidadTransfActivo+
+            '</td><td>' + datosEspAdicionales[i].ProductNameActivo +
+            '</td><td>' + datosEspAdicionales[i].HpePartNumberActivo +
+            '</td><td>' + datosEspAdicionales[i].CodBarras1Activo +
+            '</td><td>' + datosEspAdicionales[i].CodBarras2Activo +
+            '</td><td>' + datosEspAdicionales[i].CtActivo;
+            str += '</td ></tr> ';
+    }
+    str += '</tbody>' +
+        '</table > ';
+    $("#tablaReportesAdicionales").html(str);
 }
