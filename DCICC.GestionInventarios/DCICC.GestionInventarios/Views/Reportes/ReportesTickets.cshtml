@@ -38,14 +38,19 @@
                         @*Sección de filtros de búsqueda para realizar la consulta*@
                         <div class="form-group">
                             @*Combobox para seleccionar Estados*@
-                            <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
                                 <label>Filtro por Estado:</label>
                                 <div id="cargarEstados"></div>
                             </div>
                             @*Combobox para seleccionar Responsables*@
-                            <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
                                 <label>Filtro por Responsable:</label>
                                 <div id="cargarResponsables"></div>
+                            </div>
+                            @*Combobox para seleccionar Responsables*@
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label>Filtro por Prioridad:</label>
+                                <div id="cargarPrioridades"></div>
                             </div>
                         </div>
                         <br />
@@ -63,6 +68,7 @@
                             </div>
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
                                 <button type="button" class="btn btn-default" onclick="consultarFechas();">Consultar</button>
+                                <button type="button" class="btn btn-default" onclick="obtenerTickets('@Url.Action("ObtenerTicketsComp", "Tickets")');">Limpiar</button>
                             </div>
                         </div>
                         <br />
