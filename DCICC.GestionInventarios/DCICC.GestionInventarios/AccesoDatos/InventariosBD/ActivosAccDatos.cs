@@ -39,7 +39,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Activos/ObtenerActivos" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Activos/ObtenerActivos{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var ActivosJson = response.Content.ReadAsStringAsync().Result;

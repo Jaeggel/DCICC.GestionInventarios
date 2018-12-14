@@ -12,6 +12,8 @@
 
         public string IdCQR{ get; set; }
 
+        public bool ImpresoCQR { get; set; }
+
         public string NombreDetalleActivo { get; set; }
 
         public string NombreAccesorio { get; set; }

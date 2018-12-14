@@ -45,7 +45,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
-            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios();
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios("accesoriostotales");
             if (msjAccesorios.OperacionExitosa)
             {
                 Logs.Info("Consulta de Accesorios realizada exitosamente.");
@@ -69,6 +69,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             if (msjAccesorios.OperacionExitosa)
             {
                 Logs.Info("Consulta de Accesorios realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjAccesorios.MensajeError);
+            }
+            return msjAccesorios;
+        }
+        /// <summary>
+        /// Método (GET) para obtener una lista los Accesorios en relación al CQR de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerAccesoriosCQR")]
+        public MensajesAccesorios ObtenerAccesoriosCQR()
+        {
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorios("accesorioscqr");
+            if (msjAccesorios.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Accesorios CQR realizada exitosamente.");
             }
             else
             {

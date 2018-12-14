@@ -17,7 +17,11 @@ function GenerarReportePDF(urlDT, urlRPDF, titulo, info) {
             data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": "" },
             type: 'post'
         });
-        window.open(urlRPDF);
+        //if (titulo !== "CQRActivos") {
+            window.open(urlRPDF);
+        //} else {
+            //window.open("/Reportes/ObtenerPDFActivosQRLote");
+        //}
     } else {
         showNotify("Error al generar el Reporte", "No se puede generar el reporte sin datos", "error");
     }
