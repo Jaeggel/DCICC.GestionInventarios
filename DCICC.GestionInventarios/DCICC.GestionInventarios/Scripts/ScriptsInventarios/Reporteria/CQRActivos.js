@@ -29,16 +29,6 @@ function obtenerActivos(url) {
                 "language": {
                     "url": url_idioma
                 },
-                'columnDefs': [{
-                    'targets': 0,
-                    'searchable': false,
-                    'orderable': false,
-                    'className': 'dt-body-center',
-                    'render': function (data, type, full, meta) {
-                        return '<input id="check" type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
-                        
-                    }
-                }],
                 "order": [[1, "asc"]]
             });
 
@@ -62,11 +52,7 @@ function obtenerActivos(url) {
                         el.indeterminate = true;
                     }
                 }
-            });
-
-
-
-            
+            });         
             cargarEstadosActivoCmb();
         }
     });
@@ -76,8 +62,16 @@ function obtenerActivos(url) {
 
 //Metodo chekbox
 function ver() {
-    var data = $('#dataTableCQRActivos input[type="checkbox"]').serialize();
-    console.log(data);
+
+    var id = $('#dataTableCQRActivos tbody input[type="checkbox"]:checked');
+    console.log(id.outerHTML);
+        var checks = $('#dataTableCQRActivos tbody input[type="checkbox"]:checked').map(function () {
+            return $(this).val();
+        }).get()
+    console.log(checks);
+    
+        
+    
 }
 
 //Método ajax para obtener los datos de tipos de activos
@@ -228,8 +222,7 @@ function cargarActivosTabla() {
     str += '<thead> <tr><th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th> <th>Código QR</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
-
-        str += '<tr><td>'+
+        str += '<tr><td> <input id="chk" name="chk" value="' + datosActivos[i].IdCQR+'"  type="checkbox"/>'+
                 '</td><td>' + datosActivos[i].NombreTipoActivo +
                 '</td><td>' + datosActivos[i].NombreActivo +
                 '</td><td>' + datosActivos[i].NombreMarca +
@@ -242,7 +235,4 @@ function cargarActivosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaReportesActivos").html(str);
-
-
-
 }
