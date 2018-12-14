@@ -17,52 +17,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
         {
             conn_BD = ConfigBaseDatos.ConnectDB();
         }
-        /// <summary>
-        /// Método para obtener los Accesorios de la base de datos.
-        /// </summary>
-        /// <returns></returns>
-        public MensajesAccesorios ObtenerAccesorios()
-        {
-            List<Accesorios> lstAccesorios = new List<Accesorios>();
-            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
-            try
-            {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("accesoriostotales", conn_BD))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            Accesorios objAccesorios = new Accesorios
-                            {
-                                IdAccesorio = (int)dr[0],
-                                IdTipoAccesorio = (int)dr[1],
-                                IdDetalleActivo = (int)dr[2],
-                                NombreAccesorio = dr[3].ToString().Trim(),
-                                SerialAccesorio = dr[4].ToString().Trim(),
-                                ModeloAccesorio = dr[5].ToString().Trim(),
-                                DescripcionAccesorio = dr[6].ToString().Trim(),
-                                EstadoAccesorio = dr[7].ToString().Trim(),
-                                IdCQR = dr[8].ToString().Trim(),
-                                NombreTipoAccesorio = dr[9].ToString().Trim(),
-                                NombreDetalleActivo = dr[10].ToString().Trim()
-                            };
-                            lstAccesorios.Add(objAccesorios);
-                        }
-                        conn_BD.Close();
-                        msjAccesorios.ListaObjetoInventarios = lstAccesorios;
-                        msjAccesorios.OperacionExitosa = true;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                msjAccesorios.OperacionExitosa = false;
-                msjAccesorios.MensajeError = e.Message;
-            }
-            return msjAccesorios;
-        }
+        
         /// <summary>
         /// Método para obtener los Accesorios de la base de datos.
         /// </summary>
@@ -79,21 +34,63 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        if(nombreFuncion== "accesoriostotales")
                         {
-                            Accesorios objAccesorios = new Accesorios
+                            while (dr.Read())
                             {
-                                IdAccesorio = int.Parse(dr[0].ToString().Trim()),
-                                IdTipoAccesorio = int.Parse(dr[1].ToString().Trim()),
-                                IdDetalleActivo = int.Parse(dr[2].ToString().Trim()),
-                                NombreAccesorio = dr[3].ToString().Trim(),
-                                SerialAccesorio = dr[4].ToString().Trim(),
-                                ModeloAccesorio = dr[5].ToString().Trim(),
-                                DescripcionAccesorio = dr[6].ToString().Trim(),
-                                EstadoAccesorio = dr[7].ToString().Trim(),
-                                IdCQR = dr[8].ToString().Trim(),
-                            };
-                            lstAccesorios.Add(objAccesorios);
+                                Accesorios objAccesorios = new Accesorios
+                                {
+                                    IdAccesorio = (int)dr[0],
+                                    IdTipoAccesorio = (int)dr[1],
+                                    IdDetalleActivo = (int)dr[2],
+                                    NombreAccesorio = dr[3].ToString().Trim(),
+                                    SerialAccesorio = dr[4].ToString().Trim(),
+                                    ModeloAccesorio = dr[5].ToString().Trim(),
+                                    DescripcionAccesorio = dr[6].ToString().Trim(),
+                                    EstadoAccesorio = dr[7].ToString().Trim(),
+                                    IdCQR = dr[8].ToString().Trim(),
+                                    NombreTipoAccesorio = dr[9].ToString().Trim(),
+                                    NombreDetalleActivo = dr[10].ToString().Trim()
+                                };
+                                lstAccesorios.Add(objAccesorios);
+                            }
+                        }else if(nombreFuncion== "accesorioshabilitados")
+                        {
+                            while (dr.Read())
+                            {
+                                Accesorios objAccesorios = new Accesorios
+                                {
+                                    IdAccesorio = int.Parse(dr[0].ToString().Trim()),
+                                    IdTipoAccesorio = int.Parse(dr[1].ToString().Trim()),
+                                    IdDetalleActivo = int.Parse(dr[2].ToString().Trim()),
+                                    NombreAccesorio = dr[3].ToString().Trim(),
+                                    SerialAccesorio = dr[4].ToString().Trim(),
+                                    ModeloAccesorio = dr[5].ToString().Trim(),
+                                    DescripcionAccesorio = dr[6].ToString().Trim(),
+                                    EstadoAccesorio = dr[7].ToString().Trim(),
+                                    IdCQR = dr[8].ToString().Trim(),
+                                };
+                                lstAccesorios.Add(objAccesorios);
+                            }
+                        }
+                        else if(nombreFuncion == "accesorioscqr")
+                        {
+                            while (dr.Read())
+                            {
+                                Accesorios objAccesorios = new Accesorios
+                                {
+                                    IdAccesorio = int.Parse(dr[0].ToString().Trim()),
+                                    IdTipoAccesorio = int.Parse(dr[1].ToString().Trim()),
+                                    IdDetalleActivo = int.Parse(dr[2].ToString().Trim()),
+                                    IdCQR = dr[3].ToString().Trim(),
+                                    NombreAccesorio = dr[4].ToString().Trim(),
+                                    EstadoAccesorio = dr[5].ToString().Trim(),
+                                    NombreTipoAccesorio = dr[6].ToString().Trim(),
+                                    NombreDetalleActivo = dr[7].ToString().Trim(),
+                                    ImpresoCQR = (bool)dr[8]
+                                };
+                                lstAccesorios.Add(objAccesorios);
+                            }
                         }
                         conn_BD.Close();
                         msjAccesorios.ListaObjetoInventarios = lstAccesorios;

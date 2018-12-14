@@ -33,41 +33,66 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        if(nombreFuncion=="activostotales")
                         {
-                            Activos objActivos = new Activos
+                            while (dr.Read())
                             {
-                                IdActivo = (int)dr[0],
-                                IdTipoActivo = (int)dr[1],
-                                IdCQR = (string)dr[2],
-                                IdMarca = (int)dr[3],
-                                IdLaboratorio = (int)dr[4],
-                                NombreActivo = dr[5].ToString().Trim(),
-                                ModeloActivo = dr[6].ToString().Trim(),
-                                SerialActivo = dr[7].ToString().Trim(),
-                                FechaIngresoActivo = DateTime.Parse(dr[8].ToString().Trim()),
-                                CodigoUpsActivo = dr[9].ToString().Trim(),
-                                CantidadActivo = (int)dr[10],
-                                DescripcionActivo = dr[11].ToString().Trim(),
-                                ResponsableActivo = dr[12].ToString().Trim(),
-                                EstadoActivo = dr[13].ToString().Trim(),
-                                //Especificaciones adicionales
-                                ExpressServiceCodeActivo = dr[14].ToString().Trim(),
-                                ProductNameActivo = dr[15].ToString().Trim(),
-                                CapacidadActivo = dr[16].ToString().Trim(),
-                                VelocidadTransfActivo = dr[17].ToString().Trim(),
-                                CtActivo = dr[18].ToString().Trim(),
-                                HpePartNumberActivo = dr[19].ToString().Trim(),
-                                CodBarras1Activo = dr[20].ToString().Trim(),
-                                CodBarras2Activo = dr[21].ToString().Trim(),
-                                NumPuertosActivo = dr[22] != DBNull.Value ? (int)dr[22] : 0,
-                                IosVersionActivo = dr[23].ToString().Trim(),
-                                FechaManufacturaActivo = dr[24].ToString().Trim(),
-                                NombreTipoActivo = dr[25].ToString().Trim(),
-                                NombreLaboratorio = dr[26].ToString().Trim(),
-                                NombreMarca = dr[27].ToString().Trim()
-                            };
-                            lstActivos.Add(objActivos);
+                                Activos objActivos = new Activos
+                                {
+                                    IdActivo = (int)dr[0],
+                                    IdTipoActivo = (int)dr[1],
+                                    IdCQR = (string)dr[2],
+                                    IdMarca = (int)dr[3],
+                                    IdLaboratorio = (int)dr[4],
+                                    NombreActivo = dr[5].ToString().Trim(),
+                                    ModeloActivo = dr[6].ToString().Trim(),
+                                    SerialActivo = dr[7].ToString().Trim(),
+                                    FechaIngresoActivo = DateTime.Parse(dr[8].ToString().Trim()),
+                                    CodigoUpsActivo = dr[9].ToString().Trim(),
+                                    CantidadActivo = (int)dr[10],
+                                    DescripcionActivo = dr[11].ToString().Trim(),
+                                    ResponsableActivo = dr[12].ToString().Trim(),
+                                    EstadoActivo = dr[13].ToString().Trim(),
+                                    //Especificaciones adicionales
+                                    ExpressServiceCodeActivo = dr[14].ToString().Trim(),
+                                    ProductNameActivo = dr[15].ToString().Trim(),
+                                    CapacidadActivo = dr[16].ToString().Trim(),
+                                    VelocidadTransfActivo = dr[17].ToString().Trim(),
+                                    CtActivo = dr[18].ToString().Trim(),
+                                    HpePartNumberActivo = dr[19].ToString().Trim(),
+                                    CodBarras1Activo = dr[20].ToString().Trim(),
+                                    CodBarras2Activo = dr[21].ToString().Trim(),
+                                    NumPuertosActivo = dr[22] != DBNull.Value ? (int)dr[22] : 0,
+                                    IosVersionActivo = dr[23].ToString().Trim(),
+                                    FechaManufacturaActivo = dr[24].ToString().Trim(),
+                                    NombreTipoActivo = dr[25].ToString().Trim(),
+                                    NombreLaboratorio = dr[26].ToString().Trim(),
+                                    NombreMarca = dr[27].ToString().Trim()
+                                };
+                                lstActivos.Add(objActivos);
+                            }
+                        }
+                        else if(nombreFuncion == "activoscqr")
+                        {
+                            while (dr.Read())
+                            {
+                                Activos objActivos = new Activos
+                                {
+                                    IdActivo = (int)dr[0],
+                                    IdTipoActivo = (int)dr[1],
+                                    IdCQR = (string)dr[2],
+                                    IdMarca = (int)dr[3],
+                                    IdLaboratorio = (int)dr[4],
+                                    NombreActivo = dr[5].ToString().Trim(),
+                                    ResponsableActivo = dr[6].ToString().Trim(),
+                                    EstadoActivo = dr[7].ToString().Trim(),
+                                    NombreTipoActivo = dr[8].ToString().Trim(),
+                                    NombreLaboratorio = dr[9].ToString().Trim(),
+                                    NombreMarca = dr[10].ToString().Trim(),
+                                    ImpresoCQR= (bool)dr[11],
+                                };
+                                lstActivos.Add(objActivos);
+                            }
                         }
                         conn_BD.Close();
                         msjActivos.ListaObjetoInventarios = lstActivos;

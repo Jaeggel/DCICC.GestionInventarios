@@ -52,7 +52,7 @@ namespace DCICC.GestionInventarios.Controllers
                 return RedirectToAction("Login", "Login");
             }
             else
-            {                 
+            {
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
@@ -540,6 +540,24 @@ namespace DCICC.GestionInventarios.Controllers
             var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
+        }
+        /// <summary>
+        /// Método para obtener los Activos CQR de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerActivosCQR()
+        {
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+            return Json(objActivosAccDatos.ObtenerActivos("CQR").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los Accesorios CQR de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerAccesoriosCQR()
+        {
+            AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
+            return Json(objAccesoriosAccDatos.ObtenerAccesorios("CQR").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los nombres de los Activos de la base de datos

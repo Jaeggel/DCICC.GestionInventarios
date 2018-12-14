@@ -81,6 +81,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
+        /// Método (GET) para obtener una lista de los Activos en relación al CQR de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerActivosCQR")]
+        public MensajesActivos ObtenerActivosCQR()
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerActivos("activoscqr");
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Activos CQR realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        /// <summary>
         /// Método (GET) para obtener una lista de todos los CQR de la base de datos.
         /// </summary>
         /// <returns></returns>
