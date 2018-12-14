@@ -1,4 +1,5 @@
 ﻿using DCICC.GestionInventarios.Configuration;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -31,6 +32,11 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+		[HttpPost]
+		public void datos(List<string> lista)
+		{
+
+		}
         #endregion
     }
 }
