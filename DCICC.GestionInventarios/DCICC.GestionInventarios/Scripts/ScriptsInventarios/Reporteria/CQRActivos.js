@@ -22,43 +22,48 @@ function obtenerActivos(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosActivos = data;
-            cargarActivosTabla();
-            var table = $('#dataTableCQRActivos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                datosActivos = data.ListaObjetoInventarios;
+                cargarActivosTabla();
+                var table = $('#dataTableCQRActivos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
 
-            // Handle click on "Select all" control
-            $('#selecionar-activo').on('click', function () {
-                // Check/uncheck all checkboxes in the table
-                var rows = table.rows({ 'search': 'applied' }).nodes();
-                $('input[type="checkbox"]', rows).prop('checked', this.checked);
-            });
+                // Handle click on "Select all" control
+                $('#selecionar-activo').on('click', function () {
+                    // Check/uncheck all checkboxes in the table
+                    var rows = table.rows({ 'search': 'applied' }).nodes();
+                    $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                });
 
-            // Handle click on checkbox to set state of "Select all" control
-            $('#dataTableCQRActivos tbody').on('change', 'input[type="checkbox"]', function () {
-                // If checkbox is not checked
-                if (!this.checked) {
-                    var el = $('#selecionar-activo').get(0);
-                    // If "Select all" control is checked and has 'indeterminate' property
-                    if (el && el.checked && ('indeterminate' in el)) {
-                        // Set visual state of "Select all" control 
-                        // as 'indeterminate'
-                        el.indeterminate = true;
+                // Handle click on checkbox to set state of "Select all" control
+                $('#dataTableCQRActivos tbody').on('change', 'input[type="checkbox"]', function () {
+                    // If checkbox is not checked
+                    if (!this.checked) {
+                        var el = $('#selecionar-activo').get(0);
+                        // If "Select all" control is checked and has 'indeterminate' property
+                        if (el && el.checked && ('indeterminate' in el)) {
+                            // Set visual state of "Select all" control 
+                            // as 'indeterminate'
+                            el.indeterminate = true;
+                        }
                     }
-                }
-            });         
-            cargarEstadosActivoCmb();
+                });
+                cargarEstadosActivoCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 
     
 }
-//Metodo chekbox
+//Metodo 
 function GenerarReportePDFActivosCQR(url,urlRPDF) {
     var table = $('#dataTableCQRActivos').DataTable();
     var rows = $(table.$('input[type="checkbox"]:checked').map(function () {
@@ -102,8 +107,13 @@ function datosTipoActivo(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoActivo = data;
-            cargarTipoActivoCmb();
+            if (data.OperacionExitosa) {
+                cmbTipoActivo = data.ListaObjetoInventarios;
+                cargarTipoActivoCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 }
@@ -115,8 +125,13 @@ function datosLaboratorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbLaboratorio = data;
-            cargarLaboratoriosCmb();
+            if (data.OperacionExitosa) {
+                cmbLaboratorio = data.ListaObjetoInventarios;
+                cargarLaboratoriosCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+           
         }
     });
 }
@@ -128,8 +143,13 @@ function datosMarcas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbMarcas = data;
-            cargarMarcasCmb();
+            if (data.OperacionExitosa) {
+                cmbMarcas = data;
+                cargarMarcasCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 }
@@ -278,36 +298,42 @@ function obtenerAccesorios(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosAccesorios = data;
-            cargarAccesoriosTabla();
-            var table=$('#dataTableAccesorios').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                datosAccesorios = data.ListaObjetoInventarios;
+                cargarAccesoriosTabla();
+                var table = $('#dataTableAccesorios').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
 
-            // Handle click on "Select all" control
-            $('#seleccionar-accesorio').on('click', function () {
-                // Check/uncheck all checkboxes in the table
-                var rows = table.rows({ 'search': 'applied' }).nodes();
-                $('input[type="checkbox"]', rows).prop('checked', this.checked);
-            });
+                // Handle click on "Select all" control
+                $('#seleccionar-accesorio').on('click', function () {
+                    // Check/uncheck all checkboxes in the table
+                    var rows = table.rows({ 'search': 'applied' }).nodes();
+                    $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                });
 
-            // Handle click on checkbox to set state of "Select all" control
-            $('#dataTableAccesorios tbody').on('change', 'input[type="checkbox"]', function () {
-                // If checkbox is not checked
-                if (!this.checked) {
-                    var el = $('#seleccionar-accesorio').get(0);
-                    // If "Select all" control is checked and has 'indeterminate' property
-                    if (el && el.checked && ('indeterminate' in el)) {
-                        // Set visual state of "Select all" control 
-                        // as 'indeterminate'
-                        el.indeterminate = true;
+                // Handle click on checkbox to set state of "Select all" control
+                $('#dataTableAccesorios tbody').on('change', 'input[type="checkbox"]', function () {
+                    // If checkbox is not checked
+                    if (!this.checked) {
+                        var el = $('#seleccionar-accesorio').get(0);
+                        // If "Select all" control is checked and has 'indeterminate' property
+                        if (el && el.checked && ('indeterminate' in el)) {
+                            // Set visual state of "Select all" control 
+                            // as 'indeterminate'
+                            el.indeterminate = true;
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+
+
         }
     });
 }
@@ -319,9 +345,13 @@ function datosTipoAccesorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoAccesorio = data;
-            cargarAccesoriosCmb();
-            cargarEstadosAccesoriosCmb();
+            if (data.OperacionExitosa) {
+                cmbTipoAccesorio = data.ListaObjetoInventarios;
+                cargarAccesoriosCmb();
+                cargarEstadosAccesoriosCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }          
         }
     });
 }
