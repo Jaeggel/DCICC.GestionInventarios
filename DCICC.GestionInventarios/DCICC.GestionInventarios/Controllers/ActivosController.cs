@@ -557,7 +557,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerAccesoriosCQR()
         {
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
-            return Json(objAccesoriosAccDatos.ObtenerAccesorios("CQR").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objAccesoriosAccDatos.ObtenerAccesorios("CQR"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los nombres de los Activos de la base de datos
