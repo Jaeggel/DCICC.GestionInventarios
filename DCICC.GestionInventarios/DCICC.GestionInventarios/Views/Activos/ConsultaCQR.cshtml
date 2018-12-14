@@ -48,9 +48,33 @@
                                     <div class="x_content">
                                         <br>
                                         <div class="form-horizontal form-label-left input_mask">
+                                            @*Sección de filtros de búsqueda para realizar la consulta*@
+                                            <div class="form-group">
+                                                @*Combobox para seleccionar Tipo Activo*@
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Tipo:</label>
+                                                    <div id="cargarTipoActivo"></div>
+                                                </div>
+                                                @*Combobox para seleccionar Laboratorios*@
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Laboratorio:</label>
+                                                    <div id="cargarLaboratorios"></div>
+                                                </div>
+                                                @*Combobox para seleccionar Marcas*@
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Marca:</label>
+                                                    <div id="cargarMarcas"></div>
+                                                </div>
+                                                @*Combobox para seleccionar Marcas*@
+                                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                                    <label>Filtro por Estado:</label>
+                                                    <div id="cargarEstadosActivo"></div>
+                                                </div>
+                                            </div>
+                                            <br />
                                             @* Sección para la tabla de modificación mediante js *@
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaCQRActivos"> </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                                                <div id="tablaReportesActivos"></div>
                                             </div>
 
                                         </div>
@@ -121,116 +145,14 @@
     </div>
 </div>
 
-@* Seccción para llamar al js de Categorías *@
-<script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
-<script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
+<script src="~/Scripts/ScriptsInventarios/Reporteria/CQRActivos.js"></script>
 <script>
     $(document).ready(function () {
-        @*//Método para obtener la tabla de Categorías
+        //Método para obtener la tabla de Categorías
         obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
-        datosLaboratorio('@Url.Action("ObtenerLaboratoriosHab", "Laboratorios")');
-        datosMarcas('@Url.Action("ObtenerMarcasHab", "Marcas")');
-        cargarEstadosCmb();
-        cargarEstadosModificarCmb();
-        mensajesTooltips();
-
-        obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
-        datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
-        cargarEstadosAccesoriosCmb();
-        cargarEstadosAccesoriosMod();
-        cargarEstadosAccesoriosIng();
-        cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
-        mensajesTooltipsAccesorios();
-        mensajesTooltipsAccesoriosMod();
-
-        $(function () {
-            $('input[name="FechaIngresoActivo"]').daterangepicker({
-                startDate: new Date(),
-                format: 'dd-mm-yyyy',
-                singleDatePicker: true,
-                showDropdowns: true,
-                minDate: "01/01/1990",
-                maxDate: new Date()
-            }, function (start, end, label) {
-                //console.log(start);
-                var years = moment().diff(start, 'years');
-                //alert("You are " + years + " years old!");
-            });
-        });
-
-        $('#cqrAccesorio').hide();
-
-        $('#ModificarActivo').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor","#ccc");
-            $(".modal-body input").val("");
-            $(".modal-body input").css("borderColor", "#ccc");
-            $(".modal-body textarea").val("");
-            $(".modal-body span[id=errorTipo]").html('').hide();
-            $(".modal-body span[id=errorMarca]").html('').hide();
-            $(".modal-body span[id=errorLaboratorio]").html('').hide();
-            $(".modal-body span[id=errorEstado]").html('').hide();
-            $(".modal-body span[id=errorNombre]").html('').hide();
-            $(".modal-body span[id=errorModelo]").html('').hide();
-            $(".modal-body span[id=errorSerial]").html('').hide();
-            $("#NombreActivo").tooltip('hide');
-            $("#SerialActivo").tooltip('hide');
-            $("#ModeloActivo").tooltip('hide');
-            $("#CodigoUpsActivo").tooltip('hide');
-            $("#single_cal4").tooltip('hide');
-            $("#DescripcionActivo").tooltip('hide');
-            document.getElementById("confirmarActivo").disabled = false;
-        });
-
-        $('#ModificarEstadoActivo').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body span[id=errorEstadoActivo]").html('').hide();
-        });
-
-        $('#IngresoNuevoAccesorio').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body input").val("");
-            $(".modal-body input").css("borderColor", "#ccc");
-            $(".modal-body textarea").val("");
-            $(".modal-body span[id=errorTipoAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorNombreAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorSerialAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorModeloAccesorioIng]").html('').hide();
-            $(".modal-body span[id=errorEstadoAccesorioIng]").html('').hide();
-            $("#NombreAccesorioIngreso").tooltip('hide');
-            $("#SerialAccesorioIngreso").tooltip('hide');
-            $("#ModeloAccesorioIngreso").tooltip('hide');
-            $("#DescripcionAccesorioIngreso").tooltip('hide');
-            $('#cqrAccesorio').hide();
-            document.getElementById("confirmarAccesorioNuevo").disabled = false;
-        });
-
-        $('#ModificarAccesorio').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body input").val("");
-            $(".modal-body input").css("borderColor", "#ccc");
-            $(".modal-body textarea").val("");
-            $(".modal-body span[id=errorTipoAccesorio]").html('').hide();
-            $(".modal-body span[id=errorNombreAccesorio]").html('').hide();
-            $(".modal-body span[id=errorSerialAccesorio]").html('').hide();
-            $(".modal-body span[id=errorModeloAccesorio]").html('').hide();
-            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
-            $("#NombreAccesorio").tooltip('hide');
-            $("#SerialAccesorio").tooltip('hide');
-            $("#ModeloAccesorio").tooltip('hide');
-            $("#DescripcionAccesorio").tooltip('hide');
-            document.getElementById("confirmarAccesorioModificacion").disabled = false;
-        });
-
-        $('#ModificarEstadoAccesorio').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body select").css("borderColor", "#ccc");
-            $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
-        });*@
+        datosLaboratorio('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
+        datosMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
     });
 </script>
 

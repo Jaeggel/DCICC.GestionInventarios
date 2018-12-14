@@ -31,7 +31,7 @@ function obtenerTickets(url) {
 }
 
 
-///////////////Funciones para cargar el combobox de estados
+//Funciones para cargar el combobox de estados
 function cargarEstadosCmb() {
     var str = '<select id="Estados" class="form-control" name="Estados" required>';
     str += '<option value="">Mostrar Todos</option>';
