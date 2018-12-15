@@ -21,8 +21,11 @@ function datosTipoActivo(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoActivo = data;
-
+            if (data.OperacionExitosa) {
+                cmbTipoActivo = data.ListaObjetoInventarios;
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }
@@ -34,9 +37,12 @@ function datosCategoria(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbCategoria = data;
-            cargarCategoriasCmb();
-            
+            if (data.OperacionExitosa) {
+                cmbCategoria = data.ListaObjetoInventarios;
+                cargarCategoriasCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }                   
         }
     });
 }
@@ -48,8 +54,12 @@ function datosLaboratorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbLaboratorio = data;
-            cargarLaboratoriosCmb();
+            if (data.OperacionExitosa) {
+                cmbLaboratorio = data.ListaObjetoInventarios;
+                cargarLaboratoriosCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }            
         }
     });
 }
@@ -61,8 +71,12 @@ function datosMarcas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbMarcas = data;
-            cargarMarcasCmb();
+            if (data.OperacionExitosa) {
+                cmbMarcas = data.ListaObjetoInventarios;
+                cargarMarcasCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }         
         }
     });
 }
@@ -74,9 +88,12 @@ function datosTipoAccesorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoAccesorio = data;
-            cargarAccesoriosCmb();
-
+            if (data.OperacionExitosa) {
+                cmbTipoAccesorio = data.ListaObjetoInventarios;
+                cargarAccesoriosCmb();
+            } else {
+                howNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }
@@ -89,11 +106,6 @@ function obtenerResponsable(url) {
         type: 'post',
         success: function (data) {
             document.getElementById("ResponsableActivo").value = data;
-
-        }, error: function (request,status,error) {
-            console.log(request);
-            console.log(status);
-            console.log(error);
         }
     });
 }
@@ -152,7 +164,7 @@ function cargarCategoriasCmb() {
     for (var i = 0; i < cmbCategoria.length; i++) {
         str += '<option value="' + cmbCategoria[i].IdCategoriaActivo + '">' + cmbCategoria[i].NombreCategoriaActivo + '</option>';
         
-    };
+    }
     str += '</select>';
     $("#cargarCategorias").html(str);
     //Método para obtener los tipos de activo dependiendo de su categoria
@@ -171,7 +183,7 @@ function cargarTipoActivoCmb(idCategoria) {
         if (cmbTipoActivo[i].IdCategoriaActivo == idCategoria) {
             $("#TipoActivo").append('<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>');
         }     
-    };
+    }
 }
 
 //Función para cargar el combobox de laboratorios de activo
@@ -180,7 +192,7 @@ function cargarLaboratoriosCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbLaboratorio.length; i++) {
         str += '<option value="' + cmbLaboratorio[i].IdLaboratorio + '">' + cmbLaboratorio[i].NombreLaboratorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarLaboratorios").html(str);
 }
@@ -191,7 +203,7 @@ function cargarMarcasCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbMarcas.length; i++) {
         str += '<option value="' + cmbMarcas[i].IdMarca + '">' + cmbMarcas[i].NombreMarca + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarMarcas").html(str);
 }
@@ -202,7 +214,7 @@ function cargarEstadosCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarEstados").html(str);
 }
@@ -213,7 +225,7 @@ function cargarEstadosAccesorioCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarEstadosAccesorio").html(str);
 }
@@ -224,7 +236,7 @@ function cargarAccesoriosCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbTipoAccesorio.length; i++) {
         str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarAccesorios").html(str);
 }
@@ -447,11 +459,15 @@ function cargarNombresActivos(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                nombresActivo[i] = data[i].NombreActivo;
-            }   
+            if (data.OperacionExitosa) {
+                for (var i = 0; i < data.ListaObjetoInventarios.length; i++) {
+                    nombresActivo[i] = data.ListaObjetoInventarios[i].NombreActivo;
+                } 
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
    
