@@ -542,6 +542,17 @@ namespace DCICC.GestionInventarios.Controllers
             return jsonResult;
         }
         /// <summary>
+        /// Método para obtener los Activos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerEspAdicionales()
+        {
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+            var jsonResult = Json(objActivosAccDatos.ObtenerActivos("EspAdi"), JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+        /// <summary>
         /// Método para obtener los Activos CQR de la base de datos
         /// </summary>
         /// <returns></returns>
