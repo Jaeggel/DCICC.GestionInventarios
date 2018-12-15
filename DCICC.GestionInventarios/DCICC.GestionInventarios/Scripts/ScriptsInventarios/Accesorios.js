@@ -16,8 +16,6 @@ function obtenerAccesorios(url) {
         type: 'post',
         success: function (data) {
             if (data.OperacionExitosa) {
-
-                console.log("Datos Exitosos");
                 datosAccesorios = data.ListaObjetoInventarios;
                 cargarAccesoriosTabla();
                 $('#dataTableAccesorios').DataTable({

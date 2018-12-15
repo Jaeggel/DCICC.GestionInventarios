@@ -4715,7 +4715,6 @@
     <Content Include="Scripts\ScriptsInventarios\Marcas.js" />
     <Content Include="Scripts\ScriptsInventarios\PerfilUsuario.js" />
     <Content Include="Scripts\ScriptsInventarios\ConsultaActivo.js" />
-    <Content Include="Scripts\ScriptsInventarios\Reporteria.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\CQRActivos.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteActivos.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteLogs.js" />

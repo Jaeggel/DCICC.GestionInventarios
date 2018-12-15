@@ -15,15 +15,18 @@ function obtenerUsuarios(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("sii");
-            datosUsuarios = data;
-            cargarUsuariosTabla();
-            $('#dataTableUsuarios').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresUsuarios();
+            if (data.OperacionExitosa) {
+                datosUsuarios = data.ListaObjetoInventarios;
+                cargarUsuariosTabla();
+                $('#dataTableUsuarios').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresUsuarios();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }            
         }
     });
 }
@@ -35,9 +38,12 @@ function obtenerRoles(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("siii");
-            cmbRoles = data;
-            cargarRolesCmb();
+            if (data.OperacionExitosa) {
+                cmbRoles = data.ListaObjetoInventarios;
+                cargarRolesCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }       
         }
     });
 }
@@ -46,7 +52,6 @@ function obtenerRoles(url) {
 //Función para cargar la tabla de Usuarios
 function cargarUsuariosTabla() {
     var nick = document.getElementById("usuarioActual").innerHTML;
-    console.log(nick);
     var str = '<table id="dataTableUsuarios" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
     str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
@@ -75,7 +80,7 @@ function cargarUsuariosTabla() {
             }
             str += '</div></div></td></tr>';
         }
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarUsuarios").html(str);
 }
@@ -86,7 +91,7 @@ function cargarRolesCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbRoles.length; i++) {
         str += '<option value="' + cmbRoles[i].IdRol + '">' + cmbRoles[i].NombreRol + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarRoles").html(str);
 }
@@ -118,13 +123,12 @@ function formUpdateUsuario(idUsuario) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoUsuario").click();
             }
-        };
-    };
+        }
+    }
 }
 
 //Función para modificar el usuario especificado
 function modificarUsuario(url_modificar) {
-    console.log(url_modificar);
     var cmbRol = document.getElementById("IdRol");
     var idRol = cmbRol.options[cmbRol.selectedIndex].value;
     var nombreUsuario = document.getElementById("NombresUsuario").value;
