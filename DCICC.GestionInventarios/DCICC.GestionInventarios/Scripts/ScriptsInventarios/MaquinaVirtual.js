@@ -5,6 +5,7 @@ var datosMaquinasV;
 var cmbSO;
 var datosLuns;
 var idMaquinaV;
+var nombreMVModificar;
 var urlEstado;
 var nombresMV = [];
 
@@ -28,8 +29,7 @@ function obtenerMaquinaV(url) {
                 cargarNombresMV();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
-            }
-            
+            }           
         }
     });
 }
@@ -97,7 +97,6 @@ function cargarMaquinaVTabla() {
     str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Nombre LUN</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB/TB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMaquinasV.length; i++) {
-
         str += '<tr><td>' + datosMaquinasV[i].NombreMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].NombreLUN +
             '</td><td>' + datosMaquinasV[i].UsuarioMaqVirtuales +
@@ -201,8 +200,8 @@ function cargarLunsCmbModificar() {
 function formUpdateMaquinaV(idMV) {
     idMaquinaV = idMV;
     for (var i = 0; i < datosMaquinasV.length; i++) {
-
         if (datosMaquinasV[i].IdMaqVirtuales == idMV) {
+            nombreMVModificar = datosMaquinasV[i].NombreMaqVirtuales;
             //Métodos para setear los valores a modificar
             var element4 = document.getElementById("IdLUN");
             element4.value = datosMaquinasV[i].IdLUN;
@@ -281,11 +280,11 @@ function modificarMaquinaV(url_modificar) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarMaquinaV').modal('hide');
-                            showNotify("Actualización exitosa", 'La Máquina Virtual se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'La Máquina Virtual " ' + nombreMV.toUpperCase() + ' " se ha modificado exitosamente', "success");
                             obtenerMaquinaV(url_metodo);
                         } else {
                             $('#ModificarMaquinaV').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar la Máquina Virtual: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar la Máquina Virtual: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -298,7 +297,7 @@ function modificarMaquinaV(url_modificar) {
     }  
 }
 
-//Función para habilitar o deshabilitar la categoria
+//Función para habilitar o deshabilitar la maquina virtual
 function habilitarOdeshabilitar(idMaqVir, estadoMv) {
     var nuevoEstado = true;
     if (estadoMv) {
@@ -308,7 +307,7 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado la Categoria?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -324,10 +323,10 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El estado de la Máquina Virtual se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado de la Máquina Virtual se ha modificado exitosamente', "success");
                         obtenerMaquinaV(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el estado de la Máquina Virtual: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado de la Máquina Virtual: ' + data.MensajeError, "error");
                     }                  
                 }, error: function (e) {
                     console.log(e);
@@ -379,10 +378,33 @@ function comprobarNombre() {
     }
 }
 
+
+//Función para evitar nombres de máquinas virtuales repetidos modificacion
+function validarNombreModificacion() {
+    var nomMV = document.getElementById("NombreMaqVirtuales");
+    nomMV.value = nomMV.value.toUpperCase();
+    //Validación para el campo de texto nombre de Máquina virtual
+    if (nomMV.value != nombreMVModificar.toUpperCase()) {
+        for (var i = 0; i < datosMaquinasV.length; i++) {
+            if ((datosMaquinasV[i].NombreMaqVirtuales).toUpperCase() == nomMV.value) {
+                nomMV.style.borderColor = "#900C3F";
+                $('#errorNombreMV').html("El nombre de la Máquina Virtual: " + nomMV.value + " ya existe").show();
+                setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
+                nomMV.value = "";
+            } else {
+                nomMV.style.borderColor = "#ccc";
+                $('#errorNombreMV').html('').hide();
+            }
+        }
+    } else {
+        nomMV.style.borderColor = "#ccc";
+        $('#errorNombreMV').html('').hide();
+    }
+}
+
 //Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMV");
     var nomMV = document.getElementById("NombreMaqVirtuales");
    
     //Validación para el campo de texto nombre de Máquina virtual
@@ -392,11 +414,9 @@ function validarInputNombre() {
         nomMV.style.borderColor = "#900C3F";
         $('#errorNombreMV').html('El campo nombre de Máquina Virtual no debe estar vacio').show();
         setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nomMV.style.borderColor = "#ccc";
         $('#errorNombreMV').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 

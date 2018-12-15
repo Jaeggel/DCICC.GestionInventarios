@@ -104,15 +104,13 @@ function cargarLogsTabla() {
     str += '</tbody>' +
         '</table>';
     $("#tablaReportesLogs").html(str);
-    fechas = fechas.sort();
-    console.log(fechas);
-    var minDate = fechas[0];
-    var maxDate = fechas[fechas.length - 1];
-    inicioFecha(minDate, maxDate);
-    finFecha(minDate, maxDate);
+    var minDate = fechas[fechas.length - 1];
+
+    inicioFecha(minDate);
+    finFecha(minDate);
 }
 
-function inicioFecha(minDate, maxDate) {
+function inicioFecha(minDate) {
     $(function () {
         $('input[name="FechaInicio"]').daterangepicker({
             startDate: minDate,
@@ -120,12 +118,12 @@ function inicioFecha(minDate, maxDate) {
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: maxDate
+            maxDate: new Date()
         });
     });
 }
 
-function finFecha(minDate, maxDate) {
+function finFecha(minDate) {
     $(function () {
         $('input[name="FechaFin"]').daterangepicker({
             startDate: 0,
@@ -133,7 +131,7 @@ function finFecha(minDate, maxDate) {
             singleDatePicker: true,
             showDropdowns: true,
             minDate: minDate,
-            maxDate: 0
+            maxDate: new Date()
         });
     });
 }

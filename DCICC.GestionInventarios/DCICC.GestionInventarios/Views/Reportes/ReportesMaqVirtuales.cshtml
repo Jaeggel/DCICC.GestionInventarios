@@ -36,18 +36,30 @@
                     <br>
                     <div class="form-horizontal form-label-left input_mask">
                         @*Sección de filtros de búsqueda para realizar la consulta*@
-                        <div class="form-group">
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <label>Filtro por Propósito:</label>
-                                <div id="cargarPropositos"></div>
-                            </div>
-                            @*Combobox para seleccionar ...*@
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <label>Filtro por Sistema Operativo:</label>
-                                <div id="cargarSO"></div>
-                            </div>
-                        </div>
+						<div class="form-group">
+							@*Combobox para seleccionar ...*@
+							<div class="col-md-3 col-sm-12 col-xs-12">
+								<label>Filtro por Propósito:</label>
+								<div id="cargarPropositos"></div>
+							</div>
+							@*Combobox para seleccionar ...*@
+							<div class="col-md-3 col-sm-12 col-xs-12">
+								<label>Filtro por Sistema Operativo:</label>
+								<div id="cargarSO"></div>
+							</div>
+							@*Combobox para seleccionar ...*@
+							<div class="col-md-3 col-sm-12 col-xs-12">
+								<label>Filtro por Estado:</label>
+								<select id="EstadosMaqVirtuales" class="form-control" name="EstadosMaqVirtuales">
+									<option value="">Mostrar Todos</option>'
+									<option value="Habilitado">Habilitado</option>'
+									<option value="Deshabilitado">Deshabilitado</option>
+								</select>
+							</div>
+							<div class="col-md-3 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
+								<button type="button" class="btn btn-default" onclick="obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');">Limpiar</button>
+							</div>
+						</div>
                         <br />
                         @* Sección para la tabla de modificación mediante js *@
                         <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">

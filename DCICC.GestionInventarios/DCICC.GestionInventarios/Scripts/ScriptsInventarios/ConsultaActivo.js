@@ -3,6 +3,7 @@ var cmbEstados = listaEstadosActivos();
 var url_metodo;
 var datosActivos;
 var idActivoMod;
+var NombreActMod;
 var cmbTipoActivo;
 var cmbLaboratorio;
 var cmbMarcas;
@@ -198,6 +199,7 @@ function formUpdateActivos(idActivo) {
     idActivoMod = idActivo;
     for (var i = 0; i < datosActivos.length; i++) {
         if (datosActivos[i].IdActivo == idActivo) {
+            NombreActMod = datosActivos[i].NombreActivo;
             //Obtener Valor del tipo de activo
             var element = document.getElementById("TipoActivo");
             element.value = datosActivos[i].IdTipoActivo;
@@ -338,11 +340,11 @@ function actualizarActivo(url) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarActivo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Activo se a modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'El Activo " ' + nombreActivo.toUpperCase() + ' " se ha modificado exitosamente', "success");
                             obtenerActivos(url_metodo);
                         } else {
                             $('#ModificarActivo').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Activo' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Activo' + data.MensajeError, "error");
                         }
 
                     }
@@ -370,7 +372,7 @@ function actualizarEstadoActivo(url) {
     if (validacionesEstadoActivo()) {
         swal({
             title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar el estado del Activo?",
+            text: "¿Está seguro de cambiar el estado del registro?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#26B99A',
@@ -388,11 +390,11 @@ function actualizarEstadoActivo(url) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarEstadoActivo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Estado del Activo se a modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'El Estado del Activo se ha modificado exitosamente', "success");
                             obtenerActivos(url_metodo);
                         } else {
                             $('#ModificarEstadoActivo').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Activo' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Activo' + data.MensajeError, "error");
                         }
 
                     }, error: function () {
@@ -543,6 +545,52 @@ function validacionesCamposModificar() {
     return isValid;
 }
 
+//Función para evitar nombres de laboratorios repetidos
+function validarNombreActModificar() {
+    var nombreActivo = document.getElementById("NombreActivo");
+    nombreActivo.value = nombreActivo.value.toUpperCase();
+    console.log(nombreActivo.value + " - " + NombreActMod.toUpperCase());
+    if (nombreActivo.value != NombreActMod.toUpperCase()) {
+        for (var i = 0; i < nombresActivo.length; i++) {
+            if ((nombresActivo[i]).toUpperCase() == nombreActivo.value) {
+                nombreActivo.style.borderColor = "#900C3F";
+                $('#errorNombre').html('El Nombre: ' + nombreActivo.value + ' ya existe').show();
+                setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
+                nombreActivo.value = "";
+                break;
+            } else {
+                nombreActivo.style.borderColor = "#ccc";
+                $('#errorNombre').html('').hide();
+            }
+        }
+    } else {
+        nombreActivo.style.borderColor = "#ccc";
+        $('#errorNombre').html('').hide();
+    }
+}
+
+//Función para evitar nombres de laboratorios repetidos
+function comprobarNumPuertos() {
+    var nPuertos = document.getElementById("NumPuertosActivo");
+    //Validación para el campo vida útil
+    if (nPuertos.value < 1) {
+        esValido = false;
+        nPuertos.style.borderColor = "#900C3F";
+        nPuertos.value = "";
+        $('#errorNumPuertos').html('Ingrese un valor mayor a 0').show();
+        setTimeout("$('#errorNumPuertos').html('').hide('slow')", 6000);
+    } else if (nPuertos.value > 500) {
+        esValido = false;
+        nPuertos.style.borderColor = "#900C3F";
+        nPuertos.value = "";
+        $('#errorNumPuertos').html('Ingrese un valor menor a 500').show();
+        setTimeout("$('#errorNumPuertos').html('').hide('slow')", 6000);
+    } else {
+        nPuertos.style.borderColor = "#ccc";
+        $('#errorNumPuertos').html('').hide();
+    }
+}
+
 //Función para validar el estado de activo
 function validacionesEstadoActivo() {
     var isValid = true;
@@ -587,6 +635,18 @@ function mensajesTooltips() {
     document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
     document.getElementById("ResponsableActivo").title = "Responsable Actual del Data Center";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
+
+    document.getElementById("ExpressServiceCodeActivo").title = "Máximo 50 caracteres.\n  Ejm: 20846125298";
+    document.getElementById("FechaManufacturaActivo").title = "Máximo 50 caracteres.\n  Ejm: Apr.2017";
+    document.getElementById("NumPuertosActivo").title = "Solo Números del 1 al 500.\n  Ejm: 24";
+    document.getElementById("IosVersionActivo").title = "Máximo 20 caracteres.\n  Ejm: 12.2(85) SE5";
+    document.getElementById("ProductNameActivo").title = "Máximo 20 caracteres.\n  Ejm: 789917-B21";
+    document.getElementById("HpePartNumberActivo").title = "Máximo 20 caracteres.\n  Ejm: QR490-63007";
+    document.getElementById("CodBarras1Activo").title = "Máximo 30 caracteres.\n  Ejm: CCD4028N02H";
+    document.getElementById("CodBarras2Activo").title = "Máximo 30 caracteres.\n  Ejm: HP-6505-12-0R-80-1006124-06";
+    document.getElementById("CtActivo").title = "Máximo 20 caracteres.\n  Ejm: EEAUBA2TF7429Y";
+    document.getElementById("CapacidadActivo").title = "Máximo 8 caracteres.\n  Ejm: 1.2 TB";
+    document.getElementById("VelocidadTransfActivo").title = "Máximo 10 caracteres.\n  Ejm: MLC/10k";
 }
 
 
@@ -626,7 +686,7 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
     if (validacionesCamposAccesorio()) {
         swal({
             title: 'Confirmación de Ingreso',
-            text: "¿Está seguro de ingresar el Accesorio?",
+            text: "¿Está seguro de ingresar el registro?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#26B99A',
@@ -656,9 +716,9 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                             });
                             obtenerActivos(url_metodo);
                             obtenerAccesorios(url_metodo_accesorio);
-                            showNotify("Registro exitoso", 'El accesorio se ha ingresado correctamente', "success");
+                            showNotify("Registro exitoso", 'El accesorio "' + nombreAccesorio.toUpperCase() + '" se ha ingresado exitosamente', "success");
                         } else {
-                            showNotify("Error al ingresar accesorio", "error");
+                            showNotify("Error de registro", "Ocurrió un error al ingresar el Accesorio: " + data.MensajeError, "error");
                         }
                     }, error: function (e) {
                         console.log(e);

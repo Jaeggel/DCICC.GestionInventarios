@@ -4,6 +4,7 @@ var url_metodo_accesorio;
 var cmbTipoAccesorio;
 var datosAccesorios;
 var idAccesorioMod;
+var NombreAccesorioMod;
 var nombresAccesorio = [];
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
@@ -146,7 +147,7 @@ function formUpdateAccesorio(idAccesorio) {
     idAccesorioMod = idAccesorio;
     for (var i = 0; i < datosAccesorios.length; i++) {
         if (datosAccesorios[i].IdAccesorio == idAccesorio) {
-            
+            NombreAccesorioMod=datosAccesorios[i].NombreAccesorio;
             var element = document.getElementById("AccesorioActivo");
             element.value = datosAccesorios[i].IdTipoAccesorio;
             
@@ -211,11 +212,11 @@ function actualizarAccesorio(url) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarAccesorio').modal('hide');
-                            showNotify("Actualización exitosa", 'Se ha modificado el Accesorio', "success");
+                            showNotify("Actualización exitosa", 'El Accesorio " ' + nombreAccesorio.toUpperCase() + ' " se ha modificado exitosamente', "success");
                             obtenerAccesorios(url_metodo_accesorio);
                         } else {
                             $('#ModificarAccesorio').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Accesorio: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Accesorio: ' + data.MensajeError, "error");
                         }
                     }
                 });
@@ -241,7 +242,7 @@ function actualizarEstadoAccesorios(urlAccesorio) {
     if (validacionesEstadoAccesorio()) {
         swal({
             title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar el estado del Activo?",
+            text: "¿Está seguro de cambiar el estado del registro?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#26B99A',
@@ -260,11 +261,11 @@ function actualizarEstadoAccesorios(urlAccesorio) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarEstadoAccesorio').modal('hide');
-                            showNotify("Actualización exitosa", 'Se ha modificado el Estado del Accesorio', "success");
+                            showNotify("Actualización exitosa", 'Estado del Accesorio se ha modificado exitosamente', "success");
                             obtenerAccesorios(url_metodo_accesorio);
                         } else {
                             $('#ModificarEstadoAccesorio').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Accesorio: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Accesorio: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -386,17 +387,41 @@ function comprobarNombreAccesorio() {
     var nombreAcc = document.getElementById("NombreAccesorioIngreso").value;
     var comprobar = false;
     for (var i = 0; i < nombresAccesorio.length; i++) {
-        if ((nombresAccesorio[i]).toUpperCase() == nombreAcc) {
+        if ((nombresAccesorio[i]).toUpperCase() == nombreAcc.toUpperCase()) {
             comprobar = true;
         }
     }
     if (comprobar) {
         document.getElementById("NombreAccesorioIngreso").value = "";
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorNombreAccesorioIng').html('El Nombre del Accesorio ya existe').show();
+        $('#errorNombreAccesorioIng').html('El Nombre: '+nombreAcc.toUpperCase() + ' ya existe').show();
         setTimeout("$('#errorNombreAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
         $('#errorNombreAccesorioIng').html('').hide();
+    }
+}
+
+//Función para evitar nombres de laboratorios repetidos
+function validarNombreAccesorioModificar() {
+    var nombreAcc = document.getElementById("NombreAccesorio");
+    nombreAcc.value = nombreAcc.value.toUpperCase();
+    console.log(nombreAcc.value + " - " + NombreAccesorioMod.toUpperCase());
+    if (nombreAcc.value != NombreAccesorioMod.toUpperCase()) {
+        for (var i = 0; i < nombresAccesorio.length; i++) {
+            if ((nombresAccesorio[i]).toUpperCase() == nombreAcc.value) {
+                nombreAcc.style.borderColor = "#900C3F";
+                $('#errorNombreAccesorio').html('El Nombre: ' + nombreAcc.value + ' ya existe').show();
+                setTimeout("$('#errorNombreAccesorio').html('').hide('slow')", 6000);
+                nombreAcc.value = "";
+                break;
+            } else {
+                nombreAcc.style.borderColor = "#ccc";
+                $('#errorNombreAccesorio').html('').hide();
+            }
+        }
+    } else {
+        nombreAcc.style.borderColor = "#ccc";
+        $('#errorNombreAccesorio').html('').hide();
     }
 }

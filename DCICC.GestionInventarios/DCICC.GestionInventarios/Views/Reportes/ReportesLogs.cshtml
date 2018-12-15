@@ -68,9 +68,10 @@
                                 <input name="FechaFin" type="text" class="form-control has-feedback-left" id="FechaFin" placeholder="Fecha de Fin" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                             </div>
-                            <div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
-                                <button type="button" class="btn btn-default" onclick="consultarFechas();">Consultar</button>
-                            </div>
+							<div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
+								<button type="button" class="btn btn-default" onclick="consultarFechas();">Consultar</button>
+								<button type="button" class="btn btn-default" onclick="obtenerLogs('@Url.Action("ObtenerLogs", "Logs")');">Limpiar</button>
+							</div>
                         </div>
                         <br />
                         @* Sección para la tabla de modificación mediante js *@

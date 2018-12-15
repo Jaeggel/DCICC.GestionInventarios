@@ -28,7 +28,7 @@
                 @* Sección para botones de ingresar una nueva máquina virtual y actualizar página *@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevaMaqVirtual", "MaqVirtuales")'"><i class="fa fa-plus"></i> Agregar MV</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarMaqVirtual", "MaqVirtuales")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -66,7 +66,7 @@
                                     @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>* Seleccione una LUN</label>
+                                            <label>Seleccione una LUN</label>
                                             <div id="cargarLunsModificar"></div>
                                             <span id="errorLun" style="color:brown;"></span>
                                         </div>
@@ -74,7 +74,7 @@
                                     @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>* Seleccione el Sistema Operativo</label>
+                                            <label>Seleccione el Sistema Operativo</label>
                                             <div id="cargarSOModificar"></div>
                                             <span id="errorCmbSo" style="color:brown;"></span>
                                         </div>
@@ -90,14 +90,14 @@
                                     @* Cuadro de texto para el ingreso del nombre del responsable de la máquina virtual *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Nombre Usuario o Responsable</label>
-                                        <input id="UsuarioMaqVirtuales" type="text" class="form-control has-feedback-left" name="UsuarioMaqVirtuales" placeholder="Pepe Peréz" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="validarInputUsuario();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <input id="UsuarioMaqVirtuales" type="text" class="form-control has-feedback-left" name="UsuarioMaqVirtuales" placeholder="Pepe Peréz" onkeyup="this.value=this.value.replace(validarTextos(),'');"  maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreUsuario" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre de una máquina virtual *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Nombre de la Máquina Virtual</label>
-                                        <input id="NombreMaqVirtuales" type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="VM_TESIS_PPEREZ_W7" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <input id="NombreMaqVirtuales" type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="VM_TESIS_PPEREZ_W7" onkeyup="this.value=this.value.replace(validarNombres(),'');" onblur="validarNombreModificacion();" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreMV" style="color:brown;"></span>
                                     </div>

@@ -2,11 +2,14 @@
 var url_metodo_storage;
 var datosStorage;
 var idStorageModificar;
+var nombreStorageModificar;
+var nickStorageModificar;
 var urlEstado;
 var nombresStorage = [];
 var nicksStorage = [];
 
-//Método ajax para obtener los datos de categorias
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
+//Método ajax para obtener los datos de Storage
 function obtenerStorage(url) {
     url_metodo_storage = url;
     console.log(url_metodo_storage);
@@ -38,7 +41,8 @@ function urlEstadosStorage(url) {
     urlEstado = url;
 }
 
-//Función para cargar la tabla de Categorias
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+//Función para cargar la tabla de Storage
 function cargarStorageTabla() {
     var str = '<table id="dataTableStorage" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
     str += '<thead> <tr> <th>Nombre Storage</th> <th>Nick Storage</th> <th>Capacidad (GB/TB)</th> <th>Descripcion</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
@@ -69,11 +73,14 @@ function cargarStorageTabla() {
     $("#tablaModificarStorage").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
 //Función para setear los valores en los inputs en modificaciones
 function formUpdateStorage(idStorage) {
     idStorageModificar = idStorage;
     for (var i = 0; i < datosStorage.length; i++) {
         if (datosStorage[i].IdStorage == idStorage) {
+            nombreStorageModificar = datosStorage[i].NombreStorage;
+            nickStorageModificar = datosStorage[i].NickStorage;
             //Métodos para setear los valores a modificar
             document.getElementById("NombreStorage").value = datosStorage[i].NombreStorage;
             document.getElementById("NickStorage").value = datosStorage[i].NickStorage;
@@ -93,8 +100,8 @@ function formUpdateStorage(idStorage) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoStorage").click();
             }
-        };
-    };
+        }
+    }
 }
 
 //Función para modificar la categoria especificada
@@ -131,14 +138,13 @@ function modificarStorage(url_modificar) {
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
-                        console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarStorage').modal('hide');
-                            showNotify("Actualización exitosa", 'El Storage se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'El Storage " ' + nick.toUpperCase() + ' " se ha modificado exitosamente', "success");
                             obtenerStorage(url_metodo_storage);
                         } else {
                             $('#ModificarStorage').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Storage: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Storage: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -161,7 +167,7 @@ function habilitarOdeshabilitar(idStr, estadoStr) {
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado el Storage?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -177,10 +183,10 @@ function habilitarOdeshabilitar(idStr, estadoStr) {
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado del Storage se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado del Storage se ha modificado exitosamente', "success");
                         obtenerStorage(url_metodo_storage);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Storage: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Storage: ' + data.MensajeError, "error");
                     }
                 }
             });
@@ -190,56 +196,8 @@ function habilitarOdeshabilitar(idStr, estadoStr) {
     });
 }
 
-////////////Función para evitar nombres de storage repetidos
-function comprobarNombre() {
-    var nomStr = document.getElementById("NombreStorage");
-    nomStr.value = nomStr.value.toUpperCase();
-    if (nomStr.value.length <= 0) {
-        nomStr.style.borderColor = "#900C3F";
-        $('#errorNombreStorage').html('El campo nombre no debe estar vacio').show();
-        setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
-    } else {
-        for (var i = 0; i < datosStorage.length; i++) {
-            if ((datosStorage[i].NombreStorage).toUpperCase() == nomStr.value) {
-                nomStr.style.borderColor = "#900C3F";
-                $('#errorNombreStorage').html("El nombre del Storage: " + nomStr.value + " ya existe").show();
-                setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
-                nomStr.value = "";
-                break;
-            } else {
-                nomStr.style.borderColor = "#ccc";
-                $('#errorNombreStorage').html('').hide();
-            }
-        }
-    }
-}
-
-function comprobarNick() {
-    var nickStr = document.getElementById("NickStorage");
-    nickStr.value = nickStr.value.toUpperCase();
-    if (nickStr.value.length <= 0) {
-        nickStr.style.borderColor = "#900C3F";
-        $('#errorNickStorage').html('El campo nick no debe estar vacio').show();
-        setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
-    } else {
-        for (var i = 0; i < datosStorage.length; i++) {
-            if ((datosStorage[i].NickStorage).toUpperCase() == nickStr.value) {
-                nickStr.style.borderColor = "#900C3F";
-                $('#errorNickStorage').html("El nick del Storage: " + nickStr.value + " ya existe").show();
-                setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
-                nickStr.value = "";
-                break;
-            } else {
-                nickStr.style.borderColor = "#ccc";
-                $('#errorNickStorage').html('').hide();
-            }
-        }
-    }
-
-
-}
-
-/////////////////////////Funciones para cargar el campo de autocompletado
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+//Funciones para cargar el campo de autocompletado
 function cargarNombresStorage() {
     for (var i = 0; i < datosStorage.length; i++) {
         nombresStorage[i] = datosStorage[i].NombreStorage;
@@ -258,6 +216,101 @@ $(function () {
         source: nicksStorage
     });
 });
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
+//Función para evitar nombres de storage repetidos
+function comprobarNombre() {
+    var nomStr = document.getElementById("NombreStorage");
+    nomStr.value = nomStr.value.toUpperCase();
+    if (nomStr.value.length <= 0) {
+        nomStr.style.borderColor = "#900C3F";
+        $('#errorNombreStorage').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosStorage.length; i++) {
+            if ((datosStorage[i].NombreStorage).toUpperCase() == nomStr.value) {
+                nomStr.style.borderColor = "#900C3F";
+                $('#errorNombreStorage').html("El nombre: " + nomStr.value + " ya existe").show();
+                setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
+                nomStr.value = "";
+                break;
+            } else {
+                nomStr.style.borderColor = "#ccc";
+                $('#errorNombreStorage').html('').hide();
+            }
+        }
+    }
+}
+
+//Función para evitar nombres de storage repetidos
+function validarNombreModificar() {
+    var nomStr = document.getElementById("NombreStorage");
+    nomStr.value = nomStr.value.toUpperCase();
+    if (nomStr.value != nombreStorageModificar.toUpperCase()) {
+        for (var i = 0; i < datosStorage.length; i++) {
+            if ((datosStorage[i].NombreStorage).toUpperCase() == nomStr.value) {
+                nomStr.style.borderColor = "#900C3F";
+                $('#errorNombreStorage').html("El nombre: " + nomStr.value + " ya existe").show();
+                setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
+                nomStr.value = "";
+                break;
+            } else {
+                nomStr.style.borderColor = "#ccc";
+                $('#errorNombreStorage').html('').hide();
+            }
+        }
+    } else {
+        nomStr.style.borderColor = "#ccc";
+        $('#errorNombreStorage').html('').hide();
+    }
+}
+
+//Fumción para comprobar nicks repetidos
+function comprobarNick() {
+    var nickStr = document.getElementById("NickStorage");
+    nickStr.value = nickStr.value.toUpperCase();
+    if (nickStr.value.length <= 0) {
+        nickStr.style.borderColor = "#900C3F";
+        $('#errorNickStorage').html('El campo nick no debe estar vacio').show();
+        setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
+    } else {
+        for (var i = 0; i < datosStorage.length; i++) {
+            if ((datosStorage[i].NickStorage).toUpperCase() == nickStr.value) {
+                nickStr.style.borderColor = "#900C3F";
+                $('#errorNickStorage').html("El nick: " + nickStr.value + " ya existe").show();
+                setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
+                nickStr.value = "";
+                break;
+            } else {
+                nickStr.style.borderColor = "#ccc";
+                $('#errorNickStorage').html('').hide();
+            }
+        }
+    }
+}
+
+//Fumción para comprobar nicks repetidos
+function validarNickModificar() {
+    var nickStr = document.getElementById("NickStorage");
+    nickStr.value = nickStr.value.toUpperCase();
+    if (nickStr.value != nickStorageModificar.toUpperCase()) {
+        for (var i = 0; i < datosStorage.length; i++) {
+            if ((datosStorage[i].NickStorage).toUpperCase() == nickStr.value) {
+                nickStr.style.borderColor = "#900C3F";
+                $('#errorNickStorage').html("El nick : " + nickStr.value + " ya existe").show();
+                setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
+                nickStr.value = "";
+                break;
+            } else {
+                nickStr.style.borderColor = "#ccc";
+                $('#errorNickStorage').html('').hide();
+            }
+        }
+    } else {
+        nickStr.style.borderColor = "#ccc";
+        $('#errorNickStorage').html('').hide();
+    }
+}
 
 /////////////Funciones para validaciones de campos de texto
 function validarInputsVacios() {

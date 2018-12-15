@@ -74,11 +74,11 @@ function cargarSOCmb() {
         var opcion = document.getElementById("IdSistOperativos");
         var tipoSO = opcion.options[opcion.selectedIndex];
         if (tipoSO.value == "") {
-            $('#dataTableMaquinaV').DataTable().column(3).search(
+            $('#dataTableMaquinaV').DataTable().column(4).search(
                 ""
             ).draw(); 
         } else {
-            $('#dataTableMaquinaV').DataTable().column(3).search(
+            $('#dataTableMaquinaV').DataTable().column(4).search(
                 tipoSO.text
             ).draw();            
         }
@@ -99,17 +99,37 @@ function cargarPropositosCmb() {
         var opcion = document.getElementById("PropositoMaqVirtuales");
         var tipoPro = opcion.options[opcion.selectedIndex];
         if (tipoPro.value == "") {
-            cargarMaquinaVTabla();
-            $('#dataTableMaquinaV').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            $('#dataTableMaquinaV').DataTable().column(3).search(
+                ""
+            ).draw(); 
         } else {
-            $('#dataTableMaquinaV').DataTable().column(2).search(
+            $('#dataTableMaquinaV').DataTable().column(3).search(
                 tipoPro.text
             ).draw();            
+        }
+    });
+}
+
+//Función para cargar el combobox de Propósitos
+function cargarEstadosCmb() {
+    var str = '<select id="EstadosMaqVirtuales" class="form-control" name="EstadosMaqVirtuales">';
+    str += '<option value="">Mostrar Todos</option>'+
+        '<option value="Habilitado">Habilitado</option>' +
+        '<option value="Deshabilitado">Deshabilitado</option>';
+    str += '</select>';
+    $("#cargarEstadosMV").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#EstadosMaqVirtuales').change(function () {
+        var opcion = document.getElementById("EstadosMaqVirtuales");
+        var tipoPro = opcion.options[opcion.selectedIndex];
+        if (tipoPro.value == "") {
+            $('#dataTableMaquinaV').DataTable().column(8).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableMaquinaV').DataTable().column(8).search(
+                tipoPro.text
+            ).draw();
         }
     });
 }
@@ -139,4 +159,5 @@ function cargarMaquinaVTabla() {
     };
     str += '</tbody></table>';
     $("#tablaReportesMaqVirtuales").html(str);
+    cargarEstadosCmb();
 }
