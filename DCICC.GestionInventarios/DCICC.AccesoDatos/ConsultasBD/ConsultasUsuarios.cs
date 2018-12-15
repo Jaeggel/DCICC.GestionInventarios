@@ -75,7 +75,6 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 lstUsuarios.Add(objUsuarios);
                             }
                         }
-                        
                         conn_BD.Close();
                         msjUsuarios.ListaObjetoInventarios = lstUsuarios;
                         msjUsuarios.OperacionExitosa = true;

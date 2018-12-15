@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using DCICC.GestionInventarios.Controllers;
+using iTextSharp.text;
 using iTextSharp.text.html;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
@@ -114,7 +115,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// </summary>
         /// <param name="documentoReporte"></param>
         /// <param name="firmaUsuario"></param>
-        public void GenerarFirmaReporte(Document documentoReporte,string firmaUsuario)
+        public void GenerarFirmaReporte(Document documentoReporte, string firmaUsuario)
         {
             using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
@@ -123,17 +124,50 @@ namespace DCICC.GestionInventarios.Reportes
                     htmlWorker.Parse(sr);
                 }
             }
-            Paragraph p = new Paragraph(new Chunk(new LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)));
-            Paragraph p1 = new Paragraph(new Chunk(new LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)));
-            documentoReporte.Add(p);
-            documentoReporte.Add(p1);
-            using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
-            {
-                using (var sr = new StringReader(string.Format("<div style='text-align: center;'><p style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;font-size:10px'><b>Elaborado por: </b>{0}</p></div>", Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))))
-                {
-                    htmlWorker.Parse(sr);
-                }
-            }
+            PdfPTable tablaReporteQR = new PdfPTable(3);
+            tablaReporteQR.DefaultCell.Border = PdfPCell.NO_BORDER;
+
+            PdfPCell celda1 = new PdfPCell();
+            celda1.UseVariableBorders = true;
+            celda1.BorderColorTop = BaseColor.BLACK;
+            celda1.BorderColorBottom = BaseColor.WHITE;
+            celda1.BorderColorLeft = BaseColor.WHITE;
+            celda1.BorderColorRight = BaseColor.WHITE;
+            Paragraph IdCQR11 = new Paragraph("Elaborador por: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
+            IdCQR11.Alignment = Element.ALIGN_CENTER;
+            celda1.AddElement(IdCQR11);
+            Paragraph IdCQR1 = new Paragraph(Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()), new Font(Font.FontFamily.UNDEFINED, 9));
+            IdCQR1.Alignment = Element.ALIGN_CENTER;
+            celda1.AddElement(IdCQR1);
+            tablaReporteQR.AddCell(celda1);
+
+            ActivosController objActivo = new ActivosController();
+            PdfPCell celda2 = new PdfPCell();
+            celda2.UseVariableBorders = true;
+            celda2.BorderColorTop = BaseColor.WHITE;
+            celda2.BorderColorBottom = BaseColor.WHITE;
+            celda2.BorderColorLeft = BaseColor.WHITE;
+            celda2.BorderColorRight = BaseColor.WHITE;
+            Paragraph IdCQR2 = new Paragraph("");
+            celda2.AddElement(IdCQR2);
+            tablaReporteQR.AddCell(celda2);
+
+            PdfPCell celda3 = new PdfPCell();
+            celda3.UseVariableBorders = true;
+            celda3.BorderColorTop = BaseColor.BLACK;
+            celda3.BorderColorBottom = BaseColor.WHITE;
+            celda3.BorderColorLeft = BaseColor.WHITE;
+            celda3.BorderColorRight = BaseColor.WHITE;
+            Paragraph IdCQR31 = new Paragraph("Administrador: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
+            IdCQR31.Alignment = Element.ALIGN_CENTER;
+            celda3.AddElement(IdCQR31);
+            Paragraph IdCQR3 = new Paragraph(objActivo.ObtenerResponsableActualObj().ResponsableActivo, new Font(Font.FontFamily.UNDEFINED, 9));
+            IdCQR3.Alignment = Element.ALIGN_CENTER;
+            celda3.AddElement(IdCQR3);
+            tablaReporteQR.AddCell(celda3);
+
+            tablaReporteQR.HorizontalAlignment = Element.ALIGN_CENTER;
+            documentoReporte.Add(tablaReporteQR);
         }
     }
 }

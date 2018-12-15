@@ -602,6 +602,20 @@ namespace DCICC.GestionInventarios.Controllers
             }
             return Json(objActivos.ResponsableActivo, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener el responsable actual de los activos de TI del JSON
+        /// </summary>
+        /// <returns></returns>
+        public Activos ObtenerResponsableActualObj()
+        {
+            Activos objActivos = new Activos();
+            using (StreamReader r = new StreamReader(path_JsonResponsable))
+            {
+                string json = r.ReadToEnd();
+                objActivos = JsonConvert.DeserializeObject<Activos>(json);
+            }
+            return objActivos;
+        }
         #endregion
     }
 }
