@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("TipoAccesorio/ObtenerTipoAccesorio" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("TipoAccesorio/ObtenerTipoAccesorio{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TipoAccesorioJson = response.Content.ReadAsStringAsync().Result;

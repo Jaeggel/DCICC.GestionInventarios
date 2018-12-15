@@ -90,7 +90,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerTicketsComp()
         {
             TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
-            return Json(objTicketsAccDatos.ObtenerTickets("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objTicketsAccDatos.ObtenerTickets("Comp"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

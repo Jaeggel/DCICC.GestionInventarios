@@ -9,14 +9,17 @@ function obtenerLogs(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosLogs = data;
-            cargarLogsTabla();
-            $('#dataTableLogs').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            } );
+            if (data.OperacionExitosa) {
+                datosLogs = data.ListaObjetoInventarios;
+                cargarLogsTabla();
+                $('#dataTableLogs').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }          
         }
     });
 }
@@ -24,7 +27,7 @@ function obtenerLogs(url) {
 //Función para cargar la tabla de Logs
 function cargarLogsTabla() {
     var str = '<table id="dataTableLogs" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead><tr><th>Usuario</th> <th>IP</th> <th>Fecha</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificados</th></tr></thead>';
+    str += '<thead><tr><th>Usuario</th> <th>IP</th> <th>Fecha<br/>(dd/mm/yyyy)</th> <th>Operación</th> <th>Tabla Afectada</th> <th>Valores Anteriores</th> <th>Valores Modificados</th></tr></thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLogs.length; i++) {
         //Método para dar formato a la fecha y hora

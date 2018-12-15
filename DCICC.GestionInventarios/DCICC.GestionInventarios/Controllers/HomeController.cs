@@ -1,4 +1,5 @@
 ﻿using DCICC.GestionInventarios.Configuration;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers

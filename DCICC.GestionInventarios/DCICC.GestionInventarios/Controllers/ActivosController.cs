@@ -528,7 +528,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerAccesoriosComp()
         {
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
-            return Json(objAccesoriosAccDatos.ObtenerAccesorios("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objAccesoriosAccDatos.ObtenerAccesorios("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Activos de la base de datos
@@ -537,7 +537,18 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerActivosComp()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+        /// <summary>
+        /// Método para obtener los Activos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerEspAdicionalesComp()
+        {
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+            var jsonResult = Json(objActivosAccDatos.ObtenerActivos("EspAdi"), JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }
@@ -548,7 +559,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerActivosCQR()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objActivosAccDatos.ObtenerActivos("CQR").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objActivosAccDatos.ObtenerActivos("CQR"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Accesorios CQR de la base de datos
@@ -557,7 +568,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerAccesoriosCQR()
         {
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
-            return Json(objAccesoriosAccDatos.ObtenerAccesorios("CQR").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objAccesoriosAccDatos.ObtenerAccesorios("CQR"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los nombres de los Activos de la base de datos
@@ -566,7 +577,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerNombresActivos()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objActivosAccDatos.ObtenerActivos("Nombres"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Históricos de Activos de la base de datos
@@ -575,8 +586,12 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerHistoricoActivosComp()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objActivosAccDatos.ObtenerHistoricoActivos().ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objActivosAccDatos.ObtenerHistoricoActivos(), JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener el responsable actual de los activos de TI del JSON
+        /// </summary>
+        /// <returns></returns>
         public JsonResult ObtenerResponsableActual()
         {
             Activos objActivos=new Activos();
@@ -586,6 +601,20 @@ namespace DCICC.GestionInventarios.Controllers
                 objActivos = JsonConvert.DeserializeObject<Activos>(json);
             }
             return Json(objActivos.ResponsableActivo, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener el responsable actual de los activos de TI del JSON
+        /// </summary>
+        /// <returns></returns>
+        public Activos ObtenerResponsableActualObj()
+        {
+            Activos objActivos = new Activos();
+            using (StreamReader r = new StreamReader(path_JsonResponsable))
+            {
+                string json = r.ReadToEnd();
+                objActivos = JsonConvert.DeserializeObject<Activos>(json);
+            }
+            return objActivos;
         }
         #endregion
     }

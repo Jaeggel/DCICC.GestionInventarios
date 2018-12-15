@@ -160,6 +160,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjActivos;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de todos los Especificaciones Adicionales de los Activos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerActivosEspAdi")]
+        public MensajesActivos ObtenerActivosEspAdi()
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerActivos("especificacionesactivos");
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Especificaciones Adicionales de Activos realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
         #endregion
         #region Registros
         /// <summary>

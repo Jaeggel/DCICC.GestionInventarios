@@ -14,14 +14,18 @@ function obtenerSO(url) {
         url: url,
         type: 'get',
         success: function (data) {
-            datosSO = data; 
-            cargarSOTabla();
-            $('#dataTableSO').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresLaboratorios();
+            if (data.OperacionExitosa) {
+                datosSO = data.ListaObjetoInventarios;
+                cargarSOTabla();
+                $('#dataTableSO').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresLaboratorios();
+            } else{
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }          
         }
     });
 }
@@ -56,7 +60,7 @@ function cargarSOTabla() {
             str += '<button type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosSO[i].IdSistOperativos + ',' + datosSO[i].HabilitadoSistOperativos +');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
         }
          str += '</div></div></td></tr>';
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarSistOperativo").html(str);
 }
@@ -82,7 +86,7 @@ function formUpdateSO(idSO) {
                 document.getElementById("HabilitadoSistOperativos").click();
             }
         };
-    };
+    }
 }
 
 //Función para modificar el Sistema Operativo especificado

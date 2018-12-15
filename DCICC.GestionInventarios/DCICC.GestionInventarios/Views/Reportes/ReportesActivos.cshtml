@@ -28,7 +28,10 @@
                             <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');">Accesorios</a>
                         </li>
                         <li role="presentation" class="">
-                        <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerHistoricos('@Url.Action("ObtenerHistoricoActivosComp", "Activos")');">Históricos</a>
+                            <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerHistoricos('@Url.Action("ObtenerHistoricoActivosComp", "Activos")');">Históricos</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#tab_content4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerEspAdicionales('@Url.Action("ObtenerEspAdicionalesComp", "Activos")');">Esp. Adicionales</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -164,7 +167,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
-                                        <br>                                        
+                                        <br>
                                         <div class="form-horizontal form-label-left input_mask">
                                             @*Sección de filtros de búsqueda para realizar la consulta*@
                                             <div class="form-group">
@@ -189,6 +192,44 @@
                                                 <div id="tablaHistoricos"> </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                            @* Panel para visualizar la información de los activos de TI *@
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <div class="x-content">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                                <h3>Consulta de Especificaciones Adicionales de Activos</h3>
+                                            </div>
+                                        </div>
+                                        @*Sección para botones de generar reportes en PDF y Excel*@
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Especificaciones Adicionales','dataTableEspAdicionales');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Especificaciones Adicionales','dataTableEspAdicionales','');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br>
+										<div class="form-horizontal form-label-left input_mask">
+											@*Sección de filtros de búsqueda para realizar la consulta*@
+											<div class="form-group">
+												@*Combobox para seleccionar Tipo Activo*@
+												<div class="col-md-6 col-sm-12 col-xs-12">
+													<label>Filtro por Tipo:</label>
+													<div id="cargarTipoActivoAdicionales"></div>
+												</div>
+											</div>
+											<br />
+											@* Sección para la tabla de modificación mediante js *@
+											<div class="col-md-12 col-sm-12 col-xs-12">
+												<div id="tablaReportesAdicionales"> </div>
+											</div>
+										</div>
                                     </div>
                                 </div>
                             </div>

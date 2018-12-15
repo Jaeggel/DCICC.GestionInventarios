@@ -40,6 +40,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjCategorias.OperacionExitosa = false;
                 msjCategorias.MensajeError = e.Message;
             }
@@ -68,6 +69,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjCategorias.OperacionExitosa = false;
                 msjCategorias.MensajeError = e.Message;
             }

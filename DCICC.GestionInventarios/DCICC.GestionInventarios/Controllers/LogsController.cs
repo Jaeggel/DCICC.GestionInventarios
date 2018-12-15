@@ -36,7 +36,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerLogsComp()
         {           
             LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
-            var jsonResult = Json(objLogsAccDatos.ObtenerLogs("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(objLogsAccDatos.ObtenerLogs("Comp"), JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }
@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerLogs()
         {
             LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
-            var jsonResult = Json(objLogsAccDatos.ObtenerLogs(null).ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(objLogsAccDatos.ObtenerLogs(null), JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }

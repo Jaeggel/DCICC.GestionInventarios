@@ -28,6 +28,7 @@ namespace DCICC.AccesoDatos
             }
             catch (Exception e)
             {
+                connBD.Close();
                 return null;
             }
             return connBD;

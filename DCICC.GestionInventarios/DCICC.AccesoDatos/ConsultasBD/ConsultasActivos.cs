@@ -94,6 +94,31 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 lstActivos.Add(objActivos);
                             }
                         }
+                        else if(nombreFuncion == "especificacionesactivos")
+                        {
+                            while (dr.Read())
+                            {
+                                Activos objActivos = new Activos
+                                {
+                                    IdActivo = (int)dr[0],
+                                    IdTipoActivo = (int)dr[1],
+                                    NombreActivo = dr[2].ToString().Trim(),
+                                    ExpressServiceCodeActivo = dr[3].ToString().Trim(),
+                                    ProductNameActivo = dr[4].ToString().Trim(),
+                                    CapacidadActivo = dr[5].ToString().Trim(),
+                                    VelocidadTransfActivo = dr[6].ToString().Trim(),
+                                    CtActivo = dr[7].ToString().Trim(),
+                                    HpePartNumberActivo = dr[8].ToString().Trim(),
+                                    CodBarras1Activo = dr[9].ToString().Trim(),
+                                    CodBarras2Activo = dr[10].ToString().Trim(),
+                                    NumPuertosActivo = dr[11] != DBNull.Value ? (int)dr[11] : 0,
+                                    IosVersionActivo = dr[12].ToString().Trim(),
+                                    FechaManufacturaActivo = dr[13].ToString().Trim(),
+                                    NombreTipoActivo = dr[14].ToString().Trim(),
+                                };
+                                lstActivos.Add(objActivos);
+                            }
+                        }
                         conn_BD.Close();
                         msjActivos.ListaObjetoInventarios = lstActivos;
                         msjActivos.OperacionExitosa = true;
@@ -102,6 +127,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjActivos.OperacionExitosa = false;
                 msjActivos.MensajeError = e.Message;
             }
@@ -139,6 +165,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjCQR.OperacionExitosa = false;
                 msjCQR.MensajeError = e.Message;
             }
@@ -176,6 +203,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjCQR.OperacionExitosa = false;
                 msjCQR.MensajeError = e.Message;
             }
@@ -191,7 +219,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_detalleact FROM dcicc_detalleactivo", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_detalleact,id_cqr FROM dcicc_detalleactivo", conn_BD))
                 {
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -200,7 +228,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             Activos objActivos = new Activos
                             {
                                 NombreActivo = (string)dr[0],
-
+                                IdCQR= (string)dr[1]
                             };
                             lstActivos.Add(objActivos);
                         }
@@ -212,6 +240,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjActivos.OperacionExitosa = false;
                 msjActivos.MensajeError = e.Message;
             }

@@ -20,41 +20,44 @@ function obtenerTickets(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            ticketsReportados = data;
-            contarTickets();            
-            cargarEstadosAbiertoCmb();
-            cargarEstadosEnCursoCmb();
-            cargarEstadosEnEsperaCmb();
-            cargarTablaAbiertos();
-            $('#dataTableAbiertos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "aaSorting": []
-            });
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                ticketsReportados = data.ListaObjetoInventarios;
+                contarTickets();
+                cargarEstadosAbiertoCmb();
+                cargarEstadosEnCursoCmb();
+                cargarEstadosEnEsperaCmb();
+                cargarTablaAbiertos();
+                $('#dataTableAbiertos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "aaSorting": []
+                });
 
-            cargarTablaEnCurso();
-            $('#dataTableEnCurso').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
+                cargarTablaEnCurso();
+                $('#dataTableEnCurso').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
 
-            cargarTablaEnEspera();
-            $('#dataTableEnEspera').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
+                cargarTablaEnEspera();
+                $('#dataTableEnEspera').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
 
-            cargarTablaResueltos();
-            $('#dataTableResueltos').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-
+                cargarTablaResueltos();
+                $('#dataTableResueltos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }
@@ -152,7 +155,7 @@ function cargarTablaAbiertos() {
                 '</div></div>' +
                 '</td></tr>';
         }       
-    };
+    }
     str += '</tbody></table>';
     $("#ticketsAbiertos").html(str);
 }
@@ -170,7 +173,7 @@ function formUpdateAbiertos(idTicket) {
             document.getElementById("FechaAperturaTicket").value = fechaApertura;
             document.getElementById("NombreUsuario").value = ticketsReportados[i].NombreUsuario;
         }
-    };
+    }
 }
 
 //Función para modificar el estado de un ticket activo
@@ -424,7 +427,7 @@ function cargarTablaEnEspera() {
                 '</div></div>' +
                 '</td></tr>';
         }
-    };
+    }
     str += '</tbody></table>';
     $("#ticketsEnEspera").html(str);
 }
@@ -437,7 +440,7 @@ function cargarEstadosEnEsperaCmb() {
         if (estados[i] == 'RESUELTO') {
             str += '<option value="' + estados[i] + '">' + estados[i] + '</option>';
         }
-    };
+    }
     str += '</select>';
     $("#cargarEnEsperaCmb").html(str);
 }

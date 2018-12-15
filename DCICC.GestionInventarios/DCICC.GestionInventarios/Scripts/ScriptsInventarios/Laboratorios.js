@@ -14,14 +14,18 @@ function obtenerLaboratorios(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosLaboratorios = data;
-            cargarLaboratoriosTabla();
-            $('#dataTableLaboratorios').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresLaboratorios();
+            if (data.OperacionExitosa) {
+                datosLaboratorios = data.ListaObjetoInventarios;
+                cargarLaboratoriosTabla();
+                $('#dataTableLaboratorios').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresLaboratorios();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }           
         }
     });
 }

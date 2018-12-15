@@ -41,7 +41,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesLUN msjLUN = new MensajesLUN();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("LUNS/ObtenerLUNS" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("LUNS/ObtenerLUNS{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var LUNJson = response.Content.ReadAsStringAsync().Result;

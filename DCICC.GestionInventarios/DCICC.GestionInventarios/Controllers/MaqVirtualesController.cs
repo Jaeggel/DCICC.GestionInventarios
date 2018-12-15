@@ -252,7 +252,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerMaqVirtualesComp()
         {
             MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
-            return Json(objMaqVirtualesAccDatos.ObtenerMaqVirtuales("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objMaqVirtualesAccDatos.ObtenerMaqVirtuales("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Propósitos registrados del archivo JSON

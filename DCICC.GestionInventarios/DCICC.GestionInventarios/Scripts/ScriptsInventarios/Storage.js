@@ -15,15 +15,20 @@ function obtenerStorage(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosStorage = data;
-            cargarStorageTabla();
-            $('#dataTableStorage').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresStorage();
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                datosStorage = data.ListaObjetoInventarios;
+                cargarStorageTabla();
+                $('#dataTableStorage').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresStorage();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 }
@@ -59,7 +64,7 @@ function cargarStorageTabla() {
             str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosStorage[i].IdStorage + ',' + datosStorage[i].HabilitadoStorage + ');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
         }
         str += '</div></div></td></tr>';
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarStorage").html(str);
 }

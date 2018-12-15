@@ -14,14 +14,19 @@ function obtenerMarcas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosMarcas= data ;
-            cargarMarcasTabla();
-            $('#dataTableMarcas').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresMarcas();
+            if (data.OperacionExitosa) {
+                datosMarcas = data.ListaObjetoInventarios;
+                cargarMarcasTabla();
+                $('#dataTableMarcas').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresMarcas();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 }
@@ -83,8 +88,8 @@ function formUpdateMarca(idMarca) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoMarca").click();
             }
-        };
-    };
+        }
+    }
 }
 
 //Función para modificar la marca especificada

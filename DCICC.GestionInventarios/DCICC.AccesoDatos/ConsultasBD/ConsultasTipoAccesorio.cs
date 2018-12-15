@@ -52,6 +52,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjTipoAccesorio.OperacionExitosa = false;
                 msjTipoAccesorio.MensajeError = e.Message;
             }

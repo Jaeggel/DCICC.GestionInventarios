@@ -160,7 +160,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerCategoriasActivosComp()
         {
             CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener las Categorías habilitadas de la base de datos
@@ -169,7 +169,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerCategoriasActivosHab()
         {
             CategoriasActivosAccDatos objCategoriasActAccDatos = new CategoriasActivosAccDatos((string)Session["NickUsuario"]);
-            return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objCategoriasActAccDatos.ObtenerCategoriasActivos("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
