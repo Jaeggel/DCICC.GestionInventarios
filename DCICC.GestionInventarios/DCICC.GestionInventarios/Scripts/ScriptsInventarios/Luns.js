@@ -27,8 +27,7 @@ function obtenerLuns(url) {
                 cargarNombresLun();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
-            }
-            
+            }           
         }
     });
 }
