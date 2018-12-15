@@ -63,7 +63,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
         /// </summary>
         /// <param name="IdRol"></param>
         /// <returns></returns>
-        public static MensajesRoles ObtenerRolPorId(int IdRol)
+        public MensajesRoles ObtenerRolPorId(int IdRol)
         {
             MensajesRoles msjRoles = new MensajesRoles();
             try
@@ -79,7 +79,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
-                //conn_BD.Close();
+                conn_BD.Close();
                 msjRoles.OperacionExitosa = false;
                 msjRoles.MensajeError = e.Message;
             }

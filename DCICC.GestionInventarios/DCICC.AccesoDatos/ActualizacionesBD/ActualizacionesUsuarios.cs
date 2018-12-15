@@ -29,7 +29,8 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             {
                 string pwdUsuario = ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario);
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                if (ConsultasUsuarios.ObtenerUsuarioPorNick(infoUsuario.NickUsuario).ObjetoInventarios==null)
+                ConsultasUsuarios objConsultaUsuarios = new ConsultasUsuarios();
+                if (objConsultaUsuarios.ObtenerUsuarioPorNick(infoUsuario.NickUsuario).ObjetoInventarios==null)
                 {
                     using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set id_rol = @ir,nombres_usuario = @nu,password_usuario = @pu,correo_usuario = @cu,telefono_usuario = @tu,telefonocelular_usuario = @tcu,direccion_usuario = @du,habilitado_usuario = @hu where id_usuario = @iu", conn_BD))
                     {
@@ -126,7 +127,8 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                Usuarios infoUsuarioBD=ConsultasUsuarios.ObtenerUsuarioPorId(infoUsuario.IdUsuario).ObjetoInventarios;
+                ConsultasUsuarios objConsultaUsuarios = new ConsultasUsuarios();
+                Usuarios infoUsuarioBD= objConsultaUsuarios.ObtenerUsuarioPorId(infoUsuario.IdUsuario).ObjetoInventarios;
                 string nickAnterior = infoUsuarioBD.NickUsuario;
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nick_usuario = @niu where id_usuario = @iu", conn_BD))
