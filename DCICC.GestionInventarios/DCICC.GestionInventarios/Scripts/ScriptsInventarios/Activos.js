@@ -133,10 +133,9 @@ function modificarResponsable(url) {
                 url: url,
                 type: 'post',
                 success: function (data) {
-                    console.log(data);
                     document.getElementById("ResponsableActivo").value = data;
                     $('#ModificarResponsable').modal('hide');
-                    showNotify("Actualización exitosa", 'Se ha modificado el Responsable', "success");
+                    showNotify("Actualización exitosa", 'El Responsable se ha modificado exitosamente', "success");
                 }
             });
         } else {
@@ -162,8 +161,7 @@ function cargarCategoriasCmb() {
     var str = '<select id="CategoriaActivo" class="form-control" name="CategoriaActivo" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbCategoria.length; i++) {
-        str += '<option value="' + cmbCategoria[i].IdCategoriaActivo + '">' + cmbCategoria[i].NombreCategoriaActivo + '</option>';
-        
+        str += '<option value="' + cmbCategoria[i].IdCategoriaActivo + '">' + cmbCategoria[i].NombreCategoriaActivo + '</option>';       
     }
     str += '</select>';
     $("#cargarCategorias").html(str);
@@ -482,7 +480,8 @@ $(function () {
 /* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar nombres de laboratorios repetidos
 function comprobarNombre() {
-    var nombreActivo = document.getElementById("NombreActivo"); 
+    var nombreActivo = document.getElementById("NombreActivo");
+    nombreActivo.value = nombreActivo.value.toUpperCase();
     if (nombreActivo.value.length <= 0) {
         $("#NombreActivo").focus();
         nombreActivo.style.borderColor = "#900C3F";
@@ -492,7 +491,7 @@ function comprobarNombre() {
         for (var i = 0; i < nombresActivo.length; i++) {
             if ((nombresActivo[i]).toUpperCase() == nombreActivo.value) {
                 nombreActivo.style.borderColor = "#900C3F";
-                $('#errorNombre').html('El Nombre del Activo ya existe').show();
+                $('#errorNombre').html('El Nombre: ' + nombreActivo.value+' ya existe').show();
                 setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
                 nombreActivo.value = "";
                 break;
@@ -521,6 +520,28 @@ function setearSerial() {
     }  
 }
 
+//Función para evitar nombres de laboratorios repetidos
+function comprobarNumPuertos() {
+    var nPuertos = document.getElementById("NumPuertosActivo");
+    //Validación para el campo vida útil
+    if (nPuertos.value < 1) {
+        esValido = false;
+        nPuertos.style.borderColor = "#900C3F";
+        nPuertos.value = "";
+        $('#errorNumPuertos').html('Ingrese un valor mayor a 0').show();
+        setTimeout("$('#errorNumPuertos').html('').hide('slow')", 6000);
+    } else if (nPuertos.value > 500) {
+        esValido = false;
+        nPuertos.style.borderColor = "#900C3F";
+        nPuertos.value = "";
+        $('#errorNumPuertos').html('Ingrese un valor menor a 500').show();
+        setTimeout("$('#errorNumPuertos').html('').hide('slow')", 6000);
+    } else {
+        nPuertos.style.borderColor = "#ccc";
+        $('#errorNumPuertos').html('').hide();
+    }
+}
+
 /* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 
 //Mensajes para los tooltips
@@ -532,4 +553,17 @@ function mensajesTooltips() {
     document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
     document.getElementById("btnResponsable").title = "Modificar Responsable Actual del Data Center";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
+
+
+    document.getElementById("ExpressServiceCodeActivo").title = "Máximo 50 caracteres.\n  Ejm: 20846125298";
+    document.getElementById("FechaManufacturaActivo").title = "Máximo 50 caracteres.\n  Ejm: Apr.2017";
+    document.getElementById("NumPuertosActivo").title = "Solo Números del 1 al 500.\n  Ejm: 24";
+    document.getElementById("IosVersionActivo").title = "Máximo 20 caracteres.\n  Ejm: 12.2(85) SE5";
+    document.getElementById("ProductNameActivo").title = "Máximo 20 caracteres.\n  Ejm: 789917-B21";
+    document.getElementById("HpePartNumberActivo").title = "Máximo 20 caracteres.\n  Ejm: QR490-63007";
+    document.getElementById("CodBarras1Activo").title = "Máximo 30 caracteres.\n  Ejm: CCD4028N02H";
+    document.getElementById("CodBarras2Activo").title = "Máximo 30 caracteres.\n  Ejm: HP-6505-12-0R-80-1006124-06";
+    document.getElementById("CtActivo").title = "Máximo 20 caracteres.\n  Ejm: EEAUBA2TF7429Y";
+    document.getElementById("CapacidadActivo").title = "Máximo 8 caracteres.\n  Ejm: 1.2 TB";
+    document.getElementById("VelocidadTransfActivo").title = "Máximo 10 caracteres.\n  Ejm: MLC/10k";
 }

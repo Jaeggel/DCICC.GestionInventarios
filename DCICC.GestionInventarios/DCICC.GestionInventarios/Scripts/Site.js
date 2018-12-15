@@ -90,7 +90,6 @@ function validarTextosMayus() {
     return /[^A-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
 }
 
-
 function validarNumeros() {
     return /[^0-9]/g;
 }

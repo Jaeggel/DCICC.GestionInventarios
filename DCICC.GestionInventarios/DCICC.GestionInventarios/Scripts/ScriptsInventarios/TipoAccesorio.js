@@ -2,6 +2,7 @@
 var url_metodo;
 var datosTipoAccesorio;
 var idTipoAccesorio;
+var nombreTipoAccModificar;
 var urlEstado;
 var nombresTipo = [];
 
@@ -73,6 +74,7 @@ function formUpdateTipoAcc(idTipo) {
     idTipoAccesorio = idTipo;
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
         if (datosTipoAccesorio[i].IdTipoAccesorio == idTipo) {
+            nombreTipoAccModificar = datosTipoAccesorio[i].NombreTipoAccesorio;
             //Métodos para setear los valores a modificar
             document.getElementById("NombreTipoAccesorio").value = datosTipoAccesorio[i].NombreTipoAccesorio;
             document.getElementById("DescripcionTipoAccesorio").value = datosTipoAccesorio[i].DescripcionTipoAccesorio;
@@ -115,11 +117,11 @@ function modificarTipoAcc(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarTipoAcc').modal('hide');
-                            showNotify("Actualización exitosa", 'El Tipo de Accesorio se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'El Tipo " ' + nombreTipo.toUpperCase() + ' " se ha modificado exitosamente', "success");
                             obtenerTipoAccesorio(url_metodo);
                         } else {
                             $('#ModificarTipoAcc').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Accesorio: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Accesorio: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -141,7 +143,7 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado el Tipo de Accesorio?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -156,12 +158,11 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
                 type: 'post',
                 success: function (data) {  
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado del Tipo de Accesorio se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado del Tipo de Accesorio se ha modificado exitosamente', "success");
                         obtenerTipoAccesorio(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Tipo de Accesorio: ' + data.MensajeError, "error");
-                    }
-                   
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Tipo de Accesorio: ' + data.MensajeError, "error");
+                    }                  
                 }
             });
         } else {
@@ -211,10 +212,33 @@ function comprobarNombre() {
     }
 }
 
+//Función para valida nombres repetidos de Tipo Accesorio en modificación
+function validarNombreModificacion() {
+    var nomTipo = document.getElementById("NombreTipoAccesorio");
+    nomTipo.value = nomTipo.value.toUpperCase();
+    //Validación para el campo de texto nombre de Tipo Accesorio
+    if (nomTipo.value != nombreTipoAccModificar.toUpperCase()) {
+        for (var i = 0; i < datosTipoAccesorio.length; i++) {
+            if ((datosTipoAccesorio[i].NombreTipoAccesorio).toUpperCase() == nomTipo.value) {
+                nomTipo.style.borderColor = "#900C3F";
+                $('#errorNombreTipo').html("El nombre del tipo accesorio: " + nomTipo.value + " ya existe").show();
+                setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
+                nomTipo.value = "";
+                break;
+            } else {
+                nomTipo.style.borderColor = "#ccc";
+                $('#errorNombreTipo').html('').hide();
+            }
+        }
+    } else {
+        nomTipo.style.borderColor = "#ccc";
+        $('#errorNombreTipo').html('').hide();
+    }
+}
+
 //Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
-    var boton = document.getElementById("confirmarTipo");
     var nomTipo = document.getElementById("NombreTipoAccesorio");
     //Validación para el campo de texto nombre de Tipo Accesorio
     if (nomTipo.value.length <= 0) {
@@ -222,11 +246,9 @@ function validarInputNombre() {
         nomTipo.style.borderColor = "#900C3F";
         $('#errorNombreTipo').html('El campo nombre no debe estar vacio').show();
         setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nomTipo.style.borderColor = "#ccc";
         $('#errorNombreTipo').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
