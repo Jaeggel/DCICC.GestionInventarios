@@ -92,7 +92,7 @@ function datosTipoAccesorio(url) {
                 cmbTipoAccesorio = data.ListaObjetoInventarios;
                 cargarAccesoriosCmb();
             } else {
-                howNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
         }
     });

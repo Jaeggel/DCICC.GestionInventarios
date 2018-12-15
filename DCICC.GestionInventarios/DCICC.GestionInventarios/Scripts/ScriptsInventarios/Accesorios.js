@@ -15,16 +15,22 @@ function obtenerAccesorios(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosAccesorios = data;
-            cargarAccesoriosTabla();
-            $('#dataTableAccesorios').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
-            cargarNombresAccesorios();
+            if (data.OperacionExitosa) {
+
+                console.log("Datos Exitosos");
+                datosAccesorios = data.ListaObjetoInventarios;
+                cargarAccesoriosTabla();
+                $('#dataTableAccesorios').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
+                cargarNombresAccesorios();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+
         }
     });
 }
@@ -36,10 +42,13 @@ function datosTipoAccesorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoAccesorio = data;
-            cargarAccesoriosCmb();
-            cargarAccesoriosIngresoCmb();
-
+            if (data.OperacionExitosa) {
+                cmbTipoAccesorio = data.ListaObjetoInventarios;
+                cargarAccesoriosCmb();
+                cargarAccesoriosIngresoCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }
