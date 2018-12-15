@@ -31,7 +31,7 @@ namespace DCICC.GestionInventarios.Reportes
             using (MemoryStream msReporte = new MemoryStream())
             {
                 Rectangle reporteAlign;
-                Document documentoReporte = new Document(reporteAlign=tituloReporte=="Tickets"? PageSize.A4.Rotate(): PageSize.A4);
+                Document documentoReporte = new Document(reporteAlign=tituloReporte=="Tickets" || tituloReporte == "Especificaciones Adicionales" ? PageSize.A4.Rotate(): PageSize.A4);
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
@@ -124,7 +124,9 @@ namespace DCICC.GestionInventarios.Reportes
                 }
             }
             Paragraph p = new Paragraph(new Chunk(new LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)));
+            Paragraph p1 = new Paragraph(new Chunk(new LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)));
             documentoReporte.Add(p);
+            documentoReporte.Add(p1);
             using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
                 using (var sr = new StringReader(string.Format("<div style='text-align: center;'><p style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;font-size:10px'><b>Elaborado por: </b>{0}</p></div>", Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))))
