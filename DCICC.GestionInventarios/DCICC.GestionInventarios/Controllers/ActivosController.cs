@@ -545,7 +545,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para obtener los Activos de la base de datos
         /// </summary>
         /// <returns></returns>
-        public JsonResult ObtenerEspAdicionales()
+        public JsonResult ObtenerEspAdicionalesComp()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             var jsonResult = Json(objActivosAccDatos.ObtenerActivos("EspAdi"), JsonRequestBehavior.AllowGet);
