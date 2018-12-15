@@ -29,14 +29,18 @@ function obtenerActivos(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosActivos = data;
-            cargarActivosTabla();
-            $('#dataTableActivos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1,"asc"]]
-            });
+            if (data.OperacionExitosa) {
+                datosActivos = data.ListaObjetoInventarios;
+                cargarActivosTabla();
+                $('#dataTableActivos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }         
         }
     });
 }
@@ -48,8 +52,12 @@ function datosTipoActivo(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoActivo = data;
-            cargarTipoActivoCmb();
+            if (data.OperacionExitosa) {
+                cmbTipoActivo = data.ListaObjetoInventarios;
+                cargarTipoActivoCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }           
         }
     });
 }
@@ -61,8 +69,13 @@ function datosLaboratorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbLaboratorio = data;
-            cargarLaboratoriosCmb();
+            if (data.OperacionExitosa) {
+                cmbLaboratorio = data.ListaObjetoInventarios;
+                cargarLaboratoriosCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+
         }
     });
 }
@@ -74,8 +87,12 @@ function datosMarcas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbMarcas = data;
-            cargarMarcasCmb();
+            if (data.OperacionExitosa) {
+                cmbMarcas = data.ListaObjetoInventarios;
+                cargarMarcasCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }
@@ -395,11 +412,15 @@ function cargarNombresActivos(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                nombresActivo[i] = data[i].NombreActivo;
-            }
+            if (data.OperacionExitosa) {
+                for (var i = 0; i < data.ListaObjetoInventarios.length; i++) {
+                    nombresActivo[i] = data.ListaObjetoInventarios[i].NombreActivo;
+                }
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }          
         }
     });
 
@@ -659,7 +680,7 @@ function datosCQRAccesorio(data) {
     nombreCQRAccesorio = data.NombreAccesorio;
     $('#idCQRAccesorio').html(idCQRAccesorio).show();
     console.log(nombreCQRAccesorio);
-    $('#nombreAccesorioIngresado').html(nombreCQRAccesorio ).show();
+    $('#nombreAccesorioIngresado').html(nombreCQRAccesorio).show();
     $('#cqrAccesorio').show();  
 }
 
