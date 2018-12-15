@@ -40,6 +40,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjSistOperativos.OperacionExitosa = false;
                 msjSistOperativos.MensajeError = e.Message;
             }
@@ -68,6 +69,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjSistOperativos.OperacionExitosa = false;
                 msjSistOperativos.MensajeError = e.Message;
             }

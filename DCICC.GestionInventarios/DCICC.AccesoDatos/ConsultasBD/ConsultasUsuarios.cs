@@ -84,6 +84,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjUsuarios.OperacionExitosa = false;
                 msjUsuarios.MensajeError = e.Message;
                 msjUsuarios.ListaObjetoInventarios = null;
@@ -116,6 +117,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                //conn_BD.Close();
                 msjUsuarios.OperacionExitosa = false;
                 msjUsuarios.MensajeError = e.Message;
                 msjUsuarios.ListaObjetoInventarios = null;
@@ -147,6 +149,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                //conn_BD.Close();
                 msjUsuarios.OperacionExitosa = false;
                 msjUsuarios.MensajeError = e.Message;
                 msjUsuarios.ListaObjetoInventarios = null;

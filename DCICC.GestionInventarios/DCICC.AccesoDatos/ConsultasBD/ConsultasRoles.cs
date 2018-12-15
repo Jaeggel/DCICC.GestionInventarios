@@ -52,6 +52,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjRoles.OperacionExitosa = false;
                 msjRoles.MensajeError = e.Message;
             }
@@ -78,6 +79,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                //conn_BD.Close();
                 msjRoles.OperacionExitosa = false;
                 msjRoles.MensajeError = e.Message;
             }

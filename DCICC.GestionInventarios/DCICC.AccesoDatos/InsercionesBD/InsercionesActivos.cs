@@ -76,6 +76,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjActivos.OperacionExitosa = false;
                 msjActivos.MensajeError = e.Message;
             }
@@ -102,6 +103,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjCQR.OperacionExitosa = false;
                 msjCQR.MensajeError = e.Message;
             }

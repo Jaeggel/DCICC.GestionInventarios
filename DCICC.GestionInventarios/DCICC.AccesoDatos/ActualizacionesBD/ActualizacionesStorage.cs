@@ -44,6 +44,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjStorage.OperacionExitosa = false;
                 msjStorage.MensajeError = e.Message;
             }
@@ -72,6 +73,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjStorage.OperacionExitosa = false;
                 msjStorage.MensajeError = e.Message;
             }
