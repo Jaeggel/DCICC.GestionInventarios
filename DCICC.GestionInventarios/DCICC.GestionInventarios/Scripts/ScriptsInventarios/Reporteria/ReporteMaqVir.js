@@ -12,13 +12,17 @@ function obtenerMaquinaV(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosMaquinasV = data;
-            cargarMaquinaVTabla();
-            $('#dataTableMaquinaV').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
+            if (data.OperacionExitosa) {
+                datosMaquinasV = data.ListaObjetoInventarios;
+                cargarMaquinaVTabla();
+                $('#dataTableMaquinaV').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }           
         }
     });
 }
@@ -30,8 +34,12 @@ function obtenerSO(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbSO = data;
-            cargarSOCmb();
+            if (data.OperacionExitosa) {
+                cmbSO = data.ListaObjetoInventarios;
+                cargarSOCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }          
         }
     });
 }
