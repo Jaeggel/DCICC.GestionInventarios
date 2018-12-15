@@ -569,7 +569,7 @@ function obtenerEspAdicionales(url) {
         type: 'post',
         success: function (data) {
             if (data.OperacionExitosa) {
-                datosEspAdicionales = data;
+                datosEspAdicionales = data.ListaObjetoInventarios;
                 cargaEspAdicionalesTabla();
                 $('#dataTableEspAdicionales').DataTable({
                     "language": {

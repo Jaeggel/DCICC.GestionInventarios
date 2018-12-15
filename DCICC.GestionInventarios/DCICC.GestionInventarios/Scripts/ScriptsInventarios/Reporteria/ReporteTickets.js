@@ -14,18 +14,21 @@ function obtenerTickets(url) {
         url: url,
         type: 'get',
         success: function (data) {
-            console.log("Datos Exitosos");
-            ticketsReportados = data;
-            cargarEstadosCmb();
-            cargarPrioridadesCmb();
-            cargarTablaTickets();
-            $('#dataTableTickets').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "aaSorting": []
-            });
-
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                ticketsReportados = data.ListaObjetoInventarios;
+                cargarEstadosCmb();
+                cargarPrioridadesCmb();
+                cargarTablaTickets();
+                $('#dataTableTickets').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "aaSorting": []
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }

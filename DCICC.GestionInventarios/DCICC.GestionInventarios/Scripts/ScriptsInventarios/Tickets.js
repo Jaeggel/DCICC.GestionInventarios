@@ -155,7 +155,7 @@ function cargarTablaAbiertos() {
                 '</div></div>' +
                 '</td></tr>';
         }       
-    };
+    }
     str += '</tbody></table>';
     $("#ticketsAbiertos").html(str);
 }
@@ -173,7 +173,7 @@ function formUpdateAbiertos(idTicket) {
             document.getElementById("FechaAperturaTicket").value = fechaApertura;
             document.getElementById("NombreUsuario").value = ticketsReportados[i].NombreUsuario;
         }
-    };
+    }
 }
 
 //Función para modificar el estado de un ticket activo
@@ -427,7 +427,7 @@ function cargarTablaEnEspera() {
                 '</div></div>' +
                 '</td></tr>';
         }
-    };
+    }
     str += '</tbody></table>';
     $("#ticketsEnEspera").html(str);
 }
@@ -440,7 +440,7 @@ function cargarEstadosEnEsperaCmb() {
         if (estados[i] == 'RESUELTO') {
             str += '<option value="' + estados[i] + '">' + estados[i] + '</option>';
         }
-    };
+    }
     str += '</select>';
     $("#cargarEnEsperaCmb").html(str);
 }
