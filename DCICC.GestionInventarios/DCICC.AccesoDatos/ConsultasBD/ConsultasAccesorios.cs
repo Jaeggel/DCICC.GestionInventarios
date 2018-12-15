@@ -100,6 +100,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjAccesorios.OperacionExitosa = false;
                 msjAccesorios.MensajeError = e.Message;
             }
@@ -137,6 +138,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjAccesorios.OperacionExitosa = false;
                 msjAccesorios.MensajeError = e.Message;
             }

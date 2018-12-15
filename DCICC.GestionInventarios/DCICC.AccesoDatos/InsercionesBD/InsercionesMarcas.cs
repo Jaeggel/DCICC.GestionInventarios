@@ -37,6 +37,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjMarcas.OperacionExitosa = false;
                 msjMarcas.MensajeError = e.Message;
             }

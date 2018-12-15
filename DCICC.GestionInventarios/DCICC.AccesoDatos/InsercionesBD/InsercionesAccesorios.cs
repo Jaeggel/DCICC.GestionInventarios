@@ -59,6 +59,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjAccesorios.OperacionExitosa = false;
                 msjAccesorios.MensajeError = e.Message;
             }

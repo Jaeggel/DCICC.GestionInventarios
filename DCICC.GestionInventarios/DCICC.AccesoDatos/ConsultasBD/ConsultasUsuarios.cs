@@ -84,6 +84,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjUsuarios.OperacionExitosa = false;
                 msjUsuarios.MensajeError = e.Message;
                 msjUsuarios.ListaObjetoInventarios = null;
@@ -95,7 +96,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
         /// </summary>
         /// <param name="IdUsuario"></param>
         /// <returns></returns>
-        public static MensajesUsuarios ObtenerUsuarioPorId(int IdUsuario)
+        public MensajesUsuarios ObtenerUsuarioPorId(int IdUsuario)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
@@ -116,6 +117,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjUsuarios.OperacionExitosa = false;
                 msjUsuarios.MensajeError = e.Message;
                 msjUsuarios.ListaObjetoInventarios = null;
@@ -127,7 +129,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
         /// </summary>
         /// <param name="IdUsuario"></param>
         /// <returns></returns>
-        public static MensajesUsuarios ObtenerUsuarioPorNick(string nickUsuario)
+        public MensajesUsuarios ObtenerUsuarioPorNick(string nickUsuario)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
@@ -147,6 +149,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjUsuarios.OperacionExitosa = false;
                 msjUsuarios.MensajeError = e.Message;
                 msjUsuarios.ListaObjetoInventarios = null;

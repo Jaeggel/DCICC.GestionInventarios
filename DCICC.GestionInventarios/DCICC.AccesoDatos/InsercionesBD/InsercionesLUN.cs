@@ -42,6 +42,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjLUN.OperacionExitosa = false;
                 msjLUN.MensajeError = e.Message;
             }
