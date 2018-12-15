@@ -25,7 +25,7 @@
                             <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Activos de TI</a>
                         </li>
                         <li role="presentation" class="">
-                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
+                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerAccesorios('@Url.Action("ObtenerAccesoriosCQR", "Activos")');datosTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');">Accesorios</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -41,8 +41,7 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','CQRActivos','dataTableCQRActivos');"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
-                                            <li><button id="frm-example" name="frm-example" type="button" class="btn btn-round btn-danger float-right" onclick="ver();"><i class="fa fa-file-pdf-o"></i> Imprimir </button></li>
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDFActivosCQR('@Url.Action("GenerarListaActivosCQR", "Reportes")','@Url.Action("ObtenerPDFActivosQRLote", "Reportes")')"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -95,46 +94,31 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick=""><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDFAccesoriosCQR('@Url.Action("GenerarListaAccesoriosCQR", "Reportes")','@Url.Action("ObtenerPDFAccesoriosQRLote", "Reportes")')"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
                                         <br>
-                                        <div class="form-horizontal form-label-left input_mask">
-                                            @* Sección para la tabla de modificación mediante js *@
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaCQRAccesorios"> </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            @* Panel para visualizar la información de los activos de TI códigos QR*@
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <div class="x-content">
-                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
-                                                <h3>Impresión de Códigos QR</h3>
-                                            </div>
-                                        </div>
-                                        @*Sección para botones de generar reporte en PDF*@
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Accesorios','dataTableAccesorios');"><i class="fa fa-file-pdf-o"></i> Imprimir PDF</button></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <br>
-                                        <div class="form-horizontal form-label-left input_mask">
-                                            @* Sección para la tabla de modificación mediante js *@
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaLotesQR"> </div>
-                                            </div>
-                                        </div>
+										<div class="form-horizontal form-label-left input_mask">
+											<div class="form-group">
+												@*Combobox para seleccionar Tipo Accesorio*@
+												<div class="col-md-6 col-sm-12 col-xs-12">
+													<label>Filtro por Tipo de Accesorio:</label>
+													<div id="cargarTipoAccesorio"></div>
+												</div>
+												@*Combobox para seleccionar Estado de Accesorio*@
+												<div class="col-md-6 col-sm-12 col-xs-12">
+													<label>Filtro por Estado:</label>
+													<div id="cargarEstadosAccesorio"></div>
+												</div>
+											</div>
+											<br />
+											@* Sección para la tabla de modificación mediante js *@
+											<div class="col-md-12 col-sm-12 col-xs-12">
+												<div id="tablaAccesorios"> </div>
+											</div>
+										</div>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +134,7 @@
 <script>
     $(document).ready(function () {
         //Método para obtener la tabla de Categorías
-        obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
+        obtenerActivos('@Url.Action("ObtenerActivosCQR", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
         datosMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');

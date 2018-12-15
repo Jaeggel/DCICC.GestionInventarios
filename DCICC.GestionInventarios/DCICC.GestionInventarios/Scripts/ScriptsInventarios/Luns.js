@@ -15,15 +15,19 @@ function obtenerLuns(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosLuns = data;
-            cargarLunTabla();
-            $('#dataTableLun').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresLun();
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                datosLuns = data.ListaObjetoInventarios;
+                cargarLunTabla();
+                $('#dataTableLun').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresLun();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }           
         }
     });
 }
@@ -35,9 +39,14 @@ function obtenerCmbStorageHab(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            cmbStorage = data;
-            cargarStorageCmb();           
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                cmbStorage = data.ListaObjetoInventarios;
+                cargarStorageCmb(); 
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+                      
         }
     });
 }
@@ -48,7 +57,7 @@ function cargarStorageCmb() {
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbStorage.length; i++) {
         str += '<option value="' + cmbStorage[i].IdStorage + '">' + cmbStorage[i].NickStorage + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarStorage").html(str);
 }
@@ -60,9 +69,14 @@ function obtenerCmbStorageComp(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            cmbStorageComp = data;
-            cargarStorageCompCmb();
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                cmbStorageComp = data.ListaObjetoInventarios;
+                cargarStorageCompCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 }
@@ -72,7 +86,7 @@ function cargarStorageCompCmb() {
     var str = '<select id="IdStorage" class="form-control" name="IdStorage" required>';
     for (var i = 0; i < cmbStorageComp.length; i++) {
         str += '<option value="' + cmbStorageComp[i].IdStorage + '">' + cmbStorageComp[i].NickStorage + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarStorage").html(str);
 }
@@ -109,7 +123,7 @@ function cargarLunTabla() {
             str += '<button type = "button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitarLun(' + datosLuns[i].IdLUN + ',' + datosLuns[i].HabilitadoLUN + ');"> <strong><i class="fa fa-toggle-off"></i></strong></button> ';
         }
         str += '</div></div></td></tr>';
-    };
+    }
     str += '</tbody></table>';
     $("#tablaModificarLuns").html(str);
 }

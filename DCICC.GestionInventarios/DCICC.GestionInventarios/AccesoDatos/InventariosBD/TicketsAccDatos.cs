@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTickets msjTickets = new MensajesTickets();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Tickets/ObtenerTickets" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Tickets/ObtenerTickets{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TicketsJson = response.Content.ReadAsStringAsync().Result;

@@ -160,7 +160,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerSistOperativosComp()
         {
             SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
-            return Json(objSistOperativosAccDatos.ObtenerSistOperativos("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objSistOperativosAccDatos.ObtenerSistOperativos("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Sistemas Operativos habilitados de la base de datos
@@ -169,7 +169,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerSistOperativosHab()
         {
             SistOperativosAccDatos objSistOperativosAccDatos = new SistOperativosAccDatos((string)Session["NickUsuario"]);
-            return Json(objSistOperativosAccDatos.ObtenerSistOperativos("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objSistOperativosAccDatos.ObtenerSistOperativos("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

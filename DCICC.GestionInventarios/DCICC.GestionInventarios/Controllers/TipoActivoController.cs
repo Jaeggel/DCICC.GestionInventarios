@@ -160,7 +160,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerTipoActivoComp()
         {
             TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
-            return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Tipos de Activos habilitados de la base de datos.
@@ -169,7 +169,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerTipoActivoHab()
         {
             TipoActivoAccDatos objTipoActivoAccDatos = new TipoActivoAccDatos((string)Session["NickUsuario"]);
-            return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objTipoActivoAccDatos.ObtenerTipoActivo("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

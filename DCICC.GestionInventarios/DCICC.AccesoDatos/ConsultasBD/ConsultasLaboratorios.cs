@@ -53,6 +53,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjLaboratorios.OperacionExitosa = false;
                 msjLaboratorios.MensajeError = e.Message;
             }

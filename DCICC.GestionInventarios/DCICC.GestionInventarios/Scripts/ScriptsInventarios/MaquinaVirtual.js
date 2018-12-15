@@ -17,14 +17,19 @@ function obtenerMaquinaV(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosMaquinasV = data;
-            cargarMaquinaVTabla();
-            $('#dataTableMaquinaV').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
-            cargarNombresMV();
+            if (data.OperacionExitosa) {
+                datosMaquinasV = data.ListaObjetoInventarios;
+                cargarMaquinaVTabla();
+                $('#dataTableMaquinaV').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+                cargarNombresMV();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+            
         }
     });
 }
@@ -36,9 +41,13 @@ function obtenerSO(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbSO = data;
-            cargarSOCmb();
-            cargarSOModificarCmb();
+            if (data.OperacionExitosa) {
+                cmbSO = data.ListaObjetoInventarios;
+                cargarSOCmb();
+                cargarSOModificarCmb();
+            } else {
+                showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la LUN: ' + data.MensajeError, "error");
+            }         
         }
     });
 }
@@ -64,9 +73,13 @@ function obtenerLuns(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosLuns = data;
-            cargarLunsCmb();
-            cargarLunsCmbModificar();
+            if (data.OperacionExitosa) {
+                datosLuns = data.ListaObjetoInventarios;
+                cargarLunsCmb();
+                cargarLunsCmbModificar();
+            } else {
+                showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la LUN: ' + data.MensajeError, "error");
+            }         
         }
     });
 }
@@ -219,8 +232,8 @@ function formUpdateMaquinaV(idMV) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoMaqVirtuales").click();
             }
-        };
-    };
+        }
+    }
 }
 
 //Función para modificar el la Máquina virtual

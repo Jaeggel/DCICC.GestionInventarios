@@ -160,7 +160,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerMarcasComp()
         {
             MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
-            return Json(objMarcasAccDatos.ObtenerMarcas("Comp").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objMarcasAccDatos.ObtenerMarcas("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener las Marcas habilitadas de la base de datos
@@ -169,7 +169,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerMarcasHab()
         {
             MarcasAccDatos objMarcasAccDatos = new MarcasAccDatos((string)Session["NickUsuario"]);
-            return Json(objMarcasAccDatos.ObtenerMarcas("Hab").ListaObjetoInventarios, JsonRequestBehavior.AllowGet);
+            return Json(objMarcasAccDatos.ObtenerMarcas("Hab"), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

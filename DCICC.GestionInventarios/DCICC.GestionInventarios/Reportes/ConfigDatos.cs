@@ -49,12 +49,8 @@ namespace DCICC.GestionInventarios.Reportes
             foreach (DataRow r in dtInfoActivosQR.Rows)
             {
                 Activos objActivo = new Activos();
-                objActivo.NombreTipoActivo=r[1].ToString();
-                objActivo.NombreActivo= r[2].ToString();
-                objActivo.NombreMarca = r[3].ToString();
-                objActivo.NombreLaboratorio = r[4].ToString();
-                objActivo.ResponsableActivo= r[5].ToString();
-                objActivo.IdCQR= r[6].ToString();
+                objActivo.NombreActivo= r[3].ToString();
+                objActivo.IdCQR= r[1].ToString();
                 lstActivos.Add(objActivo);
             }
             return lstActivos;

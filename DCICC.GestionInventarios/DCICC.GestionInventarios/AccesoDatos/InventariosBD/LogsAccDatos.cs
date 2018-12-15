@@ -37,7 +37,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesLogs msjLogs = new MensajesLogs();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync(!string.IsNullOrEmpty(nombreFuncion) ? "Logs/ObtenerLogs"+nombreFuncion:"Logs/ObtenerLogs").Result;
+                HttpResponseMessage response = client_Service.GetAsync(!string.IsNullOrEmpty(nombreFuncion) ? string.Format("Logs/ObtenerLogs{0}",nombreFuncion):"Logs/ObtenerLogs").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var logsJson = response.Content.ReadAsStringAsync().Result;

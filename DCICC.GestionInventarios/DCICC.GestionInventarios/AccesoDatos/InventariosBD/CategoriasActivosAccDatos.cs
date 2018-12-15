@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("CategoriasActivos/ObtenerCategoriasActivos"+nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("CategoriasActivos/ObtenerCategoriasActivos{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var catJson = response.Content.ReadAsStringAsync().Result;

@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("TipoActivo/ObtenerTipoActivo" + nombreFuncion).Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("TipoActivo/ObtenerTipoActivo{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var TipoActivoJson = response.Content.ReadAsStringAsync().Result;

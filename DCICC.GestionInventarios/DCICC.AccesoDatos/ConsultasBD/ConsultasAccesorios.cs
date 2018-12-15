@@ -100,6 +100,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjAccesorios.OperacionExitosa = false;
                 msjAccesorios.MensajeError = e.Message;
             }
@@ -116,7 +117,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_accesorio FROM public.dcicc_accesorio;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_accesorio,id_cqr FROM public.dcicc_accesorio;", conn_BD))
                 {
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -125,6 +126,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             Accesorios objAccesorios = new Accesorios
                             {
                                 NombreAccesorio = dr[0].ToString().Trim(),
+                                IdCQR = dr[1].ToString().Trim(),
                             };
                             lstAccesorios.Add(objAccesorios);
                         }
@@ -136,6 +138,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjAccesorios.OperacionExitosa = false;
                 msjAccesorios.MensajeError = e.Message;
             }

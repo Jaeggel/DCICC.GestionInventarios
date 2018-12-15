@@ -6,6 +6,7 @@ using DCICC.Entidades.MensajesInventarios;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
@@ -162,6 +163,27 @@ namespace DCICC.WebServiceInventarios.Controllers
                 Logs.Error(msjAccesorios.MensajeError);
             }
             return msjAccesorios;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// </summary>
+        /// <param name="lstActivos"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarCQR")]
+        public MensajesCQR ActualizarCQR([FromBody] List<Accesorios> lstAccesorios)
+        {
+            MensajesCQR msjCQR = null;
+            ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
+            msjCQR = objActualizacionesAccesoriosBD.ActualizacionQR(lstAccesorios);
+            if (msjCQR.OperacionExitosa)
+            {
+                Logs.Info("Actualización de Lista de CQRs realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjCQR.MensajeError);
+            }
+            return msjCQR;
         }
         #endregion
     }

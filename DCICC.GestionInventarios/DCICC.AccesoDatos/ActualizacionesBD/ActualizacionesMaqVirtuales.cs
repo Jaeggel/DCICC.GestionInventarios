@@ -47,6 +47,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjMaqVirtuales.OperacionExitosa = false;
                 msjMaqVirtuales.MensajeError = e.Message;
             }
@@ -75,6 +76,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             }
             catch (Exception e)
             {
+                conn_BD.Close();
                 msjMaqVirtuales.OperacionExitosa = false;
                 msjMaqVirtuales.MensajeError = e.Message;
             }

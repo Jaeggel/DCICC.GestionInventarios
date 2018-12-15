@@ -14,6 +14,8 @@ var cmbTipoAccesorio;
 //Historicos
 var datosHistoricos;
 var fechasHist = [];
+//Esp Adicionales
+var datosEspAdicionales;
 
 /**
  * *********************************************************************************
@@ -29,16 +31,20 @@ function obtenerActivos(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosActivos = data;
-            cargarActivosTabla();
-            $('#dataTableActivos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
-            cargarEstadosActivoCmb();
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                datosActivos = data.ListaObjetoInventarios;
+                cargarActivosTabla();
+                $('#dataTableActivos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
+                cargarEstadosActivoCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }
@@ -50,8 +56,13 @@ function datosTipoActivo(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoActivo = data;
-            cargarTipoActivoCmb();
+            if (data.OperacionExitosa) {
+                cmbTipoActivo = data.ListaObjetoInventarios;
+                cargarTipoActivoCmb();
+                cargarTipoActivoAdicionalesCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }         
         }
     });
 }
@@ -63,8 +74,12 @@ function datosLaboratorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbLaboratorio = data;
-            cargarLaboratoriosCmb();
+            if (data.OperacionExitosa) {
+                cmbLaboratorio = data.ListaObjetoInventarios;
+                cargarLaboratoriosCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }          
         }
     });
 }
@@ -76,8 +91,12 @@ function datosMarcas(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbMarcas = data;
-            cargarMarcasCmb();
+            if (data.OperacionExitosa) {
+                cmbMarcas = data.ListaObjetoInventarios;
+                cargarMarcasCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
         }
     });
 }
@@ -89,7 +108,7 @@ function cargarTipoActivoCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbTipoActivo.length; i++) {
         str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarTipoActivo").html(str);
     ///////CAMBIO DEL COMBOBOX
@@ -114,7 +133,7 @@ function cargarLaboratoriosCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbLaboratorio.length; i++) {
         str += '<option value="' + cmbLaboratorio[i].IdLaboratorio + '">' + cmbLaboratorio[i].NombreLaboratorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarLaboratorios").html(str);
 
@@ -139,7 +158,7 @@ function cargarMarcasCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbMarcas.length; i++) {
         str += '<option value="' + cmbMarcas[i].IdMarca + '">' + cmbMarcas[i].NombreMarca + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarMarcas").html(str);
 
@@ -167,8 +186,7 @@ function cargarEstadosActivoCmb() {
         if (cmbEstados[i] != "DE BAJA") {
             str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
         }
-
-    };
+    }
     str += '</select>';
     $("#cargarEstadosActivo").html(str);
     //Método para búsqueda con filtros
@@ -302,15 +320,19 @@ function obtenerAccesorios(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            console.log("Datos Exitosos");
-            datosAccesorios = data;
-            cargarAccesoriosTabla();
-            $('#dataTableAccesorios').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            if (data.OperacionExitosa) {
+                console.log("Datos Exitosos");
+                datosAccesorios = data.ListaObjetoInventarios;
+                cargarAccesoriosTabla();
+                $('#dataTableAccesorios').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }            
         }
     });
 }
@@ -322,9 +344,13 @@ function datosTipoAccesorio(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            cmbTipoAccesorio = data;
-            cargarAccesoriosCmb();
-            cargarEstadosAccesoriosCmb();
+            if (data.OperacionExitosa) {
+                cmbTipoAccesorio = data.ListaObjetoInventarios;
+                cargarAccesoriosCmb();
+                cargarEstadosAccesoriosCmb();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }           
         }
     });
 }
@@ -337,7 +363,7 @@ function cargarAccesoriosCmb() {
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbTipoAccesorio.length; i++) {
         str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
-    };
+    }
     str += '</select>';
     $("#cargarTipoAccesorio").html(str);
     //Método para búsqueda con filtros
@@ -363,9 +389,8 @@ function cargarEstadosAccesoriosCmb() {
     for (var i = 0; i < cmbEstados.length; i++) {
         if (cmbEstados[i]!="DE BAJA") {
             str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-        }
-        
-    };
+        }       
+    }
     str += '</select>';
     $("#cargarEstadosAccesorio").html(str);
     //Método para búsqueda con filtros
@@ -419,17 +444,22 @@ function obtenerHistoricos(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosHistoricos = data;
-            cargarHistoricosTabla();
-            $('#dataTableHistoricos').DataTable({
-                "language": {
-                    "url": url_idioma
-                },
-                "order": [[1, "asc"]]
-            });
+            if (data.OperacionExitosa) {
+                datosHistoricos = data.ListaObjetoInventarios;
+                cargarHistoricosTabla();
+                $('#dataTableHistoricos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }           
         }
     });
 }
+
 
 /* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
@@ -522,4 +552,87 @@ function consultarFechasHist() {
         }
     );
     table.draw();
+}
+
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON ESPECIFICACIONES ADICIONALES
+ * *********************************************************************************
+ */
+
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
+//Método ajax para obtener accesorios
+function obtenerEspAdicionales(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            if (data.OperacionExitosa) {
+                datosEspAdicionales = data.ListaObjetoInventarios;
+                cargaEspAdicionalesTabla();
+                $('#dataTableEspAdicionales').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[0, "asc"]]
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }         
+        }
+    });
+}
+
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+//Función para cargar el combobox de tipo de activo
+function cargarTipoActivoAdicionalesCmb() {
+    var str = '<select id="TipoActivoAdicionales" class="form-control" name="TipoActivoAdicionales">';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbTipoActivo.length; i++) {
+        str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
+    }
+    str += '</select>';
+    $("#cargarTipoActivoAdicionales").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#TipoActivoAdicionales').change(function () {
+        var opcion = document.getElementById("TipoActivoAdicionales");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableEspAdicionales').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableEspAdicionales').DataTable().column(0).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar la tabla de Activos
+function cargaEspAdicionalesTabla() {
+    var str = '<table id="dataTableEspAdicionales" class="table jambo_table bulk_action table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Express Service Code</th> <th>Fecha Manufactura</th> <th>Número de Puertos</th> <th>Versión de IOS</th> <th>Capacidad de Disco</th> <th>Velocidad de Transferencia</th>  <th>Product Name</th> <th>HPE Part Number</th> <th>Código de Barras 1</th> <th>Código de Barras 2</th> <th>CT Code</th></tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosEspAdicionales.length; i++) {
+        str += '<tr><td>' + datosEspAdicionales[i].NombreTipoActivo +
+            '</td><td>' + datosEspAdicionales[i].NombreActivo +
+            '</td><td>' + datosEspAdicionales[i].ExpressServiceCodeActivo +
+            '</td><td>' + datosEspAdicionales[i].FechaManufacturaActivo +
+            '</td><td>' + datosEspAdicionales[i].NumPuertosActivo +
+            '</td><td>' + datosEspAdicionales[i].IosVersionActivo +
+            '</td><td>' + datosEspAdicionales[i].CapacidadActivo +
+            '</td><td>' + datosEspAdicionales[i].VelocidadTransfActivo+
+            '</td><td>' + datosEspAdicionales[i].ProductNameActivo +
+            '</td><td>' + datosEspAdicionales[i].HpePartNumberActivo +
+            '</td><td>' + datosEspAdicionales[i].CodBarras1Activo +
+            '</td><td>' + datosEspAdicionales[i].CodBarras2Activo +
+            '</td><td>' + datosEspAdicionales[i].CtActivo;
+            str += '</td ></tr> ';
+    }
+    str += '</tbody>' +
+        '</table > ';
+    $("#tablaReportesAdicionales").html(str);
 }

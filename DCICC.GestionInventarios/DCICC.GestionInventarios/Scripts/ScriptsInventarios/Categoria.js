@@ -14,14 +14,18 @@ function obtenerCategorias(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            datosCategorias = data;
-            cargarCategoriaTabla();
-            cargarNombresCategoria();
-            $('#dataTableCategorias').DataTable({
-                "language": {
-                    "url": url_idioma
-                }
-            });
+            if (data.OperacionExitosa) {
+                datosCategorias = data.ListaObjetoInventarios;
+                cargarCategoriaTabla();
+                cargarNombresCategoria();
+                $('#dataTableCategorias').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    }
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }            
         }
     });
 }

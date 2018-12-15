@@ -235,7 +235,7 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para actualizar un activo: {0}",e.Message));
+                Logs.Error(string.Format("Error en la conexión para actualizar un CQR: {0}",e.Message));
             }
             return msjActivos;
         }
