@@ -4791,6 +4791,7 @@
     <Content Include="Views\LUN\ModificarLUN.cshtml" />
     <Content Include="Views\LUN\NuevoStorage.cshtml" />
     <Content Include="Views\Activos\ConsultaCQR.cshtml" />
+    <Content Include="Views\Shared\_LayoutPasantes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

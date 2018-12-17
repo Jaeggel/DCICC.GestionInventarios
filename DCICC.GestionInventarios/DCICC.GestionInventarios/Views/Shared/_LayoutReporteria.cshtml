@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Inventarios y Ticketing para Soporte Técnico</title>
-    <link rel="shortcut icon" type="image/ico" href="@Url.Content("~/favicon.ico")">
+    <link rel="shortcut icon" type="image/ico" href="@Url.Content("~/Content/Images/LogoUPSCircular.ico")">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script type="text/javascript" src="~/Content/Tema/vendors/jquery/dist/jquery.min.js"></script>
@@ -53,13 +53,17 @@
                         <div class="menu_section">
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                @* Seccción de enlaces Reportes de Activos *@
+                                <li>
+                                    @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
+                                    <a href="@Url.Action("Index", "Home")" accesskey="h"><i class="fa fa-home"></i> Home</a>
+                                </li>
+                                @* Seccción de enlaces Reportes*@
                                 <li>
                                     @*Sección de enlaces para generación de reportes*@
                                     <a><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         @* Seccción de enlaces a reportes de Activos *@
-                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")">Activos de TI</a></li>
+                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")" accesskey="r">Activos de TI</a></li>
                                         @* Seccción de enlaces a reportes de Máquinas virtuales *@
                                         <li><a href="@Url.Action("ReportesMaqVirtuales", "Reportes")">Máquinas Virtuales</a></li>
                                         @* Seccción de enlaces a reportes de Tickets *@
@@ -91,7 +95,7 @@
                                 @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="@Url.Action("PerfilUsuario", "Usuarios")"> Perfil</a></li>
-                                    <li><a href="">Ayuda</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#combinacion">Ayuda</a></li>
                                     <li><a onclick="cerrarSesion('@Url.Action("CerrarSesion", "Login")','@Url.Action("Login", "Login")')"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a></li>
                                 </ul>
                             </li>
@@ -121,6 +125,40 @@
                 <div class="clearfix"></div>
             </footer>
             <!-- /footer content -->
+        </div>
+    </div>
+    @*Modal de Ayuda*@
+    <div class="modal fade product_view" id="combinacion">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                    <h3 class="modal-title">Ayuda</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</b>
+                            <ul>
+                                <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b align="justify">Generación de Reportes: </b>
+                            <ol>
+                                <li>Ir a Reportes, seleccionar la categóría de reportes requerida:</li>
+                                <li>
+                                    Aplicar los filtros necesarios.<br />
+                                    En caso de haber aplicado filtros con rangos de fecha, se recomienda usar el botón Limpiar para realizar otra búsqueda.
+                                </li>
+                                <li>Clic en el bóton Reporte PDF o Reporte Excel.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
