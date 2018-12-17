@@ -48,8 +48,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 };
                                 lstTipoActivo.Add(objTipoActivo);
                             }
-                        }
-                        else
+                        }else if(nombreFuncion== "tipoactivocategorias")
                         {
                             while (dr.Read())
                             {

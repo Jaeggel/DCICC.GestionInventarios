@@ -24,7 +24,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesLogs msjLogs = null;
             ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
-            msjLogs = objConsultasLogsBD.ObtenerLogsComp();
+            msjLogs = objConsultasLogsBD.ObtenerLogs("consultalogs");
             if (msjLogs.OperacionExitosa)
             {
                 Logs.Info("Consulta de Logs realizada exitosamente.");
@@ -44,7 +44,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesLogs msjLogs = null;
             ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
-            msjLogs = objConsultasLogsBD.ObtenerLogs();
+            msjLogs = objConsultasLogsBD.ObtenerLogs("");
             if (msjLogs.OperacionExitosa)
             {
                 Logs.Info("Consulta de Logs realizada exitosamente.");

@@ -16,65 +16,148 @@
     <li><a class="active">Modificar Rol</a></li>
 </ul>
 <div class="row">
-    @* Panel para mostrar la tabla de modificación de roles*@
+    @* Panel para mostrar la tabla de modificación de Roles *@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <div class="x-content">
                     <div class="col-md-6 col-sm-12 col-xs-12 ">
-                        <h3>Listado de Roles de Usuario</h3>
+                        <h3>Listado de Roles</h3>
                     </div>
                 </div>
-                @* Sección para botones de ingresar nuevo rol y actualizar página *@
+                @* Sección para botones de ingresar un nuevo Rol y actualizar página *@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoRol", "Roles")'"><i class="fa fa-plus"></i> Agregar Rol</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarRol", "Roles")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerRoles('@Url.Action("ObtenerRolesComp", "Roles")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br>
-                @* Sección para la tabla de modificación mediante js *@
-                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tablaModificarRoles">
+                @* Sección para la tabla de modificación de Roles mediante js *@
+                <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                    <div id="tablaModificarRoles">
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+@* Modal de modificación de Roles *@
+<div class="modal fade" id="ModificarRoles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modificar Roles</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            <br>
+                            @* Formulario para envio de datos de los componentes para la modificación de Roles
+                                (Metodo de la clase) - Controlador (Controller) *@
+                            <div class="form">
+                                <div class="form-horizontal form-label-left input_mask">
+                                    @* Cuadro de texto para el ingreso del nombre de un Rol *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <label>Nombre del Rol</label>
+                                        <input id="NombreRol" type="text" class="form-control has-feedback-left" name="NombreRol" placeholder="NETWORKING_1" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarNombreModificación();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="errorNombreLab" style="color:brown;"></span>
+                                    </div>
+                                    @* Sección para seleccionar los permisos sobre las tablas que tendrá el rol de usuario.*@
+                                    <div class="form-group">
+                                        <label class="col-md-12 col-sm-12 col-xs-12">Escoja permisos para las Entidades: </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <table style="width:100%; border:0;" class="table-responsive">
+                                                <tr>
+                                                    <th>Entidad</th>
+                                                    <th>Permiso</th>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Todos*</b></td>
+                                                    <td>
+                                                        <div class="checkbox">
+                                                            <input name="PermisoAdministracion" id="PermisoAdministracion" type="checkbox" class="js-switch" value="true" />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Activos de TI</td>
+                                                    <td>
+                                                        <div class="checkbox">
+                                                            <input name="PermisoActivos" id="PermisoActivos" type="checkbox" class="js-switch" value="true">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Máquinas Virtuales</td>
+                                                    <td>
+                                                        <div class="checkbox">
+                                                            <input name="PermisoMaqVirtuales" id="PermisoMaqVirtuales" type="checkbox" class="js-switch" value="true">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tickets</td>
+                                                    <td>
+                                                        <div class="checkbox">
+                                                            <input name="PermisoTickets" id="PermisoTickets" type="checkbox" class="js-switch" value="true">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Reportes</td>
+                                                    <td>
+                                                        <div class="checkbox">
+                                                            <input name="PermisoReportes" id="PermisoReportes" type="checkbox" class="js-switch" value="true">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+
+                                    @* Área de Texto para el ingreso de la descripción de un Rol *@
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                        <textarea id="DescripcionRol" name="DescripcionRol" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Rol" onkeyup="this.value=this.value.replace(validarTextos(),'');" data-toggle="tooltip" data-placement="rigth" title="" maxlength="150"></textarea>
+                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                    @* Checkbox para habilitar o deshabilitar el uso del nuevo Rol *@
+                                    <div class="form-group">
+                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Rol?</label>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input id="HabilitadoRol" name="HabilitadoRol" type="checkbox" class="js-switch" value="true" checked />
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    @* Sección de botones para guardar un Rol o cancelar el registro *@
+                                    <div class="form-group text-center">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button id="confirmarLab" type="submit" class="btn btn-success" onclick="modificarRol('@Url.Action("ModificarRol", "Roles")');">Modificar</button>
+                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
 @if (TempData["Mensaje"] != null)
 {
     <script type="text/javascript">
@@ -87,9 +170,29 @@
 {
     <script type="text/javascript">
         window.onload = function () {
-            showNotify("Error en el Registro", '@TempData["MensajeError"]', "error");
+            showNotify("Error al registrar Rol", '@TempData["MensajeError"]', "error");
         }
     </script>
 }
-
-
+@* Seccción para llamar al js de Roles *@
+<script src="~/Scripts/ScriptsInventarios/Roles.js"></script>
+<script>
+    $(document).ready(function () {
+        //Método para obtener la tabla de Roles
+        @*obtenerRoles('@Url.Action("ObtenerRolesComp", "Roles")');
+        urlEstados('@Url.Action("ModificarEstadoRol", "Roles")');
+        mensajesTooltips();
+         //Función para setear nullos los valores del modal
+        $('#ModificarRoles').on('hidden.bs.modal', function () {
+			$(".modal-body input").css("borderColor", "#ccc");
+			$(".modal-body textarea").css("borderColor", "#ccc");
+            $(".modal-body textarea[id=DescripcionRol]").val("");
+            $(".modal-body span[id=errorNombreLab]").html('').hide();
+            $(".modal-body span[id=errorUbicacionLab]").html('').hide();
+            $("#NombreRol").tooltip('hide');
+            $("#UbicacionRol").tooltip('hide');
+            $("#DescripcionRol").tooltip('hide');
+            document.getElementById("confirmarLab").disabled = false;
+        });*@
+    });
+</script>

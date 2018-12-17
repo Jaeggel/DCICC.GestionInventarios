@@ -77,5 +77,31 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjRoles;
         }
         #endregion
+        #region Actualizaciones
+        /// <summary>
+        /// Método para actualizar un Rol en la base de datos.
+        /// </summary>
+        /// <param name="infoRol"></param>
+        /// <param name="actEstado">Boolean para definir si se actualizará solo el estado o todo el registro</param>
+        /// <returns></returns>
+        public MensajesRoles ActualizarRol(Roles infoRol, bool actEstado)
+        {
+            MensajesRoles msjRoles = new MensajesRoles();
+            try
+            {
+                var response = client_Service.PostAsJsonAsync(actEstado ? "Roles/ActualizarEstadoRol" : "Roles/ActualizarRol", infoRol).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var RolesJson = response.Content.ReadAsStringAsync().Result;
+                    msjRoles = JsonConvert.DeserializeObject<MensajesRoles>(RolesJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la conexión para actualizar un Rol: {0}", e.Message));
+            }
+            return msjRoles;
+        }
+        #endregion
     }
 }

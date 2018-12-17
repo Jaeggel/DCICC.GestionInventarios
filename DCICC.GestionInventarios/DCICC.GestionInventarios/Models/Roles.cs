@@ -14,5 +14,15 @@ namespace DCICC.GestionInventarios.Models
         public string DescripcionRol { get; set; }
 
         public bool HabilitadoRol { get; set; }
+
+        public bool PermisoActivos { get; set; }
+
+        public bool PermisoMaqVirtuales { get; set; }
+
+        public bool PermisoTickets { get; set; }
+
+        public bool PermisoReportes { get; set; }
+
+        public bool PermisoAdministracion { get; set; }
     }
 }

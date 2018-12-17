@@ -40,130 +40,28 @@
                         </div>
                         @* Sección para seleccionar los permisos sobre las tablas que tendrá el rol de usuario.*@
                         <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">Escoja permisos para tablas: </label>
+                            <label class="col-md-12 col-sm-12 col-xs-12">Escoja permisos para las Entidades: </label>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
                                 <table style="width:100%; border:0;" class="table-responsive">
                                     <tr>
-                                        <th>Tabla</th>
-                                        <th>Select</th>
-                                        <th>Insert</th>
-                                        <th>Update</th>
-                                        <th>Delete</th>
+                                        <th>Entidad</th>
+                                        <th>Permiso</th>
                                     </tr>
                                     <tr>
                                         <td><b>Todos*</b></td>
                                         <td>
                                             <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TodosSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TodosInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TodosUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TodosDelete">
+                                                <input name="PermisoAdministracion" id="PermisoAdministracion" type="checkbox" class="js-switch" value="true" />
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Accesorio</td>
+                                        <td>Activos de TI</td>
                                         <td>
                                             <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="AccesorioSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="AccesorioInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="AccesorioUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="AccesorioDelete">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Categoría Activos</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="CategoriaActSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="CategoriaActInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="CategoriaActUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="CategoriaActDelete">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Detalle Activos</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="DetalleActSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="DetalleActInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="DetalleActUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="DetalleActDelete">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Laboratorios</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="LaboratoriosSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="LaboratoriosInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="LaboratoriosUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="LaboratoriosDelete">
+                                                <input  name="PermisoActivos" id="PermisoActivos" type="checkbox" class="js-switch" value="true">
                                             </div>
                                         </td>
                                     </tr>
@@ -171,68 +69,7 @@
                                         <td>Máquinas Virtuales</td>
                                         <td>
                                             <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MaqVirtualesSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MaqVirtualesInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MaqVirtualesUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MaqVirtualesDelete">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Marca</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MarcaSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MarcaInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MarcaUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="MarcaDelete">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sistemas Operativos</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="SistOperativosSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="SistOperativosInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="SistOperativosUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="SistOperativosDelete">
+                                                <input name="PermisoMaqVirtuales" id="PermisoMaqVirtuales" type="checkbox" class="js-switch" value="true" >
                                             </div>
                                         </td>
                                     </tr>
@@ -240,68 +77,15 @@
                                         <td>Tickets</td>
                                         <td>
                                             <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TicketsSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TicketsInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TicketsUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TicketsDelete">
+                                                <input name="PermisoTickets" id="PermisoTickets" type="checkbox" class="js-switch" value="true" >
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Tipo Accesorio</td>
+                                        <td>Reportes</td>
                                         <td>
                                             <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoAccesorioSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoAccesorioInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoAccesorioUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoAccesorioDelete">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tipo Activos</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoActivoSelect">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoActivoInsert">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoActivoUpdate">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" class="flat" checked="checked" name="TipoActivoDelete">
+                                                <input name="PermisoReportes" id="PermisoReportes" type="checkbox" class="js-switch" value="true">
                                             </div>
                                         </td>
                                     </tr>
@@ -312,7 +96,7 @@
                         @* Área de Texto para el ingreso de la descripción de un nuevo rol*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <textarea class="form-control has-feedback-left" name="DescripcionRol" rows="3" placeholder="Descripción del rol" maxlength="150"></textarea>
-                            <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+                            <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Checkbox para habilitar o deshabilitar el uso del nuevo rol*@
                         <div class="form-group">
@@ -336,3 +120,26 @@
     </div>
     <div class="col-md-1 col-sm-12 col-xs-12"></div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var changeCheckboxAdmin = document.querySelector('#PermisoAdministracion');
+        var CheckboxAct = document.querySelector('#PermisoActivos');
+        var CheckboxMv = document.querySelector('#PermisoMaqVirtuales');
+        var CheckboxTk = document.querySelector('#PermisoTickets');
+        var CheckboxRp = document.querySelector('#PermisoReportes');
+        changeCheckboxAdmin.onchange = function () {
+            if ((changeCheckboxAdmin.checked && !CheckboxAct.checked) || (CheckboxAct.checked && !changeCheckboxAdmin.checked)) {
+                document.getElementById("PermisoActivos").click();
+            }
+            if ((changeCheckboxAdmin.checked && !CheckboxMv.checked) || (CheckboxMv.checked && !changeCheckboxAdmin.checked)) {
+                document.getElementById("PermisoMaqVirtuales").click();
+            }
+            if ((changeCheckboxAdmin.checked && !CheckboxTk.checked) || (CheckboxTk.checked && !changeCheckboxAdmin.checked)) {
+                document.getElementById("PermisoTickets").click();
+            }
+            if ((changeCheckboxAdmin.checked && !CheckboxRp.checked) || (CheckboxRp.checked && !changeCheckboxAdmin.checked)) {
+                document.getElementById("PermisoReportes").click();
+            }
+        };
+    });
+</script>
