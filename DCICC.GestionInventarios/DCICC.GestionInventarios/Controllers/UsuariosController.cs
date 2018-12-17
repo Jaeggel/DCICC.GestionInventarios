@@ -331,6 +331,14 @@ namespace DCICC.GestionInventarios.Controllers
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
         }
+        /// <summary>
+        /// Método para obtener el rol del Usuario Actual del Sistema de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerRolActual()
+        {
+            return Json((string)Session["PerfilUsuario"], JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }
