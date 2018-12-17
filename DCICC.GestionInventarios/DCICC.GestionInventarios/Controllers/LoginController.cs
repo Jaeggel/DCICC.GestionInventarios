@@ -58,17 +58,22 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             Session["PerfilUsuario"] = "Admin";
                         }
-                        else if (datosUsuario.NombreRol.ToLower() == "estudiante")
+                        else if (datosUsuario.NombreRol.ToLower() == "invitado")
                         {
-                            Session["PerfilUsuario"] = "Estudiantes";
+                            Session["PerfilUsuario"] = "Invitado";
                         }
-                        else if (datosUsuario.NombreRol.ToLower() == "reportes")
+                        else if (datosUsuario.NombreRol.ToLower() == "reporteria")
                         {
                             Session["PerfilUsuario"] = "Reporteria";
                         }
                         else if (datosUsuario.NombreRol.ToLower() == "pasante")
                         {
                             Session["PerfilUsuario"] = "Pasantes";
+                        }
+                        else if (datosUsuario.NombreRol.ToLower() == "docente")
+                        {
+                            TempData["MensajeError"] = "No cuenta con los permisos necesarios para ingresar al sistema.";
+                            CerrarSesion();
                         }
                         else
                         {
@@ -83,7 +88,7 @@ namespace DCICC.GestionInventarios.Controllers
                     }
                     else
                     {
-                        ViewData["MensajeLogin"] = "true";
+                        TempData["MensajeError"] = "Credenciales Incorrectas";
                         return View();
                     }
                 }

@@ -41,27 +41,13 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 {
                                     IdRol = (int)dr[0],
                                     NombreRol = dr[1].ToString().Trim(),
-                                    DescripcionRol = dr[2].ToString().Trim(),
-                                    HabilitadoRol = (bool)dr[3]
-                                };
-                                lstRoles.Add(objRoles);
-                            }
-                        }
-                        else 
-                        if(nombreFuncion =="")
-                        {
-                            while (dr.Read())
-                            {
-                                Roles objRoles = new Roles
-                                {
-                                    IdRol = (int)dr[0],
-                                    NombreRol = dr[1].ToString().Trim(),
-                                    PermisoActivos = (bool)dr[2],
-                                    PermisoMaqVirtuales = (bool)dr[3],
-                                    PermisoReportes = (bool)dr[4],
+                                    PermisoAdministracion = (bool)dr[2],
+                                    PermisoActivos = (bool)dr[3],
+                                    PermisoMaqVirtuales = (bool)dr[4],
                                     PermisoTickets = (bool)dr[5],
-                                    DescripcionRol = dr[6].ToString().Trim(),
-                                    HabilitadoRol = (bool)dr[7]
+                                    PermisoReportes = (bool)dr[6],
+                                    DescripcionRol = dr[7].ToString().Trim(),
+                                    HabilitadoRol = (bool)dr[8]
                                 };
                                 lstRoles.Add(objRoles);
                             }

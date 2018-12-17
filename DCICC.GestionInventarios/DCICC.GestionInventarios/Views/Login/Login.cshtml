@@ -22,7 +22,7 @@
                 <img src="~/Content/Images/LogoUps.png" class="center">
                 <section class="login_content">
                     @* Formulario para envio de datos de los componentes para el ingreso del usuario a acceder al sistema
-                    (Metodo de la clase) - Controlador (Controller) *@
+                        (Metodo de la clase) - Controlador (Controller) *@
                     @using (Html.BeginForm("Login", "Login"))
                     {
                         <h1>Inicio de Sesión</h1>
@@ -32,7 +32,7 @@
                         </div>
                         @* Cuadro de texto para el ingreso de la contraseña *@
                         <div class="text-left">
-                            <span id="errorPassword" style="color:brown;" ></span>
+                            <span id="errorPassword" style="color:brown;"></span>
                             <input id="PasswordUsuario" type="password" class="form-control" name="PasswordUsuario" placeholder="Contraseña" onkeyup="this.value=this.value.replace(validarPassword(),'');" onBlur="validarInputPass();" maxlength="25" required />
 
                         </div>
@@ -50,15 +50,24 @@
     @* Sección para la visualización de la animación de particulas en la página *@
     <div id="particles" />
     @Scripts.Render("~/bundles/jquery")
-    <script type="text/javascript" src="~/Scripts/ScriptsInventarios/Login.js"></script>    
+    <script type="text/javascript" src="~/Scripts/ScriptsInventarios/Login.js"></script>
 </body>
 </html>
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error de Autenticación", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
 <script type="text/javascript">
-    window.onload = function () {
+    @*window.onload = function () {
         if ("@ViewData["MensajeLogin"]"==="true") {
             showNotify("Error de Autenticación", "Credenciales Incorrectas", "error");
         }
-    };
+    };*@
     //Función para validar password
     function validarInputPass() {
         var passw = document.getElementById("PasswordUsuario");
