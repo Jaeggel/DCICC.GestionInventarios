@@ -264,3 +264,19 @@ function mensajesTooltips() {
     document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 
 }
+
+function botones(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+           
+            console.log(data);          
+            if (data == "Pasantes") {
+                $(':button').prop('disabled', false);
+            }           
+        }
+    });
+    
+}
