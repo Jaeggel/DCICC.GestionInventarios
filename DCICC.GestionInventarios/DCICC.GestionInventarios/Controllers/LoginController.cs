@@ -62,13 +62,17 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             Session["PerfilUsuario"] = "Estudiantes";
                         }
-                        else if (datosUsuario.NombreRol.ToLower() == "reportes")
+                        else if (datosUsuario.NombreRol.ToLower() == "reporteria")
                         {
                             Session["PerfilUsuario"] = "Reporteria";
                         }
                         else if (datosUsuario.NombreRol.ToLower() == "pasante")
                         {
                             Session["PerfilUsuario"] = "Pasantes";
+                        }
+                        else if (datosUsuario.NombreRol.ToLower() == "docente")
+                        {
+                            CerrarSesion();
                         }
                         else
                         {
