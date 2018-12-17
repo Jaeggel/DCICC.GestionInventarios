@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         readonly string path_JsonResponsable = System.Web.Hosting.HostingEnvironment.MapPath("~/Json/Responsable.json");
         static string Id_CQR = string.Empty;
         static string Nombre_Activo = string.Empty;
+        static string Tipo_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Vistas (GET)
@@ -89,6 +90,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             Id_CQR = string.Empty;
             Nombre_Activo = string.Empty;
+            Tipo_CQR = string.Empty;
             string mensajesActivos = string.Empty;
             MensajesActivos msjActivos = new MensajesActivos();
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
@@ -96,7 +98,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 if(objActivosAccDatos.ObtenerActivos("Nombres").ListaObjetoInventarios.Find(x => x.NombreActivo.Trim().ToLower() == infoActivo.NombreActivo.Trim().ToLower())==null)
                 {
-                    MensajesCQR msjCQR = NuevoCQR();
+                    Tipo_CQR = "ACT";
+                    MensajesCQR msjCQR = NuevoCQR(Tipo_CQR);
                     if (msjCQR.OperacionExitosa)
                     {
                         infoActivo.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
@@ -139,6 +142,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             Id_CQR = string.Empty;
             Nombre_Activo = string.Empty;
+            Tipo_CQR= string.Empty;
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
@@ -146,7 +150,8 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 if (objAccesoriosAccDatos.ObtenerAccesorios("Nombres").ListaObjetoInventarios.Find(x => x.NombreAccesorio.Trim().ToLower() == infoAccesorios.NombreAccesorio.Trim().ToLower()) == null)
                 {
-                    MensajesCQR msjCQR = NuevoCQR();
+                    Tipo_CQR = "ACC";
+                    MensajesCQR msjCQR = NuevoCQR(Tipo_CQR);
                     if (msjCQR.OperacionExitosa)
                     {
                         infoAccesorios.IdCQR = msjCQR.ObjetoInventarios.IdCqr;
@@ -180,9 +185,9 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para registrar el QR del nuevo Activo en la base de datos .
         /// </summary>
         /// <returns></returns>
-        public MensajesCQR NuevoCQR()
+        public MensajesCQR NuevoCQR(string tipoQR)
         {
-            GeneracionCQR objGeneracionQR = new GeneracionCQR();
+            GeneracionCQR objGeneracionQR = new GeneracionCQR(tipoQR);
             string IdCQR = objGeneracionQR.GenerarIdCodigoQR((string)Session["NickUsuario"]);
             var bitmap = objGeneracionQR.GenerarCodigoQR(IdCQR);
             var bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
@@ -464,7 +469,7 @@ namespace DCICC.GestionInventarios.Controllers
             byte[] bytesQR = null;
             try
             {
-                GeneracionCQR objGeneracionQR = new GeneracionCQR();
+                GeneracionCQR objGeneracionQR = new GeneracionCQR(Tipo_CQR);
                 var bitmapQR = objGeneracionQR.GenerarCodigoQR(Id_CQR);
                 bytesQR = objGeneracionQR.GenQRBytes(bitmapQR);
             }
