@@ -139,11 +139,14 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 foreach (var item in lstActivos)
                 {
-                    using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_cqr SET impreso_cqr=@imcq WHERE id_cqr=@icq;", conn_BD))
+                    if (!item.ImpresoCQR)
                     {
-                        cmd.Parameters.Add("imcq", NpgsqlTypes.NpgsqlDbType.Boolean).Value = true;
-                        cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = item.IdCQR;
-                        cmd.ExecuteNonQuery();
+                        using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_cqr SET impreso_cqr=@imcq WHERE id_cqr=@icq;", conn_BD))
+                        {
+                            cmd.Parameters.Add("imcq", NpgsqlTypes.NpgsqlDbType.Boolean).Value = true;
+                            cmd.Parameters.Add("icq", NpgsqlTypes.NpgsqlDbType.Varchar).Value = item.IdCQR;
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                 }
                 tran.Commit();
