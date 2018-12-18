@@ -74,6 +74,10 @@ function validarNombresMayusMinus() {
     return /[^a-zA-Z0-9_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
 
+function validarNombresRoles() {
+    return /[^a-z_\-.]/g;
+}
+
 function validarNombreSinNumeros() {
     return /[^A-Z_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
@@ -103,11 +107,11 @@ function validarIp() {
 }
 
 function validarCorreo(){
-    return /[^a-zA-Z0-9._9\-@]/g;
+    return /[^a-zA-Z0-9._\-@]/g;
 }
 
 function validarPassword() {
-    return /[^a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\^&\*\?_~\/]/g;
+    return /[^a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\^&\*\?_\-]/g;
 }
 
 
