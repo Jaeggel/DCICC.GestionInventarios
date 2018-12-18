@@ -63,9 +63,9 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             Session["PerfilUsuario"] = "Admin";
                         }
-                        else if (datosUsuario.NombreRol.ToLower() == "Invitado")
+                        else if (datosUsuario.NombreRol.ToLower() == "invitado")
                         {
-                            Session["PerfilUsuario"] = "invitado";
+                            Session["PerfilUsuario"] = "Invitado";
                         }
                         else if (datosUsuario.NombreRol.ToLower() == "reporteria")
                         {
