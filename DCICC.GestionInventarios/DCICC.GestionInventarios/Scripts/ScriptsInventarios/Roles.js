@@ -165,7 +165,7 @@ function formUpdateRol(idRol) {
 }
 
 //Función para modificar el rol especificado
-function modificarTipoActivo(url_modificar) {
+function modificarRol(url_modificar) {
     var nombre = document.getElementById("NombreRol").value;
     var activoTi = $('#PermisoActivos').prop('checked');
     var maqVir = $('#PermisoMaqVirtuales').prop('checked');

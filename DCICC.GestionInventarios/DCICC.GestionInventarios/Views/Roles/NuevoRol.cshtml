@@ -128,7 +128,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		//Método para obtener la tabla de Roles
-		obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
+		obtenerRoles('@Url.Action("ObtenerRolesComp", "Roles")');
 		mensajesTooltips();
 		//Método para evitar la duplicidad de nombres de Sistemas Operativos
 		$('#NombreRol').blur(function () {
