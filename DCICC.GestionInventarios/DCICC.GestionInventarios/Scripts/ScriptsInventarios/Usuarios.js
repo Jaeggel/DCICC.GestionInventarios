@@ -6,7 +6,12 @@ var idUsuarioModificar;
 var nick;
 var urlEstado;
 var nombresUsuarios = [];
+var correosUsuarios = [];
+var rolesEstablecidos = [];
+var nickActual;
+var correoActual;
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de los usuarios
 function obtenerUsuarios(url) {
     url_metodo = url;
@@ -38,9 +43,11 @@ function obtenerRoles(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            if (data.OperacionExitosa) {
+            console.log(data.OperacionExitosa);
+            if (data.OperacionExitosa) {              
                 cmbRoles = data.ListaObjetoInventarios;
                 cargarRolesCmb();
+                cargarRolesCmbModificar();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }       
@@ -48,21 +55,24 @@ function obtenerRoles(url) {
     });
 }
 
-
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 //Función para cargar la tabla de Usuarios
 function cargarUsuariosTabla() {
     var nick = document.getElementById("usuarioActual").innerHTML;
+    console.log(nick);
     var str = '<table id="dataTableUsuarios" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Dirección</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < datosUsuarios.length; i++) {
-        if (datosUsuarios[i].NickUsuario != nick) {
+        //if (datosUsuarios[i].NickUsuario != nick || datosUsuarios[i].NombresUsuario != nick) {
+        if ((datosUsuarios[i].NombresUsuario).toLowerCase() != nick.toLowerCase()) {
             str += '<tr><td>' + datosUsuarios[i].NombresUsuario +
                 '</td><td>' + datosUsuarios[i].NickUsuario +
                 '</td><td>' + datosUsuarios[i].NombreRol +
                 '</td><td>' + datosUsuarios[i].CorreoUsuario +
-                '</td><td>' + datosUsuarios[i].TelefonoCelUsuario;
+                '</td><td>' + datosUsuarios[i].TelefonoCelUsuario +
+                '</td><td>' + datosUsuarios[i].DireccionUsuario;
 
         if (datosUsuarios[i].HabilitadoUsuario) {
             str += '</td><td> Habilitado';
@@ -87,22 +97,40 @@ function cargarUsuariosTabla() {
 
 //Función para cargar el combobox de roles
 function cargarRolesCmb() {
-    var str = '<select id="IdRol" class="form-control" name="IdRol" onBlur = "validarCmbRol();" required>';
+    var str = '<select id="IdRol" class="form-control" name="IdRol" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbRoles.length; i++) {
-        str += '<option value="' + cmbRoles[i].IdRol + '">' + cmbRoles[i].NombreRol + '</option>';
+        rolesEstablecidos[i] = cmbRoles[i].NombreRol;
+        if (cmbRoles[i].HabilitadoRol) {
+            str += '<option value="' + cmbRoles[i].IdRol + '">' + cmbRoles[i].NombreRol + '</option>';
+        }              
     }
     str += '</select>';
     $("#cargarRoles").html(str);
 }
 
+//Función para cargar el combobox de roles
+function cargarRolesCmbModificar() {
+    var str = '<select id="IdRol" class="form-control" name="IdRol" required>';
+    for (var i = 0; i < cmbRoles.length; i++) {
+        rolesEstablecidos[i] = cmbRoles[i].NombreRol;
+        if (cmbRoles[i].HabilitadoRol) {
+            str += '<option value="' + cmbRoles[i].IdRol + '">' + cmbRoles[i].NombreRol + '</option>';
+        }
+    }
+    str += '</select>';
+    $("#cargarRolesModificar").html(str);
+}
+
+/* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
 //Función para setear los valores en los inputs
 function formUpdateUsuario(idUsuario) {
-    console.log(idUsuario);
     idUsuarioModificar = idUsuario;
     for (var i = 0; i < datosUsuarios.length; i++) {
-
         if (datosUsuarios[i].IdUsuario == idUsuario) {
+            nickActual = datosUsuarios[i].NickUsuario;
+            correoActual = datosUsuarios[i].CorreoUsuario;
+            rolActual = datosUsuarios[i].IdRol;
             //Métodos para setear los valores a modificar
             var element = document.getElementById("IdRol");
             element.value = datosUsuarios[i].IdRol;
@@ -131,6 +159,7 @@ function formUpdateUsuario(idUsuario) {
 function modificarUsuario(url_modificar) {
     var cmbRol = document.getElementById("IdRol");
     var idRol = cmbRol.options[cmbRol.selectedIndex].value;
+    var nomRol = cmbRol.options[cmbRol.selectedIndex].text;
     var nombreUsuario = document.getElementById("NombresUsuario").value;
     var correoUsuario = document.getElementById("CorreoUsuario").value;
     var nickUsuario = document.getElementById("NickUsuario").value;
@@ -141,44 +170,105 @@ function modificarUsuario(url_modificar) {
     var habilitadoUsuario = $('#HabilitadoUsuario').prop('checked');
 
     if (validarInputNombre() && validarInputCorreo() && validarInputNick() && validarInputPass() && validarCmbRol()) {
-        swal({
-            title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar el registro?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#26B99A',
-            cancelButtonColor: '#337ab7',
-            confirmButtonText: 'Confirmar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    data: { "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
-                    url: url_modificar,
-                    type: 'post',
-                    success: function (data) {
-                        console.log(data.OperacionExitosa);
-                        if (data.OperacionExitosa) {
-                            $('#ModificarUsuario').modal('hide');
-                            showNotify("Actualización exitosa", 'El usuario se ha modificado correctamente', "success");
-                            obtenerUsuarios(url_metodo);
-                        } else {
-                            $('#ModificarUsuario').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el usuario: ' + data.MensajeError, "error");
+        if (nickUsuarioActual != nickUsuario) {
+            swal({
+                title: 'Confirmación de Actualización',
+                text: "¿Está seguro de modificar datos del usuario?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#26B99A',
+                cancelButtonColor: '#337ab7',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
+                        url: urlModificar,
+                        type: 'post',
+                        success: function (data) {
+                            console.log(data.OperacionExitosa);
+                            if (data.OperacionExitosa) {
+                                //window.location.href = urlSalir;
+                                showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                            } else {
+                                $('#ModificarContraseña').modal('hide');
+                                showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                            }
                         }
+                    });
 
-                    }
-                });
+                } else {
+                }
+            });
+        } else if (idRol != rolActual) {
+            swal({
+                title: 'Confirmación de Actualización',
+                text: "¿Está seguro de modificar datos del usuario?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#26B99A',
+                cancelButtonColor: '#337ab7',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
+                        url: urlModificar,
+                        type: 'post',
+                        success: function (data) {
+                            console.log(data.OperacionExitosa);
+                            if (data.OperacionExitosa) {
+                                //window.location.href = urlSalir;
+                                showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                            } else {
+                                $('#ModificarContraseña').modal('hide');
+                                showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                            }
+                        }
+                    });
 
-            } else {
-                $('#ModificarUsuario').modal('hide');
-            }
-        });
+                } else {
+                }
+            });
+        } else {
+            swal({
+                title: 'Confirmación de Actualización',
+                text: "¿Está seguro de modificar el registro?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#26B99A',
+                cancelButtonColor: '#337ab7',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        data: { "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
+                        url: url_modificar,
+                        type: 'post',
+                        success: function (data) {
+                            console.log(data.OperacionExitosa);
+                            if (data.OperacionExitosa) {
+                                $('#ModificarUsuario').modal('hide');
+                                showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                obtenerUsuarios(url_metodo);
+                            } else {
+                                $('#ModificarUsuario').modal('hide');
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Usuario: ' + data.MensajeError, "error");
+                            }
+
+                        }
+                    });
+
+                } else {
+                    $('#ModificarUsuario').modal('hide');
+                }
+            });
+        }
     }
-
-    
 }
-
 
 
 //Función para obtener la url de modificación
@@ -194,10 +284,9 @@ function habilitarOdeshabilitar(idUsuario, estadoUsuario) {
     } else {
         nuevoEstado = true;
     }
-    console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado del Usuario?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -213,10 +302,10 @@ function habilitarOdeshabilitar(idUsuario, estadoUsuario) {
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El estado del Usuario se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado del Usuario se ha modificado exitosamente', "success");
                         obtenerUsuarios(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el estado del Usuario: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Tipo de Usuario: ' + data.MensajeError, "error");
                     }
                 }
             });
@@ -226,9 +315,31 @@ function habilitarOdeshabilitar(idUsuario, estadoUsuario) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CAMPOS DE AUTOCOMPLETE---------------------------------*/
+//Funciones para cargar el campo de autocompletado
+function cargarNombresUsuarios() {
+    for (var i = 0; i < datosUsuarios.length; i++) {
+        nombresUsuarios[i] = datosUsuarios[i].NickUsuario;
+        correosUsuarios[i] = datosUsuarios[i].CorreoUsuario;
+    }
+}
+//Función para cargar los nombres en el campo de nombre de laboratorios
+$(function () {
+    $("#NickUsuario").autocomplete({
+        source: nombresUsuarios
+    });
+});
+
+//Función para cargar los nombres en el campo de nombre de laboratorios
+$(function () {
+    $("#CorreoUsuario").autocomplete({
+        source: correosUsuarios
+    });
+});
+
+/* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar correos electronicos repertidos
 function comprobarCorreo(correo) {
-    console.log(correo)
     correo = correo.toLowerCase();
     var comprobar = false;
     for (var i = 0; i < datosUsuarios.length; i++) {
@@ -236,13 +347,33 @@ function comprobarCorreo(correo) {
             comprobar = true;
         }
     }
-
-    console.log(comprobar);
-
     if (comprobar == true) {
-        document.getElementById("CorreoUsuario").setCustomValidity("El correo " + correo + " ya existe");
+        document.getElementById("CorreoUsuario").setCustomValidity("El correo: '" + correo + "' ya existe");
     } else {
         document.getElementById("CorreoUsuario").setCustomValidity("");
+    }
+}
+
+//Función para evitar correos electronicos repertidos
+function comprobarCorreoModificar() {
+    var correo = document.getElementById("CorreoUsuario");
+    correo.value = correo.value.toLowerCase();
+    var comprobar = false;
+    if (correo.value != correoActual.toLowerCase()) {
+        for (var i = 0; i < datosUsuarios.length; i++) {
+            if (datosUsuarios[i].CorreoUsuario == correo.value) {
+                comprobar = true;
+            }
+        }
+    }
+    console.log(comprobar);
+    if (comprobar == true) {
+        correo.style.borderColor = "#900C3F";
+        $('#errorCorreo').html('El correo ' + correo.value + ' ya existe.').show();
+        setTimeout("$('#errorCorreo').html('').hide('slow')", 6000);
+    } else {
+        correo.style.borderColor = "#ccc";
+        $('#errorCorreo').html('').hide();
     }
 }
 
@@ -254,11 +385,16 @@ function comprobarNick() {
         nick.style.borderColor = "#900C3F";
         $('#errorNick').html('El campo nick de usuario no debe estar vacio').show();
         setTimeout("$('#errorNick').html('').hide('slow')", 6000);
+    } else if (comprobarRol_Nick()) {
+        nick.style.borderColor = "#900C3F";
+        $('#errorNick').html("El nick de usuario: '" + nick.value + "' no puede ser igual a un nombre de rol").show();
+        setTimeout("$('#errorNick').html('').hide('slow')", 7000);
+        nick.value = "";
     } else {
         for (var i = 0; i < datosUsuarios.length; i++) {
             if ((datosUsuarios[i].NickUsuario).toLowerCase() == nick.value) {
                 nick.style.borderColor = "#900C3F";
-                $('#errorNick').html("El nick de usuario: " + nick.value + " ya existe").show();
+                $('#errorNick').html("El nick de usuario: '" + nick.value + "' ya existe").show();
                 setTimeout("$('#errorNick').html('').hide('slow')", 6000);
                 nick.value = "";
                 break;
@@ -270,20 +406,52 @@ function comprobarNick() {
     }
 }
 
-/////////////////////////Funciones para cargar el campo de autocompletado
-function cargarNombresUsuarios() {
-    for (var i = 0; i < datosUsuarios.length; i++) {
-        nombresUsuarios[i] = datosUsuarios[i].NickUsuario;
+//Funcion para evitar nombre de usuario como rol
+function comprobarRol_Nick() {
+    var comprobar = false;
+    var nick = document.getElementById("NickUsuario");
+    nick.value = nick.value.toLowerCase();
+    for (var i = 0; i < rolesEstablecidos.length; i++) {
+        if ((rolesEstablecidos[i]).toLowerCase() == nick.value) {
+            comprobar = true;          
+            break;
+        } 
+    }
+    ///.log(comprobar);
+    return comprobar;
+}
+
+//función para comprobar el nick en modificación
+function comprobarNickModificacion() {
+    var nick = document.getElementById("NickUsuario");
+    nick.value = nick.value.toLowerCase();
+    if (comprobarRol_Nick()) {
+        nick.style.borderColor = "#900C3F";
+        $('#errorNick').html("El nick de usuario: '" + nick.value + "' no puede ser igual a un nombre de rol").show();
+        setTimeout("$('#errorNick').html('').hide('slow')", 7000);
+        nick.value = "";
+    } else if (nick.value != nickActual.toLowerCase()) {
+        for (var i = 0; i < datosUsuarios.length; i++) {
+            if ((datosUsuarios[i].NickUsuario).toLowerCase() == nick.value) {
+                nick.style.borderColor = "#900C3F";
+                $('#errorNick').html("El nick de usuario: '" + nick.value + "' ya existe").show();
+                setTimeout("$('#errorNick').html('').hide('slow')", 6000);
+                nick.value = "";
+                break;
+            } else {
+                nick.style.borderColor = "#ccc";
+                $('#errorNick').html('').hide();
+            }
+        }
+    } else {
+        nick.style.borderColor = "#ccc";
+        $('#errorNick').html('').hide();
     }
 }
-//Función para cargar los nombres en el campo de nombre de laboratorios
-$(function () {
-    $("#NickUsuario").autocomplete({
-        source: nombresUsuarios
-    });
-});
 
-/////////////Funciones para validaciones de campos de texto
+
+
+//Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
     var boton = document.getElementById("confirmarUsuario");
@@ -303,7 +471,7 @@ function validarInputNombre() {
     return esValido;
 }
 
-/////////////Funciones para validaciones de campos de texto
+///Funciones para validaciones de campos de texto
 function validarInputCorreo() {
     var esValido = true;
     var boton = document.getElementById("confirmarUsuario");
@@ -328,7 +496,6 @@ function validarInputCorreo() {
 //Función para validar el nombre de Usuario
 function validarInputNick() {
     var esValido = true;
-    var boton = document.getElementById("confirmarUsuario");
     var nick = document.getElementById("NickUsuario");
 
     if (nick.value.length <= 0) {
@@ -336,11 +503,9 @@ function validarInputNick() {
         nick.style.borderColor = "#900C3F";
         $('#errorNick').html('El campo nick de usuario no debe estar vacio').show();
         setTimeout("$('#errorNick').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nick.style.borderColor = "#ccc";
         $('#errorNick').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -372,10 +537,9 @@ function validarInputPass() {
 }
 
 
-///Función para validar los combobox de maquinas virtuales
+///Función para validar los combobox de roles
 function validarCmbRol() { 
     var esValido = true;
-    var boton = document.getElementById("confirmarUsuario");
     var cmbRol = document.getElementById("IdRol");
     
     //Validación para el combobox de SO
@@ -384,22 +548,21 @@ function validarCmbRol() {
         cmbRol.style.borderColor = "#900C3F";
         $('#errorRol').html('Debe seleccionar una opción').show();
         setTimeout("$('#errorRol').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         cmbRol.style.borderColor = "#ccc";
         $('#errorRol').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
 
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombresUsuario").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
-    document.getElementById("CorreoUsuario").title = "Máximo 50 caracteres.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("NombresUsuario").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("CorreoUsuario").title = "Máximo 50 caracteres.\n Caracteres especiales permitidos _ - @ .";
     document.getElementById("NickUsuario").title = "Máximo 15 caracteres, sin espacios.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("PasswordUsuario").title = "Máximo 20 caracteres en Mayúscula.\n No se puede ingresar caracteres especiales ni espacios.";
+    document.getElementById("PasswordUsuario").title = "Máximo 20 caracteres.\n Caracteres especiales permitidos ! @ # $ % ^ & * ? _ -";
     document.getElementById("TelefonoUsuario").title = "10 números, incluyendo el código de la provincia (02).";
     document.getElementById("TelefonoCelUsuario").title = "10 números, empezando con el código (09)";
-    document.getElementById("DireccionUsuario").title = "Máximo 80 caracteres.\n No se puede ingresar caracteres especiales.";
+    document.getElementById("DireccionUsuario").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+   
 }

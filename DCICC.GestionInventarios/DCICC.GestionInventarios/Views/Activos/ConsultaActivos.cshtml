@@ -565,7 +565,9 @@
 <script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
 <script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
 <script>
-    $(document).ready(function () {
+	$(document).ready(function () {
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener datos de Activos
         obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');

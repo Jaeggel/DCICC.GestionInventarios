@@ -1,127 +1,142 @@
 ﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
-    Autores: Andres Chisaguano - Joel Ludeña
-    Descripción: Vista para el ingreso de un nuevo Rol como por ejemplo: Administrador, Auxiliar Técnico, etc.
+	Autores: Andres Chisaguano - Joel Ludeña
+	Descripción: Vista para el ingreso de un nuevo Rol como por ejemplo: Administrador, Auxiliar Técnico, etc.
 *@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    ViewBag.Title = "Roles";
-    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+	ViewBag.Title = "Roles";
+	Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
 @model DCICC.GestionInventarios.Models.Roles
 
 @* Sección para la navegación entre pestañas*@
 <ul class="breadcrumb">
-    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
-    <li><a href="@Url.Action("ModificarRol", "Roles")">@ViewBag.Title </a></li>
-    <li><a class="active">Nuevo </a></li>
+	<li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+	<li><a href="@Url.Action("ModificarRol", "Roles")">@ViewBag.Title </a></li>
+	<li><a class="active">Nuevo </a></li>
 </ul>
 <div class="row">
-    @* Panel para mostrar las opciones de ingreso de un nuevo rol *@
-    <div class="col-md-1 col-sm-12 col-xs-12"></div>
-    <div class="col-md-10 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Nuevo Rol de Usuario </h2>
-                <ul class="nav navbar-right panel_toolbox"></ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <br>
-                @* Formulario para envio de datos de los componentes para el ingreso de un nuevo rol
-                    (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevoRol", "Roles"))
-                {
-                    <div class="form-horizontal form-label-left input_mask">
-                        @* Cuadro de texto para el ingreso del nombre de un nuevo rol*@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="NombreRol" placeholder="Nombre del Rol" maxlength="30" required>
-                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Sección para seleccionar los permisos sobre las tablas que tendrá el rol de usuario.*@
-                        <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">Escoja permisos para las Entidades: </label>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
-                                <table style="width:100%; border:0;" class="table-responsive">
-                                    <tr>
-                                        <th>Entidad</th>
-                                        <th>Permiso</th>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Todos*</b></td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input name="PermisoAdministracion" id="PermisoAdministracion" type="checkbox" class="js-switch" value="true" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Activos de TI</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input  name="PermisoActivos" id="PermisoActivos" type="checkbox" class="js-switch" value="true">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Máquinas Virtuales</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input name="PermisoMaqVirtuales" id="PermisoMaqVirtuales" type="checkbox" class="js-switch" value="true" >
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tickets</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input name="PermisoTickets" id="PermisoTickets" type="checkbox" class="js-switch" value="true" >
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Reportes</td>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input name="PermisoReportes" id="PermisoReportes" type="checkbox" class="js-switch" value="true">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="ln_solid"></div>
-                        @* Área de Texto para el ingreso de la descripción de un nuevo rol*@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea class="form-control has-feedback-left" name="DescripcionRol" rows="3" placeholder="Descripción del rol" maxlength="150"></textarea>
-                            <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        @* Checkbox para habilitar o deshabilitar el uso del nuevo rol*@
-                        <div class="form-group">
-                            <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Rol?</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input name="HabilitadoRol" type="checkbox" class="js-switch" value="true" checked />
-                            </div>
-                        </div>
-                        <div class="ln_solid"></div>
-                        @* Sección de botones para guardar el rol o cancelar el registro *@
-                        <div class="form-group text-center">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarRol", "Roles")'">Cancelar</button>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-    <div class="col-md-1 col-sm-12 col-xs-12"></div>
+	@* Panel para mostrar las opciones de ingreso de un nuevo rol *@
+	<div class="col-md-1 col-sm-12 col-xs-12"></div>
+	<div class="col-md-10 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Nuevo Rol de Usuario </h2>
+				<ul class="nav navbar-right panel_toolbox"></ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br>
+				@* Formulario para envio de datos de los componentes para el ingreso de un nuevo rol
+					(Metodo de la clase) - Controlador (Controller) *@
+				@using (Html.BeginForm("NuevoRol", "Roles"))
+				{
+					<div class="form-horizontal form-label-left input_mask">
+						@* Cuadro de texto para el ingreso del nombre de un nuevo rol*@
+						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+							<label>* Nombre del Rol</label>
+							<input id="NombreRol" type="text" class="form-control has-feedback-left" name="NombreRol" placeholder="administrador" onkeyup="this.value=this.value.replace(validarNombresRoles(),'');" minlength="3" data-toggle="tooltip" data-placement="rigth" title="" maxlength="30" required>
+							<span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+							<span id="errorNombreRol" style="color:brown;"></span>
+						</div>
+						@* Sección para seleccionar los permisos sobre las tablas que tendrá el rol de usuario.*@
+						<div class="form-group">
+							<label class="col-md-12 col-sm-12 col-xs-12">Escoja permisos para las Entidades: </label>
+						</div>
+						<div class="form-group">
+							<div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
+								<table style="width:100%; border:0;" class="table-responsive">
+									<tr>
+										<th>Entidad</th>
+										<th>Permiso</th>
+									</tr>
+									<tr>
+										<td><b>Todos*</b></td>
+										<td>
+											<div class="checkbox">
+												<input name="PermisoAdministracion" id="PermisoAdministracion" type="checkbox" class="js-switch" value="true" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Activos de TI</td>
+										<td>
+											<div class="checkbox" data-toggle="tooltip" data-placement="rigth" title="Permisos para lectura, escritura y modificación de activos de TI">
+												<input name="PermisoActivos" id="PermisoActivos" type="checkbox" class="js-switch" value="true">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Máquinas Virtuales</td>
+										<td>
+											<div class="checkbox" data-toggle="tooltip" data-placement="rigth" title="Permisos para lectura, escritura y modificación de Máquinas Virtuales">
+												<input name="PermisoMaqVirtuales" id="PermisoMaqVirtuales" type="checkbox" class="js-switch" value="true">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Tickets</td>
+										<td>
+											<div class="checkbox" data-toggle="tooltip" data-placement="rigth" title="Permisos para lectura, escritura y modificación de Tickets">
+												<input name="PermisoTickets" id="PermisoTickets" type="checkbox" class="js-switch" value="true">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Reportes</td>
+										<td>
+											<div class="checkbox" data-toggle="tooltip" data-placement="rigth" title="Permisos para la elaboración de reportes de activos de TI, Máquinas virtuales, Tickets y Logs">
+												<input name="PermisoReportes" id="PermisoReportes" type="checkbox" class="js-switch" value="true">
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="ln_solid"></div>
+						@* Área de Texto para el ingreso de la descripción de un nuevo rol*@
+						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+							<textarea id="DescripcionRol" class="form-control has-feedback-left" name="DescripcionRol" rows="3" placeholder="Descripción del rol" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+							<span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+						</div>
+						@* Checkbox para habilitar o deshabilitar el uso del nuevo rol*@
+						<div class="form-group">
+							<label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Rol?</label>
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<input name="HabilitadoRol" type="checkbox" class="js-switch" value="true" checked />
+							</div>
+						</div>
+						<div class="ln_solid"></div>
+						@* Sección de botones para guardar el rol o cancelar el registro *@
+						<div class="form-group text-center">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<button type="submit" class="btn btn-success">Ingresar</button>
+								<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarRol", "Roles")'">Cancelar</button>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+	<div class="col-md-1 col-sm-12 col-xs-12"></div>
 </div>
+
+@* Seccción para llamar al js de Roles *@
+<script src="~/Scripts/ScriptsInventarios/Roles.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
+	$(document).ready(function () {
+		//Método para obtener la tabla de Roles
+		obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
+		mensajesTooltips();
+		//Método para evitar la duplicidad de nombres de Sistemas Operativos
+		$('#NombreRol').blur(function () {
+			comprobarNombre();
+		});
+
+		
+
         var changeCheckboxAdmin = document.querySelector('#PermisoAdministracion');
         var CheckboxAct = document.querySelector('#PermisoActivos');
         var CheckboxMv = document.querySelector('#PermisoMaqVirtuales');

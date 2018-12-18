@@ -123,7 +123,9 @@
 @* Seccción para llamar al js de Tipo Accesorio*@
 <script src="~/Scripts/ScriptsInventarios/TipoAccesorio.js"></script>
 <script>
-    $(document).ready(function () {
+	$(document).ready(function () {
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener las tablas de Tipo Accesorio
         obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
         urlEstados('@Url.Action("ModificarEstadoTipoAccesorio", "TipoAccesorio")');

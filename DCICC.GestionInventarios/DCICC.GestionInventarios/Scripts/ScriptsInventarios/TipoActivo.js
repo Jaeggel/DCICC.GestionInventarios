@@ -6,7 +6,8 @@ var cmbCategoriasComp;
 var idTipoActivo;
 var nombreTipoModificar;
 var urlEstado;
-var nombresTipoAcc=[];
+var nombresTipoAcc = [];
+var rol;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de tipo de activo
@@ -91,7 +92,7 @@ function cargarTipoActTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button id="modficar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoActivo" onclick = "formUpdateTipoAct(' + datosTipoActivo[i].IdTipoActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoActivo" onclick = "formUpdateTipoAct(' + datosTipoActivo[i].IdTipoActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosTipoActivo[i].HabilitadoTipoActivo) {
@@ -104,6 +105,11 @@ function cargarTipoActTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarTipoActivo").html(str);
+
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Invitado") {
+        $("#dataTableTipoAct :button").attr("disabled", "disabled");
+    }
 }
 
 //Función para cargar el combobox de Categorias
@@ -400,4 +406,21 @@ function mensajesTooltips() {
     document.getElementById("NombreTipoActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionTipoActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("VidaUtilTipoActivo").title = "Solo Números. Rango de 1 a 100 años.";
+}
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
+//Función para bloquear botones cuando el usuario es invitado
+function botones(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rol = data;
+            console.log(data);
+            if (data == "Invitado") {
+                $(':button').prop('disabled', true);
+            }
+        }
+    });
 }

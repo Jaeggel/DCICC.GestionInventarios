@@ -54,7 +54,7 @@ function cargarCategoriaTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button id="modficar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarCategoria" onclick = "formUpdateCategoria(' + datosCategorias[i].IdCategoriaActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarCategoria" onclick = "formUpdateCategoria(' + datosCategorias[i].IdCategoriaActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosCategorias[i].HabilitadoCategoriaActivo) {
@@ -66,9 +66,9 @@ function cargarCategoriaTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarCategorias").html(str);
+
     //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rol == "Pasantes") {
-        console.log("entro");
+    if (rol == "Invitado") {
         $("#dataTableCategorias :button").attr("disabled", "disabled");
     }
 }
@@ -271,6 +271,8 @@ function mensajesTooltips() {
 
 }
 
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
 //Función para bloquear botones cuando el usuario es invitado
 function botones(url) {
     $.ajax({
@@ -280,13 +282,9 @@ function botones(url) {
         success: function (data) {
             rol = data;
             console.log(data);
-            if (data == "Pasantes") {
+            if (data == "Invitado") {
                 $(':button').prop('disabled', true);
-                //$("#dataTableCategorias :button").attr("disabled", "disabled");
-                //$('.btn').prop('disabled', true);
-                //$("#modificar").attr("disabled", "disabled");
             }
         }
     });
-
 }

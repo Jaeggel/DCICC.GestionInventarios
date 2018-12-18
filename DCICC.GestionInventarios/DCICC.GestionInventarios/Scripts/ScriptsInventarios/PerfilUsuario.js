@@ -20,7 +20,6 @@ function obtenerUsuario(url) {
 }
 
 function cargarDatosUsuario(){
- 
         idUsuario = datosUsuario.IdUsuario;
         console.log(idUsuario);
         nickUsuario = datosUsuario.NickUsuario;
