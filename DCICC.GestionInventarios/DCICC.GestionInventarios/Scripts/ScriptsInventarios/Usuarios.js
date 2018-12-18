@@ -215,7 +215,7 @@ function modificarUsuario(url_modificar) {
                 if (result.value) {
                     $.ajax({
                         data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
-                        url: urlModificar,
+                        url: url_modificar,
                         type: 'post',
                         success: function (data) {
                             console.log(data.OperacionExitosa);
