@@ -4,6 +4,7 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -27,6 +28,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
@@ -45,6 +47,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];

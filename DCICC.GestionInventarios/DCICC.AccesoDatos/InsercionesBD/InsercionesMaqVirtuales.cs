@@ -25,6 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             try
             {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,id_lun,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccionip_maqvirtuales,disco_maqvirtuales,ram_maqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales) VALUES (@iso,@ilun,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv)", conn_BD))
                 {
                     cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdSistOperativos;
@@ -39,6 +40,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("hmv", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMaqVirtual.HabilitadoMaqVirtuales;
                     cmd.ExecuteNonQuery();
                 }
+                tran.Commit();
                 conn_BD.Close();
                 msjMaqVirtuales.OperacionExitosa = true;
             }

@@ -25,6 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             try
             {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_categoriaactivos (nombre_categoriaact,descripcion_categoriaact,habilitado_categoriaact) VALUES (@nc,@dc,@hc)", conn_BD))
                 {
                     cmd.Parameters.Add("nc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCategoria.NombreCategoriaActivo;
@@ -32,6 +33,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.AddWithValue("hc", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoCategoria.HabilitadoCategoriaActivo;
                     cmd.ExecuteNonQuery();
                 }
+                tran.Commit();
                 conn_BD.Close();
                 msjCategorias.OperacionExitosa = true;
             }

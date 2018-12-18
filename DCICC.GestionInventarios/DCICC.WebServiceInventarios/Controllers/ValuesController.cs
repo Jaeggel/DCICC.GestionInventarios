@@ -1,5 +1,7 @@
 ﻿using DCICC.Entidades.EntidadesInventarios;
+using DCICC.WebServiceInventarios.Configuration;
 using log4net;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCICC.WebServiceInventarios.Controllers

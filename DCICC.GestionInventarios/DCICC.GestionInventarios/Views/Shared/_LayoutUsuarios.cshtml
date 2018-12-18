@@ -40,7 +40,7 @@
                         <div class="x_content">
                             <div class="profile_info">
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                <h2>@ViewBag.UsuarioLogin</h2>
+                                <h2>@ViewBag.NombreUsuario</h2>
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el correo electrónico del usuario actual *@
                                 <span>@ViewBag.Correo</span>
                             </div>
@@ -143,7 +143,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.UsuarioLogin
+                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.NombreUsuario
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@
