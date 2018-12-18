@@ -172,7 +172,7 @@ function cargarActivosTabla() {
                 '</td><td>' + datosActivos[i].ResponsableActivo +
                 '</td><td>' + datosActivos[i].EstadoActivo;
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-                '<button type="button" class="btn btn-default text-center" data-toggle="modal" data-target="#IngresoNuevoAccesorio" onclick = "formIngresoAccesorio(' + datosActivos[i].IdActivo + ',\'' + datosActivos[i].NombreActivo + '\');" > <strong><i class="fa fa-plug"></i></strong></button> ' +
+                '<button id="modificar" type="button" class="btn btn-default text-center" data-toggle="modal" data-target="#IngresoNuevoAccesorio" onclick = "formIngresoAccesorio(' + datosActivos[i].IdActivo + ',\'' + datosActivos[i].NombreActivo + '\');" > <strong><i class="fa fa-plug"></i></strong></button> ' +
                 '</div></div>';
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
                 '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarActivo" onclick = "formUpdateActivos(' + datosActivos[i].IdActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
@@ -191,6 +191,11 @@ function cargarActivosTabla() {
     str += '</tbody>' +
            '</table > ';
     $("#tablaActivos").html(str);
+
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Invitado") {
+        $("#dataTableActivos :button").attr("disabled", "disabled");
+    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
