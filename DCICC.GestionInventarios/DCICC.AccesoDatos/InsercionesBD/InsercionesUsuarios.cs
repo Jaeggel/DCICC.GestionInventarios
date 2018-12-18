@@ -27,7 +27,8 @@ namespace DCICC.AccesoDatos.InsercionesBD
             string pwdUsuario = ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario);
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
-            {                
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_usuarios (id_rol,nombres_usuario,nick_usuario,password_usuario,correo_usuario,telefono_usuario,telefonocelular_usuario,direccion_usuario,habilitado_usuario) VALUES (@ir,@nu,@niu,@pu,@cu,@tu,@tcu,@du,@hu)", conn_BD))
                 {
                     cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdRol;
@@ -56,6 +57,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 {
                     cmd.ExecuteNonQuery();
                 }
+                tran.Commit();
                 conn_BD.Close();
                 msjUsuarios.OperacionExitosa = true;
             }

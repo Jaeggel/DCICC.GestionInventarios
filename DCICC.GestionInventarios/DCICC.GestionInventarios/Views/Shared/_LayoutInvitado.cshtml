@@ -40,7 +40,7 @@
                         <div class="x_content">
                             <div class="profile_info">
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                <h2>@ViewBag.UsuarioLogin</h2>
+                                <h2>@ViewBag.NombreUsuario</h2>
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el correo electrónico del usuario actual *@
                                 <span>@ViewBag.Correo</span>
                             </div>
@@ -57,9 +57,33 @@
                                     @* Enlace al método Index (Metodo de la clase) del Controlador Home (Controller) *@
                                     <a href="@Url.Action("Index", "Home")" accesskey="h"><i class="fa fa-home"></i> Home</a>
                                 </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @* Seccción de enlaces a ingreso de nueva categoria de activo o a modificación de categoria de activo *@
+                                        <li><a href="@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")">Categoría de Activos</a></li>
+                                        @* Seccción de enlaces a ingreso de nuevo tipo de activo o a modificación de tipo de activo *@
+                                        <li><a href="@Url.Action("ModificarTipoActivo", "TipoActivo")">Tipo de Activos</a></li>
+                                        @* Seccción de enlaces a ingreso de nuevo laboratorio o a modificación de laboratorio *@
+                                        <li><a href="@Url.Action("ModificarLaboratorio", "Laboratorios")">Laboratorios</a></li>
+                                        @* Seccción de enlaces a ingreso de nueva marca o a modificación de marcas *@
+                                        <li><a href="@Url.Action("ModificarMarca", "Marcas")">Marcas</a></li>
+                                        @* Seccción de enlaces a ingreso de nuevo Tipo de Accesorio  o a modificación de Tipo de Accesorio *@
+                                        <li><a href="@Url.Action("ModificarTipoAccesorio", "TipoAccesorio")">Tipo de Accesorio</a></li>
+                                    </ul>
+                                </li>
                                 @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
                                 <li>
                                     <a href="@Url.Action("ConsultaActivos", "Activos")" accesskey="a"><i class="fa fa-table"></i> Consulta General de Activos</a>
+                                </li>
+                                @* Seccción de enlaces Reportes*@
+                                <li>
+                                    @*Sección de enlaces para generación de reportes*@
+                                    <a><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @* Seccción de enlaces a reportes de Activos *@
+                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")" accesskey="r">Activos de TI</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
@@ -78,7 +102,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.UsuarioLogin
+                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.NombreUsuario
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@
@@ -131,6 +155,7 @@
                             <ul>
                                 <li><b>ALT + H: </b><a href='@Url.Action("Index","Home")'> Home</a></li>
                                 <li><b>ALT + A: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Activos de TI</a></li>
+                                <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
                             </ul>
                         </div>
                     </div>

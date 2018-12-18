@@ -6,6 +6,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -30,6 +31,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
@@ -48,6 +50,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
@@ -66,6 +69,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];

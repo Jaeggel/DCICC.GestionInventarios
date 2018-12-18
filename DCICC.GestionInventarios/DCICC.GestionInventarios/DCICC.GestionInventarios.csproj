@@ -4771,7 +4771,7 @@
     <Content Include="Views\Activos\ConsultaActivos.cshtml" />
     <Content Include="Views\Usuarios\PerfilUsuario.cshtml" />
     <Content Include="Views\Reportes\ReportesActivos.cshtml" />
-    <Content Include="Views\Shared\_LayoutEstudiantes.cshtml" />
+    <Content Include="Views\Shared\_LayoutInvitado.cshtml" />
     <Content Include="Views\Shared\_LayoutReporteria.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />

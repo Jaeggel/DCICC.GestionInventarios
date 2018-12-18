@@ -1,10 +1,13 @@
-﻿using DCICC.AccesoDatos.ConsultasBD;
+﻿using DCICC.AccesoDatos.ActualizacionesBD;
+using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
+using DCICC.WebServiceInventarios.Configuration;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
@@ -65,8 +68,31 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarRol")]
         public MensajesRoles RegistrarRol([FromBody] Roles infoRol)
         {
+            List<string> sentenciasGenerales = new List<string>();
+            List<string> sentenciasActivos = new List<string>();
+            List<string> sentenciasMaqVirtuales = new List<string>();
+            List<string> sentenciasTickets = new List<string>();
+            List<string> sentenciasReportes = new List<string>();
+            SentenciasRoles objSentencias = new SentenciasRoles();
+            sentenciasGenerales = objSentencias.ObtenerSentenciasGenerales(infoRol.NombreRol);
+            if (infoRol.PermisoActivos)
+            {
+                sentenciasActivos = objSentencias.ObtenerSentenciasActivos(infoRol.NombreRol);
+            }
+            if (infoRol.PermisoMaqVirtuales)
+            {
+                sentenciasMaqVirtuales = objSentencias.ObtenerSentenciasMaqVirtuales(infoRol.NombreRol);
+            }
+            if (infoRol.PermisoTickets)
+            {
+                sentenciasTickets= objSentencias.ObtenerSentenciasTickets(infoRol.NombreRol);
+            }
+            if (infoRol.PermisoReportes)
+            {
+                sentenciasTickets = objSentencias.ObtenerSentenciasReportes(infoRol.NombreRol);
+            }
             MensajesRoles msjRoles = null;
-            InsercionesRoles objInsercionesRolesBD = new InsercionesRoles();
+            InsercionesRoles objInsercionesRolesBD = new InsercionesRoles(sentenciasGenerales, sentenciasActivos, sentenciasMaqVirtuales, sentenciasTickets, sentenciasReportes);
             msjRoles = objInsercionesRolesBD.RegistroRol(infoRol);
             if (msjRoles.OperacionExitosa)
             {
@@ -88,7 +114,35 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarRol")]
         public MensajesRoles ActualizarRol([FromBody] Roles infoRol)
         {
+            List<string> sentenciasGenerales = new List<string>();
+            List<string> sentenciasActivos = new List<string>();
+            List<string> sentenciasMaqVirtuales = new List<string>();
+            List<string> sentenciasTickets = new List<string>();
+            List<string> sentenciasReportes = new List<string>();
+            List<string> sentenciasRevocacion = new List<string>();
+            SentenciasRoles objSentencias = new SentenciasRoles();
+            sentenciasRevocacion= objSentencias.ObtenerSentenciasRevocacion(infoRol.NombreRol);
+            sentenciasGenerales = objSentencias.ObtenerSentenciasGenerales(infoRol.NombreRol);
+            sentenciasGenerales.RemoveAt(0);
+            if (infoRol.PermisoActivos)
+            {
+                sentenciasActivos = objSentencias.ObtenerSentenciasActivos(infoRol.NombreRol);
+            }
+            if (infoRol.PermisoMaqVirtuales)
+            {
+                sentenciasMaqVirtuales = objSentencias.ObtenerSentenciasMaqVirtuales(infoRol.NombreRol);
+            }
+            if (infoRol.PermisoTickets)
+            {
+                sentenciasTickets = objSentencias.ObtenerSentenciasTickets(infoRol.NombreRol);
+            }
+            if (infoRol.PermisoReportes)
+            {
+                sentenciasTickets = objSentencias.ObtenerSentenciasReportes(infoRol.NombreRol);
+            }
             MensajesRoles msjRoles = null;
+            ActualizacionesRoles objActualizacionesRolesActBD = new ActualizacionesRoles(sentenciasRevocacion,sentenciasGenerales, sentenciasActivos, sentenciasMaqVirtuales, sentenciasTickets, sentenciasReportes);
+            msjRoles = objActualizacionesRolesActBD.ActualizacionRol(infoRol);
             if (msjRoles.OperacionExitosa)
             {
                 Logs.Info(string.Format("Actualización de Rol con ID: {0} realizada exitosamente.",infoRol.IdRol));

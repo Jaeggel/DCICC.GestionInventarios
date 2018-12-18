@@ -1,5 +1,6 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
 using DCICC.GestionInventarios.Configuration;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -21,6 +22,7 @@ namespace DCICC.GestionInventarios.Controllers
             }
             else
             {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];
                 ViewBag.Menu = (string)Session["PerfilUsuario"];

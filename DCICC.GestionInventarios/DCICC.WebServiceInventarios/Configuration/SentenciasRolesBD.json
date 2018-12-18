@@ -1,0 +1,55 @@
+{
+  "SentenciasGenerales": [
+    "CREATE GROUP {0} VALID UNTIL 'infinity';",
+    "GRANT CONNECT ON DATABASE \"DCICC_BDInventario\" TO {0};",
+    "GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO {0};",
+    "GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_logs to group {0};",
+    "GRANT SELECT ON table dcicc_usuarios to group {0};",
+    "GRANT SELECT ON table dcicc_roles to group {0};"
+  ],
+  "SentenciasActivos": [
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_accesorio to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_categoriaactivos to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_cqr to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_detalleactivo to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_historicoactivos to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_laboratorios to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_marca to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_tipoaccesorio to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_tipoactivos to group {0};"
+  ],
+  "SentenciasMaqVirtuales": [
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_lun to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_maqvirtuales to {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_sistoperativos to {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_storage to group {0};"
+  ],
+  "SentenciasReportes": [
+    "GRANT SELECT ON table dcicc_accesorio to group {0};",
+    "GRANT SELECT ON table dcicc_categoriaactivos to group {0};",
+    "GRANT SELECT ON table dcicc_cqr to group {0};",
+    "GRANT SELECT ON table dcicc_detalleactivo to group {0};",
+    "GRANT SELECT ON table dcicc_historicoactivos to group {0};",
+    "GRANT SELECT ON table dcicc_laboratorios to group {0};",
+    "GRANT SELECT ON table dcicc_lun to group {0};",
+    "GRANT SELECT ON table dcicc_maqvirtuales to group {0};",
+    "GRANT SELECT ON table dcicc_marca to group {0};",
+    "GRANT SELECT ON table dcicc_sistoperativos to group {0};",
+    "GRANT SELECT ON table dcicc_storage to group {0};",
+    "GRANT SELECT ON table dcicc_tickets to group {0};",
+    "GRANT SELECT ON table dcicc_tipoaccesorio to group {0};",
+    "GRANT SELECT ON table dcicc_tipoactivos to group {0};"
+  ],
+  "SentenciasTickets": [
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_tickets to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_laboratorios to group {0};",
+    "GRANT SELECT,INSERT,UPDATE ON table dcicc_detalleactivo to group {0};"
+  ],
+  "SentenciasRevocacion": [
+    "REVOKE CONNECT ON DATABASE \"DCICC_BDInventario\" FROM {0};",
+    "REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA public FROM {0};",
+    "REVOKE USAGE ON ALL SEQUENCES IN SCHEMA public FROM {0};",
+    "REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM {0};"
+  ]
+}

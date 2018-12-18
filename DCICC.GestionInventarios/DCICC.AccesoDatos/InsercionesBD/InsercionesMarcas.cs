@@ -25,6 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesMarcas msjMarcas = new MensajesMarcas();
             try
             {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_marca (nombre_marca,descripcion_marca,habilitado_marca) VALUES (@nm,@dm,@hm)", conn_BD))
                 {
                     cmd.Parameters.Add("nm", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMarca.NombreMarca;
@@ -32,6 +33,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("hm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMarca.HabilitadoMarca;
                     cmd.ExecuteNonQuery();
                 }
+                tran.Commit();
                 conn_BD.Close();
                 msjMarcas.OperacionExitosa = true;
             }

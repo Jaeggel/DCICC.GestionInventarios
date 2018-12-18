@@ -25,6 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_accesorio(id_tipoaccesorio, id_detalleact,id_cqr, nombre_accesorio, serial_accesorio, modelo_accesorio, descripcion_accesorio, estado_accesorio)VALUES (@ita, @ida,@icq,@na, @sa, @ma, @da, @ea);", conn_BD))
                 {
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdTipoAccesorio;
@@ -54,6 +55,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                         }
                     }
                 }
+                tran.Commit();
                 conn_BD.Close();
                 msjAccesorios.OperacionExitosa = true;
             }

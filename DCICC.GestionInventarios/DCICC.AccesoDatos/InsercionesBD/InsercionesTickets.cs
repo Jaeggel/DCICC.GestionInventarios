@@ -25,6 +25,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesTickets msjTickets = new MensajesTickets();
             try
             {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_tickets(id_usuario, id_laboratorio, id_detalleact, estado_ticket, fechaapertura_ticket, descripcion_ticket, prioridad_ticket)VALUES (@iu, @il, @ida, @et, @fat, @dt, @pt);", conn_BD))
                 {
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdUsuario;
@@ -36,6 +37,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("pt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.PrioridadTicket;
                     cmd.ExecuteNonQuery();
                 }
+                tran.Commit();
                 conn_BD.Close();
                 msjTickets.OperacionExitosa = true;
             }

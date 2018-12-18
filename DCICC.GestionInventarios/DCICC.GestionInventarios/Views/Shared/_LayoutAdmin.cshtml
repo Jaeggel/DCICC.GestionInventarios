@@ -37,7 +37,7 @@
                         <div class="x_content">
                             <div class="profile_info">
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                <h2 id="usuarioActual">@ViewBag.UsuarioLogin</h2>
+                                <h2 id="usuarioActual">@ViewBag.NombreUsuario</h2>
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el correo electrónico del usuario actual *@
                                 <span>@ViewBag.Correo</span>
                             </div>
@@ -56,7 +56,6 @@
                                 </li>
                                 <li>
                                     <a><i class="fa fa-desktop"></i> Activos de TI <span class="fa fa-chevron-down"></span></a>
-
                                     <ul class="nav child_menu">
                                         @* Seccción de enlaces a ingreso de nueva categoria de activo o a modificación de categoria de activo *@
                                         <li><a href="@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")">Categoría de Activos</a></li>
@@ -162,7 +161,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.UsuarioLogin
+                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.NombreUsuario
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@

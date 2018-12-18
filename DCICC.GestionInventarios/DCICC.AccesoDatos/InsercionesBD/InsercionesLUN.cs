@@ -27,6 +27,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesLUN msjLUN = new MensajesLUN();
             try
             {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_lun(id_storage, nombre_lun, capacidad_lun, raid_tp_lun, descripcion_lun, habilitado_lun) VALUES (@is, @nl, @cl, @rl, @dl, @hl);", conn_BD))
                 {
                     cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdStorage;
@@ -37,6 +38,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
                     cmd.ExecuteNonQuery();
                 }
+                tran.Commit();
                 conn_BD.Close();
                 msjLUN.OperacionExitosa = true;
             }
