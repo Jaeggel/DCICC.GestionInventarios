@@ -4,7 +4,8 @@ var datosCategorias;
 var idCategoriaModificar;
 var nombreCategoriaModificar;
 var urlEstado;
-var nombresCat=[];
+var nombresCat = [];
+var rol;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de categorias
@@ -53,7 +54,7 @@ function cargarCategoriaTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarCategoria" onclick = "formUpdateCategoria(' + datosCategorias[i].IdCategoriaActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modficar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarCategoria" onclick = "formUpdateCategoria(' + datosCategorias[i].IdCategoriaActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosCategorias[i].HabilitadoCategoriaActivo) {
@@ -65,6 +66,11 @@ function cargarCategoriaTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarCategorias").html(str);
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Pasantes") {
+        console.log("entro");
+        $("#dataTableCategorias :button").attr("disabled", "disabled");
+    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -262,5 +268,25 @@ function validarInputsVaciosModificacion() {
 function mensajesTooltips() {
     document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+
+}
+
+//Función para bloquear botones cuando el usuario es invitado
+function botones(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rol = data;
+            console.log(data);
+            if (data == "Pasantes") {
+                $(':button').prop('disabled', true);
+                //$("#dataTableCategorias :button").attr("disabled", "disabled");
+                //$('.btn').prop('disabled', true);
+                //$("#modificar").attr("disabled", "disabled");
+            }
+        }
+    });
 
 }
