@@ -47,7 +47,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesRoles msjRoles = new MensajesRoles();
             ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-            msjRoles = objConsultasRolesBD.ObtenerRoles("");
+            msjRoles = objConsultasRolesBD.ObtenerRoles("consultaroles");
             if (msjRoles.OperacionExitosa)
             {
                 Logs.Info("Consulta de Roles realizada exitosamente.");
