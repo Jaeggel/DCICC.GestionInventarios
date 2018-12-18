@@ -138,7 +138,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             if (infoRol.PermisoReportes)
             {
-                sentenciasTickets = objSentencias.ObtenerSentenciasReportes(infoRol.NombreRol);
+                sentenciasReportes = objSentencias.ObtenerSentenciasReportes(infoRol.NombreRol);
             }
             MensajesRoles msjRoles = null;
             ActualizacionesRoles objActualizacionesRolesActBD = new ActualizacionesRoles(sentenciasRevocacion,sentenciasGenerales, sentenciasActivos, sentenciasMaqVirtuales, sentenciasTickets, sentenciasReportes);
@@ -162,6 +162,8 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesRoles ActualizarEstadoRol([FromBody] Roles infoRol)
         {
             MensajesRoles msjRoles = null;
+            ActualizacionesRoles objActualizacionesRolesActBD = new ActualizacionesRoles(null,null,null,null,null,null);
+            msjRoles = objActualizacionesRolesActBD.ActualizacionEstadoRol(infoRol);
             if (msjRoles.OperacionExitosa)
             {
                 Logs.Info(string.Format("Actualización de estado de Rol con ID: {0} realizada exitosamente.", infoRol.IdRol));
