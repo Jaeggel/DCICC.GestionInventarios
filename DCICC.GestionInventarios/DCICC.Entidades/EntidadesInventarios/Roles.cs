@@ -6,6 +6,8 @@
 
         public string NombreRol { get; set; }
 
+        public string NombreRolAntiguo { get; set; }
+
         public string DescripcionRol { get; set; }
 
         public bool HabilitadoRol { get; set; }
