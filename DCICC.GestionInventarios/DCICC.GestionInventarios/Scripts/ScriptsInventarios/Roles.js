@@ -78,16 +78,30 @@ function cargarRolesTabla() {
         } else {
             str += '</td><td> Deshabilitado';
         }
-        str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarRoles" onclick = "formUpdateRol(' + datosRoles[i].IdRol + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
-            '</div></div>' +
-            '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
-        if (datosRoles[i].HabilitadoRol) {
-            str += '<button type="button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosRoles[i].IdRol + ',' + datosRoles[i].HabilitadoRol + ');"> <strong><span class="fa fa-toggle-on"></span></strong></button>';
+
+        if (datosRoles[i].NombreRol == "administrador" || datosRoles[i].NombreRol == "docente" || datosRoles[i].NombreRol == "invitado" || datosRoles[i].NombreRol == "pasante" || datosRoles[i].NombreRol == "reporteria") {
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button disabled="true" id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarRoles" onclick = "formUpdateRol(' + datosRoles[i].IdRol + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+                '</div></div>' +
+                '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+            if (datosRoles[i].HabilitadoRol) {
+                str += '<button disabled="true" type="button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosRoles[i].IdRol + ',' + datosRoles[i].HabilitadoRol + ');"> <strong><span class="fa fa-toggle-on"></span></strong></button>';
+            } else {
+                str += '<button disabled="true" type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosRoles[i].IdRol + ',' + datosRoles[i].HabilitadoRol + ');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
+            }
+            str += '</div></div></td></tr>';
         } else {
-            str += '<button type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosRoles[i].IdRol + ',' + datosRoles[i].HabilitadoRol+ ');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
-        }
-        str += '</div></div></td></tr>';
+            str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
+                '<button id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarRoles" onclick = "formUpdateRol(' + datosRoles[i].IdRol + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+                '</div></div>' +
+                '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
+            if (datosRoles[i].HabilitadoRol) {
+                str += '<button type="button" class="btn btn-success text-center" onclick = "habilitarOdeshabilitar(' + datosRoles[i].IdRol + ',' + datosRoles[i].HabilitadoRol + ');"> <strong><span class="fa fa-toggle-on"></span></strong></button>';
+            } else {
+                str += '<button type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosRoles[i].IdRol + ',' + datosRoles[i].HabilitadoRol + ');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
+            }
+            str += '</div></div></td></tr>';
+        }      
 
     }
     str += '</tbody></table>';
@@ -195,18 +209,18 @@ function modificarRol(url_modificar) {
                     type: 'post',
                     success: function (data) {
                         if (data.OperacionExitosa) {
-                            $('#ModificarTipoActivo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Rol " ' + nombreTipo.toUpperCase() + '" se ha modificado exitosamente', "success");
+                            $('#ModificarRoles').modal('hide');
+                            showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerRoles(url_metodo);
                         } else {
-                            $('#ModificarTipoActivo').modal('hide');
+                            $('#ModificarRoles').modal('hide');
                             showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Rol: ' + data.MensajeError, "error");
                         }
                     }
                 });
 
             } else {
-                $('#ModificarTipoActivo').modal('hide');
+                $('#ModificarRoles').modal('hide');
             }
         });
     }
