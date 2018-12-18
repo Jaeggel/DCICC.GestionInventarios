@@ -74,19 +74,30 @@
                                         <li><a href="@Url.Action("NuevoActivo", "Activos")" accesskey="n">Nuevo Activo de TI</a></li>
                                     </ul>
                                 </li>
-                                @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
+                                @* Seccción de enlaces Consulta de Activos o Consulta de Códigos QR *@
                                 <li>
                                     <a><i class="fa fa-table"></i> Consulta de Activos<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
-                                        <li><a href="@Url.Action("ConsultaActivos", "Activos")"  accesskey="a">Consultar/Modificar Activos</a></li>
+                                        @* Seccción de enlaces para consulta de activos y CQR*@
+                                        <li>
+                                            @* Enlace al método ConsultaActivos (Metodo de la clase) del Controlador Activos(Controller) *@
+                                            <a href="@Url.Action("ConsultaActivos", "Activos")" accesskey="a">Consulta General de Activos</a>
+                                        </li>
+                                        <li>
+                                            @* Enlace al método ConsultaQR (Metodo de la clase) del Controlador Activos(Controller) *@
+                                            <a href="@Url.Action("ConsultaCQR", "Activos")">Impresión de Códigos QR</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                @* Seccción de enlaces a Máquinas Virtuales y Sistemas Operativos *@
+                                @* Sección de enlaces a Máquinas Virtuales y Sistemas Operativos *@
                                 <li>
                                     <a><i class="fa fa-cloud"></i>Máquinas Virtuales <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        @* Seccción de enlaces a ingreso de nuevo sistema operativo o a modificación de sistema operativo*@
+                                        @* Seccción de enlaces a ingreso de nuevo sistema operativo,maq virtuales o Luns*@
+                                        <li>
+                                            @* Enlace al método ModificarLUN (Metodo de la clase) del Controlador LUN(Controller) *@
+                                            <a href="@Url.Action("ModificarLUN", "LUN")">LUN's/Storage</a>
+                                        </li>
                                         <li>
                                             @* Enlace al método ModificarSistOperativo (Metodo de la clase) del Controlador SistOperativo(Controller) *@
                                             <a href="@Url.Action("ModificarSistOperativo", "SistOperativo")">Sistemas Operativos</a>
@@ -95,20 +106,6 @@
                                             @* Enlace al método ModificarMaqVirtual (Metodo de la clase) del Controlador MaqVirtuales(Controller) *@
                                             <a href="@Url.Action("ModificarMaqVirtual", "MaqVirtuales")" accesskey="m">Máquinas Virtuales</a>
                                         </li>
-                                    </ul>
-                                </li>
-                                @*Sección de enlaces para generación de reportes*@
-                                <li>
-                                    <a><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Seccción de enlaces a reportes de Activos *@
-                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")" accesskey="r">Activos de TI</a></li>
-                                        @* Seccción de enlaces a reportes de Máquinas virtuales *@
-                                        <li><a href="@Url.Action("ReportesMaqVirtuales", "Reportes")">Máquinas Virtuales</a></li>
-                                        @* Seccción de enlaces a reportes de Tickets *@
-                                        <li><a href="@Url.Action("ReportesTickets", "Reportes")">Tickets</a></li>
-                                        @* Seccción de enlaces a reportes de Logs *@
-                                        <li><a href="@Url.Action("ReportesLogs", "Reportes")">Logs</a></li>
                                     </ul>
                                 </li>
                                 <li>

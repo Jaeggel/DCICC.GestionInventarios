@@ -48,6 +48,11 @@ namespace DCICC.GestionInventarios.Controllers
                     datosUsuario= ComprobarCredenciales(infoLogin);
                     if (datosUsuario != null)
                     {
+                        if (datosUsuario.NombreRol.ToLower() == "docente")
+                        {
+                            TempData["MensajeError"] = "No cuenta con los permisos necesarios para ingresar al sistema.";
+                            return View();
+                        }
                         //Construcción de sesion de usuario.
                         Session["NickUsuario"] = datosUsuario.NickUsuario;
                         Session["CorreoUsuario"] = datosUsuario.CorreoUsuario;
@@ -60,7 +65,7 @@ namespace DCICC.GestionInventarios.Controllers
                         }
                         else if (datosUsuario.NombreRol.ToLower() == "invitado")
                         {
-                            Session["PerfilUsuario"] = "Invitado";
+                            Session["PerfilUsuario"] = "invitado";
                         }
                         else if (datosUsuario.NombreRol.ToLower() == "reporteria")
                         {
@@ -69,11 +74,6 @@ namespace DCICC.GestionInventarios.Controllers
                         else if (datosUsuario.NombreRol.ToLower() == "pasante")
                         {
                             Session["PerfilUsuario"] = "Pasantes";
-                        }
-                        else if (datosUsuario.NombreRol.ToLower() == "docente")
-                        {
-                            TempData["MensajeError"] = "No cuenta con los permisos necesarios para ingresar al sistema.";
-                            CerrarSesion();
                         }
                         else
                         {
