@@ -63,7 +63,7 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             Session["PerfilUsuario"] = "Admin";
                         }
-                        else if (datosUsuario.NombreRol.ToLower() == "invitado")
+                        else if (datosUsuario.NombreRol.ToLower() == "Invitado")
                         {
                             Session["PerfilUsuario"] = "invitado";
                         }
@@ -78,7 +78,7 @@ namespace DCICC.GestionInventarios.Controllers
                         else
                         {
                             Session["PerfilUsuario"] = "Usuarios";
-                        }//OJO REDIRECCIONAMIENTO -> NO HOME
+                        }
                         Session.Timeout = Convert.ToInt32(ConfigurationManager.AppSettings["TiempoExpiracionMin"]);           
                         //Logs de reporte de transacción.
                         Logs.Info(string.Format("Autenticación exitosa de usuario: {0}.",infoLogin.NickUsuario));
