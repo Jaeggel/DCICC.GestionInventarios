@@ -35,31 +35,31 @@ namespace DCICC.GestionInventarios.Reportes
                 ws.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Cells["A9"].LoadFromDataTable(infoTable, true);
                 //Titulos Organización
-                ConfigCell(1, 2, 1, infoTable.Columns.Count, ws, infoTable.Columns.Count, "SISTEMA DE GESTIÓN DE INVENTARIOS Y TICKETING PARA SOPORTE TÉCNICO", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
-                ConfigCell(2, 2, 2, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Departamento de Laboratorios del ICC", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
-                ConfigCell(3, 2, 3, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Control de Inventario de Hardware y Software", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
+                ConfigCell(1, 2, 1, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Ingeniería en Ciencias de la Computación Sede Quito - Campus Sur", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
+                ConfigCell(2, 2, 2, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Sistema de Gestión de Inventarios y Ticketing para Soporte Técnico", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
+                ConfigCell(3, 2, 3, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Reporte de Activos de TI del Data Center y Laboratorios del ICC", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
                 ws.Cells[1, 1, 7, infoTable.Columns.Count].AutoFitColumns();
                 
                 //Carga de Parámetros
                 //Campus
-                ConfigCell(4,2,4, infoTable.Columns.Count,ws, infoTable.Columns.Count, "Quito, campus sur.",true,false,Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                //ConfigCell(4,2,4, infoTable.Columns.Count,ws, infoTable.Columns.Count, "Quito, campus sur.",true,false,Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Fecha
-                ConfigCell(5, 2, 5, infoTable.Columns.Count, ws, infoTable.Columns.Count, DateTime.Now.ToString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ConfigCell(4, 2, 4, infoTable.Columns.Count, ws, infoTable.Columns.Count, DateTime.Now.ToString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Laboratorio
-                ConfigCell(6, 2, 6, infoTable.Columns.Count, ws, infoTable.Columns.Count, labFiltro = (labFiltro == "Mostrar Todos") ? "Todos" : labFiltro, true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ConfigCell(5, 2, 5, infoTable.Columns.Count, ws, infoTable.Columns.Count, labFiltro = (labFiltro == "Mostrar Todos") ? "Todos" : labFiltro, true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //N° Equipos
-                ConfigCell(7, 2, 7, infoTable.Columns.Count, ws, infoTable.Columns.Count, infoTable.Rows.Count.ToString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ConfigCell(6, 2, 6, infoTable.Columns.Count, ws, infoTable.Columns.Count, infoTable.Rows.Count.ToString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Título del la lista del reporte
-                ConfigCell(8, 1, 8, infoTable.Columns.Count, ws, infoTable.Columns.Count, "LISTADO DE " + tituloReporte.ToUpper(), true, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Center);
+                ConfigCell(7, 1, 7, infoTable.Columns.Count, ws, infoTable.Columns.Count, "LISTADO DE " + tituloReporte.ToUpper(), true, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Center);
                 //Encabezado de la tabla
-                ConfigCell(9, 1, 9, infoTable.Columns.Count, ws, infoTable.Columns.Count, null, false, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Center);
+                ConfigCell(8, 1, 8, infoTable.Columns.Count, ws, infoTable.Columns.Count, null, false, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Center);
                 //Datos
-                ConfigCell(10, 1, 9 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, null, false, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ConfigCell(9, 1, 8 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, null, false, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Elaborado por
-                ConfigCell(10 + infoTable.Rows.Count, 1, 10 + infoTable.Rows.Count, 1, ws, 1, "ELABORADO POR: ", false, true, ColorTranslator.FromHtml("#ededed"), ColorTranslator.FromHtml("#23527c"), ExcelHorizontalAlignment.Left);
-                ConfigCell(10 + infoTable.Rows.Count, 2, 10 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()), true, false, ColorTranslator.FromHtml("#ededed"), ColorTranslator.FromHtml("#23527c"), ExcelHorizontalAlignment.Left);
+                ConfigCell(9 + infoTable.Rows.Count, 1, 9 + infoTable.Rows.Count, 1, ws, 1, "ELABORADO POR: ", false, true, ColorTranslator.FromHtml("#ededed"), ColorTranslator.FromHtml("#23527c"), ExcelHorizontalAlignment.Left);
+                ConfigCell(9 + infoTable.Rows.Count, 2, 9 + infoTable.Rows.Count, infoTable.Columns.Count, ws, infoTable.Columns.Count, Regex.Replace(firmaUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper()), true, false, ColorTranslator.FromHtml("#ededed"), ColorTranslator.FromHtml("#23527c"), ExcelHorizontalAlignment.Left);
                 //Autoajustar las celdas para los datos
-                ws.Cells[8, 1, 8 + infoTable.Rows.Count, infoTable.Columns.Count].AutoFitColumns();
+                ws.Cells[7, 1, 7 + infoTable.Rows.Count, infoTable.Columns.Count].AutoFitColumns();
                 
                 //Transformar el archivo a Bytes
                 memStream = new MemoryStream(pck.GetAsByteArray());
