@@ -118,21 +118,21 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de un Storage *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>*Nombre de Storage</label>
-                                        <input id="NombreStorage" type="text" class="form-control has-feedback-left" name="NombreStorage" placeholder="HP 3PAR 8200" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <label>Nombre de Storage</label>
+                                        <input id="NombreStorage" type="text" class="form-control has-feedback-left" name="NombreStorage" placeholder="HP 3PAR 8200" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" onblur="validarNombreModificar();" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreStorage" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso del nick de un Storage *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>*Nick de Storage</label>
-                                        <input id="NickStorage" type="text" class="form-control has-feedback-left" name="NickStorage" placeholder="3PAR-UPS" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <label>Nick de Storage</label>
+                                        <input id="NickStorage" type="text" class="form-control has-feedback-left" name="NickStorage" placeholder="3PAR-UPS" onkeyup="this.value=this.value.replace(validarNombres(),'');" onblur="validarNickModificar();" minlength="3" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNickStorage" style="color:brown;"></span>
                                     </div>
                                     @* Cuadro de texto para el ingreso de la capacidad de un Storage *@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>*Capacidad de Storage</label>
+                                        <label>Capacidad de Storage</label>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
@@ -199,15 +199,15 @@
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de una LUN *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>*Nombre de LUN</label>
-                                        <input id="NombreLUN" type="text" class="form-control has-feedback-left" name="NombreLUN" placeholder="CDP_REPOSITORIO" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <label>Nombre de LUN</label>
+                                        <input id="NombreLUN" type="text" class="form-control has-feedback-left" name="NombreLUN" placeholder="CDP_REPOSITORIO" onkeyup="this.value=this.value.replace(validarNombres(),'');" onblur="validarNombreModificar();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreLUN" style="color:brown;"></span>
                                     </div>
                                     @* Combobox para seleccionar el sistema (storage) *@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>* Escoja el Sistema:</label>
+                                            <label>Seleccione el Sistema/Storage:</label>
                                             <div id="cargarStorage"></div>
                                             <span id="errorcmbStorage" style="color:brown;"></span>
                                         </div>
@@ -215,7 +215,7 @@
 
                                     @* Cuadro de texto para el ingreso de la capacidad de una Lun *@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>*Capacidad de LUN</label>
+                                        <label>Capacidad de LUN</label>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
@@ -233,7 +233,7 @@
 
                                     @* Cuadro de texto para el ingreso del RAID de una LUN *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>*Tipo de RAID y Conexión</label>
+                                        <label>Tipo de RAID y Conexión</label>
                                         <select id="RaidTPLUN" class="form-control" name="RaidTPLUN" required>
                                             <option value="RAID 1 FC">RAID 1 FC</option>
                                             <option value="RAID 5 FC">RAID 5 FC</option>
@@ -305,7 +305,8 @@
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");
             $(".modal-body span[id=errorNombreStorage]").html('').hide();
-            $(".modal-body span[id=errorNickStorage]").html('').hide();
+			$(".modal-body span[id=errorNickStorage]").html('').hide();
+			$(".modal-body span[id=errorCapacidadStorage]").html('').hide();
             $("#NombreStorage").tooltip('hide');
             $("#NickStorage").tooltip('hide');
             $("#CapacidadStorage").tooltip('hide');

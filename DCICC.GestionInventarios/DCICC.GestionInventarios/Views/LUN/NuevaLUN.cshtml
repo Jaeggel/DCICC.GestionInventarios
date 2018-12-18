@@ -35,7 +35,7 @@
 
                     @* Cuadro de texto para el ingreso del nombre de una LUN *@
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <label>*Nombre de LUN</label>
+                        <label>* Nombre de LUN</label>
                         <input id="NombreLUN" type="text" class="form-control has-feedback-left" name="NombreLUN" placeholder="CDP_REPOSITORIO" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                         <span id="errorNombreLUN" style="color:brown;"></span>
@@ -43,7 +43,7 @@
                     @* Combobox para seleccionar el sistema (storage) *@
                     <div class="form-group">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <label>* Escoja el Sistema:</label>
+                            <label>* Seleccione el Sistema/Storage:</label>
                             <div id="cargarStorage"></div>
                             <span id="errorcmbStorage" style="color:brown;"></span>
                         </div>

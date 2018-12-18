@@ -6,6 +6,8 @@
 
         public string NombreRol{ get; set; }
 
+        public string NombreRolAntiguo { get; set; }
+
         public int IdRol { get; set; }
 
         public string NombresUsuario { get; set; }

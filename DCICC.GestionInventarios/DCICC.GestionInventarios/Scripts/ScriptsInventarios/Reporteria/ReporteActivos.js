@@ -238,18 +238,15 @@ function cargarActivosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaReportesActivos").html(str);
-    fechas = fechas.sort();
-    console.log(fechas);
     var minDate = fechas[0];
-    var maxDate = fechas[fechas.length - 1];
-    inicioFechaAct(minDate, maxDate); 
-    finFechaAct(minDate, maxDate);
+    inicioFechaAct(minDate); 
+    finFechaAct(minDate);
 
 }
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON FECHAS---------------------------------*/
 //Fecha de inicio
-function inicioFechaAct(minDate, maxDate) {
+function inicioFechaAct(minDate) {
     $(function () {
         $('input[name="FechaInicio"]').daterangepicker({
             startDate: minDate,
@@ -262,7 +259,7 @@ function inicioFechaAct(minDate, maxDate) {
     });
 }
 //Fecha de Fin
-function finFechaAct(minDate, maxDate) {
+function finFechaAct(minDate) {
     $(function () {
         $('input[name="FechaFin"]').daterangepicker({
             startDate: 0,
@@ -297,13 +294,6 @@ function consultarFechas() {
     ); 
     table.draw();
 }
-
-
-//Función para limpiar las fechas
-function limpiarFechas() {
-    //obtenerAccesorios(url);  
-}
-
 
 
 /**
@@ -494,17 +484,15 @@ function cargarHistoricosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaHistoricos").html(str);
-    fechasHist = fechasHist.sort();
     var minDate = fechasHist[0];
-    var maxDate = fechasHist[fechasHist.length - 1];
-     inicioFechaHist(minDate, maxDate);
-    finFechaHist(minDate, maxDate);
+     inicioFechaHist(minDate);
+    finFechaHist(minDate);
 
 }
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON FECHAS---------------------------------*/
 //Fecha de inicio para historicos
-function inicioFechaHist(minDate, maxDate) {
+function inicioFechaHist(minDate) {
     $(function () {
         $('input[name="FechaInicioHist"]').daterangepicker({
             startDate: minDate,
@@ -518,7 +506,7 @@ function inicioFechaHist(minDate, maxDate) {
 }
 
 //Fecha Fin para Historicos
-function finFechaHist(minDate, maxDate) {
+function finFechaHist(minDate) {
     $(function () {
         $('input[name="FechaFinHist"]').daterangepicker({
             startDate: 0,

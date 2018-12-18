@@ -4,6 +4,7 @@ var datosTipoActivo;
 var cmbCategorias;
 var cmbCategoriasComp;
 var idTipoActivo;
+var nombreTipoModificar;
 var urlEstado;
 var nombresTipoAcc=[];
 
@@ -90,7 +91,7 @@ function cargarTipoActTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoActivo" onclick = "formUpdateTipoAct(' + datosTipoActivo[i].IdTipoActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modficar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoActivo" onclick = "formUpdateTipoAct(' + datosTipoActivo[i].IdTipoActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosTipoActivo[i].HabilitadoTipoActivo) {
@@ -132,6 +133,7 @@ function formUpdateTipoAct(idTipoAct) {
     idTipoActivo = idTipoAct;
     for (var i = 0; i < datosTipoActivo.length; i++) {
         if (datosTipoActivo[i].IdTipoActivo == idTipoAct) {
+            nombreTipoModificar=datosTipoActivo[i].NombreTipoActivo;
             //Métodos para setear los valores a modificar
             var element = document.getElementById("IdCategoriaComp");
             element.value = datosTipoActivo[i].IdCategoriaActivo;
@@ -183,11 +185,11 @@ function modificarTipoActivo(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarTipoActivo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Tipo de Activo se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'El Tipo " ' + nombreTipo.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerTipoActivo(url_metodo);
                         } else {
                             $('#ModificarTipoActivo').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Tipo de Activo: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Activo: ' + data.MensajeError, "error");
                         }
                     }
                 });
@@ -209,7 +211,7 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado del Tipo de Activo?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -225,10 +227,10 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado del Tipo de Activo se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado del Tipo de Activo se ha modificado exitosamente', "success");
                         obtenerTipoActivo(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Tipo Activo: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Tipo de Activo: ' + data.MensajeError, "error");
                     }   
                 }
             });
@@ -276,8 +278,30 @@ function comprobarNombre() {
                 $('#errorNombreTipo').html('').hide();
             }
         }
-    }
-    
+    }    
+}
+
+//Función para evitar nombres repetidos en la modificación de tipo
+function validarNombreModificacion() {
+    var nombre = document.getElementById("NombreTipoActivo");
+    nombre.value = nombre.value.toUpperCase();
+    if (nombre.value != nombreTipoModificar.toUpperCase()) {
+        for (var i = 0; i < datosTipoActivo.length; i++) {
+            if ((datosTipoActivo[i].NombreTipoActivo).toUpperCase() == nombre.value) {
+                nombre.style.borderColor = "#900C3F";
+                $('#errorNombreTipo').html("El nombre del Tipo Activo: " + nombre.value + " ya existe").show();
+                setTimeout("$('#errorNombreTipo').html('').hide('slow')", 8000);
+                nombre.value = "";
+                break;
+            } else {
+                nombre.style.borderColor = "#ccc";
+                $('#errorNombreTipo').html('').hide();
+            }
+        }
+    } else {
+        nombre.style.borderColor = "#ccc";
+        $('#errorNombreTipo').html('').hide();
+    } 
 }
 
 ///Funciones para validaciones de campos de texto
@@ -320,7 +344,6 @@ function validarCmbTipoComp() {
 //Función para validación de input de ingreso
 function validarInputsVaciosIngreso() {
     var esValido = true;
-    var boton = document.getElementById("confirmarTipo");
     var nomTipo = document.getElementById("NombreTipoActivo");
     //Validación para el campo de texto nombre de tipo
     if (nomTipo.value.length <= 0) {
@@ -328,11 +351,9 @@ function validarInputsVaciosIngreso() {
         nomTipo.style.borderColor = "#900C3F";
         $('#errorNombreTipo').html('El campo nombre no debe estar vacio').show();
         setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nomTipo.style.borderColor = "#ccc";
         $('#errorNombreTipo').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 

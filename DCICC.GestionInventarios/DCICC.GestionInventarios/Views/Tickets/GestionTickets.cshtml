@@ -139,7 +139,7 @@
                                     </div>
                                     @* Área de Texto para el ingreso de un comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="ComentarioTicket" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
+                                        <textarea id="ComentarioTicket" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" data-toggle="tooltip" data-placement="rigth" title="" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
 
@@ -230,7 +230,7 @@
 
                                     @* Área de Texto para el ingreso del comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="ComentarioTicketEC" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
+                                        <textarea id="ComentarioTicketEC" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" data-toggle="tooltip" data-placement="rigth" title="" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
 
@@ -321,7 +321,7 @@
 
                                     @* Área de Texto para el ingreso del comentario del ticket *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="ComentarioTicketEnEs" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="500"></textarea>
+                                        <textarea id="ComentarioTicketEnEs" name="ComentarioTicket" class="form-control has-feedback-left" rows="3" placeholder="Comentario del cambio de Estado de la Incidencia" onkeyup="this.value=this.value.replace(validarTextos(),'');" data-toggle="tooltip" data-placement="rigth" title="" maxlength="500"></textarea>
                                         <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     <div class="ln_solid"></div>
@@ -367,21 +367,35 @@
         //Método para obtener las tablas de tickets
         obtenerTickets('@Url.Action("ObtenerTicketsComp", "Tickets")');
         datosResponsables('@Url.Action("ObtenerUsuarios", "Usuarios")');
+		mensajesTooltipsAbiertos();
+		mensajesTooltipsEnCurso();
+		mensajesTooltipsEnEspera();
 
-        $('#ModificarTickets').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body textarea").val("");
+		$('#ModificarTickets').on('hidden.bs.modal', function () {
+			$(".modal-body select").css("borderColor", "#ccc");
+			$(".modal-body select").val("");
+			$(".modal-body span[id=errorResponsableAbi]").html('').hide();
+			$(".modal-body span[id=errorAbiertos]").html('').hide();
+			$(".modal-body textarea").val("");
+			$("#Responsables").tooltip('hide');
+			$("#ComentarioTicket").tooltip('hide');
         });
 
-        $('#ModificarTicketsEnCurso').on('hidden.bs.modal', function () {
+		$('#ModificarTicketsEnCurso').on('hidden.bs.modal', function () {
+			$(".modal-body select").css("borderColor", "#ccc");
             $(".modal-body select").val("");
-            $(".modal-body textarea").val("");
+			$(".modal-body textarea").val("");			
+			$(".modal-body span[id=errorEnCurso]").html('').hide();
+			$("#ComentarioTicketEC").tooltip('hide');
         });
 
         $('#ModificarTicketsEnEspera').on('hidden.bs.modal', function () {
-            $(".modal-body select").val("");
-            $(".modal-body textarea").val("");
-        });
+			$(".modal-body select").css("borderColor", "#ccc");
+			$(".modal-body select").val("");
+			$(".modal-body textarea").val("");
+			$(".modal-body span[id=errorEnEspera]").html('').hide();
+			$("#ComentarioTicketEnEs").tooltip('hide');
+		});
 
     });
 

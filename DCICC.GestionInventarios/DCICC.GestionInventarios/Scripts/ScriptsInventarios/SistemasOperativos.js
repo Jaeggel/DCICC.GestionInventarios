@@ -2,6 +2,7 @@
 var url_metodo;
 var datosSO;
 var idSOMod;
+var nombreSOModificar;
 var urlEstado;
 var nombresSO = [];
 
@@ -12,7 +13,7 @@ function obtenerSO(url) {
     $.ajax({
         dataType: 'json',
         url: url,
-        type: 'get',
+        type: 'post',
         success: function (data) {
             if (data.OperacionExitosa) {
                 datosSO = data.ListaObjetoInventarios;
@@ -70,8 +71,8 @@ function cargarSOTabla() {
 function formUpdateSO(idSO) {
     idSOMod = idSO;
     for (var i = 0; i < datosSO.length; i++) {
-
         if (datosSO[i].IdSistOperativos == idSO) {
+            nombreSOModificar = datosSO[i].NombreSistOperativos;
             //Métodos para setear los valores a modificar
             document.getElementById("NombreSistOperativos").value = datosSO[i].NombreSistOperativos;
             document.getElementById("DescripcionSistOperativos").value = datosSO[i].DescripcionSistOperativos;
@@ -115,11 +116,11 @@ function modificarSO(url_modificar) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarSo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Sistema Operativo se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'El Sistema Operativo " ' + nombreSO.toUpperCase() + ' " se ha modificado exitosamente', "success");
                             obtenerSO(url_metodo);
                         } else {
                             $('#ModificarSo').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar la Marca el Sistema Operativo: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Sistema Operativo: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -141,7 +142,7 @@ function habilitarOdeshabilitar(idSistOpe, estadoSistOpe) {
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado del Sistema Operativo?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -158,11 +159,11 @@ function habilitarOdeshabilitar(idSistOpe, estadoSistOpe) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
                        
-                        showNotify("Actualización exitosa", 'El Estado del Sistema Operativo se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado del Sistema Operativo se ha modificado exitosamente', "success");
                         obtenerSO(url_metodo);
                     } else {
                       
-                        showNotify("Error en la Actualización", 'No se ha podido modificar El Estado del Sistema Operativo: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Sistema Operativo: ' + data.MensajeError, "error");
                     }
                  
                 }, error: function (e) {
@@ -191,8 +192,7 @@ $(function () {
 
 /* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar nombres de sistemas operativo repetidos
-function comprobarNombre() {
-   
+function comprobarNombre() { 
     var nomSO = document.getElementById("NombreSistOperativos");
     nomSO.value = nomSO.value.toUpperCase();
     //Validación para el campo de texto nombre de laboratorio
@@ -204,34 +204,54 @@ function comprobarNombre() {
         for (var i = 0; i < datosSO.length; i++) {
             if ((datosSO[i].NombreSistOperativos).toUpperCase() == nomSO.value) {
                 nomSO.style.borderColor = "#900C3F";
-                $('#errorNombreSO').html("El nombre del Sistema Operativo: " + nomSO.value + " ya existe").show();
+                $('#errorNombreSO').html("El nombre: " + nomSO.value + " ya existe").show();
                 setTimeout("$('#errorNombreSO').html('').hide('slow')", 6000);
                 nomSO.value = "";
+                break;
             } else {
                 nomSO.style.borderColor = "#ccc";
                 $('#errorNombreSO').html('').hide();
             }
         }
     }
+}
 
+//funcion para validar nombre repetido en la modificación
+function validarNombreModificacion() {
+    var nomCat = document.getElementById("NombreSistOperativos");
+    nomCat.value = nomCat.value.toUpperCase();
+    if (nomCat.value != nombreSOModificar.toUpperCase()) {
+        for (var i = 0; i < datosSO.length; i++) {
+            if ((datosSO[i].NombreSistOperativos).toUpperCase() == nomCat.value) {
+                nomCat.style.borderColor = "#900C3F";
+                $('#errorNombreSo').html("El nombre: " + nomCat.value + " ya existe").show();
+                setTimeout("$('#errorNombreSo').html('').hide('slow')", 6000);
+                nomCat.value = "";
+                break;
+            } else {
+                nomCat.style.borderColor = "#ccc";
+                $('#errorNombreSo').html('').hide();
+            }
+        }
+    } else {
+        nomCat.style.borderColor = "#ccc";
+        $('#errorNombreSo').html('').hide();
+    }
 }
 
 //Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
-    var boton = document.getElementById("confirmarSO");
     var nomSO = document.getElementById("NombreSistOperativos");
     //Validación para el campo de texto nombre de laboratorio
     if (nomSO.value.length <= 0) {
         esValido = false;
         nomSO.style.borderColor = "#900C3F";
-        $('#errorNombreSO').html('El campo nombre no debe estar vacio').show();
-        setTimeout("$('#errorNombreSO').html('').hide('slow')", 6000);
-        boton.disabled = true;
+        $('#errorNombreSo').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreSo').html('').hide('slow')", 6000);
     } else {
         nomSO.style.borderColor = "#ccc";
-        $('#errorNombreSO').html('').hide();
-        boton.disabled = false;
+        $('#errorNombreSo').html('').hide();
     }
     return esValido;
 }

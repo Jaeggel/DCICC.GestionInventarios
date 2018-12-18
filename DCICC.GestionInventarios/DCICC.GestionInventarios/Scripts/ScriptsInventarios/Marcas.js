@@ -2,6 +2,7 @@
 var url_metodo;
 var datosMarcas;
 var idMarcaModificar;
+var nombreMarcaModificar;
 var urlEstado;
 var nombresMarcas = [];
 
@@ -43,7 +44,6 @@ function cargarMarcasTabla() {
     str += '<thead> <tr> <th>Nombre de la Marca</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMarcas.length; i++) {
-
         str += '<tr><td>' + datosMarcas[i].NombreMarca +
             '</td><td>' + datosMarcas[i].DescripcionMarca;
 
@@ -62,7 +62,6 @@ function cargarMarcasTabla() {
             str += '<button type="button" class="btn btn-danger text-center" onclick = "habilitarOdeshabilitar(' + datosMarcas[i].IdMarca + ',' + datosMarcas[i].HabilitadoMarca +');"> <strong><i class="fa fa-toggle-off"></i></strong></button>';
         }   
         str +='</div></div></td></tr>';
-
     }
     str += '</tbody></table>';
     $("#tablaModificarMarca").html(str);
@@ -73,8 +72,8 @@ function cargarMarcasTabla() {
 function formUpdateMarca(idMarca) {
     idMarcaModificar = idMarca;
     for (var i = 0; i < datosMarcas.length; i++) {
-
         if (datosMarcas[i].IdMarca == idMarca) {
+            nombreMarcaModificar = datosMarcas[i].NombreMarca;
             //Métodos para setear los valores a modificar
             document.getElementById("NombreMarca").value = datosMarcas[i].NombreMarca;
             document.getElementById("DescripcionMarca").value = datosMarcas[i].DescripcionMarca;
@@ -114,16 +113,14 @@ function modificarMarca(url_modificar) {
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
-                        console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarMarca').modal('hide');
-                            showNotify("Actualización exitosa", 'La Marca se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'La Marca " ' + nombreMarca.toUpperCase() + ' " se ha modificado exitosamente', "success");
                             obtenerMarcas(url_metodo);
                         } else {
                             $('#ModificarMarca').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar la Marca: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar la Marca: ' + data.MensajeError, "error");
                         }
-
                     }
                 });
             } else {
@@ -143,7 +140,7 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado la Categoria?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -160,12 +157,11 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado de la Marca se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado de la Marca se ha modificado exitosamente', "success");
                         obtenerMarcas(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la Marca: ' + data.MensajeError, "error");
-                    }
-                    
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado de la Marca: ' + data.MensajeError, "error");
+                    }                   
                 }
             });
         } else {
@@ -215,10 +211,33 @@ function comprobarNombre() {
     }
 }
 
+//Función para evitar nombres repetidos de marcas en la modificación
+function validarNombreModificacion() {
+    var nomMarca = document.getElementById("NombreMarca");
+    nomMarca.value = nomMarca.value.toUpperCase();
+    //Validación para el campo de texto nombre de Marcas
+    if (nomMarca.value != nombreMarcaModificar.toUpperCase()) {
+        for (var i = 0; i < datosMarcas.length; i++) {
+            if ((datosMarcas[i].NombreMarca).toUpperCase() == nomMarca.value) {
+                nomMarca.style.borderColor = "#900C3F";
+                $('#errorNombreMarca').html("El nombre de la marca: " + nomMarca.value + " ya existe").show();
+                setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
+                nomMarca.value = "";
+                break;
+            } else {
+                nomMarca.style.borderColor = "#ccc";
+                $('#errorNombreMarca').html('').hide();
+            }
+        }
+    } else {
+        nomMarca.style.borderColor = "#ccc";
+        $('#errorNombreMarca').html('').hide();
+    } 
+}
+
 //Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMarca");
     var nomMarca = document.getElementById("NombreMarca");
     //Validación para el campo de texto nombre de Marcas
     if (nomMarca.value.length <= 0) {
@@ -226,11 +245,9 @@ function validarInputNombre() {
         nomMarca.style.borderColor = "#900C3F";
         $('#errorNombreMarca').html('El campo nombre no debe estar vacio').show();
         setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nomMarca.style.borderColor = "#ccc";
         $('#errorNombreMarca').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }

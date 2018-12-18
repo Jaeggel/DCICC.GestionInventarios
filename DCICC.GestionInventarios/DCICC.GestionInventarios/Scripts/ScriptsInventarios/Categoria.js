@@ -2,8 +2,10 @@
 var url_metodo;
 var datosCategorias;
 var idCategoriaModificar;
+var nombreCategoriaModificar;
 var urlEstado;
-var nombresCat=[];
+var nombresCat = [];
+var rol;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de categorias
@@ -52,7 +54,7 @@ function cargarCategoriaTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarCategoria" onclick = "formUpdateCategoria(' + datosCategorias[i].IdCategoriaActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modficar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarCategoria" onclick = "formUpdateCategoria(' + datosCategorias[i].IdCategoriaActivo + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosCategorias[i].HabilitadoCategoriaActivo) {
@@ -64,6 +66,11 @@ function cargarCategoriaTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarCategorias").html(str);
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Pasantes") {
+        console.log("entro");
+        $("#dataTableCategorias :button").attr("disabled", "disabled");
+    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -73,6 +80,7 @@ function formUpdateCategoria(idCategoria) {
     idCategoriaModificar = idCategoria;
     for (var i = 0; i < datosCategorias.length; i++) {
         if (datosCategorias[i].IdCategoriaActivo == idCategoria) {
+            nombreCategoriaModificar = datosCategorias[i].NombreCategoriaActivo;
             //Métodos para setear los valores a modificar
             document.getElementById("NombreCategoriaActivo").value = datosCategorias[i].NombreCategoriaActivo;
             document.getElementById("DescripcionCategoriaActivo").value = datosCategorias[i].DescripcionCategoriaActivo;
@@ -114,15 +122,14 @@ function modificarCategoria(url_modificar) {
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
-                        console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             console.log("actualizacion exitosa");
                             $('#ModificarCategoria').modal('hide');
-                            showNotify("Actualización exitosa", 'La Categoria de Activo se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'La Categoria "' + nombreCategoria.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerCategorias(url_metodo);
                         } else {
                             $('#ModificarCategoria').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar la Categoría del Activo: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar la Categoría: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -145,7 +152,7 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
     }
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado la Categoria?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -159,12 +166,11 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
                 url: urlEstado,
                 type: 'post',
                 success: function (data) {
-                    console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado de la Categoria de Activo se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado de la Categoria se ha modificado exitosamente', "success");
                         obtenerCategorias(url_metodo);
                     } else {                     
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado de la Categoría del Activo: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado de la Categoría: ' + data.MensajeError, "error");
                     }                              
                 }
             });
@@ -215,10 +221,33 @@ function comprobarNombre() {
     }
 }
 
+//funcion para validar nombre repetido en la modificación
+function validarNombreModificación() {
+    var nomCat = document.getElementById("NombreCategoriaActivo");
+    nomCat.value = nomCat.value.toUpperCase();
+    if (nomCat.value != nombreCategoriaModificar.toUpperCase()) {
+        for (var i = 0; i < datosCategorias.length; i++) {
+            if ((datosCategorias[i].NombreCategoriaActivo).toUpperCase() == nomCat.value) {
+                nomCat.style.borderColor = "#900C3F";
+                $('#errorNombreCategoria').html("El nombre de la categoria: " + nomCat.value + " ya existe").show();
+                setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
+                nomCat.value = "";
+                break;
+            } else {
+                nomCat.style.borderColor = "#ccc";
+                $('#errorNombreCategoria').html('').hide();
+            }
+        }
+    } else {
+        nomCat.style.borderColor = "#ccc";
+        $('#errorNombreCategoria').html('').hide();
+    }  
+}
+
+
 //Funciones para validaciones de campos de texto
 function validarInputsVaciosModificacion() {
     var esValido = true;
-    var boton = document.getElementById("confirmarCategoria");
     var nomCat = document.getElementById("NombreCategoriaActivo");
     //Valicación para el campo de texto nombre de categoria
     if (nomCat.value.length <= 0) {
@@ -226,11 +255,9 @@ function validarInputsVaciosModificacion() {
         nomCat.style.borderColor = "#900C3F";
         $('#errorNombreCategoria').html('El campo nombre no debe estar vacio').show();
         setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nomCat.style.borderColor = "#ccc";
         $('#errorNombreCategoria').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -241,5 +268,25 @@ function validarInputsVaciosModificacion() {
 function mensajesTooltips() {
     document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+
+}
+
+//Función para bloquear botones cuando el usuario es invitado
+function botones(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rol = data;
+            console.log(data);
+            if (data == "Pasantes") {
+                $(':button').prop('disabled', true);
+                //$("#dataTableCategorias :button").attr("disabled", "disabled");
+                //$('.btn').prop('disabled', true);
+                //$("#modificar").attr("disabled", "disabled");
+            }
+        }
+    });
 
 }

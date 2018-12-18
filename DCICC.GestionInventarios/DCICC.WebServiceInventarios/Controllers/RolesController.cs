@@ -35,6 +35,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjRoles;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de todos los Roles de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerRolesComp")]
+        public MensajesRoles ObtenerRolesComp()
+        {
+            MensajesRoles msjRoles = new MensajesRoles();
+            ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
+            msjRoles = objConsultasRolesBD.ObtenerRoles("");
+            if (msjRoles.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Roles realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjRoles.MensajeError);
+            }
+            return msjRoles;
+        }
         #endregion
         #region Registros
         /// <summary>
@@ -72,6 +92,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             if (msjRoles.OperacionExitosa)
             {
                 Logs.Info(string.Format("Actualización de Rol con ID: {0} realizada exitosamente.",infoRol.IdRol));
+            }
+            else
+            {
+                Logs.Error(msjRoles.MensajeError);
+            }
+            return msjRoles;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar el estado de un Rol en la base de datos.
+        /// </summary>
+        /// <param name="infoRol"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarEstadoRol")]
+        public MensajesRoles ActualizarEstadoRol([FromBody] Roles infoRol)
+        {
+            MensajesRoles msjRoles = null;
+            if (msjRoles.OperacionExitosa)
+            {
+                Logs.Info(string.Format("Actualización de estado de Rol con ID: {0} realizada exitosamente.", infoRol.IdRol));
             }
             else
             {

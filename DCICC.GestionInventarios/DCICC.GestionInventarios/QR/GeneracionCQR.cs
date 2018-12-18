@@ -12,6 +12,11 @@ namespace DCICC.GestionInventarios.QR
     {
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        string tipo_CQR = string.Empty;
+        public GeneracionCQR(string tipoCQR)
+        {
+            tipo_CQR = tipoCQR;
+        }
         /// <summary>
         /// Método para generar el Id del código QR
         /// </summary>
@@ -19,7 +24,7 @@ namespace DCICC.GestionInventarios.QR
         public string GenerarIdCodigoQR(string NickUsuarioSesion)
         {
             string mensajesCQR = string.Empty;
-            string idCQR = "DCICC.CQR";
+            string idCQR = string.Format("DCICC.{0}.CQR",tipo_CQR);
             try
             {
                 MensajesCQR msjCQR = new MensajesCQR();

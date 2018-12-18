@@ -41,8 +41,17 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                     cmd.ExecuteNonQuery();
                 }
+                string query = string.Empty;
                 ConsultasRoles objConsultaRoles = new ConsultasRoles();
-                string query = string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario,pwdUsuario, objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
+                infoUsuario.NombreRol = objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol;
+                if (infoUsuario.NombreRol == "administrador")
+                {
+                    query= string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
+                }
+                else
+                {
+                    query = string.Format("create user {0} with password '{1}' NOCREATEROLE NOCREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
+                }
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn_BD))
                 {
                     cmd.ExecuteNonQuery();

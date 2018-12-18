@@ -13,6 +13,8 @@ namespace DCICC.GestionInventarios.Models
 
         public string NombreRol { get; set; }
 
+        public string NombreRolAntiguo { get; set; }
+
         public string NombresUsuario { get; set; }
 
         public string NickUsuario { get; set; }

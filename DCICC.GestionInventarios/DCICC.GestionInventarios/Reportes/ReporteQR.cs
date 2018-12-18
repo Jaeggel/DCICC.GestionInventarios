@@ -13,7 +13,7 @@ namespace DCICC.GestionInventarios.Reportes
 {
     public class ReporteQR
     {
-        readonly iTextSharp.text.Font fuente_Datos = FontFactory.GetFont("Arial", 8);
+        readonly iTextSharp.text.Font fuente_Datos = FontFactory.GetFont("Arial", 5);
         /// <summary>
         /// Método para generar el PDF con el código QR de un nuevo activo.
         /// </summary>
@@ -171,7 +171,8 @@ namespace DCICC.GestionInventarios.Reportes
         /// <returns></returns>
         public iTextSharp.text.Image GenerarImagenCQR(string idQR)
         {
-            GeneracionCQR objGeneracionQR = new GeneracionCQR();
+            string[] auxCQR = idQR.Split('.');
+            GeneracionCQR objGeneracionQR = new GeneracionCQR(auxCQR[1]);
             Bitmap bitmap = objGeneracionQR.GenerarCodigoQR(idQR);
             byte[] bitmapBytes = objGeneracionQR.GenQRBytes(bitmap);
             System.Drawing.Image bitmapQRReporte = (Bitmap)new ImageConverter().ConvertFrom(bitmapBytes);

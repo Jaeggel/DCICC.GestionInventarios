@@ -2,6 +2,7 @@
 var url_metodo;
 var datosLaboratorios;
 var idLaboratorio;
+var nombreLabModificar;
 var urlEstado;
 var nombresLabs = [];
 
@@ -75,6 +76,7 @@ function formUpdateLaboratorio(idLab) {
     idLaboratorio = idLab;
     for (var i = 0; i < datosLaboratorios.length; i++) {
         if (datosLaboratorios[i].IdLaboratorio == idLab) {
+            nombreLabModificar = datosLaboratorios[i].NombreLaboratorio;
             //Métodos para setear los valores a modificar
             document.getElementById("NombreLaboratorio").value = datosLaboratorios[i].NombreLaboratorio;
             document.getElementById("UbicacionLaboratorio").value = datosLaboratorios[i].UbicacionLaboratorio;
@@ -118,14 +120,13 @@ function modificarLaboratorio(url_modificar) {
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
-                        console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarLaboratorios').modal('hide');
-                            showNotify("Actualización exitosa", 'El Laboratorio se ha modificado correctamente', "success");
+                            showNotify("Actualización exitosa", 'El Laboratorio "' + nombreLab.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerLaboratorios(url_metodo);
                         } else {
                             $('#ModificarLaboratorios').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido modificar el Laboratorio: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Laboratorio: ' + data.MensajeError, "error");
                         }
                     }
                 });
@@ -147,7 +148,7 @@ function habilitarOdeshabilitar(idLab, estadoLab) {
     console.log(nuevoEstado);
     swal({
         title: 'Confirmación de Cambio de Estado',
-        text: "¿Está seguro de Cambiar de Estado el Laboratorio?",
+        text: "¿Está seguro de cambiar el estado del registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -164,10 +165,10 @@ function habilitarOdeshabilitar(idLab, estadoLab) {
                 success: function (data) {
                     console.log(data.OperacionExitosa);
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado del Laboratorio se ha modificado correctamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado del Laboratorio se ha modificado exitosamente', "success");
                         obtenerLaboratorios(url_metodo);
                     } else {                        
-                        showNotify("Error en la Actualización", 'No se ha podido modificar el Estado del Laboratorio: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Laboratorio: ' + data.MensajeError, "error");
                     }
                    
                 }
@@ -218,13 +219,35 @@ function comprobarNombre() {
             }
         }
     }
-    
 }
+
+//Función para validar nombres repetidos en actualización de laboratorios 
+function validarNombreModificación() {
+    var nombre = document.getElementById("NombreLaboratorio");
+    nombre.value = nombre.value.toUpperCase();
+    if (nombre.value != nombreLabModificar.toUpperCase()) {
+        for (var i = 0; i < datosLaboratorios.length; i++) {
+            if ((datosLaboratorios[i].NombreLaboratorio).toUpperCase() == nombre.value) {
+                nombre.style.borderColor = "#900C3F";
+                $('#errorNombreLab').html("El nombre del laboratorio: " + nombre.value + " ya existe").show();
+                setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
+                nombre.value = "";
+                break;
+            } else {
+                nombre.style.borderColor = "#ccc";
+                $('#errorNombreLab').html('').hide();
+            }
+        }
+    } else {
+        nombre.style.borderColor = "#ccc";
+        $('#errorNombreLab').html('').hide();
+    }
+}
+
 
 //Funciones para validaciones de campos de texto
 function validarInputNombre() {
     var esValido = true;
-    var boton = document.getElementById("confirmarLab");
     var nomLab = document.getElementById("NombreLaboratorio");
     //Validación para el campo de texto nombre de laboratorio
     if (nomLab.value.length <= 0) {
@@ -233,11 +256,9 @@ function validarInputNombre() {
         nomLab.style.borderColor = "#900C3F";
         $('#errorNombreLab').html('El campo nombre no debe estar vacio').show();
         setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nomLab.style.borderColor = "#ccc";
         $('#errorNombreLab').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -245,20 +266,16 @@ function validarInputNombre() {
 //Función para validar el campo Ubicación
 function validarInputUbicacion() {
     var esValido = true;
-    var boton = document.getElementById("confirmarLab");
     var ubicacionLab = document.getElementById("UbicacionLaboratorio");
     //Validación para el campo de texto ubicacion de laboratorio
     if (ubicacionLab.value.length <= 0) {
         esValido = false;
-        ubicacionLab.focus();
         ubicacionLab.style.borderColor = "#900C3F";
         $('#errorUbicacionLab').html('El campo ubicación no debe estar vacio').show();
         setTimeout("$('#errorUbicacionLab').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         ubicacionLab.style.borderColor = "#ccc";
         $('#errorUbicacionLab').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }

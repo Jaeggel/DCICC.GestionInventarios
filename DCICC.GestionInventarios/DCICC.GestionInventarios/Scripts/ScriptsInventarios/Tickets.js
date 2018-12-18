@@ -11,7 +11,7 @@ var idResponsable;
  *                SECCIÓN PARA OPERACIONES DE TICKETS ABIERTOS
  * *********************************************************************************
  */
-
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método para obtener los tickets
 function obtenerTickets(url) {
     url_metodo = url;
@@ -81,7 +81,6 @@ function contarTickets() {
         if (ticketsReportados[i].EstadoTicket == 'RESUELTO') {
             contResueltos += 1;
         }
-
     }
     $('#numeroAbiertos').html(contAbiertos).show();
     $('#numeroEnCurso').html(contEnCurso).show();
@@ -102,6 +101,7 @@ function datosResponsables(url) {
     });
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 //Funciones para cargar los combobox de estados abierto
 function cargarEstadosAbiertoCmb() {
     var str = '<select id="Estados" class="form-control" name="Estados" required>';
@@ -117,7 +117,7 @@ function cargarEstadosAbiertoCmb() {
 
 //Funciones para cargar los combobox de estados abierto
 function cargarResponsablesCmb() {
-    var str = '<select id="Responsables" class="form-control" name="Responsables" required>';
+    var str = '<select id="Responsables" class="form-control" name="Responsables" data-toggle="tooltip" data-placement="rigth" title="Seleccione el responsable que se hará cargo del Ticket" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < responsables.length; i++) {
         if (responsables[i].NombreRol == "administrador" || responsables[i].NombreRol == "pasante") {
@@ -181,6 +181,7 @@ function modificarEstadoTicket(url_modificar) {
     var nick = document.getElementById("usuarioActual").innerHTML;
     var cmbResponsable = document.getElementById("Responsables");
     var responsable = cmbResponsable.options[cmbResponsable.selectedIndex].value;
+    var asignado = cmbResponsable.options[cmbResponsable.selectedIndex].text;
     var cmbEstado = document.getElementById("Estados");
     var Estado = cmbEstado.options[cmbEstado.selectedIndex].value;
     var comentario = document.getElementById("ComentarioTicket").value;
@@ -188,7 +189,7 @@ function modificarEstadoTicket(url_modificar) {
     if (validarCmbAbierto()) {
         swal({
             title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar el Ticket?",
+            text: "¿Está seguro de modificar el registro?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#26B99A',
@@ -204,12 +205,12 @@ function modificarEstadoTicket(url_modificar) {
                     success: function (data) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
-                            $('#ModificarTickets').modal('hide');                            
-                            showNotify("Actualización exitosa", 'El Ticket se asignó y cambió de Estado', "success");
+                            $('#ModificarTickets').modal('hide');
+                            showNotify("Actualización exitosa", 'El Ticket se asignó a: "' + asignado.toUpperCase() + '" y cambió de Estado a: ' + Estado, "success");
                             obtenerTickets(url_metodo);
                         } else {
                             $('#ModificarTickets').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Ticket: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -250,6 +251,14 @@ function validarCmbAbierto() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
+
+//Mensajes para los tooltips
+function mensajesTooltipsAbiertos() {
+    //document.getElementById("Responsables").title = "Seleccione el responsable que se hará cargo del Ticket";
+    document.getElementById("ComentarioTicket").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ .";
+
+}
 
 /**
  * *********************************************************************************
@@ -337,7 +346,7 @@ function modificarEstadoTicketEnCurso(url_modificar) {
     if (validarCmbCurso()) {
         swal({
             title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar el Ticket?",
+            text: "¿Está seguro de modificar el registro?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#26B99A',
@@ -353,11 +362,11 @@ function modificarEstadoTicketEnCurso(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarTicketsEnCurso').modal('hide');
-                            showNotify("Actualización exitosa", 'El Ticket cambió a Estado', "success");
+                            showNotify("Actualización exitosa", 'El Ticket cambió de Estado a: ' + Estado, "success");
                             obtenerTickets(url_metodo);
                         } else {
                             $('#ModificarTicketsEnCurso').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Ticket: ' + data.MensajeError, "error");
                         }
                     }
                 });
@@ -386,6 +395,15 @@ function validarCmbCurso() {
     }
 
     return esValido;
+}
+
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
+
+//Mensajes para los tooltips
+function mensajesTooltipsEnCurso() {
+    //document.getElementById("Responsables").title = "Seleccione el responsable que se hará cargo del Ticket";
+    document.getElementById("ComentarioTicketEC").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ .";
+
 }
 
 
@@ -475,7 +493,7 @@ function modificarEstadoTicketEnEspera(url_modificar) {
     if (validarCmbEspera()) {
         swal({
             title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar el Ticket?",
+            text: "¿Está seguro de modificar el registro?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#26B99A',
@@ -491,11 +509,11 @@ function modificarEstadoTicketEnEspera(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarTicketsEnEspera').modal('hide');
-                            showNotify("Actualización exitosa", 'El Ticket cambió a Estado', "success");
+                            showNotify("Actualización exitosa", 'El Ticket cambió de Estado a: ' + Estado, "success");
                             obtenerTickets(url_metodo);
                         } else {
                             $('#ModificarTicketsEnEspera').modal('hide');
-                            showNotify("Error en la Actualización", 'No se ha podido actualizar el Ticket: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Ticket: ' + data.MensajeError, "error");
                         }
                     }
                 });
@@ -526,6 +544,13 @@ function validarCmbEspera() {
     return esValido;
 }
 
+/* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
+
+//Mensajes para los tooltips
+function mensajesTooltipsEnEspera() {
+    //document.getElementById("Responsables").title = "Seleccione el responsable que se hará cargo del Ticket";
+    document.getElementById("ComentarioTicketEnEs").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ .";
+}
 
 /**
  * *********************************************************************************

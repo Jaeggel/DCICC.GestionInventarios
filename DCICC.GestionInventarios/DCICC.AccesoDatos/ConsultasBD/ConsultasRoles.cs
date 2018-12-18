@@ -33,16 +33,24 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        if (nombreFuncion == "roleshabilitados" || nombreFuncion=="consultaroles")
                         {
-                            Roles objRoles = new Roles
+                            while (dr.Read())
                             {
-                                IdRol = (int)dr[0],
-                                NombreRol= dr[1].ToString().Trim(),
-                                DescripcionRol= dr[2].ToString().Trim(),
-                                HabilitadoRol = (bool)dr[3]
-                            };
-                            lstRoles.Add(objRoles);
+                                Roles objRoles = new Roles
+                                {
+                                    IdRol = (int)dr[0],
+                                    NombreRol = dr[1].ToString().Trim(),
+                                    PermisoAdministracion = (bool)dr[2],
+                                    PermisoActivos = (bool)dr[3],
+                                    PermisoMaqVirtuales = (bool)dr[4],
+                                    PermisoTickets = (bool)dr[5],
+                                    PermisoReportes = (bool)dr[6],
+                                    DescripcionRol = dr[7].ToString().Trim(),
+                                    HabilitadoRol = (bool)dr[8]
+                                };
+                                lstRoles.Add(objRoles);
+                            }
                         }
                         conn_BD.Close();
                         msjRoles.ListaObjetoInventarios = lstRoles;

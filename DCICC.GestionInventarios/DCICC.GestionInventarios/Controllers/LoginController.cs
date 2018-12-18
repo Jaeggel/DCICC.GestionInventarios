@@ -48,6 +48,11 @@ namespace DCICC.GestionInventarios.Controllers
                     datosUsuario= ComprobarCredenciales(infoLogin);
                     if (datosUsuario != null)
                     {
+                        if (datosUsuario.NombreRol.ToLower() == "docente")
+                        {
+                            TempData["MensajeError"] = "No cuenta con los permisos necesarios para ingresar al sistema.";
+                            return View();
+                        }
                         //Construcción de sesion de usuario.
                         Session["NickUsuario"] = datosUsuario.NickUsuario;
                         Session["CorreoUsuario"] = datosUsuario.CorreoUsuario;
@@ -58,13 +63,17 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             Session["PerfilUsuario"] = "Admin";
                         }
-                        else if (datosUsuario.NombreRol.ToLower() == "estudiante")
+                        else if (datosUsuario.NombreRol.ToLower() == "invitado")
                         {
-                            Session["PerfilUsuario"] = "Estudiantes";
+                            Session["PerfilUsuario"] = "invitado";
                         }
-                        else if (datosUsuario.NombreRol.ToLower() == "reportes")
+                        else if (datosUsuario.NombreRol.ToLower() == "reporteria")
                         {
                             Session["PerfilUsuario"] = "Reporteria";
+                        }
+                        else if (datosUsuario.NombreRol.ToLower() == "pasante")
+                        {
+                            Session["PerfilUsuario"] = "Pasantes";
                         }
                         else
                         {
@@ -79,7 +88,7 @@ namespace DCICC.GestionInventarios.Controllers
                     }
                     else
                     {
-                        ViewData["MensajeLogin"] = "true";
+                        TempData["MensajeError"] = "Credenciales Incorrectas";
                         return View();
                     }
                 }
