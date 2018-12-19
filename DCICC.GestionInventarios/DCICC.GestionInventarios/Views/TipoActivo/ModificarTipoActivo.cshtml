@@ -140,7 +140,9 @@
 @* Seccción para llamar al js de Tipo Activo*@
 <script src="~/Scripts/ScriptsInventarios/TipoActivo.js"></script>
 <script>
-    $(document).ready(function () {
+	$(document).ready(function () {
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener las tablas de Tipos de Activo
         obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         obtenerCategoriasCompletas('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');

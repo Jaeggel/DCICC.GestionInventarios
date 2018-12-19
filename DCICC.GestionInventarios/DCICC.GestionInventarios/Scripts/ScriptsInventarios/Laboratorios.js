@@ -5,6 +5,7 @@ var idLaboratorio;
 var nombreLabModificar;
 var urlEstado;
 var nombresLabs = [];
+var rol;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de laboratorios
@@ -55,7 +56,7 @@ function cargarLaboratoriosTabla() {
         }
 
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarLaboratorios" onclick = "formUpdateLaboratorio(' + datosLaboratorios[i].IdLaboratorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarLaboratorios" onclick = "formUpdateLaboratorio(' + datosLaboratorios[i].IdLaboratorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosLaboratorios[i].HabilitadoLaboratorio) {
@@ -67,6 +68,11 @@ function cargarLaboratoriosTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarLaboratorios").html(str);
+
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Invitado") {
+        $("#dataTableLaboratorios :button").attr("disabled", "disabled");
+    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -287,4 +293,21 @@ function mensajesTooltips() {
     document.getElementById("NombreLaboratorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("UbicacionLaboratorio").title = "Máximo 50 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionLaboratorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+}
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
+//Función para bloquear botones cuando el usuario es invitado
+function botones(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rol = data;
+            console.log(data);
+            if (data == "Invitado") {
+                $(':button').prop('disabled', true);
+            }
+        }
+    });
 }

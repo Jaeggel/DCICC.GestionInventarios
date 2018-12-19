@@ -27,10 +27,10 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                string pwdUsuario = ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario);
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                string pwdUsuario = ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario);
                 ConsultasUsuarios objConsultaUsuarios = new ConsultasUsuarios();
-                if (objConsultaUsuarios.ObtenerUsuarioPorNick(infoUsuario.NickUsuario).ObjetoInventarios==null)
+                if (objConsultaUsuarios.ObtenerUsuarioPorNick(infoUsuario.NickUsuario).ObjetoInventarios == null)
                 {
                     using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set id_rol = @ir,nombres_usuario = @nu,password_usuario = @pu,correo_usuario = @cu,telefono_usuario = @tu,telefonocelular_usuario = @tcu,direccion_usuario = @du,habilitado_usuario = @hu where id_usuario = @iu", conn_BD))
                     {
@@ -47,6 +47,10 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     }
                     tran.Commit();
                     msjUsuarios = ActualizacionNickUsuario(infoUsuario);
+                    if (infoUsuario.NombreRolAntiguo!=null)
+                    {
+                        ActualizarRolUsuario(infoUsuario.NombreRolAntiguo,infoUsuario.NombreRol,infoUsuario.NickUsuario);
+                    }
                     conn_BD.Close();
                 }
                 else
@@ -65,7 +69,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                         cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                         cmd.ExecuteNonQuery();
                     }
-                    string query = string.Format("ALTER USER {0} with password '{1}';",infoUsuario.NickUsuario, pwdUsuario);
+                    if (infoUsuario.NombreRolAntiguo != null)
+                    {
+                        ActualizarRolUsuario(infoUsuario.NombreRolAntiguo, infoUsuario.NombreRol, infoUsuario.NickUsuario);
+                    }
+                    string query = string.Format("ALTER USER {0} with password '{1}';", infoUsuario.NickUsuario, pwdUsuario);
                     using (var cmd = new NpgsqlCommand(query, conn_BD))
                     {
                         cmd.ExecuteNonQuery();
@@ -84,6 +92,27 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             return msjUsuarios;
         }
         /// <summary>
+        /// Método para actualizar el rol de un usuario en la base de datos BD.
+        /// </summary>
+        /// <param name="nombreRolAnterior"></param>
+        /// <param name="nombreRolNuevo"></param>
+        /// <param name="nickUsuario"></param>
+        public void ActualizarRolUsuario(string nombreRolAnterior,string nombreRolNuevo,string nickUsuario)
+        {
+            NpgsqlTransaction tran = conn_BD.BeginTransaction();
+            string queryAdd = "ALTER GROUP {0} ADD USER {1};";
+            string queryRemv = "ALTER GROUP {0} DROP USER {1};";
+            using (NpgsqlCommand cmd = new NpgsqlCommand(string.Format(queryAdd, nombreRolNuevo, nickUsuario), conn_BD))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            using (NpgsqlCommand cmd = new NpgsqlCommand(string.Format(queryRemv, nombreRolAnterior, nickUsuario), conn_BD))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            tran.Commit();
+        }
+        /// <summary>
         /// Método para actualizar el perfil de un Usuario en la base de datos.
         /// </summary>
         /// <param name="infoUsuario"></param>
@@ -94,10 +123,9 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nombres_usuario = @nu,nick_usuario = @niu,correo_usuario = @cu,telefono_usuario = @tu,telefonocelular_usuario = @tcu,direccion_usuario = @du where id_usuario = @iu", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nombres_usuario = @nu,correo_usuario = @cu,telefono_usuario = @tu,telefonocelular_usuario = @tcu,direccion_usuario = @du where id_usuario = @iu", conn_BD))
                 {
                     cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario;
-                    cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
                     cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario;
                     cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
                     cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
@@ -105,8 +133,40 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                tran.Commit();
-                conn_BD.Close();
+                ConsultasUsuarios objConsultaUsuarios = new ConsultasUsuarios();
+                if (objConsultaUsuarios.ObtenerUsuarioPorNick(infoUsuario.NickUsuario).ObjetoInventarios == null)
+                {
+                    ConsultasUsuarios objConsultaUsuariosBD = new ConsultasUsuarios();
+                    Usuarios infoUsuarioBD = objConsultaUsuariosBD.ObtenerUsuarioPorId(infoUsuario.IdUsuario).ObjetoInventarios;
+                    string nickAnterior = infoUsuarioBD.NickUsuario;
+                    using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nick_usuario = @niu where id_usuario = @iu", conn_BD))
+                    {
+                        cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
+                        cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
+                        cmd.ExecuteNonQuery();
+                    }
+                    tran.Commit();
+                    conn_BD.Close();
+                    NpgsqlConnection connBD = new NpgsqlConnection("Server='192.168.0.9';Port=5432;User Id=postgres;Password=postgres;Database=DCICC_BDInventario; CommandTimeout=3020;");
+                    connBD.Open();
+                    NpgsqlTransaction tranBD = connBD.BeginTransaction();
+                    string queryUser = string.Format("ALTER USER {0} RENAME TO {1};", nickAnterior, infoUsuario.NickUsuario);
+                    using (var cmd = new NpgsqlCommand(queryUser, connBD))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    string queryPwd = string.Format("ALTER USER {0} with password '{1}';", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
+                    using (var cmd = new NpgsqlCommand(queryPwd, connBD))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    tranBD.Commit();
+                    connBD.Close();
+                }
+                else
+                {
+                    tran.Commit();
+                }
                 msjUsuarios.OperacionExitosa = true;
             }
             catch (Exception e)
@@ -148,7 +208,6 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
-                conn_BD.Close();
                 msjUsuarios.OperacionExitosa = true;
             }
             catch (Exception e)

@@ -40,7 +40,7 @@
                         <div class="x_content">
                             <div class="profile_info">
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                <h2>@ViewBag.NombreUsuario</h2>
+                                <h2>@ViewBag.UsuarioLogin</h2>
                                 @* ViewBag proveniente del Controloador Login, en el mismo se muestra el correo electrónico del usuario actual *@
                                 <span>@ViewBag.Correo</span>
                             </div>
@@ -75,15 +75,6 @@
                                 @* Seccción de enlaces Consulta de Activos o Reportes de Activos *@
                                 <li>
                                     <a href="@Url.Action("ConsultaActivos", "Activos")" accesskey="a"><i class="fa fa-table"></i> Consulta General de Activos</a>
-                                </li>
-                                @* Seccción de enlaces Reportes*@
-                                <li>
-                                    @*Sección de enlaces para generación de reportes*@
-                                    <a><i class="fa fa-bar-chart-o"></i> Reportes<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @* Seccción de enlaces a reportes de Activos *@
-                                        <li><a href="@Url.Action("ReportesActivos", "Reportes")" accesskey="r">Activos de TI</a></li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>
@@ -155,7 +146,6 @@
                             <ul>
                                 <li><b>ALT + H: </b><a href='@Url.Action("Index","Home")'> Home</a></li>
                                 <li><b>ALT + A: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Activos de TI</a></li>
-                                <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
                             </ul>
                         </div>
                     </div>

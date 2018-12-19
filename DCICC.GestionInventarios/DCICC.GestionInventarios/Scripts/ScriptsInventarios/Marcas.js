@@ -53,7 +53,7 @@ function cargarMarcasTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarMarca" onclick = "formUpdateMarca(' + datosMarcas[i].IdMarca + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarMarca" onclick = "formUpdateMarca(' + datosMarcas[i].IdMarca + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosMarcas[i].HabilitadoMarca) {
@@ -65,6 +65,11 @@ function cargarMarcasTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarMarca").html(str);
+
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Invitado") {
+        $("#dataTableMarcas :button").attr("disabled", "disabled");
+    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -258,4 +263,21 @@ function validarInputNombre() {
 function mensajesTooltips() {
     document.getElementById("NombreMarca").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionMarca").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+}
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
+//Función para bloquear botones cuando el usuario es invitado
+function botones(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rol = data;
+            console.log(data);
+            if (data == "Invitado") {
+                $(':button').prop('disabled', true);
+            }
+        }
+    });
 }

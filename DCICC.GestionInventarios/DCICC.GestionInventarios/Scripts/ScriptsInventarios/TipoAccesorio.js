@@ -5,6 +5,7 @@ var idTipoAccesorio;
 var nombreTipoAccModificar;
 var urlEstado;
 var nombresTipo = [];
+var rol;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de Tipo Accesorio
@@ -53,7 +54,7 @@ function cargarTipoAccTabla() {
             str += '</td><td> Deshabilitado';
         }
         str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoAcc" onclick = "formUpdateTipoAcc(' + datosTipoAccesorio[i].IdTipoAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
+            '<button id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTipoAcc" onclick = "formUpdateTipoAcc(' + datosTipoAccesorio[i].IdTipoAccesorio + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
             '</div></div>' +
             '</td><td><div class=" text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
         if (datosTipoAccesorio[i].HabilitadoTipoAccesorio) {
@@ -66,6 +67,11 @@ function cargarTipoAccTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarTipoAccesorio").html(str);
+
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Invitado") {
+        $("#dataTableTipoAcc :button").attr("disabled", "disabled");
+    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -258,4 +264,21 @@ function validarInputNombre() {
 function mensajesTooltips() {
     document.getElementById("NombreTipoAccesorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionTipoAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+}
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
+//Función para bloquear botones cuando el usuario es invitado
+function botones(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rol = data;
+            console.log(data);
+            if (data == "Invitado") {
+                $(':button').prop('disabled', true);
+            }
+        }
+    });
 }
