@@ -5,7 +5,7 @@
     "GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO {0};",
     "GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO {0};",
     "GRANT SELECT,INSERT,UPDATE ON table dcicc_logs to group {0};",
-    "GRANT SELECT ON table dcicc_usuarios to group {0};",
+    "GRANT SELECT,UPDATE ON table dcicc_usuarios to group {0};",
     "GRANT SELECT ON table dcicc_roles to group {0};"
   ],
   "SentenciasActivos": [

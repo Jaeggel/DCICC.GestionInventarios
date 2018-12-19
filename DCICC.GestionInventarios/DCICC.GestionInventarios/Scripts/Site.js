@@ -4,6 +4,41 @@ Descripción: Script que tendrá las funciones que se podrá llamar desde toda l
 
 
 //Método para obtener el idioma español de los dataTable
+var permisosRol;
+$(document).ready(function () {
+    definirMenuPorRolActual();
+});
+function definirMenuPorRolActual() {
+    $.ajax({
+        dataType: 'json',
+        url: "/Inventarios/Roles/ObtenerPermisosRolActual",
+        type: 'post',
+        success: function (data) {
+            definicionMenu(data.ObjetoInventarios);
+        }
+    });
+}
+function definicionMenu(permisos) {
+    //$('#menuActivos').remove();
+    //$('#menuConsultaActivos').remove();
+    //$('#menuReportes').remove();
+    //$('#menuMaqVirtuales').remove();
+    //$('#menuTickets').remove();
+    if (!permisos.PermisoActivos) {
+        $('#menuActivos').remove();
+        $('#menuConsultaActivos').remove();
+    }
+    if (!permisos.PermisoMaqVirtuales) {
+        $('#menuMaqVirtuales').remove();
+    }
+    if (!permisos.PermisoTickets) {
+        $('#menuTickets').remove();
+    }
+    if (!permisos.PermisoReportes) {
+        $('#menuReportes').remove();
+    }
+}
+
 function obtenerIdioma() {
     var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
