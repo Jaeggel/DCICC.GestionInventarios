@@ -142,8 +142,8 @@
                             @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <label>Fecha de Adquisición del Activo:</label>
-                                    <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="FechaIngresoActivo" placeholder="Fecha de Adquisición" style="padding-left: 60px;" onkeyup="this.value=this.value.replace(validarFecha(),'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+                                    <label>Fecha de Adquisición:(mm/dd/yyyy)</label>
+                                    <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="FechaIngresoActivo" placeholder="Fecha de Adquisición" style="padding-left: 60px;"  maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                                 </div>
                                 @* Cuadro de texto para el ingreso del responsable del activo *@
@@ -443,7 +443,10 @@
 
         $('#NombreActivo').blur(function () {
             comprobarNombre();
-        });
+		});
+
+		$('#FechaIngresoActivo').mask('00/00/0000');
+		
 
     });
 </script>

@@ -425,7 +425,6 @@ function validarInputNombre() {
 //Función para validar el nombre de Usuario
 function validarInputUsuario() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMV");
     var nomUsuario = document.getElementById("UsuarioMaqVirtuales");
 
     if (nomUsuario.value.length <= 0) {
@@ -434,11 +433,9 @@ function validarInputUsuario() {
         nomUsuario.style.borderColor = "#900C3F";
         $('#errorNombreUsuario').html('El campo nombre de usuario no debe estar vacio').show();
         setTimeout("$('#errorNombreUsuario').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         nomUsuario.style.borderColor = "#ccc";
         $('#errorNombreUsuario').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -446,7 +443,6 @@ function validarInputUsuario() {
 //Función para validar dirección IP
 function validarIP() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMV");
     var ip = document.getElementById("DireccionIPMaqVirtuales");
     //Validación para el campo de texto nombre de Máquina virtual
     if (ip.value.length <= 0) {
@@ -454,18 +450,15 @@ function validarIP() {
         ip.style.borderColor = "#900C3F";
         $('#errorIpMv').html('El campo IP no debe estar vacio').show();
         setTimeout("$('#errorIpMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else if (!/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip.value)) {
         esValido = false;
         ip.value = "";
         ip.style.borderColor = "#900C3F";
         $('#errorIpMv').html('La dirección IP es incorrecta').show();
         setTimeout("$('#errorIpMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         ip.style.borderColor = "#ccc";
         $('#errorIpMv').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -473,7 +466,6 @@ function validarIP() {
 //Función para validar disco duro y Ram
 function validarDisco() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMV");
     var disco = document.getElementById("DiscoMaqVirtuales");
     //Validación para disco de Máquina virtual
     if (disco.value.length <= 0) {
@@ -482,25 +474,21 @@ function validarDisco() {
         disco.style.borderColor = "#900C3F";
         $('#errorDiscoMv').html('El campo Disco Duro no debe estar vacio').show();
         setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else if (disco.value <1) {
         esValido = false;
         disco.value = "";
         disco.style.borderColor = "#900C3F";
         $('#errorDiscoMv').html('El rango de Disco Duro es de 1 a 10000').show();
         setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else if (disco.value > 10000) {
         esValido = false;
         disco.value = "";
         disco.style.borderColor = "#900C3F";
         $('#errorDiscoMv').html('No se puede asignar mas de 10000 de Disco Duro').show();
         setTimeout("$('#errorDiscoMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     }else{
         disco.style.borderColor = "#ccc";
         $('#errorDiscoMv').html('').hide();
-        boton.disabled = false;
     }
 
     return esValido;
@@ -509,7 +497,6 @@ function validarDisco() {
 //Función para validar disco duro y Ram
 function validarRam() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMV");
     var ram = document.getElementById("RamMaqVirtuales");
     //Validar memoria Ram
     if (ram.value.length <= 0) {
@@ -518,25 +505,21 @@ function validarRam() {
         ram.style.borderColor = "#900C3F";
         $('#errorRamMv').html('El campo RAM no debe estar vacio').show();
         setTimeout("$('#errorRamMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else if (ram.value < 1) {
         esValido = false;
         ram.value = "";
         ram.style.borderColor = "#900C3F";
         $('#errorRamMv').html('El rango de Memoria Ram es de 1 a 1000 GB').show();
         setTimeout("$('#errorRamMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else if (ram.value > 1000) {
         esValido = false;
         ram.value = "";
         ram.style.borderColor = "#900C3F";
         $('#errorRamMv').html('No se puede asignar mas de 1000 de Memoria Ram').show();
         setTimeout("$('#errorRamMv').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         ram.style.borderColor = "#ccc";
         $('#errorRamMv').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -544,7 +527,6 @@ function validarRam() {
 ///Función para validar los combobox de maquinas virtuales
 function validarCmbMV() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMV");
     var cmbSO = document.getElementById("IdSistOperativos");
     var cmbEs = document.getElementById("PropositoMaqVirtuales");
     //Validación para el combobox de SO
@@ -553,11 +535,9 @@ function validarCmbMV() {
         cmbSO.style.borderColor = "#900C3F";
         $('#errorCmbSo').html('Debe seleccionar una opción').show();
         setTimeout("$('#errorCmbSo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         cmbSO.style.borderColor = "#ccc";
         $('#errorCmbSo').html('').hide();
-        boton.disabled = false;
     }
 
     //Validación para el combobox de estados
@@ -566,11 +546,9 @@ function validarCmbMV() {
         cmbEs.style.borderColor = "#900C3F";
         $('#errorCmbEstado').html('Debe seleccionar una opción').show();
         setTimeout("$('#errorCmbEstado').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         cmbEs.style.borderColor = "#ccc";
         $('#errorCmbEstado').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -580,7 +558,7 @@ function validarCmbMV() {
 function mensajesTooltips() {
     document.getElementById("NombreMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("UsuarioMaqVirtuales").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DireccionIPMaqVirtuales").title = "Cuadro de texto para IpV4.\n Formato: 000.000.000.000";
+    document.getElementById("DireccionIPMaqVirtuales").title = "Cuadro de texto para IpV4.\n Formato: 255.255.255.255";
     document.getElementById("DiscoMaqVirtuales").title = "Solo Números. Rango de 1 a 10000";
     document.getElementById("RamMaqVirtuales").title = "Solo Números. Rango de 1 a 100GB";
     document.getElementById("DescripcionMaqVirtuales").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";

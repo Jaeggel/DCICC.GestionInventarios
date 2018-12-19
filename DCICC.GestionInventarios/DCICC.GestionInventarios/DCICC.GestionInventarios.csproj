@@ -359,6 +359,7 @@
     <Content Include="Content\Tema\build\js\custom.min.js" />
     <Content Include="Content\Tema\build\css\jquery-ui.css" />
     <Content Include="Content\Tema\build\js\jquery-ui.js" />
+    <Content Include="Content\Tema\build\js\jquery.mask.js" />
     <Content Include="Content\Tema\images\american-express.png" />
     <Content Include="Content\Tema\images\cropper.jpg" />
     <Content Include="Content\Tema\images\img.jpg" />

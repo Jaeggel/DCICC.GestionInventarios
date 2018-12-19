@@ -219,7 +219,46 @@
             $("#RamMaqVirtuales").tooltip('hide');
             $("#DescripcionMaqVirtuales").tooltip('hide');
             document.getElementById("confirmarMV").disabled = false;
-        });
+		});
+
+		$('#DireccionIPMaqVirtuales').mask('AZZ.AZZ.AZZ.AZZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-2]/, optional: true
+				}
+			}
+		});
+
+
+
+
+		$('#RamMaqVirtuales').mask('AZZZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-1]/, optional: true
+				}
+
+			}
+		});
+
+		$('#DiscoMaqVirtuales').mask('AZZZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-1]/, optional: true
+				}
+
+			}
+		});
+
     });
 
 </script>

@@ -54,9 +54,10 @@ namespace DCICC.GestionInventarios
 
                         "~/Scripts/pnotify.custom.min.js",
                         "~/Content/SweetAlert/dist/sweetalert2.all.min.js",
-                        "~/Content/Tema/build/js/custom.js"
-                        //"~/Scripts/Site.js"
-                        ));          
+                        "~/Content/Tema/build/js/custom.js",
+						"~/Content/Tema/build/js/jquery.mask.js"
+						//"~/Scripts/Site.js"
+						));          
 
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

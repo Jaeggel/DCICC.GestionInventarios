@@ -153,13 +153,17 @@ function cargarEstadosModificarCmb() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha de Ingreso</th> <th>Código QR</th> <th>Custodio</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Código QR</th> <th>Custodio</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         if (datosActivos[i].EstadoActivo != "DE BAJA") {
             //Método para dar formato a la fecha y hora
             var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
-            var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+            //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+
+            //fecha para la tabla y busquedas
+            function pad(n) { return n < 10 ? "0" + n : n; }
+            var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
 
             str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
                 '</td><td>' + datosActivos[i].NombreActivo +
@@ -231,9 +235,12 @@ function formUpdateActivos(idActivo) {
             //Obtener valor de la fecha de ingreso del activo
             //Obtener valor de la fecha de ingreso del activo
             var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
-            var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+            //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+            //fecha para la tabla y busquedas
+            function pad(n) { return n < 10 ? "0" + n : n; }
+            var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
             $('#FechaIngresoActivo').val(fechaIngreso);
-            console.log(fechaIngreso);
+            
             //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
             //Obtener valor de la descripcion de activo
             document.getElementById("DescripcionActivo").value = datosActivos[i].DescripcionActivo;
