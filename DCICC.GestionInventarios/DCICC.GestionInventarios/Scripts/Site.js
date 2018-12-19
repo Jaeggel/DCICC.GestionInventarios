@@ -21,20 +21,19 @@ function definirMenuPorRolActual() {
 function definicionMenu(permisos) {
     if (!permisos.ObjetoInventarios.NombreRol==="administrador") {
         //$('#').hide("fast");
-    }
-
-    if (!permisos.PermisoActivos) {
-        $('#menuActivos').remove();
-        $('#menuConsultaActivos').remove();
-    }
-    if (!permisos.PermisoMaqVirtuales) {
-        $('#menuMaqVirtuales').remove();
-    }
-    if (!permisos.PermisoTickets) {
-        $('#menuTickets').remove();
-    }
-    if (!permisos.PermisoReportes) {
-        $('#menuReportes').remove();
+        if (!permisos.PermisoActivos) {
+            $('#menuActivos').remove();
+            $('#menuConsultaActivos').remove();
+        }
+        if (!permisos.PermisoMaqVirtuales) {
+            $('#menuMaqVirtuales').remove();
+        }
+        if (!permisos.PermisoTickets) {
+            $('#menuTickets').remove();
+        }
+        if (!permisos.PermisoReportes) {
+            $('#menuReportes').remove();
+        }
     }
 }
 
