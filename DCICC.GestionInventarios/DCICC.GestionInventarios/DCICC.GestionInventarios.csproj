@@ -4707,6 +4707,7 @@
     <Content Include="Scripts\ScriptsInventarios\Accesorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Activos.js" />
     <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
+    <Content Include="Scripts\ScriptsInventarios\Home.js" />
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Login.js" />
     <Content Include="Scripts\ScriptsInventarios\Logs.js" />

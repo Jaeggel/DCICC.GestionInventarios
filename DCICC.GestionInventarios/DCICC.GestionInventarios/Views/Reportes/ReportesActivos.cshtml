@@ -47,7 +47,7 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Activos','dataTableActivos');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Activos','dataTableActivos',$('#LaboratorioActivo').find(':selected').text());"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
                                             <li><button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Activos','dataTableActivos',$('#LaboratorioActivo').find(':selected').text());"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
@@ -119,8 +119,8 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Accesorios','dataTableAccesorios');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Accesorios','dataTableAccesorios','');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Accesorios','dataTableAccesorios','Mostrar Todos');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Accesorios','dataTableAccesorios','Mostrar Todos');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -164,8 +164,8 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Histórico de Activos','dataTableHistoricos');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Histórico de Activos','dataTableHistoricos','');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Histórico de Activos','dataTableHistoricos','Mostrar Todos');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Histórico de Activos','dataTableHistoricos','Mostrar Todos');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -211,8 +211,8 @@
                                         </div>
                                         @*Sección para botones de generar reportes en PDF y Excel*@
                                         <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Especificaciones Adicionales','dataTableEspAdicionales');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Especificaciones Adicionales','dataTableEspAdicionales','');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+                                            <li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Especificaciones Adicionales','dataTableEspAdicionales','Mostrar Todos');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Especificaciones Adicionales','dataTableEspAdicionales','Mostrar Todos');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>

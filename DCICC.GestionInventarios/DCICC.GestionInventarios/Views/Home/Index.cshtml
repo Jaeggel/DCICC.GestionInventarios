@@ -13,10 +13,12 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
     </div>
 </div>
+<script type="text/javascript" src="~/Scripts/ScriptsInventarios/Home.js"></script>
 <script type="text/javascript">
     window.onload = function () {
         if ('@ViewBag.MsjBienv' === "true") {
-            showNotify("Autenticación Exitosa", "Bienvenid@@ @ViewBag.UsuarioLogin", "success");
+            showNotify("Autenticación Exitosa", "Bienvenid@@ @ViewBag.NombreUsuario", "success");
         }
+        definirMenuPorRolActual('@Url.Action("ObtenerPermisosRolActual", "Roles")');
     }
 </script>

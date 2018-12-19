@@ -28,7 +28,13 @@ namespace DCICC.GestionInventarios.Reportes
             var fileinfo = new FileInfo(path_Plantilla);
             using (ExcelPackage pck = new ExcelPackage(fileinfo))
             {
-                
+                if (labFiltro == "Mostrar Todos")
+                {
+                    labFiltro = "Todos";       
+                }else if (labFiltro == "")
+                {
+                    labFiltro = "-";
+                }
                 //Carga de la primera hoja de trabajo del Excel
                 ExcelWorksheet ws = pck.Workbook.Worksheets[1];
                 //Carga datos del html
@@ -44,10 +50,10 @@ namespace DCICC.GestionInventarios.Reportes
                 //Campus
                 //ConfigCell(4,2,4, infoTable.Columns.Count,ws, infoTable.Columns.Count, "Quito, campus sur.",true,false,Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Fecha
-                ConfigCell(4, 2, 4, infoTable.Columns.Count, ws, infoTable.Columns.Count, DateTime.Now.ToString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ConfigCell(4, 2, 4, infoTable.Columns.Count, ws, infoTable.Columns.Count, DateTime.Now.ToLongDateString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 ws.Cells[4, 2, 4, infoTable.Columns.Count].AutoFitColumns();
                 //Laboratorio
-                ConfigCell(5, 2, 5, infoTable.Columns.Count, ws, infoTable.Columns.Count, labFiltro = (labFiltro == "Mostrar Todos") ? "Todos" : labFiltro, true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ConfigCell(5, 2, 5, infoTable.Columns.Count, ws, infoTable.Columns.Count, labFiltro, true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //N° Equipos
                 ConfigCell(6, 2, 6, infoTable.Columns.Count, ws, infoTable.Columns.Count, infoTable.Rows.Count.ToString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Título del la lista del reporte

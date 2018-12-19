@@ -93,5 +93,46 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             return msjRoles;
         }
+        /// <summary>
+        /// Método para obtener los permisos de un rol por su nombre.
+        /// </summary>
+        /// <param name="nombreRol"></param>
+        /// <returns></returns>
+        public MensajesRoles ObtenerPermisosPorRol(string nombreRol)
+        {
+            Roles objRoles = new Roles();
+            MensajesRoles msjRoles = new MensajesRoles();
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("select nombre_rol,activos_rol,maquinasvirtuales_rol,tickets_rol,reportes_rol from dcicc_roles where nombre_rol=@nr", conn_BD))
+                {
+                    cmd.Parameters.Add("nr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = nombreRol;
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            objRoles = new Roles
+                            {
+                                NombreRol = (string)dr[0],
+                                PermisoActivos = (bool)dr[1],
+                                PermisoMaqVirtuales = (bool)dr[2],
+                                PermisoTickets = (bool)dr[3],
+                                PermisoReportes = (bool)dr[4],
+                            };
+                        }
+                        conn_BD.Close();
+                        msjRoles.ObjetoInventarios = objRoles;
+                        msjRoles.OperacionExitosa = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                conn_BD.Close();
+                msjRoles.OperacionExitosa = false;
+                msjRoles.MensajeError = e.Message;
+            }
+            return msjRoles;
+        }
     }
 }
