@@ -6,7 +6,10 @@
     "GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO {0};",
     "GRANT SELECT,INSERT,UPDATE ON table dcicc_logs to group {0};",
     "GRANT SELECT,UPDATE ON table dcicc_usuarios to group {0};",
-    "GRANT SELECT ON table dcicc_roles to group {0};"
+    "GRANT SELECT ON table dcicc_roles to group {0};",
+    "GRANT SELECT ON table dcicc_detalleactivo to group {0};",
+    "GRANT SELECT ON table dcicc_laboratorios to group {0};",
+    "GRANT SELECT ON table dcicc_tipoactivos to group {0};"
   ],
   "SentenciasActivos": [
     "GRANT SELECT,INSERT,UPDATE ON table dcicc_accesorio to group {0};",

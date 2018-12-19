@@ -133,10 +133,11 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                     SerialActivo = dr[5].ToString().Trim(),
                                     FechaIngresoActivo = DateTime.Parse(dr[6].ToString().Trim()),
                                     ResponsableActivo = dr[7].ToString().Trim(),
-                                    NombreTipoActivo = dr[8].ToString().Trim(),
-                                    NombreLaboratorio = dr[9].ToString().Trim(),
-                                    VidaUtilTipoActivo = (int)dr[10],
-                                    VidaFinalTipoActivo= DateTime.Parse(dr[11].ToString().Trim())
+                                    EstadoActivo= dr[8].ToString().Trim(),
+                                    NombreTipoActivo = dr[9].ToString().Trim(),
+                                    NombreLaboratorio = dr[10].ToString().Trim(),
+                                    VidaUtilTipoActivo = (int)dr[11],
+                                    VidaFinalTipoActivo= DateTime.Parse(dr[12].ToString().Trim())
                                 };
                                 lstActivos.Add(objActivos);
                             }

@@ -1,4 +1,5 @@
-﻿using DCICC.GestionInventarios.Configuration;
+﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Configuration;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -33,6 +34,17 @@ namespace DCICC.GestionInventarios.Controllers
                 LoginController.cont_Msj = 0;
                 return View();
             }
+        }
+        #endregion
+        #region Consultas (JSON)
+        /// <summary>
+        /// Método para obtener todos los Laboratorios de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerDashboardTop()
+        {
+            DashboardAccDatos objDashboardActAccDatos = new DashboardAccDatos((string)Session["NickUsuario"]);
+            return Json(objDashboardActAccDatos.ObtenerDashboardTop((string)Session["NickUsuario"]), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

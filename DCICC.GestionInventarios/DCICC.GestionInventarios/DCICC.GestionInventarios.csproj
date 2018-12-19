@@ -188,6 +188,7 @@
     <Compile Include="AccesoDatos\InventariosBD\AccesoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\ActivosAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\DashboardAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\EncriptacionAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LUNAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\MaqVirtualesAccDatos.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\CategoriaActivo.cs" />
     <Compile Include="Models\Correo.cs" />
     <Compile Include="Models\CQR.cs" />
+    <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\HistoricoActivos.cs" />
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
@@ -238,6 +240,7 @@
     <Compile Include="Models\LUN.cs" />
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesDashboard.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesHistoricoActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesAccesorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCategoriasActivos.cs" />
