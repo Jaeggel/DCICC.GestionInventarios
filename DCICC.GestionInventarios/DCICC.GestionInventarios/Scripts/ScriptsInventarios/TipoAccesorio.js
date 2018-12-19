@@ -46,7 +46,7 @@ function cargarTipoAccTabla() {
     str += '<tbody>';
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
         str += '<tr><td>' + datosTipoAccesorio[i].NombreTipoAccesorio +
-            '</td><td>' + datosTipoAccesorio[i].DescripcionTipoAccesorio;
+            '</td><td class="text-justify">' + datosTipoAccesorio[i].DescripcionTipoAccesorio;
 
         if (datosTipoAccesorio[i].HabilitadoTipoAccesorio) {
             str += '</td><td> Habilitado';

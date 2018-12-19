@@ -140,7 +140,7 @@ function cargarTablaAbiertos() {
             var fechaAper = new Date(parseInt((ticketsReportados[i].FechaAperturaTicket).substr(6)));
             var fechaApertura = (fechaAper.toLocaleDateString("es-ES") + " " + fechaAper.getHours() + ":" + fechaAper.getMinutes() );
 
-            str += '<tr><td>' + ticketsReportados[i].DescripcionTicket;
+            str += '<tr><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
             } else {
@@ -283,7 +283,7 @@ function cargarTablaEnCurso() {
 
             str += '<tr><td>' + fechaApertura +
                 '</td><td>' + ticketsReportados[i].NombreUsuario +
-                '</td><td>' + ticketsReportados[i].DescripcionTicket;
+                '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
             } else {
@@ -292,7 +292,7 @@ function cargarTablaEnCurso() {
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
                 '</td><td>' + fechaEnC +
-                '</td><td>' + ticketsReportados[i].ComentarioEnProcesoTicket;
+                '</td><td class="text-justify">' + ticketsReportados[i].ComentarioEnProcesoTicket;
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
                 '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnCurso" onclick = "formUpdateEnCurso(' + ticketsReportados[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
                 '</div></div>' +
@@ -430,7 +430,7 @@ function cargarTablaEnEspera() {
 
             str += '<tr><td>' + fechaApertura +
                 '</td><td>' + ticketsReportados[i].NombreUsuario +
-                '</td><td>' + ticketsReportados[i].DescripcionTicket;
+                '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
             } else {
@@ -439,7 +439,7 @@ function cargarTablaEnEspera() {
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
                 '</td><td>' + fechaEnE +
-                '</td><td>' + ticketsReportados[i].ComentarioEnEsperaTicket;
+                '</td><td class="text-justify">' + ticketsReportados[i].ComentarioEnEsperaTicket;
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
                 '<button type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarTicketsEnEspera" onclick = "formUpdateEnEspera(' + ticketsReportados[i].IdTicket + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button>' +
                 '</div></div>' +
@@ -574,7 +574,7 @@ function cargarTablaResueltos() {
 
             str += '<tr><td>' + fechaApertura +
                 '</td><td>' + ticketsReportados[i].NombreUsuario +
-                '</td><td>' + ticketsReportados[i].DescripcionTicket;
+                '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
             } else {
@@ -583,7 +583,7 @@ function cargarTablaResueltos() {
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
                 '</td><td>' + fechaSolucion +
-                '</td><td>' + ticketsReportados[i].ComentarioResueltoTicket;
+                '</td><td class="text-justify">' + ticketsReportados[i].ComentarioResueltoTicket;
                 '</td></tr>';
         }  
     }

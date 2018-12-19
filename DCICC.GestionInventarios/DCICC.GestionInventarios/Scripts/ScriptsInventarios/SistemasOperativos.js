@@ -44,7 +44,7 @@ function cargarSOTabla() {
     str += '<tbody>';
     for (var i = 0; i < datosSO.length; i++) {
         str += '<tr><td>' + datosSO[i].NombreSistOperativos +
-            '</td><td>' + datosSO[i].DescripcionSistOperativos;
+            '</td><td class="text-justify">' + datosSO[i].DescripcionSistOperativos;
 
         if (datosSO[i].HabilitadoSistOperativos) {
             str += '</td><td> Habilitado';

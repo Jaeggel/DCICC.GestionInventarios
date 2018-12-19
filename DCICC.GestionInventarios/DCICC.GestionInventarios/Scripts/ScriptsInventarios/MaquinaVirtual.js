@@ -105,7 +105,7 @@ function cargarMaquinaVTabla() {
             '</td><td>' + datosMaquinasV[i].DireccionIPMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].DiscoMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].RamMaqVirtuales +
-            '</td><td>' + datosMaquinasV[i].DescripcionMaqVirtuales;
+            '</td><td class="text-justify">' + datosMaquinasV[i].DescripcionMaqVirtuales;
 
         if (datosMaquinasV[i].HabilitadoMaqVirtuales) {
             str += '</td><td> Habilitado';

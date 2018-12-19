@@ -107,7 +107,7 @@ function cargarLunTabla() {
             '</td><td>' + datosLuns[i].NombreStorage +
             '</td><td>' + datosLuns[i].CapacidadLUN +
             '</td><td>' + datosLuns[i].RaidTPLUN +
-            '</td><td>' + datosLuns[i].DescripcionLUN;
+            '</td><td class="text-justify">' + datosLuns[i].DescripcionLUN;
 
         if (datosLuns[i].HabilitadoLUN) {
             str += '</td><td> Habilitado';

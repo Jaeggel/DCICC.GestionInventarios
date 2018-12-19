@@ -46,8 +46,8 @@ function cargarLaboratoriosTabla() {
     str += '<tbody>';
     for (var i = 0; i < datosLaboratorios.length; i++) {
         str += '<tr><td>' + datosLaboratorios[i].NombreLaboratorio +
-            '</td><td>' + datosLaboratorios[i].UbicacionLaboratorio +
-            '</td><td>' + datosLaboratorios[i].DescripcionLaboratorio;
+            '</td><td class="text-justify">' + datosLaboratorios[i].UbicacionLaboratorio +
+            '</td><td class="text-justify">' + datosLaboratorios[i].DescripcionLaboratorio;
 
         if (datosLaboratorios[i].HabilitadoLaboratorio) {
             str += '</td><td> Habilitado';
