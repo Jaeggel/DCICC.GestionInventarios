@@ -51,7 +51,7 @@ function cargarStorageTabla() {
         str += '<tr><td>' + datosStorage[i].NombreStorage +
             '</td><td>' + datosStorage[i].NickStorage+
             '</td><td>' + datosStorage[i].CapacidadStorage +
-            '</td><td>' + datosStorage[i].DescripcionStorage ;
+            '</td><td class="text-justify">' + datosStorage[i].DescripcionStorage ;
 
         if (datosStorage[i].HabilitadoStorage) {
             str += '</td><td> Habilitado';

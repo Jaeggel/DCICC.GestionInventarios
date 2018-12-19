@@ -73,7 +73,7 @@ function cargarUsuariosTabla() {
                 '</td><td>' + datosUsuarios[i].NombreRol +
                 '</td><td>' + datosUsuarios[i].CorreoUsuario +
                 '</td><td>' + datosUsuarios[i].TelefonoCelUsuario +
-                '</td><td>' + datosUsuarios[i].DireccionUsuario;
+                '</td><td class="text-justify">' + datosUsuarios[i].DireccionUsuario;
 
         if (datosUsuarios[i].HabilitadoUsuario) {
             str += '</td><td> Habilitado';
@@ -171,45 +171,6 @@ function modificarUsuario(url_modificar) {
     var habilitadoUsuario = $('#HabilitadoUsuario').prop('checked');
 
     if (validarInputNombre() && validarInputCorreo() && validarInputNick() && validarInputPass() && validarCmbRol()) {
-        //if (nickActual != nickUsuario && nomRol != rolActual) {
-        //    swal({
-        //        title: 'Confirmación de Actualización',
-        //        text: "¿Está seguro de modificar datos del usuario?",
-        //        type: 'warning',
-        //        showCancelButton: true,
-        //        confirmButtonColor: '#26B99A',
-        //        cancelButtonColor: '#337ab7',
-        //        confirmButtonText: 'Confirmar',
-        //        cancelButtonText: 'Cancelar'
-        //    }).then((result) => {
-        //        if (result.value) {
-        //            $.ajax({
-        //                data: {
-        //                    "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario,
-        //                    "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario,
-        //                    "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "NombreRol": nomRol,
-        //                    "HabilitadoUsuario": habilitadoUsuario
-        //                },
-        //                url: url_modificar,
-        //                type: 'post',
-        //                success: function (data) {
-        //                    console.log(data.OperacionExitosa);
-        //                    if (data.OperacionExitosa) {
-        //                        $('#ModificarUsuario').modal('hide');
-        //                        showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
-        //                        obtenerUsuarios(url_metodo);
-        //                    } else {
-        //                        $('#ModificarUsuario').modal('hide');
-        //                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Usuario: ' + data.MensajeError, "error");
-        //                    }
-        //                }
-        //            });
-
-        //        } else {
-        //            $('#ModificarUsuario').modal('hide');
-        //        }
-        //    });
-        //} else 
         if (nomRol != rolActual) {
             swal({
                 title: 'Confirmación de Actualización',
@@ -239,7 +200,7 @@ function modificarUsuario(url_modificar) {
                                 obtenerUsuarios(url_metodo);
                             } else {
                                 $('#ModificarUsuario').modal('hide');
-                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Usuario: ' + data.MensajeError, "error");
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Usuario: ' + data.MensajeError, "error");
                             }
                         }
                     });
@@ -276,7 +237,7 @@ function modificarUsuario(url_modificar) {
                                 obtenerUsuarios(url_metodo);
                             } else {
                                 $('#ModificarUsuario').modal('hide');
-                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Usuario: ' + data.MensajeError, "error");
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Usuario: ' + data.MensajeError, "error");
                             }
 
                         }
@@ -325,7 +286,7 @@ function habilitarOdeshabilitar(idUsuario, estadoUsuario) {
                         showNotify("Actualización exitosa", 'El Estado del Usuario se ha modificado exitosamente', "success");
                         obtenerUsuarios(url_metodo);
                     } else {
-                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Tipo de Usuario: ' + data.MensajeError, "error");
+                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Usuario: ' + data.MensajeError, "error");
                     }
                 }
             });

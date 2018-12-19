@@ -47,30 +47,30 @@ function cargarRolesTabla() {
         str += '<tr><td>' + datosRoles[i].NombreRol;
 
         if (datosRoles[i].PermisoActivos) {
-            str += '</td><td class="text-center"><strong> X</strong>';
+            str += '</td><td class="text-center"><span style="color: #169F85;" class="fa fa-check" aria-hidden="true"></span>';
         } else {
-            str += '</td><td>';
+            str += '</td><td class="text-center"><span style="color:#c9302c;" class="fa fa-close" aria-hidden="true"></span>';
         }
         if (datosRoles[i].PermisoReportes) {
-            str += '</td><td class="text-center"><strong> X</strong>';
+            str += '</td><td class="text-center"><span style="color: #169F85;" class="fa fa-check" aria-hidden="true"></span>';
         } else {
-            str += '</td><td>';
+            str += '</td><td class="text-center"><span style="color:#c9302c;" class="fa fa-close" aria-hidden="true"></span>';
         }
         if (datosRoles[i].PermisoMaqVirtuales) {
-            str += '</td><td class="text-center"><strong> X</strong>';
+            str += '</td><td class="text-center"><span style="color: #169F85;" class="fa fa-check" aria-hidden="true"></span>';
         } else {
-            str += '</td><td>';
+            str += '</td><td class="text-center"><span style="color:#c9302c;" class="fa fa-close" aria-hidden="true"></span>';
         }
         if (datosRoles[i].PermisoTickets) {
-            str += '</td><td class="text-center"><strong> X</strong>';
+            str += '</td><td class="text-center"><span style="color: #169F85;" class="fa fa-check" aria-hidden="true"></span>';
         } else {
-            str += '</td><td>';
+            str += '</td><td class="text-center"><span style="color:#c9302c;" class="fa fa-close" aria-hidden="true"></span>';
         }
 
         if (datosRoles[i].DescripcionRol !="") {
-            str += '</td><td>' + datosRoles[i].DescripcionRol;
+            str += '</td><td class="text-justify">' + datosRoles[i].DescripcionRol;
         } else {
-            str += '</td><td>';
+            str += '</td><td class="text-justify">';
         }
 
         if (datosRoles[i].HabilitadoRol) {

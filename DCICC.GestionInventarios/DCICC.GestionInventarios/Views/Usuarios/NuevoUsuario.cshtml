@@ -72,14 +72,14 @@
                         @* Cuadro de texto para el ingreso del teléfono convencional del usuario*@
 						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 							<label>Teléfono de Usuario</label>
-							<input id="TelefonoUsuario" type="text" class="form-control has-feedback-left" name="02-3030186" placeholder="Teléfono Convencional" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" data-toggle="tooltip" data-placement="rigth" title="">
+							<input id="TelefonoUsuario" type="text" class="form-control has-feedback-left" name="02-3030186" placeholder="Teléfono Convencional" maxlength="11" onkeyup="this.value=this.value.replace(validarNumeros(),'');" data-toggle="tooltip" data-placement="rigth" title="">
 							<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 						</div>
                         @* Cuadro de texto para el ingreso del teléfono celular del usuario*@
 						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 							<label>Teléfono de Usuario</label>
 							<label>Celular de Usuario</label>
-							<input id="TelefonoCelUsuario" type="text" class="form-control has-feedback-left" name="0955446687" placeholder="Teléfono Celular" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" data-toggle="tooltip" data-placement="rigth" title="">
+							<input id="TelefonoCelUsuario" type="text" class="form-control has-feedback-left" name="0955446687" placeholder="Teléfono Celular" maxlength="11" onkeyup="this.value=this.value.replace(validarNumeros(),'');" data-toggle="tooltip" data-placement="rigth" title="">
 							<span class="fa fa-mobile-phone form-control-feedback left" aria-hidden="true"></span>
 						</div>
                         @* Área de Texto para el ingreso de la descripción de un usuario *@
