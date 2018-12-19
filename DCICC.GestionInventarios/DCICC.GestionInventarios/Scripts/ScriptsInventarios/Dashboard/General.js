@@ -1,6 +1,7 @@
 ﻿/*Variables para Activos por estado*/
 var datosActivos;
 var datosUsuariosHab;
+var datosInicioSesion;
 
 
 /***********************************************************************************
@@ -41,9 +42,9 @@ function valoresActivos() {
             deBaja = deBaja+ 1;
         }
     }
-    $('#numeroOperativos').html(operativos).show();
-    $('#numeroNoOperativos').html(noOperativos).show();
-    $('#numeroDeBaja').html(deBaja).show();
+    $('#numeroOperativos').html(operativos).show('fast');
+    $('#numeroNoOperativos').html(noOperativos).show('fast');
+    $('#numeroDeBaja').html(deBaja).show('fast');
 
 }
 
@@ -67,7 +68,34 @@ function obtenerUsuariosHab(url) {
 }
 
 function contarUsuarios() {
-    console.log(datosUsuariosHab);
-    var total = (datosUsuariosHab.length) - 1;
-    $('#numeroHabilitados').html(total).show();
+    //console.log(datosUsuariosHab);
+    var total = datosUsuariosHab.length;
+    //document.getElementById("numeroHabilitados").innerHTML = total;
+    $('#numeroHabilitados').html(total).show('fast');
+}
+
+/* --------------------------------------SECCIÓN PARA N° DE INICIOS DE SESION---------------------------------*/
+//Método ajax para obtener los datos de los activos
+function obtenerNumLogs(url) {
+    url_metodo = url;
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            if (data.OperacionExitosa) {
+                datosInicioSesion = data.ValorLong;
+                contarSesiones();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+        }
+    });
+}
+
+function contarSesiones() {
+    //console.log(datosUsuariosHab);
+    //var total = datosUsuariosHab.length;
+    //document.getElementById("sesionesIniciadas").innerHTML = datosInicioSesion;
+    $('#sesionesIniciadas').html(datosInicioSesion).show('fast');
 }
