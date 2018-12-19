@@ -47,7 +47,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             MensajesRoles msjRoles = new MensajesRoles();
             ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-            msjRoles = objConsultasRolesBD.ObtenerRoles("");
+            msjRoles = objConsultasRolesBD.ObtenerRoles("consultaroles");
             if (msjRoles.OperacionExitosa)
             {
                 Logs.Info("Consulta de Roles realizada exitosamente.");
@@ -114,6 +114,15 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarRol")]
         public MensajesRoles ActualizarRol([FromBody] Roles infoRol)
         {
+            string nombreRol = string.Empty;
+            if (infoRol.NombreRolAntiguo != null)
+            {
+                nombreRol = infoRol.NombreRol;
+            }
+            else
+            {
+                nombreRol = infoRol.NombreRol;
+            }
             List<string> sentenciasGenerales = new List<string>();
             List<string> sentenciasActivos = new List<string>();
             List<string> sentenciasMaqVirtuales = new List<string>();
@@ -121,24 +130,24 @@ namespace DCICC.WebServiceInventarios.Controllers
             List<string> sentenciasReportes = new List<string>();
             List<string> sentenciasRevocacion = new List<string>();
             SentenciasRoles objSentencias = new SentenciasRoles();
-            sentenciasRevocacion= objSentencias.ObtenerSentenciasRevocacion(infoRol.NombreRol);
-            sentenciasGenerales = objSentencias.ObtenerSentenciasGenerales(infoRol.NombreRol);
+            sentenciasRevocacion= objSentencias.ObtenerSentenciasRevocacion(nombreRol);
+            sentenciasGenerales = objSentencias.ObtenerSentenciasGenerales(nombreRol);
             sentenciasGenerales.RemoveAt(0);
             if (infoRol.PermisoActivos)
             {
-                sentenciasActivos = objSentencias.ObtenerSentenciasActivos(infoRol.NombreRol);
+                sentenciasActivos = objSentencias.ObtenerSentenciasActivos(nombreRol);
             }
             if (infoRol.PermisoMaqVirtuales)
             {
-                sentenciasMaqVirtuales = objSentencias.ObtenerSentenciasMaqVirtuales(infoRol.NombreRol);
+                sentenciasMaqVirtuales = objSentencias.ObtenerSentenciasMaqVirtuales(nombreRol);
             }
             if (infoRol.PermisoTickets)
             {
-                sentenciasTickets = objSentencias.ObtenerSentenciasTickets(infoRol.NombreRol);
+                sentenciasTickets = objSentencias.ObtenerSentenciasTickets(nombreRol);
             }
             if (infoRol.PermisoReportes)
             {
-                sentenciasTickets = objSentencias.ObtenerSentenciasReportes(infoRol.NombreRol);
+                sentenciasReportes = objSentencias.ObtenerSentenciasReportes(nombreRol);
             }
             MensajesRoles msjRoles = null;
             ActualizacionesRoles objActualizacionesRolesActBD = new ActualizacionesRoles(sentenciasRevocacion,sentenciasGenerales, sentenciasActivos, sentenciasMaqVirtuales, sentenciasTickets, sentenciasReportes);
@@ -162,6 +171,8 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesRoles ActualizarEstadoRol([FromBody] Roles infoRol)
         {
             MensajesRoles msjRoles = null;
+            ActualizacionesRoles objActualizacionesRolesActBD = new ActualizacionesRoles(null,null,null,null,null,null);
+            msjRoles = objActualizacionesRolesActBD.ActualizacionEstadoRol(infoRol);
             if (msjRoles.OperacionExitosa)
             {
                 Logs.Info(string.Format("Actualización de estado de Rol con ID: {0} realizada exitosamente.", infoRol.IdRol));

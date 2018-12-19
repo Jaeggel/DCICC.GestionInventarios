@@ -130,7 +130,9 @@
 @* Seccción para llamar al js de Laboratorios *@
 <script src="~/Scripts/ScriptsInventarios/Laboratorios.js"></script>
 <script>
-    $(document).ready(function () {
+	$(document).ready(function () {
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener la tabla de Laboratorios
         obtenerLaboratorios('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
         urlEstados('@Url.Action("ModificarEstadolaboratorio", "Laboratorios")');

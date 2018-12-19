@@ -37,7 +37,7 @@ namespace DCICC.GestionInventarios.Reportes
                 {
                     documentoReporte.Open();
                     GenerarEncabezadoReporte(documentoReporte, writerReporte);
-                    GenerarTituloReporte(documentoReporte, tituloReporte);
+                    GenerarTituloReporte(documentoReporte, tituloReporte, tablaReporte.Rows.Count);
                     documentoReporte.Add(tablaReporte);
                     GenerarFirmaReporte(documentoReporte, firmaUsuario);
                     documentoReporte.Close();
@@ -82,15 +82,36 @@ namespace DCICC.GestionInventarios.Reportes
         /// </summary>
         /// <param name="documentoReporte">Documento actual en el cual se está generando el PDF.</param>
         /// <param name="tituloReporte">Título que será mostrado en el Reporte.</param>
-        public void GenerarTituloReporte(Document documentoReporte,string tituloReporte)
+        public void GenerarTituloReporte(Document documentoReporte,string tituloReporte,int numEquipos)
         {
             using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
-                using (var sr = new StringReader(string.Format("<br/><br/><u><h2 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de {0}</h2></u><br/><br/>", tituloReporte)))
+                using (var sr = new StringReader(string.Format("<br/><br/><u><h2 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de {0}</h2></u><br/>", tituloReporte)))
                 {
                     htmlWorker.Parse(sr);
                 }
             }
+            Chunk c = new Chunk("Fecha de Elaboración: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
+            Chunk c1 = new Chunk(DateTime.Now.ToLongDateString(), new Font(Font.FontFamily.UNDEFINED, 10));
+            Paragraph p1 = new Paragraph();
+            p1.Add(new Chunk(c));
+            p1.Add(new Chunk(c1));            
+            documentoReporte.Add(p1);
+            
+            Chunk c5 = new Chunk("Laboratorio: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
+            Chunk c6 = new Chunk("Todos", new Font(Font.FontFamily.UNDEFINED, 10));
+            Paragraph p5 = new Paragraph();
+            p5.Add(new Chunk(c5));
+            p5.Add(new Chunk(c6));
+            documentoReporte.Add(p5);
+
+            Chunk c2 = new Chunk("N° de Registros: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
+            Chunk c4 = new Chunk(numEquipos + "", new Font(Font.FontFamily.UNDEFINED, 10));
+            Paragraph p4 = new Paragraph();
+            p4.Add(new Chunk(c2));
+            p4.Add(new Chunk(c4));
+            documentoReporte.Add(p4);
+            documentoReporte.Add(Chunk.NEWLINE);
         }
         /// <summary>
         /// Método para insertar el encabezado en la primera página del Reporte.
