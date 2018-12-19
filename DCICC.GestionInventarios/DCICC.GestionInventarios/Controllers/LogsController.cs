@@ -60,9 +60,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerLogsLoginCount()
         {
             LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
-            var jsonResult = Json(objLogsAccDatos.ObtenerLogsLoginCount((string)Session["NickUsuario"]), JsonRequestBehavior.AllowGet);
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
+            return Json(objLogsAccDatos.ObtenerLogsLoginCount((string)Session["NickUsuario"]), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

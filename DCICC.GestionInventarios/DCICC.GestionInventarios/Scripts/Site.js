@@ -19,7 +19,7 @@ function definirMenuPorRolActual() {
     });
 }
 function definicionMenu(permisos) {
-    if (!permisos.ObjetoInventarios.NombreRol==="administrador") {
+    if (permisos.NombreRol!=="administrador") {
         //$('#').hide("fast");
         if (!permisos.PermisoActivos) {
             $('#menuActivos').remove();

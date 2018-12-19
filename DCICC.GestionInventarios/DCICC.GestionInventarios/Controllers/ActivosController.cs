@@ -565,9 +565,9 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerActivosComp()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
+            //var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
+            //jsonResult.MaxJsonLength = int.MaxValue;
+            return Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Activos de la base de datos
