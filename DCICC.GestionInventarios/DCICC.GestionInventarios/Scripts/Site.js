@@ -8,13 +8,13 @@ function obtenerIdioma() {
     var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
 }
-function GenerarReportePDF(urlDT, urlRPDF, titulo, info) {
+function GenerarReportePDF(urlDT, urlRPDF, titulo, info,lab) {
     var dataInfo = BuildTableHTML(info);
     if (dataInfo !== null) {
         $.ajax({
             url: urlDT,
             dataType: 'json',
-            data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": "" },
+            data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": lab},
             type: 'post'
         });
         window.open(urlRPDF);

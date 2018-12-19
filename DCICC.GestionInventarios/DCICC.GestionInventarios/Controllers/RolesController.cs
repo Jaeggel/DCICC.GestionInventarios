@@ -174,6 +174,15 @@ namespace DCICC.GestionInventarios.Controllers
             RolesAccDatos objRolesAccDatos = new RolesAccDatos((string)Session["NickUsuario"]);
             return Json(objRolesAccDatos.ObtenerRoles("Comp"), JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// Método para obtener los Roles habilitados de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerPermisosRolActual()
+        {
+            RolesAccDatos objRolesAccDatos = new RolesAccDatos((string)Session["NickUsuario"]);
+            return Json(objRolesAccDatos.ObtenerPermisosRol((string)Session["RolUsuario"]), JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

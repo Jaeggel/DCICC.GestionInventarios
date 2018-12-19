@@ -58,6 +58,7 @@ namespace DCICC.GestionInventarios.Controllers
                         Session["CorreoUsuario"] = datosUsuario.CorreoUsuario;
                         Session["IpUsuario"] = ObtenerIPCliente();
                         Session["NombresUsuario"] = datosUsuario.NombresUsuario;
+                        Session["RolUsuario"] = datosUsuario.NombreRol.ToLower();
                         //Definición del menú que tendrá el usuario en el sistema
                         if (datosUsuario.NombreRol.ToLower() == "administrador")
                         {
@@ -220,6 +221,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Session["CorreoUsuario"] = null;
                 Session["IpUsuario"] = null;
                 Session["PerfilUsuario"] = null;
+                Session["RolUsuario"] = null;
                 cont_Msj = 0;
                 Session.Abandon();
                 Session.Clear();
