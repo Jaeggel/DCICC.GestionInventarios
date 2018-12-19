@@ -19,11 +19,10 @@ function definirMenuPorRolActual() {
     });
 }
 function definicionMenu(permisos) {
-    //$('#menuActivos').remove();
-    //$('#menuConsultaActivos').remove();
-    //$('#menuReportes').remove();
-    //$('#menuMaqVirtuales').remove();
-    //$('#menuTickets').remove();
+    if (!permisos.ObjetoInventarios.NombreRol==="administrador") {
+        //$('#').hide("fast");
+    }
+
     if (!permisos.PermisoActivos) {
         $('#menuActivos').remove();
         $('#menuConsultaActivos').remove();

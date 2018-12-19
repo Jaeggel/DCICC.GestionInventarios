@@ -55,6 +55,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjLogs;
         }
+        /// <summary>
+        /// Método (GET) para obtener cuántas veces ha hecho login el usuario actual de la sesión
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ObtenerLogsLoginCount")]
+        public MensajesLogs ObtenerLogsLoginCount([FromBody] string nickUsuario)
+        {
+            MensajesLogs msjLogs = null;
+            ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
+            msjLogs = objConsultasLogsBD.ObtenerLogsLoginCount(nickUsuario);
+            if (msjLogs.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Logs de Inicio de Sesión realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjLogs.MensajeError);
+            }
+            return msjLogs;
+        }
         #endregion
         #region Registros
         /// <summary>

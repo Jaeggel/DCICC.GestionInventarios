@@ -11,6 +11,8 @@ namespace DCICC.GestionInventarios.Models.MensajesInventarios
 
         public string MensajeError { get; set; }
 
+        public long ValorLong { get; set; }
+
         public Logs ObjetoInventarios { get; set; }
 
         public List<Logs> ListaObjetoInventarios { get; set; }

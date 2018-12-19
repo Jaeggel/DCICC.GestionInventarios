@@ -50,6 +50,29 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             return msjLogs;
         }
+        /// <summary>
+        /// Método para obtener cuántas veces ha hecho login el usuario actual de la sesión
+        /// </summary>
+        /// <param name="nombreRol"></param>
+        /// <returns></returns>
+        public MensajesLogs ObtenerLogsLoginCount(string nombreRol)
+        {
+            MensajesLogs msjLogs = new MensajesLogs();
+            try
+            {
+                var response = client_Service.PostAsJsonAsync("Logs/ObtenerLogsLoginCount", nombreRol).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var logsJson = response.Content.ReadAsStringAsync().Result;
+                    msjLogs = JsonConvert.DeserializeObject<MensajesLogs>(logsJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs4n.Error(string.Format("Error en la conexión para obtener los permisos de un Rol: {0}", e.Message));
+            }
+            return msjLogs;
+        }
         #endregion
         #region Registros
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using DCICC.Entidades.EntidadesInventarios;
+using System;
 using System.Collections.Generic;
 
 namespace DCICC.Entidades.MensajesInventarios
@@ -8,6 +9,8 @@ namespace DCICC.Entidades.MensajesInventarios
         public bool OperacionExitosa { get; set; }
 
         public string MensajeError { get; set; }
+
+        public long ValorLong { get; set; }
 
         public Logs ObjetoInventarios { get; set; }
 

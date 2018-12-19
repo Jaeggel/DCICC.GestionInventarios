@@ -53,6 +53,17 @@ namespace DCICC.GestionInventarios.Controllers
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }
+        /// <summary>
+        /// Método para obtener cuántas veces ha hecho login el usuario actual de la sesión
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerLogsLoginCount()
+        {
+            LogsAccDatos objLogsAccDatos = new LogsAccDatos((string)Session["NickUsuario"]);
+            var jsonResult = Json(objLogsAccDatos.ObtenerLogsLoginCount((string)Session["NickUsuario"]), JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
         #endregion
     }
 }

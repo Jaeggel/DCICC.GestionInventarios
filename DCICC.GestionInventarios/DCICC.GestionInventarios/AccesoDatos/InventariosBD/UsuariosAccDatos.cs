@@ -91,12 +91,12 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// Método para obtener una lista todos los Usuarios de la base de datos.
         /// </summary>
         /// <returns></returns>
-        public MensajesUsuarios ObtenerUsuariosRoles()
+        public MensajesUsuarios ObtenerUsuarios(string nombreFuncion)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                HttpResponseMessage response = client_Service.GetAsync("Usuarios/ObtenerUsuariosRoles").Result;
+                HttpResponseMessage response = client_Service.GetAsync(string.Format("Usuarios/ObtenerUsuarios{0}",nombreFuncion)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var usersJson = response.Content.ReadAsStringAsync().Result;
