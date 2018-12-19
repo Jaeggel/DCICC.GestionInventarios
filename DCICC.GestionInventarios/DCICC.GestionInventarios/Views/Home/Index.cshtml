@@ -76,7 +76,8 @@
 
 <script>
 	$(document).ready(function () {
-		$('#vista_principal').delay(4000).slideDown(4000).animate(4000);
+		//setTimeout($('#vista_principal'), 5000);
+		//$('#vista_principal').delay(4000).slideDown(4000).animate(4000);
         //Método para obtener datos de Activos
 		obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
 		obtenerUsuariosHab('@Url.Action("ObtenerUsuariosHab", "Usuarios")');
