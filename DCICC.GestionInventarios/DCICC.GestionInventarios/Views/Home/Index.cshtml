@@ -9,12 +9,12 @@
 }
 
 <div class="row">
-	<div class="row top_tiles">
+	<div id="vista_principal" class="row top_tiles">
 		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<div class="tile-stats">
 				<div class="icon"><i class="fa fa-hourglass-end"></i> </div>
-				<div class="count">10</div>
-				<a href="#">
+				<div class="count"><div id="numeroVidaUtil"></div></div>
+				<a href="@Url.Action("ConsultaVidaUtilActivos", "Activos")">
 					<h3>Vida Útil<br /> de Activos</h3>
 				</a>
 				<p>Activos que han cumplido con su tiempo de vida.</p>
@@ -75,11 +75,14 @@
 </script>
 
 <script>
-    $(document).ready(function () {
+	$(document).ready(function () {
+		$('#vista_principal').delay(4000).slideDown(4000).animate(4000);
         //Método para obtener datos de Activos
 		obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
 		obtenerUsuariosHab('@Url.Action("ObtenerUsuariosHab", "Usuarios")');
 		obtenerNumLogs('@Url.Action("ObtenerLogsLoginCount", "Logs")');
+		obtenerVidaUtil('@Url.Action("ObtenerActivosVidaUtil", "Activos")');
+		
     });
 
 </script>

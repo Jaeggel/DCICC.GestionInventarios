@@ -1,7 +1,9 @@
-﻿/*Variables para Activos por estado*/
+﻿
 var datosActivos;
 var datosUsuariosHab;
 var datosInicioSesion;
+var datosVidaUtil;
+/*Variables para Activos por estado*/
 
 
 /***********************************************************************************
@@ -19,6 +21,7 @@ function obtenerActivos(url) {
         success: function (data) {
             if (data.OperacionExitosa) {
                 datosActivos = data.ListaObjetoInventarios;
+
                 valoresActivos();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
@@ -98,4 +101,30 @@ function contarSesiones() {
     //var total = datosUsuariosHab.length;
     //document.getElementById("sesionesIniciadas").innerHTML = datosInicioSesion;
     $('#sesionesIniciadas').html(datosInicioSesion).show('fast');
+}
+
+/* --------------------------------------SECCIÓN PARA N° DE ACTIVOS VIDA UTIL---------------------------------*/
+//Método ajax para obtener los datos de los activos
+function obtenerVidaUtil(url) {
+    url_metodo = url;
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            if (data.OperacionExitosa) {
+                datosVidaUtil = data.ListaObjetoInventarios;
+                contarVidaUtil();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+        }
+    });
+}
+
+function contarVidaUtil() {
+    //console.log(datosUsuariosHab);
+    var total = datosVidaUtil.length;
+    //document.getElementById("numeroHabilitados").innerHTML = total;
+    $('#numeroVidaUtil').html(total).show('fast');
 }
