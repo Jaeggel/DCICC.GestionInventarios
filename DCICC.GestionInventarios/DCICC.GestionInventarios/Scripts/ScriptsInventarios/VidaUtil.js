@@ -6,7 +6,7 @@ var idActivoMod;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de los activos
-function obtenerActivos(url) {
+function obtenerVidaUtil(url) {
     url_metodo = url;
     $.ajax({
         dataType: 'json',
@@ -22,6 +22,7 @@ function obtenerActivos(url) {
                     },
                     "order": [[1, "asc"]]
                 });
+                cargarEstadosModificarCmb();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -34,28 +35,31 @@ function obtenerActivos(url) {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Código QR</th> <th>Custodio</th> <th>Estado del Activo</th><th>Cambiar Estado</th>  </tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Vida Útil</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Nombre del Activo</th><th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Custodio</th> <th>Estado del Activo</th> <th>Fecha de finalización de Vida Útil</th><th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
-        if (datosActivos[i].EstadoActivo != "DE BAJA") {
+        
             //Método para dar formato a la fecha y hora
             var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
-            //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
-
             //fecha para la tabla y busquedas
             function pad(n) { return n < 10 ? "0" + n : n; }
             var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
 
+            var fechaFin = new Date(parseInt((datosActivos[i].VidaFinalTipoActivo).substr(6)));
+            var fechaFinActivo = pad(fechaFin.getMonth() + 1) + "/" + pad(fechaFin.getDate()) + "/" + fechaFin.getFullYear();
+
+
             str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
+                '</td><td>' + datosActivos[i].VidaUtilTipoActivo +
+                '</td><td>' + fechaIngreso +
                 '</td><td>' + datosActivos[i].NombreActivo +
-                '</td><td>' + datosActivos[i].NombreMarca +
                 '</td><td>' + datosActivos[i].ModeloActivo +
                 '</td><td>' + datosActivos[i].SerialActivo +
                 '</td><td>' + datosActivos[i].NombreLaboratorio +
-                '</td><td>' + fechaIngreso +
-                '</td><td>' + datosActivos[i].IdCQR +
+
                 '</td><td>' + datosActivos[i].ResponsableActivo +
-                '</td><td>' + datosActivos[i].EstadoActivo;
+                '</td><td>' + datosActivos[i].EstadoActivo +
+                '</td><td>' + fechaFinActivo;
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">';
             if (datosActivos[i].EstadoActivo == "OPERATIVO") {
                 str += '<button type = "button" class="btn btn-success text-center" data-toggle="modal" data-target="#ModificarEstadoActivo" onclick = "habilitarOdeshabilitar(' + datosActivos[i].IdActivo + ');" > <strong><span class="fa fa-check"></span></strong></button> ';
@@ -64,17 +68,16 @@ function cargarActivosTabla() {
             }
             str += '</div></div>' +
                 '</td ></tr > ';
-        }
 
     }
     str += '</tbody>' +
         '</table > ';
-    $("#tablaActivos").html(str);
+    $("#tablaActivosVidaUtil").html(str);
 
     //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rol == "Invitado") {
-        $("#dataTableActivos :button").attr("disabled", "disabled");
-    }
+    //if (rol == "Invitado") {
+    //    $("#dataTableActivos :button").attr("disabled", "disabled");
+    //}
 }
 
 //Función para cargar el combobox de estados para modificar
@@ -82,7 +85,9 @@ function cargarEstadosModificarCmb() {
     var str = '<select id="EstadoActivoModificar" class="form-control" name="EstadoActivoModificar" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
-        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        if (cmbEstados[i] != "OPERATIVO") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }     
     }
     str += '</select>';
     $("#cargarEstadosActivo").html(str);
@@ -122,7 +127,7 @@ function actualizarEstadoActivo(url) {
                         if (data.OperacionExitosa) {
                             $('#ModificarEstadoActivo').modal('hide');
                             showNotify("Actualización exitosa", 'El Estado del Activo se ha modificado exitosamente', "success");
-                            obtenerActivos(url_metodo);
+                            obtenerVidaUtil(url_metodo);
                         } else {
                             $('#ModificarEstadoActivo').modal('hide');
                             showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Activo' + data.MensajeError, "error");
@@ -137,4 +142,21 @@ function actualizarEstadoActivo(url) {
             }
         });
     }
+}
+
+//Función para validar el estado de activo
+function validacionesEstadoActivo() {
+    var isValid = true;
+
+    //Validación para combobox tipo de Activo
+    if (document.getElementById("EstadoActivoModificar").value == "") {
+        isValid = false;
+        document.getElementById("EstadoActivoModificar").style.borderColor = "#900C3F";
+        $('#errorEstadoActivo').html('Debe seleccionar una Opción del Estado de Activo').show();
+        setTimeout("$('#errorEstadoActivo').html('').hide('slow')", 6000);
+    } else {
+        document.getElementById("EstadoActivoModificar").style.borderColor = "#ccc";
+        $('#errorEstadoActivo').html('').hide();
+    }
+    return isValid;
 }
