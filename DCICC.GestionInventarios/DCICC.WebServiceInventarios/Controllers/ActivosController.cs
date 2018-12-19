@@ -180,6 +180,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjActivos;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los activos que han superado su vida útil.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerActivosVidaUtil")]
+        public MensajesActivos ObtenerActivosVidaUtil()
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerActivos("vidautil");
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Vida útil de Activos realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
         #endregion
         #region Registros
         /// <summary>
