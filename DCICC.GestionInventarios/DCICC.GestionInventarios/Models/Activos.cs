@@ -17,6 +17,10 @@ namespace DCICC.GestionInventarios.Models
 
         public string NombreTipoActivo { get; set; }
 
+        public int VidaUtilTipoActivo { get; set; }
+
+        public DateTime VidaFinalTipoActivo { get; set; }
+
         //Laboratorio
         public int IdLaboratorio { get; set; }
 

@@ -4794,6 +4794,7 @@
     <Content Include="Views\LUN\NuevoStorage.cshtml" />
     <Content Include="Views\Activos\ConsultaCQR.cshtml" />
     <Content Include="Views\Shared\_LayoutPasantes.cshtml" />
+    <Content Include="Views\Activos\ConsultaVidaUtilActivos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
