@@ -5,7 +5,7 @@ Descripción: Script que tendrá las funciones que se podrá llamar desde toda l
 
 //Método para obtener el idioma español de los dataTable
 function obtenerIdioma() {
-    var url_idioma = "http://172.17.42.129/Inventarios/JSON/Spanish.json";
+    var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
 }
 function GenerarReportePDF(urlDT, urlRPDF, titulo, info) {

@@ -189,40 +189,81 @@ function modificarRol(url_modificar) {
     var habilitadoRol = $('#HabilitadoRol').prop('checked');
 
     if (validarInputsVaciosIngreso()) {
-        swal({
-            title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar el registro?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#26B99A',
-            cancelButtonColor: '#337ab7',
-            confirmButtonText: 'Confirmar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    data: {
-                        "IdRol": idRolMod, "NombreRol": nombre, "DescripcionRol": descripcion, "HabilitadoRol": habilitadoRol,
-                        "PermisoActivos": activoTi, "PermisoMaqVirtuales": maqVir, "PermisoTickets": ticket, "PermisoReportes": reporte
-                    },
-                    url: url_modificar,
-                    type: 'post',
-                    success: function (data) {
-                        if (data.OperacionExitosa) {
-                            $('#ModificarRoles').modal('hide');
-                            showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
-                            obtenerRoles(url_metodo);
-                        } else {
-                            $('#ModificarRoles').modal('hide');
-                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Rol: ' + data.MensajeError, "error");
+        if (nombreRolModificar != nombre) {
+            console.log(nombreRolModificar);
+            swal({
+                title: 'Confirmación de Actualización',
+                text: "¿Está seguro de modificar el registro?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#26B99A',
+                cancelButtonColor: '#337ab7',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        data: {
+                            "IdRol": idRolMod, "NombreRol": nombre, "NombreRolAntiguo": nombreRolModificar, "DescripcionRol": descripcion, "HabilitadoRol": habilitadoRol,
+                            "PermisoActivos": activoTi, "PermisoMaqVirtuales": maqVir, "PermisoTickets": ticket, "PermisoReportes": reporte
+                        },
+                        url: url_modificar,
+                        type: 'post',
+                        success: function (data) {
+                            if (data.OperacionExitosa) {
+                                $('#ModificarRoles').modal('hide');
+                                showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                obtenerRoles(url_metodo);
+                            } else {
+                                $('#ModificarRoles').modal('hide');
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Rol: ' + data.MensajeError, "error");
+                            }
                         }
-                    }
-                });
+                    });
 
-            } else {
-                $('#ModificarRoles').modal('hide');
-            }
-        });
+                } else {
+                    $('#ModificarRoles').modal('hide');
+                }
+            });
+        } else {
+            swal({
+                title: 'Confirmación de Actualización',
+                text: "¿Está seguro de modificar el registro?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#26B99A',
+                cancelButtonColor: '#337ab7',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        data: {
+                            "IdRol": idRolMod, "NombreRol": nombre, "DescripcionRol": descripcion, "HabilitadoRol": habilitadoRol,
+                            "PermisoActivos": activoTi, "PermisoMaqVirtuales": maqVir, "PermisoTickets": ticket, "PermisoReportes": reporte
+                        },
+                        url: url_modificar,
+                        type: 'post',
+                        success: function (data) {
+                            if (data.OperacionExitosa) {
+                                $('#ModificarRoles').modal('hide');
+                                showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                obtenerRoles(url_metodo);
+                            } else {
+                                $('#ModificarRoles').modal('hide');
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Rol: ' + data.MensajeError, "error");
+                            }
+                        }
+                    });
+
+                } else {
+                    $('#ModificarRoles').modal('hide');
+                }
+            });
+        }
+
+
+        
     }
 }
 

@@ -10,6 +10,7 @@ var correosUsuarios = [];
 var rolesEstablecidos = [];
 var nickActual;
 var correoActual;
+var rolActual;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de los usuarios
@@ -130,7 +131,7 @@ function formUpdateUsuario(idUsuario) {
         if (datosUsuarios[i].IdUsuario == idUsuario) {
             nickActual = datosUsuarios[i].NickUsuario;
             correoActual = datosUsuarios[i].CorreoUsuario;
-            rolActual = datosUsuarios[i].IdRol;
+            rolActual = datosUsuarios[i].NombreRol;
             //Métodos para setear los valores a modificar
             var element = document.getElementById("IdRol");
             element.value = datosUsuarios[i].IdRol;
@@ -170,7 +171,46 @@ function modificarUsuario(url_modificar) {
     var habilitadoUsuario = $('#HabilitadoUsuario').prop('checked');
 
     if (validarInputNombre() && validarInputCorreo() && validarInputNick() && validarInputPass() && validarCmbRol()) {
-        if (nickUsuarioActual != nickUsuario) {
+        //if (nickActual != nickUsuario && nomRol != rolActual) {
+        //    swal({
+        //        title: 'Confirmación de Actualización',
+        //        text: "¿Está seguro de modificar datos del usuario?",
+        //        type: 'warning',
+        //        showCancelButton: true,
+        //        confirmButtonColor: '#26B99A',
+        //        cancelButtonColor: '#337ab7',
+        //        confirmButtonText: 'Confirmar',
+        //        cancelButtonText: 'Cancelar'
+        //    }).then((result) => {
+        //        if (result.value) {
+        //            $.ajax({
+        //                data: {
+        //                    "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario,
+        //                    "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario,
+        //                    "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "NombreRol": nomRol,
+        //                    "HabilitadoUsuario": habilitadoUsuario
+        //                },
+        //                url: url_modificar,
+        //                type: 'post',
+        //                success: function (data) {
+        //                    console.log(data.OperacionExitosa);
+        //                    if (data.OperacionExitosa) {
+        //                        $('#ModificarUsuario').modal('hide');
+        //                        showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
+        //                        obtenerUsuarios(url_metodo);
+        //                    } else {
+        //                        $('#ModificarUsuario').modal('hide');
+        //                        showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Usuario: ' + data.MensajeError, "error");
+        //                    }
+        //                }
+        //            });
+
+        //        } else {
+        //            $('#ModificarUsuario').modal('hide');
+        //        }
+        //    });
+        //} else 
+        if (nomRol != rolActual) {
             swal({
                 title: 'Confirmación de Actualización',
                 text: "¿Está seguro de modificar datos del usuario?",
@@ -183,53 +223,29 @@ function modificarUsuario(url_modificar) {
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
-                        url: urlModificar,
+                        data: {
+                            "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario,
+                            "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario,
+                            "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "NombreRolAntiguo": rolActual, "NombreRol": nomRol,
+                            "HabilitadoUsuario": habilitadoUsuario
+                        },
+                        url: url_modificar,
                         type: 'post',
                         success: function (data) {
                             console.log(data.OperacionExitosa);
                             if (data.OperacionExitosa) {
-                                //window.location.href = urlSalir;
-                                showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                                $('#ModificarUsuario').modal('hide');
+                                showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
+                                obtenerUsuarios(url_metodo);
                             } else {
-                                $('#ModificarContraseña').modal('hide');
-                                showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                                $('#ModificarUsuario').modal('hide');
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Usuario: ' + data.MensajeError, "error");
                             }
                         }
                     });
 
                 } else {
-                }
-            });
-        } else if (idRol != rolActual) {
-            swal({
-                title: 'Confirmación de Actualización',
-                text: "¿Está seguro de modificar datos del usuario?",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#26B99A',
-                cancelButtonColor: '#337ab7',
-                confirmButtonText: 'Confirmar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
-                        url: urlModificar,
-                        type: 'post',
-                        success: function (data) {
-                            console.log(data.OperacionExitosa);
-                            if (data.OperacionExitosa) {
-                                //window.location.href = urlSalir;
-                                showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
-                            } else {
-                                $('#ModificarContraseña').modal('hide');
-                                showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
-                            }
-                        }
-                    });
-
-                } else {
+                    $('#ModificarUsuario').modal('hide');
                 }
             });
         } else {
@@ -245,14 +261,18 @@ function modificarUsuario(url_modificar) {
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        data: { "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario, "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario, "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario },
+                        data: {
+                            "IdUsuario": idUsuarioModificar, "IdRol": idRol, "NombresUsuario": nombreUsuario, "CorreoUsuario": correoUsuario,
+                            "NickUsuario": nickUsuario, "PasswordUsuario": passwordUsuario, "TelefonoUsuario": telefonoUsuario,
+                            "TelefonoCelUsuario": celularUsuario, "DireccionUsuario": direccionUsuario, "HabilitadoUsuario": habilitadoUsuario
+                        },
                         url: url_modificar,
                         type: 'post',
                         success: function (data) {
                             console.log(data.OperacionExitosa);
                             if (data.OperacionExitosa) {
                                 $('#ModificarUsuario').modal('hide');
-                                showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
                                 obtenerUsuarios(url_metodo);
                             } else {
                                 $('#ModificarUsuario').modal('hide');
