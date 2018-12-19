@@ -4708,7 +4708,7 @@
     <Content Include="Scripts\ScriptsInventarios\Accesorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Activos.js" />
     <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
-    <Content Include="Scripts\ScriptsInventarios\Home.js" />
+    <Content Include="Scripts\ScriptsInventarios\Dashboard\General.js" />
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Login.js" />
     <Content Include="Scripts\ScriptsInventarios\Logs.js" />
@@ -4729,6 +4729,7 @@
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoAccesorio.js" />
     <Content Include="Scripts\ScriptsInventarios\Usuarios.js" />
+    <Content Include="Scripts\ScriptsInventarios\VidaUtil.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Scripts\umd\popper-utils.js" />

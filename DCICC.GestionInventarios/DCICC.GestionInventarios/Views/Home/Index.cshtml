@@ -1,23 +1,84 @@
 ﻿@*              Sistema de Gestión de inventarios y ticketing para soporte Técnico
-    Autores: Andres Chisaguano - Joel Ludeña
-    Descripción: Vista para mostrar el dashboard correspondiente al Home.
+	Autores: Andres Chisaguano - Joel Ludeña
+	Descripción: Vista para mostrar el dashboard correspondiente al Home.
 *@
 
 @* Sección para la definición del menú de administrador o auxiliar técnico *@
 @{
-    ViewBag.Title = "Home";
-    Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
+	Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
-<h1>@ViewBag.Title</h1>
+
 <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-    </div>
+	<div class="row top_tiles">
+		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-hourglass-end"></i> </div>
+				<div class="count">10</div>
+				<a href="#">
+					<h3>Vida Útil<br /> de Activos</h3>
+				</a>
+				<p>Activos que han cumplido con su tiempo de vida.</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-check"></i></div>
+				<div class="count"><div id="numeroOperativos"></div></div>
+				<h3>Activos Operativos</h3>
+				<p>N° de Activos con estado Operativo.</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-warning"></i></div>
+				<div class="count"><div id="numeroNoOperativos"></div></div>
+				<h3>Activos no Operativos</h3>
+				<p>N° de Activos con estado Operativo.</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-times"></i></div>
+				<div class="count"><div id="numeroDeBaja"></div></div>
+				<h3>Activos dados <br />de Baja</h3>
+				<p>N° de Activos que se han dado de Baja.</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-users"></i></div>
+				<div class="count"><div id="numeroHabilitados"></div></div>
+				<h3>Usuarios Habilitados</h3>
+				<p>N° de usuarios registrados.</p>
+				<br />
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-sign-in"></i></div>
+				<div class="count">179</div>
+				<h3>Conexiónes de Usuario</h3>
+				<p>N° de conexiones al Sistema</p>
+				<br />
+			</div>
+		</div>
+	</div>
 </div>
-@*<script type="text/javascript" src="~/Scripts/ScriptsInventarios/Home.js"></script>*@
+@* Seccción para llamar al js de Usuarios*@
+<script src="~/Scripts/ScriptsInventarios/Dashboard/General.js"></script>
 <script type="text/javascript">
     window.onload = function () {
         if ('@ViewBag.MsjBienv' === "true") {
             showNotify("Autenticación Exitosa", "Bienvenid@@ @ViewBag.NombreUsuario", "success");
         }
     }
+</script>
+
+<script>
+    $(document).ready(function () {
+        //Método para obtener datos de Activos
+		obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
+		obtenerUsuariosHab('@Url.Action("ObtenerUsuariosHab", "Usuarios")')
+    });
+
 </script>
