@@ -43,7 +43,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 if (infoRol.NombreRolAntiguo!=null)
                 {
-                    nombreRol = infoRol.NombreRolAntiguo;
+                    nombreRol = infoRol.NombreRol;
                     using (NpgsqlCommand cmd = new NpgsqlCommand(string.Format("ALTER GROUP {0} RENAME TO {1};",infoRol.NombreRolAntiguo,infoRol.NombreRol), conn_BD))
                     {
                         cmd.ExecuteNonQuery();

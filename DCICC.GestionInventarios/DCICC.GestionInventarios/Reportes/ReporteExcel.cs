@@ -33,7 +33,7 @@ namespace DCICC.GestionInventarios.Reportes
                 ExcelWorksheet ws = pck.Workbook.Worksheets[1];
                 //Carga datos del html
                 ws.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                ws.Cells["A9"].LoadFromDataTable(infoTable, true);
+                ws.Cells["A8"].LoadFromDataTable(infoTable, true);
                 //Titulos Organización
                 ConfigCell(1, 2, 1, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Ingeniería en Ciencias de la Computación Sede Quito - Campus Sur", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
                 ConfigCell(2, 2, 2, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Sistema de Gestión de Inventarios y Ticketing para Soporte Técnico", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
@@ -45,6 +45,7 @@ namespace DCICC.GestionInventarios.Reportes
                 //ConfigCell(4,2,4, infoTable.Columns.Count,ws, infoTable.Columns.Count, "Quito, campus sur.",true,false,Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Fecha
                 ConfigCell(4, 2, 4, infoTable.Columns.Count, ws, infoTable.Columns.Count, DateTime.Now.ToString(), true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ws.Cells[4, 2, 4, infoTable.Columns.Count].AutoFitColumns();
                 //Laboratorio
                 ConfigCell(5, 2, 5, infoTable.Columns.Count, ws, infoTable.Columns.Count, labFiltro = (labFiltro == "Mostrar Todos") ? "Todos" : labFiltro, true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //N° Equipos

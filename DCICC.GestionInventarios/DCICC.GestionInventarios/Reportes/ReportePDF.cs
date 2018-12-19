@@ -105,7 +105,7 @@ namespace DCICC.GestionInventarios.Reportes
             p5.Add(new Chunk(c6));
             documentoReporte.Add(p5);
 
-            Chunk c2 = new Chunk("N° de Equipos: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
+            Chunk c2 = new Chunk("N° de Registros: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
             Chunk c4 = new Chunk(numEquipos + "", new Font(Font.FontFamily.UNDEFINED, 10));
             Paragraph p4 = new Paragraph();
             p4.Add(new Chunk(c2));
