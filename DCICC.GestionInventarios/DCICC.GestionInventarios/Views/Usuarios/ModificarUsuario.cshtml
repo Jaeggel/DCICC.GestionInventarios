@@ -28,7 +28,7 @@
                 @* Sección para botones de ingresar nuevo usuario y actualizar página *@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoUsuario", "Usuarios")'"><i class="fa fa-plus"></i> Agregar Usuario</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("ModificarUsuario", "Usuarios")'"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerUsuarios('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>

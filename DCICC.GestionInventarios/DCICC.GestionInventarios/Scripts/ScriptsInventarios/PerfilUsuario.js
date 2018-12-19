@@ -5,7 +5,7 @@ var passwdUser;
 
 //Método ajax para obtener los datos de categorias
 function obtenerUsuario(url) {
-    console.log(url);
+    url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -145,7 +145,11 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
+                    data: {
+                        "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod,
+                        "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod,
+                        "DireccionUsuario": direccionUsuarioMod, "PasswordUsuario": passwdUser
+                    },
                     url: urlModificar,
                     type: 'post',
                     success: function (data) {
@@ -154,8 +158,8 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
                             window.location.href = urlSalir;
                             //showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
                         } else {
-                            $('#ModificarContraseña').modal('hide');
-                            //showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                            
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Activo: ' + data.MensajeError, "error");
                         }
                     }
                 });
@@ -182,10 +186,10 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
                     success: function (data) {   
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
-                            window.location.href = urlHome;
-                            //showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                            obtenerUsuario(url_metodo);
+                            showNotify("Actualización exitosa", 'El Perfil de Usuario "' + nickUsuario + '" se ha modificado exitosamente 1', "success");
                         } else {
-                            //showNotify("Error en la Actualización", 'No se ha podido modificar el Perfil de Usuario: ' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Tipo de Activo: ' + data.MensajeError, "error");
                         }
                         
                     }
