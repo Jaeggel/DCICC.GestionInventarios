@@ -188,10 +188,11 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
                     type: 'post',
                     success: function (data) {   
                         if (data.OperacionExitosa) {
-                            obtenerUsuario(url_metodo);
-                            showNotify("Actualización exitosa", 'El Perfil de Usuario "' + nickUsuario + '" se ha modificado exitosamente 1', "success");
+                            window.location.href = urlHome;
+                            //showNotify("Actualización exitosa", 'El Perfil de Usuario "' + nickUsuario + '" se ha modificado exitosamente 1', "success");
                         } else {
                             showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Usuario: ' + data.MensajeError, "error");
+                            window.location.href = urlHome;
                         }
                         
                     }
