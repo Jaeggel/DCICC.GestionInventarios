@@ -37,7 +37,7 @@ namespace DCICC.GestionInventarios.Reportes
                 {
                     documentoReporte.Open();
                     GenerarEncabezadoReporte(documentoReporte, writerReporte);
-                    GenerarTituloReporte(documentoReporte, tituloReporte, tablaReporte.Rows.Count,labFiltro);
+                    GenerarTituloReporte(documentoReporte, tituloReporte, tablaReporte.Rows.Count-1,labFiltro);
                     documentoReporte.Add(tablaReporte);
                     GenerarFirmaReporte(documentoReporte, firmaUsuario);
                     documentoReporte.Close();

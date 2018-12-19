@@ -76,8 +76,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesRoles msjRoles = new MensajesRoles();
             try
             {
-                ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
-                MensajesRoles msjRolesConsulta = objConsultasRolesBD.ObtenerRoles("consultaroles");
+                MensajesRoles msjRolesConsulta = ObtenerRoles("consultaroles");
                 Roles infoRol = msjRolesConsulta.ListaObjetoInventarios.Find(x => x.IdRol == IdRol);
                 if (infoRol != null)
                 {
