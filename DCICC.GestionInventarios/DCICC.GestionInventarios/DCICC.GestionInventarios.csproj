@@ -2277,6 +2277,9 @@
     <Content Include="Content\Tema\vendors\google-code-prettify\styles\index.html" />
     <Content Include="Content\Tema\vendors\google-code-prettify\styles\sons-of-obsidian.css" />
     <Content Include="Content\Tema\vendors\google-code-prettify\styles\sunburst.css" />
+    <Content Include="Content\Tema\vendors\highcharts\data.js" />
+    <Content Include="Content\Tema\vendors\highcharts\exporting.js" />
+    <Content Include="Content\Tema\vendors\highcharts\highcharts.js" />
     <Content Include="Content\Tema\vendors\iCheck\icheck.js" />
     <Content Include="Content\Tema\vendors\iCheck\icheck.min.js" />
     <Content Include="Content\Tema\vendors\iCheck\skins\all.css" />

@@ -63,6 +63,26 @@
 			</div>
 		</div>
 	</div>
+
+	@* Seccion para Vista de Barras *@
+	<div class="row">
+		<div class="col-md-12">
+			<div class="x_panel">
+				
+				<div class="x_content">
+					<div class="form-horizontal">
+						@* Sección para la tabla de modificación mediante js *@
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div id="grafico"></div>
+						</div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
 @* Seccción para llamar al js de Usuarios*@
 <script src="~/Scripts/ScriptsInventarios/Dashboard/General.js"></script>
@@ -82,7 +102,10 @@
         //Método para obtener datos de Activos
 		obtenerVidaUtil('@Url.Action("ObtenerActivosVidaUtil", "Activos")');
 		obtenerValores('@Url.Action("ObtenerDashboardTop", "Home")');
-		
+
+		//Métodos para Gráfica Medio
+		obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
+		obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
 		
     });
 
