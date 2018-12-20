@@ -91,10 +91,10 @@ function obtenerActivos(url) {
         success: function (data) {
             if (data.OperacionExitosa) {
                 var aux = data.ListaObjetoInventarios;
+                //var datosActivos = [];
                 for (var i = 0; i < aux.length; i++) {
-                    datosActivos[i] = aux[i].NombreTipoActivo;
-                }
-                
+                    datosActivos.push(aux[i].NombreTipoActivo);
+                }              
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }

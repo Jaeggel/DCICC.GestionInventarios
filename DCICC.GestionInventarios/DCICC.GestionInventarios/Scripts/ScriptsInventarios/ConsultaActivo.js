@@ -56,6 +56,7 @@ function datosTipoActivo(url) {
             if (data.OperacionExitosa) {
                 cmbTipoActivo = data.ListaObjetoInventarios;
                 cargarTipoActivoCmb();
+                TipoActivoFiltroAct();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }           
@@ -73,6 +74,7 @@ function datosLaboratorio(url) {
             if (data.OperacionExitosa) {
                 cmbLaboratorio = data.ListaObjetoInventarios;
                 cargarLaboratoriosCmb();
+                LaboratoriosFiltroAct();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -91,6 +93,7 @@ function datosMarcas(url) {
             if (data.OperacionExitosa) {
                 cmbMarcas = data.ListaObjetoInventarios;
                 cargarMarcasCmb();
+                MarcasFiltroAct();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -149,6 +152,108 @@ function cargarEstadosModificarCmb() {
     str += '</select>';
     $("#cargarEstadosActivo").html(str);
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR COMBOBOX DE FILTROS---------------------------------*/
+//Función para cargar el combobox de tipo de activo
+function TipoActivoFiltroAct() {
+    var str = '<select id="TipoActivoFiltroAct" class="form-control" name="TipoActivoFiltroAct"  required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbTipoActivo.length; i++) {
+        str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
+    }
+    str += '</select>';
+    $("#cargarTipoActivosFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#TipoActivoFiltroAct').change(function () {
+        var opcion = document.getElementById("TipoActivoFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(0).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar el combobox de laboratorios
+function LaboratoriosFiltroAct() {
+    var str = '<select id="LaboratoriosFiltroAct" class="form-control" name="LaboratoriosFiltroAct"  required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbLaboratorio.length; i++) {
+        str += '<option value="' + cmbLaboratorio[i].IdLaboratorio + '">' + cmbLaboratorio[i].NombreLaboratorio + '</option>';
+    }
+    str += '</select>';
+    $("#cargarLaboratoriosFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#LaboratoriosFiltroAct').change(function () {
+        var opcion = document.getElementById("LaboratoriosFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(5).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(5).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar el combobox de Marcas
+function MarcasFiltroAct() {
+    var str = '<select id="MarcasFiltroAct" class="form-control" name="MarcasFiltroAct"  required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbMarcas.length; i++) {
+        str += '<option value="' + cmbMarcas[i].IdMarca + '">' + cmbMarcas[i].NombreMarca + '</option>';
+    }
+    str += '</select>';
+    $("#cargarMarcasFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#MarcasFiltroAct').change(function () {
+        var opcion = document.getElementById("MarcasFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(2).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(2).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+
+}
+
+//Función para cargar el combobox de estados
+function EstadosFiltroAct() {
+    var str = '<select id="EstadosFiltroAct" class="form-control" name="EstadosFiltroAct" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+    }
+    str += '</select>';
+    $("#cargarEstadosActivoFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#EstadosFiltroAct').change(function () {
+        var opcion = document.getElementById("EstadosFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(9).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(9).search('^' + tipoAct.text + '$', true, false                 
+            ).draw();
+        }
+    });
+}
+
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {

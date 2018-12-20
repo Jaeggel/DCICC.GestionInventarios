@@ -249,8 +249,7 @@ function cargarEstadosActivoCmb() {
                 ""
             ).draw();
         } else {
-            $('#dataTableCQRActivos').DataTable().column(7).search(
-                tipoLab.text
+            $('#dataTableCQRActivos').DataTable().column(7).search('^' + tipoLab.text + '$', true, false
             ).draw();
         }
     });
@@ -402,8 +401,7 @@ function cargarEstadosAccesoriosCmb() {
                 ""
             ).draw();
         } else {
-            $('#dataTableAccesorios').DataTable().column(4).search(
-                tipoLab.text
+            $('#dataTableAccesorios').DataTable().column(4).search('^' + tipoLab.text + '$', true, false
             ).draw();
         }
     });
