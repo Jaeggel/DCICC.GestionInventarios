@@ -26,7 +26,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="tablaReporte">Tabla para insertar en el Reporte</param>
         /// <param name="tituloReporte">Título que tendrá el Reporte</param>
         /// <returns></returns>
-        public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte,string firmaUsuario)
+        public byte[] GenerarReportePDF(PdfPTable tablaReporte,string tituloReporte,string firmaUsuario,string labFiltro)
         {
             byte[] bytesReportePDF=null;
             using (MemoryStream msReporte = new MemoryStream())
@@ -37,7 +37,7 @@ namespace DCICC.GestionInventarios.Reportes
                 {
                     documentoReporte.Open();
                     GenerarEncabezadoReporte(documentoReporte, writerReporte);
-                    GenerarTituloReporte(documentoReporte, tituloReporte, tablaReporte.Rows.Count);
+                    GenerarTituloReporte(documentoReporte, tituloReporte, tablaReporte.Rows.Count-1,labFiltro);
                     documentoReporte.Add(tablaReporte);
                     GenerarFirmaReporte(documentoReporte, firmaUsuario);
                     documentoReporte.Close();
@@ -82,36 +82,42 @@ namespace DCICC.GestionInventarios.Reportes
         /// </summary>
         /// <param name="documentoReporte">Documento actual en el cual se está generando el PDF.</param>
         /// <param name="tituloReporte">Título que será mostrado en el Reporte.</param>
-        public void GenerarTituloReporte(Document documentoReporte,string tituloReporte,int numEquipos)
+        public void GenerarTituloReporte(Document documentoReporte,string tituloReporte,int numEquipos,string labFiltro)
         {
+            if (labFiltro == "Mostrar Todos")
+            {
+                labFiltro = "Todos";
+            }
+            else if (labFiltro == "" || labFiltro == null)
+            {
+                labFiltro = "-";
+            }
             using (HTMLWorker htmlWorker = new HTMLWorker(documentoReporte))
             {
-                using (var sr = new StringReader(string.Format("<br/><br/><u><h2 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de {0}</h2></u><br/>", tituloReporte)))
+                using (var sr = new StringReader(string.Format("<br/><u><h2 style='text-align:center;font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; '>Reporte de {0}</h2></u><br/>", tituloReporte)))
                 {
                     htmlWorker.Parse(sr);
                 }
-            }
-            Chunk c = new Chunk("Fecha de Elaboración: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
-            Chunk c1 = new Chunk(DateTime.Now.ToLongDateString(), new Font(Font.FontFamily.UNDEFINED, 10));
-            Paragraph p1 = new Paragraph();
-            p1.Add(new Chunk(c));
-            p1.Add(new Chunk(c1));            
-            documentoReporte.Add(p1);
-            
-            Chunk c5 = new Chunk("Laboratorio: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
-            Chunk c6 = new Chunk("Todos", new Font(Font.FontFamily.UNDEFINED, 10));
-            Paragraph p5 = new Paragraph();
-            p5.Add(new Chunk(c5));
-            p5.Add(new Chunk(c6));
-            documentoReporte.Add(p5);
-
-            Chunk c2 = new Chunk("N° de Registros: ", new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
-            Chunk c4 = new Chunk(numEquipos + "", new Font(Font.FontFamily.UNDEFINED, 10));
-            Paragraph p4 = new Paragraph();
-            p4.Add(new Chunk(c2));
-            p4.Add(new Chunk(c4));
-            documentoReporte.Add(p4);
+            }           
+            documentoReporte.Add(GenerarParrafosParametros("Fecha de Elaboración: ", DateTime.Now.ToLongDateString()));
+            documentoReporte.Add(GenerarParrafosParametros("Laboratorio: ", labFiltro));
+            documentoReporte.Add(GenerarParrafosParametros("N° de Registros: ", numEquipos+""));
             documentoReporte.Add(Chunk.NEWLINE);
+        }
+        /// <summary>
+        /// Método para generar los párrafos para el reporte PDF.
+        /// </summary>
+        /// <param name="contTitulo"></param>
+        /// <param name="contValor"></param>
+        /// <returns></returns>
+        public Paragraph GenerarParrafosParametros(string contTitulo,string contValor)
+        {
+            Chunk parrafoTitulo = new Chunk(contTitulo, new Font(Font.FontFamily.UNDEFINED, 10, Font.BOLD));
+            Chunk parrafoCont = new Chunk(contValor, new Font(Font.FontFamily.UNDEFINED, 10));
+            Paragraph parrafo = new Paragraph();
+            parrafo.Add(new Chunk(parrafoTitulo));
+            parrafo.Add(new Chunk(parrafoCont));
+            return parrafo;
         }
         /// <summary>
         /// Método para insertar el encabezado en la primera página del Reporte.
@@ -120,7 +126,7 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="writerReporte">Writer actual con el cual se está generando el PDF.</param>
         public void GenerarEncabezadoReporte(Document documentoReporte, PdfWriter writerReporte)
         {
-            var encabezadoHtml = string.Format(@"<!DOCTYPE html><html><head></head><body><table align='center' style='width:80%;'><tr><th rowspan='2'><p style='text-align:center'><img src='{0}' height=65 width=225 style='text-align:center;'></img></p></th><td rowspan='1'><p style='text-align:center'><b>Ingeniería de Ciencias de la Computación <br/>Sede Quito Campus Sur</b></p></td></tr><tr><td><p style='text-align:center'><b>Reporte de Activos de TI <br/>del Data Center y Laboratorios del ICC</b></p></td></tr></table></body></html>", System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoUPS.png"));
+            var encabezadoHtml = string.Format(@"<!DOCTYPE html><html><head></head><body><table align='center' style='width:80%;'><tr><th rowspan='2'><p style='text-align:center'><img src='{0}' height=65 width=225 style='text-align:center;'></img></p></th><td rowspan='1'><p style='text-align:center'><b>Ingeniería de Ciencias de la Computación <br/>Sede Quito - Campus Sur</b></p></td></tr><tr><td><p style='text-align:center'><b>Reporte de Activos de TI <br/>del Data Center y Laboratorios del ICC</b></p></td></tr></table></body></html>", System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoUPS.png"));
             var encabezadoCss = @"body{font-family:Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif}table,th,td{border:1px solid black;border-collapse:collapse}";
             using (var msCss = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(encabezadoCss)))
             {

@@ -46,7 +46,7 @@ function cargarCategoriaTabla() {
     str += '<tbody>';
     for (var i = 0; i < datosCategorias.length; i++) {
         str += '<tr><td>' + datosCategorias[i].NombreCategoriaActivo +
-            '</td><td>' + datosCategorias[i].DescripcionCategoriaActivo;
+            '</td><td class="text-justify">' + datosCategorias[i].DescripcionCategoriaActivo;
 
         if (datosCategorias[i].HabilitadoCategoriaActivo) {
             str += '</td><td> Habilitado';

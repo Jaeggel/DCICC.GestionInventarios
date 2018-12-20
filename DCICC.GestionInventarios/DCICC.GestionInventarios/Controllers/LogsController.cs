@@ -21,7 +21,7 @@ namespace DCICC.GestionInventarios.Controllers
                 return RedirectToAction("Login", "Login");
             }
             else
-            {
+            { 
                 ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
                 ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
                 ViewBag.Correo = (string)Session["CorreoUsuario"];

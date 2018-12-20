@@ -26,17 +26,17 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/DateJS/build/date.js",
                         "~/Content/Tema/vendors/switchery/dist/switchery.min.js",
 
-                        "~/Content/Tema/vendors/Chart.js/dist/Chart.min.js",
+                        //"~/Content/Tema/vendors/Chart.js/dist/Chart.min.js",
                         "~/Content/Tema/vendors/gauge.js/dist/gauge.min.js",
                         "~/Content/Tema/vendors/skycons/skycons.js",
-                        "~/Content/Tema/vendors/Flot/jquery.flot.js",
-                        "~/Content/Tema/vendors/Flot/jquery.flot.pie.js",
-                        "~/Content/Tema/vendors/Flot/jquery.flot.time.js",
-                        "~/Content/Tema/vendors/Flot/jquery.flot.stack.js",
-                        "~/Content/Tema/vendors/Flot/jquery.flot.resize.js",
-                        "~/Content/Tema/vendors/flot.orderbars/js/jquery.flot.orderBars.js",
-                        "~/Content/Tema/vendors/flot-spline/js/jquery.flot.spline.min.js",
-                        "~/Content/Tema/vendors/flot.curvedlines/curvedLines.js",
+                        //"~/Content/Tema/vendors/Flot/jquery.flot.js",
+                        //"~/Content/Tema/vendors/Flot/jquery.flot.pie.js",
+                        //"~/Content/Tema/vendors/Flot/jquery.flot.time.js",
+                        //"~/Content/Tema/vendors/Flot/jquery.flot.stack.js",
+                        //"~/Content/Tema/vendors/Flot/jquery.flot.resize.js",
+                        //"~/Content/Tema/vendors/flot.orderbars/js/jquery.flot.orderBars.js",
+                        //"~/Content/Tema/vendors/flot-spline/js/jquery.flot.spline.min.js",
+                        //"~/Content/Tema/vendors/flot.curvedlines/curvedLines.js",
                         
 
                         "~/Content/Tema/vendors/datatables.net/js/jquery.dataTables.min.js",
@@ -52,11 +52,16 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js",
                         "~/Content/Tema/vendors/datatables.net-scroller/js/dataTables.scroller.min.js",
 
-                        "~/Scripts/pnotify.custom.min.js",
+						"~/Content/Tema/vendors/highcharts/highcharts.js",
+						"~/Content/Tema/vendors/highcharts/data.js",
+						"~/Content/Tema/vendors/highcharts/exporting.js",
+
+						"~/Scripts/pnotify.custom.min.js",
                         "~/Content/SweetAlert/dist/sweetalert2.all.min.js",
-                        "~/Content/Tema/build/js/custom.js"
-                        //"~/Scripts/Site.js"
-                        ));          
+                        "~/Content/Tema/build/js/custom.js",
+						"~/Content/Tema/build/js/jquery.mask.js"
+						//"~/Scripts/Site.js"
+						));          
 
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

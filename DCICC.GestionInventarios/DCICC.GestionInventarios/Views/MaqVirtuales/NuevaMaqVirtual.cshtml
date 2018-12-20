@@ -73,7 +73,7 @@
                         @* Cuadro de texto para el ingreso de la dirección IP de una máquina virtual *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                             <label>* Dirección IP</label>
-                            <input id="DireccionIPMaqVirtuales" type="text" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="172.17.42.64" onkeyup="this.value=this.value.replace(validarIp(),'');" onBlur="validarIP();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
+                            <input id="DireccionIPMaqVirtuales" type="text" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="172.17.42.64"  onBlur="validarIP();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-wifi form-control-feedback left" aria-hidden="true"></span>
                             <span id="errorIpMv" style="color:brown;"></span>
                         </div>
@@ -84,7 +84,7 @@
                                 
                                 <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
                                     <label>* Tamaño en Disco:</label>
-                                    <input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="1000" onBlur="validarDisco();" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                    <input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="4" min="1" max="1000" onBlur="validarDisco();" data-toggle="tooltip" data-placement="rigth" title="" required>
                                     <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                                     <span id="errorDiscoMv" style="color:brown;"></span>
                                 </div>
@@ -165,7 +165,44 @@
         });
 
 
-        //$('#DireccionIPMaqVirtuales').inputmask({ "mask": "(999) 999-9999" });
+
+		$('#DireccionIPMaqVirtuales').mask('AZZ.AZZ.AZZ.AZZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-2]/, optional: true
+				}
+			}
+		});
+
+
+
+
+		$('#RamMaqVirtuales').mask('AZZZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-1]/, optional: true
+				}
+
+			}
+		});
+
+		$('#DiscoMaqVirtuales').mask('AZZZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-1]/, optional: true
+				}
+
+			}
+		});
 
 
     });

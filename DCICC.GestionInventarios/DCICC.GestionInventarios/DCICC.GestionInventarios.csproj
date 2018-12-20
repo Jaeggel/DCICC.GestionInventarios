@@ -188,6 +188,7 @@
     <Compile Include="AccesoDatos\InventariosBD\AccesoriosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\CategoriasActivosAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\ActivosAccDatos.cs" />
+    <Compile Include="AccesoDatos\InventariosBD\DashboardAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\EncriptacionAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\LUNAccDatos.cs" />
     <Compile Include="AccesoDatos\InventariosBD\MaqVirtualesAccDatos.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\CategoriaActivo.cs" />
     <Compile Include="Models\Correo.cs" />
     <Compile Include="Models\CQR.cs" />
+    <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\HistoricoActivos.cs" />
     <Compile Include="Models\Laboratorios.cs" />
     <Compile Include="Models\Login.cs" />
@@ -238,6 +240,7 @@
     <Compile Include="Models\LUN.cs" />
     <Compile Include="Models\MaqVirtuales.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\MensajesInventarios\MensajesDashboard.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesHistoricoActivos.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesAccesorios.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesCategoriasActivos.cs" />
@@ -359,6 +362,7 @@
     <Content Include="Content\Tema\build\js\custom.min.js" />
     <Content Include="Content\Tema\build\css\jquery-ui.css" />
     <Content Include="Content\Tema\build\js\jquery-ui.js" />
+    <Content Include="Content\Tema\build\js\jquery.mask.js" />
     <Content Include="Content\Tema\images\american-express.png" />
     <Content Include="Content\Tema\images\cropper.jpg" />
     <Content Include="Content\Tema\images\img.jpg" />
@@ -2273,6 +2277,9 @@
     <Content Include="Content\Tema\vendors\google-code-prettify\styles\index.html" />
     <Content Include="Content\Tema\vendors\google-code-prettify\styles\sons-of-obsidian.css" />
     <Content Include="Content\Tema\vendors\google-code-prettify\styles\sunburst.css" />
+    <Content Include="Content\Tema\vendors\highcharts\data.js" />
+    <Content Include="Content\Tema\vendors\highcharts\exporting.js" />
+    <Content Include="Content\Tema\vendors\highcharts\highcharts.js" />
     <Content Include="Content\Tema\vendors\iCheck\icheck.js" />
     <Content Include="Content\Tema\vendors\iCheck\icheck.min.js" />
     <Content Include="Content\Tema\vendors\iCheck\skins\all.css" />
@@ -4707,6 +4714,7 @@
     <Content Include="Scripts\ScriptsInventarios\Accesorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Activos.js" />
     <Content Include="Scripts\ScriptsInventarios\Categoria.js" />
+    <Content Include="Scripts\ScriptsInventarios\Dashboard\General.js" />
     <Content Include="Scripts\ScriptsInventarios\Laboratorios.js" />
     <Content Include="Scripts\ScriptsInventarios\Login.js" />
     <Content Include="Scripts\ScriptsInventarios\Logs.js" />
@@ -4727,6 +4735,7 @@
     <Content Include="Scripts\ScriptsInventarios\SistemasOperativos.js" />
     <Content Include="Scripts\ScriptsInventarios\TipoAccesorio.js" />
     <Content Include="Scripts\ScriptsInventarios\Usuarios.js" />
+    <Content Include="Scripts\ScriptsInventarios\VidaUtil.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Scripts\umd\popper-utils.js" />
@@ -4792,6 +4801,7 @@
     <Content Include="Views\LUN\NuevoStorage.cshtml" />
     <Content Include="Views\Activos\ConsultaCQR.cshtml" />
     <Content Include="Views\Shared\_LayoutPasantes.cshtml" />
+    <Content Include="Views\Activos\ConsultaVidaUtilActivos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -280,7 +280,16 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerUsuariosRoles()
         {
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-            return Json(objUsuariosRolesAccDatos.ObtenerUsuariosRoles(), JsonRequestBehavior.AllowGet);
+            return Json(objUsuariosRolesAccDatos.ObtenerUsuarios("Roles"), JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener todos los Usuarios habilitados de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerUsuariosHab()
+        {
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+            return Json(objUsuariosRolesAccDatos.ObtenerUsuarios("Hab"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener todos los Usuarios de la base de datos
@@ -290,7 +299,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             List<string> lstNombresUsuarios = new List<string>();
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-            var lst= objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios;
+            var lst= objUsuariosRolesAccDatos.ObtenerUsuarios("Roles").ListaObjetoInventarios;
             foreach (var item in lst)
             {
                 lstNombresUsuarios.Add(item.NickUsuario);
@@ -305,7 +314,7 @@ namespace DCICC.GestionInventarios.Controllers
         {
             List<Usuarios> lstNombresUsuarios = new List<Usuarios>();
             UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-            var lst = objUsuariosRolesAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios;
+            var lst = objUsuariosRolesAccDatos.ObtenerUsuarios("Roles").ListaObjetoInventarios;
             foreach (var item in lst)
             {
                 Usuarios objUsuario = new Usuarios()
@@ -325,7 +334,7 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerUsuarioPorNick()
         {
             UsuariosAccDatos objUsuariosAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-            var datosUsuario = objUsuariosAccDatos.ObtenerUsuariosRoles().ListaObjetoInventarios.Find(x => x.NickUsuario == (string)Session["NickUsuario"]);
+            var datosUsuario = objUsuariosAccDatos.ObtenerUsuarios("Roles").ListaObjetoInventarios.Find(x => x.NickUsuario == (string)Session["NickUsuario"]);
             if (datosUsuario != null)
             {
                 return Json(datosUsuario, JsonRequestBehavior.AllowGet);

@@ -82,6 +82,25 @@ namespace DCICC.GestionInventarios.Controllers
                 return View();
             }
         }
+        /// <summary>
+        /// Método (GET) para mostrar la vista ConsultaVidaUtilActivos
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ConsultaVidaUtilActivos()
+        {
+            if ((string)Session["NickUsuario"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
+                return View();
+            }
+        }
         #endregion
         #region Registros (POST)
         /// <summary>
@@ -546,9 +565,9 @@ namespace DCICC.GestionInventarios.Controllers
         public JsonResult ObtenerActivosComp()
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-            var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
+            //var jsonResult= Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
+            //jsonResult.MaxJsonLength = int.MaxValue;
+            return Json(objActivosAccDatos.ObtenerActivos("Comp"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener los Activos de la base de datos
@@ -596,6 +615,15 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
             return Json(objActivosAccDatos.ObtenerHistoricoActivos(), JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los Históricos de Activos de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerActivosVidaUtil()
+        {
+            ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
+            return Json(objActivosAccDatos.ObtenerActivos("VidaUtil"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Método para obtener el responsable actual de los activos de TI del JSON

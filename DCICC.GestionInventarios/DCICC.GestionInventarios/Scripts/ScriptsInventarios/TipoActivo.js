@@ -83,7 +83,7 @@ function cargarTipoActTabla() {
     for (var i = 0; i < datosTipoActivo.length; i++) {      
         str += '<tr><td>' + datosTipoActivo[i].NombreTipoActivo +
             '</td><td>' + datosTipoActivo[i].NombreCategoriaActivo +
-            '</td><td>' + datosTipoActivo[i].DescripcionTipoActivo +
+            '</td><td class="text-justify">' + datosTipoActivo[i].DescripcionTipoActivo +
             '</td><td>' + datosTipoActivo[i].VidaUtilTipoActivo;
 
         if (datosTipoActivo[i].HabilitadoTipoActivo) {

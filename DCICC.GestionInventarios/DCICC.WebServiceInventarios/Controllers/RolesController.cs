@@ -58,6 +58,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjRoles;
         }
+        /// <summary>
+        /// Método (GET) para obtener un rol con sus permisos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ObtenerRolesPermisos")]
+        public MensajesRoles ObtenerRolesPermisos([FromBody] string nombreRol)
+        {
+            MensajesRoles msjRoles = new MensajesRoles();
+            ConsultasRoles objConsultasRolesBD = new ConsultasRoles();
+            msjRoles = objConsultasRolesBD.ObtenerPermisosPorRol(nombreRol);
+            if (msjRoles.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Roles realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjRoles.MensajeError);
+            }
+            return msjRoles;
+        }
         #endregion
         #region Registros
         /// <summary>

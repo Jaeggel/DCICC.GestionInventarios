@@ -36,33 +36,35 @@
 
                         @* Cuadro de texto para el ingreso del nombre completo del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" maxlength="100" required>
+                            <input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" onkeyup="this.value=this.value.replace(validarTextos(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                             <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del correo del usuario*@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" maxlength="40" required>
-                            <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
+						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+							<input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" onkeyup="this.value=this.value.replace(validarCorreo(),'');" onBlur="comprobarCorreoModificar();" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+							<span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
+							<span id="errorCorreo" style="color:brown;"></span>
+						</div>
                         @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" maxlength="50" required>
-                            <span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
-                        </div>
+						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+							<input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="comprobarNickModificacion();"  maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
+							<span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
+							<span id="errorNick" style="color:brown;"></span>
+						</div>
 
                         @* Cuadro de texto para el ingreso del teléfono convencional del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="TelefonoUsuario" type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11">
+                            <input id="TelefonoUsuario" type="text" class="form-control has-feedback-left" name="TelefonoUsuario" placeholder="Teléfono Convencional" maxlength="11" data-toggle="tooltip" data-placement="rigth" title="">
                             <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Cuadro de texto para el ingreso del teléfono celular del usuario*@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="TelefonoCelUsuario" type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11">
+                            <input id="TelefonoCelUsuario" type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="Teléfono Celular" maxlength="11"  data-toggle="tooltip" data-placement="rigth" title="">
                             <span class="fa fa-mobile-phone form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         @* Área de Texto para el ingreso de la descripción de un usuario *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <textarea id="DireccionUsuario" name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" maxlength="80"></textarea>
+                            <textarea id="DireccionUsuario" name="DireccionUsuario" class="form-control has-feedback-left" rows="3" placeholder="Dirección Domicilio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="80" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
                             <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="form-group"></div>
@@ -166,7 +168,9 @@
 <script>
     $(document).ready(function () {
         //Método para obtener las tablas de Usuarios
-        obtenerUsuario('@Url.Action("ObtenerUsuarioPorNick", "Usuarios")');
+		obtenerUsuario('@Url.Action("ObtenerUsuarioPorNick", "Usuarios")');
+		obtenerUsuariosComp('@Url.Action("ObtenerUsuariosRoles", "Usuarios")');
+		obtenerRoles('@Url.Action("ObtenerRolesComp", "Roles")');
         mensajesTooltips();
 
         $('#ModificarContraseña').on('hidden.bs.modal', function () {
@@ -178,7 +182,10 @@
             $("#PasswordUsuario").tooltip('hide');
             $("#PasswordUsuarioNuevo").tooltip('hide');
             $("#PasswordUsuarioConfirmar").tooltip('hide');
-        });
+		});
+
+		$('#TelefonoUsuario').mask('(00) 0000000');
+		$('#TelefonoCelUsuario').mask('00-00000000');
 
     });
 

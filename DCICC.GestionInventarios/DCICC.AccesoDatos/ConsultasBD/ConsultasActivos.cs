@@ -119,6 +119,29 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 lstActivos.Add(objActivos);
                             }
                         }
+                        else if (nombreFuncion=="vidautil")
+                        {
+                            while (dr.Read())
+                            {
+                                Activos objActivos = new Activos
+                                {
+                                    IdActivo = (int)dr[0],
+                                    IdTipoActivo = (int)dr[1],
+                                    IdLaboratorio = (int)dr[2],
+                                    NombreActivo = dr[3].ToString().Trim(),
+                                    ModeloActivo = dr[4].ToString().Trim(),
+                                    SerialActivo = dr[5].ToString().Trim(),
+                                    FechaIngresoActivo = DateTime.Parse(dr[6].ToString().Trim()),
+                                    ResponsableActivo = dr[7].ToString().Trim(),
+                                    EstadoActivo= dr[8].ToString().Trim(),
+                                    NombreTipoActivo = dr[9].ToString().Trim(),
+                                    NombreLaboratorio = dr[10].ToString().Trim(),
+                                    VidaUtilTipoActivo = (int)dr[11],
+                                    VidaFinalTipoActivo= DateTime.Parse(dr[12].ToString().Trim())
+                                };
+                                lstActivos.Add(objActivos);
+                            }
+                        }
                         conn_BD.Close();
                         msjActivos.ListaObjetoInventarios = lstActivos;
                         msjActivos.OperacionExitosa = true;

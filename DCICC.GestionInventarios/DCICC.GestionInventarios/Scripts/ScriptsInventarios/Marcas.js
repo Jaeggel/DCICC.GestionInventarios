@@ -45,7 +45,7 @@ function cargarMarcasTabla() {
     str += '<tbody>';
     for (var i = 0; i < datosMarcas.length; i++) {
         str += '<tr><td>' + datosMarcas[i].NombreMarca +
-            '</td><td>' + datosMarcas[i].DescripcionMarca;
+            '</td><td class="text-justify">' + datosMarcas[i].DescripcionMarca;
 
         if (datosMarcas[i].HabilitadoMarca) {
             str += '</td><td> Habilitado';

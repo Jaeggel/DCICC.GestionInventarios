@@ -1,19 +1,18 @@
 ﻿using DCICC.Entidades.EntidadesInventarios;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DCICC.Entidades.MensajesInventarios
 {
-    public class MensajesLogs
+    public class MensajesDashboard
     {
         public bool OperacionExitosa { get; set; }
 
         public string MensajeError { get; set; }
 
-        public long ValorLong { get; set; }
+        public Dashboard ObjetoInventarios { get; set; }
 
-        public Logs ObjetoInventarios { get; set; }
-
-        public List<Logs> ListaObjetoInventarios { get; set; }
+        public List<Dashboard> ListaObjetoInventarios { get; set; }
     }
 }

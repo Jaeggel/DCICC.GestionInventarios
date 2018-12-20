@@ -100,8 +100,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
+                MensajesUsuarios msjUsuariosConsulta = ObtenerUsuarios("consultausuarios");
                 Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.IdUsuario == IdUsuario);
                 if (infoUsuarioBD != null)
                 {
@@ -133,8 +132,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             try
             {
-                ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
-                MensajesUsuarios msjUsuariosConsulta = objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
+                MensajesUsuarios msjUsuariosConsulta = ObtenerUsuarios("consultausuarios");
                 Usuarios infoUsuarioBD = msjUsuariosConsulta.ListaObjetoInventarios.Find(x => x.NickUsuario == nickUsuario);
                 if (infoUsuarioBD != null)
                 {

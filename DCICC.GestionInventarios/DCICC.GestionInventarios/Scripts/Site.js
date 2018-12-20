@@ -4,17 +4,51 @@ Descripción: Script que tendrá las funciones que se podrá llamar desde toda l
 
 
 //Método para obtener el idioma español de los dataTable
+var permisosRol;
+$(document).ready(function () {
+    definirMenuPorRolActual();
+});
+function definirMenuPorRolActual() {
+    $.ajax({
+        dataType: 'json',
+        url: "/Inventarios/Roles/ObtenerPermisosRolActual",
+        type: 'post',
+        success: function (data) {
+            definicionMenu(data.ObjetoInventarios);
+        }
+    });
+}
+function definicionMenu(permisos) {
+    if (permisos.NombreRol !== "administrador") {
+        $("#enlaceVU").removeAttr("href");
+        //$('#').hide("fast");
+        if (!permisos.PermisoActivos) {
+            $('#menuActivos').remove();
+            $('#menuConsultaActivos').remove();
+        }
+        if (!permisos.PermisoMaqVirtuales) {
+            $('#menuMaqVirtuales').remove();
+        }
+        if (!permisos.PermisoTickets) {
+            $('#menuTickets').remove();
+        }
+        if (!permisos.PermisoReportes) {
+            $('#menuReportes').remove();
+        }
+    }
+}
+
 function obtenerIdioma() {
     var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
 }
-function GenerarReportePDF(urlDT, urlRPDF, titulo, info) {
+function GenerarReportePDF(urlDT, urlRPDF, titulo, info,lab) {
     var dataInfo = BuildTableHTML(info);
     if (dataInfo !== null) {
         $.ajax({
             url: urlDT,
             dataType: 'json',
-            data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": "" },
+            data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": lab},
             type: 'post'
         });
         window.open(urlRPDF);

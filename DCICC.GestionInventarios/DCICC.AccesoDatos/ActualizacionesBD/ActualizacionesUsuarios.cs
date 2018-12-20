@@ -99,7 +99,6 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
         /// <param name="nickUsuario"></param>
         public void ActualizarRolUsuario(string nombreRolAnterior,string nombreRolNuevo,string nickUsuario)
         {
-            NpgsqlTransaction tran = conn_BD.BeginTransaction();
             string queryAdd = "ALTER GROUP {0} ADD USER {1};";
             string queryRemv = "ALTER GROUP {0} DROP USER {1};";
             using (NpgsqlCommand cmd = new NpgsqlCommand(string.Format(queryAdd, nombreRolNuevo, nickUsuario), conn_BD))
@@ -110,7 +109,6 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             {
                 cmd.ExecuteNonQuery();
             }
-            tran.Commit();
         }
         /// <summary>
         /// Método para actualizar el perfil de un Usuario en la base de datos.
@@ -166,6 +164,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 else
                 {
                     tran.Commit();
+                    conn_BD.Close();
                 }
                 msjUsuarios.OperacionExitosa = true;
             }
