@@ -72,7 +72,7 @@ function obtenerTipoActivo(url) {
                 for (var i = 0; i < aux.length; i++) {
                     nombresTipoActivo[i] = aux[i].NombreTipoActivo;
                 }
-                //console.log(nombresTipoActivo);
+                graficaActivos();//console.log(nombresTipoActivo);
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -94,7 +94,7 @@ function obtenerActivos(url) {
                 for (var i = 0; i < aux.length; i++) {
                     datosActivos[i] = aux[i].NombreTipoActivo;
                 }
-                graficaActivos();
+                
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -104,7 +104,7 @@ function obtenerActivos(url) {
 
 //funcion para graficar
 function graficaActivos() {
-    console.log(datosActivos);
+    //console.log(datosActivos);
     for (var j = 0; j < nombresTipoActivo.length; j++) {
         var ocurrencia = $.grep(datosActivos, function (element) {
             return element === nombresTipoActivo[j];
