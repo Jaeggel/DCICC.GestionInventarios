@@ -95,6 +95,7 @@ function obtenerActivos(url) {
                     datosActivos[i] = aux[i].NombreTipoActivo;
                 }
                 contarActivosTipo();
+                graficaActivos();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -112,7 +113,7 @@ function contarActivosTipo() {
         valorNombresTipoActivo[j] = ocurrencia;
         }
     //console.log(valorNombresTipoActivo);
-    graficaActivos();
+   
 }
 
 ////////funcion para graficar
