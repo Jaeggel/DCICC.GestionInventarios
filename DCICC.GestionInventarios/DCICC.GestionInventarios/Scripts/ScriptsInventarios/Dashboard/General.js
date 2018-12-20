@@ -1,8 +1,12 @@
-﻿var datosActivos=[];
+﻿var datosActivos = [];
 var datosVidaUtil;
 /*Variables para Activos por estado*/
 var nombresTipoActivo = [];
 var valorNombresTipoActivo = [];
+/*valores para Tickets*/
+var estadosTickets = listaEstadosTicket();
+var valoresTickets = [];
+
 
 
 
@@ -25,6 +29,8 @@ function obtenerValores(url) {
                 $('#numeroDeBaja').html(data.ObjetoInventarios.ActivosDeBajaCont).show('fast');
                 $('#numeroHabilitados').html(data.ObjetoInventarios.UsuariosHabilitadosCont).show('fast');
                 $('#sesionesIniciadas').html(data.ObjetoInventarios.SesionCont).show('fast');
+                valoresTickets=[data.ObjetoInventarios.TicketsAbiertosCont, data.ObjetoInventarios.TicketsEnProcesoCont, data.ObjetoInventarios.TicketsEnEsperaCont, data.ObjetoInventarios.TicketsResueltosCont];                
+                graficaTickets();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -72,7 +78,7 @@ function obtenerTipoActivo(url) {
                 for (var i = 0; i < data.ListaObjetoInventarios.length; i++) {
                     nombresTipoActivo[i] = datosTipoActivo[i].NombreTipoActivo;
                 }
-                console.log(nombresTipoActivo);
+                //console.log(nombresTipoActivo);
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -111,14 +117,14 @@ function contarActivosTipo() {
         }).length;
         valorNombresTipoActivo[j] = ocurrencia;
         }
-    console.log(valorNombresTipoActivo);
-    graficagrupos();
+    //console.log(valorNombresTipoActivo);
+    graficaActivos();
 }
 
 ////////funcion para graficar
-function graficagrupos() {
+function graficaActivos() {
 
-        $('#grafico').highcharts({
+    $('#graficoActivos').highcharts({
             title: {
                 style: {
                     fontFamily: 'Helvetica Neue,Roboto,Arial,Droid Sans,sans-serif',
@@ -155,4 +161,46 @@ function graficagrupos() {
             credits: false
         });
     
+}
+
+function graficaTickets() {
+    var completo = [];
+    for (var i = 0; i < estadosTickets.length; i++) {      
+        if (i != 0) {
+            completo.push(new Array(estadosTickets[i], valoresTickets[i], false));           
+        } else {
+            completo.push(new Array(estadosTickets[i], valoresTickets[i], true, true));
+        }
+    }
+    console.log(completo);
+    $('#graficoTickets').highcharts({
+        chart: {
+            styledMode: true
+        },
+
+        title: {
+            style: {
+                fontFamily: 'Helvetica Neue,Roboto,Arial,Droid Sans,sans-serif',
+                color: '#73879C'
+            },
+            text: 'N° de Tickets para Soporte Técnico'
+        },
+        subtitle: {
+            style: {
+                fontFamily: 'Helvetica Neue,Roboto,Arial,Droid Sans,sans-serif',
+                color: '#73879C'
+            },
+            text: 'Sistema de Gestión de Activos y Ticketing para Soporte Técnico'
+        },
+        series: [{
+            type: 'pie',
+            allowPointSelect: true,
+            keys: ['name', 'y', 'selected', 'sliced'],
+            colors: ['#7cb5ec', '#f7a35c', '#FA413A','#1ABB9C'],
+            data: completo,
+            showInLegend: true
+        }],
+        credits: false
+    });
+
 }

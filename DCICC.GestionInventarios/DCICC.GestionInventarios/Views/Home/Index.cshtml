@@ -66,18 +66,32 @@
 
 	@* Seccion para Vista de Barras *@
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-7">
 			<div class="x_panel">
-				
+
 				<div class="x_content">
 					<div class="form-horizontal">
 						@* Sección para la tabla de modificación mediante js *@
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div id="grafico"></div>
+							<div id="graficoActivos"></div>
 						</div>
 
 					</div>
-					
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="form-horizontal">
+						@* Sección para la tabla de modificación mediante js *@
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div id="graficoTickets"></div>
+						</div>
+
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -101,10 +115,10 @@
 		//$('#vista_principal').delay(4000).slideDown(4000).animate(4000);
         //Método para obtener datos de Activos
 		obtenerVidaUtil('@Url.Action("ObtenerActivosVidaUtil", "Activos")');
-		obtenerValores('@Url.Action("ObtenerDashboardTop", "Home")');
+		obtenerValores('@Url.Action("ObtenerDashboard", "Home")');
 
 		//Métodos para Gráfica Medio
-		obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
+		obtenerTipoActivo('@Url.Action("ObtenerTipoActivo", "TipoActivo")');
 		obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
 		
     });
