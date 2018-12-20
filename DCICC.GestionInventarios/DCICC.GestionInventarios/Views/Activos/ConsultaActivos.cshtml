@@ -49,13 +49,37 @@
                                     </div>
                                     <div class="x_content">
                                         <br>
-                                        <div class="form-horizontal form-label-left input_mask">
-                                            @* Sección para la tabla de modificación mediante js *@
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaActivos"> </div>
-                                            </div>
+										<div class="form-horizontal form-label-left input_mask">
+											@*Sección de filtros de búsqueda para realizar la consulta*@
+											<div class="form-group">
+												@*Combobox para seleccionar Tipo Activo*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Tipo:</label>
+													<div id="cargarTipoActivo"></div>
+												</div>
+												@*Combobox para seleccionar Laboratorios*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Laboratorio:</label>
+													<div id="cargarLaboratorios"></div>
+												</div>
+												@*Combobox para seleccionar Marcas*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Marca:</label>
+													<div id="cargarMarcas"></div>
+												</div>
+												@*Combobox para seleccionar Marcas*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Estado:</label>
+													<div id="cargarEstadosActivo"></div>
+												</div>
+											</div>
+											<br />
+											@* Sección para la tabla de modificación mediante js *@
+											<div class="col-md-12 col-sm-12 col-xs-12">
+												<div id="tablaActivos"> </div>
+											</div>
 
-                                        </div>
+										</div>
                                     </div>
                                 </div>
                             </div>

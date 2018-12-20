@@ -124,12 +124,12 @@
 <script src="~/Scripts/ScriptsInventarios/TipoAccesorio.js"></script>
 <script>
 	$(document).ready(function () {
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener las tablas de Tipo Accesorio
         obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
         urlEstados('@Url.Action("ModificarEstadoTipoAccesorio", "TipoAccesorio")');
-        mensajesTooltips();
+		mensajesTooltips();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         $('#ModificarTipoAcc').on('hidden.bs.modal', function () {
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");
