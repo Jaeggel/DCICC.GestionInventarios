@@ -68,11 +68,6 @@ function cargarLaboratoriosTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarLaboratorios").html(str);
-
-    //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rol == "Invitado") {
-        $("#dataTableLaboratorios :button").attr("disabled", "disabled");
-    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -304,10 +299,20 @@ function botones(url) {
         type: 'post',
         success: function (data) {
             rol = data;
-            console.log(data);
             if (data == "Invitado") {
                 $(':button').prop('disabled', true);
+                desactivarBotonesTabla();
             }
         }
     });
+}
+
+function desactivarBotonesTabla() {
+    //console.log(rol);
+    var table = $('#dataTableLaboratorios').DataTable();
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Invitado") {
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('button', rows).attr("disabled", "disabled");
+    }
 }

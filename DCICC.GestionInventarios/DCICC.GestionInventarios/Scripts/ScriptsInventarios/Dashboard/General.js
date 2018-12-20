@@ -8,12 +8,6 @@ var estadosTickets = listaEstadosTicket();
 var valoresTickets = [];
 
 
-
-
-/***********************************************************************************
- *                SECCIÓN PARA MENÚ INFORMATIVO GENERAL
- ***********************************************************************************/
-
 /* --------------------------------------SECCIÓN PARA ACTIVOS DE TI---------------------------------*/
 //Método ajax para obtener los datos de los activos
 function obtenerValores(url) {

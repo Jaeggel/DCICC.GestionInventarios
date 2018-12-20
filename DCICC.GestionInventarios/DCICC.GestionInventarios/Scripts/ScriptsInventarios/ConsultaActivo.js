@@ -14,6 +14,7 @@ var idCQRAccesorio;
 var nombreCQRAccesorio;
 
 var nombresActivo = [];
+var rolAct;
 
 /***********************************************************************************
  *                SECCIÓN PARA OPERACIONES CON ACTIVOS
@@ -31,12 +32,13 @@ function obtenerActivos(url) {
             if (data.OperacionExitosa) {
                 datosActivos = data.ListaObjetoInventarios;
                 cargarActivosTabla();
-                $('#dataTableActivos').DataTable({
+               $('#dataTableActivos').DataTable({
                     "language": {
                         "url": url_idioma
                     },
                     "order": [[1, "asc"]]
                 });
+                              
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }         
@@ -194,10 +196,6 @@ function cargarActivosTabla() {
            '</table > ';
     $("#tablaActivos").html(str);
 
-    //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rol == "Invitado") {
-        $("#dataTableActivos :button").attr("disabled", "disabled");
-    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -884,6 +882,31 @@ function mensajesTooltipsAccesoriosMod() {
     document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }
 
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
+//Función para bloquear botones cuando el usuario es invitado
+function botonesActivos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rolAct = data;
+            if (data == "Invitado") {
+                $(':button').prop('disabled', true);
+                desactivarBotonesTablaAct();
+            }
+        }
+    });
+}
 
+function desactivarBotonesTablaAct() {
+    //console.log(rolAct);
+    var table = $('#dataTableActivos').DataTable();
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rolAct == "Invitado") {
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('button', rows).attr("disabled", "disabled");
+    } 
+}
 
 

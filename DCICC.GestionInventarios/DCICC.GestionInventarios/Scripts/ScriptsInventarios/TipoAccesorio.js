@@ -275,10 +275,20 @@ function botones(url) {
         type: 'post',
         success: function (data) {
             rol = data;
-            console.log(data);
             if (data == "Invitado") {
                 $(':button').prop('disabled', true);
+                desactivarBotonesTabla();
             }
         }
     });
+}
+
+function desactivarBotonesTabla() {
+    //console.log(rol);
+    var table = $('#dataTableCategorias').DataTable();
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rol == "Invitado") {
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('button', rows).attr("disabled", "disabled");
+    }
 }

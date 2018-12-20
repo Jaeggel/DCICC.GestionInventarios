@@ -161,7 +161,41 @@
             $("#DescripcionTipoActivo").tooltip('hide');
             $("#VidaUtilTipoActivo").tooltip('hide');
             document.getElementById("confirmarTipo").disabled = false;
-        });
+		});
+
+		$('#VidaUtilTipoActivo').mask('ABZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-1]/, optional: true
+				},
+				'B': {
+					pattern: /[0-9]/, optional: true
+				}
+			},
+			onKeyPress: function (a, b, c, d) {
+				if (!a) return;
+				let m = a.match(/(\d{1})/g);
+				if (!m) return;
+				if (parseInt(m[0]) === 1) {
+					d.translation.B.pattern = /[0]/;
+				} else {
+					d.translation.B.pattern = /[0-9]/;
+				}
+				if (parseInt(m[1]) == 0) {
+					d.translation.Z.pattern = /[0]/;
+				} else {
+					d.translation.Z.pattern = /[0-9]/;
+				}
+
+				let temp_value = c.val();
+				c.val('');
+				c.unmask().mask('ABZ', d);
+				c.val(temp_value);
+			}
+		});
 
     });
 
