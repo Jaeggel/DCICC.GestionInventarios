@@ -52,7 +52,11 @@ namespace DCICC.GestionInventarios
                         "~/Content/Tema/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js",
                         "~/Content/Tema/vendors/datatables.net-scroller/js/dataTables.scroller.min.js",
 
-                        "~/Scripts/pnotify.custom.min.js",
+						"~/Content/Tema/vendors/highcharts/highcharts.js",
+						"~/Content/Tema/vendors/highcharts/data.js",
+						"~/Content/Tema/vendors/highcharts/exporting.js",
+
+						"~/Scripts/pnotify.custom.min.js",
                         "~/Content/SweetAlert/dist/sweetalert2.all.min.js",
                         "~/Content/Tema/build/js/custom.js",
 						"~/Content/Tema/build/js/jquery.mask.js"
