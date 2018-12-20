@@ -17,12 +17,11 @@ function obtenerValores(url) {
         type: 'post',
         success: function (data) {
             if (data.OperacionExitosa) {
-                //datosActivos = data.SesionCont;
-                $('#numeroOperativos').html(data.ActivosOperativosCont).show('fast');
-                $('#numeroNoOperativos').html(data.ActivosNoOperativosCont).show('fast');
-                $('#numeroDeBaja').html(data.ActivoDeBajaCont).show('fast');
-                $('#numeroHabilitados').html(data.UsuariosHabilitadosCont).show('fast');
-                $('#sesionesIniciadas').html(data.SesionCont).show('fast');
+                $('#numeroOperativos').html(data.ObjetoInventarios.ActivosOperativosCont).show('fast');
+                $('#numeroNoOperativos').html(data.ObjetoInventarios.ActivosNoOperativosCont).show('fast');
+                $('#numeroDeBaja').html(data.ObjetoInventarios.ActivosDeBajaCont).show('fast');
+                $('#numeroHabilitados').html(data.ObjetoInventarios.UsuariosHabilitadosCont).show('fast');
+                $('#sesionesIniciadas').html(data.ObjetoInventarios.SesionCont).show('fast');
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
