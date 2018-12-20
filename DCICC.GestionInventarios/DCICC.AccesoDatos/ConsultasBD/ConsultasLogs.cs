@@ -80,39 +80,5 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             return msjLogs;
         }
-        /// <summary>
-        /// Obtener cuantos inicios de sesión se han hecho por usuario.
-        /// </summary>
-        /// <param name="nickUsuario"></param>
-        /// <returns></returns>
-        public MensajesLogs ObtenerLogsLoginCount(string nickUsuario)
-        {
-            long valor = 0;
-            MensajesLogs msjRoles = new MensajesLogs();
-            try
-            {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_logs where id_usuario=@iu and operacion_logs='Login'", conn_BD))
-                {
-                    cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = nickUsuario;
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            valor = (long)dr[0];
-                        }
-                        conn_BD.Close();
-                        msjRoles.ValorLong = valor;
-                        msjRoles.OperacionExitosa = true;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                conn_BD.Close();
-                msjRoles.OperacionExitosa = false;
-                msjRoles.MensajeError = e.Message;
-            }
-            return msjRoles;
-        }
     }
 }
