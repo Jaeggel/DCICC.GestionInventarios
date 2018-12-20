@@ -29,8 +29,8 @@
             <div class="x_content">
                 @* Formulario para envio de datos de los componentes para el ingreso de una nueva LUN
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevaLUN", "LUN"))
-                {
+                @using (Html.BeginForm("NuevaLUNPOST", "LUN", FormMethod.Post))
+				{
                 <div class="form-horizontal form-label-left input_mask">
 
                     @* Cuadro de texto para el ingreso del nombre de una LUN *@

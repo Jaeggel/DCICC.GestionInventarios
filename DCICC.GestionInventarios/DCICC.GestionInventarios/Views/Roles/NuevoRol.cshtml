@@ -30,7 +30,7 @@
 				<br>
 				@* Formulario para envio de datos de los componentes para el ingreso de un nuevo rol
 					(Metodo de la clase) - Controlador (Controller) *@
-				@using (Html.BeginForm("NuevoRol", "Roles"))
+				@using (Html.BeginForm("NuevoRolPOST", "Roles", FormMethod.Post))
 				{
 					<div class="form-horizontal form-label-left input_mask">
 						@* Cuadro de texto para el ingreso del nombre de un nuevo rol*@

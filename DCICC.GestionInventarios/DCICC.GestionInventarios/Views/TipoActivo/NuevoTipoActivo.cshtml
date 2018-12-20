@@ -30,8 +30,8 @@
             <div class="x_content">
                 @* Formulario para envio de datos de los componentes para el ingreso de un nuevo tipo de activo
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevoTipoActivo", "TipoActivo"))
-                {
+                @using (Html.BeginForm("NuevoTipoActivoPOST", "TipoActivo", FormMethod.Post))
+				{
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar la categoria de un activo *@
                         <div class="form-group">
