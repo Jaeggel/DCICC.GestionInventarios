@@ -46,6 +46,7 @@ function datosTipoAccesorio(url) {
                 cmbTipoAccesorio = data.ListaObjetoInventarios;
                 cargarAccesoriosCmb();
                 cargarAccesoriosIngresoCmb();
+                TipoAccesoriosFiltro();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -108,6 +109,57 @@ function cargarAccesoriosIngresoCmb() {
     str += '</select>';
     $("#cargarAccesoriosIngreso").html(str);
 }
+
+/* --------------------------------------SECCIÓN PARA CARGAR COMBOBOX DE FILTROS---------------------------------*/
+//Función para cargar el combobox de tipos de accesorios
+function TipoAccesoriosFiltro() {
+    var str = '<select id="TipoAccesoriosFiltro" class="form-control" name="TipoAccesoriosFiltro" required>';
+    for (var i = 0; i < cmbTipoAccesorio.length; i++) {
+        str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
+    }
+    str += '</select>';
+    $("#cargarTipoAccesorioFiltro").html(str);
+    //Método para búsqueda con filtros
+    $('#TipoAccesoriosFiltro').change(function () {
+        var opcion = document.getElementById("TipoAccesoriosFiltro");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableAccesorios').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableAccesorios').DataTable().column(0).search('^' + tipoLab.text + '$', true, false
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar el combobox de estados para ingreso de accesorios
+function EstadosAccesoriosFiltro() {
+    var str = '<select id="EstadosAccesoriosFiltro" class="form-control" name="EstadosAccesoriosFiltro" required>';
+    str += '<option value="">Escoga una opción...</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        if (cmbEstados[i] !="DE BAJA") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }      
+    }
+    str += '</select>';
+    $("#cargarEstadosAccesorioFiltro").html(str);
+    //Método para búsqueda con filtros
+    $('#EstadosAccesoriosFiltro').change(function () {
+        var opcion = document.getElementById("EstadosAccesoriosFiltro");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableAccesorios').DataTable().column(5).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableAccesorios').DataTable().column(5).search('^' + tipoLab.text + '$', true, false
+            ).draw();
+        }
+    });
+}
+
 
 //Función para cargar la tabla de Activos
 function cargarAccesoriosTabla() {

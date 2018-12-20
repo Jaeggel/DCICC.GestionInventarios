@@ -198,8 +198,8 @@ function cargarEstadosActivoCmb() {
                 ""
             ).draw();
         } else {
-            $('#dataTableActivos').DataTable().column(8).search(
-                tipoLab.text
+            $('#dataTableActivos').DataTable().column(8).search('^' + tipoLab.text + '$', true, false
+                
             ).draw();
         }
     });
@@ -392,8 +392,7 @@ function cargarEstadosAccesoriosCmb() {
                 ""
             ).draw();
         } else {
-            $('#dataTableAccesorios').DataTable().column(5).search(
-                tipoLab.text
+            $('#dataTableAccesorios').DataTable().column(5).search('^' + tipoLab.text + '$', true, false
             ).draw();
         }
     });
