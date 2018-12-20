@@ -68,9 +68,9 @@ function obtenerTipoActivo(url) {
         type: 'post',
         success: function (data) {
             if (data.OperacionExitosa) {
-                var datosTipoActivo = data.ListaObjetoInventarios;
-                for (var i = 0; i < data.ListaObjetoInventarios.length; i++) {
-                    nombresTipoActivo[i] = datosTipoActivo[i].NombreTipoActivo;
+                var aux = data.ListaObjetoInventarios;
+                for (var i = 0; i < aux.length; i++) {
+                    nombresTipoActivo[i] = aux[i].NombreTipoActivo;
                 }
                 //console.log(nombresTipoActivo);
             } else {
@@ -94,7 +94,6 @@ function obtenerActivos(url) {
                 for (var i = 0; i < aux.length; i++) {
                     datosActivos[i] = aux[i].NombreTipoActivo;
                 }
-                contarActivosTipo();
                 graficaActivos();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
@@ -103,20 +102,16 @@ function obtenerActivos(url) {
     });
 }
 
-function contarActivosTipo() {
-    //for (var i = 0; i < datosActivos.length; i++) {
-        
+//funcion para graficar
+function graficaActivos() {
+    console.log(datosActivos);
     for (var j = 0; j < nombresTipoActivo.length; j++) {
         var ocurrencia = $.grep(datosActivos, function (element) {
             return element === nombresTipoActivo[j];
         }).length;
         valorNombresTipoActivo[j] = ocurrencia;
-    }   
-}
-
-//funcion para graficar
-function graficaActivos() {
-
+    }
+    console.log(nombresTipoActivo);
     $('#graficoActivos').highcharts({
             title: {
                 style: {
@@ -165,7 +160,7 @@ function graficaTickets() {
             completo.push(new Array(estadosTickets[i], valoresTickets[i], true, true));
         }
     }
-    console.log(completo);
+    //console.log(completo);
     $('#graficoTickets').highcharts({
         chart: {
             styledMode: true

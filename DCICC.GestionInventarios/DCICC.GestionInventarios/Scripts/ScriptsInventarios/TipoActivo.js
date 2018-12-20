@@ -1,4 +1,5 @@
 ﻿var url_idioma = obtenerIdioma();
+var url_bloquear;
 var url_metodo;
 var datosTipoActivo;
 var cmbCategorias;
@@ -7,7 +8,6 @@ var idTipoActivo;
 var nombreTipoModificar;
 var urlEstado;
 var nombresTipoAcc = [];
-var rol;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de tipo de activo
@@ -73,6 +73,11 @@ function urlEstados(url) {
     urlEstado = url;
 }
 
+//Función para obtener la url de modificación
+function botones(url) {
+    url_bloquear = url;
+}
+
 /* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de Tipo de Activo
@@ -105,6 +110,7 @@ function cargarTipoActTabla() {
     }
     str += '</tbody></table>';
     $("#tablaModificarTipoActivo").html(str);
+    bloquearBotones();
 
 }
 
@@ -406,27 +412,18 @@ function mensajesTooltips() {
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
 //Función para bloquear botones cuando el usuario es invitado
-function botones(url) {
+function bloquearBotones() {
     $.ajax({
         dataType: 'json',
-        url: url,
+        url: url_bloquear,
         type: 'post',
         success: function (data) {
-            rol = data;
             if (data == "Invitado") {
                 $(':button').prop('disabled', true);
-                desactivarBotonesTabla();
+                var table = $('#dataTableTipoAct').DataTable();
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                $('button', rows).attr("disabled", "disabled");
             }
         }
     });
-}
-
-function desactivarBotonesTabla() {
-    //console.log(rol);
-    var table = $('#dataTableTipoAct').DataTable();
-    //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rol == "Invitado") {
-        var rows = table.rows({ 'search': 'applied' }).nodes();
-        $('button', rows).attr("disabled", "disabled");
-    }
 }

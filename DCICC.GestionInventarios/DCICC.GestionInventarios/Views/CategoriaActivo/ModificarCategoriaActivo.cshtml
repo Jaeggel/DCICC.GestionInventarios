@@ -127,12 +127,12 @@
 <script src="~/Scripts/ScriptsInventarios/Categoria.js"></script>
 <script>
 	$(document).ready(function () {
+        //Método para obtener la tabla de Categorías
+		obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
+        urlEstados('@Url.Action("ModificarEstadoCategoriaActivo", "CategoriaActivo")');
+		mensajesTooltips();
 		//Método para llamar a la función que bloquea los botones con el usuario invitado
 		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
-        //Método para obtener la tabla de Categorías
-        obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
-        urlEstados('@Url.Action("ModificarEstadoCategoriaActivo", "CategoriaActivo")');
-        mensajesTooltips();
         //Función para setear nulos los valores del modal
         $('#ModificarCategoria').on('hidden.bs.modal', function () { 
             document.getElementById("NombreCategoriaActivo").focus();           
