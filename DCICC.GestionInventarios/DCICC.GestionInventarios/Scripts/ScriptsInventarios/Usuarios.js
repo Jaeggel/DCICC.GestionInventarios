@@ -115,9 +115,7 @@ function cargarRolesCmbModificar() {
     var str = '<select id="IdRol" class="form-control" name="IdRol" required>';
     for (var i = 0; i < cmbRoles.length; i++) {
         rolesEstablecidos[i] = cmbRoles[i].NombreRol;
-        if (cmbRoles[i].HabilitadoRol) {
             str += '<option value="' + cmbRoles[i].IdRol + '">' + cmbRoles[i].NombreRol + '</option>';
-        }
     }
     str += '</select>';
     $("#cargarRolesModificar").html(str);

@@ -111,12 +111,10 @@ function contarActivosTipo() {
             return element === nombresTipoActivo[j];
         }).length;
         valorNombresTipoActivo[j] = ocurrencia;
-        }
-    //console.log(valorNombresTipoActivo);
-   
+    }   
 }
 
-////////funcion para graficar
+//funcion para graficar
 function graficaActivos() {
 
     $('#graficoActivos').highcharts({
