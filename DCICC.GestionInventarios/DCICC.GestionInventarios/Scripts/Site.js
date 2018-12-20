@@ -2,10 +2,21 @@
 Autores: Andres Chisaguano - Joel Ludeña
 Descripción: Script que tendrá las funciones que se podrá llamar desde toda la aplicación*/
 
-var permisosRol;
 $(document).ready(function () {
-    definirMenuPorRolActual();
+    comprobarRol();
 });
+function comprobarRol() {
+    $.ajax({
+        dataType: 'json',
+        url: "/Inventarios/Usuarios/ObtenerRolActual",
+        type: 'post',
+        success: function (data) {
+            if (data !== "Admin" && data !== "Invitado"  && data !== "Reporteria" && data !== "Pasantes") {
+                definirMenuPorRolActual();
+            }       
+        }
+    });
+}
 function definirMenuPorRolActual() {
     $.ajax({
         dataType: 'json',
