@@ -205,7 +205,7 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(msjAccesorios, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Método para registrar el QR del nuevo Activo en la base de datos .
+        /// Método para registrar el QR del nuevo Activo en la base de datos.
         /// </summary>
         /// <returns></returns>
         public MensajesCQR NuevoCQR(string tipoQR)
@@ -244,7 +244,7 @@ namespace DCICC.GestionInventarios.Controllers
             return msjCQR;
         }
         /// <summary>
-        /// Método para crear un nuevo Propósito o el archivo en caso de no existir
+        /// Método para modificar el responsable .
         /// </summary>
         /// <returns></returns>
         [HttpPost]

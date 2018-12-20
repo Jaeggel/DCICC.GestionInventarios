@@ -148,6 +148,12 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoRol.IdRol;
                     cmd.ExecuteNonQuery();
                 }
+                using (NpgsqlCommand cmd = new NpgsqlCommand("update dcicc_usuarios set habilitado_usuario=@hr where id_rol=@ir", conn_BD))
+                {
+                    cmd.Parameters.Add("hr", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.HabilitadoRol;
+                    cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoRol.IdRol;
+                    cmd.ExecuteNonQuery();
+                }
                 tran.Commit();
                 conn_BD.Close();
                 msjRoles.OperacionExitosa = true;
