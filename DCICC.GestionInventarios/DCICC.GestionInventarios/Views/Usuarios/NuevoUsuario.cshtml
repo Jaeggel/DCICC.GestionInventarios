@@ -30,8 +30,8 @@
                 <br>
                 @* Formulario para envio de datos de los componentes para el ingreso de un nuevo usuario.
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevoUsuario", "Usuarios"))
-                {
+                @using (Html.BeginForm("NuevoUsuarioPOST", "Usuarios", FormMethod.Post))
+				{
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar un rol de usuario*@
                         <div class="form-group">

@@ -29,8 +29,8 @@
             <div class="x_content">
                 @* Formulario para envio de datos de los componentes para el ingreso de una nueva máquina virtual
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevaMaqVirtual", "MaqVirtuales"))
-                {
+                @using (Html.BeginForm("NuevaMaqVirtualPOST", "MaqVirtuales", FormMethod.Post))
+				{
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                         <div class="form-group">
