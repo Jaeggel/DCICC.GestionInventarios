@@ -52,7 +52,6 @@ function cargarCategoriaTabla() {
     for (var i = 0; i < datosCategorias.length; i++) {
         str += '<tr><td>' + datosCategorias[i].NombreCategoriaActivo +
             '</td><td class="text-justify">' + datosCategorias[i].DescripcionCategoriaActivo;
-
         if (datosCategorias[i].HabilitadoCategoriaActivo) {
             str += '</td><td> Habilitado';
         } else {
@@ -269,7 +268,6 @@ function validarInputsVaciosModificacion() {
 function mensajesTooltips() {
     document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
-
 }
 
 
