@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoCategoriaActivo
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoCategoriaActivo()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -62,7 +63,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoCategoriaActivo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoCategoriaActivo(CategoriaActivo infoCategoriaActivo)
+        public ActionResult NuevoCategoriaActivoPOST(CategoriaActivo infoCategoriaActivo)
         {
             string mensajesCategorias = string.Empty;
             MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();

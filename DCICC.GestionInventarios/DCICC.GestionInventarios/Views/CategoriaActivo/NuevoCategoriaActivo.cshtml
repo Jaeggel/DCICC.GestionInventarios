@@ -30,7 +30,7 @@
             <div class="x_content">
                 @* Formulario para envio de datos de los componentes para el ingreso de una nueva categoría de activo
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevoCategoriaActivo", "CategoriaActivo"))
+                @using (Html.BeginForm("NuevoCategoriaActivoPOST", "CategoriaActivo",FormMethod.Post))
                 {
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
@@ -57,7 +57,7 @@
                         <div class="form-group text-center">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <button  id="confirmarCategoria" type="submit" class="btn btn-success">Ingresar</button>
-                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")'">Cancelar</button>
+                                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("ModificarCategoriaActivo", "CategoriaActivo")'">Cancelar</button>
                             </div>
                         </div>
                     </div>
