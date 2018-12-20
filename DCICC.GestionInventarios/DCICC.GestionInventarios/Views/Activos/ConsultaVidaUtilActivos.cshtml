@@ -27,8 +27,8 @@
 				</div>
 				@* Sección para botones de ingresar un nuevo laboratorio y actualizar página *@
 				<ul class="nav navbar-right panel_toolbox">
-					<li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Activos','dataTableActivos',''"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
-					<li><button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Activos','dataTableActivos',''"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
+					<li><button type="button" class="btn btn-round btn-danger float-right" onclick="GenerarReportePDF('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReportePDF", "Reportes")','Activos que han cumplido su vida útil','dataTableActivos','');"><i class="fa fa-file-pdf-o"></i> Reporte PDF</button></li>
+					<li><button type="button" class="btn btn-round btn-success float-right" onclick="GenerarReporteExcel('@Url.Action("GenerarDataTable", "Reportes")','@Url.Action("ObtenerReporteExcel", "Reportes")','Activos que han cumplido su vida útil','dataTableActivos','');"><i class="fa fa-file-excel-o"></i> Reporte Excel</button></li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>

@@ -55,7 +55,7 @@ namespace DCICC.GestionInventarios.Reportes
                 //Laboratorio
                 ConfigCell(5, 2, 5, infoTable.Columns.Count, ws, infoTable.Columns.Count, labFiltro, true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //N° Equipos
-                ConfigCell(6, 2, 6, infoTable.Columns.Count, ws, infoTable.Columns.Count, infoTable.Rows.Count-1+"", true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
+                ConfigCell(6, 2, 6, infoTable.Columns.Count, ws, infoTable.Columns.Count, infoTable.Rows.Count+"", true, false, Color.White, Color.Black, ExcelHorizontalAlignment.Left);
                 //Título del la lista del reporte
                 ConfigCell(7, 1, 7, infoTable.Columns.Count, ws, infoTable.Columns.Count, "LISTADO DE " + tituloReporte.ToUpper(), true, true, ColorTranslator.FromHtml("#3c5a77"), ColorTranslator.FromHtml("#E7E7E7"), ExcelHorizontalAlignment.Center);
                 //Encabezado de la tabla

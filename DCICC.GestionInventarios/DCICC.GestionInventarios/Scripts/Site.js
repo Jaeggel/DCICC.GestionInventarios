@@ -20,8 +20,8 @@ function definirMenuPorRolActual() {
 }
 function definicionMenu(permisos) {
     if (permisos.NombreRol !== "administrador") {
-        $("#enlaceVU").removeAttr("href");
-        //$('#').hide("fast");
+        $("#enlacevu").attr('href', '#');
+        $("#graficas").hide("fast");
         if (!permisos.PermisoActivos) {
             $('#menuActivos').remove();
             $('#menuConsultaActivos').remove();

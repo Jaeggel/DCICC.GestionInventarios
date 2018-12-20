@@ -47,11 +47,11 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 infoUsuario.NombreRol = objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol;
                 if (infoUsuario.NombreRol == "administrador")
                 {
-                    query= string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
+                    query= string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, infoUsuario.NombreRol);
                 }
                 else
                 {
-                    query = string.Format("create user {0} with password '{1}' NOCREATEROLE NOCREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
+                    query = string.Format("create user {0} with password '{1}' NOCREATEROLE NOCREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, infoUsuario.NombreRol);
                 }
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn_BD))
                 {
