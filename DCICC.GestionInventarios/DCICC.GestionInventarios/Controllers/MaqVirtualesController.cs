@@ -85,7 +85,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoMaqVirtual"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevaMaqVirtual(MaqVirtuales infoMaqVirtual)
+        public ActionResult NuevaMaqVirtualPOST(MaqVirtuales infoMaqVirtual)
         {
             infoMaqVirtual.DiscoMaqVirtuales = string.Format("{0} {1}", infoMaqVirtual.DiscoMaqVirtuales, infoMaqVirtual.UnidadMaqVirtuales);
             string mensajesMaqVirtuales = string.Empty;
@@ -120,7 +120,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoProposito"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoProposito(Propositos infoProposito)
+        public ActionResult NuevoPropositoPOST(Propositos infoProposito)
         {
             string mensajesMaqVirtuales = string.Empty;
             try

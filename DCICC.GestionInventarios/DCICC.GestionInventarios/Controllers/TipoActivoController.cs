@@ -62,7 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoTipoActivo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoTipoActivo(TipoActivo infoTipoActivo)
+        public ActionResult NuevoTipoActivoPOST(TipoActivo infoTipoActivo)
         {
             string mensajesTipoActivo = string.Empty;
             MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();

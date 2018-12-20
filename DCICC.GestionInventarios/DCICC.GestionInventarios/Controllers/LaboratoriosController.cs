@@ -62,7 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoLaboratorio"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoLaboratorio(Laboratorios infoLaboratorio)
+        public ActionResult NuevoLaboratorioPOST(Laboratorios infoLaboratorio)
         {
             string mensajesLaboratorios = string.Empty;
             MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();

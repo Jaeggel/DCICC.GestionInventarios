@@ -38,7 +38,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="userInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Login(Login infoLogin)
+        public ActionResult LoginPOST(Login infoLogin)
         {
             Usuarios datosUsuario = null;
             try

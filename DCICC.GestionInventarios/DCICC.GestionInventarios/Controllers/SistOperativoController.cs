@@ -62,7 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoSistOperativo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoSistOperativo(SistOperativos infoSistOperativo)
+        public ActionResult NuevoSistOperativoPOST(SistOperativos infoSistOperativo)
         {
             string mensajesSistOperativos = string.Empty;
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();

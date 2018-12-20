@@ -82,7 +82,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoUsuario(Usuarios infoUsuario)
+        public ActionResult NuevoUsuarioPOST(Usuarios infoUsuario)
         {
             string mensajesUsuarios = string.Empty;
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();

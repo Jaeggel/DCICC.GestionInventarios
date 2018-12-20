@@ -62,7 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoRol"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoRol(Roles infoRol)
+        public ActionResult NuevoRolPOST(Roles infoRol)
         {
             string mensajesRoles = string.Empty;
             MensajesRoles msjRoles = new MensajesRoles();

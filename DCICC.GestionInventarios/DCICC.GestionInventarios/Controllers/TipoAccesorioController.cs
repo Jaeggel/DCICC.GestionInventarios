@@ -62,7 +62,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoTipoAccesorio"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoTipoAccesorio(TipoAccesorio infoTipoAccesorio)
+        public ActionResult NuevoTipoAccesorioPOST(TipoAccesorio infoTipoAccesorio)
         {
             string mensajesTipoAccesorio = string.Empty;
             MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
