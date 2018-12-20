@@ -119,6 +119,10 @@ namespace DCICC.GestionInventarios.Controllers
                 ConfigDatos objDatosReporte = new ConfigDatos();
                 titulo_Reporte = tituloReporte;
                 info_DataTable = objDatosReporte.ObtenerDatosTablaHTML(infoHtml);
+                if(tituloReporte== "Activos que han cumplido su vida útil")
+                {
+                    info_DataTable.Columns.RemoveAt(info_DataTable.Columns.Count-1);
+                }
                 lab_Filtro = labFiltro;
                 Logs.Info("El DataTable ha sido generado correctamente.");
             }

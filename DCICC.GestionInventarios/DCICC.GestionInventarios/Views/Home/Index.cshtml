@@ -14,7 +14,7 @@
 			<div class="tile-stats">
 				<div class="icon"><i class="fa fa-hourglass-end"></i> </div>
 				<div class="count"><div id="numeroVidaUtil"></div></div>
-				<a href="@Url.Action("ConsultaVidaUtilActivos", "Activos")">
+				<a href="@Url.Action("ConsultaVidaUtilActivos", "Activos")" id="enlacevu">
 					<h3>Vida Útil<br /> de Activos</h3>
 				</a>
 				<p>Activos que han cumplido con su tiempo de vida.</p>
@@ -65,7 +65,7 @@
 	</div>
 
 	@* Seccion para Vista de Barras *@
-	<div class="row">
+	<div class="row" id="graficas">
 		<div class="col-md-7">
 			<div class="x_panel">
 
@@ -109,7 +109,7 @@
 </script>
 
 <script>
-	$(document).ready(function () {
+    $(document).ready(function () {
 		setTimeout("$('#vista_principal').fadeIn('fast');", 5000);
 		//setTimeout($('#vista_principal'), 5000);
 		//$('#vista_principal').delay(4000).slideDown(4000).animate(4000);
