@@ -28,9 +28,9 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_laboratorios (nombre_laboratorio,ubicacion_laboratorio,descripcion_laboratorio,habilitado_laboratorio) VALUES (@nl,@ul,@dl,@hl)", conn_BD))
                 {
-                    cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLaboratorio.NombreLaboratorio;
-                    cmd.Parameters.Add("ul", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLaboratorio.UbicacionLaboratorio;
-                    cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoLaboratorio.DescripcionLaboratorio) ? (object)infoLaboratorio.DescripcionLaboratorio : DBNull.Value;
+                    cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLaboratorio.NombreLaboratorio.Trim();
+                    cmd.Parameters.Add("ul", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLaboratorio.UbicacionLaboratorio.Trim();
+                    cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoLaboratorio.DescripcionLaboratorio) ? (object)infoLaboratorio.DescripcionLaboratorio.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLaboratorio.HabilitadoLaboratorio;
                     cmd.ExecuteNonQuery();
                 }

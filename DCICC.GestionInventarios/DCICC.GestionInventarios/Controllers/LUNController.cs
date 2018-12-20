@@ -23,6 +23,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevaLUN
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevaLUN()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -42,6 +43,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoStorage
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoStorage()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -61,6 +63,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarLUN
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarLUN()
         {
             if ((string)Session["NickUsuario"] == null)

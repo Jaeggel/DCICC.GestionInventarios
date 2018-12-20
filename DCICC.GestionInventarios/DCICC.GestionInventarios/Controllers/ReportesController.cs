@@ -24,6 +24,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ReportesActivos
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ReportesActivos()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -43,6 +44,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ReportesTickets
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ReportesTickets()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -62,6 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ReportesMaqVirtuales
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ReportesMaqVirtuales()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -81,6 +84,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ReportesLogs
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ReportesLogs()
         {
             if ((string)Session["NickUsuario"] == null)

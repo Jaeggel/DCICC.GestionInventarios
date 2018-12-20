@@ -24,6 +24,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevaMaqVirtual
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevaMaqVirtual()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -43,6 +44,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarMaqVirtual
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarMaqVirtual()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -62,6 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoProposito
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoProposito()
         {
             if ((string)Session["NickUsuario"] == null)

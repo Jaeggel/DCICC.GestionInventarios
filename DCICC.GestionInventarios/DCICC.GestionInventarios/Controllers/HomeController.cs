@@ -15,6 +15,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista Index
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Index()
         {
             if ((string)Session["NickUsuario"] == null)

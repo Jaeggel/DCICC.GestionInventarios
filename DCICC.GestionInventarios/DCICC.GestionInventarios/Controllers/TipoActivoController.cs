@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoTipoActivo
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoTipoActivo()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -39,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarTipoActivo
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarTipoActivo()
         {
             if ((string)Session["NickUsuario"] == null)

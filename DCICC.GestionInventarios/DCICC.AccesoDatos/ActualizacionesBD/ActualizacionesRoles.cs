@@ -55,12 +55,12 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 }
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_roles SET nombre_rol=@nr, activos_rol=@pa, maquinasvirtuales_rol=@pm, tickets_rol=@pt, reportes_rol=@pr, descripcion_rol=@dr, habilitado_rol=@hr WHERE id_rol=@ir;", conn_BD))
                 {
-                    cmd.Parameters.Add("nr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = nombreRol.ToLower();
+                    cmd.Parameters.Add("nr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = nombreRol.ToLower().Trim();
                     cmd.Parameters.Add("pa", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoActivos;
                     cmd.Parameters.Add("pm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoMaqVirtuales;
                     cmd.Parameters.Add("pt", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoTickets;
                     cmd.Parameters.Add("pr", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoReportes;
-                    cmd.Parameters.Add("dr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoRol.DescripcionRol) ? (object)infoRol.DescripcionRol : DBNull.Value;
+                    cmd.Parameters.Add("dr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoRol.DescripcionRol) ? (object)infoRol.DescripcionRol.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hr", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.HabilitadoRol;
                     cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoRol.IdRol;
                     cmd.ExecuteNonQuery();

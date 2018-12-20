@@ -28,8 +28,8 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_categoriaactivos (nombre_categoriaact,descripcion_categoriaact,habilitado_categoriaact) VALUES (@nc,@dc,@hc)", conn_BD))
                 {
-                    cmd.Parameters.Add("nc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCategoria.NombreCategoriaActivo;
-                    cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoCategoria.DescripcionCategoriaActivo) ? (object)infoCategoria.DescripcionCategoriaActivo : DBNull.Value;
+                    cmd.Parameters.Add("nc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoCategoria.NombreCategoriaActivo.Trim();
+                    cmd.Parameters.Add("dc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoCategoria.DescripcionCategoriaActivo) ? (object)infoCategoria.DescripcionCategoriaActivo.Trim() : DBNull.Value;
                     cmd.Parameters.AddWithValue("hc", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoCategoria.HabilitadoCategoriaActivo;
                     cmd.ExecuteNonQuery();
                 }

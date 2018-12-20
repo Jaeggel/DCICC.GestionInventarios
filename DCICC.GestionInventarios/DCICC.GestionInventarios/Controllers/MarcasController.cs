@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevaMarca
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevaMarca()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -39,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarMarca
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarMarca()
         {
             if ((string)Session["NickUsuario"] == null)

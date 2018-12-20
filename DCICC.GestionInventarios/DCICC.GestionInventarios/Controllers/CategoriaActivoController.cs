@@ -40,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarCategoriaActivo
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarCategoriaActivo()
         {
             if ((string)Session["NickUsuario"] == null)

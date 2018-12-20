@@ -32,27 +32,27 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("ita", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdTipoActivo;
                     cmd.Parameters.Add("im", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdMarca;
                     cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdLaboratorio;
-                    cmd.Parameters.Add("rpa", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.ResponsableActivo;
-                    cmd.Parameters.Add("nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo;
-                    cmd.Parameters.Add("mda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.ModeloActivo) ? (object)infoActivo.ModeloActivo : DBNull.Value;
-                    cmd.Parameters.Add("sda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.SerialActivo) ? (object)infoActivo.SerialActivo : DBNull.Value;
+                    cmd.Parameters.Add("rpa", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.ResponsableActivo.Trim();
+                    cmd.Parameters.Add("nda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.NombreActivo.Trim();
+                    cmd.Parameters.Add("mda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.ModeloActivo) ? (object)infoActivo.ModeloActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("sda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.SerialActivo) ? (object)infoActivo.SerialActivo.Trim() : DBNull.Value;
                     cmd.Parameters.Add("fida", NpgsqlTypes.NpgsqlDbType.Date).Value = !string.IsNullOrEmpty(infoActivo.FechaIngresoActivo.ToLongDateString()) ? (object)infoActivo.FechaIngresoActivo : DBNull.Value;
-                    cmd.Parameters.Add("cuda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CodigoUpsActivo) ? (object)infoActivo.CodigoUpsActivo : DBNull.Value;
+                    cmd.Parameters.Add("cuda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CodigoUpsActivo) ? (object)infoActivo.CodigoUpsActivo.Trim() : DBNull.Value;
                     cmd.Parameters.Add("cada", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.CantidadActivo;
-                    cmd.Parameters.Add("dsda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.DescripcionActivo) ? (object)infoActivo.DescripcionActivo : DBNull.Value;
-                    cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo;
+                    cmd.Parameters.Add("dsda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.DescripcionActivo) ? (object)infoActivo.DescripcionActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo.Trim();
                     //Especificaciones Adicionales
-                    cmd.Parameters.Add("escda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.ExpressServiceCodeActivo) ? (object)infoActivo.ExpressServiceCodeActivo : DBNull.Value;
-                    cmd.Parameters.Add("pnda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.ProductNameActivo) ? (object)infoActivo.ProductNameActivo : DBNull.Value;
-                    cmd.Parameters.Add("capda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CapacidadActivo) ? (object)infoActivo.CapacidadActivo : DBNull.Value;
-                    cmd.Parameters.Add("vtda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.VelocidadTransfActivo) ? (object)infoActivo.VelocidadTransfActivo : DBNull.Value;
-                    cmd.Parameters.Add("ctda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CtActivo) ? (object)infoActivo.CtActivo : DBNull.Value;
-                    cmd.Parameters.Add("hpnda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.HpePartNumberActivo) ? (object)infoActivo.HpePartNumberActivo : DBNull.Value;
-                    cmd.Parameters.Add("cb1da", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CodBarras1Activo) ? (object)infoActivo.CodBarras1Activo : DBNull.Value;
-                    cmd.Parameters.Add("cb2da", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CodBarras2Activo) ? (object)infoActivo.CodBarras2Activo : DBNull.Value;
+                    cmd.Parameters.Add("escda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.ExpressServiceCodeActivo) ? (object)infoActivo.ExpressServiceCodeActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("pnda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.ProductNameActivo) ? (object)infoActivo.ProductNameActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("capda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CapacidadActivo) ? (object)infoActivo.CapacidadActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("vtda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.VelocidadTransfActivo) ? (object)infoActivo.VelocidadTransfActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("ctda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CtActivo) ? (object)infoActivo.CtActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("hpnda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.HpePartNumberActivo) ? (object)infoActivo.HpePartNumberActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("cb1da", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CodBarras1Activo) ? (object)infoActivo.CodBarras1Activo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("cb2da", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.CodBarras2Activo) ? (object)infoActivo.CodBarras2Activo.Trim() : DBNull.Value;
                     cmd.Parameters.Add("npda", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoActivo.NumPuertosActivo.ToString()) ? (object)infoActivo.NumPuertosActivo : DBNull.Value;
-                    cmd.Parameters.Add("ivda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.IosVersionActivo) ? (object)infoActivo.IosVersionActivo : DBNull.Value;
-                    cmd.Parameters.Add("fmda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.FechaManufacturaActivo) ? (object)infoActivo.FechaManufacturaActivo : DBNull.Value;
+                    cmd.Parameters.Add("ivda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.IosVersionActivo) ? (object)infoActivo.IosVersionActivo.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("fmda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoActivo.FechaManufacturaActivo) ? (object)infoActivo.FechaManufacturaActivo.Trim() : DBNull.Value;
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;
                     cmd.ExecuteNonQuery();
                 }
@@ -81,7 +81,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET estado_detalleact=@eda WHERE id_detalleact=@ida;", conn_BD))
                 {
-                    cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo;
+                    cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo.Trim();
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;
                     cmd.ExecuteNonQuery();
                 }

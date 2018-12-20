@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoLaboratorio
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoLaboratorio()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -39,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarLaboratorio
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarLaboratorio()
         {
             if ((string)Session["NickUsuario"] == null)

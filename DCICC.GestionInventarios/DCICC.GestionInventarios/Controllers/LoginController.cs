@@ -19,6 +19,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Mètodo (GET) para mostrar la vista Login.
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Login()
         {
             if ((string)Session["NickUsuario"] != null)
