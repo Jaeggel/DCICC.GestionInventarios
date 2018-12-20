@@ -65,6 +65,22 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 lstTipoActivo.Add(objTipoActivo);
                             }
                         }
+                        else
+                        {
+                            while (dr.Read())
+                            {
+                                TipoActivo objTipoActivo = new TipoActivo
+                                {
+                                    IdTipoActivo = (int)dr[0],
+                                    IdCategoriaActivo = (int)dr[1],
+                                    NombreTipoActivo = dr[2].ToString().Trim(),
+                                    DescripcionTipoActivo = dr[3].ToString().Trim(),
+                                    VidaUtilTipoActivo = (int)dr[4],
+                                    HabilitadoTipoActivo = (bool)dr[5],
+                                };
+                                lstTipoActivo.Add(objTipoActivo);
+                            }
+                        }
                         conn_BD.Close();
                         msjTipoActivo.ListaObjetoInventarios = lstTipoActivo;
                         msjTipoActivo.OperacionExitosa = true;

@@ -35,12 +35,12 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
         /// </summary>
         /// <param name="nombreRol"></param>
         /// <returns></returns>
-        public MensajesDashboard ObtenerDashboardTop(string nickUsuario)
+        public MensajesDashboard ObtenerDashboard(string nickUsuario)
         {
             MensajesDashboard msjDashboard = new MensajesDashboard();
             try
             {
-                var response = client_Service.PostAsJsonAsync("Dashboard/ObtenerDashboardTop", nickUsuario).Result;
+                var response = client_Service.PostAsJsonAsync("Dashboard/ObtenerDashboard", nickUsuario).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var dsbdJson = response.Content.ReadAsStringAsync().Result;

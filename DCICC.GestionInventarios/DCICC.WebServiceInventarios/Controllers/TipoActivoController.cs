@@ -56,6 +56,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTipoActivo;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de todas los Tipos de Activos de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerTipoActivo")]
+        public MensajesTipoActivo ObtenerTipoActivo()
+        {
+            MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
+            ConsultasTipoActivo objConsultasTipoActivoBD = new ConsultasTipoActivo();
+            msjTipoActivo = objConsultasTipoActivoBD.ObtenerTipoActivo("consultatipoactivo");
+            if (msjTipoActivo.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Tipo de Activo realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjTipoActivo.MensajeError);
+            }
+            return msjTipoActivo;
+        }
         #endregion
         #region Registros
         /// <summary>

@@ -19,7 +19,8 @@ function definirMenuPorRolActual() {
     });
 }
 function definicionMenu(permisos) {
-    if (permisos.NombreRol!=="administrador") {
+    if (permisos.NombreRol !== "administrador") {
+        $("#enlaceVU").removeAttr("href");
         //$('#').hide("fast");
         if (!permisos.PermisoActivos) {
             $('#menuActivos').remove();

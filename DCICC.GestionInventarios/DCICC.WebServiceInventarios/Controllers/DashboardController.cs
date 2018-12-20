@@ -22,12 +22,12 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// Método (GET) para obtener los parámetros que irán en el dashboard.
         /// </summary>
         /// <returns></returns>
-        [HttpPost("ObtenerDashboardTop")]
+        [HttpPost("ObtenerDashboard")]
         public MensajesDashboard ObtenerDashboardHab([FromBody]string nickUsuario)
         {
             MensajesDashboard msjDashboard = null;
             ConsultasDashboard objConsultasDashboardBD = new ConsultasDashboard();
-            msjDashboard = objConsultasDashboardBD.ObtenerDashboardTop(nickUsuario);
+            msjDashboard = objConsultasDashboardBD.ObtenerDashboard(nickUsuario);
             if (msjDashboard.OperacionExitosa)
             {
                 Logs.Info("Consulta de DashboardTop realizada exitosamente.");

@@ -41,10 +41,10 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para obtener todos los Laboratorios de la base de datos
         /// </summary>
         /// <returns></returns>
-        public JsonResult ObtenerDashboardTop()
+        public JsonResult ObtenerDashboard()
         {
             DashboardAccDatos objDashboardActAccDatos = new DashboardAccDatos((string)Session["NickUsuario"]);
-            return Json(objDashboardActAccDatos.ObtenerDashboardTop((string)Session["NickUsuario"]), JsonRequestBehavior.AllowGet);
+            return Json(objDashboardActAccDatos.ObtenerDashboard((string)Session["NickUsuario"]), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

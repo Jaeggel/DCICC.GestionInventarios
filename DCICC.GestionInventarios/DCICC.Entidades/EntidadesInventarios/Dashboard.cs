@@ -15,5 +15,13 @@ namespace DCICC.Entidades.EntidadesInventarios
         public long ActivosDeBajaCont { get; set; }
 
         public long UsuariosHabilitadosCont { get; set; }
+
+        public long TicketsAbiertosCont { get; set; }
+
+        public long TicketsEnProcesoCont { get; set; }
+
+        public long TicketsEnEsperaCont { get; set; }
+
+        public long TicketsResueltosCont { get; set; }
     }
 }
