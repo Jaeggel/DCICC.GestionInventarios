@@ -7,7 +7,6 @@
 @{
 	Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
-
 <div class="row">
 	<div id="vista_principal" class="row top_tiles">
 		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -65,7 +64,7 @@
 	</div>
 
 	@* Seccion para Vista de Barras *@
-	<div class="row" id="graficas">
+	<div class="row">
 		<div class="col-md-7">
 			<div class="x_panel">
 
@@ -77,11 +76,10 @@
 						</div>
 
 					</div>
-
 				</div>
 			</div>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-5" id="graficas">
 			<div class="x_panel">
 				<div class="x_content">
 					<div class="form-horizontal">
@@ -91,7 +89,6 @@
 						</div>
 
 					</div>
-
 				</div>
 			</div>
 		</div>

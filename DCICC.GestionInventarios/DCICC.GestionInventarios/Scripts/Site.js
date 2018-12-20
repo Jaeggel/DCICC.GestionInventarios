@@ -2,8 +2,6 @@
 Autores: Andres Chisaguano - Joel Ludeña
 Descripción: Script que tendrá las funciones que se podrá llamar desde toda la aplicación*/
 
-
-//Método para obtener el idioma español de los dataTable
 var permisosRol;
 $(document).ready(function () {
     definirMenuPorRolActual();
@@ -37,7 +35,7 @@ function definicionMenu(permisos) {
         }
     }
 }
-
+//Método para obtener el idioma español de los dataTable
 function obtenerIdioma() {
     var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
