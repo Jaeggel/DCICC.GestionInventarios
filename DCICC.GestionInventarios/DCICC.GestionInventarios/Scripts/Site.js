@@ -14,6 +14,10 @@ function comprobarRol() {
             if (data !== "Admin" && data !== "Invitado"  && data !== "Reporteria" && data !== "Pasantes") {
                 definirMenuPorRolActual();
             }       
+            if (data === "Invitado") {
+                $("#enlacevu").attr('href', '#');
+                $("#graficas").hide("fast");
+            }
         }
     });
 }
