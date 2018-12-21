@@ -57,7 +57,6 @@
 				<div class="count"><div id="sesionesIniciadas"></div></div>
 				<h3>Conexiónes de Usuario</h3>
 				<p>N° de conexiones del usuario: @ViewBag.UsuarioLogin</p>
-				<br />
 			</div>
 		</div>
 	</div>
@@ -111,7 +110,7 @@
 		obtenerValores('@Url.Action("ObtenerDashboard", "Home")');
 
 		//Métodos para Gráfica Medio
-		obtenerTipoActivo('@Url.Action("ObtenerTipoActivo", "TipoActivo")');
+		obtenerTipoActivo('@Url.Action("ObtenerDashboardActivos", "Home")');
 		
     });
 

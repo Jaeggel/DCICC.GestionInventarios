@@ -77,11 +77,11 @@ function obtenerTipoActivo(url) {
 
 //funcion para graficar
 function graficaActivos(datosActivos) {
-    var nombre = [], valores[];
+    var nombre = [], valores=[];
     //console.log(datosActivos);
     for (var i = 0; i < datosActivos.length; i++) {
-        nombre.push();
-        valores.pus();
+        nombre.push(datosActivos[i].NombreTipoActivo);
+        valores.push(datosActivos[i].TipoActivoCont);
     }
     //console.log(nombresTipoActivo);
     $('#graficoActivos').highcharts({
