@@ -24,5 +24,9 @@ namespace DCICC.GestionInventarios.Models
         public long TicketsEnEsperaCont { get; set; }
 
         public long TicketsResueltosCont { get; set; }
+
+        public string NombreTipoActivo { get; set; }
+
+        public long TipoActivoCont { get; set; }
     }
 }

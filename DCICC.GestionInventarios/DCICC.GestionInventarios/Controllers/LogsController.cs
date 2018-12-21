@@ -14,6 +14,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista Logs
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Logs()
         {
             if ((string)Session["NickUsuario"] == null)

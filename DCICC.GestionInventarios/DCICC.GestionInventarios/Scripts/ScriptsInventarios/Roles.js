@@ -4,6 +4,7 @@ var datosRoles;
 var idRolMod;
 var nombresRoles = [];
 var nombreRolModificar;
+var estadoRolActual;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de roles
@@ -116,6 +117,7 @@ function formUpdateRol(idRol) {
     for (var i = 0; i < datosRoles.length; i++) {
         if (datosRoles[i].IdRol == idRol) {
             nombreRolModificar = datosRoles[i].NombreRol;
+            estadoRolActual = datosRoles[i].HabilitadoRol;
             //Métodos para setear los valores a modificar      
 
             document.getElementById("NombreRol").value = datosRoles[i].NombreRol;
@@ -146,7 +148,7 @@ function formUpdateRol(idRol) {
             if (estado3 && mv == false) {
                 document.getElementById("PermisoMaqVirtuales").click();
             }
-            if (estado2 == false && mv == true) {
+            if (estado3 == false && mv == true) {
                 document.getElementById("PermisoMaqVirtuales").click();
             }
 
@@ -164,15 +166,6 @@ function formUpdateRol(idRol) {
             document.getElementById("DescripcionRol").value = datosRoles[i].DescripcionRol;
 
 
-            //Método para el check del update de rol
-            var valor = datosRoles[i].HabilitadoRol;
-            var estado = $('#HabilitadoRol').prop('checked');
-            if (estado && valor == false) {
-                document.getElementById("HabilitadoRol").click();
-            }
-            if (estado == false && valor == true) {
-                document.getElementById("HabilitadoRol").click();
-            }
             break;
         }
     }
@@ -186,7 +179,6 @@ function modificarRol(url_modificar) {
     var reporte = $('#PermisoReportes').prop('checked');
     var ticket = $('#PermisoTickets').prop('checked');
     var descripcion = document.getElementById("DescripcionRol").value;
-    var habilitadoRol = $('#HabilitadoRol').prop('checked');
 
     if (validarInputsVaciosIngreso()) {
         if (nombreRolModificar != nombre) {
@@ -204,7 +196,7 @@ function modificarRol(url_modificar) {
                 if (result.value) {
                     $.ajax({
                         data: {
-                            "IdRol": idRolMod, "NombreRol": nombre, "NombreRolAntiguo": nombreRolModificar, "DescripcionRol": descripcion, "HabilitadoRol": habilitadoRol,
+                            "IdRol": idRolMod, "NombreRol": nombre, "NombreRolAntiguo": nombreRolModificar, "DescripcionRol": descripcion, "HabilitadoRol": estadoRolActual,
                             "PermisoActivos": activoTi, "PermisoMaqVirtuales": maqVir, "PermisoTickets": ticket, "PermisoReportes": reporte
                         },
                         url: url_modificar,
@@ -239,7 +231,7 @@ function modificarRol(url_modificar) {
                 if (result.value) {
                     $.ajax({
                         data: {
-                            "IdRol": idRolMod, "NombreRol": nombre, "DescripcionRol": descripcion, "HabilitadoRol": habilitadoRol,
+                            "IdRol": idRolMod, "NombreRol": nombre, "DescripcionRol": descripcion, "HabilitadoRol": estadoRolActual,
                             "PermisoActivos": activoTi, "PermisoMaqVirtuales": maqVir, "PermisoTickets": ticket, "PermisoReportes": reporte
                         },
                         url: url_modificar,

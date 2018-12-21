@@ -9,7 +9,9 @@
     "GRANT SELECT ON table dcicc_roles to group {0};",
     "GRANT SELECT ON table dcicc_detalleactivo to group {0};",
     "GRANT SELECT ON table dcicc_laboratorios to group {0};",
-    "GRANT SELECT ON table dcicc_tipoactivos to group {0};"
+    "GRANT SELECT ON table dcicc_tipoactivos to group {0};",
+    "GRANT SELECT ON table dcicc_tickets to group {0};",
+    "GRANT SELECT ON table dcicc_marca to group {0};"
   ],
   "SentenciasActivos": [
     "GRANT SELECT,INSERT,UPDATE ON table dcicc_accesorio to group {0};",

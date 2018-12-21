@@ -15,79 +15,144 @@
     <li><a>Consulta de Activos</a></li>
     <li><a class="active">@ViewBag.Title</a></li>
 </ul>
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_content">
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Activos de TI</a>
-                        </li>
-                        <li role="presentation" class="">
-                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
-                        </li>
-                    </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                            @* Panel para visualizar la información de los activos de TI *@
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <div class="x-content">
-                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
-                                                <h3>Consulta de Activos</h3>
-                                            </div>
-                                        </div>
-                                        @*Sección para botones de generar reportes en PDF y Excel*@
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoActivo", "Activos")'"><i class="fa fa-plus"></i> Agregar Activo</button></li>
-                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <br>
-                                        <div class="form-horizontal form-label-left input_mask">
-                                            @* Sección para la tabla de modificación mediante js *@
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaActivos"> </div>
-                                            </div>
+					<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+						<li role="presentation" class="active">
+							<a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Activos de TI</a>
+						</li>
+						<li role="presentation" class="">
+							<a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Accesorios</a>
+						</li>
+						<li role="presentation" class="">
+							<a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" onclick="obtenerHistoricos('@Url.Action("ObtenerHistoricoActivosComp", "Activos")');">Históricos</a>
+						</li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+							@* Panel para visualizar la información de los activos de TI *@
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<div class="x-content">
+											<div class="col-md-6 col-sm-12 col-xs-12 ">
+												<h3>Consulta de Activos</h3>
+											</div>
+										</div>
+										@*Sección para botones de generar reportes en PDF y Excel*@
+										<ul class="nav navbar-right panel_toolbox">
+											<li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoActivo", "Activos")'"><i class="fa fa-plus"></i> Agregar Activo</button></li>
+											<li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
+										</ul>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<br>
+										<div class="form-horizontal form-label-left input_mask">
+											@*Sección de filtros de búsqueda para realizar la consulta*@
+											<div class="form-group">
+												@*Combobox para seleccionar Tipo Activo*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Tipo:</label>
+													<div id="cargarTipoActivosFiltro"></div>
+												</div>
+												@*Combobox para seleccionar Laboratorios*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Laboratorio:</label>
+													<div id="cargarLaboratoriosFiltro"></div>
+												</div>
+												@*Combobox para seleccionar Marcas*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Marca:</label>
+													<div id="cargarMarcasFiltro"></div>
+												</div>
+												@*Combobox para seleccionar Marcas*@
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<label>Filtro por Estado:</label>
+													<div id="cargarEstadosActivoFiltro"></div>
+												</div>
+											</div>
+											<br />
+											@* Sección para la tabla de modificación mediante js *@
+											<div class="col-md-12 col-sm-12 col-xs-12">
+												<div id="tablaActivos"> </div>
+											</div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                            @* Panel para visualizar la información de los activos de TI *@
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <div class="x-content">
-                                            <div class="col-md-6 col-sm-12 col-xs-12 ">
-                                                <h3>Consulta de Accesorios</h3>
-                                            </div>
-                                        </div>
-                                        @*Sección para botones de generar reportes en PDF y Excel*@
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <br>
-                                        <div class="form-horizontal form-label-left input_mask">
-                                            @* Sección para la tabla de modificación mediante js *@
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div id="tablaAccesorios"> </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+							@* Panel para visualizar la información de los activos de TI *@
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<div class="x-content">
+											<div class="col-md-6 col-sm-12 col-xs-12 ">
+												<h3>Consulta de Accesorios</h3>
+											</div>
+										</div>
+										@*Sección para botones de generar reportes en PDF y Excel*@
+										<ul class="nav navbar-right panel_toolbox">
+											<li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
+										</ul>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<br>
+										<div class="form-horizontal form-label-left input_mask">
+											<div class="form-group">
+												@*Combobox para seleccionar Tipo Accesorio*@
+												<div class="col-md-6 col-sm-12 col-xs-12">
+													<label>Filtro por Tipo de Accesorio:</label>
+													<div id="cargarTipoAccesorioFiltro"></div>
+												</div>
+												@*Combobox para seleccionar Estado de Accesorio*@
+												<div class="col-md-6 col-sm-12 col-xs-12">
+													<label>Filtro por Estado:</label>
+													<div id="cargarEstadosAccesorioFiltro"></div>
+												</div>
+											</div>
+											<br />
+											@* Sección para la tabla de modificación mediante js *@
+											<div class="col-md-12 col-sm-12 col-xs-12">
+												<div id="tablaAccesorios"> </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+							@* Panel para visualizar la información de los activos de TI *@
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<div class="x-content">
+											<div class="col-md-6 col-sm-12 col-xs-12 ">
+												<h3>Consulta de Históricos de Activos</h3>
+											</div>
+										</div>									
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<br>
+										<div class="form-horizontal form-label-left input_mask">
+											@* Sección para la tabla de modificación mediante js *@
+											<div class="col-md-12 col-sm-12 col-xs-12">
+												<div id="tablaHistoricos"> </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
@@ -561,6 +626,7 @@
         }
     </script>
 }
+	
 @* Seccción para llamar al js de Categorías *@
 <script src="~/Scripts/ScriptsInventarios/ConsultaActivo.js"></script>
 <script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
@@ -568,13 +634,16 @@
 	$(document).ready(function () {
 		//Método para llamar a la función que bloquea los botones con el usuario invitado
 		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botonesActivos('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener datos de Activos
         obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
         datosMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
         cargarEstadosCmb();
-        cargarEstadosModificarCmb();
+		cargarEstadosModificarCmb();
+		EstadosFiltroAct();
         mensajesTooltips();
 
         //Método para obtener datos de Accesorios
@@ -585,21 +654,20 @@
         cargarEstadosAccesoriosIng();
         cargarNombresActivos('@Url.Action("ObtenerNombresActivos", "Activos")');
         mensajesTooltipsAccesorios();
-        mensajesTooltipsAccesoriosMod();
+		mensajesTooltipsAccesoriosMod();
+		EstadosAccesoriosFiltro();
 
         $(function () {
-            $('input[name="FechaIngresoActivo"]').daterangepicker({
-                startDate: new Date(),
+            $('input[name="FechaIngresoActivo"]').datepicker({
+				autoHide: true,
+				zIndex: 2048,
+				startDate: new Date(),
                 format: 'dd-mm-yyyy',
-                singleDatePicker: true,
-                showDropdowns: true,
+               
                 minDate: "01/01/1990",
-                maxDate: new Date()
-            }, function (start, end, label) {
-                //console.log(start);
-                var years = moment().diff(start, 'years');
-                //alert("You are " + years + " years old!");
-            });
+				maxDate: new Date()
+				
+			});
         });
 
         $('#cqrAccesorio').hide();
@@ -637,7 +705,8 @@
 			$("#VelocidadTransfActivo").tooltip('hide');
 
 			$(".modal-body input[id=FechaIngresoActivo]").html('');
-			
+
+			$("#FechaIngresoActivo").datepicker('hide');
 			//$("#FechaIngresoActivo").hide();
 
             document.getElementById("confirmarActivo").disabled = false;
@@ -692,7 +761,40 @@
             $(".modal-body span[id=errorEstadoAccesorio]").html('').hide();
 		});
 
+		//Mascaras de Ingresos
 		$('#FechaIngresoActivo').mask('00/00/0000');
+
+		$('#NumPuertosActivo').mask('ABZ', {
+			translation: {
+				'Z': {pattern: /[0-9]/, optional: true},
+				'A': {pattern: /[0-5]/, optional: true},
+				'B': {pattern: /[0-9]/, optional: true}
+			},
+			onKeyPress: function (a, b, c, d) {
+				if (!a) return;
+				let m = a.match(/(\d{1})/g);
+				if (!m) return;
+				if (parseInt(m[0]) === 5) {
+					d.translation.B.pattern = /[0]/;
+				} else {
+					d.translation.B.pattern = /[0-9]/;
+				}
+				if (parseInt(m[1]) == 0) {
+					d.translation.Z.pattern = /[0]/;
+				} else {
+					d.translation.Z.pattern = /[0-9]/;
+				}
+
+				let temp_value = c.val();
+				c.val('');
+				c.unmask().mask('ABZ', d);
+				c.val(temp_value);
+			}
+		});
+
+
     });
 </script>
+
+
 

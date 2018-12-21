@@ -221,40 +221,81 @@
             document.getElementById("confirmarMV").disabled = false;
 		});
 
-		$('#DireccionIPMaqVirtuales').mask('AZZ.AZZ.AZZ.AZZ', {
+		//Mascaras
+		$('#DiscoMaqVirtuales').mask('000');
+		$('#RamMaqVirtuales').mask('000');
+		$('#DireccionIPMaqVirtuales').mask('ABC.DEF.GHI.JKL', {
 			translation: {
-				'Z': {
-					pattern: /[0-9]/, optional: true
-				},
-				'A': {
-					pattern: /[0-2]/, optional: true
+				'A': { pattern: /[0-2]/, optional: true },
+				'B': { pattern: /[0-9]/, optional: true },
+				'C': { pattern: /[0-9]/, optional: true },
+				'D': { pattern: /[0-2]/, optional: true },
+				'E': { pattern: /[0-9]/, optional: true },
+				'F': { pattern: /[0-9]/, optional: true },
+				'G': { pattern: /[0-2]/, optional: true },
+				'H': { pattern: /[0-9]/, optional: true },
+				'I': { pattern: /[0-9]/, optional: true },
+				'J': { pattern: /[0-2]/, optional: true },
+				'K': { pattern: /[0-9]/, optional: true },
+				'L': { pattern: /[0-9]/, optional: true }
+			},
+			onKeyPress: function (a, b, c, d) {
+				if (!a) return;
+				//let m = a.match(/(\d{.})/g);
+				//if (!m) return;
+				if (parseInt(a[0]) === 2) {
+					d.translation.B.pattern = /[0-5]/;
+				} else {
+					d.translation.B.pattern = /[0-9]/;
 				}
+				if (parseInt(a[1]) == 5 && parseInt(a[0]) === 2) {
+					d.translation.C.pattern = /[0-5]/;
+				} else {
+					d.translation.C.pattern = /[0-9]/;
+				}
+
+				if (parseInt(a[3]) === 2) {
+					d.translation.E.pattern = /[0-5]/;
+				} else {
+					d.translation.E.pattern = /[0-9]/;
+				}
+				if (parseInt(a[4]) == 5 && parseInt(a[3]) === 2) {
+					d.translation.F.pattern = /[0-5]/;
+				} else {
+					d.translation.F.pattern = /[0-9]/;
+				}
+
+				if (parseInt(a[6]) === 2) {
+					d.translation.H.pattern = /[0-5]/;
+				} else {
+					d.translation.H.pattern = /[0-9]/;
+				}
+				if (parseInt(a[7]) == 5 && parseInt(a[6]) === 2) {
+					d.translation.I.pattern = /[0-5]/;
+				} else {
+					d.translation.I.pattern = /[0-9]/;
+				}
+
+				if (parseInt(a[9]) === 2) {
+					d.translation.K.pattern = /[0-5]/;
+				} else {
+					d.translation.K.pattern = /[0-9]/;
+				}
+				if (parseInt(a[10]) == 5 && parseInt(a[9]) === 2) {
+					d.translation.L.pattern = /[0-5]/;
+				} else {
+					d.translation.L.pattern = /[0-9]/;
+				}
+
+
+				let temp_value = c.val();
+				c.val('');
+				c.unmask().mask('ABC.DEF.GHI.JKL', d);
+				c.val(temp_value);
 			}
 		});
 
-		$('#RamMaqVirtuales').mask('AZZZ', {
-			translation: {
-				'Z': {
-					pattern: /[0-9]/, optional: true
-				},
-				'A': {
-					pattern: /[0-1]/, optional: true
-				}
-
-			}
-		});
-
-		$('#DiscoMaqVirtuales').mask('AZZZ', {
-			translation: {
-				'Z': {
-					pattern: /[0-9]/, optional: true
-				},
-				'A': {
-					pattern: /[0-1]/, optional: true
-				}
-
-			}
-		});
+		
 
     });
 

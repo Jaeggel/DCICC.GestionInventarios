@@ -24,6 +24,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevaMaqVirtual
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevaMaqVirtual()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -43,6 +44,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarMaqVirtual
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarMaqVirtual()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -62,6 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoProposito
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoProposito()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -85,7 +88,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoMaqVirtual"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevaMaqVirtual(MaqVirtuales infoMaqVirtual)
+        public ActionResult NuevaMaqVirtualPOST(MaqVirtuales infoMaqVirtual)
         {
             infoMaqVirtual.DiscoMaqVirtuales = string.Format("{0} {1}", infoMaqVirtual.DiscoMaqVirtuales, infoMaqVirtual.UnidadMaqVirtuales);
             string mensajesMaqVirtuales = string.Empty;
@@ -120,7 +123,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoProposito"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoProposito(Propositos infoProposito)
+        public ActionResult NuevoPropositoPOST(Propositos infoProposito)
         {
             string mensajesMaqVirtuales = string.Empty;
             try

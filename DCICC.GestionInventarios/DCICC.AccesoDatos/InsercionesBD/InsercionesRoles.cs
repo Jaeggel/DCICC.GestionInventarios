@@ -39,13 +39,13 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_roles (nombre_rol, administracion_rol, activos_rol, maquinasvirtuales_rol, tickets_rol, reportes_rol, descripcion_rol, habilitado_rol) VALUES (@nr,@pad,@pa,@pm,@pt,@pr,@dr,@hr)", conn_BD))
                 {
-                    cmd.Parameters.Add("nr", NpgsqlTypes.NpgsqlDbType.Varchar).Value=infoRol.NombreRol.ToLower();
+                    cmd.Parameters.Add("nr", NpgsqlTypes.NpgsqlDbType.Varchar).Value=infoRol.NombreRol.ToLower().Trim();
                     cmd.Parameters.Add("pad", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoAdministracion;
                     cmd.Parameters.Add("pa", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoActivos;
                     cmd.Parameters.Add("pm", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoMaqVirtuales;
                     cmd.Parameters.Add("pt", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoTickets;
                     cmd.Parameters.Add("pr", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.PermisoReportes;
-                    cmd.Parameters.Add("dr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoRol.DescripcionRol) ? (object)infoRol.DescripcionRol : DBNull.Value;
+                    cmd.Parameters.Add("dr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoRol.DescripcionRol) ? (object)infoRol.DescripcionRol.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hr", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoRol.HabilitadoRol;   
                     cmd.ExecuteNonQuery();
                 }

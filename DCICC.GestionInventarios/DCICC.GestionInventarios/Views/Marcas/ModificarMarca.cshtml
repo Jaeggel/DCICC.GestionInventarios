@@ -125,12 +125,12 @@
 <script src="~/Scripts/ScriptsInventarios/Marcas.js"></script>
 <script>
 	$(document).ready(function () {
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener la tabla de Marcas
         obtenerMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
         urlEstados('@Url.Action("ModificarEstadoMarca", "Marcas")');
-        mensajesTooltips();
+		mensajesTooltips();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Función para setear nullos los valores del modal
         $('#ModificarMarca').on('hidden.bs.modal', function () {            
             $(".modal-body input").css("borderColor", "#ccc");

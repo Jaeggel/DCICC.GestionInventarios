@@ -35,12 +35,12 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set id_rol = @ir,nombres_usuario = @nu,password_usuario = @pu,correo_usuario = @cu,telefono_usuario = @tu,telefonocelular_usuario = @tcu,direccion_usuario = @du,habilitado_usuario = @hu where id_usuario = @iu", conn_BD))
                     {
                         cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdRol;
-                        cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario;
-                        cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario;
-                        cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario;
-                        cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
-                        cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
-                        cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
+                        cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario.Trim();
+                        cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario.Trim();
+                        cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario.Trim();
+                        cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario.Trim() : DBNull.Value;
+                        cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario.Trim() : DBNull.Value;
+                        cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario.Trim() : DBNull.Value;
                         cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                         cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                         cmd.ExecuteNonQuery();
@@ -49,7 +49,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     msjUsuarios = ActualizacionNickUsuario(infoUsuario);
                     if (infoUsuario.NombreRolAntiguo!=null)
                     {
-                        ActualizarRolUsuario(infoUsuario.NombreRolAntiguo,infoUsuario.NombreRol,infoUsuario.NickUsuario);
+                        ActualizarRolUsuario(infoUsuario.NombreRolAntiguo.Trim(), infoUsuario.NombreRol.Trim(), infoUsuario.NickUsuario.Trim());
                     }
                     conn_BD.Close();
                 }
@@ -58,22 +58,22 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set id_rol = @ir,nombres_usuario = @nu,nick_usuario = @niu,password_usuario = @pu,correo_usuario = @cu,telefono_usuario = @tu,telefonocelular_usuario = @tcu,direccion_usuario = @du,habilitado_usuario = @hu where id_usuario = @iu", conn_BD))
                     {
                         cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdRol;
-                        cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario;
-                        cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
-                        cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario;
-                        cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario;
-                        cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
-                        cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
-                        cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
+                        cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario.Trim();
+                        cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario.Trim();
+                        cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario.Trim();
+                        cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario.Trim();
+                        cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario.Trim() : DBNull.Value;
+                        cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario.Trim() : DBNull.Value;
+                        cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario.Trim() : DBNull.Value;
                         cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                         cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                         cmd.ExecuteNonQuery();
                     }
                     if (infoUsuario.NombreRolAntiguo != null)
                     {
-                        ActualizarRolUsuario(infoUsuario.NombreRolAntiguo, infoUsuario.NombreRol, infoUsuario.NickUsuario);
+                        ActualizarRolUsuario(infoUsuario.NombreRolAntiguo.Trim(), infoUsuario.NombreRol.Trim(), infoUsuario.NickUsuario.Trim());
                     }
-                    string query = string.Format("ALTER USER {0} with password '{1}';", infoUsuario.NickUsuario, pwdUsuario);
+                    string query = string.Format("ALTER USER {0} with password '{1}';", infoUsuario.NickUsuario.Trim(), pwdUsuario.Trim());
                     using (var cmd = new NpgsqlCommand(query, conn_BD))
                     {
                         cmd.ExecuteNonQuery();
@@ -123,11 +123,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nombres_usuario = @nu,correo_usuario = @cu,telefono_usuario = @tu,telefonocelular_usuario = @tcu,direccion_usuario = @du where id_usuario = @iu", conn_BD))
                 {
-                    cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario;
-                    cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario;
-                    cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
-                    cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
-                    cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
+                    cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario.Trim();
+                    cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario.Trim();
+                    cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario.Trim() : DBNull.Value;
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
@@ -136,10 +136,10 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 {
                     ConsultasUsuarios objConsultaUsuariosBD = new ConsultasUsuarios();
                     Usuarios infoUsuarioBD = objConsultaUsuariosBD.ObtenerUsuarioPorId(infoUsuario.IdUsuario).ObjetoInventarios;
-                    string nickAnterior = infoUsuarioBD.NickUsuario;
+                    string nickAnterior = infoUsuarioBD.NickUsuario.Trim();
                     using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nick_usuario = @niu where id_usuario = @iu", conn_BD))
                     {
-                        cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
+                        cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario.Trim();
                         cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                         cmd.ExecuteNonQuery();
                     }
@@ -148,12 +148,12 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     NpgsqlConnection connBD = new NpgsqlConnection("Server='192.168.0.9';Port=5432;User Id=postgres;Password=postgres;Database=DCICC_BDInventario; CommandTimeout=3020;");
                     connBD.Open();
                     NpgsqlTransaction tranBD = connBD.BeginTransaction();
-                    string queryUser = string.Format("ALTER USER {0} RENAME TO {1};", nickAnterior, infoUsuario.NickUsuario);
+                    string queryUser = string.Format("ALTER USER {0} RENAME TO {1};", nickAnterior.Trim(), infoUsuario.NickUsuario.Trim());
                     using (var cmd = new NpgsqlCommand(queryUser, connBD))
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    string queryPwd = string.Format("ALTER USER {0} with password '{1}';", infoUsuario.NickUsuario, ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
+                    string queryPwd = string.Format("ALTER USER {0} with password '{1}';", infoUsuario.NickUsuario.Trim(), ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario.Trim()));
                     using (var cmd = new NpgsqlCommand(queryPwd, connBD))
                     {
                         cmd.ExecuteNonQuery();
@@ -192,16 +192,16 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set nick_usuario = @niu where id_usuario = @iu", conn_BD))
                 {
-                    cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
+                    cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario.Trim();
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string queryUser = string.Format("ALTER USER {0} RENAME TO {1};",nickAnterior,infoUsuario.NickUsuario);
+                string queryUser = string.Format("ALTER USER {0} RENAME TO {1};",nickAnterior,infoUsuario.NickUsuario.Trim());
                 using (var cmd = new NpgsqlCommand(queryUser, conn_BD))
                 {
                     cmd.ExecuteNonQuery();
                 }
-                string queryPwd = string.Format("ALTER USER {0} with password '{1}';",infoUsuario.NickUsuario,ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario));
+                string queryPwd = string.Format("ALTER USER {0} with password '{1}';",infoUsuario.NickUsuario,ConfigEncryption.EncriptarValor(infoUsuario.PasswordUsuario.Trim()));
                 using (var cmd = new NpgsqlCommand(queryPwd, conn_BD))
                 {
                     cmd.ExecuteNonQuery();
@@ -231,11 +231,11 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_usuarios set password_usuario = @pu where id_usuario = @iu", conn_BD))
                 {
-                    cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario;
+                    cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario.Trim();
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdUsuario;
                     cmd.ExecuteNonQuery();
                 }
-                string query = string.Format("ALTER USER {0} with password '{1}';" ,infoUsuario.NickUsuario,pwdUsuario);
+                string query = string.Format("ALTER USER {0} with password '{1}';" ,infoUsuario.NickUsuario.Trim(), pwdUsuario.Trim());
                 using (var cmd = new NpgsqlCommand(query, conn_BD))
                 {
                     cmd.ExecuteNonQuery();

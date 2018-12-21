@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevaMarca
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevaMarca()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -39,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarMarca
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarMarca()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -62,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoMarcas"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevaMarca(Marcas infoMarca)
+        public ActionResult NuevaMarcaPOST(Marcas infoMarca)
         {
             string mensajesMarcas = string.Empty;
             MensajesMarcas msjMarcas = new MensajesMarcas();

@@ -3,6 +3,7 @@ using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace DCICC.AccesoDatos.ConsultasBD
@@ -95,7 +96,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                     {
                         while (dr.Read())
                         {
-                            objDashboard.TicketsEnProcesoCont= (long)dr[0];
+                            objDashboard.TicketsEnProcesoCont = (long)dr[0];
                         }
                     }
                 }
@@ -121,6 +122,45 @@ namespace DCICC.AccesoDatos.ConsultasBD
                 }
                 conn_BD.Close();
                 msjDashboard.ObjetoInventarios = objDashboard;
+                msjDashboard.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                conn_BD.Close();
+                msjDashboard.OperacionExitosa = false;
+                msjDashboard.MensajeError = e.Message;
+            }
+            return msjDashboard;
+        }
+        /// <summary>
+        /// Método para obtener la función activoportipo
+        /// </summary>
+        /// <returns></returns>
+        public MensajesDashboard ObtenerDashboardActivos()
+        {
+            List<Dashboard> lstDashboard = new List<Dashboard>();
+            Dashboard objDashboard = new Dashboard();
+            MensajesDashboard msjDashboard = new MensajesDashboard();
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("activoportipo", conn_BD))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            objDashboard = new Dashboard()
+                            {
+                                NombreTipoActivo = dr[0].ToString().Trim(),
+                                TipoActivoCont = (long)dr[1]
+                            };
+                            lstDashboard.Add(objDashboard);
+                        }
+                    }
+                }
+                conn_BD.Close();
+                msjDashboard.ListaObjetoInventarios = lstDashboard;
                 msjDashboard.OperacionExitosa = true;
             }
             catch (Exception e)

@@ -28,8 +28,8 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_sistoperativos (nombre_so,descripcion_so,habilitado_so) VALUES (@nso,@dso,@hso)", conn_BD))
                 {
-                    cmd.Parameters.Add("nso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoSistOperativo.NombreSistOperativos;
-                    cmd.Parameters.Add("dso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoSistOperativo.DescripcionSistOperativos) ? (object)infoSistOperativo.DescripcionSistOperativos : DBNull.Value;
+                    cmd.Parameters.Add("nso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoSistOperativo.NombreSistOperativos.Trim();
+                    cmd.Parameters.Add("dso", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoSistOperativo.DescripcionSistOperativos) ? (object)infoSistOperativo.DescripcionSistOperativos.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hso", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoSistOperativo.HabilitadoSistOperativos;
                     cmd.ExecuteNonQuery();
                 }

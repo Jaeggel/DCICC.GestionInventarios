@@ -331,7 +331,11 @@
             $("#CapacidadLUN").tooltip('hide');
             $("#DescripcionLUN").tooltip('hide');
             document.getElementById("confirmarLUN").disabled = false;
-        });
+		});
+
+		//Mascaras de Ingresos
+		$('#CapacidadStorage').mask('000');
+		$('#CapacidadLUN').mask('000');
 
     });
 

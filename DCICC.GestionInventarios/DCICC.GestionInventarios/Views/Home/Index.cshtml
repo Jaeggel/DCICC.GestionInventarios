@@ -7,14 +7,13 @@
 @{
 	Layout = "~/Views/Shared/_Layout" + ViewBag.Menu + ".cshtml";
 }
-
 <div class="row">
 	<div id="vista_principal" class="row top_tiles">
 		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<div class="tile-stats">
 				<div class="icon"><i class="fa fa-hourglass-end"></i> </div>
 				<div class="count"><div id="numeroVidaUtil"></div></div>
-				<a href="@Url.Action("ConsultaVidaUtilActivos", "Activos")">
+				<a href="@Url.Action("ConsultaVidaUtilActivos", "Activos")" id="enlacevu">
 					<h3>Vida Útil<br /> de Activos</h3>
 				</a>
 				<p>Activos que han cumplido con su tiempo de vida.</p>
@@ -33,7 +32,7 @@
 				<div class="icon"><i class="fa fa-warning"></i></div>
 				<div class="count"><div id="numeroNoOperativos"></div></div>
 				<h3>Activos no Operativos</h3>
-				<p>N° de Activos con estado Operativo.</p>
+				<p>N° de Activos con estado No Operativo.</p>
 			</div>
 		</div>
 		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -49,8 +48,7 @@
 				<div class="icon"><i class="fa fa-users"></i></div>
 				<div class="count"><div id="numeroHabilitados"></div></div>
 				<h3>Usuarios Habilitados</h3>
-				<p>N° de usuarios registrados.</p>
-				<br />
+				<p>N° de usuarios Habilitados en el sistema.</p>
 			</div>
 		</div>
 		<div class="animated flipInY col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -58,26 +56,37 @@
 				<div class="icon"><i class="fa fa-sign-in"></i></div>
 				<div class="count"><div id="sesionesIniciadas"></div></div>
 				<h3>Conexiónes de Usuario</h3>
-				<p>N° de conexiones al Sistema</p>
-				<br />
+				<p>N° de conexiones del usuario: @ViewBag.UsuarioLogin</p>
 			</div>
 		</div>
 	</div>
 
 	@* Seccion para Vista de Barras *@
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-7 col-sm-12 col-xs-12">
 			<div class="x_panel">
-				
+
 				<div class="x_content">
 					<div class="form-horizontal">
 						@* Sección para la tabla de modificación mediante js *@
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div id="grafico"></div>
+							<div id="graficoActivos"></div>
 						</div>
 
 					</div>
-					
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 col-xs-12" id="graficas">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="form-horizontal">
+						@* Sección para la tabla de modificación mediante js *@
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div id="graficoTickets"></div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -95,17 +104,13 @@
 </script>
 
 <script>
-	$(document).ready(function () {
-		setTimeout("$('#vista_principal').fadeIn('fast');", 5000);
-		//setTimeout($('#vista_principal'), 5000);
-		//$('#vista_principal').delay(4000).slideDown(4000).animate(4000);
+    $(document).ready(function () {
         //Método para obtener datos de Activos
 		obtenerVidaUtil('@Url.Action("ObtenerActivosVidaUtil", "Activos")');
-		obtenerValores('@Url.Action("ObtenerDashboardTop", "Home")');
+		obtenerValores('@Url.Action("ObtenerDashboard", "Home")');
 
 		//Métodos para Gráfica Medio
-		obtenerTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
-		obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
+		obtenerTipoActivo('@Url.Action("ObtenerDashboardActivos", "Home")');
 		
     });
 

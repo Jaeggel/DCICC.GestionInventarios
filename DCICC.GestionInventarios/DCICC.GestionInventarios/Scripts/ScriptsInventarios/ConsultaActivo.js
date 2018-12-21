@@ -14,6 +14,7 @@ var idCQRAccesorio;
 var nombreCQRAccesorio;
 
 var nombresActivo = [];
+var rolAct;
 
 /***********************************************************************************
  *                SECCIÓN PARA OPERACIONES CON ACTIVOS
@@ -31,12 +32,13 @@ function obtenerActivos(url) {
             if (data.OperacionExitosa) {
                 datosActivos = data.ListaObjetoInventarios;
                 cargarActivosTabla();
-                $('#dataTableActivos').DataTable({
+               $('#dataTableActivos').DataTable({
                     "language": {
                         "url": url_idioma
                     },
                     "order": [[1, "asc"]]
                 });
+                              
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }         
@@ -54,6 +56,7 @@ function datosTipoActivo(url) {
             if (data.OperacionExitosa) {
                 cmbTipoActivo = data.ListaObjetoInventarios;
                 cargarTipoActivoCmb();
+                TipoActivoFiltroAct();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }           
@@ -71,6 +74,7 @@ function datosLaboratorio(url) {
             if (data.OperacionExitosa) {
                 cmbLaboratorio = data.ListaObjetoInventarios;
                 cargarLaboratoriosCmb();
+                LaboratoriosFiltroAct();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -89,6 +93,7 @@ function datosMarcas(url) {
             if (data.OperacionExitosa) {
                 cmbMarcas = data.ListaObjetoInventarios;
                 cargarMarcasCmb();
+                MarcasFiltroAct();
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -148,6 +153,108 @@ function cargarEstadosModificarCmb() {
     $("#cargarEstadosActivo").html(str);
 }
 
+/* --------------------------------------SECCIÓN PARA CARGAR COMBOBOX DE FILTROS---------------------------------*/
+//Función para cargar el combobox de tipo de activo
+function TipoActivoFiltroAct() {
+    var str = '<select id="TipoActivoFiltroAct" class="form-control" name="TipoActivoFiltroAct"  required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbTipoActivo.length; i++) {
+        str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
+    }
+    str += '</select>';
+    $("#cargarTipoActivosFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#TipoActivoFiltroAct').change(function () {
+        var opcion = document.getElementById("TipoActivoFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(0).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar el combobox de laboratorios
+function LaboratoriosFiltroAct() {
+    var str = '<select id="LaboratoriosFiltroAct" class="form-control" name="LaboratoriosFiltroAct"  required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbLaboratorio.length; i++) {
+        str += '<option value="' + cmbLaboratorio[i].IdLaboratorio + '">' + cmbLaboratorio[i].NombreLaboratorio + '</option>';
+    }
+    str += '</select>';
+    $("#cargarLaboratoriosFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#LaboratoriosFiltroAct').change(function () {
+        var opcion = document.getElementById("LaboratoriosFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(5).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(5).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+}
+
+//Función para cargar el combobox de Marcas
+function MarcasFiltroAct() {
+    var str = '<select id="MarcasFiltroAct" class="form-control" name="MarcasFiltroAct"  required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbMarcas.length; i++) {
+        str += '<option value="' + cmbMarcas[i].IdMarca + '">' + cmbMarcas[i].NombreMarca + '</option>';
+    }
+    str += '</select>';
+    $("#cargarMarcasFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#MarcasFiltroAct').change(function () {
+        var opcion = document.getElementById("MarcasFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(2).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(2).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+
+}
+
+//Función para cargar el combobox de estados
+function EstadosFiltroAct() {
+    var str = '<select id="EstadosFiltroAct" class="form-control" name="EstadosFiltroAct" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+    }
+    str += '</select>';
+    $("#cargarEstadosActivoFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#EstadosFiltroAct').change(function () {
+        var opcion = document.getElementById("EstadosFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(9).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(9).search('^' + tipoAct.text + '$', true, false                 
+            ).draw();
+        }
+    });
+}
+
+
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
@@ -194,10 +301,6 @@ function cargarActivosTabla() {
            '</table > ';
     $("#tablaActivos").html(str);
 
-    //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rol == "Invitado") {
-        $("#dataTableActivos :button").attr("disabled", "disabled");
-    }
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -884,6 +987,95 @@ function mensajesTooltipsAccesoriosMod() {
     document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }
 
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON HISTORICOS
+ * *********************************************************************************
+ */
 
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
+//Método ajax para obtener accesorios
+function obtenerHistoricos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            if (data.OperacionExitosa) {
+                datosHistoricos = data.ListaObjetoInventarios;
+                cargarHistoricosTabla();
+                $('#dataTableHistoricos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+        }
+    });
+}
+
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+
+//Función para cargar la tabla de Activos
+function cargarHistoricosTabla() {
+    var str = '<table id="dataTableHistoricos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Nombre del Activo o Accesorio</th> <th>Modelo del Activo o Accesorio</th> <th>Serial del Activo o Accesorio</th> <th>Fecha de Baja</th></tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosHistoricos.length; i++) {
+        //Método para dar formato a la fecha y hora
+        var fechaIng = new Date(parseInt((datosHistoricos[i].FechaModifHistActivos).substr(6)));
+        //Fecha para ordenar el string mm/dd/yyyy
+        var fechaordenar = (fechaIng.toLocaleDateString("en-US"));
+        //fecha para la tabla y busquedas
+        function pad(n) { return n < 10 ? "0" + n : n; }
+        var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
+
+        if (datosHistoricos[i].IdActivo != 0) {
+            str += '</td><td>' + datosHistoricos[i].NombreActivo +
+                '</td><td>' + datosHistoricos[i].ModeloHistActivo +
+                '</td><td>' + datosHistoricos[i].SerialHistActivo;
+        } else {
+            str += '</td><td>' + datosHistoricos[i].NombreAccesorio +
+                '</td><td>' + datosHistoricos[i].ModeloHistAccesorio +
+                '</td><td>' + datosHistoricos[i].SerialHistAccesorio;
+        }
+        str += '</td><td>' + fechaIngreso +
+            '</td ></tr> ';
+    }
+    str += '</tbody>' +
+        '</table > ';
+    $("#tablaHistoricos").html(str);
+}
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
+//Función para bloquear botones cuando el usuario es invitado
+function botonesActivos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            rolAct = data;
+            if (data == "Invitado") {
+                $(':button').prop('disabled', true);
+                desactivarBotonesTablaAct();
+            }
+        }
+    });
+}
+
+function desactivarBotonesTablaAct() {
+    //console.log(rolAct);
+    var table = $('#dataTableActivos').DataTable();
+    //Metodo para bloquear los botones cuando sea usuario invitado
+    if (rolAct == "Invitado") {
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('button', rows).attr("disabled", "disabled");
+    } 
+}
 
 
