@@ -67,7 +67,7 @@ function cargarUsuariosTabla() {
 
     for (var i = 0; i < datosUsuarios.length; i++) {
         //if (datosUsuarios[i].NickUsuario != nick || datosUsuarios[i].NombresUsuario != nick) {
-        if ((datosUsuarios[i].NickUsuario).toLowerCase() != nick.toLowerCase() || (datosUsuarios[i].NickUsuario).toLowerCase() != "administracion") {
+        if ((datosUsuarios[i].NickUsuario).toLowerCase() != nick.toLowerCase() || (datosUsuarios[i].NickUsuario).toLowerCase() == "administracion") {
             str += '<tr><td>' + datosUsuarios[i].NombresUsuario +
                 '</td><td>' + datosUsuarios[i].NickUsuario +
                 '</td><td>' + datosUsuarios[i].NombreRol +
