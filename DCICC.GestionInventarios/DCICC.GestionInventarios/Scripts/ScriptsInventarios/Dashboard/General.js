@@ -1,4 +1,4 @@
-﻿var datosActivos = [];
+﻿
 var datosVidaUtil;
 /*Variables para Activos por estado*/
 var nombresTipoActivo = [];
@@ -11,7 +11,6 @@ var valoresTickets = [];
 /* --------------------------------------SECCIÓN PARA ACTIVOS DE TI---------------------------------*/
 //Método ajax para obtener los datos de los activos
 function obtenerValores(url) {
-    url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -35,7 +34,6 @@ function obtenerValores(url) {
 /* --------------------------------------SECCIÓN PARA N° DE ACTIVOS VIDA UTIL---------------------------------*/
 //Método ajax para obtener los datos de los activos
 function obtenerVidaUtil(url) {
-    url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -61,7 +59,6 @@ function contarVidaUtil() {
 /* --------------------------------------SECCIÓN PARA GRÁFICOS DE ACTIVOS X TIPO---------------------------------*/
 //Método ajax para obtener los datos de tipo de activo
 function obtenerTipoActivo(url) {
-    url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -70,9 +67,10 @@ function obtenerTipoActivo(url) {
             if (data.OperacionExitosa) {
                 var aux = data.ListaObjetoInventarios;
                 for (var i = 0; i < aux.length; i++) {
-                    nombresTipoActivo[i] = aux[i].NombreTipoActivo;
+                    nombresTipoActivo.push(aux[i].NombreTipoActivo);
                 }
-                graficaActivos();//console.log(nombresTipoActivo);
+                obtenerActivos();
+                //console.log(nombresTipoActivo);
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -82,19 +80,20 @@ function obtenerTipoActivo(url) {
 }
 
 //Método ajax para obtener los datos de los activos
-function obtenerActivos(url) {
-    url_metodo = url;
+function obtenerActivos() {
     $.ajax({
         dataType: 'json',
-        url: url,
+        url: '/Inventarios/Activos/ObtenerActivosComp',
         type: 'post',
         success: function (data) {
             if (data.OperacionExitosa) {
+                var datosActivos = [];
                 var aux = data.ListaObjetoInventarios;
                 //var datosActivos = [];
                 for (var i = 0; i < aux.length; i++) {
                     datosActivos.push(aux[i].NombreTipoActivo);
-                }              
+                } 
+                graficaActivos(datosActivos);
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
             }
@@ -103,7 +102,7 @@ function obtenerActivos(url) {
 }
 
 //funcion para graficar
-function graficaActivos() {
+function graficaActivos(datosActivos) {
     //console.log(datosActivos);
     for (var j = 0; j < nombresTipoActivo.length; j++) {
         var ocurrencia = $.grep(datosActivos, function (element) {
@@ -111,7 +110,7 @@ function graficaActivos() {
         }).length;
         valorNombresTipoActivo[j] = ocurrencia;
     }
-    console.log(nombresTipoActivo);
+    //console.log(nombresTipoActivo);
     $('#graficoActivos').highcharts({
             title: {
                 style: {

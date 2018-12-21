@@ -20,7 +20,7 @@ function obtenerVidaUtil(url) {
                     "language": {
                         "url": url_idioma
                     },
-                    "order": [[1, "asc"]]
+                    "order": [[2, "asc"]]
                 });
                 cargarEstadosModificarCmb();
             } else {
