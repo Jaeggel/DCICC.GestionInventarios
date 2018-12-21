@@ -62,7 +62,7 @@ function cargarUsuariosTabla() {
     var nick = document.getElementById("usuarioActual").innerHTML;
     console.log(nick);
     var str = '<table id="dataTableUsuarios" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Celular</th> <th>Dirección</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Usuario</th> <th>Nick</th> <th>Rol</th> <th>Correo</th> <th>Teléfono/Celular</th> <th>Dirección</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
 
     for (var i = 0; i < datosUsuarios.length; i++) {
@@ -72,7 +72,7 @@ function cargarUsuariosTabla() {
                 '</td><td>' + datosUsuarios[i].NickUsuario +
                 '</td><td>' + datosUsuarios[i].NombreRol +
                 '</td><td>' + datosUsuarios[i].CorreoUsuario +
-                '</td><td>' + datosUsuarios[i].TelefonoCelUsuario +
+                '</td><td>' + datosUsuarios[i].TelefonoUsuario + '<br/>' + datosUsuarios[i].TelefonoCelUsuario+
                 '</td><td class="text-justify">' + datosUsuarios[i].DireccionUsuario;
 
         if (datosUsuarios[i].HabilitadoUsuario) {

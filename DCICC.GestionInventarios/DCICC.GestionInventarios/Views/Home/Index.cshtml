@@ -106,16 +106,13 @@
 
 <script>
     $(document).ready(function () {
-		setTimeout("$('#vista_principal').fadeIn('fast');", 5000);
-		//setTimeout($('#vista_principal'), 5000);
-		//$('#vista_principal').delay(4000).slideDown(4000).animate(4000);
         //Método para obtener datos de Activos
 		obtenerVidaUtil('@Url.Action("ObtenerActivosVidaUtil", "Activos")');
 		obtenerValores('@Url.Action("ObtenerDashboard", "Home")');
 
 		//Métodos para Gráfica Medio
 		obtenerTipoActivo('@Url.Action("ObtenerTipoActivo", "TipoActivo")');
-		obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
+		//obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
 		
     });
 
