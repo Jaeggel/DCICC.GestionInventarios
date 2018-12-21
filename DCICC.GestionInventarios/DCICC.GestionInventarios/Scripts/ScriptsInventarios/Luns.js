@@ -100,7 +100,7 @@ function urlEstadosLun(url) {
 //Función para cargar la tabla de Luns
 function cargarLunTabla() {
     var str = '<table id="dataTableLun" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Nombre LUN</th> <th>Nombre de Storage</th> <th>Capacidad (GB/TB)</th> <th>RAID/Tipo Conexión</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre LUN</th> <th>Storage</th> <th>Capacidad (GB/TB)</th> <th>RAID/Tipo Conexión</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLuns.length; i++) {
         str += '<tr><td>' + datosLuns[i].NombreLUN +
