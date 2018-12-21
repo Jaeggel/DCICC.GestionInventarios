@@ -549,7 +549,7 @@ function validarCmbRol() {
 function mensajesTooltips() {
     document.getElementById("NombresUsuario").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CorreoUsuario").title = "Máximo 50 caracteres.\n Caracteres especiales permitidos _ - @ .";
-    document.getElementById("NickUsuario").title = "Máximo 15 caracteres, sin espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NickUsuario").title = "Máximo 15 caracteres, sin espacios.\n Caracteres especiales permitidos _";
     document.getElementById("PasswordUsuario").title = "Máximo 20 caracteres.\n Caracteres especiales permitidos ! @ # $ % ^ & * ? _ -";
     document.getElementById("TelefonoUsuario").title = "10 números, incluyendo el código de la provincia (02).";
     document.getElementById("TelefonoCelUsuario").title = "10 números, empezando con el código (09)";

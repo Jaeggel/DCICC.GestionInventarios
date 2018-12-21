@@ -95,7 +95,7 @@ function datosResponsables(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            responsables = data;
+            responsables = data.ListaObjetoInventarios;
             cargarResponsablesCmb();
         }
     });
