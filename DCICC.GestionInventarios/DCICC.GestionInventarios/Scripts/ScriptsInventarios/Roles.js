@@ -204,7 +204,7 @@ function modificarRol(url_modificar) {
                         success: function (data) {
                             if (data.OperacionExitosa) {
                                 $('#ModificarRoles').modal('hide');
-                                showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                showNotify("Actualización exitosa", 'El Rol "' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
                                 obtenerRoles(url_metodo);
                             } else {
                                 $('#ModificarRoles').modal('hide');
@@ -239,7 +239,7 @@ function modificarRol(url_modificar) {
                         success: function (data) {
                             if (data.OperacionExitosa) {
                                 $('#ModificarRoles').modal('hide');
-                                showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                showNotify("Actualización exitosa", 'El Rol "' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
                                 obtenerRoles(url_metodo);
                             } else {
                                 $('#ModificarRoles').modal('hide');

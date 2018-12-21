@@ -269,7 +269,7 @@ function actualizarAccesorio(url) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarAccesorio').modal('hide');
-                            showNotify("Actualización exitosa", 'El Accesorio " ' + nombreAccesorio.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Accesorio "' + nombreAccesorio.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerAccesorios(url_metodo_accesorio);
                         } else {
                             $('#ModificarAccesorio').modal('hide');

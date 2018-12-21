@@ -194,7 +194,7 @@ function modificarUsuario(url_modificar) {
                             console.log(data.OperacionExitosa);
                             if (data.OperacionExitosa) {
                                 $('#ModificarUsuario').modal('hide');
-                                showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
+                                showNotify("Actualización exitosa", 'El Usuario "' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
                                 obtenerUsuarios(url_metodo);
                             } else {
                                 $('#ModificarUsuario').modal('hide');
@@ -231,7 +231,7 @@ function modificarUsuario(url_modificar) {
                             console.log(data.OperacionExitosa);
                             if (data.OperacionExitosa) {
                                 $('#ModificarUsuario').modal('hide');
-                                showNotify("Actualización exitosa", 'El Usuario " ' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
+                                showNotify("Actualización exitosa", 'El Usuario "' + nickUsuario.toLowerCase() + '" se ha modificado exitosamente', "success");
                                 obtenerUsuarios(url_metodo);
                             } else {
                                 $('#ModificarUsuario').modal('hide');

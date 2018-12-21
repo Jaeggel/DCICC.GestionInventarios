@@ -193,7 +193,7 @@ function modificarTipoActivo(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarTipoActivo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Tipo " ' + nombreTipo.toUpperCase() + '" se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Tipo "' + nombreTipo.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerTipoActivo(url_metodo);
                         } else {
                             $('#ModificarTipoActivo').modal('hide');

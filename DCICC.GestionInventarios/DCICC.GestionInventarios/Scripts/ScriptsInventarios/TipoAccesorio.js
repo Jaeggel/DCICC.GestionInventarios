@@ -124,7 +124,7 @@ function modificarTipoAcc(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarTipoAcc').modal('hide');
-                            showNotify("Actualización exitosa", 'El Tipo " ' + nombreTipo.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Tipo "' + nombreTipo.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerTipoAccesorio(url_metodo);
                         } else {
                             $('#ModificarTipoAcc').modal('hide');

@@ -454,7 +454,7 @@ function actualizarActivo(url) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarActivo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Activo " ' + nombreActivo.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Activo "' + nombreActivo.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerActivos(url_metodo);
                         } else {
                             $('#ModificarActivo').modal('hide');

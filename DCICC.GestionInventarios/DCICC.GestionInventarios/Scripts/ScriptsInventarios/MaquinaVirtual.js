@@ -281,7 +281,7 @@ function modificarMaquinaV(url_modificar) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarMaquinaV').modal('hide');
-                            showNotify("Actualización exitosa", 'La Máquina Virtual " ' + nombreMV.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'La Máquina Virtual "' + nombreMV.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerMaquinaV(url_metodo);
                         } else {
                             $('#ModificarMaquinaV').modal('hide');

@@ -140,7 +140,7 @@ function modificarStorage(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarStorage').modal('hide');
-                            showNotify("Actualización exitosa", 'El Storage " ' + nick.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Storage "' + nick.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerStorage(url_metodo_storage);
                         } else {
                             $('#ModificarStorage').modal('hide');

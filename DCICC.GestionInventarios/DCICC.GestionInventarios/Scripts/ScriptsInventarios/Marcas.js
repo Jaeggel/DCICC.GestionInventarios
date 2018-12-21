@@ -123,7 +123,7 @@ function modificarMarca(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarMarca').modal('hide');
-                            showNotify("Actualización exitosa", 'La Marca " ' + nombreMarca.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'La Marca "' + nombreMarca.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerMarcas(url_metodo);
                         } else {
                             $('#ModificarMarca').modal('hide');

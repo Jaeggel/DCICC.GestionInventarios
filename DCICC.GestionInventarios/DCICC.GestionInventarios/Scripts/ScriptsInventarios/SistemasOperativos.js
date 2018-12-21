@@ -116,7 +116,7 @@ function modificarSO(url_modificar) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarSo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Sistema Operativo " ' + nombreSO.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Sistema Operativo "' + nombreSO.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerSO(url_metodo);
                         } else {
                             $('#ModificarSo').modal('hide');

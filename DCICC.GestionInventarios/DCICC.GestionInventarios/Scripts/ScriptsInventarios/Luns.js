@@ -211,7 +211,7 @@ function modificarLun(url_modificar) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarLuns').modal('hide');
-                            showNotify("Actualización exitosa", 'La LUN " ' + nombre.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'La LUN "' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerLuns(url_metodo);
                         } else {
                             $('#ModificarLuns').modal('hide');
