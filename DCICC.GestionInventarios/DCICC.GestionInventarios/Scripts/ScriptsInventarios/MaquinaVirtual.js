@@ -224,6 +224,7 @@ function formUpdateMaquinaV(idMV) {
 
             //Método para el check del update de Máquinas Virtuales
             var valor = datosMaquinasV[i].HabilitadoMaqVirtuales;
+            console.log(valor);
             var estado = $('#HabilitadoMaqVirtuales').prop('checked');
             if (estado && valor == false) {
                 document.getElementById("HabilitadoMaqVirtuales").click();

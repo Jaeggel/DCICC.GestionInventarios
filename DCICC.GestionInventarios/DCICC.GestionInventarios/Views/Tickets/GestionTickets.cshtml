@@ -366,7 +366,7 @@
     $(document).ready(function () {
         //Método para obtener las tablas de tickets
         obtenerTickets('@Url.Action("ObtenerTicketsComp", "Tickets")');
-        datosResponsables('@Url.Action("ObtenerUsuarios", "Usuarios")');
+        datosResponsables('@Url.Action("ObtenerUsuariosRespTickets", "Usuarios")');
 		mensajesTooltipsAbiertos();
 		mensajesTooltipsEnCurso();
 		mensajesTooltipsEnEspera();

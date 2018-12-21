@@ -127,8 +127,8 @@ function cargarEstadosCmb() {
                 ""
             ).draw();
         } else {
-            $('#dataTableMaquinaV').DataTable().column(8).search(
-                tipoPro.text
+            $('#dataTableMaquinaV').DataTable().column(8).search('^' + tipoPro.text + '$', true, false
+                
             ).draw();
         }
     });

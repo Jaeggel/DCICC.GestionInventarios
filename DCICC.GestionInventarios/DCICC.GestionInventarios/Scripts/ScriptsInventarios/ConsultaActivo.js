@@ -827,7 +827,7 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                                 $('#GenPDFForm').attr('target', "_blank");
                                 $('#GenPDFForm').attr('action', urlPdf).submit();
                             });
-                            obtenerActivos(url_metodo);
+                            //obtenerActivos(url_metodo);
                             obtenerAccesorios(url_metodo_accesorio);
                             showNotify("Registro exitoso", 'El Accesorio "' + nombreAccesorio.toUpperCase() + '" se ha ingresado exitosamente', "success");
                         } else {
