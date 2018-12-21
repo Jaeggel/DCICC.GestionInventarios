@@ -52,7 +52,7 @@ namespace DCICC.GestionInventarios.Controllers
                         if (datosUsuario.NombreRol.ToLower() == "docente")
                         {
                             TempData["MensajeError"] = "No cuenta con los permisos necesarios para ingresar al sistema.";
-                            return View();
+                            return View("Login");
                         }
                         //Construcción de sesion de usuario.
                         Session["NickUsuario"] = datosUsuario.NickUsuario;
@@ -91,14 +91,14 @@ namespace DCICC.GestionInventarios.Controllers
                     else
                     {
                         TempData["MensajeError"] = "Credenciales Incorrectas";
-                        return View();
+                        return View("Login");
                     }
                 }
             }
             catch(Exception e)
             {
                 Logs.Error(string.Format("Error en la autenticación con el sistema de usuario: {0}: {1}.",infoLogin.NickUsuario,e.Message));
-                return View();
+                return View("Login");
             }
             return RedirectToAction("Index", "Home");
         }

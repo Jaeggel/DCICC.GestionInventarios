@@ -39,13 +39,22 @@ namespace DCICC.GestionInventarios.Controllers
         #endregion
         #region Consultas (JSON)
         /// <summary>
-        /// Método para obtener todos los Laboratorios de la base de datos
+        /// Método para obtener los datos del dashboard.
         /// </summary>
         /// <returns></returns>
         public JsonResult ObtenerDashboard()
         {
             DashboardAccDatos objDashboardActAccDatos = new DashboardAccDatos((string)Session["NickUsuario"]);
             return Json(objDashboardActAccDatos.ObtenerDashboard((string)Session["NickUsuario"]), JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método para obtener los datos del dashboard de activos por tipo.
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerDashboardActivos()
+        {
+            DashboardAccDatos objDashboardActAccDatos = new DashboardAccDatos((string)Session["NickUsuario"]);
+            return Json(objDashboardActAccDatos.ObtenerDashboardActivos(), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
