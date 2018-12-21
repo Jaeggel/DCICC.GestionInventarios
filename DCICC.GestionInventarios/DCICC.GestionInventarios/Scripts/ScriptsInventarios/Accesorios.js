@@ -91,6 +91,7 @@ function cargarEstadosAccesoriosIng() {
     var str = '<select id="EstadoAccesorioIng" class="form-control" name="EstadoAccesorioIng" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
+        if (cmbEstados[i] != "DE BAJA")
         str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
     }
     str += '</select>';
@@ -114,6 +115,7 @@ function cargarAccesoriosIngresoCmb() {
 //Función para cargar el combobox de tipos de accesorios
 function TipoAccesoriosFiltro() {
     var str = '<select id="TipoAccesoriosFiltro" class="form-control" name="TipoAccesoriosFiltro" required>';
+    str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbTipoAccesorio.length; i++) {
         str += '<option value="' + cmbTipoAccesorio[i].IdTipoAccesorio + '">' + cmbTipoAccesorio[i].NombreTipoAccesorio + '</option>';
     }
@@ -137,7 +139,7 @@ function TipoAccesoriosFiltro() {
 //Función para cargar el combobox de estados para ingreso de accesorios
 function EstadosAccesoriosFiltro() {
     var str = '<select id="EstadosAccesoriosFiltro" class="form-control" name="EstadosAccesoriosFiltro" required>';
-    str += '<option value="">Escoga una opción...</option>';
+    str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
         if (cmbEstados[i] !="DE BAJA") {
             str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';

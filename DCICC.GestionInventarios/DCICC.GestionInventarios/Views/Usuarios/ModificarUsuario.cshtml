@@ -196,9 +196,14 @@
             $("#DireccionUsuario").tooltip('hide');
             document.getElementById("confirmarUsuario").disabled = false;
 		});
-
+		//Máscaras
 		$('#TelefonoUsuario').mask('(00) 0000000');
 		$('#TelefonoCelUsuario').mask('00-00000000');
+		$('#CorreoUsuario').mask("A", {
+			translation: {
+				"A": { pattern: /[\w@@\-.+]/, recursive: true }
+			}
+		});
 
     });
 

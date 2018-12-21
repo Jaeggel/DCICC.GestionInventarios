@@ -987,6 +987,70 @@ function mensajesTooltipsAccesoriosMod() {
     document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }
 
+/**
+ * *********************************************************************************
+ *                SECCIÓN PARA OPERACIONES CON HISTORICOS
+ * *********************************************************************************
+ */
+
+/* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
+//Método ajax para obtener accesorios
+function obtenerHistoricos(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            if (data.OperacionExitosa) {
+                datosHistoricos = data.ListaObjetoInventarios;
+                cargarHistoricosTabla();
+                $('#dataTableHistoricos').DataTable({
+                    "language": {
+                        "url": url_idioma
+                    },
+                    "order": [[1, "asc"]]
+                });
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+        }
+    });
+}
+
+
+/* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+
+//Función para cargar la tabla de Activos
+function cargarHistoricosTabla() {
+    var str = '<table id="dataTableHistoricos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
+    str += '<thead> <tr> <th>Nombre del Activo o Accesorio</th> <th>Modelo del Activo o Accesorio</th> <th>Serial del Activo o Accesorio</th> <th>Fecha de Baja</th></tr> </thead>';
+    str += '<tbody>';
+    for (var i = 0; i < datosHistoricos.length; i++) {
+        //Método para dar formato a la fecha y hora
+        var fechaIng = new Date(parseInt((datosHistoricos[i].FechaModifHistActivos).substr(6)));
+        //Fecha para ordenar el string mm/dd/yyyy
+        var fechaordenar = (fechaIng.toLocaleDateString("en-US"));
+        //fecha para la tabla y busquedas
+        function pad(n) { return n < 10 ? "0" + n : n; }
+        var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
+
+        if (datosHistoricos[i].IdActivo != 0) {
+            str += '</td><td>' + datosHistoricos[i].NombreActivo +
+                '</td><td>' + datosHistoricos[i].ModeloHistActivo +
+                '</td><td>' + datosHistoricos[i].SerialHistActivo;
+        } else {
+            str += '</td><td>' + datosHistoricos[i].NombreAccesorio +
+                '</td><td>' + datosHistoricos[i].ModeloHistAccesorio +
+                '</td><td>' + datosHistoricos[i].SerialHistAccesorio;
+        }
+        str += '</td><td>' + fechaIngreso +
+            '</td ></tr> ';
+    }
+    str += '</tbody>' +
+        '</table > ';
+    $("#tablaHistoricos").html(str);
+}
+
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
 //Función para bloquear botones cuando el usuario es invitado
 function botonesActivos(url) {

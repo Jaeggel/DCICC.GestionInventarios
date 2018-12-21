@@ -168,7 +168,7 @@ function modificarUsuario(url_modificar) {
     var direccionUsuario = document.getElementById("DireccionUsuario").value;
     var habilitadoUsuario = $('#HabilitadoUsuario').prop('checked');
 
-    if (validarInputNombre() && validarInputCorreo() && validarInputNick() && validarInputPass() && validarCmbRol()) {
+    if (validarInputNombre() && validarInputCorreo() && validarInputNick() && validarInputPass() && validarCmbRol() && validarCorreoCorrecto()) {
         if (nomRol != rolActual) {
             swal({
                 title: 'Confirmación de Actualización',
@@ -398,6 +398,26 @@ function comprobarRol_Nick() {
     }
     ///.log(comprobar);
     return comprobar;
+}
+
+function validarCorreoCorrecto() { 
+    var esValido = true;
+    var correo = document.getElementById("CorreoUsuario");
+    correo.value = correo.value.toLowerCase();
+    var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    var aux = pattern.test(correo.value);
+    if (!aux) {
+        esValido = false;
+        correo.value = "";
+        correo.style.borderColor = "#900C3F";
+        $('#errorCorreo').html('El correo ingresado no es válido.').show();
+        setTimeout("$('#errorCorreo').html('').hide('slow')", 6000);
+    } else {
+        correo.style.borderColor = "#ccc";
+        $('#errorCorreo').html('').hide();
+    }
+    return esValido;
+    
 }
 
 //función para comprobar el nick en modificación

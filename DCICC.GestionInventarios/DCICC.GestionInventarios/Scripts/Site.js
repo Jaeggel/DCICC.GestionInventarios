@@ -110,7 +110,7 @@ function listaEstadosActivos() {
 }
 
 function validarNombres() {
-    return /[^A-Z0-9_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+    return /[^A-Z0-9_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
 
 function validarNombresMayusMinus() {
@@ -122,7 +122,7 @@ function validarNombresRoles() {
 }
 
 function validarNombreSinNumeros() {
-    return /[^A-Z_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+    return /[^A-Z_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
 
 function validarTextos() {
