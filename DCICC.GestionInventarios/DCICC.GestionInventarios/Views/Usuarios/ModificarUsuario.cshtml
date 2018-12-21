@@ -91,7 +91,7 @@
 									@* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
 									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 										<label>Nick de Usuario</label>
-										<input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="jPerez" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onblur="comprobarNickModificacion();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="jPerez" onkeyup="this.value=this.value.replace(validarNicksBase(),'');" onblur="comprobarNickModificacion();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
 										<span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
 										<span id="errorNick" style="color:brown;"></span>
 									</div>

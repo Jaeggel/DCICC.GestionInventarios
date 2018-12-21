@@ -48,7 +48,7 @@
 						</div>
                         @* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
 						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-							<input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="comprobarNickModificacion();"  maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
+							<input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="Nick de Usuario" onkeyup="this.value=this.value.replace(validarNicksBase(),'');" onBlur="comprobarNickModificacion();"  maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
 							<span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
 							<span id="errorNick" style="color:brown;"></span>
 						</div>
