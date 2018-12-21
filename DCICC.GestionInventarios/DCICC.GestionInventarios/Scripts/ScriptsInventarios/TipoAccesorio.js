@@ -47,7 +47,7 @@ function botones(url) {
 //Función para cargar la tabla de Tipos de Accesorio
 function cargarTipoAccTabla() {
     var str = '<table id="dataTableTipoAcc" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre del Tipo de Accesorio</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Tipo de Accesorio</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosTipoAccesorio.length; i++) {
         str += '<tr><td>' + datosTipoAccesorio[i].NombreTipoAccesorio +
@@ -207,7 +207,7 @@ function comprobarNombre() {
         for (var i = 0; i < datosTipoAccesorio.length; i++) {
             if ((datosTipoAccesorio[i].NombreTipoAccesorio).toUpperCase() == nomTipo.value) {
                 nomTipo.style.borderColor = "#900C3F";
-                $('#errorNombreTipo').html("El nombre del tipo accesorio: " + nomTipo.value + " ya existe").show();
+                $('#errorNombreTipo').html("El nombre del Tipo Accesorio: " + nomTipo.value + " ya existe").show();
                 setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
                 nomTipo.value = "";
                 break;
@@ -228,7 +228,7 @@ function validarNombreModificacion() {
         for (var i = 0; i < datosTipoAccesorio.length; i++) {
             if ((datosTipoAccesorio[i].NombreTipoAccesorio).toUpperCase() == nomTipo.value) {
                 nomTipo.style.borderColor = "#900C3F";
-                $('#errorNombreTipo').html("El nombre del tipo accesorio: " + nomTipo.value + " ya existe").show();
+                $('#errorNombreTipo').html("El nombre del Tipo Accesorio: " + nomTipo.value + " ya existe").show();
                 setTimeout("$('#errorNombreTipo').html('').hide('slow')", 6000);
                 nomTipo.value = "";
                 break;
@@ -263,7 +263,7 @@ function validarInputNombre() {
 /* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreTipoAccesorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NombreTipoAccesorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DescripcionTipoAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }
 

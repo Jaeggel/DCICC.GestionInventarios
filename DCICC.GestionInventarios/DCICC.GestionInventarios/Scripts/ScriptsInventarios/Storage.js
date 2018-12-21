@@ -45,7 +45,7 @@ function urlEstadosStorage(url) {
 //Función para cargar la tabla de Storage
 function cargarStorageTabla() {
     var str = '<table id="dataTableStorage" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Storage</th> <th>Nick Storage</th> <th>Capacidad (GB/TB)</th> <th>Descripcion</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Storage</th> <th>Nick Storage</th> <th>Capacidad (GB/TB)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosStorage.length; i++) {
         str += '<tr><td>' + datosStorage[i].NombreStorage +
@@ -230,7 +230,7 @@ function comprobarNombre() {
         for (var i = 0; i < datosStorage.length; i++) {
             if ((datosStorage[i].NombreStorage).toUpperCase() == nomStr.value) {
                 nomStr.style.borderColor = "#900C3F";
-                $('#errorNombreStorage').html("El nombre: " + nomStr.value + " ya existe").show();
+                $('#errorNombreStorage').html("El nombre de Storage: " + nomStr.value + " ya existe").show();
                 setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
                 nomStr.value = "";
                 break;
@@ -250,7 +250,7 @@ function validarNombreModificar() {
         for (var i = 0; i < datosStorage.length; i++) {
             if ((datosStorage[i].NombreStorage).toUpperCase() == nomStr.value) {
                 nomStr.style.borderColor = "#900C3F";
-                $('#errorNombreStorage').html("El nombre: " + nomStr.value + " ya existe").show();
+                $('#errorNombreStorage').html("El nombre de Storage: " + nomStr.value + " ya existe").show();
                 setTimeout("$('#errorNombreStorage').html('').hide('slow')", 6000);
                 nomStr.value = "";
                 break;
@@ -277,7 +277,7 @@ function comprobarNick() {
         for (var i = 0; i < datosStorage.length; i++) {
             if ((datosStorage[i].NickStorage).toUpperCase() == nickStr.value) {
                 nickStr.style.borderColor = "#900C3F";
-                $('#errorNickStorage').html("El nick: " + nickStr.value + " ya existe").show();
+                $('#errorNickStorage').html("El nick de Storage: " + nickStr.value + " ya existe").show();
                 setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
                 nickStr.value = "";
                 break;
@@ -297,7 +297,7 @@ function validarNickModificar() {
         for (var i = 0; i < datosStorage.length; i++) {
             if ((datosStorage[i].NickStorage).toUpperCase() == nickStr.value) {
                 nickStr.style.borderColor = "#900C3F";
-                $('#errorNickStorage').html("El nick : " + nickStr.value + " ya existe").show();
+                $('#errorNickStorage').html("El nick de Storage: " + nickStr.value + " ya existe").show();
                 setTimeout("$('#errorNickStorage').html('').hide('slow')", 6000);
                 nickStr.value = "";
                 break;
@@ -383,7 +383,7 @@ function validarNumero() {
 //Mensajes para los tooltips
 function mensajesTooltipStorage() {
     document.getElementById("NombreStorage").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula y sin Espacios.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CapacidadStorage").title = "Solo Números. De 1 a 999 GB o TB";
     document.getElementById("DescripcionStorage").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

@@ -258,7 +258,7 @@ function EstadosFiltroAct() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Código QR</th> <th>Custodio</th> <th>Estado del Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre de Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Código QR</th> <th>Custodio</th> <th>Estado de Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         if (datosActivos[i].EstadoActivo != "DE BAJA") {
@@ -457,7 +457,7 @@ function actualizarActivo(url) {
                             obtenerActivos(url_metodo);
                         } else {
                             $('#ModificarActivo').modal('hide');
-                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Activo' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Activo: ' + data.MensajeError, "error");
                         }
 
                     }
@@ -507,7 +507,7 @@ function actualizarEstadoActivo(url) {
                             obtenerActivos(url_metodo);
                         } else {
                             $('#ModificarEstadoActivo').modal('hide');
-                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Activo' + data.MensajeError, "error");
+                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado del Activo: ' + data.MensajeError, "error");
                         }
 
                     }, error: function () {
@@ -560,7 +560,7 @@ function validacionesCamposModificar() {
     if (document.getElementById("TipoActivo").value == "") {
         isValid = false;
         document.getElementById("TipoActivo").style.borderColor = "#900C3F";
-        $('#errorTipo').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        $('#errorTipo').html('Debe seleccionar una Opción de Tipo de Activo').show();
         setTimeout("$('#errorTipo').html('').hide('slow')", 6000);
         boton.disabled = true;
     } else {
@@ -609,7 +609,7 @@ function validacionesCamposModificar() {
         isValid = false;
         $("#NombreActivo").focus();
         document.getElementById("NombreActivo").style.borderColor = "#900C3F";
-        $('#errorNombre').html('El campo Nombre del Activo es obligatorio').show();
+        $('#errorNombre').html('El campo Nombre de Activo es obligatorio').show();
         setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
         boton.disabled = true;
     } else {
@@ -658,7 +658,7 @@ function validacionesCamposModificar() {
     return isValid;
 }
 
-//Función para evitar nombres de laboratorios repetidos
+//Función para evitar nombres de activos repetidos
 function validarNombreActModificar() {
     var nombreActivo = document.getElementById("NombreActivo");
     nombreActivo.value = nombreActivo.value.toUpperCase();
@@ -667,7 +667,7 @@ function validarNombreActModificar() {
         for (var i = 0; i < nombresActivo.length; i++) {
             if ((nombresActivo[i]).toUpperCase() == nombreActivo.value) {
                 nombreActivo.style.borderColor = "#900C3F";
-                $('#errorNombre').html('El Nombre: ' + nombreActivo.value + ' ya existe').show();
+                $('#errorNombre').html('El nombre de Activo: ' + nombreActivo.value + ' ya existe').show();
                 setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
                 nombreActivo.value = "";
                 break;
@@ -712,7 +712,7 @@ function validacionesEstadoActivo() {
     if (document.getElementById("EstadoActivoModificar").value == "") {
         isValid = false;
         document.getElementById("EstadoActivoModificar").style.borderColor = "#900C3F";
-        $('#errorEstadoActivo').html('Debe seleccionar una Opción del Estado de Activo').show();
+        $('#errorEstadoActivo').html('Debe seleccionar una Opción de Estado de Activo').show();
         setTimeout("$('#errorEstadoActivo').html('').hide('slow')", 6000);
     } else {
         document.getElementById("EstadoActivoModificar").style.borderColor = "#ccc";
@@ -741,11 +741,11 @@ function setearSerialAct() {
 /* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacioss.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("SerialActivo").title = "Máximo 80 caracteres, sin Espacios.\n  Caracteres especiales permitidos - / _ .";
     document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
-    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
+    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirío o se recibío el Activo de TI.";
     document.getElementById("ResponsableActivo").title = "Responsable Actual del Data Center";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
 
@@ -829,7 +829,7 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
                             });
                             obtenerActivos(url_metodo);
                             obtenerAccesorios(url_metodo_accesorio);
-                            showNotify("Registro exitoso", 'El accesorio "' + nombreAccesorio.toUpperCase() + '" se ha ingresado exitosamente', "success");
+                            showNotify("Registro exitoso", 'El Accesorio "' + nombreAccesorio.toUpperCase() + '" se ha ingresado exitosamente', "success");
                         } else {
                             showNotify("Error de registro", "Ocurrió un error al ingresar el Accesorio: " + data.MensajeError, "error");
                         }
@@ -879,7 +879,7 @@ function validacionesCamposAccesorio() {
     if (document.getElementById("AccesorioIngreso").value == "") {
         isValid = false;
         document.getElementById("AccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorTipoAccesorioIng').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        $('#errorTipoAccesorioIng').html('Debe seleccionar una Opción de Tipo de Activo').show();
         setTimeout("$('#errorTipoAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("AccesorioIngreso").style.borderColor = "#ccc";
@@ -901,7 +901,7 @@ function validacionesCamposAccesorio() {
     if (!nombreActivo && nombreActivo.length <= 0) {
         isValid = false;
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorNombreAccesorioIng').html('El campo Nombre del Activo es obligatorio').show();
+        $('#errorNombreAccesorioIng').html('El campo Nombre de Accesorio es obligatorio').show();
         setTimeout("$('#errorNombreAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
@@ -911,7 +911,7 @@ function validacionesCamposAccesorio() {
     if (!modeloActivo && modeloActivo.length <= 0) {
         isValid = false;
         document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorModeloAccesorioIng').html('El campo Modelo de Activo es obligatorio').show();
+        $('#errorModeloAccesorioIng').html('El campo Modelo de Accesorio es obligatorio').show();
         setTimeout("$('#errorModeloAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("ModeloAccesorioIngreso").style.borderColor = "#ccc";
@@ -921,7 +921,7 @@ function validacionesCamposAccesorio() {
     if (!serialActivo && serialActivo.length <= 0) {
         isValid = false;
         document.getElementById("SerialAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorSerialAccesorioIng').html('El campo Serial de Activo es obligatorio').show();
+        $('#errorSerialAccesorioIng').html('El campo Serial de Accesorio es obligatorio').show();
         setTimeout("$('#errorSerialAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("SerialAccesorioIngreso").style.borderColor = "#ccc";
@@ -1023,7 +1023,7 @@ function obtenerHistoricos(url) {
 //Función para cargar la tabla de Activos
 function cargarHistoricosTabla() {
     var str = '<table id="dataTableHistoricos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Nombre del Activo o Accesorio</th> <th>Modelo del Activo o Accesorio</th> <th>Serial del Activo o Accesorio</th> <th>Fecha de Baja</th></tr> </thead>';
+    str += '<thead> <tr> <th>Nombre de Activo o Accesorio</th> <th>Modelo de Activo o Accesorio</th> <th>Serial de Activo o Accesorio</th> <th>Fecha de Baja</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosHistoricos.length; i++) {
         //Método para dar formato a la fecha y hora
