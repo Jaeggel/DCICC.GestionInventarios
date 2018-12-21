@@ -552,7 +552,7 @@ function mensajesTooltips() {
     document.getElementById("SerialActivo").title = "Máximo 80 caracteres, sin Espacios.\n  Caracteres especiales permitidos - / _ .";
     document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
-    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirío o se recibío el Activo de TI.";
+    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirió o se recibió el Activo de TI.";
     document.getElementById("btnResponsable").title = "Modificar Responsable Actual del Data Center";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
 
