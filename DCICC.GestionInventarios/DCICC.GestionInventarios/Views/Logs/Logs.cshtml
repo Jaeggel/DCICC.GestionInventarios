@@ -15,30 +15,51 @@
     <li><a class="active">@ViewBag.Title</a></li>
 </ul>
 <div class="row">
-    @* Panel para mostrar la tabla de logs*@
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <div class="x-content">
-                    <div class="col-md-6 col-sm-12 col-xs-12 ">
-                        <h3>Logs del Sistema</h3>
-                    </div>
-                </div>
-                <ul class="nav navbar-right panel_toolbox"></ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <br>
-                @* Sección para la tabla de logs mediante js *@
-                <div class="col-md-12 col-sm-12 col-xs-12 ">
-                    <div id="tablaLogs">
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
+	@* Panel para mostrar la tabla de logs*@
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="x-content">
+					<div class="col-md-6 col-sm-12 col-xs-12 ">
+						<h3>Logs del Sistema</h3>
+					</div>
+				</div>
+				<ul class="nav navbar-right panel_toolbox"></ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br>
+				<div class="form-horizontal form-label-left input_mask">
+					@*Sección de filtros de búsqueda para realizar la consulta*@
+					<div class="form-group">
+						@*Combobox para seleccionar ...*@
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<label>Filtro por Usuario:</label>
+							<div id="cargarNicks"></div>
+						</div>
+						@*Combobox para seleccionar ...*@
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<label>Filtro por Operación:</label>
+							<select class="form-control" id="cmbOperacion">
+								<option value="">Mostrar Todos</option>
+								<option value="Actualización">Actualización</option>
+								<option value="Eliminación">Eliminación</option>
+								<option value="Inserción">Inserción</option>
+								<option value="Login">Login</option>
+								<option value="Logout">Logout</option>
+							</select>
+						</div>
+					</div>
+					<br />
+					@* Sección para la tabla de logs mediante js *@
+					<div class="col-md-12 col-sm-12 col-xs-12 ">
+						<div id="tablaLogs">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @* Sección para la llamar al js de Logs *@
@@ -47,7 +68,14 @@
 
      $(document).ready(function () {
         //Método para obtener la tabla de Logs
-        obtenerLogs('@Url.Action("ObtenerLogsComp", "Logs")');
+		 obtenerLogs('@Url.Action("ObtenerLogsComp", "Logs")');
+		 obtenerNicksUsuarios('@Url.Action("ObtenerNicksUsuarios", "Usuarios")');
+
+         $('#cmbOperacion').change(function () {
+             var opcion = document.getElementById("cmbOperacion");
+             var tipoOpe = opcion.options[opcion.selectedIndex];
+             consultaOperacion(tipoOpe);
+         });
 
     });
 
