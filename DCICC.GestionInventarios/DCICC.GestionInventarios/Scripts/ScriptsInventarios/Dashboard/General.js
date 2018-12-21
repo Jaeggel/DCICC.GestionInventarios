@@ -1,5 +1,4 @@
-﻿
-var datosVidaUtil;
+﻿var datosVidaUtil;
 /*Variables para Activos por estado*/
 var nombresTipoActivo = [];
 var valorNombresTipoActivo = [];
@@ -66,10 +65,7 @@ function obtenerTipoActivo(url) {
         success: function (data) {
             if (data.OperacionExitosa) {
                 var aux = data.ListaObjetoInventarios;
-                for (var i = 0; i < aux.length; i++) {
-                    nombresTipoActivo.push(aux[i].NombreTipoActivo);
-                }
-                obtenerActivos();
+                graficaActivos(aux);
                 //console.log(nombresTipoActivo);
             } else {
                 showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
@@ -79,36 +75,13 @@ function obtenerTipoActivo(url) {
     });
 }
 
-//Método ajax para obtener los datos de los activos
-function obtenerActivos() {
-    $.ajax({
-        dataType: 'json',
-        url: '/Inventarios/Activos/ObtenerActivosComp',
-        type: 'post',
-        success: function (data) {
-            if (data.OperacionExitosa) {
-                var datosActivos = [];
-                var aux = data.ListaObjetoInventarios;
-                //var datosActivos = [];
-                for (var i = 0; i < aux.length; i++) {
-                    datosActivos.push(aux[i].NombreTipoActivo);
-                } 
-                graficaActivos(datosActivos);
-            } else {
-                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
-            }
-        }
-    });
-}
-
 //funcion para graficar
 function graficaActivos(datosActivos) {
+    var nombre = [], valores[];
     //console.log(datosActivos);
-    for (var j = 0; j < nombresTipoActivo.length; j++) {
-        var ocurrencia = $.grep(datosActivos, function (element) {
-            return element === nombresTipoActivo[j];
-        }).length;
-        valorNombresTipoActivo[j] = ocurrencia;
+    for (var i = 0; i < datosActivos.length; i++) {
+        nombre.push();
+        valores.pus();
     }
     //console.log(nombresTipoActivo);
     $('#graficoActivos').highcharts({
@@ -136,13 +109,13 @@ function graficaActivos(datosActivos) {
                 title: {
                     text: 'Tipos de Activos'
                 },
-                categories: nombresTipoActivo
+                categories: nombre
             },
 
             series: [{
                 type: 'column',
                 colorByPoint: true,
-                data: valorNombresTipoActivo,
+                data: valores,
                 showInLegend: false
             }],
             credits: false
