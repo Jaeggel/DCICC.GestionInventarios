@@ -32,7 +32,7 @@ namespace DCICC.GestionInventarios.Reportes
             using (MemoryStream msReporte = new MemoryStream())
             {
                 Rectangle reporteAlign;
-                Document documentoReporte = new Document(reporteAlign=tituloReporte=="Tickets" || tituloReporte == "Especificaciones Adicionales" ? PageSize.A4.Rotate(): PageSize.A4);
+                Document documentoReporte = new Document(reporteAlign=tituloReporte=="Tickets" || tituloReporte == "Especificaciones Adicionales" || tituloReporte== "Activos que han cumplido su vida útil" ? PageSize.A4.Rotate(): PageSize.A4);
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
