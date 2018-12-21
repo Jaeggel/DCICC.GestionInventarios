@@ -65,11 +65,12 @@ function GenerarReportePDF(urlDT, urlRPDF, titulo, info,lab) {
         showNotify("Error al generar el Reporte", "No se puede generar el reporte sin datos", "error");
     }
 }
-function GenerarReporteExcel(urlDT, urlExcel, titulo,info,lab) {
+function GenerarReporteExcel(urlDT, urlExcel, titulo, info, lab) {
     var dataInfo = BuildTableHTML(info);
     if (dataInfo !== null) {
         $.ajax({
             url: urlDT,
+            async: false,
             dataType: 'json',
             data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": lab },
             type: 'post'
