@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.Entidades.MensajesInventarios;
+using DCICC.WebServiceInventarios.Configuration;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,8 +27,11 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesDashboard ObtenerDashboardHab([FromBody]string nickUsuario)
         {
             MensajesDashboard msjDashboard = null;
+            List<string> sentenciasDashboard = new List<string>();
+            SentenciasRoles objSentencias = new SentenciasRoles();
+            sentenciasDashboard = objSentencias.ObtenerSentenciasDashboard();
             ConsultasDashboard objConsultasDashboardBD = new ConsultasDashboard();
-            msjDashboard = objConsultasDashboardBD.ObtenerDashboard(nickUsuario);
+            msjDashboard = objConsultasDashboardBD.ObtenerDashboard(nickUsuario,sentenciasDashboard);
             if (msjDashboard.OperacionExitosa)
             {
                 Logs.Info("Consulta de DashboardTop realizada exitosamente.");

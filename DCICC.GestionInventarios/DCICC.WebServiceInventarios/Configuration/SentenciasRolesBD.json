@@ -56,5 +56,15 @@
     "REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA public FROM {0};",
     "REVOKE USAGE ON ALL SEQUENCES IN SCHEMA public FROM {0};",
     "REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM {0};"
+  ],
+  "SentenciasDashboard": [
+    "select count(*) from dcicc_detalleactivo where estado_detalleact='OPERATIVO';",
+    "select count(*) from dcicc_detalleactivo where estado_detalleact='NO OPERATIVO';",
+    "select count(*) from dcicc_detalleactivo where estado_detalleact='DE BAJA';",
+    "select count(*) from dcicc_usuarios where habilitado_usuario = true;",
+    "select count(*) from dcicc_tickets where estado_ticket='ABIERTO'",
+    "select count(*) from dcicc_tickets where estado_ticket='EN PROCESO'",
+    "select count(*) from dcicc_tickets where estado_ticket='EN ESPERA'",
+    "select count(*) from dcicc_tickets where estado_ticket='RESUELTO'"
   ]
 }

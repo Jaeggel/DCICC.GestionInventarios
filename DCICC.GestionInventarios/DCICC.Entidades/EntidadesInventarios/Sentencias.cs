@@ -17,5 +17,7 @@ namespace DCICC.Entidades.EntidadesInventarios
         public string[] SentenciasTickets { get; set; }
 
         public string[] SentenciasRevocacion { get; set; }
+
+        public string[] SentenciasDashboard { get; set; }
     }
 }
