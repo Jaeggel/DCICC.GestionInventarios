@@ -100,7 +100,7 @@ function urlEstadosLun(url) {
 //Función para cargar la tabla de Luns
 function cargarLunTabla() {
     var str = '<table id="dataTableLun" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Nombre de LUN</th> <th>Nombre de Storage</th> <th>Capacidad (GB/TB)</th> <th>RAID/Tipo Conexión</th> <th>Descripcion</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre LUN</th> <th>Nombre de Storage</th> <th>Capacidad (GB/TB)</th> <th>RAID/Tipo Conexión</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLuns.length; i++) {
         str += '<tr><td>' + datosLuns[i].NombreLUN +
@@ -294,7 +294,7 @@ function comprobarNombreLun() {
         for (var i = 0; i < datosLuns.length; i++) {
             if ((datosLuns[i].NombreLUN).toUpperCase() == nomLun.value) {
                 nomLun.style.borderColor = "#900C3F";
-                $('#errorNombreLUN').html("El nombre del Storage: " + nomLun.value + " ya existe").show();
+                $('#errorNombreLUN').html("El nombre de LUN: " + nomLun.value + " ya existe").show();
                 setTimeout("$('#errorNombreLUN').html('').hide('slow')", 6000);
                 nomLun.value = "";
                 break;
@@ -314,7 +314,7 @@ function validarNombreModificar() {
         for (var i = 0; i < datosLuns.length; i++) {
             if ((datosLuns[i].NombreLUN).toUpperCase() == nomLun.value) {
                 nomLun.style.borderColor = "#900C3F";
-                $('#errorNombreLUN').html("El nombre del Storage: " + nomLun.value + " ya existe").show();
+                $('#errorNombreLUN').html("El nombre de LUN: " + nomLun.value + " ya existe").show();
                 setTimeout("$('#errorNombreLUN').html('').hide('slow')", 6000);
                 nomLun.value = "";
                 break;
@@ -381,7 +381,7 @@ function validarNumeroLun() {
 /* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltipLun() {
-    document.getElementById("NombreLUN").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NombreLUN").title = "Máximo 80 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CapacidadLUN").title = "Solo Números. De 1 a 999 GB o TB";
     document.getElementById("DescripcionLUN").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

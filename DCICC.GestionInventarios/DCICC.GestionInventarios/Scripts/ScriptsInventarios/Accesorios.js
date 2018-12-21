@@ -166,7 +166,7 @@ function EstadosAccesoriosFiltro() {
 //Función para cargar la tabla de Activos
 function cargarAccesoriosTabla() {
     var str = '<table id="dataTableAccesorios" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece:</th> <th>Serial de Accesorio</th> <th>Modelo de Accesorio</th> <th>Estado de Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece</th> <th>Serial</th> <th>Modelo</th> <th>Estado de Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosAccesorios.length; i++) {
         if (datosAccesorios[i].EstadoAccesorio != "DE BAJA") {
@@ -368,7 +368,7 @@ function validacionesModificacionAccesorio() {
     if (document.getElementById("AccesorioActivo").value == "") {
         isValid = false;
         document.getElementById("AccesorioActivo").style.borderColor = "#900C3F";
-        $('#errorTipoAccesorio').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        $('#errorTipoAccesorio').html('Debe seleccionar una Opción de Tipo de Activo').show();
         setTimeout("$('#errorTipoAccesorio').html('').hide('slow')", 6000);
     } else {
         document.getElementById("AccesorioActivo").style.borderColor = "#ccc";
@@ -390,7 +390,7 @@ function validacionesModificacionAccesorio() {
     if (!nombreActivo && nombreActivo.length <= 0) {
         isValid = false;
         document.getElementById("NombreAccesorio").style.borderColor = "#900C3F";
-        $('#errorNombreAccesorio').html('El campo Nombre del Activo es obligatorio').show();
+        $('#errorNombreAccesorio').html('El campo Nombre de Accesorio es obligatorio').show();
         setTimeout("$('#errorNombreAccesorio').html('').hide('slow')", 6000);
     } else {
         document.getElementById("NombreAccesorio").style.borderColor = "#ccc";
@@ -400,7 +400,7 @@ function validacionesModificacionAccesorio() {
     if (!modeloActivo && modeloActivo.length <= 0) {
         isValid = false;
         document.getElementById("ModeloAccesorio").style.borderColor = "#900C3F";
-        $('#errorModeloAccesorio').html('El campo Modelo de Activo es obligatorio').show();
+        $('#errorModeloAccesorio').html('El campo Modelo de Accesorio es obligatorio').show();
         setTimeout("$('#errorModeloAccesorio').html('').hide('slow')", 6000);
     } else {
         document.getElementById("ModeloAccesorio").style.borderColor = "#ccc";
@@ -410,7 +410,7 @@ function validacionesModificacionAccesorio() {
     if (!serialActivo && serialActivo.length <= 0) {
         isValid = false;
         document.getElementById("SerialAccesorio").style.borderColor = "#900C3F";
-        $('#errorSerialAccesorio').html('El campo Serial de Activo es obligatorio').show();
+        $('#errorSerialAccesorio').html('El campo Serial de Accesorio es obligatorio').show();
         setTimeout("$('#errorSerialAccesorio').html('').hide('slow')", 6000);
     } else {
         document.getElementById("SerialAccesorio").style.borderColor = "#ccc";
@@ -428,7 +428,7 @@ function validacionesEstadoAccesorio() {
     if (document.getElementById("EstadoAccesorioMod").value == "") {
         isValid = false;
         document.getElementById("EstadoAccesorioMod").style.borderColor = "#900C3F";
-        $('#errorEstadoAcc').html('Debe seleccionar una Opción del Estado de Accesorio').show();
+        $('#errorEstadoAcc').html('Debe seleccionar una Opción de Estado de Accesorio').show();
         console.log("ss");
         setTimeout("$('#errorEstadoAcc').html('').hide('slow')", 6000);
     } else {
@@ -450,7 +450,7 @@ function comprobarNombreAccesorio() {
     if (comprobar) {
         document.getElementById("NombreAccesorioIngreso").value = "";
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#900C3F";
-        $('#errorNombreAccesorioIng').html('El Nombre: '+nombreAcc.toUpperCase() + ' ya existe').show();
+        $('#errorNombreAccesorioIng').html('El nombre de Accesorio: '+nombreAcc.toUpperCase() + ' ya existe').show();
         setTimeout("$('#errorNombreAccesorioIng').html('').hide('slow')", 6000);
     } else {
         document.getElementById("NombreAccesorioIngreso").style.borderColor = "#ccc";
@@ -467,7 +467,7 @@ function validarNombreAccesorioModificar() {
         for (var i = 0; i < nombresAccesorio.length; i++) {
             if ((nombresAccesorio[i]).toUpperCase() == nombreAcc.value) {
                 nombreAcc.style.borderColor = "#900C3F";
-                $('#errorNombreAccesorio').html('El Nombre: ' + nombreAcc.value + ' ya existe').show();
+                $('#errorNombreAccesorio').html('El nombre de Accesorio: ' + nombreAcc.value + ' ya existe').show();
                 setTimeout("$('#errorNombreAccesorio').html('').hide('slow')", 6000);
                 nombreAcc.value = "";
                 break;

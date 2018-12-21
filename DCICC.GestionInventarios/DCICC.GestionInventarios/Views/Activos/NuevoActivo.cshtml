@@ -109,7 +109,7 @@
                             </div>
                             @* Cuadro de texto para el ingreso del nombre de un activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <label>* Nombre del Activo</label>
+                                <label>* Nombre de Activo</label>
                                 <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="LIHM_MAC01" onkeyup="this.value=this.value.replace(validarNombres(),'');" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                 <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorNombre" style="color:brown;"></span>
@@ -117,7 +117,7 @@
 
                             @* Cuadro de texto para el ingreso del modelo de un activo *@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                <label>* Modelo del Activo</label>
+                                <label>* Modelo de Activo</label>
                                 <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="iMAC Pro Turbo Boost" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                 <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorModelo" style="color:brown;"></span>
@@ -126,7 +126,7 @@
                             <div class="form-group">
                                 @* Cuadro de texto para el ingreso del serial activo *@
                                 <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <label>* Serial del Activo</label>
+                                    <label>* Serial de Activo</label>
                                     <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="C02WC1YAJ1G5" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                     <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                     <span id="errorSerial" style="color:brown;"></span>
@@ -387,7 +387,7 @@
         });
 
         function leaveAStepCallback(obj, context) {
-            console.log(context.toStep + "-" + context.fromStep)
+            
             if (context.toStep < context.fromStep) {
                 return true;
             }
@@ -406,7 +406,6 @@
 
             }
             if (currentStep > 3) {
-                console.log("fueeee");
 
                 $('.buttonFinish').removeClass('buttonDisabled');
             }
@@ -425,7 +424,7 @@
             if (stepnumber == 1) {
                 if (validarPaso1() == false) {
                     isStepValid = false;
-                    $('#wizard').smartWizard('showMessage', 'Llenar los campos obligatorios en el paso ' + stepnumber + ' y presione Siguiente.');
+                    $('#wizard').smartWizard('showMessage', 'Llene los campos obligatorios en el paso ' + stepnumber + ' y presione Siguiente.');
                     $('#wizard').smartWizard('setError', { stepnum: stepnumber, iserror: true });
                     setTimeout("$('.msgBox').fadeOut('slow');", 10000);
                 }
