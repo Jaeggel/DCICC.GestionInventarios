@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoSistOperativo
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoSistOperativo()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -39,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarSistOperativo
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarSistOperativo()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -62,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoSistOperativo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoSistOperativo(SistOperativos infoSistOperativo)
+        public ActionResult NuevoSistOperativoPOST(SistOperativos infoSistOperativo)
         {
             string mensajesSistOperativos = string.Empty;
             MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();

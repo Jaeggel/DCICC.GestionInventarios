@@ -38,6 +38,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjDashboard;
         }
+        /// <summary>
+        /// Método (GET) para obtener los activos por tipo.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerDashboardActivos")]
+        public MensajesDashboard ObtenerDashboardActivos()
+        {
+            MensajesDashboard msjDashboard = null;
+            ConsultasDashboard objConsultasDashboardBD = new ConsultasDashboard();
+            msjDashboard = objConsultasDashboardBD.ObtenerDashboardActivos();
+            if (msjDashboard.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Dashboard Activos realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjDashboard.MensajeError);
+            }
+            return msjDashboard;
+        }
         #endregion
     }
 }

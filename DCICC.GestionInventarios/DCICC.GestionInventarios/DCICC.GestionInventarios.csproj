@@ -286,6 +286,7 @@
     <Content Include="Content\Images\LogoUPS.png" />
     <Content Include="Content\Images\LogoUPSCircular.ico" />
     <Content Include="Content\Images\LogoUPSCircular.png" />
+    <Content Include="Content\Images\perfil.png" />
     <Content Include="Content\pnotify.custom.min.css" />
     <Content Include="Content\SweetAlert\dist\sweetalert2.all.js" />
     <Content Include="Content\SweetAlert\dist\sweetalert2.all.min.js" />
@@ -4742,7 +4743,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

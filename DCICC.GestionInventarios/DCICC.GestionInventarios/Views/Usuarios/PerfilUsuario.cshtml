@@ -35,10 +35,11 @@
                     <div class="form-horizontal form-label-left input_mask">
 
                         @* Cuadro de texto para el ingreso del nombre completo del usuario*@
-                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" onkeyup="this.value=this.value.replace(validarTextos(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
-                            <span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
+						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+							<input id="NombresUsuario" type="text" class="form-control has-feedback-left" name="NombresUsuario" placeholder="Nombre Completo del Usuario" onkeyup="this.value=this.value.replace(validarTextos(),'');" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+							<span class="fa fa-address-card-o form-control-feedback left" aria-hidden="true"></span>
+							<span id="errorNombreCompleto" style="color:brown;"></span>
+						</div>
                         @* Cuadro de texto para el ingreso del correo del usuario*@
 						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 							<input id="CorreoUsuario" type="email" class="form-control has-feedback-left" name="CorreoUsuario" placeholder="Correo Electrónico" onkeyup="this.value=this.value.replace(validarCorreo(),'');" onBlur="comprobarCorreoModificar();" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>

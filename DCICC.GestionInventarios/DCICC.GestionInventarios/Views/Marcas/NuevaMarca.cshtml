@@ -30,8 +30,8 @@
             <div class="x_content">
                 @* Formulario para envio de datos de los componentes para el ingreso de una nueva marca
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevaMarca", "Marcas"))
-                {
+                @using (Html.BeginForm("NuevaMarcaPOST", "Marcas", FormMethod.Post))
+				{
                     <div class="form-horizontal form-label-left input_mask">
                         @* Cuadro de texto para el ingreso del nombre de una marca *@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">

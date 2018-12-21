@@ -30,8 +30,8 @@
             <div class="x_content">
                 @* Formulario para envio de datos de los componentes para el ingreso de un nuevo tipo de activo
                     (Metodo de la clase) - Controlador (Controller) *@
-                @using (Html.BeginForm("NuevoTipoActivo", "TipoActivo"))
-                {
+                @using (Html.BeginForm("NuevoTipoActivoPOST", "TipoActivo", FormMethod.Post))
+				{
                     <div class="form-horizontal form-label-left input_mask">
                         @* Combobox para seleccionar la categoria de un activo *@
                         <div class="form-group">
@@ -95,7 +95,42 @@
         //Método para evitar la duplicidad de nombres
         $('#NombreTipoActivo').blur(function () {
             comprobarNombre();
-        });
+		});
+
+		//Mascaras de Ingresos
+		$('#VidaUtilTipoActivo').mask('ABZ', {
+			translation: {
+				'Z': {
+					pattern: /[0-9]/, optional: true
+				},
+				'A': {
+					pattern: /[0-1]/, optional: true
+				},
+				'B': {
+					pattern: /[0-9]/, optional: true
+				}
+			},
+			onKeyPress: function (a, b, c, d) {
+				if (!a) return;
+				let m = a.match(/(\d{1})/g);
+				if (!m) return;
+				if (parseInt(m[0]) === 1) {
+					d.translation.B.pattern = /[0]/;
+				} else {
+					d.translation.B.pattern = /[0-9]/;
+				}
+				if (parseInt(m[1]) == 0) {
+					d.translation.Z.pattern = /[0]/;
+				} else {
+					d.translation.Z.pattern = /[0-9]/;
+				}
+				
+				let temp_value = c.val();
+				c.val('');
+				c.unmask().mask('ABZ', d);
+				c.val(temp_value);
+			}
+		});
 
     });
 

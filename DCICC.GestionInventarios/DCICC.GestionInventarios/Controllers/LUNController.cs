@@ -23,6 +23,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevaLUN
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevaLUN()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -42,6 +43,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoStorage
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoStorage()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -61,6 +63,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarLUN
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarLUN()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -84,7 +87,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoLUN"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevaLUN(LUN infoLUN)
+        public ActionResult NuevaLUNPOST(LUN infoLUN)
         {
             infoLUN.CapacidadLUN = string.Format("{0} {1}", infoLUN.CapacidadLUN, infoLUN.UnidadLUN);
             string mensajesLUN = string.Empty;
@@ -119,7 +122,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoStorage"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoStorage(Storage infoStorage)
+        public ActionResult NuevoStoragePOST(Storage infoStorage)
         {
             infoStorage.CapacidadStorage = string.Format("{0} {1}",infoStorage.CapacidadStorage,infoStorage.UnidadStorage);
             string mensajesStorage = string.Empty;

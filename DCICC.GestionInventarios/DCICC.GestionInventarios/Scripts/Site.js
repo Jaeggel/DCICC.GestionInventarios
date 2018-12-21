@@ -2,12 +2,21 @@
 Autores: Andres Chisaguano - Joel Ludeña
 Descripción: Script que tendrá las funciones que se podrá llamar desde toda la aplicación*/
 
-
-//Método para obtener el idioma español de los dataTable
-var permisosRol;
 $(document).ready(function () {
-    definirMenuPorRolActual();
+    comprobarRol();
 });
+function comprobarRol() {
+    $.ajax({
+        dataType: 'json',
+        url: "/Inventarios/Usuarios/ObtenerRolActual",
+        type: 'post',
+        success: function (data) {
+            if (data !== "Admin" && data !== "Invitado"  && data !== "Reporteria" && data !== "Pasantes") {
+                definirMenuPorRolActual();
+            }       
+        }
+    });
+}
 function definirMenuPorRolActual() {
     $.ajax({
         dataType: 'json',
@@ -20,8 +29,8 @@ function definirMenuPorRolActual() {
 }
 function definicionMenu(permisos) {
     if (permisos.NombreRol !== "administrador") {
-        $("#enlaceVU").removeAttr("href");
-        //$('#').hide("fast");
+        $("#enlacevu").attr('href', '#');
+        $("#graficas").hide("fast");
         if (!permisos.PermisoActivos) {
             $('#menuActivos').remove();
             $('#menuConsultaActivos').remove();
@@ -37,7 +46,7 @@ function definicionMenu(permisos) {
         }
     }
 }
-
+//Método para obtener el idioma español de los dataTable
 function obtenerIdioma() {
     var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
     return url_idioma;
@@ -56,11 +65,12 @@ function GenerarReportePDF(urlDT, urlRPDF, titulo, info,lab) {
         showNotify("Error al generar el Reporte", "No se puede generar el reporte sin datos", "error");
     }
 }
-function GenerarReporteExcel(urlDT, urlExcel, titulo,info,lab) {
+function GenerarReporteExcel(urlDT, urlExcel, titulo, info, lab) {
     var dataInfo = BuildTableHTML(info);
     if (dataInfo !== null) {
         $.ajax({
             url: urlDT,
+            async: false,
             dataType: 'json',
             data: { "infoHtml": JSON.stringify(dataInfo), "tituloReporte": titulo, "labFiltro": lab },
             type: 'post'
@@ -101,7 +111,7 @@ function listaEstadosActivos() {
 }
 
 function validarNombres() {
-    return /[^A-Z0-9_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+    return /[^A-Z0-9_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
 
 function validarNombresMayusMinus() {
@@ -113,7 +123,7 @@ function validarNombresRoles() {
 }
 
 function validarNombreSinNumeros() {
-    return /[^A-Z_/\-ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+    return /[^A-Z_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
 
 function validarTextos() {

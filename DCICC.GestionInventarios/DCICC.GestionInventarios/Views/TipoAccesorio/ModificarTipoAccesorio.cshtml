@@ -68,7 +68,7 @@
                                     @* Cuadro de texto para el ingreso del nombre de un tipo de accesorio *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <label>Nombre del Tipo de Accesorio</label>
-                                        <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="AUDIFONOS" placeholder="Tipo de Accesorio" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarNombreModificacion();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                        <input id="NombreTipoAccesorio" type="text" class="form-control has-feedback-left" name="NombreTipoAccesorio" placeholder="AUDIFONOS" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarNombreModificacion();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreTipo" style="color:brown;"></span>
                                     </div>
@@ -124,12 +124,12 @@
 <script src="~/Scripts/ScriptsInventarios/TipoAccesorio.js"></script>
 <script>
 	$(document).ready(function () {
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener las tablas de Tipo Accesorio
         obtenerTipoAccesorio('@Url.Action("ObtenerTipoAccesorioComp", "TipoAccesorio")');
         urlEstados('@Url.Action("ModificarEstadoTipoAccesorio", "TipoAccesorio")');
-        mensajesTooltips();
+		mensajesTooltips();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         $('#ModificarTipoAcc').on('hidden.bs.modal', function () {
             $(".modal-body input").css("borderColor", "#ccc");
             $(".modal-body textarea").val("");

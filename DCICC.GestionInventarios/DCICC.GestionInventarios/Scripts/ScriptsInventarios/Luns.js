@@ -382,6 +382,6 @@ function validarNumeroLun() {
 //Mensajes para los tooltips
 function mensajesTooltipLun() {
     document.getElementById("NombreLUN").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("CapacidadLUN").title = "Solo Números. De 1 a 100 GB o TB";
+    document.getElementById("CapacidadLUN").title = "Solo Números. De 1 a 999 GB o TB";
     document.getElementById("DescripcionLUN").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

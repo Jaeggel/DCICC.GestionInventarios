@@ -31,10 +31,10 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_lun SET id_storage=@is, nombre_lun=@nl, capacidad_lun=@cl, raid_tp_lun=@rl, descripcion_lun=@dl, habilitado_lun=@hl WHERE id_lun=@il;", conn_BD))
                 {
                     cmd.Parameters.Add("is", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdStorage;
-                    cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.NombreLUN;
+                    cmd.Parameters.Add("nl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.NombreLUN.Trim();
                     cmd.Parameters.Add("cl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.CapacidadLUN;
-                    cmd.Parameters.Add("rl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.RaidTPLUN;
-                    cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoLUN.DescripcionLUN) ? (object)infoLUN.DescripcionLUN : DBNull.Value;
+                    cmd.Parameters.Add("rl", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoLUN.RaidTPLUN.Trim();
+                    cmd.Parameters.Add("dl", NpgsqlTypes.NpgsqlDbType.Text).Value = !string.IsNullOrEmpty(infoLUN.DescripcionLUN) ? (object)infoLUN.DescripcionLUN.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hl", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoLUN.HabilitadoLUN;
                     cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoLUN.IdLUN;
                     cmd.ExecuteNonQuery();

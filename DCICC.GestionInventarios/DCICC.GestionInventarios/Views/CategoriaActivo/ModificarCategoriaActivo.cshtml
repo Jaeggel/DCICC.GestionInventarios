@@ -29,7 +29,7 @@
                 @* Sección para botones de ingresar nueva categoria y actualizar página *@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><button type="button" class="btn btn-round btn-success float-right" onclick="location.href='@Url.Action("NuevoCategoriaActivo", "CategoriaActivo")'"><i class="fa fa-plus"></i> Agregar Categoría</button></li>
-                    <li> <button type="button" class="btn btn-round btn-success float-right" onclick="obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
+                    <li><button type="button" class="btn btn-round btn-success float-right" onclick="obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');"><i class="fa fa-refresh"></i> Actualizar</button></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -127,12 +127,12 @@
 <script src="~/Scripts/ScriptsInventarios/Categoria.js"></script>
 <script>
 	$(document).ready(function () {
+        //Método para obtener la tabla de Categorías
+		obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
+        urlEstados('@Url.Action("ModificarEstadoCategoriaActivo", "CategoriaActivo")');
+		mensajesTooltips();
 		//Método para llamar a la función que bloquea los botones con el usuario invitado
 		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
-        //Método para obtener la tabla de Categorías
-        obtenerCategorias('@Url.Action("ObtenerCategoriasActivosComp", "CategoriaActivo")');
-        urlEstados('@Url.Action("ModificarEstadoCategoriaActivo", "CategoriaActivo")');
-        mensajesTooltips();
         //Función para setear nulos los valores del modal
         $('#ModificarCategoria').on('hidden.bs.modal', function () { 
             document.getElementById("NombreCategoriaActivo").focus();           

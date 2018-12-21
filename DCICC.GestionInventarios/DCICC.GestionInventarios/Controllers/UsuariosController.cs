@@ -21,6 +21,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoUsuario
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoUsuario()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -40,6 +41,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarUsuario 
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarUsuario()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -59,6 +61,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista PerfilUsuario
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult PerfilUsuario()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -82,7 +85,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoUsuario"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoUsuario(Usuarios infoUsuario)
+        public ActionResult NuevoUsuarioPOST(Usuarios infoUsuario)
         {
             string mensajesUsuarios = string.Empty;
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();

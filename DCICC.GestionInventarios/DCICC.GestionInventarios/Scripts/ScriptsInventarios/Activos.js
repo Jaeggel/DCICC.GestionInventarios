@@ -211,7 +211,9 @@ function cargarEstadosCmb() {
     var str = '<select id="EstadoActivo" class="form-control" name="EstadoActivo" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
-        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        if (cmbEstados[i] != "DE BAJA") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }
     }
     str += '</select>';
     $("#cargarEstados").html(str);

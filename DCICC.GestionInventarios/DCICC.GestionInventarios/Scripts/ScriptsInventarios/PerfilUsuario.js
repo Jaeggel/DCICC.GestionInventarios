@@ -136,72 +136,76 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
     var celularUsuarioMod = document.getElementById("TelefonoCelUsuario").value;
     var direccionUsuarioMod = document.getElementById("DireccionUsuario").value;
     //Condición para determinar cambios en el nick de usuario
-    if (nickUsuarioMod != nickUsuario) {
-        swal({
-            title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar datos del usuario?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#26B99A',
-            cancelButtonColor: '#337ab7',
-            confirmButtonText: 'Confirmar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    data: {
-                        "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod,
-                        "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod,
-                        "DireccionUsuario": direccionUsuarioMod, "PasswordUsuario": passwdUser
-                    },
-                    url: urlModificar,
-                    type: 'post',
-                    success: function (data) {
-                        if (data.OperacionExitosa) {
-                            window.location.href = urlSalir;
-                            //showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
-                        } else {
-                            
-                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Usuario: ' + data.MensajeError, "error");
-                        }
-                    }
-                });
+    if (validarInputNombre() && validarInputCorreo() && validarInputNick() && validarCorreoCorrecto() ) {
+        if (nickUsuarioMod != nickUsuario) {
+            swal({
+                title: 'Confirmación de Actualización',
+                text: "¿Está seguro de modificar datos del usuario?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#26B99A',
+                cancelButtonColor: '#337ab7',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        data: {
+                            "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod,
+                            "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod,
+                            "DireccionUsuario": direccionUsuarioMod, "PasswordUsuario": passwdUser
+                        },
+                        url: urlModificar,
+                        type: 'post',
+                        success: function (data) {
+                            if (data.OperacionExitosa) {
+                                window.location.href = urlSalir;
+                                //showNotify("Actualización exitosa", 'Se ha modificado el Perfil de Usuario', "success");
+                            } else {
 
-            } else {              
-            }
-        });
-    } else {
-        swal({
-            title: 'Confirmación de Actualización',
-            text: "¿Está seguro de modificar datos del usuario?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#26B99A',
-            cancelButtonColor: '#337ab7',
-            confirmButtonText: 'Confirmar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
-                    url: urlModificar,
-                    type: 'post',
-                    success: function (data) {   
-                        if (data.OperacionExitosa) {
-                            window.location.href = urlHome;
-                            //showNotify("Actualización exitosa", 'El Perfil de Usuario "' + nickUsuario + '" se ha modificado exitosamente 1', "success");
-                        } else {
-                            showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Usuario: ' + data.MensajeError, "error");
-                            window.location.href = urlHome;
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Usuario: ' + data.MensajeError, "error");
+                            }
                         }
-                        
-                    }
-                });
+                    });
 
-            } else {
-            }
-        });
+                } else {
+                }
+            });
+        } else {
+            swal({
+                title: 'Confirmación de Actualización',
+                text: "¿Está seguro de modificar datos del usuario?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#26B99A',
+                cancelButtonColor: '#337ab7',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        data: { "IdUsuario": idUsuario, "NombresUsuario": nombreUsuarioMod, "CorreoUsuario": correoUsuarioMod, "NickUsuario": nickUsuarioMod, "TelefonoUsuario": telefonoUsuarioMod, "TelefonoCelUsuario": celularUsuarioMod, "DireccionUsuario": direccionUsuarioMod },
+                        url: urlModificar,
+                        type: 'post',
+                        success: function (data) {
+                            if (data.OperacionExitosa) {
+                                window.location.href = urlHome;
+                                //showNotify("Actualización exitosa", 'El Perfil de Usuario "' + nickUsuario + '" se ha modificado exitosamente 1', "success");
+                            } else {
+                                showNotify("Error en la Actualización", 'Ocurrió un error al modificar el Usuario: ' + data.MensajeError, "error");
+                                window.location.href = urlHome;
+                            }
+
+                        }
+                    });
+
+                } else {
+                }
+            });
+        }
     }
+
+    
 
 }
 
@@ -293,6 +297,81 @@ function comprobarNickModificacion() {
         nick.style.borderColor = "#ccc";
         $('#errorNick').html('').hide();
     }
+}
+
+//Funciones para validaciones de campos de texto
+function validarInputNombre() {
+    var esValido = true;
+    var nomUsu = document.getElementById("NombresUsuario");
+    //Validación para el campo de texto nombre de laboratorio
+    if (nomUsu.value.length <= 0) {
+        esValido = false;
+        nomUsu.style.borderColor = "#900C3F";
+        $('#errorNombreCompleto').html('El campo nombre no debe estar vacio').show();
+        setTimeout("$('#errorNombreCompleto').html('').hide('slow')", 6000);
+    } else {
+        nomUsu.style.borderColor = "#ccc";
+        $('#errorNombreCompleto').html('').hide();
+    }
+    return esValido;
+}
+
+///Funciones para validaciones de campos de texto
+function validarInputCorreo() {
+    var esValido = true;
+    var correo = document.getElementById("CorreoUsuario");
+
+    //Validación para el campo de texto nombre de Máquina virtual
+    if (correo.value.length <= 0) {
+        esValido = false;
+        correo.style.borderColor = "#900C3F";
+        $('#errorCorreo').html('El campo correo no debe estar vacio').show();
+        setTimeout("$('#errorCorreo').html('').hide('slow')", 6000);
+    } else {
+        correo.style.borderColor = "#ccc";
+        $('#errorCorreo').html('').hide();
+    }
+    return esValido;
+
+}
+
+//Función para validar el nombre de Usuario
+function validarInputNick() {
+    var esValido = true;
+    var nick = document.getElementById("NickUsuario");
+
+    if (nick.value.length <= 0) {
+        esValido = false;
+        nick.style.borderColor = "#900C3F";
+        $('#errorNick').html('El campo nick de usuario no debe estar vacio').show();
+        setTimeout("$('#errorNick').html('').hide('slow')", 6000);
+    } else {
+        nick.style.borderColor = "#ccc";
+        $('#errorNick').html('').hide();
+    }
+    return esValido;
+}
+
+
+//Función para validar correo correcto
+function validarCorreoCorrecto() {
+    var esValido = true;
+    var correo = document.getElementById("CorreoUsuario");
+    correo.value = correo.value.toLowerCase();
+    var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    var aux = pattern.test(correo.value);
+    if (!aux) {
+        esValido = false;
+        correo.value = "";
+        correo.style.borderColor = "#900C3F";
+        $('#errorCorreo').html('El correo ingresado no es válido.').show();
+        setTimeout("$('#errorCorreo').html('').hide('slow')", 6000);
+    } else {
+        correo.style.borderColor = "#ccc";
+        $('#errorCorreo').html('').hide();
+    }
+    return esValido;
+
 }
 
 //Función para verificación de contraseña anterior

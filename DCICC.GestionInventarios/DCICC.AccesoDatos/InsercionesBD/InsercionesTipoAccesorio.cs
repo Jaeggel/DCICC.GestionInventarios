@@ -28,8 +28,8 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_tipoaccesorio (nombre_tipoaccesorio,descripcion_tipoaccesorio,habilitado_tipoaccesorio) VALUES (@nta,@dta,@hta)", conn_BD))
                 {
-                    cmd.Parameters.Add("nta", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTipoAccesorio.NombreTipoAccesorio;
-                    cmd.Parameters.Add("dta", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTipoAccesorio.DescripcionTipoAccesorio) ? (object)infoTipoAccesorio.DescripcionTipoAccesorio : DBNull.Value;
+                    cmd.Parameters.Add("nta", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTipoAccesorio.NombreTipoAccesorio.Trim();
+                    cmd.Parameters.Add("dta", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTipoAccesorio.DescripcionTipoAccesorio) ? (object)infoTipoAccesorio.DescripcionTipoAccesorio.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hta", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoTipoAccesorio.HabilitadoTipoAccesorio;
                     cmd.ExecuteNonQuery();
                 }

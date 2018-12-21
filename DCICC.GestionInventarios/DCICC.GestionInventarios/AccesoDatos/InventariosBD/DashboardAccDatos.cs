@@ -49,7 +49,29 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             }
             catch (Exception e)
             {
-                Logs.Error(string.Format("Error en la conexión para obtener los permisos de un Rol: {0}", e.Message));
+                Logs.Error(string.Format("Error en la conexión para obtener los datos del dashboard: {0}", e.Message));
+            }
+            return msjDashboard;
+        }
+        /// <summary>
+        /// Método para obtener información sobre el dashboard de activos por tipo.
+        /// </summary>
+        /// <returns></returns>
+        public MensajesDashboard ObtenerDashboardActivos()
+        {
+            MensajesDashboard msjDashboard = new MensajesDashboard();
+            try
+            {
+                HttpResponseMessage response = client_Service.GetAsync("Dashboard/ObtenerDashboardActivos").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var dsbdJson = response.Content.ReadAsStringAsync().Result;
+                    msjDashboard = JsonConvert.DeserializeObject<MensajesDashboard>(dsbdJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la conexión para obtener los datos del dashboard: {0}", e.Message));
             }
             return msjDashboard;
         }

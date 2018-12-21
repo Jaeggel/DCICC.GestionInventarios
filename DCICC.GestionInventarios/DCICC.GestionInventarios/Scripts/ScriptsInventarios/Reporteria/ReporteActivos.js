@@ -198,8 +198,8 @@ function cargarEstadosActivoCmb() {
                 ""
             ).draw();
         } else {
-            $('#dataTableActivos').DataTable().column(8).search(
-                tipoLab.text
+            $('#dataTableActivos').DataTable().column(8).search('^' + tipoLab.text + '$', true, false
+                
             ).draw();
         }
     });
@@ -221,7 +221,7 @@ function cargarActivosTabla() {
             function pad(n) { return n < 10 ? "0" + n : n; }
             var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
             
-            fechas[i] = fechaordenar;
+            fechas.push(fechaordenar);
 
             str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
                 '</td><td>' + datosActivos[i].NombreActivo +
@@ -238,6 +238,7 @@ function cargarActivosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaReportesActivos").html(str);
+    //console.log(fechas);
     var minDate = fechas[0];
     inicioFechaAct(minDate); 
     finFechaAct(minDate);
@@ -392,8 +393,7 @@ function cargarEstadosAccesoriosCmb() {
                 ""
             ).draw();
         } else {
-            $('#dataTableAccesorios').DataTable().column(5).search(
-                tipoLab.text
+            $('#dataTableAccesorios').DataTable().column(5).search('^' + tipoLab.text + '$', true, false
             ).draw();
         }
     });
@@ -467,7 +467,7 @@ function cargarHistoricosTabla() {
             function pad(n) { return n < 10 ? "0" + n : n; }
             var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
 
-            fechasHist[i] = fechaordenar;
+        fechasHist.push(fechaordenar);
 
         if (datosHistoricos[i].IdActivo!= 0) {
             str += '</td><td>' + datosHistoricos[i].NombreActivo +
@@ -484,6 +484,7 @@ function cargarHistoricosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaHistoricos").html(str);
+    console.log(fechasHist);
     var minDate = fechasHist[0];
      inicioFechaHist(minDate);
     finFechaHist(minDate);

@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista NuevoRol
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult NuevoRol()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -39,6 +40,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista ModificarRol
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult ModificarRol()
         {
             if ((string)Session["NickUsuario"] == null)
@@ -62,7 +64,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// <param name="infoRol"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult NuevoRol(Roles infoRol)
+        public ActionResult NuevoRolPOST(Roles infoRol)
         {
             string mensajesRoles = string.Empty;
             MensajesRoles msjRoles = new MensajesRoles();

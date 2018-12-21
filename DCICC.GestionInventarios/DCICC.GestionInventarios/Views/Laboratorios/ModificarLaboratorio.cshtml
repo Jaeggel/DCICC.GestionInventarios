@@ -131,12 +131,12 @@
 <script src="~/Scripts/ScriptsInventarios/Laboratorios.js"></script>
 <script>
 	$(document).ready(function () {
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
         //Método para obtener la tabla de Laboratorios
         obtenerLaboratorios('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
         urlEstados('@Url.Action("ModificarEstadolaboratorio", "Laboratorios")');
-        mensajesTooltips();
+		mensajesTooltips();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
          //Función para setear nullos los valores del modal
         $('#ModificarLaboratorios').on('hidden.bs.modal', function () {          
 			$(".modal-body input").css("borderColor", "#ccc");

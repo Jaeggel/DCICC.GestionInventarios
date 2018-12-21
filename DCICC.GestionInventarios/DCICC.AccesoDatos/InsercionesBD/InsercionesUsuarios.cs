@@ -32,13 +32,13 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_usuarios (id_rol,nombres_usuario,nick_usuario,password_usuario,correo_usuario,telefono_usuario,telefonocelular_usuario,direccion_usuario,habilitado_usuario) VALUES (@ir,@nu,@niu,@pu,@cu,@tu,@tcu,@du,@hu)", conn_BD))
                 {
                     cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdRol;
-                    cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario;
-                    cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario;
-                    cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario;
-                    cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario;
-                    cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario : DBNull.Value;
-                    cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario : DBNull.Value;
-                    cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario : DBNull.Value;
+                    cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario.Trim();
+                    cmd.Parameters.Add("niu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NickUsuario.Trim();
+                    cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario.Trim();
+                    cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario.Trim();
+                    cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("du", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.DireccionUsuario) ? (object)infoUsuario.DireccionUsuario.Trim().Trim() : DBNull.Value;
                     cmd.Parameters.Add("hu", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoUsuario.HabilitadoUsuario;
                     cmd.ExecuteNonQuery();
                 }
@@ -47,11 +47,11 @@ namespace DCICC.AccesoDatos.InsercionesBD
                 infoUsuario.NombreRol = objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol;
                 if (infoUsuario.NombreRol == "administrador")
                 {
-                    query= string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
+                    query= string.Format("create user {0} with password '{1}' LOGIN CREATEROLE CREATEUSER in group {2};", infoUsuario.NickUsuario.Trim(), pwdUsuario.Trim(), infoUsuario.NombreRol.Trim());
                 }
                 else
                 {
-                    query = string.Format("create user {0} with password '{1}' NOCREATEROLE NOCREATEUSER in group {2};", infoUsuario.NickUsuario, pwdUsuario, objConsultaRoles.ObtenerRolPorId(infoUsuario.IdRol).ObjetoInventarios.NombreRol);
+                    query = string.Format("create user {0} with password '{1}' NOCREATEROLE NOCREATEUSER in group {2};", infoUsuario.NickUsuario.Trim(), pwdUsuario.Trim(), infoUsuario.NombreRol.Trim());
                 }
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn_BD))
                 {

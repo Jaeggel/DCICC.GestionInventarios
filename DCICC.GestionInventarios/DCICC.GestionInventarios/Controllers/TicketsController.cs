@@ -20,6 +20,7 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método (GET) para mostrar la vista GestionTickets
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult GestionTickets()
         {
             if ((string)Session["NickUsuario"] == null)
