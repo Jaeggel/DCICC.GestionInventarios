@@ -15,6 +15,7 @@ var nombreCQRAccesorio;
 
 var nombresActivo = [];
 var rolAct;
+var url_bloquear;
 
 /***********************************************************************************
  *                SECCIÓN PARA OPERACIONES CON ACTIVOS
@@ -300,7 +301,7 @@ function cargarActivosTabla() {
     str += '</tbody>' +
            '</table > ';
     $("#tablaActivos").html(str);
-
+    BloquearbotonesActivos();
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -1052,30 +1053,26 @@ function cargarHistoricosTabla() {
 }
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
-//Función para bloquear botones cuando el usuario es invitado
 function botonesActivos(url) {
+    url_bloquear = url;
+}
+//Función para bloquear botones cuando el usuario es invitado
+function BloquearbotonesActivos() {
     $.ajax({
         dataType: 'json',
-        url: url,
+        url: url_bloquear,
         type: 'post',
         success: function (data) {
             rolAct = data;
             if (data == "Invitado") {
                 $(':button').prop('disabled', true);
-                desactivarBotonesTablaAct();
+                var table = $('#dataTableActivos').DataTable();
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                $('button', rows).attr("disabled", "disabled");
             }
         }
     });
 }
 
-function desactivarBotonesTablaAct() {
-    //console.log(rolAct);
-    var table = $('#dataTableActivos').DataTable();
-    //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rolAct == "Invitado") {
-        var rows = table.rows({ 'search': 'applied' }).nodes();
-        $('button', rows).attr("disabled", "disabled");
-    } 
-}
 
 

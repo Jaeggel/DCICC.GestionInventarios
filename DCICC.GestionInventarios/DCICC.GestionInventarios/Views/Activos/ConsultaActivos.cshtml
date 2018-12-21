@@ -637,10 +637,8 @@
 <script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
 <script>
 	$(document).ready(function () {
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botonesActivos('@Url.Action("ObtenerRolActual", "Usuarios")');
+		
+		
         //Método para obtener datos de Activos
         obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
@@ -649,7 +647,10 @@
         cargarEstadosCmb();
 		cargarEstadosModificarCmb();
 		EstadosFiltroAct();
-        mensajesTooltips();
+		mensajesTooltips();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botonesActivos('@Url.Action("ObtenerRolActual", "Usuarios")');
+
 
         //Método para obtener datos de Accesorios
         obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
@@ -661,6 +662,9 @@
         mensajesTooltipsAccesorios();
 		mensajesTooltipsAccesoriosMod();
 		EstadosAccesoriosFiltro();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botonesAccesorios('@Url.Action("ObtenerRolActual", "Usuarios")');
+		
 
         $(function () {
             $('input[name="FechaIngresoActivo"]').datepicker({

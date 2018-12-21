@@ -7,6 +7,7 @@ var idAccesorioMod;
 var NombreAccesorioMod;
 var nombresAccesorio = [];
 var rol;
+var url_bloquear_acc;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de categorias
@@ -194,7 +195,7 @@ function cargarAccesoriosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaAccesorios").html(str);
-
+    BloquearbotonesAccesorios();
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
@@ -484,27 +485,23 @@ function validarNombreAccesorioModificar() {
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/
 //Función para bloquear botones cuando el usuario es invitado
-function botones(url) {
+function botonesAccesorios(url) {
+    url_bloquear_acc = url;
+}
+
+function BloquearbotonesAccesorios() {
     $.ajax({
         dataType: 'json',
-        url: url,
+        url: url_bloquear_acc,
         type: 'post',
         success: function (data) {
             rol = data;
             if (data == "Invitado") {
                 $(':button').prop('disabled', true);
-                desactivarBotonesTabla();
+                var table = $('#dataTableAccesorios').DataTable();
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                $('button', rows).attr("disabled", "disabled");
             }
         }
     });
-}
-
-function desactivarBotonesTabla() {
-    //console.log(rol);
-    var table = $('#dataTableAccesorios').DataTable();
-    //Metodo para bloquear los botones cuando sea usuario invitado
-    if (rol == "Invitado") {
-        var rows = table.rows({ 'search': 'applied' }).nodes();
-        $('button', rows).attr("disabled", "disabled");
-    }
 }
