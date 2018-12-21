@@ -295,6 +295,15 @@ namespace DCICC.GestionInventarios.Controllers
             return Json(objUsuariosRolesAccDatos.ObtenerUsuarios("Hab"), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
+        /// Método para obtener todos los Usuarios habilitados de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerUsuariosRespTickets()
+        {
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
+            return Json(objUsuariosRolesAccDatos.ObtenerUsuarios("RespTickets"), JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
         /// Método para obtener todos los Usuarios de la base de datos
         /// </summary>
         /// <returns></returns>
