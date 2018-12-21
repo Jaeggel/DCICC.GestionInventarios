@@ -140,13 +140,20 @@
                     <h3 class="modal-title">Ayuda</h3>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <b>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</b>
-                            <ul>
-                                <li><b>ALT + H: </b><a href='@Url.Action("Index","Home")'> Home</a></li>
-                                <li><b>ALT + A: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Activos de TI</a></li>
-                            </ul>
+                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h4 class="panel-title">Teclas de Acceso Rápido</h4>
+                            </a>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <b>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</b>
+                                    <ul>
+                                        <li><b>ALT + H: </b><a href='@Url.Action("Index","Home")'> Home</a></li>
+                                        <li><b>ALT + A: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Activos de TI</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
