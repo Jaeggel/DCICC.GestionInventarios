@@ -152,9 +152,7 @@ function cargarEstadosModificarCmb() {
     var str = '<select id="EstadoActivoModificar" class="form-control" name="EstadoActivoModificar" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
-        if (cmbEstados[i] != "OPERATIVO") {
-            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-        }     
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';    
     }
     str += '</select>';
     $("#cargarEstadosActivo").html(str);
