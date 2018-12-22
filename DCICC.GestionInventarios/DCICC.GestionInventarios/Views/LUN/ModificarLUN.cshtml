@@ -22,14 +22,14 @@
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="active">
-                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">LUNs</a>
+                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Storage</a>
                         </li>
                         <li role="presentation" class="">
-                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Storage</a>
+                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">LUNs</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content1" aria-labelledby="home-tab">
                             @* Panel para visualizar la información de los activos de TI *@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel">
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content2" aria-labelledby="profile-tab">
                             @* Panel para visualizar la información de los activos de TI *@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel">
