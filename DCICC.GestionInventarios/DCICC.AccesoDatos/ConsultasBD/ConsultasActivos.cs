@@ -269,5 +269,70 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             return msjActivos;
         }
+        /// <summary>
+        /// Mètodo para obtener un activo según su CQR.
+        /// </summary>
+        /// <param name="idCQR"></param>
+        /// <returns></returns>
+        public MensajesActivos ObtenerActivoPorIdCQR(string idCQR)
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            Activos objActivos = new Activos();
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("select * from activostotales() where id_cqr=@cqr", conn_BD))
+                {
+                    cmd.Parameters.Add("cqr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = idCQR;
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            objActivos = new Activos
+                            {
+                                IdActivo = (int)dr[0],
+                                IdTipoActivo = (int)dr[1],
+                                IdCQR = (string)dr[2],
+                                IdMarca = (int)dr[3],
+                                IdLaboratorio = (int)dr[4],
+                                NombreActivo = dr[5].ToString().Trim(),
+                                ModeloActivo = dr[6].ToString().Trim(),
+                                SerialActivo = dr[7].ToString().Trim(),
+                                FechaIngresoActivo = DateTime.Parse(dr[8].ToString().Trim()),
+                                CodigoUpsActivo = dr[9].ToString().Trim(),
+                                CantidadActivo = (int)dr[10],
+                                DescripcionActivo = dr[11].ToString().Trim(),
+                                ResponsableActivo = dr[12].ToString().Trim(),
+                                EstadoActivo = dr[13].ToString().Trim(),
+                                //Especificaciones adicionales
+                                ExpressServiceCodeActivo = dr[14].ToString().Trim(),
+                                ProductNameActivo = dr[15].ToString().Trim(),
+                                CapacidadActivo = dr[16].ToString().Trim(),
+                                VelocidadTransfActivo = dr[17].ToString().Trim(),
+                                CtActivo = dr[18].ToString().Trim(),
+                                HpePartNumberActivo = dr[19].ToString().Trim(),
+                                CodBarras1Activo = dr[20].ToString().Trim(),
+                                CodBarras2Activo = dr[21].ToString().Trim(),
+                                NumPuertosActivo = dr[22] != DBNull.Value ? (int)dr[22] : 0,
+                                IosVersionActivo = dr[23].ToString().Trim(),
+                                FechaManufacturaActivo = dr[24].ToString().Trim(),
+                                NombreTipoActivo = dr[25].ToString().Trim(),
+                                NombreLaboratorio = dr[26].ToString().Trim(),
+                                NombreMarca = dr[27].ToString().Trim()
+                            };
+                        }
+                        conn_BD.Close();
+                        msjActivos.ObjetoInventarios = objActivos;
+                        msjActivos.OperacionExitosa = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                conn_BD.Close();
+                msjActivos.OperacionExitosa = false;
+                msjActivos.MensajeError = e.Message;
+            }
+            return msjActivos;
+        }
     }
 }

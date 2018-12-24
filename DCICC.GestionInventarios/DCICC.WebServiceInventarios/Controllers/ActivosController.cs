@@ -200,6 +200,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjActivos;
         }
+        /// <summary>
+        /// Método para obtener un activo según su idCQR.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ObtenerActivoPorCQR")]
+        public MensajesActivos ObtenerActivoPorCQR([FromBody]string idCQR)
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerActivoPorIdCQR(idCQR);
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Activo según su CQR realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
         #endregion
         #region Registros
         /// <summary>
