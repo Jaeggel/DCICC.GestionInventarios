@@ -374,9 +374,9 @@ namespace DCICC.WebServiceInventarios.Controllers
         #endregion
         #region Generación Bytes QR
         /// <summary>
-        /// Método (POST) para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// Método para generar los bytes de un CQR determinado.
         /// </summary>
-        /// <param name="lstActivos"></param>
+        /// <param name="idCQR"></param>
         /// <returns></returns>
         [HttpPost("GenerarBytesQR")]
         public byte[] GenerarBytesQR([FromBody] string idCQR)//tipo de metodo por definir
