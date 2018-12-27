@@ -22,6 +22,10 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public string NombreDetalleActivo { get; set; }
 
+        public int IdAccesorio { get; set; }
+
+        public string NombreAccesorio { get; set; }
+
         public string EstadoTicket { get; set; }
 
         public DateTime FechaAperturaTicket { get; set; }

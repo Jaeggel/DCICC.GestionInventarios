@@ -27,5 +27,7 @@
         public string DescripcionAccesorio { get; set; }
 
         public byte[] BytesCQR { get; set; }
+
+        public bool DeBaja { get; set; } = false;
     }
 }

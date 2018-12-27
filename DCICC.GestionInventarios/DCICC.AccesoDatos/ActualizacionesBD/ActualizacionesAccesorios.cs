@@ -81,15 +81,18 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("ia", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdAccesorio;
                     cmd.ExecuteNonQuery();
                 }
-                if (infoAccesorios.EstadoAccesorio == "DE BAJA")
+                if (!infoAccesorios.DeBaja)
                 {
-                    InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
-                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    if (infoAccesorios.EstadoAccesorio == "DE BAJA")
                     {
-                        IdAccesorio = infoAccesorios.IdAccesorio,
-                        FechaModifHistActivos = DateTime.Now
-                    };
-                    objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
+                        InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
+                        HistoricoActivos infoHistActivo = new HistoricoActivos
+                        {
+                            IdAccesorio = infoAccesorios.IdAccesorio,
+                            FechaModifHistActivos = DateTime.Now
+                        };
+                        objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
+                    }
                 }
                 tran.Commit();
                 conn_BD.Close();
