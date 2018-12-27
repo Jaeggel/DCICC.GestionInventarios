@@ -212,6 +212,14 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjActivos = objConsultasActivosBD.ObtenerActivoPorIdCQR(idCQR);
             if (msjActivos.OperacionExitosa)
             {
+                if(msjActivos.ObjetoInventarios.IdActivo!=0)
+                {
+                    msjActivos.ObjetoInventarios.BytesCQR = GenerarBytesQR(idCQR);
+                }
+                else
+                {
+                    msjActivos.ObjetoInventarios = null;
+                }
                 Logs.Info("Consulta de Activo según su CQR realizada exitosamente.");
             }
             else
@@ -309,6 +317,27 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjActivos;
         }
         /// <summary>
+        /// Método (POST) para actualizar un Activo en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarActivoBasico")]
+        public MensajesActivos ActualizarActivoBasico([FromBody] Activos infoActivo)
+        {
+            MensajesActivos msjActivos = null;
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjActivos = objActualizacionesActivosBD.ActualizacionActivoBasico(infoActivo);
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info(string.Format("Actualización de Activo con ID: {0} realizada exitosamente.", infoActivo.IdActivo));
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        /// <summary>
         /// Método (POST) para actualizar el estado de un Activo en la base de datos.
         /// </summary>
         /// <param name="infoActivo"></param>
@@ -378,8 +407,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <param name="idCQR"></param>
         /// <returns></returns>
-        [HttpPost("GenerarBytesQR")]
-        public byte[] GenerarBytesQR([FromBody] string idCQR)//tipo de metodo por definir
+        public static byte[] GenerarBytesQR([FromBody] string idCQR)
         {
             byte[] bytesQR=null;
             try
@@ -390,7 +418,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch(Exception e)
             {
-                Logs.Error(string.Format("No se ha podido generar el bitmap para el código QR: {0}", e.Message));
+                Logs.Error(string.Format("No se ha podido generar el byte array para el código QR: {0}", e.Message));
             }
             return bytesQR;
         }

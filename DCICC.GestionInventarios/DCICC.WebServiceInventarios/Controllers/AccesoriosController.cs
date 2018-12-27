@@ -97,6 +97,30 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjAccesorios;
         }
+        [HttpPost("ObtenerAccesorioPorCQR")]
+        public MensajesAccesorios ObtenerAccesorioPorCQR([FromBody]string idCQR)
+        {
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorioPorIdCQR(idCQR);
+            if (msjAccesorios.OperacionExitosa)
+            {
+                if (msjAccesorios.ObjetoInventarios.IdAccesorio != 0)
+                {
+                    msjAccesorios.ObjetoInventarios.BytesCQR = ActivosController.GenerarBytesQR(idCQR);
+                }
+                else
+                {
+                    msjAccesorios.ObjetoInventarios = null;
+                }
+                Logs.Info("Consulta de Activo según su CQR realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjAccesorios.MensajeError);
+            }
+            return msjAccesorios;
+        }
         #endregion
         #region Registros
         /// <summary>
