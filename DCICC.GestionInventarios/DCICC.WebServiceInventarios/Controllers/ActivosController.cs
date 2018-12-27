@@ -277,22 +277,22 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
-        [HttpPost("RegistrarHistoricoActivo")]
-        public MensajesHistoricoActivos RegistrarHistoricoActivo([FromBody] HistoricoActivos infoHistActivo)
-        {
-            MensajesHistoricoActivos msjHistActivos = null;
-            InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
-            msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
-            if (msjHistActivos.OperacionExitosa)
-            {
-                Logs.Info(string.Format("Registro de Historico de Activo con ID: {0}-{1} realizado exitosamente.",infoHistActivo.IdActivo,infoHistActivo.IdAccesorio));
-            }
-            else
-            {
-                Logs.Error(msjHistActivos.MensajeError);
-            }
-            return msjHistActivos;
-        }
+        //[HttpPost("RegistrarHistoricoActivo")]
+        //public MensajesHistoricoActivos RegistrarHistoricoActivo([FromBody] HistoricoActivos infoHistActivo)
+        //{
+        //    MensajesHistoricoActivos msjHistActivos = null;
+        //    InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
+        //    msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
+        //    if (msjHistActivos.OperacionExitosa)
+        //    {
+        //        Logs.Info(string.Format("Registro de Historico de Activo con ID: {0}-{1} realizado exitosamente.",infoHistActivo.IdActivo,infoHistActivo.IdAccesorio));
+        //    }
+        //    else
+        //    {
+        //        Logs.Error(msjHistActivos.MensajeError);
+        //    }
+        //    return msjHistActivos;
+        //}
         #endregion
         #region Actualizaciones
         /// <summary>

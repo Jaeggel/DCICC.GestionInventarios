@@ -1,4 +1,5 @@
-﻿using DCICC.Entidades.EntidadesInventarios;
+﻿using DCICC.AccesoDatos.InsercionesBD;
+using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
@@ -56,6 +57,16 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;
                     cmd.ExecuteNonQuery();
                 }
+                if (infoActivo.EstadoActivo == "DE BAJA")
+                {
+                    InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdActivo = infoActivo.IdActivo,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
+                }
                 tran.Commit();
                 conn_BD.Close();
                 msjActivos.OperacionExitosa = true;
@@ -84,6 +95,16 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo.Trim();
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;
                     cmd.ExecuteNonQuery();
+                }
+                if (infoActivo.EstadoActivo == "DE BAJA")
+                {
+                    InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdActivo = infoActivo.IdActivo,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
                 }
                 tran.Commit();
                 conn_BD.Close();
@@ -171,7 +192,6 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             MensajesActivos msjActivos = new MensajesActivos();
             try
             {
-                //nombre,modelo,serial,fechaadq,coups,lab,estado
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
                 using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_detalleactivo SET id_laboratorio=@il,nombre_detalleact=@nda, modelo_detalleact=@mda, serial_detalleact=@sda, fechaingreso_detalleact=@fida, codigoups_detalleact=@cuda, estado_detalleact=@eda WHERE id_detalleact=@ida;", conn_BD))
                 {
@@ -184,6 +204,16 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("eda", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoActivo.EstadoActivo.Trim();
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoActivo.IdActivo;
                     cmd.ExecuteNonQuery();
+                }
+                if (infoActivo.EstadoActivo == "DE BAJA")
+                {
+                    InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdActivo = infoActivo.IdActivo,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
                 }
                 tran.Commit();
                 conn_BD.Close();

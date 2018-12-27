@@ -168,6 +168,27 @@ namespace DCICC.WebServiceInventarios.Controllers
             return msjAccesorios;
         }
         /// <summary>
+        /// Método (POST) para actualizar un Accesorio en la base de datos.
+        /// </summary>
+        /// <param name="infoAccesorios"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarAccesorioBasico")]
+        public MensajesAccesorios ActualizarAccesorioBasico([FromBody] Accesorios infoAccesorios)
+        {
+            MensajesAccesorios msjAccesorios = null;
+            ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
+            msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorioBasico(infoAccesorios);
+            if (msjAccesorios.OperacionExitosa)
+            {
+                Logs.Info(string.Format("Actualización de Accesorio con ID: {0} realizada exitosamente.", infoAccesorios.IdAccesorio));
+            }
+            else
+            {
+                Logs.Error(msjAccesorios.MensajeError);
+            }
+            return msjAccesorios;
+        }
+        /// <summary>
         /// Método (POST) para actualizar el estado de un Accesorio en la base de datos.
         /// </summary>
         /// <param name="infoAccesorios"></param>
