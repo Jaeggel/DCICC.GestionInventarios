@@ -141,8 +141,10 @@ function cargarTablaAbiertos() {
             str += '<tr><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
 
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
@@ -283,8 +285,10 @@ function cargarTablaEnCurso() {
                 '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
@@ -430,8 +434,10 @@ function cargarTablaEnEspera() {
                 '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
@@ -574,8 +580,10 @@ function cargarTablaResueltos() {
                 '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
