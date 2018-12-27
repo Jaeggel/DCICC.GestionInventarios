@@ -73,5 +73,7 @@ namespace DCICC.Entidades.EntidadesInventarios
         public string FechaManufacturaActivo { get; set; }
 
         public byte[] BytesCQR { get; set; }
+
+        public bool DeBaja { get; set; } = false;
     }
 }
