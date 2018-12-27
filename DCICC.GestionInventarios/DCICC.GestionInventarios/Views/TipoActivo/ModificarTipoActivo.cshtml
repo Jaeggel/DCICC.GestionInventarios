@@ -60,7 +60,6 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_content">
-                            <br>
                             @* Formulario para envio de datos de los componentes para modificación de una  marca
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
@@ -75,7 +74,7 @@
                                     </div>
                                     @* Cuadro de texto para el ingreso del nombre de un Tipo de activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Nombre del Tipo de Activo:</label>
+                                        <label>Nombre de Tipo de Activo</label>
                                         <input id="NombreTipoActivo" type="text" class="form-control has-feedback-left" name="NombreTipoActivo" placeholder="SWITCH/LAN" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarNombreModificacion();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreTipo" style="color:brown;"></span>
@@ -88,17 +87,27 @@
                                     @* Cuadro de texto para el ingreso de la vida útil de un Tipo de activo *@
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <label>Vida Útil (Años):</label>
-                                            <input id="VidaUtilTipoActivo" type="number" class="form-control has-feedback-left" name="VidaUtilTipoActivo" placeholder="0" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarVidaUtil();" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
+                                            <label>* Vida Útil (Años):</label>
+                                            <input id="VidaUtilTipoActivo" type="number" class="form-control has-feedback-left" name="VidaUtilTipoActivo" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarVidaUtil();" min="1" max="100" data-toggle="tooltip" data-placement="rigth" title="" required>
                                             <span class="fa fa-hourglass-start form-control-feedback left" aria-hidden="true"></span>
                                             <span id="errorVidaTipo" style="color:brown;"></span>
+                                            <br />
+                                            @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de activo *@
+                                            <div class="form-group">
+                                                <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Tipo de Activo?</label>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <input id="HabilitadoTipoActivo" name="HabilitadoTipoActivo" type="checkbox" class="js-switch" value="true" checked />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @* Checkbox para habilitar o deshabilitar el uso del nuevo tipo de activo *@
-                                    <div class="form-group">
-                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Tipo de Activo?</label>
-                                        <div class="col-md-12 col-sm-9 col-xs-12">
-                                            <input id="HabilitadoTipoActivo" name="HabilitadoTipoActivo" type="checkbox" class="js-switch" value="true" checked />
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Estimación de vida de útil:</label>
+                                            <ul>
+                                                <li>Sistemas de Aire Acondicionado, Calefacción y de Refrigeración: <strong>10 Años</strong></li>
+                                                <li>Equipo de Comunicación y Telecomunicación: <strong>10 Años</strong></li>
+                                                <li>Equipos, Aparatos y Accesorios Eléctricos: <strong>10 Años</strong></li>
+                                                <li>CPU's, Monitores, Teclados, Impresoras, etc.: <strong>5 Años</strong></li>
+                                            </ul>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>

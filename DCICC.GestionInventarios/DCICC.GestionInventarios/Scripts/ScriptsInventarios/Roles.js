@@ -204,7 +204,7 @@ function modificarRol(url_modificar) {
                         success: function (data) {
                             if (data.OperacionExitosa) {
                                 $('#ModificarRoles').modal('hide');
-                                showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                showNotify("Actualización exitosa", 'El Rol "' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
                                 obtenerRoles(url_metodo);
                             } else {
                                 $('#ModificarRoles').modal('hide');
@@ -239,7 +239,7 @@ function modificarRol(url_modificar) {
                         success: function (data) {
                             if (data.OperacionExitosa) {
                                 $('#ModificarRoles').modal('hide');
-                                showNotify("Actualización exitosa", 'El Rol " ' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
+                                showNotify("Actualización exitosa", 'El Rol "' + nombre.toUpperCase() + '" se ha modificado exitosamente', "success");
                                 obtenerRoles(url_metodo);
                             } else {
                                 $('#ModificarRoles').modal('hide');
@@ -385,6 +385,6 @@ function validarInputsVaciosIngreso() {
 
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreRol").title = "Máximo 30 caracteres en Minúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - _ .";
+    document.getElementById("NombreRol").title = "Máximo 30 caracteres en Minúscula, sin Espacios ni Números.\n Caracteres especiales permitidos _ ";
     document.getElementById("DescripcionRol").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
 }

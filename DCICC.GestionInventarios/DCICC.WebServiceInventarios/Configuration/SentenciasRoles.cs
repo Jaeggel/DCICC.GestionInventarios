@@ -128,5 +128,18 @@ namespace DCICC.WebServiceInventarios.Configuration
             }
             return lstSentencias;
         }
+        /// <summary>
+        /// Método para obtener la lista de sentencias de consulta para el dashboard.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> ObtenerSentenciasDashboard()
+        {
+            List<string> lstSentencias = new List<string>();
+            foreach (var item in obj_Sentencias.SentenciasDashboard)
+            {
+                lstSentencias.Add(item);
+            }
+            return lstSentencias;
+        }
     }
 }

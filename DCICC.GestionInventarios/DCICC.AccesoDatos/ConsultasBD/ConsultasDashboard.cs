@@ -23,7 +23,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
         /// </summary>
         /// <param name="nickUsuario"></param>
         /// <returns></returns>
-        public MensajesDashboard ObtenerDashboard(string nickUsuario)
+        public MensajesDashboard ObtenerDashboard(string nickUsuario,List<string> sentencias)
         {
             Dashboard objDashboard = new Dashboard();
             MensajesDashboard msjDashboard = new MensajesDashboard();
@@ -40,85 +40,32 @@ namespace DCICC.AccesoDatos.ConsultasBD
                         }
                     }
                 }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_detalleactivo where estado_detalleact='OPERATIVO';", conn_BD))
+                List<long> aux = new List<long>();
+                foreach (var item in sentencias)
                 {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(item, conn_BD))
                     {
-                        while (dr.Read())
+                        long valor = 0;
+                        using (NpgsqlDataReader dr = cmd.ExecuteReader())
                         {
-                            objDashboard.ActivosOperativosCont = (long)dr[0];
+                            while (dr.Read())
+                            {
+                                valor = (long)dr[0];
+                            }
                         }
+                        aux.Add(valor);
                     }
                 }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_detalleactivo where estado_detalleact='NO OPERATIVO';", conn_BD))
+                foreach (var item in aux)
                 {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            objDashboard.ActivosNoOperativosCont = (long)dr[0];
-                        }
-                    }
-                }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_detalleactivo where estado_detalleact='DE BAJA';", conn_BD))
-                {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            objDashboard.ActivosDeBajaCont = (long)dr[0];
-                        }
-                    }
-                }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_usuarios where habilitado_usuario = true;", conn_BD))
-                {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            objDashboard.UsuariosHabilitadosCont = (long)dr[0];
-                        }
-                    }
-                }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_tickets where estado_ticket='ABIERTO'", conn_BD))
-                {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            objDashboard.TicketsAbiertosCont = (long)dr[0];
-                        }
-                    }
-                }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_tickets where estado_ticket='EN PROCESO'", conn_BD))
-                {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            objDashboard.TicketsEnProcesoCont = (long)dr[0];
-                        }
-                    }
-                }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_tickets where estado_ticket='EN ESPERA'", conn_BD))
-                {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            objDashboard.TicketsEnEsperaCont = (long)dr[0];
-                        }
-                    }
-                }
-                using (NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from dcicc_tickets where estado_ticket='RESUELTO'", conn_BD))
-                {
-                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            objDashboard.TicketsResueltosCont = (long)dr[0];
-                        }
-                    }
+                    objDashboard.ActivosOperativosCont = aux[0];
+                    objDashboard.ActivosNoOperativosCont = aux[1];
+                    objDashboard.ActivosDeBajaCont = aux[2];
+                    objDashboard.UsuariosHabilitadosCont = aux[3];
+                    objDashboard.TicketsAbiertosCont = aux[4];
+                    objDashboard.TicketsEnProcesoCont = aux[5];
+                    objDashboard.TicketsEnEsperaCont = aux[6];
+                    objDashboard.TicketsResueltosCont = aux[7];
                 }
                 conn_BD.Close();
                 msjDashboard.ObjetoInventarios = objDashboard;

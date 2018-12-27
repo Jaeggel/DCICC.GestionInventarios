@@ -51,7 +51,7 @@
                         @* Área de Texto para seleccionar el propósito de la máquina virtual *@
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <label>*Selecione el Propósito</label>
+                                <label>* Selecione el Propósito</label>
                                 <div id="cargarPropositos"></div>
                                 <span id="errorCmbEstado" style="color:brown;"></span>
                             </div>
@@ -83,7 +83,7 @@
                             <div class="col-md-8 col-sm-12 col-xs-12 ">
                                 
                                 <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <label>* Tamaño en Disco:</label>
+                                    <label>* Tamaño en Disco</label>
                                     <input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="4" min="1" max="1000" onBlur="validarDisco();" data-toggle="tooltip" data-placement="rigth" title="" required>
                                     <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                                     <span id="errorDiscoMv" style="color:brown;"></span>
@@ -98,7 +98,7 @@
                             </div>
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
-                                <label>*Memoria RAM (GB):</label>
+                                <label>*Memoria RAM (GB)</label>
                                 <input id="RamMaqVirtuales" type="number" class="form-control has-feedback-left" name="RamMaqVirtuales" placeholder="5" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarRam();" min="0" max="1000" data-toggle="tooltip" data-placement="rigth" title="" required>
                                 <span class="fa fa-tachometer form-control-feedback left" aria-hidden="true"></span>
                                 <span id="errorRamMv" style="color:brown;"></span>

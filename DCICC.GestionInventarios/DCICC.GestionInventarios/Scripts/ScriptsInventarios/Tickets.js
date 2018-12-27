@@ -95,7 +95,7 @@ function datosResponsables(url) {
         url: url,
         type: 'post',
         success: function (data) {
-            responsables = data;
+            responsables = data.ListaObjetoInventarios;
             cargarResponsablesCmb();
         }
     });
@@ -120,9 +120,7 @@ function cargarResponsablesCmb() {
     var str = '<select id="Responsables" class="form-control" name="Responsables" data-toggle="tooltip" data-placement="rigth" title="Seleccione el responsable que se hará cargo del Ticket" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < responsables.length; i++) {
-        if (responsables[i].NombreRol == "administrador" || responsables[i].NombreRol == "pasante") {
-            str += '<option value="' + responsables[i].IdUsuario + '">' + responsables[i].NombresUsuario + '</option>';
-        }
+        str += '<option value="' + responsables[i].IdUsuario + '">' + responsables[i].NombresUsuario + '</option>';
     }
     str += '</select>';
     $("#cargarResponsablesCmb").html(str);
@@ -178,7 +176,6 @@ function formUpdateAbiertos(idTicket) {
 
 //Función para modificar el estado de un ticket activo
 function modificarEstadoTicket(url_modificar) {
-    var nick = document.getElementById("usuarioActual").innerHTML;
     var cmbResponsable = document.getElementById("Responsables");
     var responsable = cmbResponsable.options[cmbResponsable.selectedIndex].value;
     var asignado = cmbResponsable.options[cmbResponsable.selectedIndex].text;
@@ -199,7 +196,7 @@ function modificarEstadoTicket(url_modificar) {
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    data: { "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario, "NombreUsuarioResponsable": nick },
+                    data: { "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario },
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {

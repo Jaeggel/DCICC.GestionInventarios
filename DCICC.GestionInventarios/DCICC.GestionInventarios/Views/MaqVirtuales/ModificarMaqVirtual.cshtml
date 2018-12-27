@@ -66,7 +66,7 @@
                                     @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Seleccione una LUN</label>
+                                            <label>LUN</label>
                                             <div id="cargarLunsModificar"></div>
                                             <span id="errorLun" style="color:brown;"></span>
                                         </div>
@@ -74,7 +74,7 @@
                                     @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Seleccione el Sistema Operativo</label>
+                                            <label>Sistema Operativo</label>
                                             <div id="cargarSOModificar"></div>
                                             <span id="errorCmbSo" style="color:brown;"></span>
                                         </div>
@@ -115,7 +115,7 @@
                                             <div class="col-md-8 col-sm-12 col-xs-12 form-group">
 
                                                 <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
-                                                    <label>Tamaño en Disco:</label>
+                                                    <label>Tamaño en Disco</label>
                                                     <input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="1000" onBlur="validarDisco();" data-toggle="tooltip" data-placement="rigth" title="" required>
                                                     <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
                                                     <span id="errorDiscoMv" style="color:brown;"></span>
@@ -130,7 +130,7 @@
                                             </div>
 
                                             <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <label>Memoria RAM (GB):</label>
+                                                <label>Memoria RAM (GB)</label>
                                                 <input id="RamMaqVirtuales" type="number" class="form-control has-feedback-left" name="RamMaqVirtuales" placeholder="5" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarRam();" min="0" max="1000" data-toggle="tooltip" data-placement="rigth" title="" required>
                                                 <span class="fa fa-tachometer form-control-feedback left" aria-hidden="true"></span>
                                                 <span id="errorRamMv" style="color:brown;"></span>
@@ -147,7 +147,7 @@
                                     <div class="form-group">
                                         <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Máquina Virtual?</label>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input name="HabilitadoMaqVirtuales" type="checkbox" class="js-switch" value="true" checked />
+                                            <input id="HabilitadoMaqVirtuales" name="HabilitadoMaqVirtuales" type="checkbox" class="js-switch" value="true" checked />
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>

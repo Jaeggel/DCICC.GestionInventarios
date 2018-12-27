@@ -14,6 +14,10 @@ function comprobarRol() {
             if (data !== "Admin" && data !== "Invitado"  && data !== "Reporteria" && data !== "Pasantes") {
                 definirMenuPorRolActual();
             }       
+            if (data === "Invitado") {
+                $("#enlacevu").attr('href', '#');
+                $("#graficas").hide("fast");
+            }
         }
     });
 }
@@ -111,19 +115,23 @@ function listaEstadosActivos() {
 }
 
 function validarNombres() {
-    return /[^A-Z0-9_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+    return /[^A-Z0-9_/\-.ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
 
 function validarNombresMayusMinus() {
-    return /[^a-zA-Z0-9_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+    return /[^a-zA-Z0-9_/\-.ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+}
+
+function validarNicksBase() {
+    return /[^a-zA-Z0-9_Ññ]/g;
 }
 
 function validarNombresRoles() {
-    return /[^a-z_\-.]/g;
+    return /[^a-z_]/g;
 }
 
 function validarNombreSinNumeros() {
-    return /[^A-Z_/\-.ÑÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
+    return /[^A-Z_/\-.ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù]/g;
 }
 
 function validarTextos() {

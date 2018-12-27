@@ -89,7 +89,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.NombreUsuario
+                                    <img src="~/Content/Images/perfil.png" alt="">@ViewBag.NombreUsuario
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@
@@ -136,26 +136,38 @@
                     <h3 class="modal-title">Ayuda</h3>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <b>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</b>
-                            <ul>
-                                <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
-                            </ul>
+                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h4 class="panel-title">Teclas de Acceso Rápido</h4>
+                            </a>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <b>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</b>
+                                    <ul>
+                                        <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <b align="justify">Generación de Reportes: </b>
-                            <ol>
-                                <li>Ir a Reportes, seleccionar la categóría de reportes requerida:</li>
-                                <li>
-                                    Aplicar los filtros necesarios.<br />
-                                    En caso de haber aplicado filtros con rangos de fecha, se recomienda usar el botón Limpiar para realizar otra búsqueda.
-                                </li>
-                                <li>Clic en el bóton Reporte PDF o Reporte Excel.</li>
-                            </ol>
-                        </div>
+                        <div class="panel panel-default">
+                            <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <h4 class="panel-title">Generación de Reportes</h4>
+                            </a>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">
+                                    <b align="justify">Para generar un reporte PDF o Excel:</b>
+                                    <ol>
+                                        <li>Ir a Reportes, seleccionar la categóría de reportes requerida.</li>
+                                        <li>
+                                            Aplicar los filtros necesarios.<br />
+                                            En caso de haber aplicado filtros con rangos de fecha, se recomienda usar el botón Limpiar para realizar otra búsqueda.
+                                        </li>
+                                        <li>Clic en el bóton Reporte PDF o Reporte Excel.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>

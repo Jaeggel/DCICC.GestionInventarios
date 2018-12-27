@@ -40,7 +40,7 @@ function urlEstados(url) {
 //Función para cargar la tabla de Sistemas Operativos
 function cargarSOTabla() {
     var str = '<table id="dataTableSO" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre del Sistema Operativo</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre de Sistema Operativo</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosSO.length; i++) {
         str += '<tr><td>' + datosSO[i].NombreSistOperativos +
@@ -116,7 +116,7 @@ function modificarSO(url_modificar) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarSo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Sistema Operativo " ' + nombreSO.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Sistema Operativo "' + nombreSO.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerSO(url_metodo);
                         } else {
                             $('#ModificarSo').modal('hide');
@@ -204,7 +204,7 @@ function comprobarNombre() {
         for (var i = 0; i < datosSO.length; i++) {
             if ((datosSO[i].NombreSistOperativos).toUpperCase() == nomSO.value) {
                 nomSO.style.borderColor = "#900C3F";
-                $('#errorNombreSO').html("El nombre: " + nomSO.value + " ya existe").show();
+                $('#errorNombreSO').html("El nombre de Sistema Operativo: " + nomSO.value + " ya existe").show();
                 setTimeout("$('#errorNombreSO').html('').hide('slow')", 6000);
                 nomSO.value = "";
                 break;
@@ -224,7 +224,7 @@ function validarNombreModificacion() {
         for (var i = 0; i < datosSO.length; i++) {
             if ((datosSO[i].NombreSistOperativos).toUpperCase() == nomCat.value) {
                 nomCat.style.borderColor = "#900C3F";
-                $('#errorNombreSo').html("El nombre: " + nomCat.value + " ya existe").show();
+                $('#errorNombreSo').html("El nombre  de Sistema Operativo: " + nomCat.value + " ya existe").show();
                 setTimeout("$('#errorNombreSo').html('').hide('slow')", 6000);
                 nomCat.value = "";
                 break;

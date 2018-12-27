@@ -140,7 +140,7 @@ function modificarDatosUsuario(urlModificar, urlSalir,urlHome) {
         if (nickUsuarioMod != nickUsuario) {
             swal({
                 title: 'Confirmación de Actualización',
-                text: "¿Está seguro de modificar datos del usuario?",
+                text: "¿Está seguro de modificar sus Datos?",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#26B99A',
@@ -248,7 +248,7 @@ function comprobarCorreoModificar() {
     console.log(comprobar);
     if (comprobar == true) {
         correo.style.borderColor = "#900C3F";
-        $('#errorCorreo').html('El correo ' + correo.value + ' ya existe.').show();
+        $('#errorCorreo').html('El correo de Usuario: ' + correo.value + ' ya existe.').show();
         setTimeout("$('#errorCorreo').html('').hide('slow')", 6000);
     } else {
         correo.style.borderColor = "#ccc";
@@ -274,17 +274,16 @@ function comprobarRol_Nick() {
 //función para comprobar el nick en modificación
 function comprobarNickModificacion() {
     var nick = document.getElementById("NickUsuario");
-    nick.value = nick.value.toLowerCase();
     if (comprobarRol_Nick()) {
         nick.style.borderColor = "#900C3F";
-        $('#errorNick').html("El nick de usuario: '" + nick.value + "' no puede ser igual a un nombre de rol").show();
+        $('#errorNick').html("El nick de Usuario: " + nick.value + " no puede ser igual a un nombre de rol").show();
         setTimeout("$('#errorNick').html('').hide('slow')", 7000);
         nick.value = "";
-    } else if (nick.value != nickActual.toLowerCase()) {
+    } else if (nick.value != nickActual) {
         for (var i = 0; i < datosUsuarios.length; i++) {
-            if ((datosUsuarios[i].NickUsuario).toLowerCase() == nick.value) {
+            if ((datosUsuarios[i].NickUsuario).toLowerCase() == nick.value.toLowerCase()) {
                 nick.style.borderColor = "#900C3F";
-                $('#errorNick').html("El nick de usuario: '" + nick.value + "' ya existe").show();
+                $('#errorNick').html("El nick de Usuario: " + nick.value + " ya existe").show();
                 setTimeout("$('#errorNick').html('').hide('slow')", 6000);
                 nick.value = "";
                 break;
@@ -343,7 +342,7 @@ function validarInputNick() {
     if (nick.value.length <= 0) {
         esValido = false;
         nick.style.borderColor = "#900C3F";
-        $('#errorNick').html('El campo nick de usuario no debe estar vacio').show();
+        $('#errorNick').html('El campo nick de Usuario no debe estar vacio').show();
         setTimeout("$('#errorNick').html('').hide('slow')", 6000);
     } else {
         nick.style.borderColor = "#ccc";

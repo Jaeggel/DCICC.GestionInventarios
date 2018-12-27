@@ -161,195 +161,197 @@
 
 @* Modal de modificación de Activos *@
 <div class="modal fade" id="ModificarActivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel1">Modificación de información del Activo</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_content">
-                            @* Formulario para actualización de datos de los tickets.
-                                (Metodo de la clase) - Controlador (Controller) *@
-                            <div class="form">
-                                <div class="form-horizontal form-label-left input_mask">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel1">Modificación de información del Activo</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="x_content">
+							@* Formulario para actualización de datos de los tickets.
+								(Metodo de la clase) - Controlador (Controller) *@
+							<div class="form">
+								<div class="form-horizontal form-label-left input_mask">
 
-                                    @* Combobox para seleccionar el tipo de activo *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Tipo de Activo:</label>
-                                            <div id="cargarTipoActivos"></div>
-                                            <span id="errorTipo" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    @* Combobox para seleccionar la marca del activo *@
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-sm-12 col-xs-12">
-                                            <label>Marca del Activo:</label>
-                                            <div id="cargarMarcas"></div>
-                                            <span id="errorMarca" style="color:brown;"></span>
-                                        </div>
-                                        @* Combobox para el laboratorio del activo *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12">
-                                            <label>Laboratorio del Activo:</label>
-                                            <div id="cargarLaboratorios"></div>
-                                            <span id="errorLaboratorio" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group"></div>
-                                    @* Combobox para seleccionar el estado del activo *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Estado del Activo:</label>
-                                            <div id="cargarEstados"></div>
-                                            <span id="errorEstado" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del nombre de un activo *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Nombre del Activo</label>
-                                        <input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="LIHM_MAC01" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarNombreActModificar();"  minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorNombre" style="color:brown;"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del modelo de un activo *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Modelo del Activo</label>
-                                        <input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="iMAC Pro Turbo Boost" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModeloAct();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorModelo" style="color:brown;"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        @* Cuadro de texto para el ingreso del serial activo *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <label>Serial del Activo</label>
-                                            <input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="C02WC1YAJ1G5" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerialAct();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                            <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
-                                            <span id="errorSerial" style="color:brown;"></span>
-                                        </div>
-                                        @* Cuadro de texto para el ingreso del codigo UPS del activo *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <label>Código de barras UPS</label>
-                                            <input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="80042000619268" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="16" data-toggle="tooltip" data-placement="rigth" title="">
-                                            <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-											<label>Fecha de Adquisición:(mm/dd/yyyy)</label>
-                                            <input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="FechaIngresoActivo" placeholder="Fecha de Adquisición" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
-                                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
-                                        </div>
-                                        @* Cuadro de texto para el ingreso del responsable del activo *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <label>Responsable del Activo</label>
-                                            <input id="ResponsableActivo" type="text" class="form-control has-feedback-left" name="ResponsableActivo" placeholder="Pepe Peréz" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="" readonly>
-                                            <span class="fa fa-child form-control-feedback left" aria-hidden="true"></span>
-                                            <span id="errorResponsable" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group"></div>
-                                    @* Área de Texto para el ingreso de la descripción de una activo *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
-                                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
+									@* Combobox para seleccionar el tipo de activo *@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Tipo de Activo</label>
+											<div id="cargarTipoActivos"></div>
+											<span id="errorTipo" style="color:brown;"></span>
+										</div>
+									</div>
+									@* Combobox para seleccionar la marca del activo *@
+									<div class="form-group">
+										<div class="col-md-6 col-sm-12 col-xs-12">
+											<label>Marca del Activo</label>
+											<div id="cargarMarcas"></div>
+											<span id="errorMarca" style="color:brown;"></span>
+										</div>
+										@* Combobox para el laboratorio del activo *@
+										<div class="col-md-6 col-sm-12 col-xs-12">
+											<label>Laboratorio del Activo</label>
+											<div id="cargarLaboratorios"></div>
+											<span id="errorLaboratorio" style="color:brown;"></span>
+										</div>
+									</div>
+									<div class="form-group"></div>
+									@* Combobox para seleccionar el estado del activo *@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Estado del Activo</label>
+											<div id="cargarEstados"></div>
+											<span id="errorEstado" style="color:brown;"></span>
+										</div>
+									</div>
+									@* Cuadro de texto para el ingreso del nombre de un activo *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Nombre de Activo</label>
+										<input id="NombreActivo" type="text" class="form-control has-feedback-left" name="NombreActivo" placeholder="LIHM_MAC01" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarNombreActModificar();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorNombre" style="color:brown;"></span>
+									</div>
+									@* Cuadro de texto para el ingreso del modelo de un activo *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Modelo de Activo</label>
+										<input id="ModeloActivo" type="text" class="form-control has-feedback-left" name="ModeloActivo" placeholder="iMAC Pro Turbo Boost" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModeloAct();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorModelo" style="color:brown;"></span>
+									</div>
+									<div class="form-group">
+										@* Cuadro de texto para el ingreso del serial activo *@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<label>Serial de Activo</label>
+											<input id="SerialActivo" type="text" class="form-control has-feedback-left" name="SerialActivo" placeholder="C02WC1YAJ1G5" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerialAct();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+											<span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
+											<span id="errorSerial" style="color:brown;"></span>
+										</div>
+										@* Cuadro de texto para el ingreso del codigo UPS del activo *@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<label>Código de barras UPS</label>
+											<input id="CodigoUpsActivo" type="text" class="form-control has-feedback-left" name="CodigoUpsActivo" placeholder="80042000619268" onkeyup="this.value=this.value.replace(validarNumeros(),'');" maxlength="16" data-toggle="tooltip" data-placement="rigth" title="">
+											<span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+										</div>
+									</div>
+									@* Cuadro de texto para el ingreso de la fecha de ingreso del activo *@
+									<div class="form-group">
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<label>Fecha de Adquisición: (mm/dd/yyyy)</label>
+											<input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="FechaIngresoActivo" placeholder="Fecha de Adquisición" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+											<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+										</div>
+										@* Cuadro de texto para el ingreso del responsable del activo *@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<label>Responsable del Activo</label>
+											<input id="ResponsableActivo" type="text" class="form-control has-feedback-left" name="ResponsableActivo" placeholder="Pepe Peréz" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="" readonly>
+											<span class="fa fa-child form-control-feedback left" aria-hidden="true"></span>
+											<span id="errorResponsable" style="color:brown;"></span>
+										</div>
+									</div>
+									<div class="form-group"></div>
+									@* Área de Texto para el ingreso de la descripción de una activo *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<textarea id="DescripcionActivo" name="DescripcionActivo" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Activo" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+										<span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+									</div>
 
-                                    @* ---------------- Sección de especificaciones adicionales para todos los Activos ---------------*@
-                                    <label>Especificaciones Adicionales comunes para todos los Activos</label>
-                                    @* Área de Texto para el ingreso de Express Service Code *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="ExpressServiceCodeActivo" type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="">
-                                        <span class="fa fa-code-fork form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
+									@* ---------------- Sección de especificaciones adicionales para todos los Activos ---------------*@
+									<label>Especificaciones Adicionales Comunes para todos los Activos</label>
+									@* Área de Texto para el ingreso de Express Service Code *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<input id="ExpressServiceCodeActivo" type="text" class="form-control has-feedback-left" name="ExpressServiceCodeActivo" placeholder="Express Service Code" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="">
+										<span class="fa fa-code-fork form-control-feedback left" aria-hidden="true"></span>
+									</div>
 
-                                    @* Cuadro de texto para el ingreso de Fecha de Manufactura *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="FechaManufacturaActivo" type="text" class="form-control has-feedback-left" name="FechaManufacturaActivo" placeholder="Fecha de Manufactura" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="">
-                                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
+									@* Cuadro de texto para el ingreso de Fecha de Manufactura *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<input id="FechaManufacturaActivo" type="text" class="form-control has-feedback-left" name="FechaManufacturaActivo" placeholder="Fecha de Manufactura" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="">
+										<span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+									</div>
 
-                                    @* ---------------- Sección de especificaciones adicionales para Equipos de Redes ---------------*@
-                                    <label>Especificaciones Adicionales para Switchs, routers, etc.</label>
-                                    <div class="form-group">
-                                        @* Cuadro de texto para el ingreso de Número de Puertos *@
+									@* ---------------- Sección de especificaciones adicionales para Equipos de Redes ---------------*@
+									<label>Especificaciones Adicionales para Switchs, Routers, etc.</label>
+									<div class="form-group">
+										@* Cuadro de texto para el ingreso de Número de Puertos *@
 										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
 											<input id="NumPuertosActivo" type="number" class="form-control has-feedback-left" name="NumPuertosActivo" placeholder="Número de Puertos" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="comprobarNumPuertos();" min="0" max="500" maxlength="3" data-toggle="tooltip" data-placement="rigth" title="">
 											<span class="fa fa-sort-numeric-asc form-control-feedback left" aria-hidden="true"></span>
 											<span id="errorNumPuertos" style="color:brown;"></span>
 										</div>
-                                        @* Cuadro de texto para el ingreso de Version de IOS *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <input id="IosVersionActivo" type="text" class="form-control has-feedback-left" name="IosVersionActivo" placeholder="Version de IOS" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
-                                            <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
+										@* Cuadro de texto para el ingreso de Version de IOS *@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<input id="IosVersionActivo" type="text" class="form-control has-feedback-left" name="IosVersionActivo" placeholder="Version de IOS" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
+											<span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+										</div>
+									</div>
 
-                                    @* ---------------- Sección de especificaciones adicionales para Servidores Cuchillas etc---------------*@
-                                    <label>Especificaciones Adicionales para Servidores, switch SAN etc.</label>
+									@* ---------------- Sección de especificaciones adicionales para Servidores Cuchillas etc---------------*@
+									<label>Especificaciones Adicionales para Servidores, Switch SAN etc.</label>
 
-                                    @* Cuadro de texto para el ingreso de Product Name *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="ProductNameActivo" type="text" class="form-control has-feedback-left" name="ProductNameActivo" placeholder="Product Name" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
-                                        <span class="fa fa-book form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso de Hpe Part Number *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="HpePartNumberActivo" type="text" class="form-control has-feedback-left" name="HpePartNumberActivo" placeholder="Hpe Part Number" onkeyup="this.value=this.value.replace(validarNombres(),'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
-                                        <span class="fa fa-cubes form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        @* Cuadro de texto para el ingreso de Código de Barras 1 *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <input id="CodBarras1Activo" type="text" class="form-control has-feedback-left" name="CodBarras1Activo" placeholder="Código de Barras 1" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="">
-                                            <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                        @* Cuadro de texto para el ingreso de Código de Barras 2*@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <input id="CodBarras2Activo" type="text" class="form-control has-feedback-left" name="CodBarras2Activo" placeholder="Código de Barras 2" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="">
-                                            <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
+									@* Cuadro de texto para el ingreso de Product Name *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<input id="ProductNameActivo" type="text" class="form-control has-feedback-left" name="ProductNameActivo" placeholder="Product Name" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
+										<span class="fa fa-book form-control-feedback left" aria-hidden="true"></span>
+									</div>
+									@* Cuadro de texto para el ingreso de Hpe Part Number *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<input id="HpePartNumberActivo" type="text" class="form-control has-feedback-left" name="HpePartNumberActivo" placeholder="Hpe Part Number" onkeyup="this.value=this.value.replace(validarNombres(),'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
+										<span class="fa fa-cubes form-control-feedback left" aria-hidden="true"></span>
+									</div>
+									<div class="form-group">
+										@* Cuadro de texto para el ingreso de Código de Barras 1 *@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<input id="CodBarras1Activo" type="text" class="form-control has-feedback-left" name="CodBarras1Activo" placeholder="Código de Barras 1" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="">
+											<span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+										</div>
+										@* Cuadro de texto para el ingreso de Código de Barras 2*@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<input id="CodBarras2Activo" type="text" class="form-control has-feedback-left" name="CodBarras2Activo" placeholder="Código de Barras 2" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="30" data-toggle="tooltip" data-placement="rigth" title="">
+											<span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+										</div>
+									</div>
 
-                                    @* Cuadro de texto para el ingreso de CT Code *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="CtActivo" type="text" class="form-control has-feedback-left" name="CtActivo" placeholder="CT Code" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
-                                        <span class="fa fa-code form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* ---------------- Sección de especificaciones adicionales para Discos Memorias etc---------------*@
-                                    <label>Especificaciones Adicionales para Discos Duros, Memorias, etc.</label>
+									@* Cuadro de texto para el ingreso de CT Code *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<input id="CtActivo" type="text" class="form-control has-feedback-left" name="CtActivo" placeholder="CT Code" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="20" data-toggle="tooltip" data-placement="rigth" title="">
+										<span class="fa fa-code form-control-feedback left" aria-hidden="true"></span>
+									</div>
+									@* ---------------- Sección de especificaciones adicionales para Discos Memorias etc---------------*@
+									<label>Especificaciones Adicionales para Discos Duros, Memorias, etc.</label>
 
-                                    <div class="form-group">
-                                        @* Cuadro de texto para el ingreso de Capacidad de Activo *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <input id="CapacidadActivo" type="text" class="form-control has-feedback-left" name="CapacidadActivo" placeholder="Capacidad(GB/TB)" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" min="0" maxlength="8" data-toggle="tooltip" data-placement="rigth" title="">
-                                            <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                        @* Cuadro de texto para el ingreso de Velocidad de Transferencia *@
-                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-                                            <input id="VelocidadTransfActivo" type="text" class="form-control has-feedback-left" name="VelocidadTransfActivo" placeholder="Velocidad de Transferencia" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
-                                            <span class="fa fa-rocket form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button id="confirmarActivo" type="submit" class="btn btn-success" onclick="validacionesCamposModificar();actualizarActivo('@Url.Action("ModificarActivo", "Activos")');">Modificar</button>
-                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+									<div class="form-group">
+										@* Cuadro de texto para el ingreso de Capacidad de Activo *@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<input id="CapacidadActivo" type="text" class="form-control has-feedback-left" name="CapacidadActivo" placeholder="Capacidad(GB/TB)" onkeyup="this.value=this.value.replace(validarTextosMayus(),'');" min="0" maxlength="8" data-toggle="tooltip" data-placement="rigth" title="">
+											<span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+										</div>
+										@* Cuadro de texto para el ingreso de Velocidad de Transferencia *@
+										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+											<input id="VelocidadTransfActivo" type="text" class="form-control has-feedback-left" name="VelocidadTransfActivo" placeholder="Velocidad de Transferencia" onkeyup="this.value=this.value.replace(validarNombres() ,'');" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+											<span class="fa fa-rocket form-control-feedback left" aria-hidden="true"></span>
+										</div>
+									</div>
+									<div class="form-group"></div>
+									<div class="ln_solid"></div>
+									<div class="form-group text-center">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<button id="confirmarActivo" type="submit" class="btn btn-success" onclick="validacionesCamposModificar();actualizarActivo('@Url.Action("ModificarActivo", "Activos")');">Modificar</button>
+											<button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 @* Modal de modificación de estado de activo*@
 <div class="modal fade" id="ModificarEstadoActivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
@@ -368,22 +370,24 @@
                             @* Formulario para actualización de datos de los tickets.
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
-                                <div class="form-horizontal form-label-left input_mask">
-                                    @* Combobox para seleccionar el estado del activo *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Seleccione el nuevo estado para el Activo:</label>
-                                            <div id="cargarEstadosActivo"></div>
-                                            <span id="errorEstadoActivo" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="actualizarEstadoActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
-                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </div>
+								<div class="form-horizontal form-label-left input_mask">
+									@* Combobox para seleccionar el estado del activo *@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Seleccione el nuevo estado para el Activo:</label>
+											<div id="cargarEstadosActivo"></div>
+											<span id="errorEstadoActivo" style="color:brown;"></span>
+										</div>
+									</div>
+									<div class="form-group"></div>
+									<div class="ln_solid"></div>
+									<div class="form-group text-center">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<button type="submit" class="btn btn-success" onclick="actualizarEstadoActivo('@Url.Action("ModificarEstadoActivo", "Activos")');">Modificar</button>
+											<button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+										</div>
+									</div>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -409,64 +413,64 @@
                             @* Formulario para envio de datos de los componentes para modificación de un accesorio
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
-                                <div class="form-horizontal form-label-left input_mask">
-                                    @* Combobox para seleccionar un Tipo de Accesorio *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Tipo de Accesorio</label>
-                                            <div id="cargarTipoAccesorio"></div>
-                                            <span id="errorTipoAccesorio" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del nombre de un accesorio *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <input id="NombreActivoAccesorio" type="text" class="form-control has-feedback-left" name="NombreActivoAccesorio" placeholder="Nombre del Accesorio" maxlength="100" readonly>
-                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del nombre de un accesorio *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Nombre del Accesorio</label>
-                                        <input id="NombreAccesorio" type="text" class="form-control has-feedback-left" name="NombreAccesorio" placeholder="CABLE_USB" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarNombreAccesorioModificar();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorNombreAccesorio" style="color:brown;"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del serial de un accesorio *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Serial del Accesorio</label>
-                                        <input id="SerialAccesorio" type="text" class="form-control has-feedback-left" name="SerialAccesorio" placeholder="A568S-ASS-50504" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();" data-toggle="tooltip" data-placement="rigth" title="" maxlength="80">
-                                        <span class="fa fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorSerialAccesorio" style="color:brown;"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del modelo de un accesorio *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Modelo del Accesorio</label>
-                                        <input id="ModeloAccesorio" type="text" class="form-control has-feedback-left" name="ModeloAccesorio" placeholder="Economico Tipo C" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();" data-toggle="tooltip" data-placement="rigth" title="" maxlength="80">
-                                        <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorModeloAccesorio" style="color:brown;"></span>
-                                    </div>
-                                    @* Combobox para seleccionar el estado del activo *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Estado del Activo</label>
-                                            <div id="cargarEstadosAccesorio"></div>
-                                            <span id="errorEstadoAccesorio" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    @* Área de Texto para el ingreso de la descripción de un accesorio *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
-                                        <span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-
-                                    <div class="ln_solid"></div>
-                                    @* Sección de botones para guardar accesorio o cancelar el registro *@
-                                    <div class="form-group text-center">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button id="confirmarAccesorioModificacion" type="submit" class="btn btn-success" onclick="actualizarAccesorio('@Url.Action("ModificarAccesorio", "Activos")');">Modificar</button>
-                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </div>
+								<div class="form-horizontal form-label-left input_mask">
+									@* Combobox para seleccionar un Tipo de Accesorio *@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Tipo de Accesorio</label>
+											<div id="cargarTipoAccesorio"></div>
+											<span id="errorTipoAccesorio" style="color:brown;"></span>
+										</div>
+									</div>
+									@* Cuadro de texto para el ingreso del nombre de un accesorio *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<input id="NombreActivoAccesorio" type="text" class="form-control has-feedback-left" name="NombreActivoAccesorio" placeholder="Nombre del Accesorio" maxlength="100" readonly>
+										<span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+									</div>
+									@* Cuadro de texto para el ingreso del nombre de un accesorio *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Nombre de Accesorio</label>
+										<input id="NombreAccesorio" type="text" class="form-control has-feedback-left" name="NombreAccesorio" placeholder="CABLE_USB" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="validarNombreAccesorioModificar();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorNombreAccesorio" style="color:brown;"></span>
+									</div>
+									@* Cuadro de texto para el ingreso del serial de un accesorio *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Serial de Accesorio</label>
+										<input id="SerialAccesorio" type="text" class="form-control has-feedback-left" name="SerialAccesorio" placeholder="A568S-ASS-50504" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerial();" data-toggle="tooltip" data-placement="rigth" title="" maxlength="80">
+										<span class="fa fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorSerialAccesorio" style="color:brown;"></span>
+									</div>
+									@* Cuadro de texto para el ingreso del modelo de un accesorio *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Modelo de Accesorio</label>
+										<input id="ModeloAccesorio" type="text" class="form-control has-feedback-left" name="ModeloAccesorio" placeholder="Economico Tipo C" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModelo();" data-toggle="tooltip" data-placement="rigth" title="" maxlength="80">
+										<span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorModeloAccesorio" style="color:brown;"></span>
+									</div>
+									@* Combobox para seleccionar el estado del activo *@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Estado del Activo</label>
+											<div id="cargarEstadosAccesorio"></div>
+											<span id="errorEstadoAccesorio" style="color:brown;"></span>
+										</div>
+									</div>
+									@* Área de Texto para el ingreso de la descripción de un accesorio *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<textarea id="DescripcionAccesorio" name="DescripcionAccesorio" class="form-control has-feedback-left" rows="3" placeholder="Descripción del Accesorio" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+										<span class="fa fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+									</div>
+									<div class="form-group"></div>
+									<div class="ln_solid"></div>
+									@* Sección de botones para guardar accesorio o cancelar el registro *@
+									<div class="form-group text-center">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<button id="confirmarAccesorioModificacion" type="submit" class="btn btn-success" onclick="actualizarAccesorio('@Url.Action("ModificarAccesorio", "Activos")');">Modificar</button>
+											<button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+										</div>
+									</div>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -492,23 +496,24 @@
                             @* Formulario para actualización de datos de los tickets.
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
-                                <div class="form-horizontal form-label-left input_mask">
-                                    @* Combobox para seleccionar el estado del activo *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Seleccione el nuevo estado para el Accesorio:</label>
-                                            <div id="cargarEstadosAccesorioMod"></div>
-                                            <span id="errorEstadoAcc" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group text-center">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="submit" class="btn btn-success" onclick="actualizarEstadoAccesorios('@Url.Action("ModificarEstadoAccesorio", "Activos")');">Modificar</button>
-                                            <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </div>
+								<div class="form-horizontal form-label-left input_mask">
+									@* Combobox para seleccionar el estado del activo *@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Seleccione el nuevo estado para el Accesorio:</label>
+											<div id="cargarEstadosAccesorioMod"></div>
+											<span id="errorEstadoAcc" style="color:brown;"></span>
+										</div>
+									</div>
+									<div class="form-group"></div>
+									<div class="ln_solid"></div>
+									<div class="form-group text-center">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<button type="submit" class="btn btn-success" onclick="actualizarEstadoAccesorios('@Url.Action("ModificarEstadoAccesorio", "Activos")');">Modificar</button>
+											<button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close">Cancelar</button>
+										</div>
+									</div>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -548,19 +553,19 @@
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>* Nombre del Accesorio</label>
+                                        <label>* Nombre de Accesorio</label>
                                         <input id="NombreAccesorioIngreso" type="text" class="form-control has-feedback-left" name="NombreAccesorioIngreso" placeholder="CABLE_USB" onkeyup="this.value=this.value.replace(validarNombres(),'');" onBlur="comprobarNombreAccesorio();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreAccesorioIng" style="color:brown;"></span>
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>* Serial del Accesorio</label>
+                                        <label>* Serial de Accesorio</label>
                                         <input id="SerialAccesorioIngreso" type="text" class="form-control has-feedback-left" name="SerialAccesorioIngreso" placeholder="A568S-ASS-50504" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onBlur="setearSerialIngreso();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-cogs form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorModeloAccesorioIng" style="color:brown;"></span>
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>* Modelo del Accesorio</label>
+                                        <label>* Modelo de Accesorio</label>
                                         <input id="ModeloAccesorioIngreso" type="text" class="form-control has-feedback-left" name="ModeloAccesorioIngreso" placeholder="Economico Tipo C" onkeyup="this.value=this.value.replace(validarTextos(),'');" onBlur="setearModeloIngreso();" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-adjust form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorSerialAccesorioIng" style="color:brown;"></span>
@@ -632,10 +637,8 @@
 <script src="~/Scripts/ScriptsInventarios/Accesorios.js"></script>
 <script>
 	$(document).ready(function () {
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botones('@Url.Action("ObtenerRolActual", "Usuarios")');
-		//Método para llamar a la función que bloquea los botones con el usuario invitado
-		botonesActivos('@Url.Action("ObtenerRolActual", "Usuarios")');
+		
+		
         //Método para obtener datos de Activos
         obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
@@ -644,7 +647,10 @@
         cargarEstadosCmb();
 		cargarEstadosModificarCmb();
 		EstadosFiltroAct();
-        mensajesTooltips();
+		mensajesTooltips();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botonesActivos('@Url.Action("ObtenerRolActual", "Usuarios")');
+
 
         //Método para obtener datos de Accesorios
         obtenerAccesorios('@Url.Action("ObtenerAccesoriosComp", "Activos")');
@@ -656,6 +662,9 @@
         mensajesTooltipsAccesorios();
 		mensajesTooltipsAccesoriosMod();
 		EstadosAccesoriosFiltro();
+		//Método para llamar a la función que bloquea los botones con el usuario invitado
+		botonesAccesorios('@Url.Action("ObtenerRolActual", "Usuarios")');
+		
 
         $(function () {
             $('input[name="FechaIngresoActivo"]').datepicker({

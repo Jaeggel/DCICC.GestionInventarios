@@ -296,23 +296,6 @@ namespace DCICC.GestionInventarios.Controllers
                     mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}",infoActivo.IdActivo,msjActivos.MensajeError);
                     Logs.Error(mensajesActivos);
                 }
-                if(infoActivo.EstadoActivo=="DE BAJA")
-                {
-                    HistoricoActivos infoHistActivo = new HistoricoActivos
-                    {
-                        IdActivo = infoActivo.IdActivo,
-                        FechaModifHistActivos = DateTime.Now
-                    };
-                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
-                    if(msjHistActivos.OperacionExitosa)
-                    {
-                        Logs.Info(string.Format("Historico de activo con con ID: {0} registrado exitosamente.",infoHistActivo.IdActivo));
-                    }
-                    else
-                    {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
-                    }
-                }
             }
             catch (Exception e)
             {
@@ -344,23 +327,6 @@ namespace DCICC.GestionInventarios.Controllers
                 {
                     mensajesActivos = string.Format("No se ha podido actualizar el activo con ID: {0}: {1}",infoActivo.IdActivo,msjActivos.MensajeError);
                     Logs.Error(mensajesActivos);
-                }
-                if (infoActivo.EstadoActivo == "DE BAJA")
-                {
-                    HistoricoActivos infoHistActivo = new HistoricoActivos
-                    {
-                        IdActivo = infoActivo.IdActivo,
-                        FechaModifHistActivos = DateTime.Now
-                    };
-                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
-                    if (msjHistActivos.OperacionExitosa)
-                    {
-                        Logs.Info(string.Format("Historico de activo con ID: {0} registrado exitosamente.",infoHistActivo.IdActivo));
-                    }
-                    else
-                    {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo,msjHistActivos.MensajeError));
-                    }
                 }
             }
             catch (Exception e)
@@ -394,24 +360,6 @@ namespace DCICC.GestionInventarios.Controllers
                     mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}", infoAccesorios.NombreAccesorio,msjAccesorios.MensajeError);
                     Logs.Error(mensajesAccesorios);
                 }
-                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                if (infoAccesorios.EstadoAccesorio == "DE BAJA")
-                {
-                    HistoricoActivos infoHistActivo = new HistoricoActivos
-                    {
-                        IdAccesorio = infoAccesorios.IdAccesorio,
-                        FechaModifHistActivos = DateTime.Now
-                    };
-                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
-                    if (msjHistActivos.OperacionExitosa)
-                    {
-                        Logs.Info(string.Format("Historico de activo con ID: {0} registrado exitosamente.", infoHistActivo.IdActivo));
-                    }
-                    else
-                    {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
-                    }
-                }
             }
             catch (Exception e)
             {
@@ -443,24 +391,6 @@ namespace DCICC.GestionInventarios.Controllers
                 {
                     mensajesAccesorios = string.Format("No se ha podido actualizar el accesorio con ID: {0}: {1}",infoAccesorios.IdAccesorio,msjAccesorios.MensajeError);
                     Logs.Error(mensajesAccesorios);
-                }
-                ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
-                if (infoAccesorios.EstadoAccesorio == "DE BAJA")
-                {
-                    HistoricoActivos infoHistActivo = new HistoricoActivos
-                    {
-                        IdAccesorio = infoAccesorios.IdAccesorio,
-                        FechaModifHistActivos = DateTime.Now
-                    };
-                    msjHistActivos = objActivosAccDatos.RegistrarHistoricoActivo(infoHistActivo);
-                    if (msjHistActivos.OperacionExitosa)
-                    {
-                        Logs.Info(string.Format("Historico de activo con ID: {0} registrado exitosamente.", infoHistActivo.IdActivo));
-                    }
-                    else
-                    {
-                        Logs.Error(string.Format("No se ha podido actualizar el historico de activo con ID: {0}: {1}", infoHistActivo.IdActivo, msjHistActivos.MensajeError));
-                    }
                 }
             }
             catch (Exception e)

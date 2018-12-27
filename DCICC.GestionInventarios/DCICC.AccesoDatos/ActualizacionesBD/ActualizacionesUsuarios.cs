@@ -36,7 +36,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     {
                         cmd.Parameters.Add("ir", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoUsuario.IdRol;
                         cmd.Parameters.Add("nu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.NombresUsuario.Trim();
-                        cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = pwdUsuario.Trim();
+                        cmd.Parameters.Add("pu", NpgsqlTypes.NpgsqlDbType.Text).Value = pwdUsuario.Trim();
                         cmd.Parameters.Add("cu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoUsuario.CorreoUsuario.Trim();
                         cmd.Parameters.Add("tu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoUsuario) ? (object)infoUsuario.TelefonoUsuario.Trim() : DBNull.Value;
                         cmd.Parameters.Add("tcu", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoUsuario.TelefonoCelUsuario) ? (object)infoUsuario.TelefonoCelUsuario.Trim() : DBNull.Value;
@@ -145,7 +145,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     }
                     tran.Commit();
                     conn_BD.Close();
-                    NpgsqlConnection connBD = new NpgsqlConnection("Server='192.168.0.9';Port=5432;User Id=postgres;Password=postgres;Database=DCICC_BDInventario; CommandTimeout=3020;");
+                    NpgsqlConnection connBD = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=DCICC_BDInventario; CommandTimeout=3020;");
                     connBD.Open();
                     NpgsqlTransaction tranBD = connBD.BeginTransaction();
                     string queryUser = string.Format("ALTER USER {0} RENAME TO {1};", nickAnterior.Trim(), infoUsuario.NickUsuario.Trim());

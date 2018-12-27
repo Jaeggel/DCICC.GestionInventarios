@@ -62,14 +62,13 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_content">
-                            <br>
                             @* Formulario para envio de datos de los componentes para la modificación de una  marca
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask">
                                     @* Cuadro de texto para el ingreso del nombre de una categoria de activo *@
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Nombre de Categoría de Activo</label>
+                                        <label>Nombre de Categoría</label>
                                         <input id="NombreCategoriaActivo" type="text" class="form-control has-feedback-left" name="NombreCategoriaActivo" placeholder="SISTEMA_ELECTRICO/SEGURIDAD" onkeyup="this.value=this.value.replace(validarNombreSinNumeros(),'');" onBlur="validarNombreModificación();" minlength="3" maxlength="50" data-toggle="tooltip" data-placement="rigth" title="" required>
                                         <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="errorNombreCategoria" style="color:brown;"></span>

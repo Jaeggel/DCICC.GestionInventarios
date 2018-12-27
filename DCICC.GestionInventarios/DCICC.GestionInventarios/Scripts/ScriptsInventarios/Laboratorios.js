@@ -47,7 +47,7 @@ function botones(url) {
 //Función para cargar la tabla de Laboratorios
 function cargarLaboratoriosTabla() {
     var str = '<table id="dataTableLaboratorios" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre de Laboratorio</th> <th>Ubicación</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Laboratorio</th> <th>Ubicación</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosLaboratorios.length; i++) {
         str += '<tr><td>' + datosLaboratorios[i].NombreLaboratorio +
@@ -216,7 +216,7 @@ function comprobarNombre() {
         for (var i = 0; i < datosLaboratorios.length; i++) {
             if ((datosLaboratorios[i].NombreLaboratorio).toUpperCase() == nombre.value) {
                 nombre.style.borderColor = "#900C3F";
-                $('#errorNombreLab').html("El nombre del laboratorio: " + nombre.value + " ya existe").show();
+                $('#errorNombreLab').html("El nombre del Laboratorio: " + nombre.value + " ya existe").show();
                 setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
                 nombre.value = "";
                 break;
@@ -236,7 +236,7 @@ function validarNombreModificación() {
         for (var i = 0; i < datosLaboratorios.length; i++) {
             if ((datosLaboratorios[i].NombreLaboratorio).toUpperCase() == nombre.value) {
                 nombre.style.borderColor = "#900C3F";
-                $('#errorNombreLab').html("El nombre del laboratorio: " + nombre.value + " ya existe").show();
+                $('#errorNombreLab').html("El nombre del Laboratorio: " + nombre.value + " ya existe").show();
                 setTimeout("$('#errorNombreLab').html('').hide('slow')", 6000);
                 nombre.value = "";
                 break;

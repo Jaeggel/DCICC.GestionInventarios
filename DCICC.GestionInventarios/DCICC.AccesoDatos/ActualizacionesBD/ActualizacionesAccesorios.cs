@@ -1,4 +1,5 @@
-﻿using DCICC.Entidades.EntidadesInventarios;
+﻿using DCICC.AccesoDatos.InsercionesBD;
+using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
 using Npgsql;
 using System;
@@ -38,6 +39,58 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("ia", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdAccesorio;
                     cmd.ExecuteNonQuery();
                 }
+                if (infoAccesorios.EstadoAccesorio== "DE BAJA")
+                {
+                    InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdAccesorio = infoAccesorios.IdAccesorio,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
+                }
+                tran.Commit();
+                conn_BD.Close();
+                msjAccesorios.OperacionExitosa = true;
+            }
+            catch (Exception e)
+            {
+                conn_BD.Close();
+                msjAccesorios.OperacionExitosa = false;
+                msjAccesorios.MensajeError = e.Message;
+            }
+            return msjAccesorios;
+        }
+        /// <summary>
+        /// Método para actualizar un Accesorio en la base de datos.
+        /// </summary>
+        /// <param name="infoAccesorios"></param>
+        /// <returns></returns>
+        public MensajesAccesorios ActualizacionAccesorioBasico(Accesorios infoAccesorios)
+        {
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            try
+            {
+                NpgsqlTransaction tran = conn_BD.BeginTransaction();
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.dcicc_accesorio SET nombre_accesorio=@na, serial_accesorio=@sa, modelo_accesorio=@ma, estado_accesorio=@ea WHERE id_accesorio=@ia;", conn_BD))
+                {
+                    cmd.Parameters.Add("na", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.NombreAccesorio.Trim();
+                    cmd.Parameters.Add("sa", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.SerialAccesorio) ? (object)infoAccesorios.SerialAccesorio.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("ma", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoAccesorios.ModeloAccesorio) ? (object)infoAccesorios.ModeloAccesorio.Trim() : DBNull.Value;
+                    cmd.Parameters.Add("ea", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.EstadoAccesorio.Trim();
+                    cmd.Parameters.Add("ia", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdAccesorio;
+                    cmd.ExecuteNonQuery();
+                }
+                if (infoAccesorios.EstadoAccesorio == "DE BAJA")
+                {
+                    InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdAccesorio = infoAccesorios.IdAccesorio,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
+                }
                 tran.Commit();
                 conn_BD.Close();
                 msjAccesorios.OperacionExitosa = true;
@@ -66,6 +119,16 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("ea", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoAccesorios.EstadoAccesorio;
                     cmd.Parameters.Add("ia", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoAccesorios.IdAccesorio;
                     cmd.ExecuteNonQuery();
+                }
+                if (infoAccesorios.EstadoAccesorio == "DE BAJA")
+                {
+                    InsercionesHistoricoActivos objInsercionesHA = new InsercionesHistoricoActivos();
+                    HistoricoActivos infoHistActivo = new HistoricoActivos
+                    {
+                        IdAccesorio = infoAccesorios.IdAccesorio,
+                        FechaModifHistActivos = DateTime.Now
+                    };
+                    objInsercionesHA.RegistroHistoricoActivos(infoHistActivo);
                 }
                 tran.Commit();
                 conn_BD.Close();

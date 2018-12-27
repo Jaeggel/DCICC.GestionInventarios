@@ -97,6 +97,30 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjAccesorios;
         }
+        [HttpPost("ObtenerAccesorioPorCQR")]
+        public MensajesAccesorios ObtenerAccesorioPorCQR([FromBody]string idCQR)
+        {
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            ConsultasAccesorios objConsultasAccesoriosBD = new ConsultasAccesorios();
+            msjAccesorios = objConsultasAccesoriosBD.ObtenerAccesorioPorIdCQR(idCQR);
+            if (msjAccesorios.OperacionExitosa)
+            {
+                if (msjAccesorios.ObjetoInventarios.IdAccesorio != 0)
+                {
+                    msjAccesorios.ObjetoInventarios.BytesCQR = ActivosController.GenerarBytesQR(idCQR);
+                }
+                else
+                {
+                    msjAccesorios.ObjetoInventarios = null;
+                }
+                Logs.Info("Consulta de Activo según su CQR realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjAccesorios.MensajeError);
+            }
+            return msjAccesorios;
+        }
         #endregion
         #region Registros
         /// <summary>
@@ -136,6 +160,27 @@ namespace DCICC.WebServiceInventarios.Controllers
             if (msjAccesorios.OperacionExitosa)
             {
                 Logs.Info(string.Format("Actualización de Accesorio con ID: {0} realizada exitosamente.",infoAccesorios.IdAccesorio));
+            }
+            else
+            {
+                Logs.Error(msjAccesorios.MensajeError);
+            }
+            return msjAccesorios;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar un Accesorio en la base de datos.
+        /// </summary>
+        /// <param name="infoAccesorios"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarAccesorioBasico")]
+        public MensajesAccesorios ActualizarAccesorioBasico([FromBody] Accesorios infoAccesorios)
+        {
+            MensajesAccesorios msjAccesorios = null;
+            ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
+            msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorioBasico(infoAccesorios);
+            if (msjAccesorios.OperacionExitosa)
+            {
+                Logs.Info(string.Format("Actualización de Accesorio con ID: {0} realizada exitosamente.", infoAccesorios.IdAccesorio));
             }
             else
             {
