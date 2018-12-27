@@ -3,6 +3,7 @@ var cmbEstados = listaEstadosActivos();
 var url_metodo;
 var datosActivos;
 var idActivoMod;
+var cmbTipoActivo;
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de los activos
@@ -30,8 +31,78 @@ function obtenerVidaUtil(url) {
     });
 }
 
+//Método ajax para obtener los datos de tipos de activos
+function datosTipoActivo(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            if (data.OperacionExitosa) {
+                cmbTipoActivo = data.ListaObjetoInventarios;
+                TipoActivoFiltroAct();
+            } else {
+                showNotify("Error en la Consulta", 'No se ha podido mostrar los datos: ' + data.MensajeError, "error");
+            }
+        }
+    });
+}
+
 
 /* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
+
+//Función para cargar el combobox de tipo de activo
+function TipoActivoFiltroAct() {
+    var str = '<select id="TipoActivoFiltroAct" class="form-control" name="TipoActivoFiltroAct"  required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbTipoActivo.length; i++) {
+        str += '<option value="' + cmbTipoActivo[i].IdTipoActivo + '">' + cmbTipoActivo[i].NombreTipoActivo + '</option>';
+    }
+    str += '</select>';
+    $("#cargarTipoActivosFiltro").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#TipoActivoFiltroAct').change(function () {
+        var opcion = document.getElementById("TipoActivoFiltroAct");
+        var tipoAct = opcion.options[opcion.selectedIndex];
+        if (tipoAct.value == "") {
+            $('#dataTableActivos').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(0).search(
+                tipoAct.text
+            ).draw();
+        }
+    });
+}
+
+
+//Función para cargar el combobox de estados para ingreso de accesorios
+function EstadosAccesoriosFiltro() {
+    var str = '<select id="EstadosAccesoriosFiltro" class="form-control" name="EstadosAccesoriosFiltro" required>';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < cmbEstados.length; i++) {
+        if (cmbEstados[i] != "DE BAJA") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }
+    }
+    str += '</select>';
+    $("#cargarEstadosAccesorioFiltro").html(str);
+    //Método para búsqueda con filtros
+    $('#EstadosAccesoriosFiltro').change(function () {
+        var opcion = document.getElementById("EstadosAccesoriosFiltro");
+        var tipoLab = opcion.options[opcion.selectedIndex];
+        if (tipoLab.value == "") {
+            $('#dataTableActivos').DataTable().column(8).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableActivos').DataTable().column(8).search('^' + tipoLab.text + '$', true, false
+            ).draw();
+        }
+    });
+}
+
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
@@ -74,10 +145,6 @@ function cargarActivosTabla() {
         '</table > ';
     $("#tablaActivosVidaUtil").html(str);
 
-    //Metodo para bloquear los botones cuando sea usuario invitado
-    //if (rol == "Invitado") {
-    //    $("#dataTableActivos :button").attr("disabled", "disabled");
-    //}
 }
 
 //Función para cargar el combobox de estados para modificar
@@ -85,9 +152,7 @@ function cargarEstadosModificarCmb() {
     var str = '<select id="EstadoActivoModificar" class="form-control" name="EstadoActivoModificar" required>';
     str += '<option value="">Escoga una opción...</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
-        if (cmbEstados[i] != "OPERATIVO") {
-            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
-        }     
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';    
     }
     str += '</select>';
     $("#cargarEstadosActivo").html(str);

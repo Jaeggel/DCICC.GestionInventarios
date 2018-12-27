@@ -54,6 +54,18 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 lstUsuarios.Add(objUsuarios);
                             }
                         }
+                        else if (nombreFuncion == "responsablestickets")
+                        {
+                            while (dr.Read())
+                            {
+                                Usuarios objUsuarios = new Usuarios
+                                {
+                                    IdUsuario = (int)dr[0],
+                                    NombresUsuario = dr[1].ToString().Trim(),
+                                };
+                                lstUsuarios.Add(objUsuarios);
+                            }
+                        }
                         else
                         {
                             while (dr.Read())

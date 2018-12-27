@@ -20,30 +20,16 @@ namespace DCICC.AccesoDatos.InsercionesBD
         /// </summary>
         /// <param name="infoHistoricoActivos"></param>
         /// <returns></returns>
-        public MensajesHistoricoActivos RegistroHistoricoActivos(HistoricoActivos infoHistoricoActivos)
-        {
-            MensajesHistoricoActivos msjHistoricoActivos = new MensajesHistoricoActivos();
-            try
+        public void RegistroHistoricoActivos(HistoricoActivos infoHistoricoActivos)
+        {    
+            using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_historicoactivos(id_detalleact, fechamodif_histactivos, id_accesorio) VALUES (@ida,@fmh,@idac);", conn_BD))
             {
-                NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_historicoactivos(id_detalleact, fechamodif_histactivos, id_accesorio) VALUES (@ida,@fmh,@idac);", conn_BD))
-                {
-                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdActivo==0 ? DBNull.Value: (object)infoHistoricoActivos.IdActivo;
-                    cmd.Parameters.AddWithValue("fmh", infoHistoricoActivos.FechaModifHistActivos);
-                    cmd.Parameters.Add("idac", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdAccesorio == 0 ? DBNull.Value : (object)infoHistoricoActivos.IdAccesorio;
-                    cmd.ExecuteNonQuery();
-                }
-                tran.Commit();
-                conn_BD.Close();
-                msjHistoricoActivos.OperacionExitosa = true;
+                cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdActivo==0 ? DBNull.Value: (object)infoHistoricoActivos.IdActivo;
+                cmd.Parameters.AddWithValue("fmh", infoHistoricoActivos.FechaModifHistActivos);
+                cmd.Parameters.Add("idac", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoHistoricoActivos.IdAccesorio == 0 ? DBNull.Value : (object)infoHistoricoActivos.IdAccesorio;
+                cmd.ExecuteNonQuery();
             }
-            catch (Exception e)
-            {
-                conn_BD.Close();
-                msjHistoricoActivos.OperacionExitosa = false;
-                msjHistoricoActivos.MensajeError = e.Message;
-            }
-            return msjHistoricoActivos;
+            conn_BD.Close();
         }
     }
 }

@@ -48,7 +48,7 @@ function botones(url) {
 //Función para cargar la tabla de las Marcas
 function cargarMarcasTabla() {
     var str = '<table id="dataTableMarcas" class="table jambo_table bulk_action table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre de la Marca</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Marca</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMarcas.length; i++) {
         str += '<tr><td>' + datosMarcas[i].NombreMarca +
@@ -123,7 +123,7 @@ function modificarMarca(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarMarca').modal('hide');
-                            showNotify("Actualización exitosa", 'La Marca " ' + nombreMarca.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'La Marca "' + nombreMarca.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerMarcas(url_metodo);
                         } else {
                             $('#ModificarMarca').modal('hide');
@@ -207,7 +207,7 @@ function comprobarNombre() {
         for (var i = 0; i < datosMarcas.length; i++) {
             if ((datosMarcas[i].NombreMarca).toUpperCase() == nomMarca.value) {
                 nomMarca.style.borderColor = "#900C3F";
-                $('#errorNombreMarca').html("El nombre de la marca: " + nomMarca.value + " ya existe").show();
+                $('#errorNombreMarca').html("El nombre de la Marca: " + nomMarca.value + " ya existe").show();
                 setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
                 nomMarca.value = "";
                 break;
@@ -228,7 +228,7 @@ function validarNombreModificacion() {
         for (var i = 0; i < datosMarcas.length; i++) {
             if ((datosMarcas[i].NombreMarca).toUpperCase() == nomMarca.value) {
                 nomMarca.style.borderColor = "#900C3F";
-                $('#errorNombreMarca').html("El nombre de la marca: " + nomMarca.value + " ya existe").show();
+                $('#errorNombreMarca').html("El nombre de la Marca: " + nomMarca.value + " ya existe").show();
                 setTimeout("$('#errorNombreMarca').html('').hide('slow')", 6000);
                 nomMarca.value = "";
                 break;

@@ -144,5 +144,47 @@ namespace DCICC.AccesoDatos.ConsultasBD
             }
             return msjAccesorios;
         }
+        public MensajesAccesorios ObtenerAccesorioPorIdCQR(string idCQR)
+        {
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
+            Accesorios objAccesorios = new Accesorios();
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("select * from accesoriostotales() where id_cqr=@cqr", conn_BD))
+                {
+                    cmd.Parameters.Add("cqr", NpgsqlTypes.NpgsqlDbType.Varchar).Value = idCQR;
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            objAccesorios = new Accesorios
+                            {
+                                IdAccesorio = (int)dr[0],
+                                IdTipoAccesorio = (int)dr[1],
+                                IdDetalleActivo = (int)dr[2],
+                                NombreAccesorio = dr[3].ToString().Trim(),
+                                SerialAccesorio = dr[4].ToString().Trim(),
+                                ModeloAccesorio = dr[5].ToString().Trim(),
+                                DescripcionAccesorio = dr[6].ToString().Trim(),
+                                EstadoAccesorio = dr[7].ToString().Trim(),
+                                IdCQR = dr[8].ToString().Trim(),
+                                NombreTipoAccesorio = dr[9].ToString().Trim(),
+                                NombreDetalleActivo = dr[10].ToString().Trim()
+                            };
+                        }
+                        conn_BD.Close();
+                        msjAccesorios.ObjetoInventarios = objAccesorios;
+                        msjAccesorios.OperacionExitosa = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                conn_BD.Close();
+                msjAccesorios.OperacionExitosa = false;
+                msjAccesorios.MensajeError = e.Message;
+            }
+            return msjAccesorios;
+        }
     }
 }

@@ -129,7 +129,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     @* ViewBag proveniente del Controloador Login, en el mismo se muestra el nombre del usuario actual *@
-                                    <img src="~/Content/Tema/images/user.png" alt="">@ViewBag.NombreUsuario
+                                    <img src="~/Content/Images/perfil.png" alt="">@ViewBag.NombreUsuario
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 @* Seccción de enlaces del menu lateral que se despliega del botón del usuario. *@
@@ -176,53 +176,97 @@
                     <h3 class="modal-title">Ayuda</h3>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <b>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</b>
-                            <ul>
-                                <li><b>ALT + H: </b><a href='@Url.Action("Index","Home")'> Home</a></li>
-                                <li><b>ALT + A: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Activos de TI</a></li>
-                                <li><b>ALT + N: </b><a href='@Url.Action("NuevoActivo","Activos")'> Nuevo Activo de TI</a></li>
-                                <li><b>ALT + T: </b><a href='@Url.Action("GestionTickets","Tickets")'> Gestión de Tickets</a></li>
-                                <li><b>ALT + M: </b><a href='@Url.Action("ModificarMaqVirtual","MaqVirtuales")'> Máquinas Virtuales</a></li>
-                                <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
-                            </ul>
+                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h4 class="panel-title">Teclas de Acceso Rápido</h4>
+                            </a>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <b>Las combinaciones de teclas para acceder más rápido a las funcionalidades:</b>
+                                    <ul>
+                                        <li><b>ALT + H: </b><a href='@Url.Action("Index","Home")'> Home</a></li>
+                                        <li><b>ALT + A: </b><a href='@Url.Action("ConsultaActivos","Activos")'> Activos de TI</a></li>
+                                        <li><b>ALT + N: </b><a href='@Url.Action("NuevoActivo","Activos")'> Nuevo Activo de TI</a></li>
+                                        <li><b>ALT + T: </b><a href='@Url.Action("GestionTickets","Tickets")'> Gestión de Tickets</a></li>
+                                        <li><b>ALT + M: </b><a href='@Url.Action("ModificarMaqVirtual","MaqVirtuales")'> Máquinas Virtuales</a></li>
+                                        <li><b>ALT + R: </b><a href='@Url.Action("ReportesActivos","Reportes")'> Reportes de Activos</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <b>Estándares para el ingreso o modificación de registros: </b>
-                            <ul>
-                                <b>Para Categoría y Tipos de Activos:</b>
-                                <li><p>En campos "Nombres" se debe ingresar los caracteres en Mayúscula, sin Espacios ni Números. Caracteres especiales permitidos: <b>- / _ .</b></p></li>
-                                <b>Para el resto:</b>
-                                <li><p>En campos "Nombres" se debe ingresar los caracteres en Mayúscula, sin Espacios. Caracteres especiales permitidos: <b>- / _ .</b></p></li>
-                                <li><p>En campos "Descripción" los caracteres especiales permitidos: <b>- / _ .</b></p></li>
-                            </ul>
+                        <div class="panel panel-default">
+                            <a class="panel-heading collapsed panel-warning" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <h4 class="panel-title">Estándares</h4>
+                            </a>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <b>Estándares para el ingreso o modificación de registros: </b><br />
+                                    <b>Para Categoría y Tipos de Activos:</b>
+                                    <ul>
+                                        <li><p>En campos "Nombres" se debe ingresar los caracteres en Mayúscula, sin Espacios ni Números. Caracteres especiales permitidos: <b>- / _ .</b></p></li>
+                                    </ul>
+                                    <b>Para el resto:</b>
+                                    <ul>
+                                        <li><p>En campos "Nombres" se debe ingresar los caracteres en Mayúscula, sin Espacios. Caracteres especiales permitidos: <b>- / _ .</b></p></li>
+                                        <li><p>En campos "Descripción" los caracteres especiales permitidos: <b>- / _ .</b></p></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <b align="justify">Responsable o Custodio de Activos: </b>
-                            <p align="justify">Para modificar el responsable o custodio de los activos de TI</p>
-                            <ol>
-                                <li>Ir a Activos de TI.</li>
-                                <li>Nuevo Activo de TI.</li>
-                                <li>En el campo Responsable del Activo.</li>
-                                <li>Clic en el botón de Modificar el Responsable del Activo.</li>
-                                <li>Finalmente, cambiar el nombre de Responsable del Activo.</li>
-                            </ol>
+                        <div class="panel panel-default">
+                            <a class="panel-heading collapsed panel-warning" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <h4 class="panel-title">Responsable o Custodio de Activos</h4>
+                            </a>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <b align="justify">Para modificar el responsable o custodio de los activos de TI</b>
+                                    <ol>
+                                        <li>Ir a Activos de TI.</li>
+                                        <li>Nuevo Activo de TI.</li>
+                                        <li>En el campo Responsable del Activo.</li>
+                                        <li>Clic en el botón de Modificar el Responsable del Activo.</li>
+                                        <li>Finalmente, cambiar el nombre de Responsable del Activo.</li>
+                                    </ol>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <b align="justify">Impresión de CQR en Lote: </b>
-                            <p align="justify">Para la selección de CQRs de Activos o Accesorios antes de su impresión:</p>
-                            <ol>
-                                <li>Ir a Consulta de Activos, Impresión de Códigos QR.</li>
-                                <li>Aplicar los filtros necesarios.</li>
-                                <li>
-                                    Seleccionar los códigos QR de Activos o Accesorios que se requieran imprimir.<br />
-                                    En caso de que se requiera imprimir todos los códigos QR de Activos o Accesorios, dar clic en el CheckBox de la cabecera de la tabla.
-                                </li>
-                                <li>Finalmente, clic en el bóton Imprimir PDF.</li>
-                            </ol>
+                        <div class="panel panel-default">
+                            <a class="panel-heading collapsed" role="tab" id="headingFour" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <h4 class="panel-title">Impresión de CQR en Lote</h4>
+                            </a>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body">
+                                    <b align="justify">Para la selección de CQRs de Activos o Accesorios antes de su impresión:</b>
+                                    <ol>
+                                        <li>Ir a Consulta de Activos, Impresión de Códigos QR.</li>
+                                        <li>Aplicar los filtros necesarios.</li>
+                                        <li>
+                                            Seleccionar los códigos QR de Activos o Accesorios que se requieran imprimir.<br />
+                                            En caso de que se requiera imprimir todos los códigos QR de Activos o Accesorios, dar clic en el CheckBox de la cabecera de la tabla.
+                                        </li>
+                                        <li>Finalmente, clic en el bóton Imprimir PDF.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <a class="panel-heading collapsed" role="tab" id="headingFive" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                <h4 class="panel-title">Generación de Reportes</h4>
+                            </a>
+                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                <div class="panel-body">
+                                    <b align="justify">Para generar un reporte PDF o Excel:</b>
+                                    <ol>
+                                        <li>Ir a Reportes, seleccionar la categóría de reportes requerida.</li>
+                                        <li>
+                                            Aplicar los filtros necesarios.<br />
+                                            En caso de haber aplicado filtros con rangos de fecha, se recomienda usar el botón Limpiar para realizar otra búsqueda.
+                                        </li>
+                                        <li>Clic en el bóton Reporte PDF o Reporte Excel.</li>
+                                    </ol>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

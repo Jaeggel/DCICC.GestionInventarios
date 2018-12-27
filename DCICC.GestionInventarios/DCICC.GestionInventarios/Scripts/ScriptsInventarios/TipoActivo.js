@@ -83,13 +83,13 @@ function botones(url) {
 //Función para cargar la tabla de Tipo de Activo
 function cargarTipoActTabla() {
     var str = '<table id="dataTableTipoAct" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Tipo Activo</th> <th>Categoría</th> <th>Descripción</th> <th>Vida Útil</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Nombre Tipo Activo</th> <th>Categoría</th><th>Vida Útil</th>  <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';   
     for (var i = 0; i < datosTipoActivo.length; i++) {      
         str += '<tr><td>' + datosTipoActivo[i].NombreTipoActivo +
             '</td><td>' + datosTipoActivo[i].NombreCategoriaActivo +
-            '</td><td class="text-justify">' + datosTipoActivo[i].DescripcionTipoActivo +
-            '</td><td>' + datosTipoActivo[i].VidaUtilTipoActivo;
+            '</td><td>' + datosTipoActivo[i].VidaUtilTipoActivo+
+            '</td><td class="text-justify">' + datosTipoActivo[i].DescripcionTipoActivo;
 
         if (datosTipoActivo[i].HabilitadoTipoActivo) {
             str += '</td><td> Habilitado';
@@ -193,7 +193,7 @@ function modificarTipoActivo(url_modificar) {
                     success: function (data) {
                         if (data.OperacionExitosa) {
                             $('#ModificarTipoActivo').modal('hide');
-                            showNotify("Actualización exitosa", 'El Tipo " ' + nombreTipo.toUpperCase() + '" se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'El Tipo "' + nombreTipo.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerTipoActivo(url_metodo);
                         } else {
                             $('#ModificarTipoActivo').modal('hide');
@@ -314,25 +314,21 @@ function validarNombreModificacion() {
 
 ///Funciones para validaciones de campos de texto
 function validarCmbVacios() {
-    var boton = document.getElementById("confirmarTipo");
     var cmbCat = document.getElementById("IdCategoriaActivo");
     //Validación para el combobox de categorias
     if (cmbCat.value == "") {
         cmbCat.style.borderColor = "#900C3F";
         $('#errorCategoriaTipo').html('Debe seleccionar una opción').show();
         setTimeout("$('#errorCategoriaTipo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         cmbCat.style.borderColor = "#ccc";
         $('#errorCategoriaTipo').html('').hide();
-        boton.disabled = false;
     }
 }
 
 ///Función para validar el combobox de modificar Tipo
 function validarCmbTipoComp() {
     var esValido = true;
-    var boton = document.getElementById("confirmarTipo");
     var cmbCat = document.getElementById("IdCategoriaComp");
     //Validación para el combobox de categorias
     if (cmbCat.value == "") {
@@ -340,11 +336,9 @@ function validarCmbTipoComp() {
         cmbCat.style.borderColor = "#900C3F";
         $('#errorCategoriaTipo').html('Debe seleccionar una opción').show();
         setTimeout("$('#errorCategoriaTipo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         cmbCat.style.borderColor = "#ccc";
         $('#errorCategoriaTipo').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }
@@ -370,7 +364,6 @@ function validarInputsVaciosIngreso() {
 //Función para validar el campo de vida útil
 function validarVidaUtil() {
     var esValido = true;
-    var boton = document.getElementById("confirmarTipo");
     var vidaTipo = document.getElementById("VidaUtilTipoActivo");
     //Validación para el campo vida útil
     if (vidaTipo.value.length <= 0) {
@@ -378,25 +371,21 @@ function validarVidaUtil() {
         vidaTipo.style.borderColor = "#900C3F";
         $('#errorVidaTipo').html('El campo vida útil no debe estar vacio').show();
         setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else if (vidaTipo.value <1) {
         esValido = false;
         vidaTipo.style.borderColor = "#900C3F";
         vidaTipo.value = "";
         $('#errorVidaTipo').html('La vida útil debe estar en un rango de 1 a 100 años').show();
         setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else if (vidaTipo.value > 100) {
         esValido = false;
         vidaTipo.style.borderColor = "#900C3F";
         vidaTipo.value = "";
         $('#errorVidaTipo').html('La vida útil no debe ser mayor a 100').show();
         setTimeout("$('#errorVidaTipo').html('').hide('slow')", 6000);
-        boton.disabled = true;
     } else {
         vidaTipo.style.borderColor = "#ccc";
         $('#errorVidaTipo').html('').hide();
-        boton.disabled = false;
     }
     return esValido;
 }

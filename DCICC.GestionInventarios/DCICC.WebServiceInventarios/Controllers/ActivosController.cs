@@ -200,6 +200,34 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjActivos;
         }
+        /// <summary>
+        /// Método para obtener un activo según su idCQR.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ObtenerActivoPorCQR")]
+        public MensajesActivos ObtenerActivoPorCQR([FromBody]string idCQR)
+        {
+            MensajesActivos msjActivos = new MensajesActivos();
+            ConsultasActivos objConsultasActivosBD = new ConsultasActivos();
+            msjActivos = objConsultasActivosBD.ObtenerActivoPorIdCQR(idCQR);
+            if (msjActivos.OperacionExitosa)
+            {
+                if(msjActivos.ObjetoInventarios.IdActivo!=0)
+                {
+                    msjActivos.ObjetoInventarios.BytesCQR = GenerarBytesQR(idCQR);
+                }
+                else
+                {
+                    msjActivos.ObjetoInventarios = null;
+                }
+                Logs.Info("Consulta de Activo según su CQR realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
         #endregion
         #region Registros
         /// <summary>
@@ -249,22 +277,22 @@ namespace DCICC.WebServiceInventarios.Controllers
         /// </summary>
         /// <param name="infoActivo"></param>
         /// <returns></returns>
-        [HttpPost("RegistrarHistoricoActivo")]
-        public MensajesHistoricoActivos RegistrarHistoricoActivo([FromBody] HistoricoActivos infoHistActivo)
-        {
-            MensajesHistoricoActivos msjHistActivos = null;
-            InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
-            msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
-            if (msjHistActivos.OperacionExitosa)
-            {
-                Logs.Info(string.Format("Registro de Historico de Activo con ID: {0}-{1} realizado exitosamente.",infoHistActivo.IdActivo,infoHistActivo.IdAccesorio));
-            }
-            else
-            {
-                Logs.Error(msjHistActivos.MensajeError);
-            }
-            return msjHistActivos;
-        }
+        //[HttpPost("RegistrarHistoricoActivo")]
+        //public MensajesHistoricoActivos RegistrarHistoricoActivo([FromBody] HistoricoActivos infoHistActivo)
+        //{
+        //    MensajesHistoricoActivos msjHistActivos = null;
+        //    InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
+        //    msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
+        //    if (msjHistActivos.OperacionExitosa)
+        //    {
+        //        Logs.Info(string.Format("Registro de Historico de Activo con ID: {0}-{1} realizado exitosamente.",infoHistActivo.IdActivo,infoHistActivo.IdAccesorio));
+        //    }
+        //    else
+        //    {
+        //        Logs.Error(msjHistActivos.MensajeError);
+        //    }
+        //    return msjHistActivos;
+        //}
         #endregion
         #region Actualizaciones
         /// <summary>
@@ -281,6 +309,27 @@ namespace DCICC.WebServiceInventarios.Controllers
             if (msjActivos.OperacionExitosa)
             {
                 Logs.Info(string.Format("Actualización de Activo con ID: {0} realizada exitosamente.",infoActivo.IdActivo));
+            }
+            else
+            {
+                Logs.Error(msjActivos.MensajeError);
+            }
+            return msjActivos;
+        }
+        /// <summary>
+        /// Método (POST) para actualizar un Activo en la base de datos.
+        /// </summary>
+        /// <param name="infoActivo"></param>
+        /// <returns></returns>
+        [HttpPost("ActualizarActivoBasico")]
+        public MensajesActivos ActualizarActivoBasico([FromBody] Activos infoActivo)
+        {
+            MensajesActivos msjActivos = null;
+            ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
+            msjActivos = objActualizacionesActivosBD.ActualizacionActivoBasico(infoActivo);
+            if (msjActivos.OperacionExitosa)
+            {
+                Logs.Info(string.Format("Actualización de Activo con ID: {0} realizada exitosamente.", infoActivo.IdActivo));
             }
             else
             {
@@ -354,12 +403,11 @@ namespace DCICC.WebServiceInventarios.Controllers
         #endregion
         #region Generación Bytes QR
         /// <summary>
-        /// Método (POST) para actualizar el estado de impreso de un Código QR en la base de datos.
+        /// Método para generar los bytes de un CQR determinado.
         /// </summary>
-        /// <param name="lstActivos"></param>
+        /// <param name="idCQR"></param>
         /// <returns></returns>
-        [HttpPost("GenerarBytesQR")]
-        public byte[] GenerarBytesQR([FromBody] string idCQR)//tipo de metodo por definir
+        public static byte[] GenerarBytesQR([FromBody] string idCQR)
         {
             byte[] bytesQR=null;
             try
@@ -370,7 +418,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             catch(Exception e)
             {
-                Logs.Error(string.Format("No se ha podido generar el bitmap para el código QR: {0}", e.Message));
+                Logs.Error(string.Format("No se ha podido generar el byte array para el código QR: {0}", e.Message));
             }
             return bytesQR;
         }

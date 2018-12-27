@@ -69,7 +69,7 @@
 									@* Combobox para seleccionar un rol de usuario*@
 									<div class="form-group">
 										<div class="col-md-12 col-sm-12 col-xs-12">
-											<label>Rol de usuario:</label>
+											<label>Rol de usuario</label>
 											<div id="cargarRolesModificar"></div>
 											<span id="errorRol" style="color:brown;"></span>
 										</div>
@@ -91,7 +91,7 @@
 									@* Cuadro de texto para el ingreso del nick(Nombre de Usuario)*@
 									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 										<label>Nick de Usuario</label>
-										<input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="jPerez" onkeyup="this.value=this.value.replace(validarNombresMayusMinus(),'');" onblur="comprobarNickModificacion();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<input id="NickUsuario" type="text" class="form-control has-feedback-left" name="NickUsuario" placeholder="jPerez" onkeyup="this.value=this.value.replace(validarNicksBase(),'');" onblur="comprobarNickModificacion();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
 										<span class="fa fa-id-badge form-control-feedback left" aria-hidden="true"></span>
 										<span id="errorNick" style="color:brown;"></span>
 									</div>
@@ -110,7 +110,6 @@
 									</div>
 									@* Cuadro de texto para el ingreso del teléfono celular del usuario*@
 									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-										<label>Teléfono de Usuario</label>
 										<label>Celular de Usuario</label>
 										<input id="TelefonoCelUsuario" type="text" class="form-control has-feedback-left" name="TelefonoCelUsuario" placeholder="09-55446687" maxlength="11"  data-toggle="tooltip" data-placement="rigth" title="">
 										<span class="fa fa-mobile-phone form-control-feedback left" aria-hidden="true"></span>

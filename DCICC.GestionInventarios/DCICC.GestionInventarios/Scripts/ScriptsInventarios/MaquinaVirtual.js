@@ -224,6 +224,7 @@ function formUpdateMaquinaV(idMV) {
 
             //Método para el check del update de Máquinas Virtuales
             var valor = datosMaquinasV[i].HabilitadoMaqVirtuales;
+            console.log(valor);
             var estado = $('#HabilitadoMaqVirtuales').prop('checked');
             if (estado && valor == false) {
                 document.getElementById("HabilitadoMaqVirtuales").click();
@@ -280,7 +281,7 @@ function modificarMaquinaV(url_modificar) {
                         console.log(data.OperacionExitosa);
                         if (data.OperacionExitosa) {
                             $('#ModificarMaquinaV').modal('hide');
-                            showNotify("Actualización exitosa", 'La Máquina Virtual " ' + nombreMV.toUpperCase() + ' " se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'La Máquina Virtual "' + nombreMV.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerMaquinaV(url_metodo);
                         } else {
                             $('#ModificarMaquinaV').modal('hide');
@@ -356,22 +357,22 @@ $(function () {
 /* --------------------------------------SECCIÓN PARA COMPROBACIONES Y VALIDACIONES---------------------------------*/
 //Función para evitar nombres de máquinas virtuales repetidos
 function comprobarNombre() {
-    var nomMV = document.getElementById("NombreMaqVirtuales");
-    nomMV.value = nomMV.value.toUpperCase();
-    //Validación para el campo de texto nombre de Máquina virtual
-    if (nomMV.value.length <= 0) {
-        nomMV.style.borderColor = "#900C3F";
+    var nomCat = document.getElementById("NombreMaqVirtuales");
+    nomCat.value = nomCat.value.toUpperCase();
+    if (nomCat.value.length <= 0) {
+        nomCat.style.borderColor = "#900C3F";
         $('#errorNombreMV').html('El campo nombre de Máquina Virtual no debe estar vacio').show();
-        setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
+        setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
     } else {
         for (var i = 0; i < datosMaquinasV.length; i++) {
-            if ((datosMaquinasV[i].NombreMaqVirtuales).toUpperCase() == nomMV.value) {
-                nomMV.style.borderColor = "#900C3F";
-                $('#errorNombreMV').html("El nombre de la Máquina Virtual: " + nomMV.value + " ya existe").show();
+            if ((datosMaquinasV[i].NombreMaqVirtuales).toUpperCase() == nomCat.value) {
+                nomCat.style.borderColor = "#900C3F";
+                $('#errorNombreMV').html("El nombre de la Máquina Virtual: " + nomCat.value + " ya existe").show();
                 setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
-                nomMV.value = "";
+                nomCat.value = "";
+                break;
             } else {
-                nomMV.style.borderColor = "#ccc";
+                nomCat.style.borderColor = "#ccc";
                 $('#errorNombreMV').html('').hide();
             }
         }
@@ -381,25 +382,25 @@ function comprobarNombre() {
 
 //Función para evitar nombres de máquinas virtuales repetidos modificacion
 function validarNombreModificacion() {
-    var nomMV = document.getElementById("NombreMaqVirtuales");
-    nomMV.value = nomMV.value.toUpperCase();
-    //Validación para el campo de texto nombre de Máquina virtual
-    if (nomMV.value != nombreMVModificar.toUpperCase()) {
+    var nomCat = document.getElementById("NombreMaqVirtuales");
+    nomCat.value = nomCat.value.toUpperCase();
+    if (nomCat.value != nombreMVModificar.toUpperCase()) {
         for (var i = 0; i < datosMaquinasV.length; i++) {
-            if ((datosMaquinasV[i].NombreMaqVirtuales).toUpperCase() == nomMV.value) {
-                nomMV.style.borderColor = "#900C3F";
-                $('#errorNombreMV').html("El nombre de la Máquina Virtual: " + nomMV.value + " ya existe").show();
+            if ((datosMaquinasV[i].NombreMaqVirtuales).toUpperCase() == nomCat.value) {
+                nomCat.style.borderColor = "#900C3F";
+                $('#errorNombreMV').html("El nombre de la Máquina Virtual: " + nomCat.value + " ya existe").show();
                 setTimeout("$('#errorNombreMV').html('').hide('slow')", 6000);
-                nomMV.value = "";
+                nomCat.value = "";
+                break;
             } else {
-                nomMV.style.borderColor = "#ccc";
+                nomCat.style.borderColor = "#ccc";
                 $('#errorNombreMV').html('').hide();
             }
         }
     } else {
-        nomMV.style.borderColor = "#ccc";
+        nomCat.style.borderColor = "#ccc";
         $('#errorNombreMV').html('').hide();
-    }
+    }  
 }
 
 //Funciones para validaciones de campos de texto
@@ -431,7 +432,7 @@ function validarInputUsuario() {
         esValido = false;
         nomUsuario.value = "";
         nomUsuario.style.borderColor = "#900C3F";
-        $('#errorNombreUsuario').html('El campo nombre de usuario no debe estar vacio').show();
+        $('#errorNombreUsuario').html('El campo nombre de Usuario no debe estar vacio').show();
         setTimeout("$('#errorNombreUsuario').html('').hide('slow')", 6000);
     } else {
         nomUsuario.style.borderColor = "#ccc";
@@ -556,7 +557,7 @@ function validarCmbMV() {
 /* --------------------------------------SECCIÓN PARA MENSAJES DE TOOLTIPS---------------------------------*/
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NombreMaqVirtuales").title = "Máximo 80 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("UsuarioMaqVirtuales").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("DireccionIPMaqVirtuales").title = "Cuadro de texto para IpV4.\n Formato: 255.255.255.255";
     document.getElementById("DiscoMaqVirtuales").title = "Solo Números. Rango de 1 a 999 GB O TB";

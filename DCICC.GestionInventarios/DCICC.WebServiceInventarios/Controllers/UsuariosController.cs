@@ -77,6 +77,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjUsuarios;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los Usuarios con permisos en tickets de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ObtenerUsuariosRespTickets")]
+        public MensajesUsuarios ObtenerUsuariosRespTickets()
+        {
+            MensajesUsuarios msjUsuarios = null;
+            ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
+            msjUsuarios = objConsultasUsuariosBD.ObtenerUsuarios("responsablestickets");
+            if (msjUsuarios.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Usuarios realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjUsuarios.MensajeError);
+            }
+            return msjUsuarios;
+        }
         #endregion
         #region Registros
         /// <summary>

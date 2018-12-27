@@ -117,7 +117,7 @@ function modificarResponsable(url) {
 
     swal({
         title: 'Confirmación de Actualización',
-        text: "¿Está seguro de modificar el Responsable?",
+        text: "¿Está seguro de modificar el registro?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#26B99A',
@@ -135,7 +135,7 @@ function modificarResponsable(url) {
                 success: function (data) {
                     document.getElementById("ResponsableActivo").value = data;
                     $('#ModificarResponsable').modal('hide');
-                    showNotify("Actualización exitosa", 'El Responsable se ha modificado exitosamente', "success");
+                    showNotify("Actualización exitosa", 'La Persona Responsable se ha modificado exitosamente', "success");
                 }
             });
         } else {
@@ -261,7 +261,7 @@ function validarPaso1() {
     if (document.getElementById("CategoriaActivo").value == "") {
         isValid = false;
         document.getElementById("CategoriaActivo").style.borderColor = "#900C3F";
-        $('#errorCategoria').html('Debe seleccionar una Opción de la Categoría').show();
+        $('#errorCategoria').html('Debe seleccionar una Opción de Categoría').show();
         setTimeout("$('#errorCategoria').html('').hide('slow')", 6000);
 
     } else {
@@ -272,7 +272,7 @@ function validarPaso1() {
     if (document.getElementById("TipoActivo").value == "") {
         isValid = false;
         document.getElementById("TipoActivo").style.borderColor = "#900C3F";
-        $('#errorTipo').html('Debe seleccionar una Opción del Tipo de Activo').show();
+        $('#errorTipo').html('Debe seleccionar una Opción de Tipo de Activo').show();
         setTimeout("$('#errorTipo').html('').hide('slow')", 6000);
 
     } else {
@@ -317,7 +317,7 @@ function validarPaso1() {
         isValid = false;
         $("#NombreActivo").focus();
         document.getElementById("NombreActivo").style.borderColor = "#900C3F";
-        $('#errorNombre').html('El campo Nombre del Activo es obligatorio').show();
+        $('#errorNombre').html('El campo Nombre de Activo es obligatorio').show();
         setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
     } else {
         document.getElementById("NombreActivo").style.borderColor = "#ccc";
@@ -487,13 +487,13 @@ function comprobarNombre() {
     if (nombreActivo.value.length <= 0) {
         $("#NombreActivo").focus();
         nombreActivo.style.borderColor = "#900C3F";
-        $('#errorNombre').html('El campo Nombre del Activo es obligatorio').show();
+        $('#errorNombre').html('El campo Nombre de Activo es obligatorio').show();
         setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
     } else {
         for (var i = 0; i < nombresActivo.length; i++) {
             if ((nombresActivo[i]).toUpperCase() == nombreActivo.value) {
                 nombreActivo.style.borderColor = "#900C3F";
-                $('#errorNombre').html('El Nombre: ' + nombreActivo.value+' ya existe').show();
+                $('#errorNombre').html('El nombre de Activo: ' + nombreActivo.value+' ya existe').show();
                 setTimeout("$('#errorNombre').html('').hide('slow')", 6000);
                 nombreActivo.value = "";
                 break;
@@ -548,11 +548,11 @@ function comprobarNumPuertos() {
 
 //Mensajes para los tooltips
 function mensajesTooltips() {
-    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("NombreActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("SerialActivo").title = "Máximo 80 caracteres, sin Espacios.\n  Caracteres especiales permitidos - / _ .";
     document.getElementById("ModeloActivo").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
-    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirio o se recibio el Activo de TI.";
+    document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirió o se recibió el Activo de TI.";
     document.getElementById("btnResponsable").title = "Modificar Responsable Actual del Data Center";
     document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
 

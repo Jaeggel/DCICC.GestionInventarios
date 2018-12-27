@@ -4,6 +4,8 @@ var idCategoriaModificar;
 var datosUsuarios;
 var fechas = [];
 
+
+/* Metodos para obtener datos del servidor*/
 //Método ajax para obtener los datos de Logs
 function obtenerLogs(url) {
     $.ajax({
@@ -42,6 +44,8 @@ function obtenerNicksUsuarios(url) {
     });
 }
 
+/* Métodos para cargar combobox y tablas*/
+
 //Función para cargar el combobox de tipo de activo
 function cargarNicksCmb() {
     var str = '<select id="NicksUsuario" class="form-control" name="NicksUsuario">';
@@ -66,7 +70,7 @@ function cargarNicksCmb() {
         }
     });
 }
-
+//Función de Filtro por Operación
 function consultaOperacion(tipoOpe) {
     if (tipoOpe.value == "") {
         $('#dataTableLogs').DataTable().column(3).search(
@@ -109,6 +113,8 @@ function cargarLogsTabla() {
     inicioFecha(minDate);
     finFecha(minDate);
 }
+
+/* Métodos para consultar por fechas*/ 
 
 function inicioFecha(minDate) {
     $(function () {

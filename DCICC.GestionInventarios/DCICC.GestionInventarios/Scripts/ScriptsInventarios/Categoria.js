@@ -125,7 +125,7 @@ function modificarCategoria(url_modificar) {
                         if (data.OperacionExitosa) {
                             console.log("actualizacion exitosa");
                             $('#ModificarCategoria').modal('hide');
-                            showNotify("Actualización exitosa", 'La Categoria "' + nombreCategoria.toUpperCase() + '" se ha modificado exitosamente', "success");
+                            showNotify("Actualización exitosa", 'La Categoría "' + nombreCategoria.toUpperCase() + '" se ha modificado exitosamente', "success");
                             obtenerCategorias(url_metodo);
                         } else {
                             $('#ModificarCategoria').modal('hide');
@@ -167,7 +167,7 @@ function habilitarOdeshabilitar(idCat, estadoCat) {
                 type: 'post',
                 success: function (data) {
                     if (data.OperacionExitosa) {
-                        showNotify("Actualización exitosa", 'El Estado de la Categoria se ha modificado exitosamente', "success");
+                        showNotify("Actualización exitosa", 'El Estado de la Categoría se ha modificado exitosamente', "success");
                         obtenerCategorias(url_metodo);
                     } else {                     
                         showNotify("Error en la Actualización", 'Ocurrió un error al modificar el estado de la Categoría: ' + data.MensajeError, "error");
@@ -209,7 +209,7 @@ function comprobarNombre() {
         for (var i = 0; i < datosCategorias.length; i++) {
             if ((datosCategorias[i].NombreCategoriaActivo).toUpperCase() == nomCat.value) {
                 nomCat.style.borderColor = "#900C3F";
-                $('#errorNombreCategoria').html("El nombre de la categoria: " + nomCat.value + " ya existe").show();
+                $('#errorNombreCategoria').html("El nombre de la Categoría: " + nomCat.value + " ya existe").show();
                 setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
                 nomCat.value = "";
                 break;
@@ -229,7 +229,7 @@ function validarNombreModificación() {
         for (var i = 0; i < datosCategorias.length; i++) {
             if ((datosCategorias[i].NombreCategoriaActivo).toUpperCase() == nomCat.value) {
                 nomCat.style.borderColor = "#900C3F";
-                $('#errorNombreCategoria').html("El nombre de la categoria: " + nomCat.value + " ya existe").show();
+                $('#errorNombreCategoria').html("El nombre de la Categoría: " + nomCat.value + " ya existe").show();
                 setTimeout("$('#errorNombreCategoria').html('').hide('slow')", 6000);
                 nomCat.value = "";
                 break;

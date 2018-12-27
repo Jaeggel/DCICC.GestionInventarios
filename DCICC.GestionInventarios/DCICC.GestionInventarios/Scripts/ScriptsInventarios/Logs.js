@@ -1,6 +1,7 @@
 ﻿var url_idioma = obtenerIdioma();
 var datosLogs;
 var idCategoriaModificar;
+var datosUsuarios;
 
 //Método ajax para obtener los datos de Logs
 function obtenerLogs(url) {
@@ -22,6 +23,57 @@ function obtenerLogs(url) {
             }          
         }
     });
+}
+
+//Método ajax para obtener los datos de Usuarios
+function obtenerNicksUsuarios(url) {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        type: 'post',
+        success: function (data) {
+            console.log("ya esta");
+            datosUsuarios = data;
+            cargarNicksCmb()
+        }
+    });
+}
+
+//Función para cargar el combobox de tipo de activo
+function cargarNicksCmb() {
+    var str = '<select id="NicksUsuario" class="form-control" name="NicksUsuario">';
+    str += '<option value="">Mostrar Todos</option>';
+    for (var i = 0; i < datosUsuarios.length; i++) {
+        str += '<option value="' + datosUsuarios[i] + '">' + datosUsuarios[i] + '</option>';
+    }
+    str += '</select>';
+    $("#cargarNicks").html(str);
+    ///////CAMBIO DEL COMBOBOX
+    $('#NicksUsuario').change(function () {
+        var opcion = document.getElementById("NicksUsuario");
+        var nick = opcion.options[opcion.selectedIndex];
+        if (nick.value == "") {
+            $('#dataTableLogs').DataTable().column(0).search(
+                ""
+            ).draw();
+        } else {
+            $('#dataTableLogs').DataTable().column(0).search(
+                nick.text
+            ).draw();
+        }
+    });
+}
+
+function consultaOperacion(tipoOpe) {
+    if (tipoOpe.value == "") {
+        $('#dataTableLogs').DataTable().column(3).search(
+            ""
+        ).draw();
+    } else {
+        $('#dataTableLogs').DataTable().column(3).search(
+            tipoOpe.value
+        ).draw();
+    }
 }
 
 //Función para cargar la tabla de Logs

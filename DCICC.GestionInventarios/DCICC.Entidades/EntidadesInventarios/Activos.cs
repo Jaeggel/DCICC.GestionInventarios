@@ -71,5 +71,7 @@ namespace DCICC.Entidades.EntidadesInventarios
         public string IosVersionActivo { get; set; }
 
         public string FechaManufacturaActivo { get; set; }
+
+        public byte[] BytesCQR { get; set; }
     }
 }
