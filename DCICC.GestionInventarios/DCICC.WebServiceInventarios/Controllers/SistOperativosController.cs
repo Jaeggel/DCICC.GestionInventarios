@@ -66,7 +66,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarSistOperativo")]
         public MensajesSistOperativos RegistrarSistOperativo([FromBody] SistOperativos infoSistOperativo)
         {
-            MensajesSistOperativos msjSistOperativos = null;
+            MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             InsercionesSistOperativos objInsercionesSistOperativosBD = new InsercionesSistOperativos();
             msjSistOperativos = objInsercionesSistOperativosBD.RegistroSistOperativo(infoSistOperativo);
             if (msjSistOperativos.OperacionExitosa)
@@ -89,7 +89,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarSistOperativo")]
         public MensajesSistOperativos ActualizarSistOperativo([FromBody] SistOperativos infoSistOperativo)
         {
-            MensajesSistOperativos msjSistOperativos = null;
+            MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             ActualizacionesSistOperativos objActualizacionesSistOperativosBD = new ActualizacionesSistOperativos();
             msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionSistOperativo(infoSistOperativo);
             if (msjSistOperativos.OperacionExitosa)
@@ -110,7 +110,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoSistOperativo")]
         public MensajesSistOperativos ActualizarEstadoSistOperativo([FromBody] SistOperativos infoSistOperativo)
         {
-            MensajesSistOperativos msjSistOperativos = null;
+            MensajesSistOperativos msjSistOperativos = new MensajesSistOperativos();
             ActualizacionesSistOperativos objActualizacionesSistOperativosBD = new ActualizacionesSistOperativos();
             msjSistOperativos = objActualizacionesSistOperativosBD.ActualizacionEstadoSistOperativo(infoSistOperativo);
             if (msjSistOperativos.OperacionExitosa)

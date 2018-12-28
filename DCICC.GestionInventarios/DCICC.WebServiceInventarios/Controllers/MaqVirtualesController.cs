@@ -66,7 +66,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarMaqVirtual")]
         public MensajesMaqVirtuales RegistrarMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
         {
-            MensajesMaqVirtuales msjMaqVirtuales = null;
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             InsercionesMaqVirtuales objInsercionesMaqVirtualesBD = new InsercionesMaqVirtuales();
             msjMaqVirtuales = objInsercionesMaqVirtualesBD.RegistroMaqVirtual(infoMaqVirtual);
             if (msjMaqVirtuales.OperacionExitosa)
@@ -89,7 +89,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarMaqVirtual")]
         public MensajesMaqVirtuales ActualizarMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
         {
-            MensajesMaqVirtuales msjMaqVirtuales = null;
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             ActualizacionesMaqVirtuales objActualizacionesMaqVirtualesBD = new ActualizacionesMaqVirtuales();
             msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionMaqVirtual(infoMaqVirtual);
             if (msjMaqVirtuales.OperacionExitosa)
@@ -110,7 +110,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoMaqVirtual")]
         public MensajesMaqVirtuales ActualizarEstadoMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
         {
-            MensajesMaqVirtuales msjMaqVirtuales = null;
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
             ActualizacionesMaqVirtuales objActualizacionesMaqVirtualesBD = new ActualizacionesMaqVirtuales();
             msjMaqVirtuales = objActualizacionesMaqVirtualesBD.ActualizacionEstadoMaqVirtual(infoMaqVirtual);
             if (msjMaqVirtuales.OperacionExitosa)

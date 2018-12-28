@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DCICC.WebServiceInventarios.Controllers
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class ValuesController : ControllerBase
     {
         //Instancia para la utilización de LOGS en la clase Values
@@ -21,16 +21,6 @@ namespace DCICC.WebServiceInventarios.Controllers
         {
             Logs.Info("Ejecución de Web Service");
             return "DCICC WEB SERVICE INVENTARIOS";
-        }
-        [HttpPost("valor")]
-        public string valor([FromBody]string value)
-        {
-            return "hola mundo";
-        }
-        [HttpPost("obj")]
-        public string obj([FromBody] Usuarios user)
-        {
-            return "hola " + user.NickUsuario + "-"+ user.PasswordUsuario;
         }
     }
 }

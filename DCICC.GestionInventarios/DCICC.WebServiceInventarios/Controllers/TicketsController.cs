@@ -89,7 +89,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarTicket")]
         public MensajesTickets ActualizarTicket([FromBody] Tickets infoTicket)
         {
-            MensajesTickets msjTickets = null;
+            MensajesTickets msjTickets = new MensajesTickets();
             ActualizacionesTickets objActualizacionesTicketsBD = new ActualizacionesTickets();
             msjTickets = objActualizacionesTicketsBD.ActualizacionTicket(infoTicket);
             if (msjTickets.OperacionExitosa)

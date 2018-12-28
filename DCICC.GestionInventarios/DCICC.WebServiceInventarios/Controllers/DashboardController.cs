@@ -26,7 +26,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ObtenerDashboard")]
         public MensajesDashboard ObtenerDashboardHab([FromBody]string nickUsuario)
         {
-            MensajesDashboard msjDashboard = null;
+            MensajesDashboard msjDashboard = new MensajesDashboard();
             List<string> sentenciasDashboard = new List<string>();
             SentenciasRoles objSentencias = new SentenciasRoles();
             sentenciasDashboard = objSentencias.ObtenerSentenciasDashboard();
@@ -49,7 +49,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerDashboardActivos")]
         public MensajesDashboard ObtenerDashboardActivos()
         {
-            MensajesDashboard msjDashboard = null;
+            MensajesDashboard msjDashboard = new MensajesDashboard();
             ConsultasDashboard objConsultasDashboardBD = new ConsultasDashboard();
             msjDashboard = objConsultasDashboardBD.ObtenerDashboardActivos();
             if (msjDashboard.OperacionExitosa)

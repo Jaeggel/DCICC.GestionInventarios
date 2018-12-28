@@ -86,7 +86,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarTipoActivo")]
         public MensajesTipoActivo RegistrarTipoActivo([FromBody] TipoActivo infoTipoActivo)
         {
-            MensajesTipoActivo msjTipoActivo = null;
+            MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             InsercionesTipoActivo objInsercionesTipoActivoBD = new InsercionesTipoActivo();
             msjTipoActivo = objInsercionesTipoActivoBD.RegistroTipoActivo(infoTipoActivo);
             if (msjTipoActivo.OperacionExitosa)
@@ -109,7 +109,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarTipoActivo")]
         public MensajesTipoActivo ActualizarTipoActivo([FromBody] TipoActivo infoTipoActivo)
         {
-            MensajesTipoActivo msjTipoActivo = null;
+            MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
             msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionTipoActivo(infoTipoActivo);
             if (msjTipoActivo.OperacionExitosa)
@@ -130,7 +130,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoTipoActivo")]
         public MensajesTipoActivo ActualizarEstadoTipoActivo([FromBody] TipoActivo infoTipoActivo)
         {
-            MensajesTipoActivo msjTipoActivo = null;
+            MensajesTipoActivo msjTipoActivo = new MensajesTipoActivo();
             ActualizacionesTipoActivo objActualizacionesTipoActivoBD = new ActualizacionesTipoActivo();
             msjTipoActivo = objActualizacionesTipoActivoBD.ActualizacionEstadoTipoActivo(infoTipoActivo);
             if (msjTipoActivo.OperacionExitosa)

@@ -22,7 +22,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerLogsComp")]
         public MensajesLogs ObtenerLogsComp()
         {
-            MensajesLogs msjLogs = null;
+            MensajesLogs msjLogs = new MensajesLogs();
             ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
             msjLogs = objConsultasLogsBD.ObtenerLogs("consultalogs");
             if (msjLogs.OperacionExitosa)
@@ -42,7 +42,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerLogs")]
         public MensajesLogs ObtenerLogs()
         {
-            MensajesLogs msjLogs = null;
+            MensajesLogs msjLogs = new MensajesLogs();
             ConsultasLogs objConsultasLogsBD = new ConsultasLogs();
             msjLogs = objConsultasLogsBD.ObtenerLogs("");
             if (msjLogs.OperacionExitosa)
