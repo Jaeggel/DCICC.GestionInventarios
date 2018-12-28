@@ -36,6 +36,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTickets;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los Tickets generados por un usuario de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ObtenerTicketsPorIdUsuario")]
+        public MensajesTickets ObtenerTicketsPorIdUsuario([FromBody] int infoIdUsuario)
+        {
+            MensajesTickets msjTickets = new MensajesTickets();
+            ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
+            msjTickets = objConsultasTicketsBD.ObtenerTicketsPorIdUsuario(infoIdUsuario);
+            if (msjTickets.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Tickets realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjTickets.MensajeError);
+            }
+            return msjTickets;
+        }
         #endregion
         #region Registros
         /// <summary>
@@ -46,7 +66,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarTicket")]
         public MensajesTickets RegistrarTicket([FromBody] Tickets infoTicket)
         {
-            MensajesTickets msjTickets = null;
+            MensajesTickets msjTickets = new MensajesTickets();
             InsercionesTickets objInsercionesTicketsBD = new InsercionesTickets();
             msjTickets = objInsercionesTicketsBD.RegistroTicket(infoTicket);
             if (msjTickets.OperacionExitosa)

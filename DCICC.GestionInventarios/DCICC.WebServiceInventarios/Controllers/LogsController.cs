@@ -65,7 +65,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarLog")]
         public MensajesLogs RegistrarLog([FromBody]Logs infoLogsSistema)
         {
-            MensajesLogs msjLogs = null;
+            MensajesLogs msjLogs = new MensajesLogs();
             InsercionesLogs objInsercionesLogsBD = new InsercionesLogs();
             msjLogs=objInsercionesLogsBD.RegistroLogsInicioBD(infoLogsSistema);
             if (msjLogs.OperacionExitosa)
