@@ -49,7 +49,7 @@ namespace DCICC.GestionInventarios.Controllers
                     datosUsuario= ComprobarCredenciales(infoLogin);
                     if (datosUsuario != null)
                     {
-                        if (datosUsuario.NombreRol.ToLower() == "docente")
+                        if (datosUsuario.NombreRol.ToLower() == "docente"  || datosUsuario.NombreRol.ToLower()=="generador_tickets")
                         {
                             TempData["MensajeError"] = "No cuenta con los permisos necesarios para ingresar al sistema.";
                             return View("Login");
