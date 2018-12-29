@@ -80,7 +80,7 @@ function cargarRolesTabla() {
             str += '</td><td> Deshabilitado';
         }
 
-        if (datosRoles[i].NombreRol == "administrador" || datosRoles[i].NombreRol == "docente" || datosRoles[i].NombreRol == "invitado" || datosRoles[i].NombreRol == "pasante" || datosRoles[i].NombreRol == "reporteria") {
+        if (datosRoles[i].NombreRol == "administrador" || datosRoles[i].NombreRol == "docente" || datosRoles[i].NombreRol == "invitado" || datosRoles[i].NombreRol == "pasante" || datosRoles[i].NombreRol == "reporteria" || datosRoles[i].NombreRol == "generador_tickets") {
             str += '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
                 '<button disabled="true" id="modificar" type="button" class="btn btn-info text-center" data-toggle="modal" data-target="#ModificarRoles" onclick = "formUpdateRol(' + datosRoles[i].IdRol + ');"> <strong><i class="fa fa-pencil-square-o"></i></strong></button> ' +
                 '</div></div>' +
