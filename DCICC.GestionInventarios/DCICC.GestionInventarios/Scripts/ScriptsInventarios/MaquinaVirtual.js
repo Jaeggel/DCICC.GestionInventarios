@@ -97,7 +97,13 @@ function cargarMaquinaVTabla() {
     str += '<thead> <tr> <th>Fecha de Creación</th><th>Nombre Máquina Virtual</th> <th>Nombre LUN</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB/TB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMaquinasV.length; i++) {
-        str += '<tr><td>' + datosMaquinasV[i].FechaCreacionMaqVirtuales +
+        var fechaLog = new Date(parseInt((datosMaquinasV[i].FechaCreacionMaqVirtuales).substr(6)));
+        //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+
+        //fecha para la tabla y busquedas
+        function pad(n) { return n < 10 ? "0" + n : n; }
+        var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
+        str += '<tr><td>' + fechaIngreso +
             '</td><td>' + datosMaquinasV[i].NombreMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].NombreLUN +
             '</td><td>' + datosMaquinasV[i].UsuarioMaqVirtuales +
@@ -222,7 +228,7 @@ function formUpdateMaquinaV(idMV) {
             document.getElementById("RamMaqVirtuales").value = datosMaquinasV[i].RamMaqVirtuales;
             document.getElementById("DescripcionMaqVirtuales").value = datosMaquinasV[i].DescripcionMaqVirtuales;
 
-            var fechaCre = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
+            var fechaCre = new Date(parseInt((datosMaquinasV[i].FechaCreacionMaqVirtuales).substr(6)));
             //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
             //fecha para la tabla y busquedas
             function pad(n) { return n < 10 ? "0" + n : n; }
