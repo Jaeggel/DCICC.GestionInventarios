@@ -26,7 +26,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_maqvirtuales set id_so=@iso,id_lun=@ilun,usuario_maqvirtuales=@umv,nombre_maqvirtuales = @nmv,proposito_maqvirtuales=@pmv,direccionip_maqvirtuales=@dimv,disco_maqvirtuales=@dsmv,ram_maqvirtuales=@rmv,descripcion_maqvirtuales=@dcmv,habilitado_maqvirtuales = @hmv where id_maqvirtuales = @imv", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE dcicc_maqvirtuales set id_so=@iso,id_lun=@ilun,usuario_maqvirtuales=@umv,nombre_maqvirtuales = @nmv,proposito_maqvirtuales=@pmv,direccionip_maqvirtuales=@dimv,disco_maqvirtuales=@dsmv,ram_maqvirtuales=@rmv,descripcion_maqvirtuales=@dcmv,habilitado_maqvirtuales = @hmv,fechacreacion_maqvirtuales=@fcmv where id_maqvirtuales = @imv", conn_BD))
                 {
                     cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdSistOperativos;
                     cmd.Parameters.Add("ilun", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdLUN;
@@ -38,6 +38,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("dsmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.DiscoMaqVirtuales;
                     cmd.Parameters.Add("dcmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoMaqVirtual.DescripcionMaqVirtuales) ? (object)infoMaqVirtual.DescripcionMaqVirtuales.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hmv", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMaqVirtual.HabilitadoMaqVirtuales;
+                    cmd.Parameters.Add("fcmv", NpgsqlTypes.NpgsqlDbType.Date).Value = infoMaqVirtual.FechaCreacionMaqVirtuales;
                     cmd.Parameters.Add("imv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdMaqVirtuales;
                     cmd.ExecuteNonQuery();
                 }

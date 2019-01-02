@@ -103,6 +103,44 @@ namespace DCICC.AccesoDatos.ConsultasBD
             return msjUsuarios;
         }
         /// <summary>
+        /// Método para obtener los Usuarios Administradores de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public MensajesUsuarios ObtenerUsuariosAdministradores()
+        {
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            List<Usuarios> lstUsuarios = new List<Usuarios>();
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("select nombres_usuario,correo_usuario from dcicc_usuarios as u,dcicc_roles as r where r.nombre_rol='administrador' and r.id_rol=u.id_rol", conn_BD))
+                {
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Usuarios objUsuarios = new Usuarios
+                            {
+                                NombresUsuario = dr[0].ToString( ).Trim(),
+                                CorreoUsuario= dr[1].ToString().Trim(),
+                            };
+                            lstUsuarios.Add(objUsuarios);
+                        }
+                        conn_BD.Close();
+                        msjUsuarios.ListaObjetoInventarios = lstUsuarios;
+                        msjUsuarios.OperacionExitosa = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                conn_BD.Close();
+                msjUsuarios.OperacionExitosa = false;
+                msjUsuarios.MensajeError = e.Message;
+                msjUsuarios.ListaObjetoInventarios = null;
+            }
+            return msjUsuarios;
+        }
+        /// <summary>
         /// Método para obtener un Usuario en específico de la base de datos por su ID.
         /// </summary>
         /// <param name="IdUsuario"></param>

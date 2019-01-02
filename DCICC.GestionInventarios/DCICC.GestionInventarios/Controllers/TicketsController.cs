@@ -1,9 +1,12 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
 using DCICC.GestionInventarios.Configuration;
+using DCICC.GestionInventarios.Mail;
 using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
@@ -95,6 +98,29 @@ namespace DCICC.GestionInventarios.Controllers
             TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
             return Json(objTicketsAccDatos.ObtenerTickets("Comp"), JsonRequestBehavior.AllowGet);
         }
+        #endregion
+        #region Envío Correo Electrónico
+        public void EnviarCorreoAsignacionTicket(Tickets infoTicket)
+        {
+            ConfiguracionMail mail = new ConfiguracionMail();
+            UsuariosController objUsuariosCont = new UsuariosController();
+            List<Usuarios> lstUsuarios = objUsuariosCont.ObtenerUsuariosComp();
+            Usuarios infoUsuarioAdmin =  lstUsuarios.Find(x => x.IdUsuario == infoTicket.IdResponsableUsuario);
+            infoTicket.NombreUsuarioResponsable = infoUsuarioAdmin.NombresUsuario;
+            Usuarios infoUsuario = lstUsuarios.Find(x => x.IdUsuario == infoTicket.IdUsuario);
+            infoTicket.NombreUsuario = infoUsuario.NombresUsuario;
+            Correo correo = new Correo
+            {
+                Body = mail.FormatBodyTicket(infoTicket),
+                EmailEmisor = ConfigurationManager.AppSettings["EmailEmisor"],
+                ClaveEmailEmisor = ConfigurationManager.AppSettings["ClaveEmailEmisor"],
+                EmailReceptor = infoUsuarioAdmin.CorreoUsuario,
+                Asunto = "Asignación de Ticket para Soporte Técnico"
+            };
+            mail.SendMail(correo);
+            Logs.Info(string.Format("El correo electrónico de asignación de ticket ha sido enviado correctamente a: {0}."));
+        }
+
         #endregion
     }
 }

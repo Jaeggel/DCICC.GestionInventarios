@@ -4629,6 +4629,7 @@
     <Content Include="Content\Tema\vendors\validator\.gitignore" />
     <Content Include="Content\Tema\vendors\validator\README.md" />
     <Content Include="Content\Tema\vendors\validator\validator.jquery.json" />
+    <Content Include="Mail\InfoTicket.html" />
     <Content Include="Mail\PlantillaEmailPassword.html" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

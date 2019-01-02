@@ -3,9 +3,11 @@ using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
+using DCICC.WebServiceInventarios.Configuration;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
@@ -71,6 +73,23 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjTickets = objInsercionesTicketsBD.RegistroTicket(infoTicket);
             if (msjTickets.OperacionExitosa)
             {
+                ConfigSeguridad confServSeguridad = new ConfigSeguridad();
+                ConsultasUsuarios objConsultaUsuariosBD = new ConsultasUsuarios();
+                List<Usuarios> lstUsuariosAdmin = objConsultaUsuariosBD.ObtenerUsuariosAdministradores().ListaObjetoInventarios;
+                foreach (var item in lstUsuariosAdmin)
+                {
+                    Mail objMail = new Mail();
+                    infoTicket.NombreUsuarioResponsable = item.NombresUsuario;
+                    Correo correo = new Correo
+                    {
+                        Body =  objMail.FormatBody(infoTicket),
+                        EmailEmisor = confServSeguridad.ObtenerEmailEmisor(),
+                        ClaveEmailEmisor = confServSeguridad.ObtenerClaveEmailEmisor(),
+                        EmailReceptor = item.CorreoUsuario,
+                        Asunto = "Nuevo Ticket para Soporte Técnico"
+                    };
+                    objMail.SendMail(correo);
+                }
                 Logs.Info(string.Format("Registro de Ticket de Usuario: {0} realizado exitosamente.",infoTicket.NombreUsuario));
             }
             else

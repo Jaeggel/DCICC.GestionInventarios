@@ -15,6 +15,8 @@ namespace DCICC.GestionInventarios.Models
 
         public int IdLUN { get; set; }
 
+        public DateTime FechaCreacionMaqVirtuales { get; set; }
+
         public string NombreLUN { get; set; }
 
         public string UsuarioMaqVirtuales { get; set; }

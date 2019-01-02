@@ -50,5 +50,7 @@ namespace DCICC.GestionInventarios.Models
         public string ComentarioResueltoTicket { get; set; }
 
         public string DescripcionTicket { get; set; }
+
+        public bool AsignacionTicket { get; set; }
     }
 }
