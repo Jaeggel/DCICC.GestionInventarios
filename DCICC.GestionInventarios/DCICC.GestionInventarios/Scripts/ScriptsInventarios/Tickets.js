@@ -199,7 +199,7 @@ function modificarEstadoTicket(url_modificar) {
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    data: { "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario, "AsignacionTicket": true, "NombresUsuario": solicitante },
+                    data: { "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario, "AsignacionTicket": true, "NombreUsuario": solicitante },
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
