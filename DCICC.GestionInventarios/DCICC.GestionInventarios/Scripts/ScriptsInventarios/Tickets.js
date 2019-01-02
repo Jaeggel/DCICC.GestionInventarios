@@ -181,6 +181,7 @@ function modificarEstadoTicket(url_modificar) {
     var cmbResponsable = document.getElementById("Responsables");
     var responsable = cmbResponsable.options[cmbResponsable.selectedIndex].value;
     var asignado = cmbResponsable.options[cmbResponsable.selectedIndex].text;
+    var solicitante = document.getElementById("NombreUsuario").value;
     var cmbEstado = document.getElementById("Estados");
     var Estado = cmbEstado.options[cmbEstado.selectedIndex].value;
     var comentario = document.getElementById("ComentarioTicket").value;
@@ -198,7 +199,7 @@ function modificarEstadoTicket(url_modificar) {
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    data: { "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario,"AsignacionTicket":true },
+                    data: { "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario, "AsignacionTicket": true, "NombresUsuario": solicitante },
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
