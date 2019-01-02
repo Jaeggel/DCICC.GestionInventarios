@@ -108,11 +108,9 @@ namespace DCICC.GestionInventarios.Controllers
         {
             ConfiguracionMail mail = new ConfiguracionMail();
             UsuariosController objUsuariosCont = new UsuariosController();
-            List<Usuarios> lstUsuarios = objUsuariosCont.ObtenerUsuariosComp();
+            List<Usuarios> lstUsuarios = objUsuariosCont.ObtenerUsuariosComp((string)Session["NickUsuario"]).ListaObjetoInventarios;
             Usuarios infoUsuarioAdmin =  lstUsuarios.Find(x => x.IdUsuario == infoTicket.IdResponsableUsuario);
             infoTicket.NombreUsuarioResponsable = infoUsuarioAdmin.NombresUsuario;
-            Usuarios infoUsuario = lstUsuarios.Find(x => x.IdUsuario == infoTicket.IdUsuario);
-            infoTicket.NombreUsuario = infoUsuario.NombresUsuario;
             Correo correo = new Correo
             {
                 Body = mail.FormatBodyTicket(infoTicket),

@@ -289,10 +289,12 @@ namespace DCICC.GestionInventarios.Controllers
         /// Método para obtener todos los Usuarios de la base de datos
         /// </summary>
         /// <returns></returns>
-        public List<Usuarios> ObtenerUsuariosComp()
+        public MensajesUsuarios ObtenerUsuariosComp(string nickSesion)
         {
-            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos((string)Session["NickUsuario"]);
-            return objUsuariosRolesAccDatos.ObtenerUsuarios("Roles").ListaObjetoInventarios;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
+            UsuariosAccDatos objUsuariosRolesAccDatos = new UsuariosAccDatos(nickSesion);
+            msjUsuarios= objUsuariosRolesAccDatos.ObtenerUsuarios("Roles");
+            return msjUsuarios;
         }
         /// <summary>
         /// Método para obtener todos los Usuarios habilitados de la base de datos
