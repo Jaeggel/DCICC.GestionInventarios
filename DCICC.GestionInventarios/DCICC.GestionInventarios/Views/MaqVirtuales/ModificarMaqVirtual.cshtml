@@ -62,103 +62,113 @@
                             @* Formulario para envio de datos de los componentes para modificación de una  Máquina Virtual
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
-                                <div class="form-horizontal form-label-left input_mask">
-                                    @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>LUN</label>
-                                            <div id="cargarLunsModificar"></div>
-                                            <span id="errorLun" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    @* Combobox para seleccionar un sistema operativo de la máquina virtual*@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Sistema Operativo</label>
-                                            <div id="cargarSOModificar"></div>
-                                            <span id="errorCmbSo" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    @* Área de Texto para seleccionar el propósito de la máquina virtual *@
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>Propósito</label>
-                                            <div id="cargarPropositosModificar"></div>
-                                            <span id="errorCmbEstado" style="color:brown;"></span>
-                                        </div>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del nombre del responsable de la máquina virtual *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Nombre Usuario o Responsable</label>
-                                        <input id="UsuarioMaqVirtuales" type="text" class="form-control has-feedback-left" name="UsuarioMaqVirtuales" placeholder="Pepe Peréz" onkeyup="this.value=this.value.replace(validarTextos(),'');"  maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorNombreUsuario" style="color:brown;"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso del nombre de una máquina virtual *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Nombre de la Máquina Virtual</label>
-                                        <input id="NombreMaqVirtuales" type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="VM_TESIS_PPEREZ_W7" onkeyup="this.value=this.value.replace(validarNombres(),'');" onblur="validarNombreModificacion();" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorNombreMV" style="color:brown;"></span>
-                                    </div>
-                                    @* Cuadro de texto para el ingreso de la dirección IP de una máquina virtual *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <label>Dirección IP</label>
-                                        <input id="DireccionIPMaqVirtuales" type="text" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="172.17.42.64" onkeyup="this.value=this.value.replace(validarIp(),'');" onBlur="validarIP();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                        <span class="fa fa-wifi form-control-feedback left" aria-hidden="true"></span>
-                                        <span id="errorIpMv" style="color:brown;"></span>
-                                    </div>
+								<div class="form-horizontal form-label-left input_mask">
+									@* Combobox para seleccionar un sistema operativo de la máquina virtual*@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>LUN</label>
+											<div id="cargarLunsModificar"></div>
+											<span id="errorLun" style="color:brown;"></span>
+										</div>
+									</div>
+									@* Combobox para seleccionar un sistema operativo de la máquina virtual*@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Sistema Operativo</label>
+											<div id="cargarSOModificar"></div>
+											<span id="errorCmbSo" style="color:brown;"></span>
+										</div>
+									</div>
+									@* Área de Texto para seleccionar el propósito de la máquina virtual *@
+									<div class="form-group">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<label>Propósito</label>
+											<div id="cargarPropositosModificar"></div>
+											<span id="errorCmbEstado" style="color:brown;"></span>
+										</div>
+									</div>
+									@* Cuadro de texto para el ingreso del nombre del responsable de la máquina virtual *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Nombre Usuario o Responsable</label>
+										<input id="UsuarioMaqVirtuales" type="text" class="form-control has-feedback-left" name="UsuarioMaqVirtuales" placeholder="Pepe Peréz" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorNombreUsuario" style="color:brown;"></span>
+									</div>
+									@* Cuadro de texto para el ingreso del nombre de una máquina virtual *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Nombre de la Máquina Virtual</label>
+										<input id="NombreMaqVirtuales" type="text" class="form-control has-feedback-left" name="NombreMaqVirtuales" placeholder="VM_TESIS_PPEREZ_W7" onkeyup="this.value=this.value.replace(validarNombres(),'');" onblur="validarNombreModificacion();" minlength="3" maxlength="80" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorNombreMV" style="color:brown;"></span>
+									</div>
+									@* Cuadro de texto para el ingreso de la dirección IP de una máquina virtual *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Dirección IP</label>
+										<input id="DireccionIPMaqVirtuales" type="text" class="form-control has-feedback-left" name="DireccionIPMaqVirtuales" placeholder="172.17.42.64" onkeyup="this.value=this.value.replace(validarIp(),'');" onBlur="validarIP();" maxlength="15" data-toggle="tooltip" data-placement="rigth" title="" required>
+										<span class="fa fa-wifi form-control-feedback left" aria-hidden="true"></span>
+										<span id="errorIpMv" style="color:brown;"></span>
+									</div>
 
-                                    @* Cuadro de texto para el ingreso del disco y RAM de una máquina virtual *@
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-8 col-sm-12 col-xs-12 form-group">
+									@* Cuadro de texto para el ingreso del disco y RAM de una máquina virtual *@
+									<div class="form-group">
+										<div class="row">
+											<div class="col-md-8 col-sm-12 col-xs-12 form-group">
 
-                                                <div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
-                                                    <label>Tamaño en Disco</label>
-                                                    <input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="1000" onBlur="validarDisco();" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                                    <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
-                                                    <span id="errorDiscoMv" style="color:brown;"></span>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 col-xs-12">
-                                                    <label>Unidad</label>
-                                                    <select id="UnidadMaqVirtuales" class="form-control" name="UnidadMaqVirtuales" required>
-                                                        <option value="GB">GB</option>
-                                                        <option value="TB">TB</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+												<div class="col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
+													<label>Tamaño en Disco</label>
+													<input id="DiscoMaqVirtuales" type="number" class="form-control has-feedback-left" name="DiscoMaqVirtuales" placeholder="20" onkeyup="this.value=this.value.replace(validarNumeros(),'');" min="1" max="1000" onBlur="validarDisco();" data-toggle="tooltip" data-placement="rigth" title="" required>
+													<span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
+													<span id="errorDiscoMv" style="color:brown;"></span>
+												</div>
+												<div class="col-md-4 col-sm-12 col-xs-12">
+													<label>Unidad</label>
+													<select id="UnidadMaqVirtuales" class="form-control" name="UnidadMaqVirtuales" required>
+														<option value="GB">GB</option>
+														<option value="TB">TB</option>
+													</select>
+												</div>
+											</div>
 
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <label>Memoria RAM (GB)</label>
-                                                <input id="RamMaqVirtuales" type="number" class="form-control has-feedback-left" name="RamMaqVirtuales" placeholder="5" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarRam();" min="0" max="1000" data-toggle="tooltip" data-placement="rigth" title="" required>
-                                                <span class="fa fa-tachometer form-control-feedback left" aria-hidden="true"></span>
-                                                <span id="errorRamMv" style="color:brown;"></span>
-                                            </div>
-                                        </div>
+											<div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+												<label>Memoria RAM (GB)</label>
+												<input id="RamMaqVirtuales" type="number" class="form-control has-feedback-left" name="RamMaqVirtuales" placeholder="5" onkeyup="this.value=this.value.replace(validarNumeros(),'');" onBlur="validarRam();" min="0" max="1000" data-toggle="tooltip" data-placement="rigth" title="" required>
+												<span class="fa fa-tachometer form-control-feedback left" aria-hidden="true"></span>
+												<span id="errorRamMv" style="color:brown;"></span>
+											</div>
+										</div>
 
-                                    </div>
-                                    @* Área de Texto para el ingreso de la descripción de una máquina virtual *@
-                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                        <textarea id="DescripcionMaqVirtuales" name="DescripcionMaqVirtuales" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Máquina Virtual" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
-                                        <span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                    @* Checkbox para habilitar o deshabilitar el uso de la nueva máquina virtual *@
-                                    <div class="form-group">
-                                        <label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Máquina Virtual?</label>
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input id="HabilitadoMaqVirtuales" name="HabilitadoMaqVirtuales" type="checkbox" class="js-switch" value="true" checked />
-                                        </div>
-                                    </div>
-                                    <div class="ln_solid"></div>
-                                    @* Sección de botones para guardar máquina virtual o cancelar el registro *@
-                                    <div class="form-group text-center">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button id="confirmarMV" type="submit" class="btn btn-success" onclick="modificarMaquinaV('@Url.Action("ModificarMaqVirtual", "MaqVirtuales")');">Modificar</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </div>
+									</div>
+									@* Área de Texto para el ingreso de la descripción de una máquina virtual *@
+									<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+										<label>Fecha de Creación: (mm/dd/yyyy)</label>
+										<input name="FechaCreacionMaqVirtuales" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
+										<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+									</div>
+
+									<div class="form-group">
+
+									</div>
+									@* Área de Texto para el ingreso de la descripción de una máquina virtual *@
+									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+										<textarea id="DescripcionMaqVirtuales" name="DescripcionMaqVirtuales" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Máquina Virtual" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
+										<span class="fa  fa-comments-o form-control-feedback left" aria-hidden="true"></span>
+									</div>
+									@* Checkbox para habilitar o deshabilitar el uso de la nueva máquina virtual *@
+									<div class="form-group">
+										<label class="col-md-12 col-sm-12 col-xs-12">¿Habilitar Máquina Virtual?</label>
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<input id="HabilitadoMaqVirtuales" name="HabilitadoMaqVirtuales" type="checkbox" class="js-switch" value="true" checked />
+										</div>
+									</div>
+									<div class="ln_solid"></div>
+									@* Sección de botones para guardar máquina virtual o cancelar el registro *@
+									<div class="form-group text-center">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<button id="confirmarMV" type="submit" class="btn btn-success" onclick="modificarMaquinaV('@Url.Action("ModificarMaqVirtual", "MaqVirtuales")');">Modificar</button>
+											<button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancelar</button>
+										</div>
+									</div>
+								</div>
                                 
                             </div>
                         </div>
@@ -217,11 +227,27 @@
             $("#DireccionIPMaqVirtuales").tooltip('hide');
             $("#DiscoMaqVirtuales").tooltip('hide');
             $("#RamMaqVirtuales").tooltip('hide');
-            $("#DescripcionMaqVirtuales").tooltip('hide');
+			$("#DescripcionMaqVirtuales").tooltip('hide');
+			$("#FechaCreacionMaqVirtuales").tooltip('hide');
+			$("#FechaCreacionMaqVirtuales").datepicker('hide');
             document.getElementById("confirmarMV").disabled = false;
 		});
 
+		$(function () {
+			$('input[name="FechaCreacionMaqVirtuales"]').datepicker({
+				autoHide: true,
+				zIndex: 2048,
+				startDate: new Date(),
+				format: 'dd-mm-yyyy',
+
+				minDate: "01/01/1990",
+				maxDate: new Date()
+
+			});
+		});
+
 		//Mascaras
+		$('#FechaCreacionMaqVirtuales').mask('00/00/0000');
 		$('#DiscoMaqVirtuales').mask('000');
 		$('#RamMaqVirtuales').mask('000');
 		$('#DireccionIPMaqVirtuales').mask('ABC.DEF.GHI.JKL', {
