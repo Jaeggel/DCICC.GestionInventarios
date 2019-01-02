@@ -49,23 +49,24 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ModificarTicket(Tickets infoTicket)
         {
-            if(infoTicket.AsignacionTicket)
+            DateTime fechaActual = DateTime.Now;
+            if (infoTicket.AsignacionTicket)
             {
                 EnviarCorreoAsignacionTicket(infoTicket);
             }
             if(infoTicket.EstadoTicket=="RESUELTO")
             {
-                infoTicket.FechaResueltoTicket = DateTime.Now;
+                infoTicket.FechaResueltoTicket = fechaActual;
                 infoTicket.ComentarioResueltoTicket = infoTicket.ComentarioTicket;
             }
             else if(infoTicket.EstadoTicket == "EN PROCESO")
             {
-                infoTicket.FechaEnProcesoTicket = DateTime.Now;
+                infoTicket.FechaEnProcesoTicket = fechaActual;
                 infoTicket.ComentarioEnProcesoTicket = infoTicket.ComentarioTicket;
             }
             else if (infoTicket.EstadoTicket == "EN ESPERA")
             {
-                infoTicket.FechaEnEsperaTicket = DateTime.Now;
+                infoTicket.FechaEnEsperaTicket = fechaActual;
                 infoTicket.ComentarioEnEsperaTicket = infoTicket.ComentarioTicket;
             }
             string mensajesTickets = string.Empty;
@@ -110,7 +111,7 @@ namespace DCICC.GestionInventarios.Controllers
             UsuariosController objUsuariosCont = new UsuariosController();
             List<Usuarios> lstUsuarios = objUsuariosCont.ObtenerUsuariosComp((string)Session["NickUsuario"]).ListaObjetoInventarios;
             Usuarios infoUsuarioAdmin =  lstUsuarios.Find(x => x.IdUsuario == infoTicket.IdResponsableUsuario);
-            infoTicket.NombreUsuarioResponsable = infoUsuarioAdmin.NombresUsuario;
+            infoTicket.NombreUsuarioResponsable = Regex.Replace(infoUsuarioAdmin.NombresUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper());
             Correo correo = new Correo
             {
                 Body = mail.FormatBodyTicket(infoTicket),
@@ -120,7 +121,7 @@ namespace DCICC.GestionInventarios.Controllers
                 Asunto = "Asignación de Ticket para Soporte Técnico"
             };
             mail.SendMail(correo);
-            Logs.Info(string.Format("El correo electrónico de asignación de ticket ha sido enviado correctamente a: {0}."));
+            Logs.Info(string.Format("El correo electrónico de asignación de ticket ha sido enviado correctamente a: {0}.",infoTicket.NombreUsuarioResponsable));
         }
 
         #endregion

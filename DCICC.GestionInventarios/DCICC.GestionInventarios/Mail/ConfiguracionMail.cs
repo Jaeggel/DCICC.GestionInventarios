@@ -61,13 +61,15 @@ namespace DCICC.GestionInventarios.Mail
         public string FormatBodyTicket(Tickets infoTicket)
         {
             string body = string.Empty;
-            using (StreamReader reader = new StreamReader("~/Mail/InfoTicket.html"))
+            string path = HttpContext.Current.Server.MapPath("~/Mail/InfoTicket.html");
+            using (StreamReader reader = new StreamReader(path))
             {
                 body = reader.ReadToEnd();
             }
             body = body.Replace("{nombre}", infoTicket.NombreUsuarioResponsable);
+            body = body.Replace("{act}", infoTicket.NombreDetalleActivo);
             body = body.Replace("{user}", infoTicket.NombreUsuario);
-            body = body.Replace("{desc}", infoTicket.DescripcionTicket);
+            body = body.Replace("{desc}", infoTicket.ComentarioTicket);
             body = body.Replace("{prior}", infoTicket.PrioridadTicket);
             body = body.Replace("{fecha}", infoTicket.FechaAperturaTicket + "");
             body = body.Replace("{year}", DateTime.Now.Year + "");
