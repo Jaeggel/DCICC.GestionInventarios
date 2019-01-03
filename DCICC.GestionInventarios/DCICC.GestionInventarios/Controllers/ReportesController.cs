@@ -156,12 +156,12 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 if (infoReportes.Imagen!= null)
                 {
-                    string pathAux = Server.MapPath("~/Content/Images/LogoReporte/LogoNuevo.jpg");
+                    string pathAux = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.jpg");
                     if (System.IO.File.Exists(pathAux))
                     {
                         System.IO.File.Delete(pathAux);
                     }
-                    string pathAux2 = Server.MapPath("~/Content/Images/LogoReporte/LogoNuevo.png");
+                    string pathAux2 = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.png");
                     if (System.IO.File.Exists(pathAux2))
                     {
                         System.IO.File.Delete(pathAux2);
@@ -169,10 +169,12 @@ namespace DCICC.GestionInventarios.Controllers
                     string pic = Path.GetFileName(infoReportes.Imagen.FileName);
                     string[] aux = pic.Split('.');
                     string ext = aux[1];
-                    string path = Path.Combine(Server.MapPath("~/Content/Images/LogoReporte"), pic);
+                    string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte"), pic);
                     infoReportes.Imagen.SaveAs(path);
-                    string pathNuevoNombre = Server.MapPath("~/Content/Images/LogoReporte/LogoNuevo." + ext);
-                    System.IO.File.Move(Server.MapPath("~/Content/Images/LogoReporte/" + infoReportes.Imagen.FileName), pathNuevoNombre);
+                    infoReportes.Imagen.InputStream.Flush();
+                    infoReportes.Imagen.InputStream.Dispose();
+                    string pathNuevoNombre = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo." + ext);
+                    System.IO.File.Move(System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/" + infoReportes.Imagen.FileName), pathNuevoNombre);
                 }
                 infoReportes.Imagen = null;
                 if (ModificarParametrosReporte(infoReportes))
@@ -331,18 +333,22 @@ namespace DCICC.GestionInventarios.Controllers
         /// <returns></returns>
         public ActionResult ObtenerReporteExcel()
         {
+            byte[] pdfQR = null;
             MemoryStream streamReporteExcel = null;
             try
             {
                 ReporteExcel objReporteExcel = new ReporteExcel();
                 streamReporteExcel = objReporteExcel.GenerarReporteExcel(info_DataTable, titulo_Reporte, lab_Filtro, (string)Session["NombresUsuario"]);
+                pdfQR = streamReporteExcel.ToArray();
+                streamReporteExcel.Flush();
+                streamReporteExcel.Dispose();
                 Logs.Info("Reporte Excel generado correctamente.");
             }
             catch (Exception e)
             {
                 Logs.Error(string.Format("No se ha podido generar el reporte Excel: {0}", e.Message));
             }
-            return File(streamReporteExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte.{0}.{1}.{2}", titulo_Reporte, DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "xlsx"));
+            return File(pdfQR, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Reporte.{0}.{1}.{2}", titulo_Reporte, DateTime.Now.ToString("dd-MM-yyyy.hh-mm-ss"), "xlsx"));
         }
         /// <summary>
         /// Método para mostrar el PDF con los códigos QR de activos seleccionados en la vista.
@@ -419,6 +425,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 string json = r.ReadToEnd();
                 items = JsonConvert.DeserializeObject<Models.Reportes>(json);
+                r.Dispose();
             }
             string pathAux = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.jpg");
             string pathAux2 = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.png");

@@ -43,6 +43,7 @@ namespace DCICC.GestionInventarios.Reportes
                     documentoReporte.Close();
                     bytesReportePDF = msReporte.ToArray();
                 }
+                msReporte.Dispose();
             }
             return bytesReportePDF;
         }
