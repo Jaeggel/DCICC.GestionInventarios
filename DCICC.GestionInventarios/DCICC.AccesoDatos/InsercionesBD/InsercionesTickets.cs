@@ -25,16 +25,16 @@ namespace DCICC.AccesoDatos.InsercionesBD
             MensajesTickets msjTickets = new MensajesTickets();
             try
             {
-                //@iu, @il, @ida, @et, @fa, @dt, @pt
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_tickets(id_usuario, id_laboratorio, id_detalleact, estado_ticket, fechaapertura_ticket, descripcion_ticket, prioridad_ticket)VALUES (@iu,@il, @ida, @et, @fa, @dt, @pt);", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.dcicc_tickets(id_usuario, id_laboratorio, id_detalleact, id_accesorio,estado_ticket, fechaapertura_ticket, descripcion_ticket, prioridad_ticket)VALUES (@iu,@il, @ida,@iac, @et, @fa, @dt, @pt);", conn_BD))
                 {
                     cmd.Parameters.Add("iu", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdUsuario;
-                    cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoTicket.IdLaboratorio.ToString()) ? (object)infoTicket.IdLaboratorio.ToString() : DBNull.Value; ;
-                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = !string.IsNullOrEmpty(infoTicket.IdDetalleActivo.ToString()) ? (object)infoTicket.IdDetalleActivo.ToString() : DBNull.Value; ;
-                    cmd.Parameters.Add("et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.EstadoTicket.Trim();
-                    cmd.Parameters.AddWithValue("fa", infoTicket.FechaAperturaTicket);
-                    cmd.Parameters.Add("dt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoTicket.DescripcionTicket) ? (object)infoTicket.DescripcionTicket.Trim() : DBNull.Value; ;
+                    cmd.Parameters.Add("il", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdLaboratorio == 0 ? DBNull.Value : (object)infoTicket.IdLaboratorio;
+                    cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdDetalleActivo == 0 ? DBNull.Value : (object)infoTicket.IdDetalleActivo;
+                    cmd.Parameters.Add("iac", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdAccesorio == 0 ? DBNull.Value : (object)infoTicket.IdAccesorio;
+                    cmd.Parameters.Add("et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = "ABIERTO";
+                    cmd.Parameters.AddWithValue("fa", DateTime.Now);
+                    cmd.Parameters.Add("dt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.DescripcionTicket.Trim();
                     cmd.Parameters.Add("pt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.PrioridadTicket.Trim();
                     cmd.ExecuteNonQuery();
                 }

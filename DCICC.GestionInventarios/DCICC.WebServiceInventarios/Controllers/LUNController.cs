@@ -51,7 +51,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarLUN")]
         public MensajesLUN RegistrarLUN([FromBody] LUN infoLUN)
         {
-            MensajesLUN msjLUN = null;
+            MensajesLUN msjLUN = new MensajesLUN();
             InsercionesLUN objInsercionesLUNBD = new InsercionesLUN();
             msjLUN = objInsercionesLUNBD.RegistroLUN(infoLUN);
             if (msjLUN.OperacionExitosa)
@@ -74,7 +74,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarLUN")]
         public MensajesLUN ActualizarLUN([FromBody] LUN infoLUN)
         {
-            MensajesLUN msjLUN = null;
+            MensajesLUN msjLUN = new MensajesLUN();
             ActualizacionesLUN objActualizacionesLUNBD = new ActualizacionesLUN();
             msjLUN = objActualizacionesLUNBD.ActualizacionLUN(infoLUN);
             if (msjLUN.OperacionExitosa)
@@ -95,7 +95,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoLUN")]
         public MensajesLUN ActualizarEstadoLUN([FromBody] LUN infoLUN)
         {
-            MensajesLUN msjLUN = null;
+            MensajesLUN msjLUN = new MensajesLUN();
             ActualizacionesLUN objActualizacionesLUNBD = new ActualizacionesLUN();
             msjLUN = objActualizacionesLUNBD.ActualizacionEstadoLUN(infoLUN);
             if (msjLUN.OperacionExitosa)

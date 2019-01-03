@@ -131,7 +131,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarAccesorio")]
         public MensajesAccesorios RegistrarAccesorio([FromBody] Accesorios infoAccesorios)
         {
-            MensajesAccesorios msjAccesorios = null;
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             InsercionesAccesorios objInsercionesAccesoriosBD = new InsercionesAccesorios();
             msjAccesorios = objInsercionesAccesoriosBD.RegistroAccesorio(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
@@ -154,7 +154,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarAccesorio")]
         public MensajesAccesorios ActualizarAccesorio([FromBody] Accesorios infoAccesorios)
         {
-            MensajesAccesorios msjAccesorios = null;
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
             msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorio(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
@@ -175,7 +175,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarAccesorioBasico")]
         public MensajesAccesorios ActualizarAccesorioBasico([FromBody] Accesorios infoAccesorios)
         {
-            MensajesAccesorios msjAccesorios = null;
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
             msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionAccesorioBasico(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
@@ -196,7 +196,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoAccesorio")]
         public MensajesAccesorios ActualizarEstadoAccesorio([FromBody] Accesorios infoAccesorios)
         {
-            MensajesAccesorios msjAccesorios = null;
+            MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
             msjAccesorios = objActualizacionesAccesoriosBD.ActualizacionEstadoAccesorio(infoAccesorios);
             if (msjAccesorios.OperacionExitosa)
@@ -217,7 +217,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarCQR")]
         public MensajesCQR ActualizarCQR([FromBody] List<Accesorios> lstAccesorios)
         {
-            MensajesCQR msjCQR = null;
+            MensajesCQR msjCQR = new MensajesCQR();
             ActualizacionesAccesorios objActualizacionesAccesoriosBD = new ActualizacionesAccesorios();
             msjCQR = objActualizacionesAccesoriosBD.ActualizacionQR(lstAccesorios);
             if (msjCQR.OperacionExitosa)

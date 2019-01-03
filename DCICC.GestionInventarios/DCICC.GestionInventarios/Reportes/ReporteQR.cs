@@ -25,7 +25,7 @@ namespace DCICC.GestionInventarios.Reportes
             byte[] pdfBytes = null;
             using (MemoryStream msReporte = new MemoryStream())
             {
-                Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
+                Document documentoReporte = new Document(PageSize.LETTER);
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
@@ -47,7 +47,7 @@ namespace DCICC.GestionInventarios.Reportes
             byte[] pdfBytes = null;
             using (MemoryStream msReporte = new MemoryStream())
             {
-                Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
+                Document documentoReporte = new Document(PageSize.LETTER);
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
@@ -70,7 +70,7 @@ namespace DCICC.GestionInventarios.Reportes
             byte[] pdfBytes = null;
             using (MemoryStream msReporte = new MemoryStream())
             {
-                Document documentoReporte = new Document(PageSize.A4, 5f, 5f, 5f, 5f);
+                Document documentoReporte = new Document(PageSize.LETTER);
                 using (PdfWriter writerReporte = PdfWriter.GetInstance(documentoReporte, msReporte))
                 {
                     documentoReporte.Open();
@@ -151,6 +151,7 @@ namespace DCICC.GestionInventarios.Reportes
                 celda.BorderColorBottom = BaseColor.BLACK;
                 celda.BorderColorLeft = BaseColor.BLACK;
                 celda.BorderColorRight = BaseColor.BLACK;
+                celda.AddElement(Chunk.NEWLINE);
                 celda.AddElement(GenerarImagenCQR(item.IdCQR));
                 Paragraph IdCQR = new Paragraph(item.IdCQR, new iTextSharp.text.Font(fuente_Datos));
                 IdCQR.Alignment = Element.ALIGN_CENTER;

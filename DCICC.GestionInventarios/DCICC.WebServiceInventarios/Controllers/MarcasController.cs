@@ -66,7 +66,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         [HttpPost("RegistrarMarca")]
         public MensajesMarcas RegistrarMarca([FromBody] Marcas infoMarca)
         {
-            MensajesMarcas msjMarcas = null;            
+            MensajesMarcas msjMarcas = new MensajesMarcas();            
             InsercionesMarcas objInsercionesMarcasBD = new InsercionesMarcas();
             msjMarcas = objInsercionesMarcasBD.RegistroMarca(infoMarca);
             if (msjMarcas.OperacionExitosa)
@@ -89,7 +89,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         [HttpPost("ActualizarMarca")]
         public MensajesMarcas ActualizarMarca([FromBody] Marcas infoMarca)
         {
-            MensajesMarcas msjMarcas = null;
+            MensajesMarcas msjMarcas = new MensajesMarcas();
             ActualizacionesMarcas objActualizacionesMarcasBD = new ActualizacionesMarcas();
             msjMarcas = objActualizacionesMarcasBD.ActualizacionMarca(infoMarca);
             if (msjMarcas.OperacionExitosa)
@@ -110,7 +110,7 @@ namespace DCICC.WebServiceInventarios.ContMarcalers
         [HttpPost("ActualizarEstadoMarca")]
         public MensajesMarcas ActualizarEstadoMarca([FromBody] Marcas infoMarca)
         {
-            MensajesMarcas msjMarcas = null;
+            MensajesMarcas msjMarcas = new MensajesMarcas();
             ActualizacionesMarcas objActualizacionesMarcasBD = new ActualizacionesMarcas();
             msjMarcas = objActualizacionesMarcasBD.ActualizacionEstadoMarca(infoMarca);
             if (msjMarcas.OperacionExitosa)

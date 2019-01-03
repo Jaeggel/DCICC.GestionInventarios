@@ -24,7 +24,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerUsuariosComp")]
         public MensajesUsuarios ObtenerUsuariosComp()
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
             msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("consultausuarios");
             if (msjUsuarios.OperacionExitosa)
@@ -44,7 +44,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerUsuariosHab")]
         public MensajesUsuarios ObtenerUsuariosHab()
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
             msjUsuarios= objConsultasUsuariosBD.ObtenerUsuarios("usuarioshabilitados");
             if (msjUsuarios.OperacionExitosa)
@@ -64,7 +64,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerUsuariosRoles")]
         public MensajesUsuarios ObtenerUsuariosRoles()
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
             msjUsuarios=objConsultasUsuariosBD.ObtenerUsuarios("usuariosroles");
             if (msjUsuarios.OperacionExitosa)
@@ -84,7 +84,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerUsuariosRespTickets")]
         public MensajesUsuarios ObtenerUsuariosRespTickets()
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ConsultasUsuarios objConsultasUsuariosBD = new ConsultasUsuarios();
             msjUsuarios = objConsultasUsuariosBD.ObtenerUsuarios("responsablestickets");
             if (msjUsuarios.OperacionExitosa)
@@ -107,7 +107,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarUsuario")]
         public MensajesUsuarios RegistrarUsuario([FromBody] Usuarios infoUsuario)
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             InsercionesUsuarios objInsercionesUsuariosBD = new InsercionesUsuarios();
             msjUsuarios=objInsercionesUsuariosBD.RegistroUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
@@ -130,7 +130,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarUsuario")]
         public MensajesUsuarios ActualizarUsuario([FromBody] Usuarios infoUsuario)
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
@@ -151,7 +151,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoUsuario")]
         public MensajesUsuarios ActualizarEstadoUsuario([FromBody] Usuarios infoUsuario)
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionEstadoUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
@@ -172,7 +172,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarPerfilUsuario")]
         public MensajesUsuarios ActualizarPerfilUsuario([FromBody] Usuarios infoUsuario)
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPerfilUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
@@ -193,7 +193,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarPasswordUsuario")]
         public MensajesUsuarios ActualizarPasswordUsuario([FromBody] Usuarios infoUsuario)
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             ActualizacionesUsuarios objActualizacionesUsuariosBD = new ActualizacionesUsuarios();
             msjUsuarios = objActualizacionesUsuariosBD.ActualizacionPasswordUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)
@@ -216,7 +216,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("EliminarUsuario")]
         public MensajesUsuarios EliminarUsuario([FromBody] Usuarios infoUsuario)
         {
-            MensajesUsuarios msjUsuarios = null;
+            MensajesUsuarios msjUsuarios = new MensajesUsuarios();
             EliminacionesUsuarios objEliminacionesUsuariosBD = new EliminacionesUsuarios();
             msjUsuarios = objEliminacionesUsuariosBD.EliminacionUsuario(infoUsuario);
             if (msjUsuarios.OperacionExitosa)

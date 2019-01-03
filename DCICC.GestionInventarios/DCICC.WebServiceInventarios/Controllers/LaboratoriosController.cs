@@ -23,7 +23,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerLaboratoriosHab")]
         public MensajesLaboratorios ObtenerLaboratoriosHab()
         {
-            MensajesLaboratorios msjLaboratorios = null;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             ConsultasLaboratorios objConsultasLaboratoriosBD = new ConsultasLaboratorios();
             msjLaboratorios = objConsultasLaboratoriosBD.ObtenerLaboratorios("laboratorioshabilitados");    
             if (msjLaboratorios.OperacionExitosa)
@@ -43,7 +43,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerLaboratoriosComp")]
         public MensajesLaboratorios ObtenerLaboratoriosComp()
         {
-            MensajesLaboratorios msjLaboratorios = null;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             ConsultasLaboratorios objConsultasLaboratoriosBD = new ConsultasLaboratorios();
             msjLaboratorios = objConsultasLaboratoriosBD.ObtenerLaboratorios("consultalaboratorios");
             if (msjLaboratorios.OperacionExitosa)
@@ -66,7 +66,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarLaboratorio")]
         public MensajesLaboratorios RegistrarLaboratorio([FromBody] Laboratorios infoLaboratorio)
         {
-            MensajesLaboratorios msjLaboratorios = null;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             InsercionesLaboratorios objInsercionesLaboratoriosBD = new InsercionesLaboratorios();
             msjLaboratorios = objInsercionesLaboratoriosBD.RegistroLaboratorio(infoLaboratorio);
             if (msjLaboratorios.OperacionExitosa)
@@ -89,7 +89,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarLaboratorio")]
         public MensajesLaboratorios ActualizarLaboratorio([FromBody] Laboratorios infoLaboratorio)
         {
-            MensajesLaboratorios msjLaboratorios = null;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             ActualizacionesLaboratorios objActualizacionesLaboratoriosActBD = new ActualizacionesLaboratorios();
             msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionLaboratorio(infoLaboratorio);
             if (msjLaboratorios.OperacionExitosa)
@@ -110,7 +110,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoLaboratorio")]
         public MensajesLaboratorios ActualizarEstadoLaboratorio([FromBody] Laboratorios infoLaboratorio)
         {
-            MensajesLaboratorios msjLaboratorios = null;
+            MensajesLaboratorios msjLaboratorios = new MensajesLaboratorios();
             ActualizacionesLaboratorios objActualizacionesLaboratoriosActBD = new ActualizacionesLaboratorios();
             msjLaboratorios = objActualizacionesLaboratoriosActBD.ActualizacionEstadoLaboratorio(infoLaboratorio);
             if (msjLaboratorios.OperacionExitosa)

@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using DCICC.GestionInventarios.Controllers;
+using HtmlAgilityPack;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
@@ -23,6 +24,8 @@ namespace DCICC.GestionInventarios.Reportes
         /// <returns></returns>
         public MemoryStream GenerarReporteExcel(DataTable infoTable, string tituloReporte,string labFiltro,string firmaUsuario)
         {
+            ReportesController objReportesCont = new ReportesController();
+            Models.Reportes infoParametros = objReportesCont.ObtenerParametrosReporteJSON();
             MemoryStream memStream;
             //Cargar la plantilla para reportes en Excel
             var fileinfo = new FileInfo(path_Plantilla);
@@ -41,9 +44,9 @@ namespace DCICC.GestionInventarios.Reportes
                 ws.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Cells["A8"].LoadFromDataTable(infoTable, true);
                 //Titulos Organización
-                ConfigCell(1, 2, 1, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Ingeniería en Ciencias de la Computación Sede Quito - Campus Sur", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
-                ConfigCell(2, 2, 2, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Sistema de Gestión de Inventarios y Ticketing para Soporte Técnico", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
-                ConfigCell(3, 2, 3, infoTable.Columns.Count, ws, infoTable.Columns.Count, "Reporte de Activos de TI del Data Center y Laboratorios del ICC", true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
+                ConfigCell(1, 2, 1, infoTable.Columns.Count, ws, infoTable.Columns.Count, string.Format("{0} {1}",infoParametros.TituloCarrera, infoParametros.TituloSedeCampus), true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
+                ConfigCell(2, 2, 2, infoTable.Columns.Count, ws, infoTable.Columns.Count, infoParametros.TituloSistema, true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
+                ConfigCell(3, 2, 3, infoTable.Columns.Count, ws, infoTable.Columns.Count, infoParametros.TituloReporte, true, true, Color.White, Color.Black, ExcelHorizontalAlignment.Center);
                 ws.Cells[1, 1, 7, infoTable.Columns.Count].AutoFitColumns();
                 
                 //Carga de Parámetros

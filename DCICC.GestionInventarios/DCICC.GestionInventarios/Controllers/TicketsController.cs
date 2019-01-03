@@ -1,9 +1,12 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
 using DCICC.GestionInventarios.Configuration;
+using DCICC.GestionInventarios.Mail;
 using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
@@ -46,19 +49,24 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult ModificarTicket(Tickets infoTicket)
         {
+            DateTime fechaActual = DateTime.Now;
+            if (infoTicket.AsignacionTicket)
+            {
+                EnviarCorreoAsignacionTicket(infoTicket);
+            }
             if(infoTicket.EstadoTicket=="RESUELTO")
             {
-                infoTicket.FechaResueltoTicket = DateTime.Now;
+                infoTicket.FechaResueltoTicket = fechaActual;
                 infoTicket.ComentarioResueltoTicket = infoTicket.ComentarioTicket;
             }
             else if(infoTicket.EstadoTicket == "EN PROCESO")
             {
-                infoTicket.FechaEnProcesoTicket = DateTime.Now;
+                infoTicket.FechaEnProcesoTicket = fechaActual;
                 infoTicket.ComentarioEnProcesoTicket = infoTicket.ComentarioTicket;
             }
             else if (infoTicket.EstadoTicket == "EN ESPERA")
             {
-                infoTicket.FechaEnEsperaTicket = DateTime.Now;
+                infoTicket.FechaEnEsperaTicket = fechaActual;
                 infoTicket.ComentarioEnEsperaTicket = infoTicket.ComentarioTicket;
             }
             string mensajesTickets = string.Empty;
@@ -95,6 +103,27 @@ namespace DCICC.GestionInventarios.Controllers
             TicketsAccDatos objTicketsAccDatos = new TicketsAccDatos((string)Session["NickUsuario"]);
             return Json(objTicketsAccDatos.ObtenerTickets("Comp"), JsonRequestBehavior.AllowGet);
         }
+        #endregion
+        #region Envío Correo Electrónico
+        public void EnviarCorreoAsignacionTicket(Tickets infoTicket)
+        {
+            ConfiguracionMail mail = new ConfiguracionMail();
+            UsuariosController objUsuariosCont = new UsuariosController();
+            List<Usuarios> lstUsuarios = objUsuariosCont.ObtenerUsuariosComp((string)Session["NickUsuario"]).ListaObjetoInventarios;
+            Usuarios infoUsuarioAdmin =  lstUsuarios.Find(x => x.IdUsuario == infoTicket.IdResponsableUsuario);
+            infoTicket.NombreUsuarioResponsable = Regex.Replace(infoUsuarioAdmin.NombresUsuario, @"(^\w)|(\s\w)", m => m.Value.ToUpper());
+            Correo correo = new Correo
+            {
+                Body = mail.FormatBodyTicket(infoTicket),
+                EmailEmisor = ConfigurationManager.AppSettings["EmailEmisor"],
+                ClaveEmailEmisor = ConfigurationManager.AppSettings["ClaveEmailEmisor"],
+                EmailReceptor = infoUsuarioAdmin.CorreoUsuario,
+                Asunto = "Asignación de Ticket para Soporte Técnico"
+            };
+            mail.SendMail(correo);
+            Logs.Info(string.Format("El correo electrónico de asignación de ticket ha sido enviado correctamente a: {0}.",infoTicket.NombreUsuarioResponsable));
+        }
+
         #endregion
     }
 }

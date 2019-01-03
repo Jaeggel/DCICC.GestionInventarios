@@ -111,7 +111,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             {
                 sentenciasTickets = objSentencias.ObtenerSentenciasReportes(infoRol.NombreRol);
             }
-            MensajesRoles msjRoles = null;
+            MensajesRoles msjRoles = new MensajesRoles();
             InsercionesRoles objInsercionesRolesBD = new InsercionesRoles(sentenciasGenerales, sentenciasActivos, sentenciasMaqVirtuales, sentenciasTickets, sentenciasReportes);
             msjRoles = objInsercionesRolesBD.RegistroRol(infoRol);
             if (msjRoles.OperacionExitosa)
@@ -169,7 +169,7 @@ namespace DCICC.WebServiceInventarios.Controllers
             {
                 sentenciasReportes = objSentencias.ObtenerSentenciasReportes(nombreRol);
             }
-            MensajesRoles msjRoles = null;
+            MensajesRoles msjRoles = new MensajesRoles();
             ActualizacionesRoles objActualizacionesRolesActBD = new ActualizacionesRoles(sentenciasRevocacion,sentenciasGenerales, sentenciasActivos, sentenciasMaqVirtuales, sentenciasTickets, sentenciasReportes);
             msjRoles = objActualizacionesRolesActBD.ActualizacionRol(infoRol);
             if (msjRoles.OperacionExitosa)
@@ -190,7 +190,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoRol")]
         public MensajesRoles ActualizarEstadoRol([FromBody] Roles infoRol)
         {
-            MensajesRoles msjRoles = null;
+            MensajesRoles msjRoles = new MensajesRoles();
             ActualizacionesRoles objActualizacionesRolesActBD = new ActualizacionesRoles(null,null,null,null,null,null);
             msjRoles = objActualizacionesRolesActBD.ActualizacionEstadoRol(infoRol);
             if (msjRoles.OperacionExitosa)

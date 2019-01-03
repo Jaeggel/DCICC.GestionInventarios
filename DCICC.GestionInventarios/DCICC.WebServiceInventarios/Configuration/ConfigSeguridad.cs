@@ -59,6 +59,42 @@ namespace DCICC.WebServiceInventarios.Configuration
             return cadenaConexion;
         }
         /// <summary>
+        /// Método para obtener el email emisor desde el archivo de configuración appsettings.json
+        /// </summary>
+        /// <returns></returns>
+        public string ObtenerEmailEmisor()
+        {
+            string emailEmisor = string.Empty;
+            try
+            {
+                emailEmisor = root_Config.GetConnectionString("EmailEmisor");
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("No se pudo obtener el email emisor del archivo de configuración: {0}.", e.Message));
+                emailEmisor = null;
+            }
+            return emailEmisor;
+        }
+        /// <summary>
+        /// Método para obtener el email emisor desde el archivo de configuración appsettings.json
+        /// </summary>
+        /// <returns></returns>
+        public string ObtenerClaveEmailEmisor()
+        {
+            string claveEmailEmisor = string.Empty;
+            try
+            {
+                claveEmailEmisor = root_Config.GetConnectionString("ClaveEmailEmisor");
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("No se pudo obtener el email emisor del archivo de configuración: {0}.", e.Message));
+                claveEmailEmisor = null;
+            }
+            return claveEmailEmisor;
+        }
+        /// <summary>
         /// Método para obtener el tiempo en minutos en el cual expirará el Token de petición desde el archivo de configuración appsettings.json.
         /// </summary>
         /// <returns></returns>

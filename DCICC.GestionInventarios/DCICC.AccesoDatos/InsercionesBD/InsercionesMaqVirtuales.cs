@@ -26,7 +26,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
             try
             {
                 NpgsqlTransaction tran = conn_BD.BeginTransaction();
-                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,id_lun,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccionip_maqvirtuales,disco_maqvirtuales,ram_maqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales) VALUES (@iso,@ilun,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv)", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("insert into dcicc_maqvirtuales (id_so,id_lun,usuario_maqvirtuales,nombre_maqvirtuales,proposito_maqvirtuales,direccionip_maqvirtuales,disco_maqvirtuales,ram_maqvirtuales,descripcion_maqvirtuales,habilitado_maqvirtuales,fechacreacion_maqvirtuales ) VALUES (@iso,@ilun,@umv,@nmv,@pmv,@dimv,@dsmv,@rmv,@dcmv,@hmv,@fcmv)", conn_BD))
                 {
                     cmd.Parameters.Add("iso", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdSistOperativos;
                     cmd.Parameters.Add("ilun", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdLUN;
@@ -38,6 +38,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("dsmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoMaqVirtual.DiscoMaqVirtuales;
                     cmd.Parameters.Add("dcmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoMaqVirtual.DescripcionMaqVirtuales) ? (object)infoMaqVirtual.DescripcionMaqVirtuales.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hmv", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMaqVirtual.HabilitadoMaqVirtuales;
+                    cmd.Parameters.Add("fcmv", NpgsqlTypes.NpgsqlDbType.Date).Value = infoMaqVirtual.FechaCreacionMaqVirtuales;
                     cmd.ExecuteNonQuery();
                 }
                 tran.Commit();

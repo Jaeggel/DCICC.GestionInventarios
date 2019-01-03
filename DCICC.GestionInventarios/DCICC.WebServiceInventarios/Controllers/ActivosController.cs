@@ -107,7 +107,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerCQR")]
         public MensajesCQR ObtenerCQR()
         {
-            MensajesCQR msjCQR = null;
+            MensajesCQR msjCQR = new MensajesCQR();
             ConsultasActivos objConsultasCQRBD = new ConsultasActivos();
             msjCQR = objConsultasCQRBD.ObtenerCQR("consultaCQR");
             if (msjCQR.OperacionExitosa)
@@ -127,7 +127,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerIdCQR")]
         public MensajesCQR ObtenerIdCQR()
         {
-            MensajesCQR msjCQR = null;
+            MensajesCQR msjCQR = new MensajesCQR();
             ConsultasActivos objConsultasCQRBD = new ConsultasActivos();
             msjCQR = objConsultasCQRBD.ObtenerIdCQR();
             if (msjCQR.OperacionExitosa)
@@ -238,7 +238,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarActivo")]
         public MensajesActivos RegistrarActivo([FromBody] Activos infoActivo)
         {
-            MensajesActivos msjActivos = null;
+            MensajesActivos msjActivos = new MensajesActivos();
             InsercionesActivos objInsercionesActivosBD = new InsercionesActivos();
             msjActivos = objInsercionesActivosBD.RegistroActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
@@ -259,7 +259,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarCQR")]
         public MensajesCQR RegistrarCQR([FromBody] CQR infoCQR)
         {
-            MensajesCQR msjCQR = null;
+            MensajesCQR msjCQR = new MensajesCQR();
             InsercionesActivos objInsercionesCQRBD = new InsercionesActivos();
             msjCQR = objInsercionesCQRBD.RegistroCQR(infoCQR);
             if (msjCQR.OperacionExitosa)
@@ -272,27 +272,6 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjCQR;
         }
-        /// <summary>
-        /// Método (POST) para registrar un nuevo Activo en el Historico de Activos en la base de datos.
-        /// </summary>
-        /// <param name="infoActivo"></param>
-        /// <returns></returns>
-        //[HttpPost("RegistrarHistoricoActivo")]
-        //public MensajesHistoricoActivos RegistrarHistoricoActivo([FromBody] HistoricoActivos infoHistActivo)
-        //{
-        //    MensajesHistoricoActivos msjHistActivos = null;
-        //    InsercionesHistoricoActivos objInsercionesHistoricoActivosBD = new InsercionesHistoricoActivos();
-        //    msjHistActivos = objInsercionesHistoricoActivosBD.RegistroHistoricoActivos(infoHistActivo);
-        //    if (msjHistActivos.OperacionExitosa)
-        //    {
-        //        Logs.Info(string.Format("Registro de Historico de Activo con ID: {0}-{1} realizado exitosamente.",infoHistActivo.IdActivo,infoHistActivo.IdAccesorio));
-        //    }
-        //    else
-        //    {
-        //        Logs.Error(msjHistActivos.MensajeError);
-        //    }
-        //    return msjHistActivos;
-        //}
         #endregion
         #region Actualizaciones
         /// <summary>
@@ -303,7 +282,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarActivo")]
         public MensajesActivos ActualizarActivo([FromBody] Activos infoActivo)
         {
-            MensajesActivos msjActivos = null;
+            MensajesActivos msjActivos = new MensajesActivos();
             ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
             msjActivos = objActualizacionesActivosBD.ActualizacionActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
@@ -324,7 +303,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarActivoBasico")]
         public MensajesActivos ActualizarActivoBasico([FromBody] Activos infoActivo)
         {
-            MensajesActivos msjActivos = null;
+            MensajesActivos msjActivos = new MensajesActivos();
             ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
             msjActivos = objActualizacionesActivosBD.ActualizacionActivoBasico(infoActivo);
             if (msjActivos.OperacionExitosa)
@@ -345,7 +324,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoActivo")]
         public MensajesActivos ActualizarEstadoActivo([FromBody] Activos infoActivo)
         {
-            MensajesActivos msjActivos = null;
+            MensajesActivos msjActivos = new MensajesActivos();
             ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
             msjActivos = objActualizacionesActivosBD.ActualizacionEstadoActivo(infoActivo);
             if (msjActivos.OperacionExitosa)
@@ -366,7 +345,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarCQR")]
         public MensajesCQR ActualizarCQR([FromBody] Activos infoActivo)
         {
-            MensajesCQR msjCQR = null;
+            MensajesCQR msjCQR = new MensajesCQR();
             ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
             msjCQR = objActualizacionesActivosBD.ActualizacionQR(infoActivo);
             if (msjCQR.OperacionExitosa)
@@ -387,7 +366,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarCQRLista")]
         public MensajesCQR ActualizarCQR([FromBody] List<Activos> lstActivos)
         {
-            MensajesCQR msjCQR = null;
+            MensajesCQR msjCQR = new MensajesCQR();
             ActualizacionesActivos objActualizacionesActivosBD = new ActualizacionesActivos();
             msjCQR = objActualizacionesActivosBD.ActualizacionQR(lstActivos);
             if (msjCQR.OperacionExitosa)

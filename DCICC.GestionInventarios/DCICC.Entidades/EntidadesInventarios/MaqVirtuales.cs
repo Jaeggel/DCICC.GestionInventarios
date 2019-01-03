@@ -1,4 +1,6 @@
-﻿namespace DCICC.Entidades.EntidadesInventarios
+﻿using System;
+
+namespace DCICC.Entidades.EntidadesInventarios
 {
     public class MaqVirtuales
     {
@@ -9,6 +11,8 @@
         public int IdSistOperativos{ get; set; }
 
         public int IdLUN { get; set; }
+
+        public DateTime FechaCreacionMaqVirtuales { get; set; }
 
         public string NombreLUN { get; set; }
 

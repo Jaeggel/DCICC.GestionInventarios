@@ -94,10 +94,17 @@ function urlEstados(url) {
 //Función para cargar la tabla de Máquinas Virtuales
 function cargarMaquinaVTabla() {
     var str = '<table id="dataTableMaquinaV" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Nombre Máquina Virtual</th> <th>Nombre LUN</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB/TB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
+    str += '<thead> <tr> <th>Fecha de Creación</th><th>Nombre Máquina Virtual</th> <th>Nombre LUN</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB/TB)</th> <th>Memoria RAM (GB)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMaquinasV.length; i++) {
-        str += '<tr><td>' + datosMaquinasV[i].NombreMaqVirtuales +
+        var fechaLog = new Date(parseInt((datosMaquinasV[i].FechaCreacionMaqVirtuales).substr(6)));
+        //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+
+        //fecha para la tabla y busquedas
+        function pad(n) { return n < 10 ? "0" + n : n; }
+        var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
+        str += '<tr><td>' + fechaIngreso +
+            '</td><td>' + datosMaquinasV[i].NombreMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].NombreLUN +
             '</td><td>' + datosMaquinasV[i].UsuarioMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].PropositoMaqVirtuales +
@@ -221,6 +228,13 @@ function formUpdateMaquinaV(idMV) {
             document.getElementById("RamMaqVirtuales").value = datosMaquinasV[i].RamMaqVirtuales;
             document.getElementById("DescripcionMaqVirtuales").value = datosMaquinasV[i].DescripcionMaqVirtuales;
 
+            var fechaCre = new Date(parseInt((datosMaquinasV[i].FechaCreacionMaqVirtuales).substr(6)));
+            //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
+            //fecha para la tabla y busquedas
+            function pad(n) { return n < 10 ? "0" + n : n; }
+            var fechaIngreso = pad(fechaCre.getMonth() + 1) + "/" + pad(fechaCre.getDate()) + "/" + fechaCre.getFullYear();
+            $('#FechaCreacionMaqVirtuales').val(fechaIngreso);
+
 
             //Método para el check del update de Máquinas Virtuales
             var valor = datosMaquinasV[i].HabilitadoMaqVirtuales;
@@ -252,7 +266,11 @@ function modificarMaquinaV(url_modificar) {
     var cmbUnidad = document.getElementById("UnidadMaqVirtuales");
     var idUnidad = cmbUnidad.options[cmbUnidad.selectedIndex].value;
 
-    var ram= document.getElementById("RamMaqVirtuales").value;
+    var ram = document.getElementById("RamMaqVirtuales").value;
+
+    //Obtener valor de la fecha de ingreso del activo
+    var fechaIngreso = $('#FechaCreacionMaqVirtuales').val();
+
     var descripcion= document.getElementById("DescripcionMaqVirtuales").value;
     var habilitadoMV = $('#HabilitadoMaqVirtuales').prop('checked');
 
@@ -273,7 +291,7 @@ function modificarMaquinaV(url_modificar) {
                         "IdMaqVirtuales": idMaquinaV, "IdLUN": idLun, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV,
                         "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP,
                         "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion,
-                        "UnidadMaqVirtuales": idUnidad, "HabilitadoMaqVirtuales": habilitadoMV
+                        "UnidadMaqVirtuales": idUnidad, "HabilitadoMaqVirtuales": habilitadoMV, "FechaCreacionMaqVirtuales": fechaIngreso
                     },
                     url: url_modificar,
                     type: 'post',

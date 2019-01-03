@@ -29,7 +29,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios AutenticarUsuario([FromBody] Usuarios infoUsuario)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
-            Usuarios datosUsuario = null;
+            Usuarios datosUsuario = new Usuarios();
             try
             {
                 if (infoUsuario.NickUsuario != null && infoUsuario.NickUsuario != null)
@@ -64,7 +64,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         public MensajesUsuarios RecuperarPassword([FromBody] string infoCorreo)
         {
             MensajesUsuarios msjUsuarios = new MensajesUsuarios();
-            Usuarios datosUsuario = null;
+            Usuarios datosUsuario = new Usuarios();
             try
             {
                 if (infoCorreo != null)

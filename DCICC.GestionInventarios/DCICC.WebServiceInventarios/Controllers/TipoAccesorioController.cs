@@ -66,7 +66,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarTipoAccesorio")]
         public MensajesTipoAccesorio RegistrarTipoAccesorio([FromBody] TipoAccesorio infoTipoAccesorio)
         {
-            MensajesTipoAccesorio msjTipoAccesorio = null;
+            MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             InsercionesTipoAccesorio objInsercionesTipoAccesorioBD = new InsercionesTipoAccesorio();
             msjTipoAccesorio = objInsercionesTipoAccesorioBD.RegistroTipoAccesorio(infoTipoAccesorio);
             if (msjTipoAccesorio.OperacionExitosa)
@@ -89,7 +89,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarTipoAccesorio")]
         public MensajesTipoAccesorio ActualizarTipoAccesorio([FromBody] TipoAccesorio infoTipoAccesorio)
         {
-            MensajesTipoAccesorio msjTipoAccesorio = null;
+            MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             ActualizacionesTipoAccesorio objActualizacionesTipoAccesorioBD = new ActualizacionesTipoAccesorio();
             msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionTipoAccesorio(infoTipoAccesorio);
             if (msjTipoAccesorio.OperacionExitosa)
@@ -110,7 +110,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoTipoAccesorio")]
         public MensajesTipoAccesorio ActualizarEstadoTipoAccesorio([FromBody] TipoAccesorio infoTipoAccesorio)
         {
-            MensajesTipoAccesorio msjTipoAccesorio = null;
+            MensajesTipoAccesorio msjTipoAccesorio = new MensajesTipoAccesorio();
             ActualizacionesTipoAccesorio objActualizacionesTipoAccesorioBD = new ActualizacionesTipoAccesorio();
             msjTipoAccesorio = objActualizacionesTipoAccesorioBD.ActualizacionEstadoTipoAccesorio(infoTipoAccesorio);
             if (msjTipoAccesorio.OperacionExitosa)

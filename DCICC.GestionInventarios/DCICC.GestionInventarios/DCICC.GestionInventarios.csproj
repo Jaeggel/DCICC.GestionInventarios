@@ -259,6 +259,7 @@
     <Compile Include="Models\MensajesInventarios\MensajesTipoActivo.cs" />
     <Compile Include="Models\MensajesInventarios\MensajesUsuarios.cs" />
     <Compile Include="Models\Propositos.cs" />
+    <Compile Include="Models\Reportes.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SistOperativos.cs" />
     <Compile Include="Models\Storage.cs" />
@@ -283,6 +284,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\imagenEncabezado.png" />
     <Content Include="Content\Images\LogoDCICC.png" />
+    <Content Include="Content\Images\LogoReporte\LogoUPS.png" />
     <Content Include="Content\Images\LogoUPS.png" />
     <Content Include="Content\Images\LogoUPSCircular.ico" />
     <Content Include="Content\Images\LogoUPSCircular.png" />
@@ -4629,6 +4631,7 @@
     <Content Include="Content\Tema\vendors\validator\.gitignore" />
     <Content Include="Content\Tema\vendors\validator\README.md" />
     <Content Include="Content\Tema\vendors\validator\validator.jquery.json" />
+    <Content Include="Mail\InfoTicket.html" />
     <Content Include="Mail\PlantillaEmailPassword.html" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -4695,6 +4698,7 @@
     <Content Include="JSON\Responsable.json" />
     <Content Include="Content\Tema\vendors\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\Tema\vendors\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="JSON\ParametrosReportes.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4725,6 +4729,7 @@
     <Content Include="Scripts\ScriptsInventarios\PerfilUsuario.js" />
     <Content Include="Scripts\ScriptsInventarios\ConsultaActivo.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\CQRActivos.js" />
+    <Content Include="Scripts\ScriptsInventarios\Reporteria\ParametrosReportes.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteActivos.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteLogs.js" />
     <Content Include="Scripts\ScriptsInventarios\Reporteria\ReporteMaqVir.js" />
@@ -4805,6 +4810,7 @@
     <Content Include="Views\Activos\ConsultaCQR.cshtml" />
     <Content Include="Views\Shared\_LayoutPasantes.cshtml" />
     <Content Include="Views\Activos\ConsultaVidaUtilActivos.cshtml" />
+    <Content Include="Views\Reportes\ParametrosReportes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,8 @@ var ticketsReportados;
 var idTicketAbierto;
 var responsables;
 var idResponsable;
+var actAccLab;
+
 
 /**
  * *********************************************************************************
@@ -141,8 +143,10 @@ function cargarTablaAbiertos() {
             str += '<tr><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
 
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
@@ -170,6 +174,15 @@ function formUpdateAbiertos(idTicket) {
             document.getElementById("PrioridadTicket").value = ticketsReportados[i].PrioridadTicket;
             document.getElementById("FechaAperturaTicket").value = fechaApertura;
             document.getElementById("NombreUsuario").value = ticketsReportados[i].NombreUsuario;
+
+            if (ticketsReportados[i].IdLaboratorio != 0) {
+                actAccLab= ticketsReportados[i].NombreLaboratorio;
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
+                actAccLab = ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                actAccLab = ticketsReportados[i].NombreAccesorio;
+            }
+
         }
     }
 }
@@ -179,9 +192,15 @@ function modificarEstadoTicket(url_modificar) {
     var cmbResponsable = document.getElementById("Responsables");
     var responsable = cmbResponsable.options[cmbResponsable.selectedIndex].value;
     var asignado = cmbResponsable.options[cmbResponsable.selectedIndex].text;
+    var prioridad = document.getElementById("PrioridadTicket").value;
+    var solicitante = document.getElementById("NombreUsuario").value;
+    var fechaApertura = document.getElementById("FechaAperturaTicket").value;
     var cmbEstado = document.getElementById("Estados");
     var Estado = cmbEstado.options[cmbEstado.selectedIndex].value;
     var comentario = document.getElementById("ComentarioTicket").value;
+
+    
+
 
     if (validarCmbAbierto()) {
         swal({
@@ -196,7 +215,11 @@ function modificarEstadoTicket(url_modificar) {
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    data: { "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario },
+                    data: {
+                        "IdTicket": idTicketAbierto, "IdResponsableUsuario": responsable, "EstadoTicket": Estado, "ComentarioTicket": comentario,
+                        "AsignacionTicket": true, "NombreUsuario": solicitante, "PrioridadTicket": prioridad, "NombreDetalleActivo": actAccLab,
+                        "FechaAperturaTicket": fechaApertura
+                    },
                     url: url_modificar,
                     type: 'post',
                     success: function (data) {
@@ -283,8 +306,10 @@ function cargarTablaEnCurso() {
                 '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
@@ -430,8 +455,10 @@ function cargarTablaEnEspera() {
                 '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +
@@ -574,8 +601,10 @@ function cargarTablaResueltos() {
                 '</td><td class="text-justify">' + ticketsReportados[i].DescripcionTicket;
             if (ticketsReportados[i].IdLaboratorio != 0) {
                 str += '</td><td> <strong>Laboratorio:</strong> ' + ticketsReportados[i].NombreLaboratorio;
-            } else {
+            } else if (ticketsReportados[i].IdDetalleActivo != 0) {
                 str += '</td><td><strong> Activo:</strong> ' + ticketsReportados[i].NombreDetalleActivo;
+            } else {
+                str += '</td><td><strong> Accesorio:</strong> ' + ticketsReportados[i].NombreAccesorio;
             }
             str += '</td><td>' + ticketsReportados[i].PrioridadTicket +
                 '</td><td>' + ticketsReportados[i].NombreUsuarioResponsable +

@@ -10,8 +10,6 @@ namespace DCICC.GestionInventarios.Mail
 {
     public class ConfiguracionMail
     {
-        //Instancia para la utilización de LOGS en la clase ConfiguracionMail
-        private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Método para enviar el Correo Electrónico para recuperación de Contraseña.
         /// </summary>
@@ -52,6 +50,28 @@ namespace DCICC.GestionInventarios.Mail
             body = body.Replace("{user}", infoUsuario.NickUsuario);
             body = body.Replace("{cont}", objEncriptacionBD.Desencriptar(infoUsuario.PasswordUsuario));
             body = body.Replace("{fecha}", DateTime.Now + "");
+            body = body.Replace("{year}", DateTime.Now.Year + "");
+            return body;
+        }
+        /// <summary>
+        /// Método para dar formato al Email mediante un archivo HTML (InfoTicket.html)
+        /// </summary>
+        /// <param name="infoUsuario"></param>
+        /// <returns></returns>
+        public string FormatBodyTicket(Tickets infoTicket)
+        {
+            string body = string.Empty;
+            string path = HttpContext.Current.Server.MapPath("~/Mail/InfoTicket.html");
+            using (StreamReader reader = new StreamReader(path))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{nombre}", infoTicket.NombreUsuarioResponsable);
+            body = body.Replace("{act}", infoTicket.NombreDetalleActivo);
+            body = body.Replace("{user}", infoTicket.NombreUsuario);
+            body = body.Replace("{desc}", infoTicket.ComentarioTicket);
+            body = body.Replace("{prior}", infoTicket.PrioridadTicket);
+            body = body.Replace("{fecha}", infoTicket.FechaAperturaTicket + "");
             body = body.Replace("{year}", DateTime.Now.Year + "");
             return body;
         }

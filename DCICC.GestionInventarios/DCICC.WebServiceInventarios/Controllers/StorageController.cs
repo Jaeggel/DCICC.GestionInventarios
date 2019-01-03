@@ -28,7 +28,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerStorageHab")]
         public MensajesStorage ObtenerStorageHab()
         {
-            MensajesStorage msjStorage = null;
+            MensajesStorage msjStorage = new MensajesStorage();
             ConsultasStorage objConsultasStorageBD = new ConsultasStorage();
             msjStorage = objConsultasStorageBD.ObtenerStorage("storagehabilitado");
             if (msjStorage.OperacionExitosa)
@@ -48,7 +48,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerStorageComp")]
         public MensajesStorage ObtenerStorageComp()
         {
-            MensajesStorage msjStorage = null;
+            MensajesStorage msjStorage = new MensajesStorage();
             ConsultasStorage objConsultasStorageBD = new ConsultasStorage();
             msjStorage = objConsultasStorageBD.ObtenerStorage("consultastorage");
             if (msjStorage.OperacionExitosa)
@@ -71,7 +71,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarStorage")]
         public MensajesStorage RegistrarStorage([FromBody] Storage infoStorage)
         {
-            MensajesStorage msjStorage = null;
+            MensajesStorage msjStorage = new MensajesStorage();
             InsercionesStorage objInsercionesStorageBD = new InsercionesStorage();
             msjStorage = objInsercionesStorageBD.RegistroStorage(infoStorage);
             if (msjStorage.OperacionExitosa)
@@ -94,7 +94,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarStorage")]
         public MensajesStorage ActualizarStorage([FromBody] Storage infoStorage)
         {
-            MensajesStorage msjStorage = null;
+            MensajesStorage msjStorage = new MensajesStorage();
             ActualizacionesStorage objActualizacionesStorageActBD = new ActualizacionesStorage();
             msjStorage = objActualizacionesStorageActBD.ActualizacionStorage(infoStorage);
             if (msjStorage.OperacionExitosa)
@@ -115,7 +115,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoStorage")]
         public MensajesStorage ActualizarEstadoStorage([FromBody] Storage infoStorage)
         {
-            MensajesStorage msjStorage = null;
+            MensajesStorage msjStorage = new MensajesStorage();
             ActualizacionesStorage objActualizacionesStorageActBD = new ActualizacionesStorage();
             msjStorage = objActualizacionesStorageActBD.ActualizacionEstadoStorage(infoStorage);
             if (msjStorage.OperacionExitosa)

@@ -3,9 +3,11 @@ using DCICC.AccesoDatos.ConsultasBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
+using DCICC.WebServiceInventarios.Configuration;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DCICC.WebServiceInventarios.Controllers
 {
@@ -36,6 +38,26 @@ namespace DCICC.WebServiceInventarios.Controllers
             }
             return msjTickets;
         }
+        /// <summary>
+        /// Método (GET) para obtener una lista de los Tickets generados por un usuario de la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ObtenerTicketsPorIdUsuario")]
+        public MensajesTickets ObtenerTicketsPorIdUsuario([FromBody] int infoIdUsuario)
+        {
+            MensajesTickets msjTickets = new MensajesTickets();
+            ConsultasTickets objConsultasTicketsBD = new ConsultasTickets();
+            msjTickets = objConsultasTicketsBD.ObtenerTicketsPorIdUsuario(infoIdUsuario);
+            if (msjTickets.OperacionExitosa)
+            {
+                Logs.Info("Consulta de Tickets realizada exitosamente.");
+            }
+            else
+            {
+                Logs.Error(msjTickets.MensajeError);
+            }
+            return msjTickets;
+        }
         #endregion
         #region Registros
         /// <summary>
@@ -46,11 +68,28 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarTicket")]
         public MensajesTickets RegistrarTicket([FromBody] Tickets infoTicket)
         {
-            MensajesTickets msjTickets = null;
+            MensajesTickets msjTickets = new MensajesTickets();
             InsercionesTickets objInsercionesTicketsBD = new InsercionesTickets();
             msjTickets = objInsercionesTicketsBD.RegistroTicket(infoTicket);
             if (msjTickets.OperacionExitosa)
             {
+                ConfigSeguridad confServSeguridad = new ConfigSeguridad();
+                ConsultasUsuarios objConsultaUsuariosBD = new ConsultasUsuarios();
+                List<Usuarios> lstUsuariosAdmin = objConsultaUsuariosBD.ObtenerUsuariosAdministradores().ListaObjetoInventarios;
+                foreach (var item in lstUsuariosAdmin)
+                {
+                    Mail objMail = new Mail();
+                    infoTicket.NombreUsuarioResponsable = item.NombresUsuario;
+                    Correo correo = new Correo
+                    {
+                        Body =  objMail.FormatBody(infoTicket),
+                        EmailEmisor = confServSeguridad.ObtenerEmailEmisor(),
+                        ClaveEmailEmisor = confServSeguridad.ObtenerClaveEmailEmisor(),
+                        EmailReceptor = item.CorreoUsuario,
+                        Asunto = "Nuevo Ticket para Soporte Técnico"
+                    };
+                    objMail.SendMail(correo);
+                }
                 Logs.Info(string.Format("Registro de Ticket de Usuario: {0} realizado exitosamente.",infoTicket.NombreUsuario));
             }
             else
@@ -69,7 +108,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarTicket")]
         public MensajesTickets ActualizarTicket([FromBody] Tickets infoTicket)
         {
-            MensajesTickets msjTickets = null;
+            MensajesTickets msjTickets = new MensajesTickets();
             ActualizacionesTickets objActualizacionesTicketsBD = new ActualizacionesTickets();
             msjTickets = objActualizacionesTicketsBD.ActualizacionTicket(infoTicket);
             if (msjTickets.OperacionExitosa)

@@ -1,8 +1,10 @@
 ﻿using DCICC.GestionInventarios.AccesoDatos.InventariosBD;
+using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Models.MensajesInventarios;
 using log4net;
 using QRCoder;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
@@ -30,9 +32,33 @@ namespace DCICC.GestionInventarios.QR
                 MensajesCQR msjCQR = new MensajesCQR();
                 ActivosAccDatos objCQRAccDatos = new ActivosAccDatos(NickUsuarioSesion);
                 msjCQR = objCQRAccDatos.ObtenerIdCQR();
+                List<CQR> lst = new List<CQR>();
+                lst = msjCQR.ListaObjetoInventarios;
+                int contACC = 0;
+                int contACT = 0;
+                foreach (var item in lst)
+                {
+                    if (item.IdCqr.Substring(0,9)== "DCICC.ACC")
+                    {
+                        contACC++;
+                    }
+                    else
+                    {
+                        contACT++;
+                    }
+                }                
                 if (msjCQR.OperacionExitosa)
                 {
-                    int sizeLst = msjCQR.ListaObjetoInventarios.Count;
+                    int sizeLst = 0;
+                    if (tipo_CQR=="ACT")
+                    {
+                        sizeLst = contACT;
+                    }
+                    else
+                    {
+                        sizeLst = contACC;
+                    }
+                    
                     if (sizeLst == 0)
                     {
                         idCQR += "1";

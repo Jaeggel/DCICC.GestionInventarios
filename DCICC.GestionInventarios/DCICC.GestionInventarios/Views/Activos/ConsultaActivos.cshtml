@@ -540,13 +540,18 @@
                                 (Metodo de la clase) - Controlador (Controller) *@
                             <div class="form">
                                 <div class="form-horizontal form-label-left input_mask" id="Paso3">
-                                    <div class="form-group">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <label>* Seleccione el Tipo de Accesorio</label>
-                                            <div id="cargarAccesoriosIngreso"></div>
-                                            <span id="errorTipoAccesorioIng" style="color:brown;"></span>
-                                        </div>
-                                    </div>
+									<div class="form-group">
+										<label>* Seleccione el Tipo de Accesorio</label>
+										<div class="col-md-11 col-sm-11 col-xs-11">
+
+											<div id="cargarAccesoriosIngreso"></div>
+											<span id="errorTipoAccesorioIng" style="color:brown;"></span>
+										</div>
+										<div class="col-md-1 col-sm-1 col-xs-1" data-toggle="tooltip" data-placement="rigth" title="Ingreso de nuevo tipo de accesorio">
+
+											<input type="button" name="test" class="btn btn-default" value="..." onclick="location.href='@Url.Action("NuevoTipoAccesorio", "TipoAccesorio")'">
+										</div>
+									</div>
                                     <div class="form-group"></div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input id="NombreActivoIngreso" type="text" class="form-control has-feedback-left" name="NombreActivoIngreso" placeholder="Nombre del Activo" maxlength="50" readonly>

@@ -23,7 +23,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerCategoriasActivosHab")]
         public MensajesCategoriasActivos ObtenerCategoriasActivosHab()
         {
-            MensajesCategoriasActivos msjCategorias = null;
+            MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
             msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("categoriahabilitados");
             if (msjCategorias.OperacionExitosa)
@@ -43,7 +43,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpGet("ObtenerCategoriasActivosComp")]
         public MensajesCategoriasActivos ObtenerCategoriasActivosComp()
         {
-            MensajesCategoriasActivos msjCategorias = null;
+            MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             ConsultasCategoriasActivos objConsultasCategoriasBD = new ConsultasCategoriasActivos();
             msjCategorias = objConsultasCategoriasBD.ObtenerCategoriasActivos("consultacategoriaactivos");
             if (msjCategorias.OperacionExitosa)
@@ -66,7 +66,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarCategoriaActivo")]
         public MensajesCategoriasActivos RegistrarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
-            MensajesCategoriasActivos msjCategorias = null;
+            MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             InsercionesCategoriasActivos objInsercionesCategoriasBD = new InsercionesCategoriasActivos();
             msjCategorias = objInsercionesCategoriasBD.RegistroCategoria(infoCategoriaActivo);
             if (msjCategorias.OperacionExitosa)
@@ -89,7 +89,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarCategoriaActivo")]
         public MensajesCategoriasActivos ActualizarCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
-            MensajesCategoriasActivos msjCategorias = null;
+            MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
             msjCategorias = objActualizacionesCategoriasActBD.ActualizacionCategoria(infoCategoriaActivo);
             if (msjCategorias.OperacionExitosa)
@@ -110,7 +110,7 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("ActualizarEstadoCategoriaActivo")]
         public MensajesCategoriasActivos ActualizarEstadoCategoriaActivo([FromBody] CategoriaActivo infoCategoriaActivo)
         {
-            MensajesCategoriasActivos msjCategorias = null;            
+            MensajesCategoriasActivos msjCategorias = new MensajesCategoriasActivos();
             ActualizacionesCategoriasActivos objActualizacionesCategoriasActBD = new ActualizacionesCategoriasActivos();
             msjCategorias = objActualizacionesCategoriasActBD.ActualizacionEstadoCategoria(infoCategoriaActivo);
             if (msjCategorias.OperacionExitosa)
