@@ -33,7 +33,7 @@ namespace DCICC.AccesoDatos.InsercionesBD
                     cmd.Parameters.Add("ida", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdDetalleActivo == 0 ? DBNull.Value : (object)infoTicket.IdDetalleActivo;
                     cmd.Parameters.Add("iac", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoTicket.IdAccesorio == 0 ? DBNull.Value : (object)infoTicket.IdAccesorio;
                     cmd.Parameters.Add("et", NpgsqlTypes.NpgsqlDbType.Varchar).Value = "ABIERTO";
-                    cmd.Parameters.AddWithValue("fa", DateTime.Now);
+                    cmd.Parameters.AddWithValue("fa", infoTicket.FechaAperturaTicket);
                     cmd.Parameters.Add("dt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.DescripcionTicket.Trim();
                     cmd.Parameters.Add("pt", NpgsqlTypes.NpgsqlDbType.Varchar).Value = infoTicket.PrioridadTicket.Trim();
                     cmd.ExecuteNonQuery();

@@ -7,6 +7,7 @@ using DCICC.WebServiceInventarios.Configuration;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace DCICC.WebServiceInventarios.Controllers
@@ -68,35 +69,47 @@ namespace DCICC.WebServiceInventarios.Controllers
         [HttpPost("RegistrarTicket")]
         public MensajesTickets RegistrarTicket([FromBody] Tickets infoTicket)
         {
+            DateTime fechaRegistroTicket = DateTime.Now;
+            infoTicket.FechaAperturaTicket = fechaRegistroTicket;
             MensajesTickets msjTickets = new MensajesTickets();
             InsercionesTickets objInsercionesTicketsBD = new InsercionesTickets();
             msjTickets = objInsercionesTicketsBD.RegistroTicket(infoTicket);
             if (msjTickets.OperacionExitosa)
             {
-                ConfigSeguridad confServSeguridad = new ConfigSeguridad();
-                ConsultasUsuarios objConsultaUsuariosBD = new ConsultasUsuarios();
-                List<Usuarios> lstUsuariosAdmin = objConsultaUsuariosBD.ObtenerUsuariosAdministradores().ListaObjetoInventarios;
-                foreach (var item in lstUsuariosAdmin)
-                {
-                    Mail objMail = new Mail();
-                    infoTicket.NombreUsuarioResponsable = item.NombresUsuario;
-                    Correo correo = new Correo
-                    {
-                        Body =  objMail.FormatBody(infoTicket),
-                        EmailEmisor = confServSeguridad.ObtenerEmailEmisor(),
-                        ClaveEmailEmisor = confServSeguridad.ObtenerClaveEmailEmisor(),
-                        EmailReceptor = item.CorreoUsuario,
-                        Asunto = "Nuevo Ticket para Soporte Técnico"
-                    };
-                    objMail.SendMail(correo);
-                }
-                Logs.Info(string.Format("Registro de Ticket de Usuario: {0} realizado exitosamente.",infoTicket.NombreUsuario));
+                EnviarCorreoNuevoTicket(infoTicket);
+                Logs.Info(string.Format("Registro de Ticket de Usuario: {0} realizado exitosamente.", infoTicket.NombreUsuario));
             }
             else
             {
                 Logs.Error(msjTickets.MensajeError);
             }
             return msjTickets;
+        }
+        /// <summary>
+        /// Método para enviar correo a todos los administradores acerca de un nuevo ticket.
+        /// </summary>
+        /// <param name="infoTicket"></param>
+        public void EnviarCorreoNuevoTicket(Tickets infoTicket)
+        {
+            ConfigSeguridad confServSeguridad = new ConfigSeguridad();
+            ConsultasUsuarios objConsultaUsuariosBD = new ConsultasUsuarios();
+            string emailEmisor = confServSeguridad.ObtenerEmailEmisor();
+            string claveEmailEmisor = confServSeguridad.ObtenerClaveEmailEmisor();
+            List<Usuarios> lstUsuariosAdmin = objConsultaUsuariosBD.ObtenerUsuariosAdministradores().ListaObjetoInventarios;
+            foreach (var item in lstUsuariosAdmin)
+            {
+                Mail objMail = new Mail();
+                infoTicket.NombreUsuarioResponsable = item.NombresUsuario;
+                Correo correo = new Correo
+                {
+                    Body = objMail.FormatBody(infoTicket),
+                    EmailEmisor = emailEmisor,
+                    ClaveEmailEmisor = claveEmailEmisor,
+                    EmailReceptor = item.CorreoUsuario,
+                    Asunto = "Nuevo Ticket para Soporte Técnico"
+                };
+                objMail.SendMail(correo);
+            }
         }
         #endregion
         #region Actualizaciones
