@@ -4,10 +4,12 @@ using DCICC.GestionInventarios.Models;
 using DCICC.GestionInventarios.Reportes;
 using iTextSharp.text.pdf;
 using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
@@ -17,6 +19,7 @@ namespace DCICC.GestionInventarios.Controllers
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class ReportesController : Controller
     {
+        readonly string path_JsonParametros = System.Web.Hosting.HostingEnvironment.MapPath("~/Json/ParametrosReportes.json");
         //Instancia para la utilización de LOGS en la clase ReportesController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Vistas (GET)
@@ -99,6 +102,74 @@ namespace DCICC.GestionInventarios.Controllers
                 ViewBag.Menu = (string)Session["PerfilUsuario"];
                 return View();
             }
+        }
+        /// <summary>
+        /// Método (GET) para mostrar la vista ParametrosReportes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ParametrosReportes()
+        {
+            if ((string)Session["NickUsuario"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                ViewBag.NombreUsuario = Regex.Replace((string)Session["NombresUsuario"], @"(^\w)|(\s\w)", m => m.Value.ToUpper());
+                ViewBag.UsuarioLogin = (string)Session["NickUsuario"];
+                ViewBag.Correo = (string)Session["CorreoUsuario"];
+                ViewBag.Menu = (string)Session["PerfilUsuario"];
+                return View();
+            }
+        }
+        #endregion
+        #region Parámetros Reporte
+        /// <summary>
+        /// Método para 
+        /// </summary>
+        /// <param name="infoReportes"></param>
+        public bool ModificarParametrosReporte(Models.Reportes infoReportes)
+        {
+            try
+            {
+                string dataJson = JsonConvert.SerializeObject(infoReportes);
+                System.IO.File.WriteAllText(path_JsonParametros, dataJson);
+            }catch(Exception e)
+            {
+                Logs.Error(string.Format("{0}: {1}", "No se han podido registrar los parámetros", e.Message));
+            }
+            return true;
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ParametrosReporte.
+        /// </summary>
+        /// <param name="infoReportes"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModificarReporte(Models.Reportes infoReportes)
+        {
+            string mensajesReportes = string.Empty;
+            try
+            {
+                if (ModificarParametrosReporte(infoReportes))
+                {
+                    mensajesReportes = string.Format("Los parámetros del Reporte han sido modificados exitosamente.");
+                    TempData["Mensaje"] = mensajesReportes;
+                    Logs.Info(mensajesReportes);
+                }
+                else
+                {
+                    mensajesReportes = string.Format("No se ha podido modificar los parámetros del Reporte.");
+                    TempData["MensajeError"] = mensajesReportes;
+                    Logs.Error(mensajesReportes);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("{0}: {1}", mensajesReportes, e.Message));
+            }
+            return RedirectToAction("ReportesActivos", "Reportes");
         }
         #endregion
         #region Generación de Datos para Reportes
@@ -303,6 +374,30 @@ namespace DCICC.GestionInventarios.Controllers
                 Logs.Error(string.Format("{0}: {1}", "No se ha podido generar el PDF con los códigos QR de accesorios en lote", e.Message));
             }
             return File(pdfQR, System.Net.Mime.MediaTypeNames.Application.Pdf);
+        }
+        #endregion
+        #region Consultas(JSON)
+        /// <summary>
+        /// Método para obtener los parámetros del reporte registrados del archivo JSON
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ObtenerParametrosReporteComp()
+        {
+            return Json(ObtenerParametrosReporteJSON(), JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Obtener obtener los parámetros del reporte del JSON
+        /// </summary>
+        /// <returns></returns>
+        public Models.Reportes ObtenerParametrosReporteJSON()
+        {
+            Models.Reportes items = new Models.Reportes();
+            using (StreamReader r = new StreamReader(path_JsonParametros, Encoding.Default, true))
+            {
+                string json = r.ReadToEnd();
+                items = JsonConvert.DeserializeObject<Models.Reportes>(json);
+            }
+            return items;
         }
         #endregion
     }
