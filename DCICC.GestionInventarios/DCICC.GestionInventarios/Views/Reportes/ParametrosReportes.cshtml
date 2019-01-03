@@ -21,61 +21,92 @@
     <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Parámetros de los Reportes</h2>
+                <h2>Configuración de los Reportes</h2>
                 <ul class="nav navbar-right panel_toolbox"></ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 @* Formulario para envio de datos de los componentes para el ingreso de parámetros para los Reportes
                     (Metodo de la clase) - Controlador (Controller) *@
-                <div class="form-horizontal form-label-left input_mask">
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <label>*Logo Actual</label>
+                @using (Html.BeginForm("ModificarReporte", "Reportes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-horizontal form-label-left input_mask">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <div class="col-md-5 col-sm-12 col-xs-12">
+                                <label>*Logo Actual</label>
+                                <div id="ImagenLogo">
 
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <label>*Título para Carrera</label>
-                        <input id="TituloCarrera" type="text" class="form-control has-feedback-left" name="TituloCarrera" onkeyup="" placeholder="TÍTULO PARA CARRERA" maxlength="70" required>
-                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        <span id="errorTitCarrera" style="color:brown;"></span>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <label>*Título para Sede - Campus</label>
-                        <input id="TituloSedeCampus" type="text" class="form-control has-feedback-left" name="TituloSedeCampus" onkeyup="" placeholder="TÍTULO PARA SEDE - CAMPUS" maxlength="30" required>
-                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        <span id="errorTitCarrera" style="color:brown;"></span>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <label>*Título para Sistema</label>
-                        <input id="TituloSistema" type="text" class="form-control has-feedback-left" name="TituloSistema" onkeyup="" placeholder="TÍTULO PARA SISTEMA" maxlength="70" required>
-                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        <span id="errorTitSistema" style="color:brown;"></span>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <label>*Título para Reporte</label>
-                        <input id="TituloReporte" type="text" class="form-control has-feedback-left" name="TituloReporte" onkeyup="" placeholder="TÍTULO PARA REPORTE" maxlength="70" required>
-                        <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
-                        <span id="errorTitReporte" style="color:brown;"></span>
-                    </div>
-                    <div class="form-group"></div>
-                    <div class="ln_solid"></div>
-                    @* Sección de botones para guardar parámetros o cancelar el registro *@
-                    <div class="form-group text-center">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <button id="confirmarParametros" type="submit" class="btn btn-success">Modificar</button>
-                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ReportesActivos", "Reportes")'">Cancelar</button>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <label for="file">Subir Nueva Imagen:</label>
+                                <input type="file" name="Imagen" id="Imagen" style="width: 100%;" onchange="checkextension()"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <label>*Título para Carrera</label>
+                            <input id="TituloCarrera" type="text" class="form-control has-feedback-left" name="TituloCarrera" onkeyup="" placeholder="TÍTULO PARA CARRERA" maxlength="70" required>
+                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorTitCarrera" style="color:brown;"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <label>*Título para Sede - Campus</label>
+                            <input id="TituloSedeCampus" type="text" class="form-control has-feedback-left" name="TituloSedeCampus" onkeyup="" placeholder="TÍTULO PARA SEDE - CAMPUS" maxlength="30" required>
+                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorTitCarrera" style="color:brown;"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <label>*Título para Sistema</label>
+                            <input id="TituloSistema" type="text" class="form-control has-feedback-left" name="TituloSistema" onkeyup="" placeholder="TÍTULO PARA SISTEMA" maxlength="70" required>
+                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorTitSistema" style="color:brown;"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <label>*Título para Reporte</label>
+                            <input id="TituloReporte" type="text" class="form-control has-feedback-left" name="TituloReporte" onkeyup="" placeholder="TÍTULO PARA REPORTE" maxlength="70" required>
+                            <span class="fa fa-pencil-square-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="errorTitReporte" style="color:brown;"></span>
+                        </div>
+                        <div class="form-group"></div>
+                        <div class="ln_solid"></div>
+                        @* Sección de botones para guardar parámetros o cancelar el registro *@
+                        <div class="form-group text-center">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <button id="confirmarParametros" type="submit" class="btn btn-success">Modificar</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ReportesActivos", "Reportes")'">Cancelar</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>
 </div>
-
+@* Sección para visualizar los mensajes de error o de éxito de transacción *@
+@if (TempData["Mensaje"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Modificación Exitosa", '@TempData["Mensaje"]', "success");
+        }
+    </script>
+}
+@if (TempData["MensajeError"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            showNotify("Error al modificar parámetros", '@TempData["MensajeError"]', "error");
+        }
+    </script>
+}
 @* Seccción para llamar al js de Parametros para Reportes *@
 <script src="~/Scripts/ScriptsInventarios/Reporteria/ParametrosReportes.js"></script>
 <script>
     $(document).ready(function () {
         obtenerParametros('@Url.Action("ObtenerParametrosReporteComp", "Reportes")');
     });
+    function checkextension() {
+        var file = document.querySelector("#Imagen");
+        if (/\.(jpe?g|png)$/i.test(file.files[0].name) === false) { showNotify("Error al procesar la imagen", "No es una imagen válida", "error"); document.getElementById("Imagen").value = null;}
+    }
 </script>

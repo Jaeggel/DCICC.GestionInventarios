@@ -11,6 +11,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
 
 namespace DCICC.GestionInventarios.Controllers
@@ -134,10 +135,11 @@ namespace DCICC.GestionInventarios.Controllers
             try
             {
                 string dataJson = JsonConvert.SerializeObject(infoReportes);
-                System.IO.File.WriteAllText(path_JsonParametros, dataJson);
+                System.IO.File.WriteAllText(path_JsonParametros, dataJson, Encoding.Default);
             }catch(Exception e)
             {
                 Logs.Error(string.Format("{0}: {1}", "No se han podido registrar los parámetros", e.Message));
+                return false;
             }
             return true;
         }
@@ -152,6 +154,27 @@ namespace DCICC.GestionInventarios.Controllers
             string mensajesReportes = string.Empty;
             try
             {
+                if (infoReportes.Imagen!= null)
+                {
+                    string pathAux = Server.MapPath("~/Content/Images/LogoReporte/LogoNuevo.jpg");
+                    if (System.IO.File.Exists(pathAux))
+                    {
+                        System.IO.File.Delete(pathAux);
+                    }
+                    string pathAux2 = Server.MapPath("~/Content/Images/LogoReporte/LogoNuevo.png");
+                    if (System.IO.File.Exists(pathAux2))
+                    {
+                        System.IO.File.Delete(pathAux2);
+                    }
+                    string pic = Path.GetFileName(infoReportes.Imagen.FileName);
+                    string[] aux = pic.Split('.');
+                    string ext = aux[1];
+                    string path = Path.Combine(Server.MapPath("~/Content/Images/LogoReporte"), pic);
+                    infoReportes.Imagen.SaveAs(path);
+                    string pathNuevoNombre = Server.MapPath("~/Content/Images/LogoReporte/LogoNuevo." + ext);
+                    System.IO.File.Move(Server.MapPath("~/Content/Images/LogoReporte/" + infoReportes.Imagen.FileName), pathNuevoNombre);
+                }
+                infoReportes.Imagen = null;
                 if (ModificarParametrosReporte(infoReportes))
                 {
                     mensajesReportes = string.Format("Los parámetros del Reporte han sido modificados exitosamente.");
@@ -169,7 +192,7 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 Logs.Error(string.Format("{0}: {1}", mensajesReportes, e.Message));
             }
-            return RedirectToAction("ReportesActivos", "Reportes");
+            return RedirectToAction("ParametrosReportes", "Reportes");
         }
         #endregion
         #region Generación de Datos para Reportes
@@ -396,6 +419,16 @@ namespace DCICC.GestionInventarios.Controllers
             {
                 string json = r.ReadToEnd();
                 items = JsonConvert.DeserializeObject<Models.Reportes>(json);
+            }
+            string pathAux = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.jpg");
+            string pathAux2 = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.png");
+            if (System.IO.File.Exists(pathAux))
+            {
+                items.ImagenJPG = true;
+            }
+            else if (System.IO.File.Exists(pathAux2))
+            {
+                items.ImagenPNG = true;
             }
             return items;
         }

@@ -14,5 +14,11 @@ namespace DCICC.GestionInventarios.Models
         public string TituloReporte { get; set; }
 
         public string TituloSedeCampus { get; set; }
+
+        public HttpPostedFileBase Imagen { get; set; }
+
+        public bool ImagenJPG { get; set; }
+
+        public bool ImagenPNG { get; set; }
     }
 }

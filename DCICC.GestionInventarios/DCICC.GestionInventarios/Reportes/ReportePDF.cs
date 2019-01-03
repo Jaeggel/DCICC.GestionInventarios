@@ -126,13 +126,32 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="writerReporte">Writer actual con el cual se está generando el PDF.</param>
         public void GenerarEncabezadoReporte(Document documentoReporte, PdfWriter writerReporte)
         {
+            string nombreImage = string.Empty;
+            string imagenHTML = string.Empty;
+            string pathAux = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.jpg");
+            string pathAux2 = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoNuevo.png");
+            if (File.Exists(pathAux))
+            {
+                nombreImage = "LogoNuevo.jpg";
+                imagenHTML = "<img src='{0}' style='text-align:center;width:90%;'></img>";
+            }
+            else if (File.Exists(pathAux2))
+            {
+                nombreImage = "LogoNuevo.png";
+                imagenHTML = "<img src='{0}' style='text-align:center;width:100%;'></img>";
+            }
+            else
+            {
+                nombreImage = "LogoUPS.png";
+                imagenHTML = "<img src='{0}' height=65 width=225 style='text-align:center;'></img>";
+            }
             ReportesController objReportesCont = new ReportesController();
             Models.Reportes infoParametros = objReportesCont.ObtenerParametrosReporteJSON();
             if(infoParametros.TituloReporte== "Reporte de Activos de TI del Data Center y Laboratorios del ICC")
             {
                 infoParametros.TituloReporte= "Reporte de Activos de TI <br/> del Data Center y Laboratorios del ICC";
             }
-            var encabezadoHtml = string.Format(@"<!DOCTYPE html><html><head></head><body><table align='center' style='width:80%;'><tr><th rowspan='2'><p style='text-align:center'><img src='{0}' height=65 width=225 style='text-align:center;'></img></p></th><td rowspan='1'><p style='text-align:center'><b>{1} <br/>{2}</b></p></td></tr><tr><td><p style='text-align:center'><b>{3}</b></p></td></tr></table></body></html>", System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/LogoUPS.png"),infoParametros.TituloCarrera,infoParametros.TituloSedeCampus,infoParametros.TituloReporte);
+            var encabezadoHtml = string.Format(@"<!DOCTYPE html><html><head></head><body><table align='center' style='width:80%;'><tr><th rowspan='2'><p style='text-align:center'>"+imagenHTML+"</p></th><td rowspan='1'><p style='text-align:center'><b>{1} <br/>{2}</b></p></td></tr><tr><td><p style='text-align:center'><b>{3}</b></p></td></tr></table></body></html>", System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Images/LogoReporte/"+nombreImage),infoParametros.TituloCarrera,infoParametros.TituloSedeCampus,infoParametros.TituloReporte);
             var encabezadoCss = @"body{font-family:Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif}table,th,td{border:1px solid black;border-collapse:collapse}";
             using (var msCss = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(encabezadoCss)))
             {
