@@ -284,6 +284,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\imagenEncabezado.png" />
     <Content Include="Content\Images\LogoDCICC.png" />
+    <Content Include="Content\Images\LogoReporte\LogoUPS.png" />
     <Content Include="Content\Images\LogoUPS.png" />
     <Content Include="Content\Images\LogoUPSCircular.ico" />
     <Content Include="Content\Images\LogoUPSCircular.png" />
