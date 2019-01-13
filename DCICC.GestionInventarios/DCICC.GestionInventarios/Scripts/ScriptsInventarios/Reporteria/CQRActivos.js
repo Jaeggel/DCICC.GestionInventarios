@@ -410,14 +410,15 @@ function cargarEstadosAccesoriosCmb() {
 //Función para cargar la tabla de Activos
 function cargarAccesoriosTabla() {
     var str = '<table id="dataTableAccesorios" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
-    str += '<thead> <tr><th><input name="select_all" value="1" id="seleccionar-accesorio" type="checkbox" /></th> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece</th> <th>Estado de Accesorio</th><th>¿CQR Impreso?</th> </tr> </thead>';
+    str += '<thead> <tr><th><input name="select_all" value="1" id="seleccionar-accesorio" type="checkbox" /></th> <th>Tipo de Accesorio</th> <th>Nombre de Accesorio</th> <th>Activo al que pertenece</th> <th>Estado de Accesorio</th><th>Código QR</th><th>¿CQR Impreso?</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosAccesorios.length; i++) {
         str += '<tr><td> <input id="chk-accesorio" name="chk-accesorio" value="' + datosAccesorios[i].IdCQR + '"  type="checkbox"/>' +
             '</td><td>' + datosAccesorios[i].NombreTipoAccesorio +
             '</td><td>' + datosAccesorios[i].NombreAccesorio +
             '</td><td>' + datosAccesorios[i].NombreDetalleActivo +
-            '</td><td>' + datosAccesorios[i].EstadoAccesorio;
+            '</td><td>' + datosAccesorios[i].EstadoAccesorio +
+            '</td><td>' + datosAccesorios[i].IdCQR;
         if (datosAccesorios[i].ImpresoCQR) {
             str += '</td><td> Impreso';
         } else {
