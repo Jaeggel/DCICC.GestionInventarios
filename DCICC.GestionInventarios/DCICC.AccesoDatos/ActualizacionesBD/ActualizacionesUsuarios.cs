@@ -145,7 +145,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     }
                     tran.Commit();
                     conn_BD.Close();
-                    NpgsqlConnection connBD = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=DCICC_BDInventario; CommandTimeout=3020;");
+                    NpgsqlConnection connBD = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;Password=Admin*1234;Database=DCICC_BDInventario; CommandTimeout=3020;");
                     connBD.Open();
                     NpgsqlTransaction tranBD = connBD.BeginTransaction();
                     string queryUser = string.Format("ALTER USER {0} RENAME TO {1};", nickAnterior.Trim(), infoUsuario.NickUsuario.Trim());

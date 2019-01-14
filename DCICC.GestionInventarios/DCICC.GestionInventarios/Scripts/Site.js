@@ -52,7 +52,7 @@ function definicionMenu(permisos) {
 }
 //Método para obtener el idioma español de los dataTable
 function obtenerIdioma() {
-    var url_idioma = "http://localhost/Inventarios/JSON/Spanish.json";
+    var url_idioma = "http://172.17.42.129/Inventarios/JSON/Spanish.json";
     return url_idioma;
 }
 function GenerarReportePDF(urlDT, urlRPDF, titulo, info,lab) {
@@ -135,7 +135,7 @@ function validarNombreSinNumeros() {
 }
 
 function validarTextos() {
-    return /[^a-zA-Z0-9_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
+    return /[^a-zA-Z0-9,;:_/\-.#ÑñÁáÀàÉéÈèÍíÌìÓóÒòÚúÙù\s]/g;
 }
 
 function validarTextosSinNum() {
