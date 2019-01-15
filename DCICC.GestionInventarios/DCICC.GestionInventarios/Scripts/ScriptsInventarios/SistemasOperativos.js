@@ -86,7 +86,7 @@ function formUpdateSO(idSO) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoSistOperativos").click();
             }
-        };
+        }
     }
 }
 
@@ -170,8 +170,6 @@ function habilitarOdeshabilitar(idSistOpe, estadoSistOpe) {
                     console.log(e);
                 }
             });
-        } else {
-
         }
     });
 }
@@ -260,5 +258,5 @@ function validarInputNombre() {
 //Mensajes para los tooltips
 function mensajesTooltips() {
     document.getElementById("NombreSistOperativos").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionSistOperativos").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionSistOperativos").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }

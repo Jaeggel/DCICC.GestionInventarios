@@ -242,9 +242,7 @@ function habilitarOdeshabilitar(idTipoAct, estadoTipoAct) {
                     }   
                 }
             });
-        } else {
-
-        }
+        } 
     });
 }
 
@@ -395,7 +393,7 @@ function validarVidaUtil() {
 //Mensajes para los tooltips
 function mensajesTooltips() {
     document.getElementById("NombreTipoActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionTipoActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionTipoActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
     document.getElementById("VidaUtilTipoActivo").title = "Solo Números. Rango de 1 a 100 años.";
 }
 

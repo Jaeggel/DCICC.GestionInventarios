@@ -120,10 +120,10 @@
         obtenerRoles('@Url.Action("ObtenerRolesHab", "Roles")');
         mensajesTooltips();
          //Método para evitar la duplicidad de correos
-        $('#CorreoUsuario').blur(function () {
+        /*$('#CorreoUsuario').blur(function () {
             var correo = document.getElementById("CorreoUsuario").value;
             comprobarCorreo(correo);
-        });
+        });*/
         //Método para evitar la duplicidad de nicks
         $('#NickUsuario').blur(function () {
 			comprobarNick();

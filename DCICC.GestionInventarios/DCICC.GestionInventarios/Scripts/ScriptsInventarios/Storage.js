@@ -190,8 +190,6 @@ function habilitarOdeshabilitar(idStr, estadoStr) {
                     }
                 }
             });
-        } else {
-
         }
     });
 }
@@ -350,7 +348,6 @@ function validarNickVacios() {
 //Función para validar disco duro y Ram
 function validarNumero() {
     var esValido = true;
-    var boton = document.getElementById("confirmarMV");
     var capa = document.getElementById("CapacidadStorage");
     //Validar memoria capa
     if (capa.value.length <= 0) {
@@ -385,5 +382,5 @@ function mensajesTooltipStorage() {
     document.getElementById("NombreStorage").title = "Máximo 80 caracteres en Mayúscula.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("NickStorage").title = "Máximo 20 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CapacidadStorage").title = "Solo Números. De 1 a 999 GB o TB";
-    document.getElementById("DescripcionStorage").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionStorage").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }

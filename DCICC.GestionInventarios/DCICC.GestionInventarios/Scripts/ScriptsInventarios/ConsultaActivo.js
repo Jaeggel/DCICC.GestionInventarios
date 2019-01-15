@@ -748,7 +748,7 @@ function mensajesTooltips() {
     document.getElementById("CodigoUpsActivo").title = "Código de Barras otorgado por la UPS. Máximo 15 números.";
     document.getElementById("FechaIngresoActivo").title = "Fecha en la que se adquirió o se recibió el Activo de TI.";
     document.getElementById("ResponsableActivo").title = "Responsable Actual del Data Center";
-    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionActivo").title = "Máximo 150 caracteres.\n  Caracteres especiales permitidos - / _ . , : ;";
 
     document.getElementById("ExpressServiceCodeActivo").title = "Máximo 50 caracteres.\n  Ejm: 20846125298";
     document.getElementById("FechaManufacturaActivo").title = "Máximo 50 caracteres.\n  Ejm: Apr.2017";
@@ -977,7 +977,7 @@ function mensajesTooltipsAccesorios() {
     document.getElementById("NombreAccesorioIngreso").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("SerialAccesorioIngreso").title = "Máximo 80 caracteres, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("ModeloAccesorioIngreso").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionAccesorioIngreso").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionAccesorioIngreso").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }
 
 //Mensajes para los tooltips
@@ -985,7 +985,7 @@ function mensajesTooltipsAccesoriosMod() {
     document.getElementById("NombreAccesorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("SerialAccesorio").title = "Máximo 80 caracteres, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("ModeloAccesorio").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }
 
 /**

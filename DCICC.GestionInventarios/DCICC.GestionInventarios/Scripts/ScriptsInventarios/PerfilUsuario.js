@@ -428,7 +428,7 @@ function mensajesTooltips() {
     document.getElementById("NickUsuario").title = "Máximo 15 caracteres, sin espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("TelefonoUsuario").title = "10 números, incluyendo el código de la provincia (02).";
     document.getElementById("TelefonoCelUsuario").title = "10 números, empezando con el código (09)";
-    document.getElementById("DireccionUsuario").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DireccionUsuario").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 
     document.getElementById("PasswordUsuario").title = "Ingreso de la contraseña Anterior.";
     document.getElementById("PasswordUsuarioNuevo").title = "La contraseña nueva debe ser mayor a 6 caracteres";

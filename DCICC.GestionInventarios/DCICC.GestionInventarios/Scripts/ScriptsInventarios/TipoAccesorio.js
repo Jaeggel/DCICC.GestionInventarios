@@ -172,9 +172,7 @@ function habilitarOdeshabilitar(idTipoAcc, estadoTipoAcc) {
                     }                  
                 }
             });
-        } else {
-
-        }
+        } 
     });
 }
 
@@ -264,7 +262,7 @@ function validarInputNombre() {
 //Mensajes para los tooltips
 function mensajesTooltips() {
     document.getElementById("NombreTipoAccesorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionTipoAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionTipoAccesorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/

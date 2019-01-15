@@ -98,8 +98,8 @@ function formUpdateLaboratorio(idLab) {
             if (estado == false && valor == true) {
                 document.getElementById("HabilitadoLaboratorio").click();
             }
-        };
-    };
+        }
+    }
 }
 
 //Función para modificar el laboratorio especificado
@@ -180,9 +180,7 @@ function habilitarOdeshabilitar(idLab, estadoLab) {
                    
                 }
             });
-        } else {
-
-        }
+        } 
     });
 }
 
@@ -292,8 +290,8 @@ function validarInputUbicacion() {
 //Mensajes para los tooltips
 function mensajesTooltips() {
     document.getElementById("NombreLaboratorio").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("UbicacionLaboratorio").title = "Máximo 50 caracteres.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionLaboratorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("UbicacionLaboratorio").title = "Máximo 50 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
+    document.getElementById("DescripcionLaboratorio").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/

@@ -292,9 +292,7 @@ function habilitarOdeshabilitar(idRol, estadoRol) {
                     }
                 }
             });
-        } else {
-
-        }
+        } 
     });
 }
 
@@ -386,5 +384,5 @@ function validarInputsVaciosIngreso() {
 //Mensajes para los tooltips
 function mensajesTooltips() {
     document.getElementById("NombreRol").title = "Máximo 30 caracteres en Minúscula, sin Espacios ni Números.\n Caracteres especiales permitidos _ ";
-    document.getElementById("DescripcionRol").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionRol").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }

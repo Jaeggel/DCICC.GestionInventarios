@@ -288,9 +288,7 @@ function habilitarOdeshabilitar(idUsuario, estadoUsuario) {
                     }
                 }
             });
-        } else {
-
-        }
+        } 
     });
 }
 
@@ -553,6 +551,6 @@ function mensajesTooltips() {
     document.getElementById("PasswordUsuario").title = "Máximo 20 caracteres.\n Caracteres especiales permitidos ! @ # $ % ^ & * ? _ -";
     document.getElementById("TelefonoUsuario").title = "10 números, incluyendo el código de la provincia (02).";
     document.getElementById("TelefonoCelUsuario").title = "10 números, empezando con el código (09)";
-    document.getElementById("DireccionUsuario").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DireccionUsuario").title = "Máximo 80 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
    
 }

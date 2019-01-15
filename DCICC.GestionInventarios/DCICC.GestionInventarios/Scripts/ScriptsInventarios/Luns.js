@@ -147,8 +147,8 @@ function formUpdateLun(idLun) {
             var element1 = document.getElementById("UnidadLUN");
             element1.value = datosLuns[i].UnidadLUN;
 
-            var element1 = document.getElementById("RaidTPLUN");
-            element1.value = datosLuns[i].RaidTPLUN;
+            var element2 = document.getElementById("RaidTPLUN");
+            element2.value = datosLuns[i].RaidTPLUN;
 
             document.getElementById("DescripcionLUN").value = datosLuns[i].DescripcionLUN;
 
@@ -261,9 +261,7 @@ function habilitarOdeshabilitarLun(idLun, estadoLun) {
                     }
                 }
             });
-        } else {
-
-        }
+        } 
     });
 }
 
@@ -383,5 +381,5 @@ function validarNumeroLun() {
 function mensajesTooltipLun() {
     document.getElementById("NombreLUN").title = "Máximo 80 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
     document.getElementById("CapacidadLUN").title = "Solo Números. De 1 a 999 GB o TB";
-    document.getElementById("DescripcionLUN").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionLUN").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }

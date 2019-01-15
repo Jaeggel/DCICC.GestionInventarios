@@ -351,9 +351,7 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
                     console.log(e);
                 }
             });
-        } else {
-
-        }
+        } 
     });
 }
 
@@ -580,5 +578,5 @@ function mensajesTooltips() {
     document.getElementById("DireccionIPMaqVirtuales").title = "Cuadro de texto para IpV4.\n Formato: 255.255.255.255";
     document.getElementById("DiscoMaqVirtuales").title = "Solo Números. Rango de 1 a 999 GB O TB";
     document.getElementById("RamMaqVirtuales").title = "Solo Números. Rango de 1 a 100GB";
-    document.getElementById("DescripcionMaqVirtuales").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionMaqVirtuales").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }

@@ -172,8 +172,6 @@ function habilitarOdeshabilitar(idMarc, estadoMarc) {
                     }                   
                 }
             });
-        } else {
-
         }
     });
 }
@@ -265,7 +263,7 @@ function validarInputNombre() {
 //Mensajes para los tooltips
 function mensajesTooltips() {
     document.getElementById("NombreMarca").title = "Máximo 50 caracteres en Mayúscula, sin Espacios.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionMarca").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionMarca").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }
 
 /* --------------------------------------SECCIÓN PARA OPERACIONES CON USUARIO INVITADO---------------------------------*/

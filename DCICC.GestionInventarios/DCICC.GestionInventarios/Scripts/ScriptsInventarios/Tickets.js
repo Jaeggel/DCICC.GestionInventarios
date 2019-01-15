@@ -276,7 +276,7 @@ function validarCmbAbierto() {
 //Mensajes para los tooltips
 function mensajesTooltipsAbiertos() {
     //document.getElementById("Responsables").title = "Seleccione el responsable que se hará cargo del Ticket";
-    document.getElementById("ComentarioTicket").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("ComentarioTicket").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 
 }
 
@@ -424,7 +424,7 @@ function validarCmbCurso() {
 //Mensajes para los tooltips
 function mensajesTooltipsEnCurso() {
     //document.getElementById("Responsables").title = "Seleccione el responsable que se hará cargo del Ticket";
-    document.getElementById("ComentarioTicketEC").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("ComentarioTicketEC").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 
 }
 
@@ -573,7 +573,7 @@ function validarCmbEspera() {
 //Mensajes para los tooltips
 function mensajesTooltipsEnEspera() {
     //document.getElementById("Responsables").title = "Seleccione el responsable que se hará cargo del Ticket";
-    document.getElementById("ComentarioTicketEnEs").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("ComentarioTicketEnEs").title = "Máximo 300 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }
 
 /**

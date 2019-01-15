@@ -267,7 +267,7 @@ function validarInputsVaciosModificacion() {
 //Mensajes para los tooltips
 function mensajesTooltips() {
     document.getElementById("NombreCategoriaActivo").title = "Máximo 50 caracteres en Mayúscula, sin Espacios ni Números.\n Caracteres especiales permitidos - / _ .";
-    document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ .";
+    document.getElementById("DescripcionCategoriaActivo").title = "Máximo 150 caracteres.\n Caracteres especiales permitidos - / _ . , : ;";
 }
 
 
