@@ -108,7 +108,7 @@
 					@* Área de Texto para el ingreso de la descripción de una máquina virtual *@
 					<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
 						<label>Fecha de Creación: (mm/dd/yyyy)</label>
-						<input name="FechaCreacionMaqVirtuales" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
+						<input name="FechaCreacionAux" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
 						<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
 					</div>
 
@@ -177,7 +177,7 @@
         });
 
 		$(function () {
-			$('input[name="FechaCreacionMaqVirtuales"]').daterangepicker({
+			$('input[name="FechaCreacionAux"]').daterangepicker({
 				startDate: new Date(),
 				format: 'mm-dd-yyyy',
 				singleDatePicker: true,
@@ -189,7 +189,7 @@
 
 
 		//Mascaras
-		$('#FechaIngresoActivo').mask('00/00/0000');
+        $('#FechaCreacionMaqVirtuales').mask('00/00/0000');
 		$('#DiscoMaqVirtuales').mask('000');
 		$('#RamMaqVirtuales').mask('000');
 		$('#DireccionIPMaqVirtuales').mask('ABC.DEF.GHI.JKL', {

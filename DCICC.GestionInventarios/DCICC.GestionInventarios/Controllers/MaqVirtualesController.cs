@@ -90,6 +90,8 @@ namespace DCICC.GestionInventarios.Controllers
         [HttpPost]
         public ActionResult NuevaMaqVirtualPOST(MaqVirtuales infoMaqVirtual)
         {
+            var auxFecha = infoMaqVirtual.FechaCreacionAux.Split('/');
+            infoMaqVirtual.FechaCreacionMaqVirtuales = new DateTime(int.Parse(auxFecha[2]), int.Parse(auxFecha[0]), int.Parse(auxFecha[1]));
             infoMaqVirtual.DiscoMaqVirtuales = string.Format("{0} {1}", infoMaqVirtual.DiscoMaqVirtuales, infoMaqVirtual.UnidadMaqVirtuales);
             string mensajesMaqVirtuales = string.Empty;
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
