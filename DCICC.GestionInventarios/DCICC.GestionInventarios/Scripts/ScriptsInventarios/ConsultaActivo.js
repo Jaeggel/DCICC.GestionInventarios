@@ -407,7 +407,8 @@ function formUpdateActivos(idActivo) {
             //fecha para la tabla y busquedas
             function pad(n) { return n < 10 ? "0" + n : n; }
             var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
-            $('#FechaIngresoActivo').val(fechaIngreso);
+            //$('#FechaIngresoActivo').val(fechaIngreso);
+            fechaUpdateActivo(fechaIngreso);
             
             //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
             //Obtener valor de la descripcion de activo
@@ -439,6 +440,20 @@ function formUpdateActivos(idActivo) {
         }
     }
     
+}
+
+function fechaUpdateActivo(val) {
+    $('input[name="FechaIngresoActivo"]').daterangepicker({
+        autoHide: true,
+        zIndex: 2048,
+        startDate: val,
+        format: 'mm-dd-yyyy',
+        singleDatePicker: true,
+        minDate: "01/01/1990",
+        maxDate: new Date()
+
+    });
+
 }
 
 //Función para modificar el activo especificado

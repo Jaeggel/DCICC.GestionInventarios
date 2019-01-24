@@ -143,13 +143,13 @@
                                         @* Área de Texto para el ingreso de la descripción de una máquina virtual *@
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                             <label>Fecha de Creación: (mm/dd/yyyy)</label>
-                                            <input name="FechaCreacionMaqVirtuales" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
+                                            <input name="FechaCreacionMaqVirtuales" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" >
                                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                                         </div>
                                         @* Área de Texto para el ingreso de la fecha de expiración de una máquina virtual *@
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                                             <label>Fecha de Expiración: (mm/dd/yyyy)</label>
-                                            <input name="FechaExpiracionAux" type="text" class="form-control has-feedback-left" id="FechaExpiracionMaqVirtuales" placeholder="Fecha de Expiración" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Expiración de la Máquina Virtual">
+                                            <input name="FechaExpiracionMaqVirtuales" type="text" class="form-control has-feedback-left" id="FechaExpiracionMaqVirtuales" placeholder="Fecha de Expiración" style="padding-left: 60px;" maxlength="10" >
                                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                                         </div>
                                     </div>
@@ -211,7 +211,8 @@
         obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');
         obtenerSO('@Url.Action("ObtenerSistOperativosComp", "SistOperativo")');
         listaPropositos('@Url.Action("ObtenerPropositosComp", "MaqVirtuales")');
-        urlEstados('@Url.Action("ModificarEstadoMaqVirtual", "MaqVirtuales")');
+		urlEstados('@Url.Action("ModificarEstadoMaqVirtual", "MaqVirtuales")');
+		urlEliminar('@Url.Action("EliminarMaqVirtual", "MaqVirtuales")');
         obtenerLuns('@Url.Action("ObtenerLUNComp", "LUN")');
         mensajesTooltips();
         //Eventos al cerrar el modal
@@ -233,37 +234,13 @@
             $("#DiscoMaqVirtuales").tooltip('hide');
             $("#RamMaqVirtuales").tooltip('hide');
 			$("#DescripcionMaqVirtuales").tooltip('hide');
-			$("#FechaCreacionMaqVirtuales").tooltip('hide');
-            $("#FechaCreacionMaqVirtuales").datepicker('hide');
-            $("#FechaExpiracionMaqVirtuales").tooltip('hide');
-            $("#FechaExpiracionCreacionMaqVirtuales").datepicker('hide');
-            document.getElementById("confirmarMV").disabled = false;
+		
+			$("#FechaCreacionMaqVirtuales").daterangepicker('hide');
+			$("#FechaExpiracionMaqVirtuales").daterangepicker('hide');
+			document.getElementById("confirmarMV").disabled = false;
 		});
 
-		$(function () {
-			$('input[name="FechaCreacionMaqVirtuales"]').datepicker({
-				autoHide: true,
-				zIndex: 2048,
-				startDate: new Date(),
-				format: 'dd-mm-yyyy',
-
-				minDate: "01/01/1990",
-				maxDate: new Date()
-
-			});
-		});
-        $(function () {
-            $('input[name="FechaExpiracionMaqVirtuales"]').datepicker({
-                autoHide: true,
-                zIndex: 2048,
-                startDate: new Date(),
-                format: 'dd-mm-yyyy',
-
-                minDate: "01/01/1990",
-                maxDate: new Date()
-
-            });
-        });
+		       
 		//Mascaras
         $('#FechaCreacionMaqVirtuales').mask('00/00/0000');
         $('#FechaExpiracionMaqVirtuales').mask('00/00/0000');

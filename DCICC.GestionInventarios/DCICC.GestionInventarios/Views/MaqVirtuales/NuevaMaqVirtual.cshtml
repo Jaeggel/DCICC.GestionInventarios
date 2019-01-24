@@ -108,13 +108,13 @@
                         @* Área de Texto para el ingreso de la fecha de creación de una máquina virtual *@
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                             <label>Fecha de Creación: (mm/dd/yyyy)</label>
-                            <input name="FechaCreacionAux" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;"  maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
+                            <input name="FechaCreacionAux" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;"  maxlength="10" >
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                         </div>
                         @* Área de Texto para el ingreso de la fecha de expiración de una máquina virtual *@
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                             <label>Fecha de Expiración: (mm/dd/yyyy)</label>
-                            <input name="FechaExpiracionAux" type="text" class="form-control has-feedback-left" id="FechaExpiracionMaqVirtuales" placeholder="Fecha de Expiración" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Expiración de la Máquina Virtual">
+                            <input name="FechaExpiracionAux" type="text" class="form-control has-feedback-left" id="FechaExpiracionMaqVirtuales" placeholder="Fecha de Expiración" style="padding-left: 60px;" maxlength="10" >
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                         </div>
                     </div>
@@ -200,7 +200,7 @@
 					singleDatePicker: true,
 					showDropdowns: true,
 					minDate: minDate1,
-					maxDate:"01/01/2050"
+					maxDate: "12/31/2050"
 				});
 			});
 			console.log(minDate1);

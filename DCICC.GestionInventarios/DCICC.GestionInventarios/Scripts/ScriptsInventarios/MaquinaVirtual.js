@@ -7,6 +7,7 @@ var datosLuns;
 var idMaquinaV;
 var nombreMVModificar;
 var urlEstado;
+var urlElimin;
 var nombresMV = [];
 
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
@@ -94,6 +95,11 @@ function urlEstados(url) {
     urlEstado = url;
 }
 
+//Función para obtener la url de modificación
+function urlEliminar(url) {
+    urlElimin = url;
+}
+
 /* --------------------------------------SECCIÓN PARA CARGAR TABLAS Y COMBOBOX---------------------------------*/
 
 //Función para cargar la tabla de Máquinas Virtuales
@@ -140,7 +146,7 @@ function cargarMaquinaVTabla() {
         }
         str += '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-secondary text-center"  onclick = "formUpdateMaquinaV(' + datosMaquinasV[i].IdMaqVirtuales + ');"> <strong><i class="fa fa-times"></i></strong></button> ' +
+            '<button type="button" class="btn btn-secondary text-center"  onclick = "eliminarMV(' + datosMaquinasV[i].IdMaqVirtuales + ');"> <strong><i class="fa fa-times"></i></strong></button> ' +
             '</div></div>' +
         '</td></tr>';
 
@@ -247,8 +253,14 @@ function formUpdateMaquinaV(idMV) {
             //fecha para la tabla y busquedas
             function pad(n) { return n < 10 ? "0" + n : n; }
             var fechaIngreso = pad(fechaCre.getMonth() + 1) + "/" + pad(fechaCre.getDate()) + "/" + fechaCre.getFullYear();
-            $('#FechaCreacionMaqVirtuales').val(fechaIngreso);
+           // $('#FechaCreacionMaqVirtuales').val(fechaIngreso);
+            fechaInicio(fechaIngreso);
 
+            var fechaFin = new Date(parseInt((datosMaquinasV[i].FechaExpiracionMaqVirtuales).substr(6)));
+            var fechaSalida = pad(fechaFin.getMonth() + 1) + "/" + pad(fechaFin.getDate()) + "/" + fechaFin.getFullYear();
+            //$('#FechaExpiracionMaqVirtuales').val(fechaSalida);
+
+            fechaExp(fechaSalida, fechaIngreso);
 
             //Método para el check del update de Máquinas Virtuales
             var valor = datosMaquinasV[i].HabilitadoMaqVirtuales;
@@ -262,6 +274,35 @@ function formUpdateMaquinaV(idMV) {
             }
         }
     }
+}
+
+function fechaInicio(val) {
+    $('input[name="FechaCreacionMaqVirtuales"]').daterangepicker({
+        autoHide: true,
+        zIndex: 2048,
+        startDate: val,
+        format: 'mm-dd-yyyy',
+        singleDatePicker: true,
+        minDate: "01/01/2015",
+        maxDate: new Date()
+
+    });
+
+}
+
+function fechaExp(val,min) {
+    $(function () {
+        $('input[name="FechaExpiracionMaqVirtuales"]').daterangepicker({
+            autoHide: true,
+            zIndex: 2048,
+            startDate: val,
+            format: 'mm-dd-yyyy',
+            singleDatePicker: true,
+            minDate: min,
+            maxDate: "12/31/2050"
+
+        });
+    });
 }
 
 //Función para modificar el la Máquina virtual
@@ -288,6 +329,10 @@ function modificarMaquinaV(url_modificar) {
     var fechaNueva = fechaPartes[2] + "-" + fechaPartes[0] + "-" + fechaPartes[1];
     console.log(fechaNueva);
 
+    var fechaSalida = $('#FechaExpiracionMaqVirtuales').val();
+    var fechaPartes2 = fechaSalida.split("/");
+    var fechaExpira= fechaPartes2[2] + "-" + fechaPartes2[0] + "-" + fechaPartes2[1];
+
     var descripcion= document.getElementById("DescripcionMaqVirtuales").value;
     var habilitadoMV = $('#HabilitadoMaqVirtuales').prop('checked');
 
@@ -308,7 +353,8 @@ function modificarMaquinaV(url_modificar) {
                         "IdMaqVirtuales": idMaquinaV, "IdLUN": idLun, "IdSistOperativos": idSO, "UsuarioMaqVirtuales": usuarioMV,
                         "NombreMaqVirtuales": nombreMV, "PropositoMaqVirtuales": propositoMV, "DireccionIPMaqVirtuales": direccionIP,
                         "DiscoMaqVirtuales": disco, "RamMaqVirtuales": ram, "DescripcionMaqVirtuales": descripcion,
-                        "UnidadMaqVirtuales": idUnidad, "HabilitadoMaqVirtuales": habilitadoMV, "FechaCreacionMaqVirtuales": fechaNueva
+                        "UnidadMaqVirtuales": idUnidad, "HabilitadoMaqVirtuales": habilitadoMV, "FechaCreacionMaqVirtuales": fechaNueva,
+                        "FechaExpiracionMaqVirtuales": fechaExpira
                     },
                     url: url_modificar,
                     type: 'post',
@@ -369,6 +415,40 @@ function habilitarOdeshabilitar(idMaqVir, estadoMv) {
                 }
             });
         } 
+    });
+}
+
+
+//Función para eliminarla maquina virtual
+function eliminarMV(idMaqVir) {
+    swal({
+        title: 'Confirmación de Eliminación',
+        text: "¿Está seguro de eliminar el registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#26B99A',
+        cancelButtonColor: '#337ab7',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                data: { "IdMaqVirtuales": idMaqVir},
+                url: urlElimin,
+                type: 'post',
+                success: function (data) {
+                    console.log(data.OperacionExitosa);
+                    if (data.OperacionExitosa) {
+                        showNotify("Eliminación exitosa", 'La Máquina Virtual se ha eliminado exitosamente', "success");
+                        obtenerMaquinaV(url_metodo);
+                    } else {
+                        showNotify("Error en la Eliminación", 'Ocurrió un error al eliminar la Máquina Virtual: ' + data.MensajeError, "error");
+                    }
+                }, error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
     });
 }
 
