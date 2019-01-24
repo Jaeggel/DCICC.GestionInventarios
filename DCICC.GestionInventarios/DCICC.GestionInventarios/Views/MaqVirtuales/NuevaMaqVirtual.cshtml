@@ -108,7 +108,7 @@
                         @* Área de Texto para el ingreso de la fecha de creación de una máquina virtual *@
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
                             <label>Fecha de Creación: (mm/dd/yyyy)</label>
-                            <input name="FechaCreacionAux" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
+                            <input name="FechaCreacionAux" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;"  maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
                         </div>
                         @* Área de Texto para el ingreso de la fecha de expiración de una máquina virtual *@
@@ -166,7 +166,8 @@
 @* Seccción para llamar al js de Máquinas Virtuales *@
 <script src="~/Scripts/ScriptsInventarios/MaquinaVirtual.js"></script>
 <script>
-    $(document).ready(function () {
+	$(document).ready(function () {
+		var minDate1;
         //Métodos para obtener la tabla de Máquinas Virtuales y el combobox de Sistemas Operativos
         obtenerMaquinaV('@Url.Action("ObtenerMaqVirtualesComp", "MaqVirtuales")');
         obtenerSO('@Url.Action("ObtenerSistOperativosHab", "SistOperativo")');
@@ -184,20 +185,28 @@
 				format: 'mm-dd-yyyy',
 				singleDatePicker: true,
 				showDropdowns: true,
-				minDate: "01/01/1990",
+				minDate: "01/01/2015",
 				maxDate: new Date()
 			});
 		});
-        $(function () {
-            $('input[name="FechaExpiracionAux"]').daterangepicker({
-                startDate: new Date(),
-                format: 'mm-dd-yyyy',
-                singleDatePicker: true,
-                showDropdowns: true,
-                minDate: "01/01/1990",
-                maxDate: new Date()
-            });
-        });
+
+
+		$('#FechaCreacionMaqVirtuales').change(function () {
+			minDate1 = $("#FechaCreacionMaqVirtuales").val();
+			$(function () {
+				$('input[name="FechaExpiracionAux"]').daterangepicker({
+					startDate: new Date(),
+					format: 'mm-dd-yyyy',
+					singleDatePicker: true,
+					showDropdowns: true,
+					minDate: minDate1,
+					maxDate:"01/01/2050"
+				});
+			});
+			console.log(minDate1);
+		});
+
+       
 
 		//Mascaras
         $('#FechaCreacionMaqVirtuales').mask('00/00/0000');

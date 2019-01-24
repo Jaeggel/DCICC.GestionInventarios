@@ -99,7 +99,7 @@ function urlEstados(url) {
 //Función para cargar la tabla de Máquinas Virtuales
 function cargarMaquinaVTabla() {
     var str = '<table id="dataTableMaquinaV" class="table jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr style="background-color: #405467;"> <th>Fecha de Creación <br> (mm/dd/yyyy)</th><th>Nombre Máquina Virtual</th> <th>Nombre LUN</th> <th>Usuario/Encargado</th> <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB/TB)</th> <th>Memoria RAM (GB)</th> <th>Fecha de Expiración <br> (mm/dd/yyyy)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> <th>Eliminar</th> </tr> </thead>';
+    str += '<thead> <tr style="background-color: #405467;"> <th>Nombre Máquina Virtual</th> <th>Usuario/Encargado</th> <th>Nombre LUN</th>  <th>Propósito</th> <th>Sistema Operativo</th> <th>Dirección IP</th> <th>Tamaño en Disco (GB/TB)</th> <th>Memoria RAM (GB)</th> <th>Fecha de Creación <br> (mm/dd/yyyy)</th> <th>Fecha de Expiración <br> (mm/dd/yyyy)</th> <th>Descripción</th> <th>Estado</th> <th>Modificar</th> <th>Habilitar/<br>Deshabilitar</th> <th>Eliminar</th> </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosMaquinasV.length; i++) {
         var fechaLog = new Date(parseInt((datosMaquinasV[i].FechaCreacionMaqVirtuales).substr(6)));
@@ -112,15 +112,15 @@ function cargarMaquinaVTabla() {
         var fechaFin = new Date(parseInt((datosMaquinasV[i].FechaExpiracionMaqVirtuales).substr(6)));
         var fechaSalida = pad(fechaFin.getMonth() + 1) + "/" + pad(fechaFin.getDate()) + "/" + fechaFin.getFullYear();
 
-        str += '<tr><td>' + fechaIngreso +
-            '</td><td>' + datosMaquinasV[i].NombreMaqVirtuales +
-            '</td><td>' + datosMaquinasV[i].NombreLUN +
+        str += '<tr><td>' + datosMaquinasV[i].NombreMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].UsuarioMaqVirtuales +
+            '</td><td>' + datosMaquinasV[i].NombreLUN +            
             '</td><td>' + datosMaquinasV[i].PropositoMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].NombreSistOperativos +
             '</td><td>' + datosMaquinasV[i].DireccionIPMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].DiscoMaqVirtuales +
             '</td><td>' + datosMaquinasV[i].RamMaqVirtuales +
+            '</td><td>' + fechaIngreso +
             '</td><td>' + fechaSalida +
             '</td><td class="text-justify">' + datosMaquinasV[i].DescripcionMaqVirtuales;
 
@@ -140,7 +140,7 @@ function cargarMaquinaVTabla() {
         }
         str += '</div></div>' +
             '</td><td><div class="text-center"><div class="col-md-12 col-sm-12 col-xs-12">' +
-            '<button type="button" class="btn btn-danger text-center"  onclick = "formUpdateMaquinaV(' + datosMaquinasV[i].IdMaqVirtuales + ');"> <strong><i class="fa fa-times"></i></strong></button> ' +
+            '<button type="button" class="btn btn-secondary text-center"  onclick = "formUpdateMaquinaV(' + datosMaquinasV[i].IdMaqVirtuales + ');"> <strong><i class="fa fa-times"></i></strong></button> ' +
             '</div></div>' +
         '</td></tr>';
 
