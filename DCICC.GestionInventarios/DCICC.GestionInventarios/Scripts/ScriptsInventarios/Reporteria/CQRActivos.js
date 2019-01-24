@@ -262,6 +262,12 @@ function cargarActivosTabla() {
     str += '<thead> <tr><th><input name="select_all" value="1" id="selecionar-activo" type="checkbox" /></th><th>Código QR</th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th><th>¿CQR Impreso?</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
+        var fechaIng = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
+        //Fecha para ordenar el string mm/dd/yyyy
+        var fechaordenar = (fechaIng.toLocaleDateString("en-US"));
+        //fecha para la tabla y busquedas
+        function pad(n) { return n < 10 ? "0" + n : n; }
+        fechas.push(fechaordenar);
         str += '<tr><td> <input id="chk" name="chk" value="' + datosActivos[i].IdCQR + '"  type="checkbox"/>' +
             '</td><td>' + datosActivos[i].IdCQR +
             '</td><td>' + datosActivos[i].NombreTipoActivo +
@@ -280,6 +286,60 @@ function cargarActivosTabla() {
     str += '</tbody>' +
         '</table > ';
     $("#tablaReportesActivos").html(str);
+    var minDate = fechas[0];
+    inicioFechaAct(minDate);
+    finFechaAct(minDate);
+}
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON FECHAS---------------------------------*/
+//Fecha de inicio
+function inicioFechaAct(minDate) {
+    $(function () {
+        $('input[name="FechaInicio"]').daterangepicker({
+            startDate: minDate,
+            format: 'mm-dd-yyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: new Date()
+        });
+    });
+}
+//Fecha de Fin
+function finFechaAct(minDate) {
+    $(function () {
+        $('input[name="FechaFin"]').daterangepicker({
+            startDate: 0,
+            dateFormat: 'mm-dd-yyyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: new Date()
+        });
+    });
+}
+
+//Función para obtener el filtro por rango de fechas
+function consultarFechas() {
+    var table = $('#dataTableActivos').DataTable();
+    $.fn.DataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            if (settings.sTableId == 'dataTableActivos') {
+                var min = new Date($("#FechaInicio").val()).getTime();
+                var max = new Date($("#FechaFin").val()).getTime();
+                var startDate = new Date(data[6]).getTime();
+                if (min == null && max == null) { return true; }
+                if (min == null && startDate <= max) { return true; }
+                if (max == null && startDate >= min) { return true; }
+                if (startDate <= max && startDate >= min) { return true; }
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+    );
+    table.draw();
 }
 
 

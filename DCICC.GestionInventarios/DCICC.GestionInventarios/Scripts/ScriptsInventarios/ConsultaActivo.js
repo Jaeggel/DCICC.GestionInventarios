@@ -18,6 +18,10 @@ var nombresActivo = [];
 var rolAct;
 var url_bloquear;
 
+var fechas = [];
+var maxDate;
+var minDate;
+
 /***********************************************************************************
  *                SECCIÓN PARA OPERACIONES CON ACTIVOS
  * **********************************************************************************/
@@ -267,10 +271,11 @@ function cargarActivosTabla() {
             //Método para dar formato a la fecha y hora
             var fechaLog = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
             //var fechaIngreso = (fechaLog.toLocaleDateString("es-ES"));
-
             //fecha para la tabla y busquedas
             function pad(n) { return n < 10 ? "0" + n : n; }
             var fechaIngreso = pad(fechaLog.getMonth() + 1) + "/" + pad(fechaLog.getDate()) + "/" + fechaLog.getFullYear();
+            var fechaordenar = (fechaLog.toLocaleDateString("en-US"));
+            fechas.push(fechaordenar);
 
             str += '<tr><td>' + datosActivos[i].NombreTipoActivo +
                 '</td><td>' + datosActivos[i].NombreActivo +
@@ -303,6 +308,61 @@ function cargarActivosTabla() {
            '</table > ';
     $("#tablaActivos").html(str);
     BloquearbotonesActivos();
+    //Cargar Datos Activos
+    var minDate = fechas[0];
+    inicioFechaAct(minDate);
+    finFechaAct(minDate);
+}
+
+/* --------------------------------------SECCIÓN PARA OPERACIONES CON FECHAS---------------------------------*/
+//Fecha de inicio
+function inicioFechaAct(minDate) {
+    $(function () {
+        $('input[name="FechaInicio"]').daterangepicker({
+            startDate: minDate,
+            format: 'mm-dd-yyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: new Date()
+        });
+    });
+}
+//Fecha de Fin
+function finFechaAct(minDate) {
+    $(function () {
+        $('input[name="FechaFin"]').daterangepicker({
+            startDate: 0,
+            dateFormat: 'mm-dd-yyyyy',
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate: minDate,
+            maxDate: new Date()
+        });
+    });
+}
+
+//Función para obtener el filtro por rango de fechas
+function consultarFechas() {
+    var table = $('#dataTableActivos').DataTable();
+    $.fn.DataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            if (settings.sTableId == 'dataTableActivos') {
+                var min = new Date($("#FechaInicio").val()).getTime();
+                var max = new Date($("#FechaFin").val()).getTime();
+                var startDate = new Date(data[6]).getTime();
+                if (min == null && max == null) { return true; }
+                if (min == null && startDate <= max) { return true; }
+                if (max == null && startDate >= min) { return true; }
+                if (startDate <= max && startDate >= min) { return true; }
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+    );
+    table.draw();
 }
 
 /* --------------------------------------SECCIÓN PARA MODIFICACION DE DATOS---------------------------------*/
