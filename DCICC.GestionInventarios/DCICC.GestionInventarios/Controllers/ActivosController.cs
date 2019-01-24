@@ -190,6 +190,7 @@ namespace DCICC.GestionInventarios.Controllers
                             SetIdCQR(infoAccesorios.IdCQR);
                             SetNombreActivo(infoAccesorios.NombreAccesorio);
                             SetNombreActivoRaiz(infoAccesorios.NombreDetalleActivo);
+                            msjAccesorios.ObjetoInventarios.NombreDetalleActivo = infoAccesorios.NombreDetalleActivo;
                             mensajesAccesorios = string.Format("El accesorio \"{0}\" ha sido registrado exitosamente.",infoAccesorios.NombreAccesorio);
                             Logs.Info(mensajesAccesorios);
                         }

@@ -922,6 +922,7 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
 
 //Función para mostrar el CQR del Accesorio Ingresados
 function datosCQRAccesorio(data) {
+    console.log(data);
     idCQRAccesorio = data.IdCQR;
     nombreCQRAccesorio = data.NombreAccesorio;
     nombreActivoPert = data.NombreDetalleActivo;
