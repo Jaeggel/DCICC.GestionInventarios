@@ -389,6 +389,10 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
     //Obtener valor de la fecha de ingreso del activo
     var fechaIngreso = $('#FechaIngresoActivo').val();
     console.log(fechaIngreso);
+    var fechaPartes = fechaIngreso.split("/");
+    var fechaNueva = fechaPartes[2] + "-" + fechaPartes[0] + "-" + fechaPartes[1];
+    console.log(fechaNueva);
+
     //var fechaIngreso = document.getElementById("FechaIngresoActivo").value;
     var responsable = document.getElementById("ResponsableActivo").value;
 
@@ -420,7 +424,7 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
     $.ajax({
         data: {
             "IdTipoActivo": idTipoActivo, "IdLaboratorio": idLaboratorio, "IdMarca": idMarca, "NombreActivo": nombreActivo, "EstadoActivo": idEstado,
-            "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaIngreso,
+            "SerialActivo": serialActivo, "ModeloActivo": modeloActivo, "CodigoUpsActivo": codigoUps, "FechaIngresoActivo": fechaNueva,
             "ResponsableActivo": responsable,"DescripcionActivo": descripcionActivo, "ExpressServiceCodeActivo": expressCode, "FechaManufacturaActivo": fechaManufactura,
             "NumPuertosActivo": numPuertos, "IosVersionActivo": iosVersion, "ProductNameActivo": productName, "HpePartNumberActivo": hpe,
             "CodBarras1Activo": cod1, "CodBarras2Activo": cod2, "CtActivo": ct, "CapacidadActivo": capacidad, "VelocidadTransfActivo": velocidadTransf
