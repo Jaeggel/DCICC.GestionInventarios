@@ -88,6 +88,7 @@ namespace DCICC.GestionInventarios
                       "~/Content/Tema/vendors/switchery/dist/switchery.min.css",
 
                       "~/Content/Tema/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css",
+                      "~/Content/Tema/vendors/datatables.net/css/fixedColumns.dataTables.min.css",
                       "~/Content/Tema/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css",
                       "~/Content/Tema/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css",
