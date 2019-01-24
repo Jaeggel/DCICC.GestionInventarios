@@ -12,6 +12,7 @@ var nombreAccesorioIng;
 
 var idCQRAccesorio;
 var nombreCQRAccesorio;
+var nombreActivoPert;
 
 var nombresActivo = [];
 var rolAct;
@@ -855,9 +856,10 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
 function datosCQRAccesorio(data) {
     idCQRAccesorio = data.IdCQR;
     nombreCQRAccesorio = data.NombreAccesorio;
+    nombreActivoPert = data.NombreDetalleActivo;
     $('#idCQRAccesorio').html(idCQRAccesorio).show();
-    console.log(nombreCQRAccesorio);
     $('#nombreAccesorioIngresado').html(nombreCQRAccesorio).show();
+    $('#nombreActivoPert').html(nombreActivoPert).show();
     $('#cqrAccesorio').show();  
 }
 

@@ -88,20 +88,40 @@ namespace DCICC.GestionInventarios.Reportes
         /// <param name="idQR"></param>
         /// <param name="nombreActivo"></param>
         /// <returns></returns>
-        public PdfPTable GenerarTablaReporteQR(string idQR,string nombreActivo)
+        public PdfPTable GenerarTablaReporteQR(string idQR,string nombreActivo,string nombreActivoRaiz)
         {
             PdfPTable tablaQR = new PdfPTable(1);
-            tablaQR.WidthPercentage = 10;
-            PdfPCell celda = new PdfPCell();
-            celda.AddElement(GenerarImagenCQR(idQR));
-            Paragraph IdCQR = new Paragraph(idQR, new iTextSharp.text.Font(fuente_Datos));
-            IdCQR.Alignment = Element.ALIGN_CENTER;
-            celda.AddElement(IdCQR);
-            Paragraph NombreCQR = new Paragraph(nombreActivo, new iTextSharp.text.Font(fuente_Datos));
-            NombreCQR.Alignment = Element.ALIGN_CENTER;
-            celda.AddElement(NombreCQR);
-            tablaQR.AddCell(celda);
-            tablaQR.HorizontalAlignment = Element.ALIGN_LEFT;
+            if (nombreActivoRaiz!="")
+            {
+                tablaQR.WidthPercentage = 10;
+                PdfPCell celda = new PdfPCell();
+                celda.AddElement(GenerarImagenCQR(idQR));
+                Paragraph IdCQR = new Paragraph(idQR, new iTextSharp.text.Font(fuente_Datos));
+                IdCQR.Alignment = Element.ALIGN_CENTER;
+                celda.AddElement(IdCQR);
+                Paragraph NombreActivo = new Paragraph(nombreActivoRaiz, new iTextSharp.text.Font(fuente_Datos));
+                NombreActivo.Alignment = Element.ALIGN_CENTER;
+                celda.AddElement(NombreActivo);
+                Paragraph NombreCQR = new Paragraph(nombreActivo, new iTextSharp.text.Font(fuente_Datos));
+                NombreCQR.Alignment = Element.ALIGN_CENTER;
+                celda.AddElement(NombreCQR);
+                tablaQR.AddCell(celda);
+                tablaQR.HorizontalAlignment = Element.ALIGN_LEFT;
+            }
+            else
+            {
+                tablaQR.WidthPercentage = 10;
+                PdfPCell celda = new PdfPCell();
+                celda.AddElement(GenerarImagenCQR(idQR));
+                Paragraph IdCQR = new Paragraph(idQR, new iTextSharp.text.Font(fuente_Datos));
+                IdCQR.Alignment = Element.ALIGN_CENTER;
+                celda.AddElement(IdCQR);
+                Paragraph NombreCQR = new Paragraph(nombreActivo, new iTextSharp.text.Font(fuente_Datos));
+                NombreCQR.Alignment = Element.ALIGN_CENTER;
+                celda.AddElement(NombreCQR);
+                tablaQR.AddCell(celda);
+                tablaQR.HorizontalAlignment = Element.ALIGN_LEFT;
+            }
             return tablaQR;
         }
         /// <summary>
@@ -156,6 +176,9 @@ namespace DCICC.GestionInventarios.Reportes
                 Paragraph IdCQR = new Paragraph(item.IdCQR, new iTextSharp.text.Font(fuente_Datos));
                 IdCQR.Alignment = Element.ALIGN_CENTER;
                 celda.AddElement(IdCQR);
+                Paragraph NombreActivo = new Paragraph(item.NombreDetalleActivo, new iTextSharp.text.Font(fuente_Datos));
+                NombreActivo.Alignment = Element.ALIGN_CENTER;
+                celda.AddElement(NombreActivo);
                 Paragraph NombreCQR = new Paragraph(item.NombreAccesorio, new iTextSharp.text.Font(fuente_Datos));
                 NombreCQR.Alignment = Element.ALIGN_CENTER;
                 celda.AddElement(NombreCQR);

@@ -21,6 +21,7 @@ namespace DCICC.GestionInventarios.Controllers
         readonly string path_JsonResponsable = System.Web.Hosting.HostingEnvironment.MapPath("~/Json/Responsable.json");
         static string Id_CQR = string.Empty;
         static string Nombre_Activo = string.Empty;
+        static string Nombre_ActivoRaiz = string.Empty;
         static string Tipo_CQR = string.Empty;
         //Instancia para la utilización de LOGS en la clase ActivosController
         private static readonly ILog Logs = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -169,7 +170,8 @@ namespace DCICC.GestionInventarios.Controllers
         {
             Id_CQR = string.Empty;
             Nombre_Activo = string.Empty;
-            Tipo_CQR= string.Empty;
+            Nombre_ActivoRaiz = string.Empty;
+            Tipo_CQR = string.Empty;
             string mensajesAccesorios = string.Empty;
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             AccesoriosAccDatos objAccesoriosAccDatos = new AccesoriosAccDatos((string)Session["NickUsuario"]);
@@ -187,6 +189,7 @@ namespace DCICC.GestionInventarios.Controllers
                         {
                             SetIdCQR(infoAccesorios.IdCQR);
                             SetNombreActivo(infoAccesorios.NombreAccesorio);
+                            SetNombreActivoRaiz(infoAccesorios.NombreDetalleActivo);
                             mensajesAccesorios = string.Format("El accesorio \"{0}\" ha sido registrado exitosamente.",infoAccesorios.NombreAccesorio);
                             Logs.Info(mensajesAccesorios);
                         }
@@ -418,6 +421,14 @@ namespace DCICC.GestionInventarios.Controllers
             Nombre_Activo = nombreActivo;
         }
         /// <summary>
+        /// Método para llenar la variable global Nombre_ActivoRaiz.
+        /// </summary>
+        /// <param name="nombreActivoRaiz"></param>
+        public static void SetNombreActivoRaiz(string nombreActivoRaiz)
+        {
+            Nombre_ActivoRaiz = nombreActivoRaiz;
+        }
+        /// <summary>
         /// Método para mostrar el código QR en la vista
         /// </summary>
         /// <returns></returns>
@@ -446,14 +457,22 @@ namespace DCICC.GestionInventarios.Controllers
             ReporteQR objReporteQR = new ReporteQR();
             string mensajesActivos = string.Empty;
             MensajesCQR msjCQR = new MensajesCQR();
+            Activos infoActivo = new Activos();
             byte[] pdfQR = null;
             try
             {
-                pdfQR = objReporteQR.GenerarPDFQRSimple(objReporteQR.GenerarTablaReporteQR(Id_CQR, Nombre_Activo));
-                Activos infoActivo = new Activos()
+                if(Nombre_ActivoRaiz!="")
                 {
-                    IdCQR=Id_CQR,
-                    NombreActivo=Nombre_Activo
+                    pdfQR = objReporteQR.GenerarPDFQRSimple(objReporteQR.GenerarTablaReporteQR(Id_CQR, Nombre_Activo,Nombre_ActivoRaiz));
+                }
+                else
+                {
+                    pdfQR = objReporteQR.GenerarPDFQRSimple(objReporteQR.GenerarTablaReporteQR(Id_CQR, Nombre_Activo,null));
+                }
+                infoActivo = new Activos()
+                {
+                    IdCQR = Id_CQR,
+                    NombreActivo = Nombre_Activo,
                 };
                 ActivosAccDatos objActivosAccDatos = new ActivosAccDatos((string)Session["NickUsuario"]);
                 {

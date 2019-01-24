@@ -252,7 +252,8 @@ namespace DCICC.GestionInventarios.Controllers
                             Accesorios objAccesorios = new Accesorios()
                             {
                                 IdCQR = idcqr,
-                                NombreAccesorio = item.NombreAccesorio
+                                NombreAccesorio = item.NombreAccesorio,
+                                NombreDetalleActivo=item.NombreDetalleActivo
                             };
                             lst_AccesoriosCQR.Add(objAccesorios);
                         }

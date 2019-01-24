@@ -117,7 +117,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
             MensajesAccesorios msjAccesorios = new MensajesAccesorios();
             try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_accesorio,id_cqr FROM public.dcicc_accesorio;", conn_BD))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nombre_accesorio,id_cqr,nombre_detalleact FROM accesoriostotales();", conn_BD))
                 {
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -127,6 +127,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                             {
                                 NombreAccesorio = dr[0].ToString().Trim(),
                                 IdCQR = dr[1].ToString().Trim(),
+                                NombreDetalleActivo=dr[2].ToString().Trim()
                             };
                             lstAccesorios.Add(objAccesorios);
                         }
