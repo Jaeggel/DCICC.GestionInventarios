@@ -51,6 +51,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                 NombreSistOperativos = dr[11].ToString().Trim(),
                                 NombreLUN = dr[12].ToString().Trim(),
                                 FechaCreacionMaqVirtuales = dr[13] != DBNull.Value ? DateTime.Parse(dr[13].ToString().Trim()) : new DateTime(DateTime.Now.Year, 1, 1),
+                                FechaExpiracionMaqVirtuales = dr[14] != DBNull.Value ? DateTime.Parse(dr[14].ToString().Trim()) : new DateTime(DateTime.Now.Year, 1, 1),
                             };
                             string[] capacidadTemp = objMaqVirtuales.DiscoMaqVirtuales.Split(new char[0]);
                             if (capacidadTemp.Length == 2)

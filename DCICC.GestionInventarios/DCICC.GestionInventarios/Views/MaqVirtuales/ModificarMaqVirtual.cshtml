@@ -138,16 +138,21 @@
 										</div>
 
 									</div>
-									@* Área de Texto para el ingreso de la descripción de una máquina virtual *@
-									<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
-										<label>Fecha de Creación: (mm/dd/yyyy)</label>
-										<input name="FechaCreacionMaqVirtuales" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
-										<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
-									</div>
 
-									<div class="form-group">
-
-									</div>
+                                    <div class="form-group">
+                                        @* Área de Texto para el ingreso de la descripción de una máquina virtual *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Fecha de Creación: (mm/dd/yyyy)</label>
+                                            <input name="FechaCreacionMaqVirtuales" type="text" class="form-control has-feedback-left" id="FechaCreacionMaqVirtuales" placeholder="Fecha de Creación" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Cración de la Máquina Virtual">
+                                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                        </div>
+                                        @* Área de Texto para el ingreso de la fecha de expiración de una máquina virtual *@
+                                        <div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                                            <label>Fecha de Expiración: (mm/dd/yyyy)</label>
+                                            <input name="FechaExpiracionAux" type="text" class="form-control has-feedback-left" id="FechaExpiracionMaqVirtuales" placeholder="Fecha de Expiración" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="Fecha de Expiración de la Máquina Virtual">
+                                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
+                                        </div>
+                                    </div>
 									@* Área de Texto para el ingreso de la descripción de una máquina virtual *@
 									<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 										<textarea id="DescripcionMaqVirtuales" name="DescripcionMaqVirtuales" class="form-control has-feedback-left" rows="3" placeholder="Descripción de la Máquina Virtual" onkeyup="this.value=this.value.replace(validarTextos(),'');" maxlength="150" data-toggle="tooltip" data-placement="rigth" title=""></textarea>
@@ -229,7 +234,9 @@
             $("#RamMaqVirtuales").tooltip('hide');
 			$("#DescripcionMaqVirtuales").tooltip('hide');
 			$("#FechaCreacionMaqVirtuales").tooltip('hide');
-			$("#FechaCreacionMaqVirtuales").datepicker('hide');
+            $("#FechaCreacionMaqVirtuales").datepicker('hide');
+            $("#FechaExpiracionMaqVirtuales").tooltip('hide');
+            $("#FechaExpiracionCreacionMaqVirtuales").datepicker('hide');
             document.getElementById("confirmarMV").disabled = false;
 		});
 
@@ -245,9 +252,21 @@
 
 			});
 		});
+        $(function () {
+            $('input[name="FechaExpiracionMaqVirtuales"]').datepicker({
+                autoHide: true,
+                zIndex: 2048,
+                startDate: new Date(),
+                format: 'dd-mm-yyyy',
 
+                minDate: "01/01/1990",
+                maxDate: new Date()
+
+            });
+        });
 		//Mascaras
-		$('#FechaCreacionMaqVirtuales').mask('00/00/0000');
+        $('#FechaCreacionMaqVirtuales').mask('00/00/0000');
+        $('#FechaExpiracionMaqVirtuales').mask('00/00/0000');
 		$('#DiscoMaqVirtuales').mask('000');
 		$('#RamMaqVirtuales').mask('000');
 		$('#DireccionIPMaqVirtuales').mask('ABC.DEF.GHI.JKL', {

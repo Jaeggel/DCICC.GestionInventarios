@@ -14,6 +14,8 @@ namespace DCICC.Entidades.EntidadesInventarios
 
         public DateTime FechaCreacionMaqVirtuales { get; set; }
 
+        public DateTime FechaExpiracionMaqVirtuales { get; set; }
+
         public string NombreLUN { get; set; }
 
         public string UsuarioMaqVirtuales { get; set; }
