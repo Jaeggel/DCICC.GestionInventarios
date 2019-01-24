@@ -77,6 +77,31 @@ namespace DCICC.GestionInventarios.AccesoDatos.InventariosBD
             return msjMaqVirtuales;
         }
         #endregion
+        #region Eliminaciones
+        /// <summary>
+        /// Método para eliminar una nueva Máquina Virtual en la base de datos.
+        /// </summary>
+        /// <param name="infoMaqVirtual"></param>
+        /// <returns></returns>
+        public MensajesMaqVirtuales EliminarMaqVirtual(MaqVirtuales infoMaqVirtual)
+        {
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
+            try
+            {
+                var response = client_Service.PostAsJsonAsync("MaqVirtuales/EliminarMaqVirtual", infoMaqVirtual).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var MaqVirtualesJson = response.Content.ReadAsStringAsync().Result;
+                    msjMaqVirtuales = JsonConvert.DeserializeObject<MensajesMaqVirtuales>(MaqVirtualesJson);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("Error en la conexión para eliminar una máquina virtual: {0}", e.Message));
+            }
+            return msjMaqVirtuales;
+        }
+        #endregion
         #region Actualizaciones
         /// <summary>
         /// Método para actualizar una Máquina Virtual en la base de datos.

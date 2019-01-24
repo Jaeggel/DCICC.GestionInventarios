@@ -19,6 +19,10 @@ namespace DCICC.GestionInventarios.Models
 
         public string FechaCreacionAux { get; set; }
 
+        public DateTime FechaExpiracionMaqVirtuales { get; set; }
+
+        public string FechaExpiracionAux { get; set; }
+
         public string NombreLUN { get; set; }
 
         public string UsuarioMaqVirtuales { get; set; }

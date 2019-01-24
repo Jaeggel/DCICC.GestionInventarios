@@ -92,6 +92,8 @@ namespace DCICC.GestionInventarios.Controllers
         {
             var auxFecha = infoMaqVirtual.FechaCreacionAux.Split('/');
             infoMaqVirtual.FechaCreacionMaqVirtuales = new DateTime(int.Parse(auxFecha[2]), int.Parse(auxFecha[0]), int.Parse(auxFecha[1]));
+            var auxFechaExp = infoMaqVirtual.FechaExpiracionAux.Split('/');
+            infoMaqVirtual.FechaExpiracionMaqVirtuales = new DateTime(int.Parse(auxFecha[2]), int.Parse(auxFecha[0]), int.Parse(auxFecha[1]));
             infoMaqVirtual.DiscoMaqVirtuales = string.Format("{0} {1}", infoMaqVirtual.DiscoMaqVirtuales, infoMaqVirtual.UnidadMaqVirtuales);
             string mensajesMaqVirtuales = string.Empty;
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
@@ -243,6 +245,37 @@ namespace DCICC.GestionInventarios.Controllers
                 else
                 {
                     mensajesMaqVirtuales = string.Format("No se ha podido actualizar la máquina virtual con ID: {0}: {1}",infoMaqVirtual.IdMaqVirtuales,msjMaqVirtuales.MensajeError);
+                    Logs.Error(mensajesMaqVirtuales);
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error(string.Format("{0}: {1}", mensajesMaqVirtuales, e.Message));
+            }
+            return Json(msjMaqVirtuales, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Método (POST) para recibir los datos provenientes de la vista ModificarMaqVirtual.
+        /// </summary>
+        /// <param name="infoMaqVirtual"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult EliminarMaqVirtual(MaqVirtuales infoMaqVirtual)
+        {
+            string mensajesMaqVirtuales = string.Empty;
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
+            try
+            {
+                MaqVirtualesAccDatos objMaqVirtualesAccDatos = new MaqVirtualesAccDatos((string)Session["NickUsuario"]);
+                msjMaqVirtuales = objMaqVirtualesAccDatos.EliminarMaqVirtual(infoMaqVirtual);
+                if (msjMaqVirtuales.OperacionExitosa)
+                {
+                    mensajesMaqVirtuales = string.Format("La máquina virtual con ID: {0} ha sido eliminada correctamente.", infoMaqVirtual.IdMaqVirtuales);
+                    Logs.Info(mensajesMaqVirtuales);
+                }
+                else
+                {
+                    mensajesMaqVirtuales = string.Format("No se ha podido eliminar la máquina virtual con ID: {0}: {1}", infoMaqVirtual.IdMaqVirtuales, msjMaqVirtuales.MensajeError);
                     Logs.Error(mensajesMaqVirtuales);
                 }
             }

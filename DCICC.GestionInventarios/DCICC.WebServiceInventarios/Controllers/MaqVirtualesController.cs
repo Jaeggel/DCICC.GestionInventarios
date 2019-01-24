@@ -1,5 +1,6 @@
 ﻿using DCICC.AccesoDatos.ActualizacionesBD;
 using DCICC.AccesoDatos.ConsultasBD;
+using DCICC.AccesoDatos.EliminacionesBD;
 using DCICC.AccesoDatos.InsercionesBD;
 using DCICC.Entidades.EntidadesInventarios;
 using DCICC.Entidades.MensajesInventarios;
@@ -71,7 +72,25 @@ namespace DCICC.WebServiceInventarios.Controllers
             msjMaqVirtuales = objInsercionesMaqVirtualesBD.RegistroMaqVirtual(infoMaqVirtual);
             if (msjMaqVirtuales.OperacionExitosa)
             {
-                Logs.Info(string.Format("Registro de Máquina Virtual \"{0}\" realizado exitosamente.",infoMaqVirtual.NombreMaqVirtuales));
+                Logs.Info(string.Format("Registro de Máquina Virtual \"{0}\" realizada exitosamente.",infoMaqVirtual.NombreMaqVirtuales));
+            }
+            else
+            {
+                Logs.Error(msjMaqVirtuales.MensajeError);
+            }
+            return msjMaqVirtuales;
+        }
+        #endregion
+        #region Eliminaciones
+        [HttpPost("EliminarMaqVirtual")]
+        public MensajesMaqVirtuales EliminarMaqVirtual([FromBody] MaqVirtuales infoMaqVirtual)
+        {
+            MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
+            EliminacionesMaqVirtuales objInsercionesMaqVirtualesBD = new EliminacionesMaqVirtuales();
+            msjMaqVirtuales = objInsercionesMaqVirtualesBD.EliminacionMaqVirtual(infoMaqVirtual);
+            if (msjMaqVirtuales.OperacionExitosa)
+            {
+                Logs.Info(string.Format("Eliminación de Máquina Virtual \"{0}\" realizada exitosamente.", infoMaqVirtual.NombreMaqVirtuales));
             }
             else
             {
