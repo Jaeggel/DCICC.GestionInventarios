@@ -42,6 +42,8 @@ function obtenerActivos(url) {
                     "language": {
                         "url": url_idioma
                    },
+                   scrollX: true,
+                   scrollCollapse: true,
                    fixedColumns: {
                        leftColumns: 2
                    },
@@ -266,7 +268,7 @@ function EstadosFiltroAct() {
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
-    var str = '<table id="dataTableActivos" class="table jambo_table bulk_action  table-bordered " style="width:100%">';
+    var str = '<table id="dataTableActivos" class="stripe jambo_table bulk_action  table-bordered " style="width:100%">';
     str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre de Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Código QR</th> <th>Custodio</th> <th>Estado de Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
