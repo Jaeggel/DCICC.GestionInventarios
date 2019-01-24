@@ -93,7 +93,7 @@ namespace DCICC.GestionInventarios.Controllers
             var auxFecha = infoMaqVirtual.FechaCreacionAux.Split('/');
             infoMaqVirtual.FechaCreacionMaqVirtuales = new DateTime(int.Parse(auxFecha[2]), int.Parse(auxFecha[0]), int.Parse(auxFecha[1]));
             var auxFechaExp = infoMaqVirtual.FechaExpiracionAux.Split('/');
-            infoMaqVirtual.FechaExpiracionMaqVirtuales = new DateTime(int.Parse(auxFecha[2]), int.Parse(auxFecha[0]), int.Parse(auxFecha[1]));
+            infoMaqVirtual.FechaExpiracionMaqVirtuales = new DateTime(int.Parse(auxFechaExp[2]), int.Parse(auxFechaExp[0]), int.Parse(auxFechaExp[1]));
             infoMaqVirtual.DiscoMaqVirtuales = string.Format("{0} {1}", infoMaqVirtual.DiscoMaqVirtuales, infoMaqVirtual.UnidadMaqVirtuales);
             string mensajesMaqVirtuales = string.Empty;
             MensajesMaqVirtuales msjMaqVirtuales = new MensajesMaqVirtuales();
