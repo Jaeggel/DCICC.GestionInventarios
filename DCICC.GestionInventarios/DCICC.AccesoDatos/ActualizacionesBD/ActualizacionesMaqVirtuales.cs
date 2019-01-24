@@ -39,7 +39,7 @@ namespace DCICC.AccesoDatos.ActualizacionesBD
                     cmd.Parameters.Add("dcmv", NpgsqlTypes.NpgsqlDbType.Varchar).Value = !string.IsNullOrEmpty(infoMaqVirtual.DescripcionMaqVirtuales) ? (object)infoMaqVirtual.DescripcionMaqVirtuales.Trim() : DBNull.Value;
                     cmd.Parameters.Add("hmv", NpgsqlTypes.NpgsqlDbType.Boolean).Value = infoMaqVirtual.HabilitadoMaqVirtuales;
                     cmd.Parameters.Add("fcmv", NpgsqlTypes.NpgsqlDbType.Date).Value = infoMaqVirtual.FechaCreacionMaqVirtuales;
-                    cmd.Parameters.Add("femv", NpgsqlTypes.NpgsqlDbType.Date).Value = infoMaqVirtual.FechaCreacionMaqVirtuales;
+                    cmd.Parameters.Add("femv", NpgsqlTypes.NpgsqlDbType.Date).Value = infoMaqVirtual.FechaExpiracionMaqVirtuales;
                     cmd.Parameters.Add("imv", NpgsqlTypes.NpgsqlDbType.Integer).Value = infoMaqVirtual.IdMaqVirtuales;
                     cmd.ExecuteNonQuery();
                 }
