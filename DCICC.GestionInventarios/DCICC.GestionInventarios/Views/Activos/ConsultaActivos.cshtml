@@ -260,7 +260,7 @@
 									<div class="form-group">
 										<div class="col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
 											<label>Fecha de Adquisición: (mm/dd/yyyy)</label>
-											<input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="FechaIngresoActivo" placeholder="Fecha de Adquisición" style="padding-left: 60px;" maxlength="10" data-toggle="tooltip" data-placement="rigth" title="">
+											<input name="FechaIngresoActivo" type="text" class="form-control has-feedback-left" id="FechaIngresoActivo" placeholder="Fecha de Adquisición" style="padding-left: 60px;" maxlength="10" >
 											<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style=" padding-right: 15px;"></span>
 										</div>
 										@* Cuadro de texto para el ingreso del responsable del activo *@
@@ -690,20 +690,6 @@
 		//Método para llamar a la función que bloquea los botones con el usuario invitado
 		botonesAccesorios('@Url.Action("ObtenerRolActual", "Usuarios")');
 		
-
-        $(function () {
-            $('input[name="FechaIngresoActivo"]').datepicker({
-				autoHide: true,
-				zIndex: 2048,
-				startDate: new Date(),
-                format: 'dd-mm-yyyy',
-               
-                minDate: "01/01/1990",
-				maxDate: new Date()
-				
-			});
-        });
-
         $('#cqrAccesorio').hide();
 
         $('#ModificarActivo').on('hidden.bs.modal', function () {
@@ -740,7 +726,7 @@
 
 			$(".modal-body input[id=FechaIngresoActivo]").html('');
 
-			$("#FechaIngresoActivo").datepicker('hide');
+			$("#FechaIngresoActivo").daterangepicker('hide');
 			//$("#FechaIngresoActivo").hide();
 
             document.getElementById("confirmarActivo").disabled = false;
