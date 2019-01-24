@@ -38,14 +38,15 @@ function obtenerActivos(url) {
             if (data.OperacionExitosa) {
                 datosActivos = data.ListaObjetoInventarios;
                 cargarActivosTabla();
-               $('#dataTableActivos').DataTable({
+                $('#dataTableActivos').DataTable({
                     "language": {
                         "url": url_idioma
-                   },
-                   scrollY: 300,
-                   scrollX: true,
-                   scrollCollapse: true,
-                   fixedColumns: true,
+                    },
+                    scrollX: true,                    
+                    fixedColumns: {
+                        leftColumns:2,
+                        rightColumns: 3
+                    },
                     "order": [[1, "asc"]]
                 });
                               
@@ -267,8 +268,8 @@ function EstadosFiltroAct() {
 
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
-    var str = '<table id="dataTableActivos" class="table stripe row-border order-column jambo_table bulk_action  table-bordered" style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre de Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Código QR</th> <th>Custodio</th> <th>Estado de Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
+    var str = '<table id="dataTableActivos" class="table  jambo_table bulk_action  table-bordered " style="width:100%">';
+    str += '<thead> <tr style="background-color: #405467;"> <th>Tipo de Activo</th> <th>Nombre de Activo</th> <th>Marca</th> <th>Modelo</th> <th>Serial</th> <th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th> <th>Código QR</th> <th>Custodio</th> <th>Estado de Activo</th> <th>Agregar Accesorio</th> <th>Modificar</th> <th>Cambiar Estado</th>  </tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         if (datosActivos[i].EstadoActivo != "DE BAJA") {
@@ -856,11 +857,12 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
     //Obtener Valor del estado de accesorio
     var cmbEstadoAccesorio = document.getElementById("EstadoAccesorioIng");
     var idEstadoAccesorio = cmbEstadoAccesorio.options[cmbEstadoAccesorio.selectedIndex].value;
-    //Obtener valor del nombre de activo
+    //Obtener valor del nombre de accesorio
+    var activoAccesorio = document.getElementById("NombreActivoIngreso").value;
     var nombreAccesorio = document.getElementById("NombreAccesorioIngreso").value;
-    //Obtener valor del serial de activo
+    //Obtener valor del serial de accesorio
     var serialAccesorio = document.getElementById("SerialAccesorioIngreso").value;
-    //Obtener valor del modelo de activo
+    //Obtener valor del modelo de accesorio
     var modeloAccesorio = document.getElementById("ModeloAccesorioIngreso").value
     //Obtener valor de la descripcion del accesorio
     var descripcionAccesorio = document.getElementById("DescripcionAccesorioIngreso").value;
@@ -879,7 +881,9 @@ function ingresarAccesorios(url,urlImagen,urlPdf) {
             if (result.value) {
                 $.ajax({
                     data: {
-                        "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idAccesorioIng, "NombreAccesorio": nombreAccesorio, "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio, "EstadoAccesorio": idEstadoAccesorio
+                        "IdTipoAccesorio": idTipoAccesorio, "IdDetalleActivo": idAccesorioIng, "NombreAccesorio": nombreAccesorio,
+                        "SerialAccesorio": serialAccesorio, "ModeloAccesorio": modeloAccesorio, "DescripcionAccesorio": descripcionAccesorio,
+                        "EstadoAccesorio": idEstadoAccesorio, "NombreDetalleActivo": activoAccesorio
                     },
                     url: url,
                     dataType: 'json',

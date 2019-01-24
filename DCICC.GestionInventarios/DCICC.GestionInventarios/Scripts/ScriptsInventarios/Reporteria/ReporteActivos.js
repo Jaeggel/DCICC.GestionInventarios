@@ -456,7 +456,7 @@ function obtenerHistoricos(url) {
 //Función para cargar la tabla de Activos
 function cargarHistoricosTabla() {
     var str = '<table id="dataTableHistoricos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Nombre del Activo o Accesorio</th> <th>Modelo del Activo o Accesorio</th> <th>Serial del Activo o Accesorio</th> <th>Fecha de Baja</th></tr> </thead>';
+    str += '<thead> <tr > <th>Nombre del Activo o Accesorio</th> <th>Modelo del Activo o Accesorio</th> <th>Serial del Activo o Accesorio</th> <th>Fecha de Baja</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosHistoricos.length; i++) {
             //Método para dar formato a la fecha y hora
@@ -564,6 +564,10 @@ function obtenerEspAdicionales(url) {
                     "language": {
                         "url": url_idioma
                     },
+                    scrollX: true,
+                    fixedColumns: {
+                        leftColumns: 2
+                    },
                     "order": [[0, "asc"]]
                 });
             } else {
@@ -603,7 +607,7 @@ function cargarTipoActivoAdicionalesCmb() {
 //Función para cargar la tabla de Activos
 function cargaEspAdicionalesTabla() {
     var str = '<table id="dataTableEspAdicionales" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Express Service Code</th> <th>Fecha Manufactura</th> <th>Número de Puertos</th> <th>Versión de IOS</th> <th>Capacidad de Disco</th> <th>Velocidad de Transferencia</th>  <th>Product Name</th> <th>HPE Part Number</th> <th>Código de Barras 1</th> <th>Código de Barras 2</th> <th>CT Code</th></tr> </thead>';
+    str += '<thead> <tr style="background-color: #405467;"> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Express Service Code</th> <th>Fecha Manufactura</th> <th>Número de Puertos</th> <th>Versión de IOS</th> <th>Capacidad de Disco</th> <th>Velocidad de Transferencia</th>  <th>Product Name</th> <th>HPE Part Number</th> <th>Código de Barras 1</th> <th>Código de Barras 2</th> <th>CT Code</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosEspAdicionales.length; i++) {
         str += '<tr><td>' + datosEspAdicionales[i].NombreTipoActivo +
