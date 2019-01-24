@@ -390,7 +390,6 @@ function validarPaso2(urlMetodo,urlImagen,urlPdf) {
     var fechaIngreso = $('#FechaIngresoActivo').val();
     console.log(fechaIngreso);
     var fechaPartes = fechaIngreso.split("/");
-
     var fechaNueva = fechaPartes[2] + "-" + fechaPartes[0] + "-" + fechaPartes[1];
     console.log(fechaNueva);
 
