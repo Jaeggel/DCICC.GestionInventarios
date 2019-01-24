@@ -40,6 +40,7 @@ namespace DCICC.GestionInventarios
                         
 
                         "~/Content/Tema/vendors/datatables.net/js/jquery.dataTables.min.js",
+                        "~/Content/Tema/vendors/datatables.net/js/dataTables.fixedColumns.min.js",
                         "~/Content/Tema/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js",
                         "~/Content/Tema/vendors/datatables.net-buttons/js/dataTables.buttons.min.js",
                         "~/Content/Tema/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js",

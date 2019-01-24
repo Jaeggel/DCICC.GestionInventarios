@@ -90,6 +90,7 @@ namespace DCICC.AccesoDatos.ConsultasBD
                                     NombreLaboratorio = dr[9].ToString().Trim(),
                                     NombreMarca = dr[10].ToString().Trim(),
                                     ImpresoCQR= (bool)dr[11],
+                                    FechaIngresoActivo = DateTime.Parse(dr[12].ToString().Trim())
                                 };
                                 lstActivos.Add(objActivos);
                             }
