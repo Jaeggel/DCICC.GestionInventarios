@@ -41,7 +41,10 @@ function obtenerActivos(url) {
                $('#dataTableActivos').DataTable({
                     "language": {
                         "url": url_idioma
-                    },
+                   },
+                   fixedColumns: {
+                       leftColumns: 2
+                   },
                     "order": [[1, "asc"]]
                 });
                               

@@ -86,7 +86,7 @@
 												</div>
 												<div class="col-md-4 col-sm-12 col-xs-12 form-group" style="bottom:-24px;">
 													<button type="button" class="btn btn-default" onclick="consultarFechas();">Consultar</button>
-													<button type="button" class="btn btn-default" onclick="obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');">Limpiar</button>
+													<button type="button" class="btn btn-default" onclick=" obtenerActivos('@Url.Action("ObtenerActivosCQR", "Activos")');">Limpiar</button>
 												</div>
 											</div>
 											<br />
@@ -155,7 +155,10 @@
         obtenerActivos('@Url.Action("ObtenerActivosCQR", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
-        datosMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
+		datosMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');
+
+		$('#FechaInicio').mask('00/00/0000');
+		$('#FechaFin').mask('00/00/0000');
     });
 </script>
 

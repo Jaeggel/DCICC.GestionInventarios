@@ -255,6 +255,14 @@
         obtenerActivos('@Url.Action("ObtenerActivosComp", "Activos")');
         datosTipoActivo('@Url.Action("ObtenerTipoActivoComp", "TipoActivo")');
         datosLaboratorio('@Url.Action("ObtenerLaboratoriosComp", "Laboratorios")');
-        datosMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');      
+		datosMarcas('@Url.Action("ObtenerMarcasComp", "Marcas")');   
+
+		$('#FechaInicio').mask('00/00/0000');
+		$('#FechaFin').mask('00/00/0000');
+
+		$('#FechaInicioHist').mask('00/00/0000');
+		$('#FechaFinHist').mask('00/00/0000');
+		
+
     });    
 </script>

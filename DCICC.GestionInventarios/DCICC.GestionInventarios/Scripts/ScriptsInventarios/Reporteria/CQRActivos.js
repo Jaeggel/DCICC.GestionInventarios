@@ -259,7 +259,7 @@ function cargarEstadosActivoCmb() {
 //Función para cargar la tabla de Activos
 function cargarActivosTabla() {
     var str = '<table id="dataTableCQRActivos" class="table jambo_table bulk_action table-bordered " style="width:100%">';
-    str += '<thead> <tr><th><input name="select_all" value="1" id="selecionar-activo" type="checkbox" /></th><th>Código QR</th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th><th>Custodio</th> <th>Estado del Activo</th><th>¿CQR Impreso?</th></tr> </thead>';
+    str += '<thead> <tr><th><input name="select_all" value="1" id="selecionar-activo" type="checkbox" /></th><th>Código QR</th> <th>Tipo de Activo</th> <th>Nombre del Activo</th> <th>Marca</th><th>Laboratorio</th> <th>Fecha Adquisición<br/>(mm/dd/yyyy)</th><th>Custodio</th> <th>Estado del Activo</th><th>¿CQR Impreso?</th></tr> </thead>';
     str += '<tbody>';
     for (var i = 0; i < datosActivos.length; i++) {
         var fechaIng = new Date(parseInt((datosActivos[i].FechaIngresoActivo).substr(6)));
@@ -267,6 +267,7 @@ function cargarActivosTabla() {
         var fechaordenar = (fechaIng.toLocaleDateString("en-US"));
         //fecha para la tabla y busquedas
         function pad(n) { return n < 10 ? "0" + n : n; }
+        var fechaIngreso = pad(fechaIng.getMonth() + 1) + "/" + pad(fechaIng.getDate()) + "/" + fechaIng.getFullYear();
         fechas.push(fechaordenar);
         str += '<tr><td> <input id="chk" name="chk" value="' + datosActivos[i].IdCQR + '"  type="checkbox"/>' +
             '</td><td>' + datosActivos[i].IdCQR +
@@ -274,6 +275,7 @@ function cargarActivosTabla() {
             '</td><td>' + datosActivos[i].NombreActivo +
             '</td><td>' + datosActivos[i].NombreMarca +
             '</td><td>' + datosActivos[i].NombreLaboratorio +
+            '</td><td>' + fechaIngreso +
             '</td><td>' + datosActivos[i].ResponsableActivo +
             '</td><td>' + datosActivos[i].EstadoActivo;
         if (datosActivos[i].ImpresoCQR) {
@@ -321,10 +323,10 @@ function finFechaAct(minDate) {
 
 //Función para obtener el filtro por rango de fechas
 function consultarFechas() {
-    var table = $('#dataTableActivos').DataTable();
+    var table = $('#dataTableCQRActivos').DataTable();
     $.fn.DataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            if (settings.sTableId == 'dataTableActivos') {
+            if (settings.sTableId == 'dataTableCQRActivos') {
                 var min = new Date($("#FechaInicio").val()).getTime();
                 var max = new Date($("#FechaFin").val()).getTime();
                 var startDate = new Date(data[6]).getTime();
