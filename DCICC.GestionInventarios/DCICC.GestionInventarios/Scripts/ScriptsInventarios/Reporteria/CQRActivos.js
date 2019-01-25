@@ -7,6 +7,8 @@ var cmbMarcas;
 var fechas = [];
 var maxDate;
 var minDate;
+var url_metodo;
+var  url_accesorios;
 
 /**
  * *********************************************************************************
@@ -17,6 +19,7 @@ var minDate;
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener los datos de los activos
 function obtenerActivos(url) {
+    url_metodo = url;
     $.ajax({
         dataType: 'json',
         url: url,
@@ -77,6 +80,11 @@ function GenerarReportePDFActivosCQR(url,urlRPDF) {
             type: 'post'
         });
         window.open(urlRPDF);
+        obtenerActivos(url_metodo);
+        cargarTipoActivoCmb();
+        cargarLaboratoriosCmb();
+        cargarMarcasCmb();
+        cargarEstadosActivoCmb();
     } else {
         showNotify("Error al generar el Reporte", "No se puede generar el reporte sin seleccionar activos", "error");
     }
@@ -95,6 +103,9 @@ function GenerarReportePDFAccesoriosCQR(url, urlRPDF) {
             type: 'post'
         });
         window.open(urlRPDF);
+        obtenerAccesorios(url_accesorios);
+        cargarAccesoriosCmb();
+        cargarEstadosAccesoriosCmb();
     } else {
         showNotify("Error al generar el Reporte", "No se puede generar el reporte sin seleccionar accesorios", "error");
     }
@@ -354,6 +365,7 @@ function consultarFechas() {
 /* --------------------------------------SECCIÓN PARA OBTENER DATOS DEL SERVIDOR---------------------------------*/
 //Método ajax para obtener accesorios
 function obtenerAccesorios(url) {
+    url_accesorios = url;
     $.ajax({
         dataType: 'json',
         url: url,
