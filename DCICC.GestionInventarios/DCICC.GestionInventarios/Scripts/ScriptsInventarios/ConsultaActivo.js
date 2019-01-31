@@ -246,7 +246,9 @@ function EstadosFiltroAct() {
     var str = '<select id="EstadosFiltroAct" class="form-control" name="EstadosFiltroAct" required>';
     str += '<option value="">Mostrar Todos</option>';
     for (var i = 0; i < cmbEstados.length; i++) {
-        str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        if (cmbEstados[i] != "DE BAJA") {
+            str += '<option value="' + cmbEstados[i] + '">' + cmbEstados[i] + '</option>';
+        }   
     }
     str += '</select>';
     $("#cargarEstadosActivoFiltro").html(str);
